@@ -17,7 +17,6 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.*;
 import com.dalbit.member.vo.procedure.*;
-import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
@@ -27,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -53,6 +53,9 @@ public class Mem_MemberService {
     JwtUtil jwtUtil;
     @Autowired
     SmsService smsService;
+
+    @Value("${admin.memNo}")
+    String ADMIN_MEM_NO;
 
     @Autowired
     PushService pushService;
@@ -165,6 +168,14 @@ public class Mem_MemberService {
         }else{
             //memberInfo.setCertification("본인인증: N");
             memberInfo.setAuth_yn("No");
+        }
+
+        //본인인증 철회 데이터 체크
+        P_MemberInfoOutputVo certificationBak = mem_MemberDao.callMemberCertificationBak(pMemberInfoInputVo);
+        if(DalbitUtil.isEmpty(certificationBak)){
+            memberInfo.setCertificationBakYn("N");
+        }else{
+            memberInfo.setCertificationBakYn("Y");
         }
 
         P_MemberInfoOutputVo testId = mem_MemberDao.callMemberTestId(pMemberInfoInputVo);
@@ -374,12 +385,13 @@ public class Mem_MemberService {
             P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
             pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-            pMemberReportVo.setSlctType(34);
+            pMemberReportVo.setType_noti(70);
+            pMemberReportVo.setTargetMemNo(ADMIN_MEM_NO);
             pMemberReportVo.setNotiContents(etcCont);
             pMemberReportVo.setNotimemo(etcCont);
             mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
         }catch (Exception e){
-            log.error("[NOTI 발송 실패 - 일대일문의처리]");
+            log.error("[NOTI 발송 실패 - 회원 경고/정지 해지]");
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
@@ -443,6 +455,8 @@ public class Mem_MemberService {
         }
         mem_MemberDao.callMemberBasicReport_Edit(pMemberReportVo);
         //notice
+        pMemberReportVo.setType_noti(70);
+        pMemberReportVo.setTargetMemNo(ADMIN_MEM_NO);
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
         // 어드민 메모
         if(!DalbitUtil.isEmpty(pMemberReportVo.getMemo())){
@@ -497,7 +511,7 @@ public class Mem_MemberService {
                 pPushInsertVo.setPush_slct("54");   //운영자 메시지(사용자 경고)
                 pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
                 pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
-                pPushInsertVo.setEtc_contents(pMemberReportVo.getNotimemo().replaceAll("\n", "<br>"));
+                pPushInsertVo.setEtc_contents(pMemberReportVo.getNotiContents().replaceAll("\n", "<br>"));
                 pPushInsertVo.setImage_type("101");
 
                 pushService.sendPushReqOK(pPushInsertVo);
@@ -843,5 +857,43 @@ public class Mem_MemberService {
      */
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
         return mem_MemberDao.updateBackRecant(pMemberParentsAgreeInputVo);
+    }
+
+    /**
+     * 본인인증 철회
+     */
+    public String cancelCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        mem_MemberDao.deleteCert_back(pMemberParentsAgreeInputVo);
+        mem_MemberDao.moveCertInfo(pMemberParentsAgreeInputVo);
+        mem_MemberDao.deleteCert(pMemberParentsAgreeInputVo);
+
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("본인인증정보 철회");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
+
+    /**
+     * 본인인증 복구
+     */
+    public String rollbackCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        //mem_MemberDao.deleteCert(pMemberParentsAgreeInputVo);
+        mem_MemberDao.moveRollbackCertInfo(pMemberParentsAgreeInputVo);
+        mem_MemberDao.deleteCert_back(pMemberParentsAgreeInputVo);
+
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("본인인증정보 복구");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 }

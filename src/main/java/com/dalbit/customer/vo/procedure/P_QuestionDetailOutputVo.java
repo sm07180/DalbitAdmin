@@ -33,4 +33,5 @@ public class P_QuestionDetailOutputVo extends BaseVo {
     private String question_title;
     private String question_contents;
     private String email;
+    private String phone;
 }

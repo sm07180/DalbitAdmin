@@ -15,6 +15,7 @@ public class P_QuestionListInputVo extends SearchVo {
     private int sortState;
     private int pageNo;
     private int slctState;
+    private int slctMember;
 
     private String mem_no;
     

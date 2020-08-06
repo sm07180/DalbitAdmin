@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
 <div id="wrapper">
     <div id="page-wrapper">
-        <div id="container-fluid" class="col-lg-8 no-padding">
+        <div id="container-fluid" class="col-lg-12 no-padding">
             <!-- searchBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
@@ -50,7 +52,7 @@
             </form>
             <!-- //serachBox -->
             <!-- 접속 관련 통계 데이터-->
-            <div class="row col-lg-12 form-inline">
+            <div class="row col-lg-12 form-inline hide">
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 1:1 통계 현황</h3>
@@ -95,6 +97,8 @@
 
 <script type="text/javascript">
 
+    var tabType = common.isEmpty(<%=in_tabType%>) ? 1 : <%=in_tabType%>;
+
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     var week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -120,7 +124,22 @@
             }
         );
         //방송 통계 현황
-        getList();
+
+        if(!common.isEmpty(tabType)){
+            console.log("--------------------------");
+            console.log(tabType);
+            if(tabType == 1){
+                $('.nav-tabs li:eq(0) a').tab('show')
+            }else if(tabType == 2){
+                $('.nav-tabs li:eq(1) a').tab('show')
+            }else if(tabType == 3){
+                $('.nav-tabs li:eq(2) a').tab('show')
+            }else if(tabType == 4){
+                $('.nav-tabs li:eq(3) a').tab('show')
+            }
+        }else{
+            getList();
+        }
     });
 
     function setTimeDate(dateTime){
@@ -135,7 +154,7 @@
     });
 
     function getList(){
-        util.getAjaxData("info", "/rest/status/question/info", null, fn_info_success);
+        // util.getAjaxData("info", "/rest/status/question/info", null, fn_info_success);
     }
 
     function fn_info_success(data, response){

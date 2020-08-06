@@ -12,17 +12,24 @@
     <div class="widget-content mt10">
         <span class="_searchDate"></span>
         <table class="table table-bordered">
-            <colgroup>
-                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-            </colgroup>
             <thead id="totalTable">
             <tr>
-                <th></th>
-                <th>소계</th>
-                <th>PC/모바일WEB</th>
-                <th>안드로이드</th>
-                <th>아이폰</th>
+                <th rowspan="2" class="_stateTopTh">구분</th>
+                <th rowspan="2" class="_stateTopTh">총합</th>
+                <th colspan="3" class="_stateTopTh">PC/모바일WEB</th>
+                <th colspan="3" class="_stateTopTh">안드로이드</th>
+                <th colspan="3" class="_stateTopTh">아이폰</th>
+            </tr>
+            <tr>
+                <th class="_stateSubTh">회원</th>
+                <th class="_stateSubTh">비회원</th>
+                <th class="_stateSubTh">소계</th>
+                <th class="_stateSubTh">회원</th>
+                <th class="_stateSubTh">비회원</th>
+                <th class="_stateSubTh">소계</th>
+                <th class="_stateSubTh">회원</th>
+                <th class="_stateSubTh">비회원</th>
+                <th class="_stateSubTh">소계</th>
             </tr>
             </thead>
             <tbody id="platformTableBody"></tbody>
@@ -49,6 +56,52 @@
     function fn_platform_success(data, response){
         dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
+        var sum_pcCnt_total = [
+            response.data.totalInfo.sum_pcCnt,
+            response.data.totalInfo.sum_no_pcCnt,
+        ];
+        response.data.totalInfo["sum_pcCnt_total"] = common.getListSum(sum_pcCnt_total);
+        var sum_androidCnt_total = [
+            response.data.totalInfo.sum_androidCnt,
+            response.data.totalInfo.sum_no_androidCnt,
+        ];
+        response.data.totalInfo["sum_androidCnt_total"] = common.getListSum(sum_androidCnt_total);
+        var sum_iosCnt_total = [
+            response.data.totalInfo.sum_iosCnt,
+            response.data.totalInfo.sum_no_iosCnt,
+        ];
+        response.data.totalInfo["sum_iosCnt_total"] = common.getListSum(sum_iosCnt_total);
+        var sum_totalCnt = [
+            response.data.totalInfo.sum_pcCnt_total,
+            response.data.totalInfo.sum_androidCnt_total,
+            response.data.totalInfo.sum_iosCnt_total,
+        ];
+        response.data.totalInfo["sum_totalCnt"] = common.getListSum(sum_totalCnt);
+
+        for(var i=0;i<response.data.detailList.length;i++){
+            var pcCnt_total = [
+                response.data.detailList[i].pcCnt,
+                response.data.detailList[i].no_pcCnt,
+            ];
+            response.data.detailList[i]["pcCnt_total"] = common.getListSum(pcCnt_total);
+            var androidCnt_total = [
+                response.data.detailList[i].androidCnt,
+                response.data.detailList[i].no_androidCnt,
+            ];
+            response.data.detailList[i]["androidCnt_total"] = common.getListSum(androidCnt_total);
+            var iosCnt_total = [
+                response.data.detailList[i].iosCnt,
+                response.data.detailList[i].no_iosCnt,
+            ];
+            response.data.detailList[i]["iosCnt_total"] = common.getListSum(iosCnt_total);
+
+            var totalCnt = [
+                response.data.detailList[i].pcCnt_total,
+                response.data.detailList[i].androidCnt_total,
+                response.data.detailList[i].iosCnt_total,
+            ];
+            response.data.detailList[i]["totalCnt"] = common.getListSum(totalCnt);
+        }
         $("#platformTableBody").empty();
         if(!isDataEmpty){
             var template = $('#tmp_platform').html();
@@ -70,30 +123,44 @@
         }else{
             $("#platformTableBody").append(totalHtml);
         }
+        ui.tableHeightSet();
+        ui.paintColor();
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_platform">
-    <tr class="success font-bold">
+    <tr class="font-bold _stateSumTd">
         <td>총계</td>
         <td>{{addComma sum_totalCnt}}</td>
         <td>{{addComma sum_pcCnt}}</td>
+        <td>{{addComma sum_no_pcCnt}}</td>
+        <td class="_fontColor" data-fontcolor="#ff5600">{{addComma sum_pcCnt_total}}</td>
         <td>{{addComma sum_androidCnt}}</td>
+        <td>{{addComma sum_no_androidCnt}}</td>
+        <td class="_fontColor" data-fontcolor="#ff5600">{{addComma sum_androidCnt_total}}</td>
         <td>{{addComma sum_iosCnt}}</td>
+        <td>{{addComma sum_no_iosCnt}}</td>
+        <td class="_fontColor" data-fontcolor="#ff5600">{{addComma sum_iosCnt_total}}</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_detailList_platform">
     {{#each this as |data|}}
     <tr>
-        <td class="font-bold">
+        <td class="font-bold _stateSubTh">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}</td>
-        <td>{{addComma pcCnt}}</td>
-        <td>{{addComma androidCnt}}</td>
-        <td>{{addComma iosCnt}}</td>
+        <td>{{addComma pcCnt 'Y'}}</td>
+        <td>{{addComma no_pcCnt 'Y'}}</td>
+        <td>{{addComma pcCnt_total 'Y'}}</td>
+        <td>{{addComma androidCnt 'Y'}}</td>
+        <td>{{addComma no_androidCnt 'Y'}}</td>
+        <td>{{addComma androidCnt_total 'Y'}}</td>
+        <td>{{addComma iosCnt 'Y'}}</td>
+        <td>{{addComma no_iosCnt 'Y'}}</td>
+        <td>{{addComma iosCnt_total 'Y'}}</td>
     </tr>
     {{else}}
     <%--<tr>--%>

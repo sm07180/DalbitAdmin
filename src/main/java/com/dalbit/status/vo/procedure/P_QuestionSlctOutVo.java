@@ -19,5 +19,14 @@ public class P_QuestionSlctOutVo extends SearchVo {
     private int sum_type06Cnt;
     private int sum_type07Cnt;
     private int sum_type99Cnt;
+    private int sum_no_totalCnt;
+    private int sum_no_type01Cnt;
+    private int sum_no_type02Cnt;
+    private int sum_no_type03Cnt;
+    private int sum_no_type04Cnt;
+    private int sum_no_type05Cnt;
+    private int sum_no_type06Cnt;
+    private int sum_no_type07Cnt;
+    private int sum_no_type99Cnt;
 
 }

@@ -20,7 +20,7 @@
          where a.mem_no= #{mem_no}
            and a.auth != 3
            and a.join_date > DATE_SUB(now(), INTERVAL 1 DAY)
-           limit 10
+           limit 30
     </select>
 
 </mapper>

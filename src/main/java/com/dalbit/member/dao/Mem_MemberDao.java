@@ -28,6 +28,9 @@ public interface Mem_MemberDao {
     P_MemberInfoOutputVo callMemberCertification(P_MemberInfoInputVo pMemberInfoInputVo);
 
     @Transactional(readOnly = true)
+    P_MemberInfoOutputVo callMemberCertificationBak(P_MemberInfoInputVo pMemberInfoInputVo);
+
+    @Transactional(readOnly = true)
     P_MemberInfoOutputVo callMemberTestId(P_MemberInfoInputVo pMemberInfoInputVo);
 
     @Transactional(readOnly = true)
@@ -138,4 +141,10 @@ public interface Mem_MemberDao {
 
     @Transactional(readOnly = true)
     P_MemberSetting getMemberSetting(String mem_no);
+
+    int deleteCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+    int deleteCert_back(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+    int moveCertInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+    int moveRollbackCertInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+
 }

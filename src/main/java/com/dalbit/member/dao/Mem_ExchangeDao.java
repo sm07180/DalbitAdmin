@@ -15,6 +15,6 @@ public interface Mem_ExchangeDao {
     @Transactional(readOnly = true)
     int getExchangeHistory_totalCnt(P_MemberExchangeInputVo pMemberExchangeInputVo);
     @Transactional(readOnly = true)
-    ArrayList<Mon_ExchangeOutputVo> getExchangeHistory_detail(P_MemberExchangeInputVo pMemberExchangeInputVo);
+    Mon_ExchangeOutputVo getExchangeHistory_detail(P_MemberExchangeInputVo pMemberExchangeInputVo);
 
 }

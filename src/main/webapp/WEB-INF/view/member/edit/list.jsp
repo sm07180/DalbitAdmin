@@ -18,12 +18,30 @@
 
     function getHistory_editHistory (tmp, selectType) {     // 상세보기
         // alert(selectType)
-
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
+
+        var searchText = "";
+        var searchType = "-1";
+        if(selectType == 1){
+            searchText = "프로필이미지";
+            searchType = "1";
+        }else if(selectType == 2){
+            searchText = "배경이미지";
+            searchType = "1";
+        }else if(selectType == 3){
+            searchText = "프로필메세지";
+            searchType = "1";
+        }else if(selectType == 4){
+            searchText = "프로필이미지|배경이미지|프로필메세지";
+            searchType = "2";
+        }
+
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.sortDate = 1;
+            data.searchText = searchText;
+            data.searchType = searchType;
             // data.pageCnt=10;
         }
 
