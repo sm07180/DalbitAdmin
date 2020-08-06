@@ -155,7 +155,7 @@
                       op_msg,platform,browser,ip,op_name,op_date,reg_date)
          value (#{mem_no},#{mem_userid},#{mem_nick},'',1,'',#{reported_mem_no},#{reported_userid},
                 #{reported_nick},#{reported_phone},#{reported_level},#{reported_grade},null,#{slctReason},null,'2',#{slctType},
-                #{notimemo},'PC',#{browser},#{ip},#{opName},now(),now())
+                #{notiContents},'PC',#{browser},#{ip},#{opName},now(),now())
     </insert>
 
     <select id="callMemberBroadCasting_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
@@ -195,7 +195,7 @@
     </insert>
     <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberNotification_Add */
-        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{type_noti},70), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
     </insert>
 
     <insert id="callMemberNotification_Add_ALL" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">

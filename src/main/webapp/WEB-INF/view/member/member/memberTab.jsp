@@ -75,7 +75,7 @@
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileImg" onclick="getHistory_editHistory(this.id, 1);">프로필이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_bgImg" onclick="getHistory_editHistory(this.id, 2);">방송배경이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileMsg" onclick="getHistory_editHistory(this.id, 3);">프로필메시지</a></li>
-                    <%--<li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>--%>
+                    <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade" id="editHistory"><jsp:include page="../edit/list.jsp"/></div>     <!-- 수정내역 -->

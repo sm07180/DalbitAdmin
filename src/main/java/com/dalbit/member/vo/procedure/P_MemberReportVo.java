@@ -40,5 +40,6 @@ public class P_MemberReportVo {
     private String targetMemNo;
     private String targetRedirectUrl;
     private String push_slct;
+    private int type_noti;
 }
 

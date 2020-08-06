@@ -289,7 +289,7 @@ public class PushService {
 
                             pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
                             pMemberReportVo.setReported_mem_no(target);
-                            pMemberReportVo.setSlctType(Integer.parseInt(pPushInsertVo.getSlct_push()));
+                            pMemberReportVo.setType_noti(Integer.parseInt(pPushInsertVo.getSlct_push()));
                             pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
                             pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
                             pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
@@ -353,7 +353,7 @@ public class PushService {
 
                         pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
                         pMemberReportVo.setReported_mem_no(target.getMem_no());
-                        pMemberReportVo.setSlctType(Integer.parseInt(pPushInsertVo.getSlct_push()));
+                        pMemberReportVo.setType_noti(Integer.parseInt(pPushInsertVo.getSlct_push()));
                         pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
                         pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
                         pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
@@ -413,7 +413,7 @@ public class PushService {
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
                     pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
-                    pMemberReportVo.setSlctType(Integer.parseInt(pPushInsertVo.getSlct_push()));
+                    pMemberReportVo.setType_noti(Integer.parseInt(pPushInsertVo.getSlct_push()));
                     pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
                     pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
                     pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());

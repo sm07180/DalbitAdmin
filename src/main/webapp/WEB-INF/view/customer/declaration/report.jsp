@@ -77,8 +77,9 @@
             data[formArray[i]['name']] = formArray[i]['value'];
         }
 
-        data["notiContents"] = $("#notiContents").val();  // 알림 제목
-        data["notiMemo"] = $("#notiMemo").summernote('code');   // 알림 내용
+        data["notiContents"] = $("#notiContents").summernote('code');   // 알림 내용
+        data["notiMemo"] = $("#notiMemo").val();  // 알림 제목
+        data["sendNoti"] = $("input:radio[name='declaration_sendNoti']:checked").val();
 
         dalbitLog(data);
 
@@ -165,7 +166,7 @@
         var msg = '';
         $('input:checkbox[name="declaration_Message"]:checked').each(function() {
             if($(this).val() != '기타 운영자 직접작성'){
-                msg += $(this).val() + '<br />';
+                msg += "<br>- " + $(this).val();
             }
         });
 
@@ -177,12 +178,13 @@
 
         msgTitle = msgTitle.replace(/{{name}}/gi, strName)
             .replace(/{{nickName}}/gi, detailData.reported_mem_nick)
-            .replace(/{{message}}/gi, msg.replace(/\-/gi, "<br>-"))
+            // .replace(/{{message}}/gi, msg.replace(/\-/gi, "<br>-"))
+            .replace(/{{message}}/gi, msg)
             .replace(/{{timestamp}}/gi, timestamp)
             .replace(/{{blockDay}}/gi, blockDay)
 
-        $("#notiMemo").summernote('code', msgValue);
-        $("#notiContents").val(msgTitle);
+        $("#notiContents").summernote('code', msgValue);
+        $("#notiMemo").val(msgTitle);
 
     }
 
