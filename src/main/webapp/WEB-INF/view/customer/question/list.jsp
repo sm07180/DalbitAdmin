@@ -127,8 +127,8 @@
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            header : question_summary
-            , content : json.summary
+            // header : question_summary
+            content : json.summary
             , length : json.recordsTotal
         }
         var html = templateScript(data);
@@ -248,15 +248,21 @@
     /*==================================*/
 </script>
 <script id="question_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
-        <thead>
+    <table class="table table-bordered table-summary pull-right" style="width: 710px">
         <tr>
-            {{#each this.header}}
-                <th>{{this.code}}</th>
-            {{/each}}
+            <th rowspan="2">회원</th>
+            <th>총 1:1문의</th>
+            <th>회원정보</th>
+            <th>방송정보</th>
+            <th>청취하기</th>
+            <th>결제</th>
+            <th>건의하기</th>
+            <th>장애/버그</th>
+            <th>선물/아이템</th>
+            <th>기타</th>
+            <th>총건</th>
         </tr>
-        </thead>
-        <tbody id="summaryDataTable">
+        <tr>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type1Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type2Cnt}}건</td>
@@ -266,6 +272,19 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.type6Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type7Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type99Cnt}}건</td>
-        </tbody>
+            <td rowspan="2" class="font-bold">{{#equal length '0'}}0{{/equal}}{{content.totalCnt}}건</td>
+        </tr>
+        <tr>
+            <th>비회원</th>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type3Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type4Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+        </tr>
     </table>
 </script>
