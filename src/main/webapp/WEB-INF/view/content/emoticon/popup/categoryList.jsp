@@ -132,7 +132,13 @@
         });
 
         $("#div_categoryList").find("button[name='btn_add']").off('click').on('click', function () {
+            var idx = 0;
+            $("#div_categoryList").find('#tableBody').find("._check").each(function(){
+                idx = $(this).data("idx") > idx ? $(this).data("idx") : idx;
+            })
+
             var newData = {
+                idx: Number(idx) + 1,
                 sortNo: $("#div_categoryList").find('._noTd').length + 1,
                 cd: createCodeValue(),
                 cdNm: '',
