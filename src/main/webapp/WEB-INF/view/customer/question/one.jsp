@@ -60,7 +60,6 @@
     });
     var memNo;
     var memId;
-    var slct_type;
     var noticeType = 0;
     var email;
     var phone;
@@ -84,8 +83,8 @@
         }
         response.data["noticeType"] = noticeType;
 
+        response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
         response.data["mem_no"] = memInfo(response.data.mem_no,response.data.mem_no);
-        response.data["answer"] = params.answer;
         response.data["rowNum"] = params.rowNum;
         response.data["add_file_cnt"] = response.data.fileCnt;
         if(response.data.state == "2" && response.data.op_name == LOGIN_USER_NAME){
@@ -94,10 +93,10 @@
             response.data["editAuth"] = "N";
         }
         if(noticeType == 2){
-            response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
+            response.data["answer"] = params.answer;
         }else{
-            if(!common.isEmpty(response.data.answer)){
-                response.data["msg_body"] = response.data.answer;
+            if(!common.isEmpty(params.answer)){
+                response.data["msg_body"] = common.replaceHtml(params.answer).replace(/<br>/gi, '\n');
             }else{
                 response.data["msg_body"] = "[달빛라이브]\n";
             }
@@ -107,7 +106,6 @@
         var context = response.data;
         var html=templateScript(context);
         $("#question_detailFrm").html(html);
-
 
         util.editorInit("question");
         util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", null, fn_getFaqGroup_success);
@@ -125,7 +123,7 @@
             $("#bt_chatchRelease").addClass("hide");
         }
         //textarea resize
-        // resize(document.getElementById("question_contents"));
+        util.textareaResize(document.getElementById("question_contents"), 200);
 
         var scrollPosition = $("#div_questionTab").offset();
         util.scrollPostion(scrollPosition.top);
@@ -486,7 +484,7 @@
                 <div>
                     <div><span class="font-bold">내용</span></div>
                     <div>
-                        <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="LMS 발송 문자 내용을 입력해 주세요." style="resize: none">{{{msg_body}}}</textarea>
+                        <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="LMS 발송 문자 내용을 입력해 주세요." style="resize: none;height: 500px">{{{msg_body}}}</textarea>
                         <span style="color: red; font-size:0.9em">* 1000자 이상 시 나눠서 발송 됩니다.</span><br>
                     </div>
                 </div>

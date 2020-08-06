@@ -60,7 +60,7 @@ public class Cus_QuestionRestController {
      *  1:1 문의하기 처리하기
      */
     @PostMapping("operate")
-    public String operate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException {
+    public String operate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException {
         return cus_questionService.callServiceCenterQnaOperate(pQuestionOperateVo);
     }
     /**
