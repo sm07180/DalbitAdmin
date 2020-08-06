@@ -206,7 +206,7 @@ public class Cus_QuestionService {
                     smsSendVo.setCinfo("");
                     int smsResult = smsService.sendMms(smsSendVo);
                     if(smsResult != 1){
-                        result = gsonUtil.toJson(new JsonOutputVo(Status.문자발송_실패));
+                        //result = gsonUtil.toJson(new JsonOutputVo(Status.문자발송_실패));
                         break;
                     }
                     answer = "";

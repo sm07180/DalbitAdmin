@@ -92,7 +92,7 @@
         }else{
             response.data["editAuth"] = "N";
         }
-        if(noticeType == 2){
+        if(noticeType == 2 || noticeType == 0){
             response.data["answer"] = params.answer;
         }else{
             if(!common.isEmpty(params.answer)){
@@ -144,7 +144,7 @@
     function operate_click(){
         var data = {};
         data["qnaIdx"] = qnaIdx;
-        if(noticeType == 2){
+        if(noticeType == 2 || noticeType == 0){
             data["answer"] = $("#editor").summernote('code');
         }else{
             data["answer"] = $("#smsSend-msg_body").val();
@@ -473,6 +473,9 @@
                     <h3><i class="fa fa-user"></i> 답변 </h3>
                 </div>
                 {{#dalbit_if noticeType '==' 2}}
+                    <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
+                {{else}}
+                {{#dalbit_if noticeType '==' 0}}
                     <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
                 {{else}}
                 <div>
