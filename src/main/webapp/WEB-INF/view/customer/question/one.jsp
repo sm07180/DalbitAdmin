@@ -324,8 +324,8 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th rowspan="2">No</th>
-                    <td rowspan="2">{{rowNum}}</td>
+                    <th>No</th>
+                    <td>{{rowNum}}</td>
 
                     <th>문의유형</th>
                     <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
@@ -358,6 +358,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>답변유형</th>
+                    <td>
+                        {{#dalbit_if noticeType '==' 0}} 보내지 않음 {{/dalbit_if}}
+                        {{#dalbit_if noticeType '==' 1}} 문자 {{/dalbit_if}}
+                        {{#dalbit_if noticeType '==' 2}} 메일 {{/dalbit_if}}
+                        {{#dalbit_if noticeType '==' 3}} 문자/메일 {{/dalbit_if}}
+                    </td>
+
                     <th>플랫폼</th>
                     <td>{{platform}}</td>
 
@@ -475,22 +483,23 @@
                 {{#dalbit_if noticeType '==' 2}}
                     <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
                 {{else}}
-                {{#dalbit_if noticeType '==' 0}}
-                    <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
-                {{else}}
-                <div>
-                    <div><span class="font-bold">제목</span></div>
-                    <input style="width: 25%" type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]{{question_title}}" maxlength="30" disabled>
-                    <span style="color: red; font-size:0.9em">* 제목은 수정이 불가능합니다.</span>
-                    <br/>
-                </div>
-                <div>
-                    <div><span class="font-bold">내용</span></div>
-                    <div>
-                        <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="LMS 발송 문자 내용을 입력해 주세요." style="resize: none;height: 500px">{{{msg_body}}}</textarea>
-                        <span style="color: red; font-size:0.9em">* 1000자 이상 시 나눠서 발송 됩니다.</span><br>
-                    </div>
-                </div>
+                    {{#dalbit_if noticeType '==' 0}}
+                        <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
+                    {{else}}
+                        <div>
+                            <div><span class="font-bold">제목</span></div>
+                            <input style="width: 25%" type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]{{question_title}}" maxlength="30" disabled>
+                            <span style="color: red; font-size:0.9em">* 제목은 수정이 불가능합니다.</span>
+                            <br/>
+                        </div>
+                        <div>
+                            <div><span class="font-bold">내용</span></div>
+                            <div>
+                                <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="LMS 발송 문자 내용을 입력해 주세요." style="resize: none;height: 500px">{{{msg_body}}}</textarea>
+                                <span style="color: red; font-size:0.9em">* 1000자 이상 시 나눠서 발송 됩니다.</span><br>
+                            </div>
+                        </div>
+                    {{/dalbit_if}}
                 {{/dalbit_if}}
 
             </div>
