@@ -63,6 +63,16 @@ public class P_QuestionListOutputVo extends BaseVo {
     private int type7Cnt;
     private int type99Cnt;
 
+    private int no_totalQna;
+    private int no_type1Cnt;
+    private int no_type2Cnt;
+    private int no_type3Cnt;
+    private int no_type4Cnt;
+    private int no_type5Cnt;
+    private int no_type6Cnt;
+    private int no_type7Cnt;
+    private int no_type99Cnt;
+
     public void setWrite_date(Date write_date) {
         this.write_date = write_date;
         this.writeDateFormat = DalbitUtil.convertDateFormat(write_date, "yyyy.MM.dd HH:mm:ss");
