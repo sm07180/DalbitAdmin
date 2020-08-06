@@ -189,8 +189,8 @@
             obj.slctReason = $('#slctReason').val();
             obj.slctType = $('input:radio[name="slctType"]:checked').val();
             obj.memo = $("#txt_adminMemo").val();
-            obj.notiContents = msgTitle;
-            obj.notimemo = msgValue;
+            obj.notiContents = msgValue;
+            obj.notimemo = msgTitle;
             //obj.blockScope = $("blockScope_deviceUuid").
             obj.blockScope = $("#blockScope_1").prop('checked')+','+$("#blockScope_2").prop('checked');
 

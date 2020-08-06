@@ -39,7 +39,7 @@ public class Men_LiveRestController {
 //        apiData.setMemLogin(0);
 //        apiData.setMem_no("81583121281305");
 //        apiData.setSubjectType(roomListVo.getSubjectType());
-//        apiData.setSlctType(roomListVo.getSlctType());
+//        apiData.setType_noti(roomListVo.getSlctType());
 //        apiData.setPageNo(pageNo);
 //        apiData.setPageCnt(pageCnt);
 //

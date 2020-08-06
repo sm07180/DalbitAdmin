@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -44,6 +45,9 @@ public class Cus_QuestionService {
     ExcelService excelService;
     @Autowired
     SmsService smsService;
+
+    @Value("${admin.memNo}")
+    String ADMIN_MEM_NO;
 
     public String getQuestionList(P_QuestionListInputVo pQuestionListInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pQuestionListInputVo);
@@ -140,7 +144,8 @@ public class Cus_QuestionService {
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
                     pMemberReportVo.setReported_mem_no(questionDetail.getMem_no());
-                    pMemberReportVo.setSlctType(34);
+                    pMemberReportVo.setType_noti(37);
+                    pMemberReportVo.setTargetMemNo(ADMIN_MEM_NO);
                     pMemberReportVo.setNotiContents("등록한 1:1문의에 답변이 등록되었습니다.");
                     pMemberReportVo.setNotimemo("등록한 1:1문의에 답변이 등록되었습니다.");
                     memMemberDao.callMemberNotification_Add(pMemberReportVo);

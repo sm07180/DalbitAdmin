@@ -4,6 +4,8 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.code.*;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.customer.dao.DeclarationDao;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
@@ -40,6 +42,8 @@ public class DeclarationService {
     MessageUtil messageUtil;
     @Autowired
     Mem_MemberDao mem_MemberDao;
+    @Autowired
+    PushService pushService;
 
     /**
      * 신고 목록 조회
@@ -166,16 +170,40 @@ public class DeclarationService {
      */
     public String callServiceCenterReportOperate(P_DeclarationOperateVo pDeclarationOperateVo) {
         pDeclarationOperateVo.setOpName(MemberVo.getMyMemNo());
-        String notiMemo = pDeclarationOperateVo.getNotiMemo().replace("<br>", "\n");
-        pDeclarationOperateVo.setNotiMemo(notiMemo);
 
-        ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
+         ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
 
         declarationDao.callServiceCenterReportOperate(procedureVo);
 
         String result;
 
         if(Status.신고처리_성공.getMessageCode().equals(procedureVo.getRet())) {
+            if(pDeclarationOperateVo.getOpCode() == 2) {    // 경고 푸시 발송
+                P_DeclarationDetailInputVo pDeclarationDetailInputVo = new P_DeclarationDetailInputVo();
+                pDeclarationDetailInputVo.setReportIdx(pDeclarationOperateVo.getReportIdx());
+                ProcedureVo detail_procedureVo = new ProcedureVo(pDeclarationDetailInputVo);
+
+                declarationDao.callServiceCenterReportDetail(detail_procedureVo);
+                P_DeclarationDetailOutputVo declarationDetail = new Gson().fromJson(detail_procedureVo.getExt(), P_DeclarationDetailOutputVo.class);
+
+                if (!DalbitUtil.isEmpty(declarationDetail)) {
+                    try {    // PUSH 발송
+                        P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                        pPushInsertVo.setMem_nos(declarationDetail.getReported_mem_no());
+                        pPushInsertVo.setSlct_push("34");
+                        pPushInsertVo.setPush_slct("54");   //운영자 메시지(사용자 경고)
+                        pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                        pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
+                        pPushInsertVo.setEtc_contents(pDeclarationOperateVo.getNotiContents().replaceAll("\n", "<br>"));
+                        pPushInsertVo.setImage_type("101");
+
+                        pushService.sendPushReqOK(pPushInsertVo);
+                    } catch (Exception e) {
+                        log.error("[PUSH 발송 실패 - 신고 처리 경고]");
+                    }
+                }
+            }
+
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_성공));
         } else if(Status.신고처리_신고번호없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_신고번호없음));
