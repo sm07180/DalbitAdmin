@@ -1,9 +1,11 @@
 package com.dalbit.customer.service;
 
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.common.vo.SmsVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.customer.dao.Cus_QuestionDao;
@@ -11,6 +13,7 @@ import com.dalbit.customer.vo.FaqVo;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberReportVo;
@@ -20,6 +23,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -39,6 +43,11 @@ public class Cus_QuestionService {
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
+    @Autowired
+    SmsService smsService;
+
+    @Value("${admin.memNo}")
+    String ADMIN_MEM_NO;
 
     public String getQuestionList(P_QuestionListInputVo pQuestionListInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pQuestionListInputVo);
@@ -100,10 +109,14 @@ public class Cus_QuestionService {
     /**
      *  1:1 문의하기 처리하기
      */
-    public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo){
+    public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException {
         P_QuestionDetailOutputVo outVo = cus_questionDao.callServiceCenterQnaState(pQuestionOperateVo);
         String result = "";
+        String _answer = pQuestionOperateVo.getAnswer();
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+
+        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\\'","\'"));
+        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\n","<br>"));
         if(outVo.getState() == 0){
             ProcedureVo procedureVo = new ProcedureVo(pQuestionOperateVo,true);
             cus_questionDao.callServiceCenterQnaOperate(procedureVo);
@@ -131,7 +144,8 @@ public class Cus_QuestionService {
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
                     pMemberReportVo.setReported_mem_no(questionDetail.getMem_no());
-                    pMemberReportVo.setSlctType(34);
+                    pMemberReportVo.setType_noti(37);
+                    pMemberReportVo.setTargetMemNo(ADMIN_MEM_NO);
                     pMemberReportVo.setNotiContents("등록한 1:1문의에 답변이 등록되었습니다.");
                     pMemberReportVo.setNotimemo("등록한 1:1문의에 답변이 등록되었습니다.");
                     memMemberDao.callMemberNotification_Add(pMemberReportVo);
@@ -157,6 +171,47 @@ public class Cus_QuestionService {
                 }
              }else if(outVo.getState() == 2){
                 result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_이미_진행중));
+            }
+        }
+
+        if(pQuestionOperateVo.getNoticeType() == 2){      // 메일답변
+
+        }else{          // 문자 or ( 문자 and 메일 )
+            String answer = _answer;
+            String[] array_word = answer.split(""); //배열에 한글자씩 저장하기
+
+            answer = "";
+            int count = 1000;
+            boolean smsSw;
+            for(int i=0;i<array_word.length;i++) {
+                answer = answer + array_word[i];
+                smsSw = false;
+                if(i != 0) {
+                    if (i % count == 0) {
+                        smsSw = true;
+                    } else {
+                        if (array_word.length <= count) {
+                            if ((i + 1) == array_word.length) {
+                                smsSw = true;
+                            }
+                        }
+                    }
+                }
+
+                if(smsSw){
+                    Thread.sleep(1500);
+                    SmsVo smsSendVo = new SmsVo(pQuestionOperateVo.getTitle(), answer, pQuestionOperateVo.getPhone(), "7");
+                    smsSendVo.setSend_name(MemberVo.getMyMemNo());
+                    smsSendVo.setMem_no(pQuestionOperateVo.getMem_no());
+                    smsSendVo.setCinfo("");
+                    int smsResult = smsService.sendMms(smsSendVo);
+                    if(smsResult != 1){
+                        //result = gsonUtil.toJson(new JsonOutputVo(Status.문자발송_실패));
+                        break;
+                    }
+                    answer = "";
+                    count+=1000;
+                }
             }
         }
 

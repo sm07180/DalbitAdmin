@@ -2,38 +2,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- SHOW HIDE COLUMNS DATA TABLE -->
-<div id="div_categoryList">
-    <div class="row col-md-12" style="padding-bottom: 15px">
-        <div class="pull-left">
-        </div>
-        <div class="pull-right">
-            <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>추가</button>
-            <button type="button" class="btn btn-primary " id="submitBtn" ><i class="fa fa-floppy-o"></i>적용</button>
-        </div>
-    </div>
 
-    <div class="widget-content">
-        <table id="list" class="table table-sorting table-hover table-bordered datatable">
-            <thead>
-            <tr>
-                <th>선택</th>
-                <th>No</th>
-                <th>카테고리</th>
-                <th>페이지 수</th>
-                <th>순서변경</th>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
+<div class="row col-lg-12 form-inline">
+    <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
+        <li class="active"><a href="#categoryList" role="tab" data-toggle="tab" id="tab_categoryList">카테고리 관리</a></li>
+    </ul>
+</div>
+<div class="row col-lg-12 form-inline">
+    <div class="widget widget-table" id="div_categoryList" style="padding: 10px;">
+        <div class="tab-content no-padding">
+            <div class="tab-pane fade in active" id="categoryList">
+                <div class="row col-md-12">
+                    <div class="pull-left">
 
-            </tbody>
-        </table>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default btn-sm mr10" name="btn_add"><i class="fa fa-plus-square"></i>추가</button>
+                    </div>
+                </div>
 
-        <div class="btn-toolbar">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" id="deleteBtn"><i class="fa fa-trash-o"></i>선택삭제</button>
-                <button type="button" class="btn btn-primary" id="updateBtn"><i class="fa fa-pencil"></i>선택수정</button>
+                <div class="widget-content">
+                    <table id="list" class="table table-sorting table-hover table-bordered datatable">
+                        <colgroup>
+                            <col width="40px"/>
+                            <col width="50px" /> <!-- No -->
+                            <col width="80px" /> <!-- 카테고리 -->
+                            <col width="50px" /> <!-- 이모티콘 수 -->
+                            <col width="70px" /> <!-- 순위조정 -->
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>선택</th>
+                            <th>No</th>
+                            <th>카테고리</th>
+                            <th>이모티콘 수</th>
+                            <th>순서변경</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody">
+
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-danger btn-sm mr-10" id="btn_delete"><i class="fa fa-trash-o"></i>선택 삭제</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btn_update"><i class="fa fa-pencil"></i>선택수정</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default btn-sm mr-10" name="btn_add"><i class="fa fa-plus-square"></i>추가</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="mt10" style="text-align: center">
+        <button type="button" class="btn btn-default mr5" onclick="javascript:window.close();" style="height: 40px; width: 100px;">닫기</button>
+        <button type="button" class="btn btn-primary" id="btn_category_save" style="height: 40px; width: 100px;">적용</button>
     </div>
 </div>
 <!-- END SHOW HIDE COLUMNS DATA TABLE -->
@@ -43,6 +69,7 @@
     $(document).ready(function() {
         // util.getAjaxData("list", "/rest/content/theme/list", "", fn_success, fn_fail);
         init();
+        initEvent();
     });
 
     $(document).on('click', '._down', function () {
@@ -63,14 +90,16 @@
 
 
     function init(){
-        util.getAjaxData("list", "/rest/content/emoticon/category/list", "", fn_success, fn_fail);
-
-        initEvent();
+        util.getAjaxData("list", "/rest/content/emoticon/inssaticon/category/list", "", fn_success, fn_fail);
     };
+
+    function fn_fail(data, textStatus, jqXHR){
+        console.log(data, textStatus, jqXHR);
+    }
 
     function initEvent() {
 
-        $("#div_categoryList").find('#deleteBtn').off('click').on('click', function () {
+        $("#div_categoryList").find('#btn_delete').off('click').on('click', function () {
             var checked = $("#div_categoryList").find('#tableBody').find('._check:checked');
 
             if (0 == checked.length) {
@@ -81,10 +110,11 @@
                 var checked = $("#div_categoryList").find('#tableBody').find('._check:checked');
                 checked.closest('tr').remove();
                 resetNo();
+                window.resizeTo(window.outerWidth, $(".container").height()+100);
             }
         });
 
-        $("#div_categoryList").find("#updateBtn").off('click').on('click', function () {
+        $("#div_categoryList").find("#btn_update").off('click').on('click', function () {
             var checked = $("#div_categoryList").find('#tableBody').find('._check:checked');
             if (0 == checked.length) {
                 alert("수정할 카테고리를 선택해주세요.");
@@ -101,8 +131,14 @@
             $("#div_categoryList").find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
         });
 
-        $("#div_categoryList").find("#addBtn").off('click').on('click', function () {
+        $("#div_categoryList").find("button[name='btn_add']").off('click').on('click', function () {
+            var idx = 0;
+            $("#div_categoryList").find('#tableBody').find("._check").each(function(){
+                idx = $(this).data("idx") > idx ? $(this).data("idx") : idx;
+            })
+
             var newData = {
+                idx: Number(idx) + 1,
                 sortNo: $("#div_categoryList").find('._noTd').length + 1,
                 cd: createCodeValue(),
                 cdNm: '',
@@ -111,24 +147,38 @@
                 readonly: false
             }
 
-            var template = $("#div_categoryList").find('#tmp_list').html();
+            var template = $('#tmp_category_list').html();
             var templateScript = Handlebars.compile(template);
             var html = templateScript({data: newData});
 
             $("#div_categoryList").find("#tableBody").append(html);
 
             btnSet();
+            resetNo();
+            window.resizeTo(window.outerWidth, $(".container").height()+100);
         });
 
-        $("#div_categoryList").find("#submitBtn").off('click').on('click', function () {
-
-            var editData = {
-                codeType: "subject_type",
-                codeVoArr: JSON.stringify(getArrCodeData())
+        $("#btn_category_save").on('click', function () {
+            if (!confirm('적용하시겠습니까?')) {
+                return false;
             }
 
-            util.getAjaxData("list", "/rest/content/emoticon/category/submit", editData, fn_submit_success);
+            var sendData = new Array();
+            $("#div_categoryList").find("._noTr").each(function(){
+                var data = {
+                    'idx': $(this).find("._check").data("idx")
+                    ,'category_orderNo' : $(this).find("input[name='sortNo']").val()
+                    ,'categoryNm' : $(this).find("._cdNm").val()
+                }
+                sendData.push(JSON.stringify(data));
+            });
 
+            var editData = {
+                'editData' : sendData.join("|")
+            }
+            console.log(editData)
+
+            util.getAjaxData("list", "/rest/content/emoticon/inssaticon/category/update", editData, fn_submit_success);
         });
 
     };
@@ -136,19 +186,22 @@
 
     function fn_success(dst_id, response)
     {
-        var template = $("#div_categoryList").find('#tmp_list').html();
+        var template = $('#tmp_category_list').html();
         var templateScript = Handlebars.compile(template);
         var html = templateScript(response);
 
         $("#div_categoryList").find("#tableBody").html(html);
 
         btnSet();
+
+        window.resizeTo(window.outerWidth, $(".container").height()+100);
     };
 
     function fn_submit_success(dst_id, response)
     {
         alert(response.message);
-
+        opener.setCategorySelectBox();
+        opener.getInssaticonInfo();
         init();
     };
 
@@ -233,33 +286,39 @@
     };
 </script>
 
-<script id="tmp_list" type="text/x-handlebars-template">
+<script id="tmp_category_list" type="text/x-handlebars-template">
     {{#data}}
-    <tr class="_noTr" id="row_{{sortNo}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+    <%--<tr class="_noTr" id="row_{{sortNo}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">--%>
+    <tr class="_noTr" id="row_{{sortNo}}" >
         <td>
-            <input type="checkbox" class="form-control _check" />
+            <input type="checkbox" class="_check" data-idx="{{idx}}"/>
         </td>
         <td class="_noTd">
-            <input type="hidden" name="sortNo" value="{{sortNo}}"/>
-            {{sortNo}}
+            <input type="hidden" name="sortNo" value="{{category_orderNo}}"/>
+            {{category_orderNo}}
         </td>
         <td>
-            <div class="control-inline onoffswitch">
-                <input type="checkbox" name="isUse" class="onoffswitch-checkbox" id="broadcastList_isUse{{sortNo}}" {{#dalbit_if isUse "==" "1"}}checked{{/dalbit_if}}>
-                <label class="onoffswitch-label" for="broadcastList_isUse{{sortNo}}">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
-            </div>
+            {{#dalbit_if cdNm '!=' ''}}
+                <input type="input" class="form-control _cdNm" style="width: 100%;" value="{{categoryNm}}" readonly=true>
+            {{else}}
+                <input type="input" class="form-control _cdNm" style="width: 100%;" value="">
+            {{/dalbit_if}}
         </td>
         <td>
-            <input type="hidden" name="cd" value="{{cd}}"/>
-            <input type="text" name="cdNm" value="{{cdNm}}" class="form-control _cdNm" {{#unless isOn}}readonly="true"{{/unless}} />
+            {{#dalbit_if cdNm '!=' ''}}
+                {{pageNo}}
+            {{else}}
+                0
+            {{/dalbit_if}}
         </td>
         <td>
             <button type="button" class="btn btn-info _down"><i class="toggle-icon fa fa-angle-down"></i></button>
             <button type="button" class="btn btn-danger _up"><i class="toggle-icon fa fa-angle-up"></i></button>
         </td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="5">{{isEmptyData}}</td>
     </tr>
     {{/data}}
 </script>

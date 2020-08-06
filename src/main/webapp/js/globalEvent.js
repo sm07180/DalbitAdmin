@@ -11,7 +11,7 @@ $(document).on('click', '._openPop', function(){
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
     var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent($(this).data('memno'));
-    util.windowOpen(url, 1260, 750, 'memberInfo' + $(this).data('memno'));
+    util.windowOpen(url, 1460, 750, 'memberInfo' + $(this).data('memno'));
 });
 
 /*방송정보보기 팝업*/
@@ -43,7 +43,7 @@ $(document).on('click', '._openSmsSendPop', function(){
 $(document).on('click', '._openCategoryListPop', function(){
     var url = "/content/emoticon/popup/category/list";
 
-    util.windowOpen(url, 775, 560, 'categoryList');
+    util.windowOpen(url, 530, 500, 'categoryList');
 });
 
 $(document).on('click', 'img._imageFullPop', function(){

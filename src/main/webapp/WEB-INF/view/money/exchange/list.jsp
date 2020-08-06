@@ -979,7 +979,7 @@
                                             {{#equal detail.op_date ''}}
                                             -
                                             {{else}}
-                                            {{convertToDate detail.op_date 'YYYY-MM-DD HH:mm:ss'}}
+                                            {{convertToDate ../detail.op_date 'YYYY-MM-DD HH:mm:ss'}}
                                             {{/equal}}
                                         </td>
                                     </tr>

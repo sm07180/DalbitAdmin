@@ -28,6 +28,11 @@
         select comm_company, parents_agree_yn, recant_yn from rd_data.tb_member_certification where mem_no=#{mem_no}
     </select>
 
+    <select id="callMemberCertificationBak" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
+        /* M_Member.xml - callMemberCertificationBak */
+        select comm_company, parents_agree_yn, recant_yn from rd_data.tb_member_certification_bak where mem_no=#{mem_no}
+    </select>
+
     <select id="callMemberTestId" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberTestId */
         select `inner` from rd_data.tb_member_basic where mem_no =#{mem_no}
@@ -42,12 +47,12 @@
 
     <select id="callMemberRoomListen" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberRoomListen */
-        select room_no as listen_room_no
-              ,(select title from rd_data.tb_broadcast_room where state != 4 and room_no = a.room_no) as listen_title
-          from rd_data.tb_broadcast_room_member a
+        select a.room_no as listen_room_no
+               ,b.title as listen_title
+          from rd_data.tb_broadcast_room_member a inner join rd_data.tb_broadcast_room b on a.room_no = b.room_no
          where a.mem_no=#{mem_no}
-           and a.state=0 and auth != 3
-         order by last_upd_date desc
+           and a.state=0 and a.auth != 3
+         order by a.last_upd_date desc
          limit 1;
     </select>
 
@@ -150,7 +155,7 @@
                       op_msg,platform,browser,ip,op_name,op_date,reg_date)
          value (#{mem_no},#{mem_userid},#{mem_nick},'',1,'',#{reported_mem_no},#{reported_userid},
                 #{reported_nick},#{reported_phone},#{reported_level},#{reported_grade},null,#{slctReason},null,'2',#{slctType},
-                #{notimemo},'PC',#{browser},#{ip},#{opName},now(),now())
+                #{notiContents},'PC',#{browser},#{ip},#{opName},now(),now())
     </insert>
 
     <select id="callMemberBroadCasting_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
@@ -190,7 +195,7 @@
     </insert>
     <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberNotification_Add */
-        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{type_noti},70), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
     </insert>
 
     <insert id="callMemberNotification_Add_ALL" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
@@ -507,12 +512,139 @@
         WHERE mem_no = #{memNo}
     </update>
 
-
-
-
     <select id="getMemberSetting" parameterType="java.lang.String" resultType="com.dalbit.member.vo.procedure.P_MemberSetting">
         /* M_Member.xml - getMemberSetting */
         SELECT idx, mem_no, all_ok, set_1, set_2, set_3, set_4, set_5, set_6, set_7, alim_slct, last_upd_date FROM rd_data.tb_member_setting WHERE mem_no = #{mem_no}
     </select>
+
+    <delete id="deleteCert_back" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">
+        /* M_Member.xml - deleteCert_back */
+        delete from rd_data.tb_member_certification_bak
+        where mem_no = #{memNo}
+    </delete>
+
+    <insert id="moveCertInfo" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">
+        /* M_Member.xml - moveCertInfo */
+        insert into rd_data.tb_member_certification_bak(
+            mem_no
+            , mem_name
+            , mem_phone
+            , mem_sex
+            , mem_birth_year
+            , mem_birth_month
+            , mem_birth_day
+            , comm_company
+            , foreign_yn
+            , cert_code
+            , parents_agree_yn
+            , parents_name
+            , parents_phone
+            , parents_sex
+            , parents_birth_year
+            , parents_birth_month
+            , parents_birth_day
+            , parents_comm_company
+            , parents_foreign_yn
+            , parents_cert_code
+            , parents_agree_dt
+            , parents_agree_term
+            , recant_yn
+            , add_file
+            , expire_yn
+            , last_upd_date
+        ) select mem_no
+            , mem_name
+            , mem_phone
+            , mem_sex
+            , mem_birth_year
+            , mem_birth_month
+            , mem_birth_day
+            , comm_company
+            , foreign_yn
+            , cert_code
+            , parents_agree_yn
+            , parents_name
+            , parents_phone
+            , parents_sex
+            , parents_birth_year
+            , parents_birth_month
+            , parents_birth_day
+            , parents_comm_company
+            , parents_foreign_yn
+            , parents_cert_code
+            , parents_agree_dt
+            , parents_agree_term
+            , recant_yn
+            , add_file
+            , expire_yn
+            , last_upd_date
+        from rd_data.tb_member_certification
+        where mem_no = 	#{memNo}
+    </insert>
+
+    <insert id="moveRollbackCertInfo" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">
+        /* M_Member.xml - moveCertInfo */
+        insert into rd_data.tb_member_certification(
+            mem_no
+            , mem_name
+            , mem_phone
+            , mem_sex
+            , mem_birth_year
+            , mem_birth_month
+            , mem_birth_day
+            , comm_company
+            , foreign_yn
+            , cert_code
+            , parents_agree_yn
+            , parents_name
+            , parents_phone
+            , parents_sex
+            , parents_birth_year
+            , parents_birth_month
+            , parents_birth_day
+            , parents_comm_company
+            , parents_foreign_yn
+            , parents_cert_code
+            , parents_agree_dt
+            , parents_agree_term
+            , recant_yn
+            , add_file
+            , expire_yn
+            , last_upd_date
+        ) select mem_no
+            , mem_name
+            , mem_phone
+            , mem_sex
+            , mem_birth_year
+            , mem_birth_month
+            , mem_birth_day
+            , comm_company
+            , foreign_yn
+            , cert_code
+            , parents_agree_yn
+            , parents_name
+            , parents_phone
+            , parents_sex
+            , parents_birth_year
+            , parents_birth_month
+            , parents_birth_day
+            , parents_comm_company
+            , parents_foreign_yn
+            , parents_cert_code
+            , parents_agree_dt
+            , parents_agree_term
+            , recant_yn
+            , add_file
+            , expire_yn
+            , last_upd_date
+        from rd_data.tb_member_certification_bak
+        where mem_no = 	#{memNo}
+    </insert>
+
+    <delete id="deleteCert" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">
+        /* M_Member.xml - deleteCert */
+        delete from rd_data.tb_member_certification
+        where mem_no = #{memNo}
+    </delete>
 
 </mapper>

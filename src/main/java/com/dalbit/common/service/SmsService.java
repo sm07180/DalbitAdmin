@@ -22,6 +22,10 @@ public class SmsService {
      * */
     public int sendSms(SmsVo smsVo)throws GlobalException{
 
+        if(DalbitUtil.isEmpty(smsVo.getSendPhoneNo())){
+            return 0;
+        }
+
         smsVo.setPhoneNo(smsVo.getPhoneNo().replaceAll("-", ""));
 
         if(!DalbitUtil.isSmsPhoneNoChk(smsVo.getPhoneNo())){
@@ -47,6 +51,10 @@ public class SmsService {
      * LMS 문자 발송 - 타겟
      * */
     public int sendMms(SmsVo smsVo)throws GlobalException{
+
+        if(DalbitUtil.isEmpty(smsVo.getSendPhoneNo())){
+            return 0;
+        }
 
         smsVo.setPhoneNo(smsVo.getPhoneNo().replaceAll("-", ""));
 

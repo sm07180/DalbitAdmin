@@ -17,6 +17,9 @@ public class P_QuestionPlatformOutDetailVo extends SearchVo {
     private int pcCnt;
     private int androidCnt;
     private int iosCnt;
+    private int no_pcCnt;
+    private int no_androidCnt;
+    private int no_iosCnt;
 }
 
 

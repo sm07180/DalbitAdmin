@@ -22,6 +22,14 @@ public class P_QuestionUntreatedOutDetailVo extends SearchVo {
     private int type06Cnt;
     private int type07Cnt;
     private int type99Cnt;
+    private int no_type01Cnt;
+    private int no_type02Cnt;
+    private int no_type03Cnt;
+    private int no_type04Cnt;
+    private int no_type05Cnt;
+    private int no_type06Cnt;
+    private int no_type07Cnt;
+    private int no_type99Cnt;
 
 }
 

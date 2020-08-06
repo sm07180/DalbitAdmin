@@ -20,12 +20,16 @@ var questionDataTableSource = {
             {'title': 'Browser', 'data': 'browser','width':'60px'},
             {'title': '회원번호', 'data': 'mem_no','width':'100px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
-                    tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
+                    if(row.mem_state == 1){
+                        tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
+                    }else{
+                        tmp = tmp + '<br/>' +  row.mem_grade;
+                    }
                     return tmp;
                 }},
             {'title': '문의자<br>닉네임', 'data': 'mem_nick','width':'100px','render':function (data,type,row,meta){
-                    if(common.isEmpty(data)){
-                        return '탈퇴회원';
+                    if(common.isEmpty(data)) {
+                       return '탈퇴회원';
                     }else{
                         return data;
                     }            
