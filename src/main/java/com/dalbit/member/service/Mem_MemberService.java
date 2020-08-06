@@ -167,6 +167,14 @@ public class Mem_MemberService {
             memberInfo.setAuth_yn("No");
         }
 
+        //본인인증 철회 데이터 체크
+        P_MemberInfoOutputVo certificationBak = mem_MemberDao.callMemberCertificationBak(pMemberInfoInputVo);
+        if(DalbitUtil.isEmpty(certificationBak)){
+            memberInfo.setCertificationBakYn("N");
+        }else{
+            memberInfo.setCertificationBakYn("Y");
+        }
+
         P_MemberInfoOutputVo testId = mem_MemberDao.callMemberTestId(pMemberInfoInputVo);
         if(!DalbitUtil.isEmpty(testId)) {
             if (testId.getInner() == 1) {
@@ -843,5 +851,43 @@ public class Mem_MemberService {
      */
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
         return mem_MemberDao.updateBackRecant(pMemberParentsAgreeInputVo);
+    }
+
+    /**
+     * 본인인증 철회
+     */
+    public String cancelCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        mem_MemberDao.deleteCert_back(pMemberParentsAgreeInputVo);
+        mem_MemberDao.moveCertInfo(pMemberParentsAgreeInputVo);
+        mem_MemberDao.deleteCert(pMemberParentsAgreeInputVo);
+
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("본인인증정보 철회");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
+
+    /**
+     * 본인인증 복구
+     */
+    public String rollbackCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        //mem_MemberDao.deleteCert(pMemberParentsAgreeInputVo);
+        mem_MemberDao.moveRollbackCertInfo(pMemberParentsAgreeInputVo);
+        mem_MemberDao.deleteCert_back(pMemberParentsAgreeInputVo);
+
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("본인인증정보 복구");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 }

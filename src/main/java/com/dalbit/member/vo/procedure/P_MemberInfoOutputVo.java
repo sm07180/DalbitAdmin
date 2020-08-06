@@ -69,6 +69,9 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String blockEndDateFormat;
     private int inner;
 
+    //본인인증 철회 데이터 존재여부
+    private String certificationBakYn;
+
     // 방송중인 방
     private String room_no;
     private String title;

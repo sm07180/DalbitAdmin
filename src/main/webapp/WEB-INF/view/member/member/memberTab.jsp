@@ -72,13 +72,10 @@
             <div class="tab-pane fade" id="edit"><!-- 수정내역 -->
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_all" onclick="getHistory_editHistory(this.id, -1);">전체</a></li>
-                    <%-- TODO 추후 구분코드 추가 시 기능 개발 필요 - 전유신 20.07.23 --%>
-                    <%--
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileImg" onclick="getHistory_editHistory(this.id, 1);">프로필이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_bgImg" onclick="getHistory_editHistory(this.id, 2);">방송배경이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileMsg" onclick="getHistory_editHistory(this.id, 3);">프로필메시지</a></li>
-                    <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>
-                    --%>
+                    <%--<li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>--%>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade" id="editHistory"><jsp:include page="../edit/list.jsp"/></div>     <!-- 수정내역 -->
