@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_EmoticonDao" >
+
+    <!--카테고리 조회-->
+    <select id="callAdminEmoticonCategorySelect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EmoticonCategoryListOutputVo">
+        call rd_admin.sp_admin_emoticon_category_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <!--카테고리 수정-->
+    <select id="callAdminEmoticonCategoryEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_emoticon_category_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <!--인싸티콘 조회-->
+    <select id="callAdminEmoticonSelect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EmoticonListOutputVo">
+        call rd_admin.sp_admin_emoticon_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <!--인싸티콘 추가-->
+    <select id="callAdminEmoticonAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_emoticon_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <!--인싸티콘 수정-->
+    <select id="callAdminEmoticonEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EmoticonListOutputVo">
+        call rd_admin.sp_admin_emoticon_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+</mapper>
