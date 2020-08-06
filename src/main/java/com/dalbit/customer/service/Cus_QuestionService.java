@@ -105,11 +105,14 @@ public class Cus_QuestionService {
     /**
      *  1:1 문의하기 처리하기
      */
-    public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException {
+    public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException {
         P_QuestionDetailOutputVo outVo = cus_questionDao.callServiceCenterQnaState(pQuestionOperateVo);
         String result = "";
+        String _answer = pQuestionOperateVo.getAnswer();
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\\\\n", "\\n"));
+
+        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\\'","\'"));
+        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\n","<br>"));
         if(outVo.getState() == 0){
             ProcedureVo procedureVo = new ProcedureVo(pQuestionOperateVo,true);
             cus_questionDao.callServiceCenterQnaOperate(procedureVo);
@@ -169,14 +172,29 @@ public class Cus_QuestionService {
         if(pQuestionOperateVo.getNoticeType() == 2){      // 메일답변
 
         }else{          // 문자 or ( 문자 and 메일 )
-            String answer = pQuestionOperateVo.getAnswer();
+            String answer = _answer;
             String[] array_word = answer.split(""); //배열에 한글자씩 저장하기
 
             answer = "";
             int count = 1000;
+            boolean smsSw;
             for(int i=0;i<array_word.length;i++) {
                 answer = answer + array_word[i];
-                if(i == count) {
+                smsSw = false;
+                if(i != 0) {
+                    if (i % count == 0) {
+                        smsSw = true;
+                    } else {
+                        if (array_word.length <= count) {
+                            if ((i + 1) == array_word.length) {
+                                smsSw = true;
+                            }
+                        }
+                    }
+                }
+
+                if(smsSw){
+                    Thread.sleep(1500);
                     SmsVo smsSendVo = new SmsVo(pQuestionOperateVo.getTitle(), answer, pQuestionOperateVo.getPhone(), "7");
                     smsSendVo.setSend_name(MemberVo.getMyMemNo());
                     smsSendVo.setMem_no(pQuestionOperateVo.getMem_no());

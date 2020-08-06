@@ -97,7 +97,9 @@
             response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
         }else{
             if(!common.isEmpty(response.data.answer)){
-                response.data["msg_body"] = response.data.answer;
+                console.log(common.replaceHtml(response.data.answer));
+                console.log(common.replaceHtml(response.data.answer).replace(/<br>/gi, '\n'));
+                response.data["msg_body"] = common.replaceHtml(response.data.answer).replace(/<br>/gi, '\n');
             }else{
                 response.data["msg_body"] = "[달빛라이브]\n";
             }
