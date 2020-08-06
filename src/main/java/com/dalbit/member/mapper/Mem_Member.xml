@@ -203,7 +203,7 @@
             ( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  )
             SELECT 
                 a.mem_no
-                , IFNULL(#{slctType},34)
+                , IFNULL(#{type_noti},70)
                 , #{notiContents}
                 , #{notimemo}
                 , IFNULL(#{targetMemNo}, #{reported_mem_no})
@@ -223,33 +223,36 @@
                         AND a.os_type = #{slctOs}
                     </if>
             ) AS a
-            WHERE 
-            <choose>
-                <when test="push_slct == 11">
-                    a.set_1 = 1
-                </when>
-                <when test="push_slct == 18">
-                    a.set_2 = 1
-                </when>
-                <when test="push_slct == 16">
-                    a.set_3 = 1
-                </when>
-                <when test="push_slct == 17">
-                    a.set_4 = 1
-                </when>
-                <when test="push_slct == 15 or push_slct == 61">
-                    a.set_5 = 1
-                </when>
-                <when test="push_slct == 60">
-                    a.set_6 = 1
-                </when>
-                <when test="push_slct == 51 or push_slct == 59 or push_slct == 92 or push_slct == 93 or push_slct == 94">
-                    a.set_7 = 1
-                </when>
-                <otherwise>
-                    a.all_ok = 1
-                </otherwise>
-            </choose>
+        <!--
+            <where>
+                <choose>
+                    <when test="push_slct == 11">
+                        a.set_1 = 1
+                    </when>
+                    <when test="push_slct == 18">
+                        a.set_2 = 1
+                    </when>
+                    <when test="push_slct == 16">
+                        a.set_3 = 1
+                    </when>
+                    <when test="push_slct == 17">
+                        a.set_4 = 1
+                    </when>
+                    <when test="push_slct == 15 or push_slct == 61">
+                        a.set_5 = 1
+                    </when>
+                    <when test="push_slct == 60">
+                        a.set_6 = 1
+                    </when>
+                    <when test="push_slct == 51 or push_slct == 59 or push_slct == 92 or push_slct == 93 or push_slct == 94">
+                        a.set_7 = 1
+                    </when>
+                    <otherwise>
+                        a.all_ok = 1
+                    </otherwise>
+                </choose>
+            </where>
+            -->
     </insert>
     <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */

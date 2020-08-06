@@ -551,10 +551,9 @@ public class Mem_MemberService {
 
             if(Status.방송방정보수정_성공.getMessageCode().equals(codeResult)) {
 
-                pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
-                pMemberEditorVo.setEditContents("방송방 배경이미지 변경 : " + pMemberEditorVo.getBeforeMemberData().getRoomBgImage() + " >> " + pBroadcastEditInputVo.getBackgroundImage());
-                pMemberEditorVo.setType(0);
-                mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+                pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
+                pBroadcastEditInputVo.setEditContents("방송방 배경이미지 변경 : " + pMemberEditorVo.getBeforeMemberData().getRoomBgImage() + " >> " + pBroadcastEditInputVo.getBackgroundImage());
+                bro_BroadcastDao.callBroadCastEditHistoryAdd(pBroadcastEditInputVo);
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.이미지초기화성공));
                 return result;
