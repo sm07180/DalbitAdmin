@@ -60,7 +60,6 @@
     });
     var memNo;
     var memId;
-    var slct_type;
     var noticeType = 0;
     var email;
     var phone;
@@ -96,10 +95,8 @@
         if(noticeType == 2){
             response.data["answer"] = params.answer;
         }else{
-            if(!common.isEmpty(response.data.answer)){
-                console.log(common.replaceHtml(response.data.answer));
-                console.log(common.replaceHtml(response.data.answer).replace(/<br>/gi, '\n'));
-                response.data["msg_body"] = common.replaceHtml(response.data.answer).replace(/<br>/gi, '\n');
+            if(!common.isEmpty(params.answer)){
+                response.data["msg_body"] = common.replaceHtml(params.answer).replace(/<br>/gi, '\n');
             }else{
                 response.data["msg_body"] = "[달빛라이브]\n";
             }
