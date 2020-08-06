@@ -298,11 +298,11 @@ public class PushService {
                             pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                             pMemberReportVo.setPush_slct(pPushInsertVo.getPush_slct());
                             int notiResult;
-                            if(!DalbitUtil.isMemberPushRejection(pMemberReportVo.getMem_no(), pMemberReportVo.getPush_slct())){
+//                            if(!DalbitUtil.isMemberPushRejection(pMemberReportVo.getMem_no(), pMemberReportVo.getPush_slct())){
                                 notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
-                            }else {
-                                notiResult = -3;
-                            }
+//                            }else {
+//                                notiResult = -3;
+//                            }
 
                             if(notiResult > 0){
                                 sucNotiCnt++;
@@ -362,11 +362,11 @@ public class PushService {
                         pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                         pMemberReportVo.setPush_slct(pPushInsertVo.getPush_slct());
                         int notiResult;
-                        if(!DalbitUtil.isMemberPushRejection(pMemberReportVo.getMem_no(), pMemberReportVo.getPush_slct())){
+//                        if(!DalbitUtil.isMemberPushRejection(pMemberReportVo.getMem_no(), pMemberReportVo.getPush_slct())){
                             notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
-                        }else {
-                            notiResult = -3;
-                        }
+//                        }else {
+//                            notiResult = -3;
+//                        }
 
                         if(notiResult > 0){
                             sucNotiCnt++;
