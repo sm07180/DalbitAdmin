@@ -15,6 +15,16 @@
                 and vxml_file = #{vxml_file}
             </if>
 
+            <!--
+                # 발송 구분코드 (vxml_file)
+                 - 0 : 인증코드 문자 - 회원가입
+                 - 1 : 인증코드 문자 - 비밀번호 변경
+                 - 2 : 환전완료
+                 - 3 : 환전불가
+                 - 4 : 가상계좌
+                 - 5 : 1:1 문의 답변
+                 - 7 : 어드민 운영자 직접발송
+            -->
             <if test='tabType != null and tabType != "" '>
                 <choose>
                     <when test='tabType == 1'>
@@ -27,7 +37,7 @@
                         AND vxml_file NOT IN ('0', '1', '4', '7')
                     </when>
                     <when test='tabType == 7'>
-                        AND vxml_file = '7'
+                        AND vxml_file IN ('7', '5')
                     </when>
                 </choose>
             </if>

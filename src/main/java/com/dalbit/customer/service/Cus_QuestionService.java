@@ -200,7 +200,7 @@ public class Cus_QuestionService {
 
                 if(smsSw){
                     Thread.sleep(1500);
-                    SmsVo smsSendVo = new SmsVo(pQuestionOperateVo.getTitle(), answer, pQuestionOperateVo.getPhone(), "7");
+                    SmsVo smsSendVo = new SmsVo(pQuestionOperateVo.getTitle(), answer, pQuestionOperateVo.getPhone(), "5");
                     smsSendVo.setSend_name(MemberVo.getMyMemNo());
                     smsSendVo.setMem_no(pQuestionOperateVo.getMem_no());
                     smsSendVo.setCinfo("");
