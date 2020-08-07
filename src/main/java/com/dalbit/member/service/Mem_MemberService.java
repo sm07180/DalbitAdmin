@@ -3,6 +3,7 @@ package com.dalbit.member.service;
 
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
 import com.dalbit.broadcast.service.Bro_BroadcastService;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.common.code.Code;
 import com.dalbit.common.code.ErrorStatus;
@@ -249,6 +250,24 @@ public class Mem_MemberService {
         return result;
 
     }
+
+    /**
+     * 회원 정보수정 내역 보기
+     */
+    public String callMemberRoomEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo){
+        int totalCnt = mem_MemberDao.callMemberRoomEditHistoryCnt(pMemberEditHistInputVo);
+        pMemberEditHistInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_BroadcastEditHistOutputVo> editList = mem_MemberDao.callMemberRoomEditHistory(pMemberEditHistInputVo);
+        String result;
+        if (editList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_성공, editList, new PagingVo(pMemberEditHistInputVo.getTotalCnt())));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_실패));
+        }
+        return result;
+
+    }
+
 
     /**
      * 회원 달/별 내역 보기
@@ -552,7 +571,7 @@ public class Mem_MemberService {
             if(Status.방송방정보수정_성공.getMessageCode().equals(codeResult)) {
 
                 pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
-                pBroadcastEditInputVo.setEditContents("배경이미지변경 : " + pMemberEditorVo.getBeforeMemberData().getRoomBgImage() + " >> " + pBroadcastEditInputVo.getBackgroundImage());
+                pBroadcastEditInputVo.setEditContents("배경이미지초기화: " + pMemberEditorVo.getBeforeMemberData().getRoomBgImage() + " >> " + pBroadcastEditInputVo.getBackgroundImage());
                 bro_BroadcastDao.callBroadCastEditHistoryAdd(pBroadcastEditInputVo);
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.이미지초기화성공));
