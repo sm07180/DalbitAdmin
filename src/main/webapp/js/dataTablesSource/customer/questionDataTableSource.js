@@ -17,15 +17,17 @@ var questionDataTableSource = {
                     return util.getCommonCodeLabel(data, question_type);
                 }},
             {'title': '답변유형', 'data': '','width':'60px','render': function (data, type, row, meta) {
-                    if(!common.isEmpty(row.email) && !common.isEmpty(row.email)){
-                        return "문자발송";
+                    if(common.isEmpty(row.phone) && common.isEmpty(row.email)){
+                        return "보내지않음";
                     }else{
+                        if(!common.isEmpty(row.phone) && !common.isEmpty(row.email)){
+                            return "문자발송";
+                        }
                         if(!common.isEmpty(row.phone)){
                             return "문자발송";
-                        } else if(!common.isEmpty(row.email)){
+                        }
+                        if(!common.isEmpty(row.email)){
                             return "메일발송";
-                        } else {
-                            return "보내지않음";
                         }
                     }
                 }},
