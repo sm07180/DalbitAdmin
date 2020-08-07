@@ -73,12 +73,13 @@
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_all" onclick="getHistory_editHistory(this.id, -1);">전체</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileImg" onclick="getHistory_editHistory(this.id, 1);">프로필이미지</a></li>
-                    <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_bgImg" onclick="getHistory_editHistory(this.id, 2);">방송배경이미지</a></li>
+                    <li><a href="#roomEditHistory" role="tab" data-toggle="tab" id="tab_roomEditHistory_bgImg" onclick="getHistory_roomEditHistory(this.id, 1);">방송배경이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileMsg" onclick="getHistory_editHistory(this.id, 3);">프로필메시지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade" id="editHistory"><jsp:include page="../edit/list.jsp"/></div>     <!-- 수정내역 -->
+                    <div class="tab-pane fade" id="roomEditHistory"><jsp:include page="../edit/broadcastList.jsp"/></div>     <!-- 방송방수정내역 -->
                 </div>
             </div>
             <div class="tab-pane fade" id="levelDetail"><jsp:include page="../level/list.jsp"/></div>     <!-- 레벨 -->
