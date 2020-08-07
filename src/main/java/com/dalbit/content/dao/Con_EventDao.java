@@ -2,6 +2,7 @@ package com.dalbit.content.dao;
 
 import com.dalbit.content.vo.AttendanceBonusVo;
 import com.dalbit.content.vo.AttendanceCalendarVo;
+import com.dalbit.content.vo.AttendanceGiftconVo;
 import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
@@ -62,4 +63,9 @@ public interface Con_EventDao {
     AttendanceCalendarVo selectAttendanceWeekCalendarList(AttendanceCalendarVo attendanceCalendarVo);
     @Transactional(readOnly = true)
     AttendanceBonusVo selectAttendanceBonus(AttendanceBonusVo attendanceBonusVo);
+
+    @Transactional(readOnly = true)
+    int selectGiftconCnt(AttendanceGiftconVo attendanceGiftconVo);
+    @Transactional(readOnly = true)
+    List<AttendanceGiftconVo> selectGiftconList(AttendanceGiftconVo attendanceGiftconVo);
 }

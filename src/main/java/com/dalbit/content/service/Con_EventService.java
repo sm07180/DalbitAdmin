@@ -6,6 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.dao.Con_EventDao;
 import com.dalbit.content.vo.AttendanceBonusVo;
 import com.dalbit.content.vo.AttendanceCalendarVo;
+import com.dalbit.content.vo.AttendanceGiftconVo;
 import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.dao.Mem_MemberDao;
@@ -271,5 +272,11 @@ public class Con_EventService {
     public String selectAttendanceBonus(AttendanceBonusVo attendanceBonusVo){
         AttendanceBonusVo resultBonusVo = con_EventDao.selectAttendanceBonus(attendanceBonusVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultBonusVo));
+    }
+
+    public String selectGiftconList(AttendanceGiftconVo attendanceGiftconVo){
+        List<AttendanceGiftconVo> giftconList = con_EventDao.selectGiftconList(attendanceGiftconVo);
+        int totalCnt = con_EventDao.selectGiftconCnt(attendanceGiftconVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, giftconList, new PagingVo(totalCnt)));
     }
 }

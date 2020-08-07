@@ -29,4 +29,9 @@ public class Con_EventController {
     public String attendanceBonusList() {
         return "content/event/attendance/bonusList";
     }
+
+    @GetMapping("attendance/giftconList")
+    public String attendanceGiftconList() {
+        return "content/event/attendance/giftconList";
+    }
 }

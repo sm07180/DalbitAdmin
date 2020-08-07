@@ -15,6 +15,9 @@
         <li class="${url eq '/content/event/attendance/list' ? 'active' : ''}">
             <a href="/content/event/attendance/list">참여자목록</a>
         </li>
+        <li class="${url eq '/content/event/attendance/giftconList' ? 'active' : ''}">
+            <a href="/content/event/attendance/giftconList">기프티콘</a>
+        </li>
     </ul>
 </div>
 

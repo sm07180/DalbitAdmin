@@ -396,3 +396,10 @@ var fanBoard_status = [
     , new COMMON_CODE('1', 1, '정상')
     , new COMMON_CODE('2', 2, '삭제')
 ];
+
+var event_giftcon_type = [
+    new COMMON_CODE(null, 'gifticon_type', '품목')
+    , new COMMON_CODE('all', '-1', '품목구분')
+    , new COMMON_CODE('1', 1, '커피')
+    , new COMMON_CODE('2', 2, '치킨')
+]
