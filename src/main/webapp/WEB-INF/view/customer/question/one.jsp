@@ -127,6 +127,10 @@
         //textarea resize
         util.textareaResize(document.getElementById("question_contents"), 200);
 
+        if(noticeType == 1 || noticeType == 3) {
+            mobileBtnClick();
+        }
+
         var scrollPosition = $("#div_questionTab").offset();
         util.scrollPostion(scrollPosition.top);
     }
@@ -255,12 +259,12 @@
     $(document).on('click', '#deleteBtn', function(){
         $('.note-editable').empty();
     });
-    function mobileBtnClick(tmp){
-        if($("#mobileBtn").text() == "모바일형태"){
-            $("#mobileBtn").text("PC형태");
+    function mobileBtnClick(){
+        if($("#mobileBtn").text() == "모바일 형태보기"){
+            $("#mobileBtn").text("PC형태보기");
             $('#div_editor').css({ width: 360});
         }else{
-            $("#mobileBtn").text("모바일형태");
+            $("#mobileBtn").text("모바일 형태보기");
             $('#div_editor').css({ width: ''});
         }
     }
@@ -412,7 +416,7 @@
                     <td>{{op_name}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">문의회원정보</th>
+                    <th colspan="2">회원에이전트</th>
                     <td colspan="4">
                         <%--<textarea class="form-control" id="mem_info" oninput="util.textareaResize(this, 100)" style="height: 100%">{{{replaceHtml question_contents}}}</textarea>--%>
                     </td>
@@ -493,7 +497,7 @@
 
             <div class="widget mt10" id="div_editor">
                 <div class="pull-right">
-                    <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
+                    <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일 형태보기</button>
                     <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
                     <%--{{^equal state '2'}}--%>
                     <button type="button" id="bt_operate" class="btn btn-success">완료</button>
@@ -502,18 +506,24 @@
                     <%--<button type="button" id="bt_update" class="btn btn-default">수정</button>--%>
                     <%--{{/equal}}--%>
                 </div>
-                <div class="widget-header">
-                    <h3><i class="fa fa-user"></i> 답변 </h3>
-                </div>
                 {{#dalbit_if noticeType '==' 2}}
+                    <div class="widget-header">
+                        <h3><i class="fa fa-user"></i> 메일 답변 </h3>
+                    </div>
                     <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
                 {{else}}
                     {{#dalbit_if noticeType '==' 0}}
+                        <div class="widget-header">
+                            <h3><i class="fa fa-user"></i> 답변 </h3>
+                        </div>
                         <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
                     {{else}}
+                        <div class="widget-header">
+                            <h3><i class="fa fa-user"></i> 문자 답변 </h3>
+                        </div>
                         <div>
                             <div><span class="font-bold">제목</span></div>
-                            <input style="width: 25%" type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]{{question_title}}" maxlength="30" disabled>
+                            <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]{{question_title}}" maxlength="30" disabled>
                             <span style="color: red; font-size:0.9em">* 제목은 수정이 불가능합니다.</span>
                             <br/>
                         </div>

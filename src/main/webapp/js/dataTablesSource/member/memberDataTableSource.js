@@ -561,6 +561,18 @@ var MemberDataTableSource = {
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
 
+    'roomEditHistory': {
+        'url': '/rest/member/member/roomEditHist'
+        , 'columns': [
+            {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px','className':'al' ,'render' : function(data){
+                    return memberUtil.convertEditHistory(data);
+                }},
+            {'title': '처리자명', 'data': 'opName','width':'100px'},
+        ]
+        , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+    },
+
     'pointHistory': {
         'url': '/rest/member/member/pointHist'
         , 'columns': [

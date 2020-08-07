@@ -16,6 +16,21 @@ var questionDataTableSource = {
             {'title': '문의유형', 'data': 'slct_type','width':'60px','render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, question_type);
                 }},
+            {'title': '답변유형', 'data': '','width':'60px','render': function (data, type, row, meta) {
+                    if(common.isEmpty(row.phone) && common.isEmpty(row.email)){
+                        return "보내지않음";
+                    }else{
+                        if(!common.isEmpty(row.phone) && !common.isEmpty(row.email)){
+                            return "문자발송";
+                        }
+                        if(!common.isEmpty(row.phone)){
+                            return "문자발송";
+                        }
+                        if(!common.isEmpty(row.email)){
+                            return "메일발송";
+                        }
+                    }
+                }},
             {'title': '플랫폼', 'data': 'platform','width':'60px'},
             {'title': 'Browser', 'data': 'browser','width':'60px'},
             {'title': '회원번호', 'data': 'mem_no','width':'100px','render': function (data, type, row, meta) {
@@ -66,7 +81,6 @@ var questionDataTableSource = {
             {'title': '처리상태', 'data': 'state','width':'60px','render' : function(data){
                     return util.getCommonCodeLabel(data, question_status);
                 }},
-            {'title': '알림', 'data': 'memNo','width':'60px'},
             {'title': '처리자', 'data': 'op_name','width':'90px'},
         ]
         , 'comments': 'ㆍ1:1 문의 처리 및 상세정보 확인 후 해당 정보를 확인 및 답변, 수정할 수 있습니다.'

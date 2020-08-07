@@ -78,6 +78,49 @@
         call rd_admin.sp_admin_member_all_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callMemberRoomEditHistoryCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM rd_data.tb_broadcast_room_edit_history
+        WHERE
+           room_no IN ( SELECT room_no FROM rd_data.tb_broadcast_room WHERE mem_no = #{mem_no})
+           <choose>
+               <when test="searchType == 1">
+                   AND edit_contents LIKE concat('%',#{searchText},'%')
+               </when>
+               <when test="searchType == 2">
+                   AND edit_contents NOT REGEXP #{searchText}
+               </when>
+           </choose>
+    </select>
+
+    <select id="callMemberRoomEditHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo">
+        SELECT
+            @rownum := @rownum + 1 as rowNum,
+            a.*
+        FROM
+        (
+            SELECT
+                last_upd_date AS editDate
+                , edit_contents AS editContents
+                , op_name AS opName
+             FROM rd_data.tb_broadcast_room_edit_history
+             WHERE
+                room_no IN ( SELECT room_no FROM rd_data.tb_broadcast_room WHERE mem_no = #{mem_no})
+                <choose>
+                    <when test="searchType == 1">
+                        AND edit_contents LIKE concat('%',#{searchText},'%')
+                    </when>
+                    <when test="searchType == 2">
+                        AND edit_contents NOT REGEXP #{searchText}
+                    </when>
+                </choose>
+        ) AS a
+        , (SELECT @rownum := #{pageStart} ) AS b
+        ORDER BY a.editDate DESC
+        LIMIT #{pageNo}, #{pageCnt}
+    </select>
+
     <select id="callMemberPointHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
         /* M_Member.xml - callMemberPointHistory */
         select @rownum := @rownum + 1 as rowNum, a.*

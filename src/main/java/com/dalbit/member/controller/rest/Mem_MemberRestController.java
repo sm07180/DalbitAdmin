@@ -72,6 +72,14 @@ public class Mem_MemberRestController {
     }
 
     /**
+     * 회원 방송방 정보수정 내역 보기
+     */
+    @PostMapping("roomEditHist")
+    public String roomEditHist(P_MemberEditHistInputVo pMemberEditHistInputVo) {
+        return mem_MemberService.callMemberRoomEditHistory(pMemberEditHistInputVo);
+    }
+
+    /**
      * 회원 정보수정 내역 보기
      */
     @PostMapping("pointHist")
