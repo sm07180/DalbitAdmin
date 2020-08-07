@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -29,7 +32,8 @@
                         <li><a href="/status/question/info?tabType=2" id="tab_typeDetail">유형별</a></li>
                         <li><a href="/status/question/info?tabType=3" id="tab_platformDetail">플랫폼별</a></li>
                         <li><a href="/status/question/info?tabType=4" id="tab_untreatedDetail">미처리</a></li>
-                        <li class="active"><a href="" >1:1문의내역</a></li>
+                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(1)" >(회원)1:1문의내역</a></li>
+                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(2)">(비회원)1:1문의내역</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,6 +44,7 @@
                         <h3><i class="fa fa-desktop"></i> 1:1 문의</h3>
                     </div>
                     <span id="question_summaryArea"></span>
+                    <span id="question_summaryArea2"></span>
                     <div class="widget-content" id="main_table">
                         <table id="list_info" class="table table-sorting table-hover table-bordered ">
                             <thead>
@@ -64,6 +69,7 @@
 <script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
 
 <script>
+    var tabType = <%=in_tabType%>;
     $(document).ready(function() {
 
         // ui.checkBoxInit('list_info');
@@ -78,6 +84,22 @@
             getUserInfo();
         });
         <!-- 버튼 끝 -->
+
+
+        $("#question_summaryArea").hide();
+        $("#question_summaryArea2").hide();
+        if(!common.isEmpty(tabType)){
+            if(tabType == 1){
+                $('.nav-tabs li:eq(4) a').tab('show');
+                $("#question_summaryArea").show();
+            }else if(tabType == 2){
+                $('.nav-tabs li:eq(5) a').tab('show');
+                $("#question_summaryArea2").show();
+            }
+        }else{
+            $('.nav-tabs li:eq(4) a').tab('show');
+            $("#question_summaryArea").show();
+        }
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
     $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
@@ -89,6 +111,10 @@
     var tmp_slctState =-1;
     var tmp_slctMember =-1;
     var tmp_slctPlatform = null;
+
+    if(!common.isEmpty(tabType)){
+        tmp_slctMember = tabType;
+    }
 
     var dtList_info;
     var dtList_info_data = function ( data ) {
@@ -124,29 +150,36 @@
     }
 
     function question_summary_table(json){
-        // console.log(json);
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            // header : question_summary
             content : json.summary
             , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#question_summaryArea").html(html);
+
+        var template = $("#question_tableSummary2").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        }
+        var html = templateScript(data);
+        $("#question_summaryArea2").html(html);
     }
 
     function initDataTableTop_select_question(){
         var topTable = '<br/><br/><span name="question_status" id="question_status" onchange="question_status_change()"></span>' +
-                                '<span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>' +
+                                // '<span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>' +
                                 '<span name="question_platform" id="question_platform" onchange="question_status_change()"></span>';
         $("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#question_status").html(util.getCommonCodeSelect(-1, question_status));
-        $("#question_mem_state").html(util.getCommonCodeSelect(-1, question_mem_state));
+        // $("#question_mem_state").html(util.getCommonCodeSelect(-1, question_mem_state));
         $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
     }
     function question_status_change(){
-        tmp_slctMember = $("#question_mem_state").find("#question_mem_state option:selected").val();
+        // tmp_slctMember = $("#question_mem_state").find("#question_mem_state option:selected").val();
         tmp_slctState = $("#question_status").find("#question_status option:selected").val();
         tmp_slctPlatform = $('#platform').val();
         dtList_info.reload(question_summary_table);
@@ -246,13 +279,27 @@
         $("#tab_qna").addClass("hide");
     }
 
+    function tab_questionClick(tmp){
+        tmp_slctMember = tmp;
+        if(tmp == 1){
+            $("#question_summaryArea").show();
+            $("#question_summaryArea2").hide();
+        }else{
+            $("#question_summaryArea").hide();
+            $("#question_summaryArea2").show();
+        }
+        dtList_info.reload();
+        $("#tab_qna").addClass("hide");
+    }
+
     /*==================================*/
 </script>
+
 <script id="question_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right" style="width: 710px">
         <tr>
             <th rowspan="2">회원</th>
-            <th>총 1:1문의</th>
+            <th>문의 총계</th>
             <th>회원정보</th>
             <th>방송정보</th>
             <th>청취하기</th>
@@ -261,7 +308,6 @@
             <th>장애/버그</th>
             <th>선물/아이템</th>
             <th>기타</th>
-            <th>총건</th>
         </tr>
         <tr>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalQna}}건</td>
@@ -273,10 +319,25 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.type6Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type7Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type99Cnt}}건</td>
-            <td rowspan="2" class="font-bold">{{#equal length '0'}}0{{/equal}}{{content.totalCnt}}건</td>
+        </tr>
+    </table>
+</script>
+
+<script id="question_tableSummary2" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" style="width: 710px">
+        <tr>
+            <th rowspan="2">비회원</th>
+            <th>문의 총계</th>
+            <th>회원정보</th>
+            <th>방송정보</th>
+            <th>청취하기</th>
+            <th>결제</th>
+            <th>건의하기</th>
+            <th>장애/버그</th>
+            <th>선물/아이템</th>
+            <th>기타</th>
         </tr>
         <tr>
-            <th>비회원</th>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2Cnt}}건</td>

@@ -126,8 +126,6 @@
         //방송 통계 현황
 
         if(!common.isEmpty(tabType)){
-            console.log("--------------------------");
-            console.log(tabType);
             if(tabType == 1){
                 $('.nav-tabs li:eq(0) a').tab('show')
             }else if(tabType == 2){

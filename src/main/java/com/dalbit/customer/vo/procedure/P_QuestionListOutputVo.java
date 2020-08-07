@@ -32,6 +32,7 @@ public class P_QuestionListOutputVo extends BaseVo {
     private String add_file3;
     private String file_name3;
     private String fileCnt;
+    private String phone;
     private String email;
     private String answer;
     private int state;
