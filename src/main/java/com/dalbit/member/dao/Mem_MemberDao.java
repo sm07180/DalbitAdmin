@@ -1,5 +1,6 @@
 package com.dalbit.member.dao;
 
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.vo.LoginBlockHistVo;
 import com.dalbit.member.vo.LoginBlockVo;
@@ -50,6 +51,11 @@ public interface Mem_MemberDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_MemberEditHistOutputVo> callMemberEditHistory(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    int callMemberRoomEditHistoryCnt(P_MemberEditHistInputVo pMemberEditHistInputVo);
+    @Transactional(readOnly = true)
+    ArrayList<P_BroadcastEditHistOutputVo> callMemberRoomEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo);
 
     @Transactional(readOnly = true)
     ArrayList<P_MemberEditHistOutputVo> callMemberPointHistory(P_MemberEditHistInputVo pMemberEditHistInputVo);

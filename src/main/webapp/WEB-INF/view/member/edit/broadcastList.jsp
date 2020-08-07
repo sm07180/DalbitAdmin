@@ -20,17 +20,17 @@
     $(document).ready(function() {
     });
 
-    $("#editHistory").find("#searchText").keydown(function() {
+    $("#roomEditHistory").find("#searchText").keydown(function() {
         if (event.keyCode === 13) {
-            $("#editHistory").find("#bt_search").click();
+            $("#roomEditHistory").find("#bt_search").click();
         };
     });
 
-    $("#editHistory").find("#bt_search").on("click", function(){
+    $("#roomEditHistory").find("#bt_search").on("click", function(){
         dtList_info_detail.reload();
     });
 
-    function getHistory_editHistory (tmp, selectType) {     // 상세보기
+    function getHistory_roomEditHistory (tmp, selectType) {     // 상세보기
         // alert(selectType)
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
@@ -38,23 +38,17 @@
         var searchText = "";
         var searchType = "-1";
         if(selectType == 1){
-            $("#editHistory").find("#searchText").val("프로필이미지");
-            searchType = "1";
-        }else if(selectType == 2){
-            $("#editHistory").find("#searchText").val("배경이미지");
-            searchType = "1";
-        }else if(selectType == 3){
-            $("#editHistory").find("#searchText").val("프로필메세지");
+            $("#roomEditHistory").find("#searchText").val("배경이미지");
             searchType = "1";
         }else if(selectType == 4){
-            $("#editHistory").find("#searchText").val("프로필이미지|배경이미지|프로필메세지");
+            $("#roomEditHistory").find("#searchText").val("프로필이미지|배경이미지|프로필메세지");
             searchType = "2";
         }
 
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.sortDate = 1;
-            data.searchText = $("#editHistory").find("#searchText").val();
+            data.searchText = $("#roomEditHistory").find("#searchText").val();
             data.searchType = searchType;
             // data.pageCnt=10;
         }
