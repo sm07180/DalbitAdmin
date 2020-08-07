@@ -64,6 +64,7 @@
     var email;
     var phone;
     function quest_detail_success(data, response, params){
+        noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
         qnaIdx = params.qnaIdx;
         answer = params.answer;
@@ -136,8 +137,23 @@
         var html = templateScript(context);
         $("#_faqGroupArea").html(html);
 
-        fn_sublist_success(data, response);
+        if(noticeType == 0 || noticeType == 2){
+            $("#faqGroup").val("1").prop("selected", true);
+        }else{
+            $("#faqGroup").val("97").prop("selected", true);
+        }
+        faqGroupChange();
+
+        // fn_sublist_success(data, response);
     }
+    function faqGroupChange(){
+        var faqData = {
+            slct_type : $('select[name="faqGroup"]').find('option:selected').val()
+        };
+        dalbitLog(faqData);
+        util.getAjaxData("getSub", "/rest/customer/question/getFaqSubList", faqData, fn_sublist_success);
+    }
+
     function memInfo(memId, memNo){
         return util.memNoLink(memId, memNo);
     }
@@ -153,7 +169,6 @@
         data.noticeType = noticeType;
         data.phone = phone;
         data.email = email;
-        console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
         }
@@ -198,11 +213,20 @@
         var context = response.data.faqSubList;
         var html = templateScript(context);
         $("#_faqSubArea").html(html);
+
     }
 
     $(document).on('click', '#bt_faq', function() {
         $('button.btn-codeview').click();
-        $('#editor').summernote('code', $('#editor').summernote('code') + '<p>' + $('select[name="faqSub"]').find('option:selected').data('answer')) + '</p>';
+
+        if(noticeType == 0 || noticeType == 2){
+            $('#editor').summernote('code', $('#editor').summernote('code') + '<p>' + $('select[name="faqSub"]').find('option:selected').data('answer')) + '</p>';
+        }else{
+            var tmp = $('select[name="faqSub"]').find('option:selected').data('answer').replace(/<br>/gi, '\n');
+            tmp = tmp.replace(/<p>/gi, '\n');
+            tmp = tmp.replace(/</gi, '').replace(/\//gi, '').replace(/p>/gi, '');
+            $("#smsSend-msg_body").val($("#smsSend-msg_body").val() + tmp);
+        }
         $('button.btn-codeview').click();
     });
 

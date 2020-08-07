@@ -44,6 +44,7 @@ var question_slctType = [
     , new COMMON_CODE('event', '2', '방송')
     , new COMMON_CODE('check', '3', '결제')
     , new COMMON_CODE('id', '5', '계정')
+    , new COMMON_CODE('phone', '97', '문자답변')
     , new COMMON_CODE('update', '98', '기타')
     , new COMMON_CODE('question', '99', '1:1문의')
 ];
