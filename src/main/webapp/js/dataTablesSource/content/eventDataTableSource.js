@@ -200,5 +200,37 @@ var EventDataTableSource = {
             , {'title': '받은 달', 'data': 'reward_dal'}
             , {'title': 'device UUID', 'data': 'device_uuid'}
         ]
+    },
+
+    'attendance': {
+        'url': '/rest/content/event/attendance/giftconList'
+        , 'columns': [
+            {'title': '품목', 'data': 'gifticon_type', 'render': function(data) {
+                    return util.getCommonCodeLabel(data, event_giftcon_type);
+                }}
+            , {'title': '프로필'+ '<br/>' +'사진', 'data': 'image_profile', 'width': '65px', 'render': function(data, type, row) {
+                    return '<img class="thumbnail fullSize_background" src="' + common.profileImage(PHOTO_SERVER_URL, data, row.mem_sex) + '" width="65px" height="65px" />';
+                }}
+            , {'title': '회원번호', 'data': 'mem_no'}
+            , {'title': 'UserID', 'data': 'mem_userid', 'render': function(data, type, row) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + data + '</a>'
+                }}
+            , {'title': '닉네임', 'data': 'mem_nick'}
+            , {'title': '성별', 'data': 'mem_sex', 'render': function(data) {
+                    return common.sexIcon(data);
+                }}
+            , {'title': '휴대폰 번호', 'data': 'phone', 'render': function(data) {
+                    return common.phoneNumHyphen(data);
+                }}
+            , {'title': '당첨 일시', 'data': 'win_date', 'render': function(data) {
+                    return data;
+                }}
+            , {'title': '접수 일시', 'data': 'phone_date', 'render': function(data) {
+                    if(common.isEmpty(data)){
+                        return '-';
+                    }
+                    return data;
+                }}
+        ]
     }
 }

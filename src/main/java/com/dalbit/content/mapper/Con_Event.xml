@@ -391,6 +391,7 @@
     </select>
 
     <select id="selectAttendanceBonus" parameterType="com.dalbit.content.vo.AttendanceBonusVo" resultType="com.dalbit.content.vo.AttendanceBonusVo">
+        /* Con_Event.xml - selectAttendanceBonus */
         select
             (select count(*)
                 from rd_data.tb_member_attendance_check
@@ -426,5 +427,84 @@
             and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
             and check_ok = 1
             and the_day = 9
+    </select>
+
+    <sql id="giftconCondition">
+        <where>
+            <if test="gifticon_type != -1">
+                win.gifticon_type = #{gifticon_type}
+            </if>
+
+            <if test='search_startDate != null and search_startDate != ""'>
+                and #{search_startDate} <![CDATA[<=]]> date_format(win.win_date,'%Y%m%d')
+            </if>
+
+            <if test='search_endDate != null and search_endDate != ""'>
+                and date_format(win.win_date,'%Y%m%d') <![CDATA[<=]]> #{search_endDate}
+            </if>
+
+            <if test='txt_search != null and txt_search != ""'>
+                <choose>
+                    <when test='searchType == "1"'>
+                        and (
+                            basic.mem_no like concat ('%', #{txt_search}, '%')
+                            or withdraw.mem_no like concat ('%', #{txt_search}, '%')
+                        )
+                    </when>
+                    <when test='searchType == "2"'>
+                        and (
+                            basic.mem_userid like concat ('%', #{txt_search}, '%')
+                            or withdraw.mem_userid like concat ('%', #{txt_search}, '%')
+                        )
+                    </when>
+                    <when test='searchType == "3"'>
+                        and (
+                            basic.mem_nick like concat ('%', #{txt_search}, '%')
+                            or withdraw.mem_nick like concat ('%', #{txt_search}, '%')
+                        )
+                    </when>
+                    <otherwise>
+                        and (
+                            (basic.mem_no like concat ('%', #{txt_search}, '%') or withdraw.mem_no like concat ('%', #{txt_search}, '%'))
+                            or (basic.mem_userid like concat ('%', #{txt_search}, '%') or withdraw.mem_userid like concat ('%', #{txt_search}, '%'))
+                            or (basic.mem_nick like concat ('%', #{txt_search}, '%') or withdraw.mem_nick like concat ('%', #{txt_search}, '%'))
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectGiftconCnt" parameterType="com.dalbit.content.vo.AttendanceGiftconVo" resultType="int">
+        /* Con_Event.xml - selectGiftconCnt */
+        select count(*)
+        from rd_data.tb_gifticon_winning win
+            left join rd_data.tb_member_basic basic on win.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdraw on win.mem_no = withdraw.mem_no
+        <include refid="giftconCondition" />
+    </select>
+
+    <select id="selectGiftconList" parameterType="com.dalbit.content.vo.AttendanceGiftconVo" resultType="com.dalbit.content.vo.AttendanceGiftconVo">
+        /* Con_Event.xml - selectGiftconList */
+        select @RNUM := @RNUM + 1 as rowNum
+            , win.idx
+            , win.the_date
+            , win.mem_no
+            , win.gifticon_type
+            , win.phone
+            , date_format(win.win_date,'%Y.%m.%d %H:%i:%s') win_date
+            , date_format(win.phone_date,'%Y.%m.%d %H:%i:%s') phone_date
+            , profile.image_profile
+            , ifnull(basic.mem_sex, withdraw.mem_sex) mem_sex
+            , ifnull(basic.mem_nick, withdraw.mem_nick) mem_nick
+            , ifnull(basic.mem_userid, withdraw.mem_userid) mem_userid
+            , ifnull(basic.mem_state, withdraw.mem_state) mem_state
+        from rd_data.tb_gifticon_winning win
+            inner join rd_data.tb_member_profile profile on win.mem_no = profile.mem_no
+            left join rd_data.tb_member_basic basic on win.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdraw on win.mem_no = withdraw.mem_no
+            , (select @RNUM := 0) r
+        <include refid="giftconCondition" />
+        order by win.idx desc
     </select>
 </mapper>

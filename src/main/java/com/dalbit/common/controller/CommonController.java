@@ -50,7 +50,6 @@ public class CommonController {
 
     @GetMapping("sendEmail")
     public String sendEmail() throws UnsupportedEncodingException {
-        emailService.sendEmail();
         return gsonUtil.toJson(new JsonOutputVo(Status.조회));
     }
 

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Email;
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
@@ -18,15 +19,8 @@ public class EmailService {
     /**
      * 이메일 발송 - 타겟
      * */
-    public int sendEmail() throws UnsupportedEncodingException {
-
-        /*String title = new String("제목".getBytes("utf-8"), "euc-kr");
-        String rcvMail = new String("leejaeho114@gmail.com".getBytes("utf-8"), "euc-kr");
-        String msgCont = new String("내용".getBytes("utf-8"), "euc-kr");*/
-        String title = "제목";
-        String rcvMail = "leejaeho114@gmail.com";
-        String msgCont = "내용";
-
-        return emailDao.sendEmail(new EmailVo(title, rcvMail, msgCont));
+    public int sendEmail(EmailVo emailVo) throws UnsupportedEncodingException {
+        EmailVo sendEmailVo = new EmailVo(emailVo.getTitle(), emailVo.getRcvMail(), emailVo.getMsgCont());
+        return emailDao.sendEmail(sendEmailVo);
     }
 }

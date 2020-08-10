@@ -1,6 +1,8 @@
 package com.dalbit.sample.controller.rest;
 
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.EmailService;
+import com.dalbit.common.vo.EmailVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,6 +34,9 @@ public class SampleRestController {
 
     @Autowired
     ExcelService excelService;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -80,5 +86,11 @@ public class SampleRestController {
 
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+    }
+
+    @PostMapping("sendEmail")
+    public String sendEmail(EmailVo emailVo) throws UnsupportedEncodingException {
+        int result = emailService.sendEmail(emailVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회));
     }
 }

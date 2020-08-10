@@ -3,6 +3,7 @@ package com.dalbit.content.controller.rest;
 import com.dalbit.content.service.Con_EventService;
 import com.dalbit.content.vo.AttendanceBonusVo;
 import com.dalbit.content.vo.AttendanceCalendarVo;
+import com.dalbit.content.vo.AttendanceGiftconVo;
 import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
@@ -135,6 +136,12 @@ public class Con_EventRestController {
     @PostMapping("/attendance/bonus/status")
     public String selectAttendanceBonus(AttendanceBonusVo attendanceBonusVo) {
         String result = con_EventService.selectAttendanceBonus(attendanceBonusVo);
+        return result;
+    }
+
+    @PostMapping("/attendance/giftconList")
+    public String giftconList(AttendanceGiftconVo attendanceGiftconVo) {
+        String result = con_EventService.selectGiftconList(attendanceGiftconVo);
         return result;
     }
 

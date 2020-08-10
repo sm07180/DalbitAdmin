@@ -107,6 +107,9 @@ public class SampleController {
     @GetMapping("tree")
     public String tree(){return "sample/tree";}
 
+    @GetMapping("sendEmail")
+    public String sendEmail(){return "sample/sendEmail";}
+
 
     @GetMapping("player")
     public String player(HttpServletRequest request){
