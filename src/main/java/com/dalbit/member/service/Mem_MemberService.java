@@ -378,7 +378,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
 
         String cont = "이용정지가 해제되었습니다.";
-        String etcCont = "이용정지가 해제되었습니다.<br>서비스 이용에 주의 부탁드립니다.";
+        String etcCont = "이용정지가 해제되었습니다. 서비스 이용에 주의 부탁드립니다.";
         P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
         pPushInsertVo.setPush_slct("56");   //운영자 메시지(이용정지 해제)
 
