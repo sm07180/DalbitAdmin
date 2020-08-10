@@ -104,7 +104,7 @@
         'checked' : 'checked'
         , 'disabled' : 'disabled'
     });
-    $("#blockScope_1").attr('checked', 'checked');
+    // $("#blockScope_1").attr('checked', 'checked');
 
     $("#member_declaration_slctType").html(util.getCommonCodeRadio(2, member_declaration_slctType));
     $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
@@ -196,6 +196,7 @@
 
             obj.blockScopeText = deviceUuid +','+ ip;
 
+            console.log(obj);
             util.getAjaxData("report", "/rest/member/member/report", obj, update_success);
         }return false;
 
