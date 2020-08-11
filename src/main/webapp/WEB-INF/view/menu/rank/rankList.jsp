@@ -197,6 +197,8 @@
         dalbitLog(dst_id);
         dalbitLog(response);
 
+        response.data.rankType = $('input:radio[name="rankType"]:checked').val();
+
         var template = $('#tmp_'+dst_id).html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -366,13 +368,12 @@
         <th>프로필 이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
-        <th>보상 지급 여부</th>
         <th style="width: 110px">보상 배지</th>
+        <th>배지 시작일</th>
+        <th>배지 종료일</th>
         <th>보상 달</th>
         <th>보상 별</th>
         <th>보상 랜덤 경험치</th>
-        <th>배지 종료일</th>
-        <th>보상 지급일</th>
         <th>성별</th>
         <th>랭킹 점수</th>
         <th>받은 별</th>
@@ -406,45 +407,19 @@
                 {{/equal}}
             </td>
             <td>
-                {{#dalbit_if reward_yn "==" "0"}}NO{{/dalbit_if}}
-                {{#dalbit_if reward_yn "==" "1"}}YES{{/dalbit_if}}
-            </td>
-            <td>
-                {{#dalbit_if ranking_type "==" "1"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/3dfc444b-2810-4970-bfb6-dcfb84100593.svg" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/3afabd45-c556-460f-87b3-32927d9d6c40.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/c6ce7792-4c57-4100-bdd1-9d1576a19a9e.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 3</span>
-                    {{/dalbit_if}}
-                {{/dalbit_if}}
-
-                {{#dalbit_if ranking_type "==" "2"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/90407c54-b877-4c28-b03f-ab92996e2b3e.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/3bc0f3ce-6c67-452a-a702-7eeb32c02120.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/6609c3a7-675d-4939-ae61-cc848623e38d.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 3</span>
-                    {{/dalbit_if}}
+                {{#dalbit_if badgeImage '==' ''}}
+                {{else}}
+                    <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
+                    {{#dalbit_if ../rankType '==' '1'}} 일간 DJ TOP {{djRank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '2'}} 주간 DJ TOP {{djRank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '3'}} 월간 DJ TOP {{djRank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
+            <td>{{rewardStartDate}}</td>
+            <td>{{rewardEndDate}}</td>
             <td>{{addComma reward_dal}}</td>
             <td>{{addComma reward_byeol}}</td>
             <td>{{addComma reward_exp}}</td>
-            <td>{{rewardEndDate}}</td>
-            <td>{{rewardLastUpdDate}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
@@ -468,12 +443,12 @@
         <th>프로필 이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
-        <th>보상 지급 여부</th>
         <th style="width: 110px">보상 배지</th>
-        <th>보상 달</th>
-        <th>보상 랜덤 경험치</th>
+        <th>배지 시작일</th>
         <th>배지 종료일</th>
-        <th>보상 지급일</th>
+        <th>보상 달</th>
+        <th>보상 별</th>
+        <th>보상 랜덤 경험치</th>
         <th>성별</th>
         <th>랭킹 점수</th>
         <th>보낸 달</th>
@@ -498,44 +473,19 @@
             </td>
             <td>{{mem_nick}}</td>
             <td>
-                {{#dalbit_if reward_yn "==" "0"}}NO{{/dalbit_if}}
-                {{#dalbit_if reward_yn "==" "1"}}YES{{/dalbit_if}}
-            </td>
-            <td>
-                {{#dalbit_if ranking_type "==" "1"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/e714505f-09e4-4242-9d39-8a8120940101.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/0266fbc6-a45d-4c56-a1ca-2776c2df0900.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/0161b910-a2a9-4c40-a7d7-579a1181a47f.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 3</span>
-                    {{/dalbit_if}}
-                {{/dalbit_if}}
-
-                {{#dalbit_if ranking_type "==" "2"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/628a3261-5a28-41e1-b816-27f6208e38f3.png" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/4e42c584-4efe-451a-abae-c8ba73a54c18.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/2dbfb143-b7c2-4623-a3e2-4c687e50306a.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 3</span>
-                    {{/dalbit_if}}
+                {{#dalbit_if badgeImage '==' ''}}
+                {{else}}
+                <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
+                {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{fanRank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{fanRank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '3'}} 월간 FAN TOP {{fanRank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
-            <td>{{addComma reward_dal}}</td>
-            <td>{{addComma reward_exp}}</td>
+            <td>{{rewardStartDate}}</td>
             <td>{{rewardEndDate}}</td>
-            <td>{{rewardLastUpdDate}}</td>
+            <td>{{addComma reward_dal}}</td>
+            <td>{{addComma reward_byeol}}</td>
+            <td>{{addComma reward_exp}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
