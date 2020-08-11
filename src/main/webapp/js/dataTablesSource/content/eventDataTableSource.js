@@ -202,7 +202,7 @@ var EventDataTableSource = {
         ]
     },
 
-    'attendance': {
+    'giftconList': {
         'url': '/rest/content/event/attendance/giftconList'
         , 'columns': [
             {'title': '품목', 'data': 'gifticon_type', 'render': function(data) {
