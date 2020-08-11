@@ -253,7 +253,7 @@
                     var data = {
                         'idx': target.idx
                         ,'emoticon_orderNo': orderIdx
-                        ,'emoticon_desc': target.emoticon_desc
+                        ,'emoticon_desc': common.replaceHtml_json(target.emoticon_desc)
                         ,'viewOn': target.viewOn
                     }
 
