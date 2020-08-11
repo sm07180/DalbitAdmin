@@ -12,39 +12,91 @@
 
     <select id="getDjLiveCheck" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
         /* Men_Rank.xml - getDjLiveCheck */
-        select count(*) as liveCnt, max(ranking_date) as liveDate from rd_data.tb_ranking_dj_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+        <if test='rankType == "1"'>
+            select count(*) as liveCnt, max(upd_date) as liveDate from rd_data.tb_ranking_dj_live_data_day where date_format(upd_date,'%Y.%m.%d') <![CDATA[ = ]]> #{sDate}
+        </if>
+        <if test='rankType == "2"'>
+            select count(*) as liveCnt, max(upd_date) as liveDate from rd_data.tb_ranking_dj_live_data_week where date_format(upd_date,'%Y.%m.%d') >= #{sDate} and date_format(upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+        </if>
+        <if test='rankType == "3"'>
+            select count(*) as liveCnt, max(upd_date) as liveDate
+              from rd_data.tb_ranking_dj_live_data_month
+             where date_format(upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+        </if>
     </select>
 
     <select id="getFanLiveCheck" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="com.dalbit.menu.vo.FanRankingVo">
         /* Men_Rank.xml - getFanLiveCheck */
-        select count(*) as liveCnt, max(ranking_date) as liveDate from rd_data.tb_ranking_fan_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+        <if test='rankType == "1"'>
+            select count(*) as liveCnt, max(upd_date) as liveDate from rd_data.tb_ranking_fan_live_data_day where date_format(upd_date,'%Y.%m.%d') <![CDATA[ = ]]> #{sDate}
+        </if>
+        <if test='rankType == "2"'>
+            select count(*) as liveCnt, max(upd_date) as liveDate from rd_data.tb_ranking_fan_live_data_week where date_format(upd_date,'%Y.%m.%d') >= #{sDate} and date_format(upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+        </if>
+        <if test='rankType == "3"'>
+            select count(*) as liveCnt, max(upd_date) as liveDate
+            from rd_data.tb_ranking_fan_live_data_month
+            where date_format(upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+        </if>
+
+        <!--select count(*) as liveCnt, max(ranking_date) as liveDate from rd_data.tb_ranking_fan_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate}-->
     </select>
 
     <sql id="djCondition">
         from
           <if test='rankType == "1"'>
               <if test='liveCnt != 0'>
-                rd_data.tb_ranking_dj_live dj
+                rd_data.tb_ranking_dj_live_data_day dj
               </if>
               <if test='liveCnt == 0'>
-                  rd_data.tb_ranking_dj_day dj
+                rd_data.tb_ranking_dj_day dj
               </if>
           </if>
           <if test='rankType == "2"'>
-              rd_data.tb_ranking_dj_week dj
+              <if test='liveCnt != 0'>
+                rd_data.tb_ranking_dj_live_data_week dj
+              </if>
+              <if test='liveCnt == 0'>
+                rd_data.tb_ranking_dj_week dj
+              </if>
           </if>
           <if test='rankType == "3"'>
-              rd_data.tb_ranking_dj_month dj
+              <if test='liveCnt != 0'>
+                  rd_data.tb_ranking_dj_live_data_month dj
+              </if>
+              <if test='liveCnt == 0'>
+                  rd_data.tb_ranking_dj_month dj
+              </if>
           </if>
           inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
           inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
           left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
-          left join rd_data.tb_member_ranking_reward_dj rewardDj on  mem.mem_no = rewardDj.mem_no
-          <if test='liveCnt != 0'>
-            where dj.ranking_date = #{liveDate}
+          <if test='rankType == "3"'>
           </if>
-          <if test='liveCnt == 0'>
-            where date_format(dj.ranking_date,'%Y.%m.%d') = #{sDate}
+
+          <if test='rankType == "1"'>
+           <if test='liveCnt != 0'>
+               where date_format(dj.upd_date,'%Y.%m.%d') = #{sDate}
+           </if>
+            <if test='liveCnt == 0'>
+               where date_format(dj.ranking_date,'%Y.%m.%d') <![CDATA[ = ]]> #{sDate}
+            </if>
+          </if>
+          <if test='rankType == "2"'>
+            <if test='liveCnt != 0'>
+                where date_format(dj.upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(dj.upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+            </if>
+            <if test='liveCnt == 0'>
+               where date_format(dj.ranking_date,'%Y.%m.%d') = #{sDate}
+            </if>
+          </if>
+          <if test='rankType == "3"'>
+            <if test='liveCnt != 0'>
+               where date_format(dj.upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(dj.upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+            </if>
+            <if test='liveCnt == 0'>
+               where date_format(dj.ranking_date,'%Y.%m.%d') = #{sDate}
+            </if>
           </if>
 
           <if test='txt_search != null and txt_search != ""'>
@@ -75,27 +127,58 @@
       from rd_data.tb_member_basic mem
         left join rd_data.tb_member_profile prof on mem.mem_no = prof.mem_no
         left join rd_data.tb_member_level lev on mem.mem_no = lev.mem_no
+
         <if test='rankType == "1"'>
             <if test='liveCnt != 0'>
-                left join rd_data.tb_ranking_fan_live fan on mem.mem_no = fan.mem_no
+                left join rd_data.tb_ranking_fan_live_data_day fan
             </if>
-            <if test='liveCnt == "0"'>
-                left join rd_data.tb_ranking_fan_day fan on mem.mem_no = fan.mem_no
+            <if test='liveCnt == 0'>
+                left join rd_data.tb_ranking_fan_day fan
             </if>
         </if>
         <if test='rankType == "2"'>
-            left join rd_data.tb_ranking_fan_week fan on mem.mem_no = fan.mem_no
+            <if test='liveCnt != 0'>
+                left join rd_data.tb_ranking_fan_live_data_week fan
+            </if>
+            <if test='liveCnt == 0'>
+                left join rd_data.tb_ranking_fan_week fan
+            </if>
         </if>
         <if test='rankType == "3"'>
-            left join rd_data.tb_ranking_fan_month fan on mem.mem_no = fan.mem_no
+            <if test='liveCnt != 0'>
+                left join rd_data.tb_ranking_fan_live_data_month fan
+            </if>
+            <if test='liveCnt == 0'>
+                left join rd_data.tb_ranking_fan_month fan
+            </if>
         </if>
-        left join rd_data.tb_member_ranking_reward_fan rewardFan on  mem.mem_no = rewardFan.mem_no
-        <if test='liveCnt != 0'>
-           where fan.ranking_date = #{liveDate}
+        on mem.mem_no = fan.mem_no
+        <if test='rankType == "1"'>
+            <if test='liveCnt != 0'>
+                where date_format(fan.upd_date,'%Y.%m.%d') = #{sDate}
+            </if>
+            <if test='liveCnt == 0'>
+                where date_format(fan.ranking_date,'%Y.%m.%d') = #{sDate}
+            </if>
         </if>
-        <if test='liveCnt == 0'>
-            where date_format(fan.ranking_date,'%Y.%m.%d') = #{sDate}
+        <if test='rankType == "2"'>
+            <if test='liveCnt != 0'>
+                where date_format(fan.upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(fan.upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+            </if>
+            <if test='liveCnt == 0'>
+                where date_format(fan.ranking_date,'%Y.%m.%d') = #{sDate}
+            </if>
         </if>
+        <if test='rankType == "3"'>
+            <if test='liveCnt != 0'>
+                where date_format(fan.upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(fan.upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+            </if>
+            <if test='liveCnt == 0'>
+                where date_format(fan.ranking_date,'%Y.%m.%d') = #{sDate}
+            </if>
+        </if>
+
+
         <if test='txt_search != null and txt_search != ""'>
             and (mem.mem_no like concat('%', #{txt_search}, '%')
             or mem_id like concat('%', #{txt_search}, '%')
@@ -112,8 +195,16 @@
                   , @RNUM := @RNUM + 1 as rowNum
             from (
               select
-                dj.rank as djRank
-                , dj.up_down as upDown
+                <if test='liveCnt != 0'>
+                    1 as djRank
+                    , '' as upDown
+                    , dj.upd_date as ranking_date
+                </if>
+                <if test='liveCnt == 0'>
+                    dj.rank as djRank
+                    , dj.up_down as upDown
+                    , dj.ranking_date as ranking_date
+                </if>
                 , dj.mem_no as memNo
                 , prof.image_profile as image_profile
                 , mem.mem_id as mem_id
@@ -129,23 +220,76 @@
                 , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                 , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                 , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                , dj.ranking_date as ranking_date
                 , dj.broadcast_point as airTime
                 , CAST(dj.good_point AS INT) as goodCnt
                 , CAST(dj.dj_point AS INT) AS rankPoint
                 , dj.listener_point as listenCnt
                 , dj.gift_point as itemCnt
-                , rewardDj.rank as reward_rank
-                , rewardDj.reward_dal
-                , rewardDj.reward_byeol
-                , rewardDj.reward_exp
-                , rewardDj.reward_yn
-                , rewardDj.ranking_type
+
+                <if test='rankType == "1"'>
+                    ,(select badge_value From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                       union
+                      select badge_value From rd_data.tb_member_badge_history where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                    ) as reward_rank
+                    ,(select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                       union
+                      select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                    ) as rewardStartDate
+                    ,(select date_format(end_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                       union
+                      select date_format(end_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                    ) as rewardEndDate
+                    ,(select ranking_date from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_date
+                    ,(select reward_dal from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_dal
+                    ,(select reward_byeol from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_byeol
+                    ,(select reward_exp from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_exp
+                    ,(select reward_yn from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_yn
+                    ,'1' as ranking_type
+                    ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as rewardLastUpdDate
+                    ,(select image from rd_data.tbl_badge_info where slct_type=3 and  `value` in (select badge_value From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no)) as badgeImage
+                </if>
+                <if test='rankType == "2"'>
+                    ,(select badge_value From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                       union
+                      select badge_value From rd_data.tb_member_badge_history where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                    ) as reward_rank
+                    ,(select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                       union
+                      select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                    ) as rewardStartDate
+                    ,(select date_format(end_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                       union
+                      select date_format(end_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                    ) as rewardEndDate
+                    ,(select ranking_date from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_date
+                    ,(select reward_dal from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_dal
+                    ,(select reward_byeol from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_byeol
+                    ,(select reward_exp from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_exp
+                    ,(select reward_yn from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_yn
+                    ,(select ranking_type from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as ranking_type
+                    ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as rewardLastUpdDate
+                    ,(select image from rd_data.tbl_badge_info where slct_type=5 and  `value` in (select badge_value From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no)) as badgeImage
+                </if>
+                <if test='rankType == "3"'>
+                    ,'' as reward_rank
+                    ,'' as rewardStartDate
+                    ,'' as rewardEndDate
+                    ,'' as reward_date
+                    ,'' as reward_dal
+                    ,'' as reward_byeol
+                    ,'' as reward_exp
+                    ,'' as reward_yn
+                    ,'' as ranking_type
+                    ,'' as rewardLastUpdDate
+                    ,'' as badgeImage
+                </if>
               <include refid="djCondition"/>
             ) a , (select @RNUM := 0) r
-            order by djRank asc
+            order by rankPoint desc
         ) b
-        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+
+        limit #{pageStart}, #{pageCnt}
+        <!--where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}-->
     </select>
 
     <select id="getMainDjRankingListCnt" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="integer">
@@ -165,8 +309,16 @@
                 from (
                     select
                         <!--fan.fan_point as fanRank-->
-                        fan.rank as fanRank
-                        , fan.up_down as upDown
+                        <if test='liveCnt != 0'>
+                            1 as fanRank
+                            , '' as upDown
+                            , fan.upd_date as ranking_date
+                        </if>
+                        <if test='liveCnt == 0'>
+                            fan.rank as fanRank
+                            , fan.up_down as upDown
+                            , fan.ranking_date as ranking_date
+                        </if>
                         , prof.image_profile as image_profile
                         , mem.mem_id as mem_id
                         , mem.mem_no as mem_no
@@ -182,21 +334,74 @@
                         , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                         , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                         , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                        , fan.ranking_date as ranking_date
                         , fan.listen_point as airTime
                         , CAST(fan.fan_point AS INT) AS rankPoint
                         , fan.gift_point as itemCnt
-                        , rewardFan.rank as reward_rank
-                        , rewardFan.reward_dal
-                        , rewardFan.reward_byeol
-                        , rewardFan.reward_exp
-                        , rewardFan.reward_yn
-                        , rewardFan.ranking_type
+
+                        <if test='rankType == "1"'>
+                            ,(select badge_value From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                               union
+                              select badge_value From rd_data.tb_member_badge_history where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                            ) as reward_rank
+                            ,(select date_format(start_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                               union
+                              select date_format(start_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                            ) as rewardStartDate
+                            ,(select date_format(end_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                               union
+                              select date_format(end_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                            ) as rewardEndDate
+                            ,(select ranking_date from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_date
+                            ,(select reward_dal from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_dal
+                            ,(select reward_byeol from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_byeol
+                            ,(select reward_exp from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_exp
+                            ,(select reward_yn from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_yn
+                            ,(select ranking_type from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as ranking_type
+                            ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as rewardLastUpdDate
+                            ,(select image from rd_data.tbl_badge_info where slct_type=2 and  `value` in (select badge_value From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no)) as badgeImage
+                        </if>
+                        <if test='rankType == "2"'>
+                            ,(select badge_value From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                               union
+                              select badge_value From rd_data.tb_member_badge_history where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                            ) as reward_rank
+                            ,(select date_format(start_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                               union
+                              select date_format(start_date, '%Y.%m.%d %h:%i:%s' )  From rd_data.tb_member_badge_history where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                            ) as rewardStartDate
+                            ,(select date_format(end_date, '%Y.%m.%d %h:%i:%s' )  From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                               union
+                              select date_format(end_date, '%Y.%m.%d %h:%i:%s' )  From rd_data.tb_member_badge_history where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                            ) as rewardEndDate
+                            ,(select ranking_date from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_date
+                            ,(select reward_dal from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_dal
+                            ,(select reward_byeol from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_byeol
+                            ,(select reward_exp from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_exp
+                            ,(select reward_yn from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_yn
+                            ,(select ranking_type from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as ranking_type
+                            ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as rewardLastUpdDate
+                            ,(select image from rd_data.tbl_badge_info where slct_type=4 and  `value` in (select badge_value From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no)) as badgeImage
+                        </if>
+                        <if test='rankType == "3"'>
+                            ,'' as reward_rank
+                            ,'' as rewardStartDate
+                            ,'' as rewardEndDate
+                            ,'' as reward_date
+                            ,'' as reward_dal
+                            ,'' as reward_byeol
+                            ,'' as reward_exp
+                            ,'' as reward_yn
+                            ,'' as ranking_type
+                            ,'' as rewardLastUpdDate
+                            ,'' as badgeImage
+                        </if>
+
                     <include refid="fanCondition"/>
                     ) a , (select @RNUM := 0) r
-                    order by fanRank asc
+                    order by rankPoint desc
                 ) b
-        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+        limit #{pageStart}, #{pageCnt}
+        <!--where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}-->
     </select>
 
     <select id="getMainFanRankingListCnt" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="integer">

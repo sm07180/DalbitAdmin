@@ -73,6 +73,10 @@
                                 <%--<input name="startDate" id="startDate" style="width: 100px">--%>
                                 <%--<input name="endDate" id="endDate" style="width: 100px">--%>
 
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
+
                             </div>
                         </div>
 
@@ -178,6 +182,7 @@
             , txt_search : $("#txt_search").val()
             , sDate : $("#startDate").val()
             , eDate : $("#endDate").val()
+            , onedayDate : $("#onedayDate").val()
         }
         util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
     }
@@ -191,6 +196,8 @@
     function fn_succ_list(dst_id, response, params) {
         dalbitLog(dst_id);
         dalbitLog(response);
+
+        response.data.rankType = $('input:radio[name="rankType"]:checked').val();
 
         var template = $('#tmp_'+dst_id).html();
         var templateScript = Handlebars.compile(template);
@@ -245,11 +252,92 @@
      }
      function setMonday(){
          var monday = getMonday($("#onedayDate").val());       // 선택한 날의 월요일
-         var endDate = new Date(Date.parse(monday) - 1 * 1000 * 60 * 60 * 24);
-         var startDate = new Date(Date.parse(monday) - 7 * 1000 * 60 * 60 * 24);
+         var startDate = monday;
+         var endDate = new Date(Date.parse(monday) + 6 * 1000 * 60 * 60 * 24);
          $("#startDate").val(startDate.getFullYear() + "." + common.lpad(startDate.getMonth() + 1,2,"0") + "." + common.lpad(startDate.getDate(),2,"0"));
          $("#endDate").val(endDate.getFullYear() + "." + common.lpad(endDate.getMonth() + 1,2,"0") + "." + common.lpad(endDate.getDate(),2,"0"));
      }
+
+
+     $(document).on('click', '._prevSearch', function(){
+         searchDate('prev');
+     });
+
+     $(document).on('click', '._nextSearch', function(){
+         searchDate('next');
+     });
+
+     $(document).on('click', '._todaySearch', function(){
+         $("input:radio[name='rankType']:radio[value='0']").prop('checked', true);
+         rankTypeChange();
+
+         $("#bt_search").click();
+     });
+
+     function searchDate(dateType){
+         var rankType = $('input[name="rankType"]:checked').val();
+         //일간
+         if(rankType == 1){
+             if(common.isEmpty(dateType)){
+                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                 $("#onedayDate").val($("#startDate").val());
+             }else if(dateType == 'prev'){
+                 setDay(-1);
+             }else{
+                 setDay(1);
+             }
+         //주간
+         }else if(rankType == 2){
+             if(common.isEmpty(dateType)){
+                 var monday = getMonday(moment(new Date()).format('YYYY.MM.DD'));       // 선택한 날의 월요일
+                 var startDate = monday;
+                 var endDate = new Date(Date.parse(monday) + 6 * 1000 * 60 * 60 * 24);
+                 $("#startDate").val(startDate.getFullYear() + "." + common.lpad(startDate.getMonth() + 1,2,"0") + "." + common.lpad(startDate.getDate(),2,"0"));
+                 $("#endDate").val(endDate.getFullYear() + "." + common.lpad(endDate.getMonth() + 1,2,"0") + "." + common.lpad(endDate.getDate(),2,"0"));
+             }else if(dateType == 'prev'){
+                 setWeek(-7);
+             }else if(dateType == 'next'){
+                 setWeek(7);
+             }
+         //월간
+         }else if(rankType == 3){
+             if(common.isEmpty(dateType)){
+                 $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                 $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+                 $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
+             }else if(dateType == 'prev'){
+                 setMonth(-1);
+             }else if(dateType == 'next'){
+                 setMonth(1);
+             }
+         }
+         $("#bt_search").click();
+     }
+
+     function setDay(days){
+         $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+         $("#endDate").val($("#startDate").val());
+         $("#onedayDate").val($("#startDate").val());
+     }
+
+     function setWeek(week){
+         var monday = getMonday(moment($("#startDate").val()).add('days', week).format('YYYY.MM.DD'));       // 선택한 날의 월요일
+         var startDate = monday;
+         var endDate = new Date(Date.parse(monday) + 6 * 1000 * 60 * 60 * 24);
+         $("#startDate").val(startDate.getFullYear() + "." + common.lpad(startDate.getMonth() + 1,2,"0") + "." + common.lpad(startDate.getDate(),2,"0"));
+         $("#endDate").val(endDate.getFullYear() + "." + common.lpad(endDate.getMonth() + 1,2,"0") + "." + common.lpad(endDate.getDate(),2,"0"));
+         $("#onedayDate").val($("#startDate").val());
+     }
+
+     function setMonth(months){
+         $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
+         $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+         $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
+     }
+
+
+
 
     $('#rankTab li').on('click', function(){
         var rank = $(this).find('a').data('rank');
@@ -280,12 +368,14 @@
         <th>프로필 이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
-        <th>보상 지급 여부</th>
         <th style="width: 110px">보상 배지</th>
+        <th>배지 시작일</th>
+        <th>배지 종료일</th>
         <th>보상 달</th>
+        <th>보상 별</th>
         <th>보상 랜덤 경험치</th>
         <th>성별</th>
-        <th>랭킹점수</th>
+        <th>랭킹 점수</th>
         <th>받은 별</th>
         <th>누적 청취자</th>
         <th>받은 좋아요</th>
@@ -296,8 +386,9 @@
     {{#each this as |rank|}}
         <tr>
             <td>
-                {{djRank}} <br /><br />
-                {{upDown}}
+                {{rowNum}}
+                <%--{{djRank}} <br /><br />--%>
+                <%--{{upDown}}--%>
             </td>
             <td style="width: 50px">
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
@@ -316,41 +407,18 @@
                 {{/equal}}
             </td>
             <td>
-                {{#dalbit_if reward_yn "==" "0"}}NO{{/dalbit_if}}
-                {{#dalbit_if reward_yn "==" "1"}}YES{{/dalbit_if}}
-            </td>
-            <td>
-                {{#dalbit_if ranking_type "==" "1"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/3dfc444b-2810-4970-bfb6-dcfb84100593.svg" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/3afabd45-c556-460f-87b3-32927d9d6c40.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/c6ce7792-4c57-4100-bdd1-9d1576a19a9e.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 3</span>
-                    {{/dalbit_if}}
-                {{/dalbit_if}}
-
-                {{#dalbit_if ranking_type "==" "2"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/90407c54-b877-4c28-b03f-ab92996e2b3e.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/3bc0f3ce-6c67-452a-a702-7eeb32c02120.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/6609c3a7-675d-4939-ae61-cc848623e38d.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 3</span>
-                    {{/dalbit_if}}
+                {{#dalbit_if badgeImage '==' ''}}
+                {{else}}
+                    <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
+                    {{#dalbit_if ../rankType '==' '1'}} 일간 DJ TOP {{reward_rank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '2'}} 주간 DJ TOP {{reward_rank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '3'}} 월간 DJ TOP {{reward_rank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
+            <td>{{rewardStartDate}}</td>
+            <td>{{rewardEndDate}}</td>
             <td>{{addComma reward_dal}}</td>
+            <td>{{addComma reward_byeol}}</td>
             <td>{{addComma reward_exp}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
@@ -362,7 +430,7 @@
 
         {{else}}
             <tr>
-                <td colspan="14">{{isEmptyData}}</td>
+                <td colspan="15">{{isEmptyData}}</td>
             </tr>
         {{/each}}
     </tbody>
@@ -375,9 +443,11 @@
         <th>프로필 이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
-        <th>보상 지급 여부</th>
-        <th>보상 배지</th>
+        <th style="width: 110px">보상 배지</th>
+        <th>배지 시작일</th>
+        <th>배지 종료일</th>
         <th>보상 달</th>
+        <th>보상 별</th>
         <th>보상 랜덤 경험치</th>
         <th>성별</th>
         <th>랭킹 점수</th>
@@ -389,8 +459,9 @@
     {{#each this as |fan|}}
         <tr>
             <td>
-                {{fanRank}} <br /><br />
-                {{upDown}}
+                {{rowNum}}
+                <%--{{fanRank}} <br /><br />--%>
+                <%--{{upDown}}--%>
             </td>
             <td style="width: 50px">
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
@@ -402,41 +473,18 @@
             </td>
             <td>{{mem_nick}}</td>
             <td>
-                {{#dalbit_if reward_yn "==" "0"}}NO{{/dalbit_if}}
-                {{#dalbit_if reward_yn "==" "1"}}YES{{/dalbit_if}}
-            </td>
-            <td>
-                {{#dalbit_if ranking_type "==" "1"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/e714505f-09e4-4242-9d39-8a8120940101.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/0266fbc6-a45d-4c56-a1ca-2776c2df0900.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/0161b910-a2a9-4c40-a7d7-579a1181a47f.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">일간 TOP DJ 3</span>
-                    {{/dalbit_if}}
-                {{/dalbit_if}}
-
-                {{#dalbit_if ranking_type "==" "2"}}
-                    {{#dalbit_if reward_rank "==" "1"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/628a3261-5a28-41e1-b816-27f6208e38f3.png" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 1</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "2"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/4e42c584-4efe-451a-abae-c8ba73a54c18.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 2</span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if reward_rank "==" "3"}}
-                        <img class="" src="https://cdn.zeplin.io/5e7c30778d4f70908cd3d56c/assets/2dbfb143-b7c2-4623-a3e2-4c687e50306a.svg" style='width:50px; height:26px; margin-bottom: 0px;'/><br/>
-                        <span style="font-size: 12px;">주간 TOP DJ 3</span>
-                    {{/dalbit_if}}
+                {{#dalbit_if badgeImage '==' ''}}
+                {{else}}
+                <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
+                {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{reward_rank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{reward_rank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '3'}} 월간 FAN TOP {{reward_rank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
+            <td>{{rewardStartDate}}</td>
+            <td>{{rewardEndDate}}</td>
             <td>{{addComma reward_dal}}</td>
+            <td>{{addComma reward_byeol}}</td>
             <td>{{addComma reward_exp}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
@@ -446,7 +494,7 @@
 
     {{else}}
         <tr>
-            <td colspan="14">{{isEmptyData}}</td>
+            <td colspan="15">{{isEmptyData}}</td>
         </tr>
     {{/each}}
     </tbody>

@@ -65,13 +65,16 @@ public class Men_RankService {
      * DJ 랭킹
      */
     public String getMainDjRankingList(DjRankingVo djRankingVo) {
+
+        djRankingVo.setPageStart(djRankingVo.getPageStart() -1);
+        djRankingVo.setPageStart(djRankingVo.getPageStart() * djRankingVo.getPageCnt());
+
         djRankingVo.setRankType(DalbitUtil.isEmpty(djRankingVo.getRankType()) ? 1 : djRankingVo.getRankType());
 
-        if(djRankingVo.getRankType() == 1){
-            DjRankingVo outVo = menRankDao.getDjLiveCheck(djRankingVo);
-            djRankingVo.setLiveCnt(outVo.getLiveCnt());
-            djRankingVo.setLiveDate(outVo.getLiveDate());
-        }
+        DjRankingVo outVo = menRankDao.getDjLiveCheck(djRankingVo);
+        djRankingVo.setLiveCnt(outVo.getLiveCnt());
+        djRankingVo.setLiveDate(outVo.getLiveDate());
+
         int getMainDjRankingListCnt = menRankDao.getMainDjRankingListCnt(djRankingVo);
         djRankingVo.setTotalCnt(getMainDjRankingListCnt);
         List<DjRankingVo> djRankingList = menRankDao.getMainDjRankingList(djRankingVo);
@@ -112,13 +115,16 @@ public class Men_RankService {
      * 팬 랭킹
      */
     public String getMainFanRankingList(FanRankingVo fanRankingVo) {
+
+        fanRankingVo.setPageStart(fanRankingVo.getPageStart() -1);
+        fanRankingVo.setPageStart(fanRankingVo.getPageStart() * fanRankingVo.getPageCnt());
+
+
         fanRankingVo.setRankType(DalbitUtil.isEmpty(fanRankingVo.getRankType()) ? 1 : fanRankingVo.getRankType());
 
-        if(fanRankingVo.getRankType() == 1){
-            FanRankingVo outVo = menRankDao.getFanLiveCheck(fanRankingVo);
-            fanRankingVo.setLiveCnt(outVo.getLiveCnt());
-            fanRankingVo.setLiveDate(outVo.getLiveDate());
-        }
+        FanRankingVo outVo = menRankDao.getFanLiveCheck(fanRankingVo);
+        fanRankingVo.setLiveCnt(outVo.getLiveCnt());
+        fanRankingVo.setLiveDate(outVo.getLiveDate());
 
         int getMainFanRankingListCnt = menRankDao.getMainFanRankingListCnt(fanRankingVo);
         fanRankingVo.setTotalCnt(getMainFanRankingListCnt);

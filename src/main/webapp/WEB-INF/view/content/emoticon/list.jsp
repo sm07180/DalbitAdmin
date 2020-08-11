@@ -253,7 +253,7 @@
                     var data = {
                         'idx': target.idx
                         ,'emoticon_orderNo': orderIdx
-                        ,'emoticon_desc': target.emoticon_desc
+                        ,'emoticon_desc': common.replaceHtml_json(target.emoticon_desc)
                         ,'viewOn': target.viewOn
                     }
 
@@ -376,7 +376,7 @@
         <td class="_noTd" style="display:none;">{{emoticon_orderNo}}</td>
         <td>{{categoryNm}}</td>
         <td>
-            <input type="input" class="form-control _cdNm" style="width: 100%;" value="{{emoticon_desc}}" readonly=true>
+            <input type="input" class="form-control _cdNm" style="width: 100%;" value="{{replaceHtml_json emoticon_desc}}" readonly=true>
         </td>
         <td>{{regDate}}</td>
         <td>{{total_clickCnt}}</td>

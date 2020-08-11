@@ -119,6 +119,17 @@ common.replaceHtml = function(text){
         }
 }
 
+common.replaceHtml_json = function(text){
+    if(!common.isEmpty(text)){
+        text = text.replace(/\\n/g, '');
+        text = this.replace(text, /\\\\/g, "\\");
+        text = this.replace(text, "&lt;", "<");
+        text = this.replace(text, "&gt;", ">");
+        text = this.replace(text, "&amp;", "&");
+        return text;
+    }
+}
+
 common.replaceTag = function(text){
     if(!common.isEmpty(text)){
         text = text.replace(/\\n/g, '<br/>');
