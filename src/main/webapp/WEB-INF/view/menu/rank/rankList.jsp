@@ -410,9 +410,9 @@
                 {{#dalbit_if badgeImage '==' ''}}
                 {{else}}
                     <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                    {{#dalbit_if ../rankType '==' '1'}} 일간 DJ TOP {{djRank}} {{/dalbit_if}}
-                    {{#dalbit_if ../rankType '==' '2'}} 주간 DJ TOP {{djRank}} {{/dalbit_if}}
-                    {{#dalbit_if ../rankType '==' '3'}} 월간 DJ TOP {{djRank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '1'}} 일간 DJ TOP {{reward_rank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '2'}} 주간 DJ TOP {{reward_rank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '3'}} 월간 DJ TOP {{reward_rank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
             <td>{{rewardStartDate}}</td>
@@ -476,9 +476,9 @@
                 {{#dalbit_if badgeImage '==' ''}}
                 {{else}}
                 <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{fanRank}} {{/dalbit_if}}
-                {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{fanRank}} {{/dalbit_if}}
-                {{#dalbit_if ../rankType '==' '3'}} 월간 FAN TOP {{fanRank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{reward_rank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{reward_rank}} {{/dalbit_if}}
+                {{#dalbit_if ../rankType '==' '3'}} 월간 FAN TOP {{reward_rank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
             <td>{{rewardStartDate}}</td>
