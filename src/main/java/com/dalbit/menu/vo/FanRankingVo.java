@@ -48,6 +48,7 @@ public class FanRankingVo extends PagingVo {
     private String reward_yn;                // 보상여부
     private String ranking_type;             // 랭킹 타입(1: 일간 , 2: 주간)
     private String rewardLastUpdDate;        // 랭킹보상 지급일
+    private String badgeImage;               // 배찌 이미지
 
     private int broadCnt;
     private int listenCnt;
