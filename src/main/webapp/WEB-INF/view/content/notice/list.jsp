@@ -106,7 +106,7 @@
 
     $(document).on('click', '#bt_delete', function() {
 
-        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
+        var checked = $('#list_info > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
         if(checked.length == 0){
             alert('삭제할 공지사항을 선택해주세요.');
             return;
