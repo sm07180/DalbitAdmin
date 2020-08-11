@@ -368,13 +368,13 @@
         <th>프로필 이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
+        <th>성별</th>
         <th style="width: 110px">보상 배지</th>
         <th>배지 시작일</th>
         <th>배지 종료일</th>
         <th>보상 달</th>
         <th>보상 별</th>
-        <th>보상 랜덤 경험치</th>
-        <th>성별</th>
+        <th>보상 경험치</th>
         <th>랭킹 점수</th>
         <th>받은 별</th>
         <th>누적 청취자</th>
@@ -406,6 +406,7 @@
                     {{rank.mem_nick}}
                 {{/equal}}
             </td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>
                 {{#dalbit_if badgeImage '==' ''}}
                 {{else}}
@@ -420,7 +421,6 @@
             <td>{{addComma reward_dal}}</td>
             <td>{{addComma reward_byeol}}</td>
             <td>{{addComma reward_exp}}</td>
-            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
             <td>{{addComma listenCnt}}명</td>
@@ -443,13 +443,13 @@
         <th>프로필 이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
+        <th>성별</th>
         <th style="width: 110px">보상 배지</th>
         <th>배지 시작일</th>
         <th>배지 종료일</th>
         <th>보상 달</th>
         <th>보상 별</th>
-        <th>보상 랜덤 경험치</th>
-        <th>성별</th>
+        <th>보상 경험치</th>
         <th>랭킹 점수</th>
         <th>보낸 달</th>
         <th>청취 시간</th>
@@ -472,6 +472,7 @@
                 등급 : {{grade}}
             </td>
             <td>{{mem_nick}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>
                 {{#dalbit_if badgeImage '==' ''}}
                 {{else}}
@@ -486,7 +487,6 @@
             <td>{{addComma reward_dal}}</td>
             <td>{{addComma reward_byeol}}</td>
             <td>{{addComma reward_exp}}</td>
-            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
             <td>{{timeStamp airTime}}</td>
