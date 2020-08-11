@@ -156,7 +156,6 @@
         dtList_info.setPageLength(50);
         dtList_info.createDataTable();
 
-
         $("#blockDetail").empty();
 
     }
@@ -237,7 +236,7 @@
     }
 
     $('#bt_delete').on('click', function() {
-       var checked = $('#tb_blockAdmList .dt-body-center input[type="checkbox"]:checked');
+       var checked = $('#tb_blockAdmList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
        if(checked.length == 0) {
            alert("차단 해지할 사항을 선택해주세요.");
            return;

@@ -151,14 +151,16 @@ public class Adm_FaqService {
 
         String[] idxs = pFaqDeleteVo.getFaqIdxs().split(",");
         for(int i=0; i < idxs.length; i++) {
-            ProcedureVo procedureVo = new ProcedureVo(new P_FaqDeleteVo(idxs[i]));
+            if(!DalbitUtil.isEmpty(pFaqDeleteVo.getFaqIdxs())) {
+                ProcedureVo procedureVo = new ProcedureVo(new P_FaqDeleteVo(idxs[i]));
 
-            adm_FaqDao.callFaqDelete(procedureVo);
+                adm_FaqDao.callFaqDelete(procedureVo);
 
-            if (Status.FAQ삭제성공.getMessageCode().equals(procedureVo.getRet())) {
-                sucCnt++;
-            } else {
-                failCnt++;
+                if (Status.FAQ삭제성공.getMessageCode().equals(procedureVo.getRet())) {
+                    sucCnt++;
+                } else {
+                    failCnt++;
+                }
             }
         }
 

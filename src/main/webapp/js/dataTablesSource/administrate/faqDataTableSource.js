@@ -7,7 +7,7 @@ var FaqDataTableSource = {
                 }}
             , {
                 'title': 'FAQ 질문', 'data': 'question', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_getFaqDetail" onclick="getFaqDetail('+meta.row+');">' + data + '</a>'
+                    return '<a href="javascript://" class="_getFaqDetail" data-idx="' + row.faqIdx + '" onclick="getFaqDetail('+meta.row+');">' + data + '</a>'
                 }
             }
             , {'title': '등록일시', 'data': 'writeDateFormat'}
