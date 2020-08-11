@@ -144,7 +144,7 @@
             data.search_endDate =  $("#endDate").val().replace(/\./gi,'');
         };
 
-        dtList_info = new DalbitDataTable($('#attendanceList'), dtList_info_data, EventDataTableSource.attendance, $('#searchForm'));
+        dtList_info = new DalbitDataTable($('#attendanceList'), dtList_info_data, EventDataTableSource.giftconList, $('#searchForm'));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);

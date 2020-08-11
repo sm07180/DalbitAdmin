@@ -87,6 +87,10 @@ var push_slctPush2 = [
     , new COMMON_CODE('djpage', '36', '대상 프로필')              		// [mem_no]
     , new COMMON_CODE('question', '37', '1:1문의')
     , new COMMON_CODE('broadnoti', '38', '방송공지')
+    // , new COMMON_CODE('41', '41', '랭킹 > DJ > 일간')
+    // , new COMMON_CODE('42', '42', '랭킹 > DJ > 주간')
+    // , new COMMON_CODE('43', '43', '랭킹 > FAN > 일간')
+    // , new COMMON_CODE('44', '44', '랭킹 > FAN > 주간')
     , new COMMON_CODE('input', '50', '직접입력')
 ];
 
@@ -127,6 +131,7 @@ var push_push_slct = [
     , new COMMON_CODE('17', '17', '팬 보드 등록')
     , new COMMON_CODE('18', '18', '방송공지 등록')
     , new COMMON_CODE('19', '19', '생일 축하')
+    , new COMMON_CODE('20', '20', 'DJ/FAN 랭킹 알림')
     , new COMMON_CODE('51', '51', '미접속 대상 알림')
     , new COMMON_CODE('52', '52', '이벤트 알림')
     , new COMMON_CODE('53', '53', '긴급공지')
