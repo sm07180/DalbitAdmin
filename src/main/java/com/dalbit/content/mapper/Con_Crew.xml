@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_CrewDao" >
+
+    <insert id="insertCrewName" parameterType="com.dalbit.content.vo.CrewInsertVo">
+        insert into rd_admin.tb_crew_basic
+          (crew_name, op_name, reg_date)
+        values
+          (#{crewName}, #{opName}, now())
+    </insert>
+
+    <select id="selectCrewInfo" parameterType="com.dalbit.content.vo.CrewListVo" resultType="com.dalbit.content.vo.CrewListVo">
+        select *
+            from (
+                  select
+                    idx as crewIdx
+                    , crew_name as crewName
+                    , (select crew_name from rd_admin.tb_crew_member where leader_yn = 1) as crewLeader
+                    , (select count(*) from rd_admin.tb_crew_member where crew_idx = #{crewIdx}) as crewCnt
+                    , @RNUM := @RNUM + 1 as rowNum
+                  from rd_admin.tb_crew_basic
+                    , (select @RNUM := 0) r
+                )as a
+            where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectCrewInfoCnt" parameterType="com.dalbit.content.vo.CrewListVo" resultType="integer">
+        select count(*)
+          from rd_admin.tb_crew_basic
+    </select>
+
+    <insert id="insertCrewMember" parameterType="com.dalbit.content.vo.CrewMemberInsertVo">
+        insert into rd_admin.tb_crew_member
+        (crew_idx
+        , mem_no
+        , op_name
+        , reg_date)
+        values (
+        #{crewIdx}
+        , #{memNo}
+        , #{opName}
+        , now()
+        )
+    </insert>
+
+    <select id="selectMemberInfo" parameterType="string" resultType="string">
+      select mem_no
+        from rd_data.tb_member_basic
+        where mem_no = #{memInfo}
+         or mem_userid = #{memInfo}
+         or mem_nick = #{memInfo}
+    </select>
+
+    <select id="selectCrewMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="com.dalbit.content.vo.CrewMemberListVo">
+        select *
+        from (
+            select crew.mem_no as mem_no
+              , crew.leader_yn as leader_yn
+              , crew.crew_idx as crewIdx
+              , (select mem_userid from rd_data.tb_member_basic where crew.mem_no = mem_no) as userId
+              , (select mem_nick from rd_data.tb_member_basic where crew.mem_no = mem_no) as memNick
+              , (select mem_sex from rd_data.tb_member_basic where crew.mem_no = mem_no) as memSex
+              , (select mem_birth_year from rd_data.tb_member_basic where crew.mem_no = mem_no) as birthYear
+              , (select start_date from rd_data.tb_broadcast_room where crew.mem_no = mem_no order by end_date desc limit 1) as broadDate
+              , (select count(mem_no) from rd_data.tb_broadcast_room where start_date between date_add(now(), interval-1 week) and now() and mem_no = crew.mem_no) as broadCnt
+              , (select sum(airtime) from rd_data.tb_broadcast_room where start_date between date_add(now(), interval-1 week) and now() and mem_no = crew.mem_no) as broadTime
+              , (select rank from rd_data.tb_ranking_dj_day where ranking_date between date_add(now(), interval-1 day) and now() and mem_no = crew.mem_no) as ranking
+              , (select count(*) from rd_data.tb_payment_succ where pay_yn = 'y' and mem_no = crew.mem_no) as payCnt
+              , (select sum(pay_amt) from rd_data.tb_payment_succ where pay_yn = 'y' and mem_no = crew.mem_no) as payAmount
+              , (select level from rd_data.tb_member_level where mem_no = crew.mem_no) as level
+              , @RNUM := @RNUM + 1 as rowNum
+            from rd_admin.tb_crew_member crew
+              , (select @RNUM := 0) r
+        )as a
+        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectCrewMemberInfoCnt" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="integer">
+      select count(*)
+        from rd_admin.tb_crew_member
+    </select>
+
+</mapper>
