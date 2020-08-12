@@ -201,6 +201,7 @@ var forceExit_Message = [
     ,new COMMON_CODE('msg12', '12', '다수의 계정을 이용한 어뷰징 활동')
     ,new COMMON_CODE('msg13', '13', '서비스 내 현금 거래')
     ,new COMMON_CODE('msg14', '14', '고의적인 서비스 운영 방해')
+    ,new COMMON_CODE('msg15', '15', '연령제한으로 인한 한시적 제재조치')
     ,new COMMON_CODE('msg99', '99', '서비스 자체 기준 위반')
 ];
 

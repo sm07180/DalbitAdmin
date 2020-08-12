@@ -284,9 +284,9 @@
         if(getParameter().isSpecial == 0){
             var curDay = moment().day();
             var prevDay = 0;
-            if(curDay == 0){
+            if(curDay == 0 || curDay == 4){
                 prevDay = -3
-            }else if(curDay == 3 || curDay == 6){
+            }else if(curDay == 6){
                 prevDay = -2
             }else if(curDay == 2 || curDay ==5){
                 prevDay = -1
