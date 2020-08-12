@@ -20,6 +20,7 @@ var declaration_slctType = [
     , new COMMON_CODE('stop7', '5', '7일정지')
     , new COMMON_CODE('withdrawal', '6', '영구정지')
     , new COMMON_CODE('forcedOut', '7', '강제탈퇴')
+    , new COMMON_CODE('pause', '8', '임시정지')
 ];
 
 var declaration_opCode = [
@@ -32,6 +33,8 @@ var declaration_opCode = [
     , new COMMON_CODE('stop3', '4', '3일정지')
     , new COMMON_CODE('stop7', '5', '7일정지')
     , new COMMON_CODE('withdrawal', '6', '영구정지')
+    //, new COMMON_CODE('forcedOut', '7', '강제탈퇴')
+    , new COMMON_CODE('pause', '8', '임시정지')     //mem_state는 영구정지와 같게하고 block_type을 1로 한다.
 ];
 
 var declaration_reason = [
@@ -75,6 +78,7 @@ var declaration_Message = [
     ,new COMMON_CODE('msg12', '12', '다수의 계정을 이용한 어뷰징 활동')
     ,new COMMON_CODE('msg13', '13', '서비스 내 현금 거래')
     ,new COMMON_CODE('msg14', '14', '고의적인 서비스 운영 방해')
+    ,new COMMON_CODE('msg15', '15', '연령제한으로 인한 한시적 제재조치')
     ,new COMMON_CODE('msg99', '99', '서비스 자체 기준 위반')
 ];
 

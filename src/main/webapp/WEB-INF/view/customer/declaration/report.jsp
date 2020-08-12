@@ -107,7 +107,6 @@
 
     function fn_declaration_success(dst_id, response) {
 
-        dalbitLog(response);
         alert(response.message);
 
         dtList_info.reload();
@@ -137,7 +136,11 @@
         if(radioValue == 6 || radioValue == 7){
             msgValue = declarationMessage.out;
             msgTitle = declarationMessage.outTitle;
-        } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+        } else if(radioValue == 8) {
+            msgValue = declarationMessage.pause;
+            msgTitle = declarationMessage.pauseTitle;
+
+        }else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
             if(radioValue == 3){blockDay = 1;}
             if(radioValue == 4){blockDay = 3;}
             if(radioValue == 5){blockDay = 7;}
