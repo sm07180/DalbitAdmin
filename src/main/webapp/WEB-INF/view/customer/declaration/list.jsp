@@ -113,7 +113,7 @@
             data.strPlatform = tmp_slctPlatform;
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList);
-        dtList_info.useCheckBox(true);
+        dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
 
