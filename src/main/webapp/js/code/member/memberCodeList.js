@@ -15,6 +15,7 @@ var mem_state = [
     , new COMMON_CODE('2', '3', '정지')
     , new COMMON_CODE('5', '5', '영구정지')
     , new COMMON_CODE('4', '4', '탈퇴')
+    , new COMMON_CODE('6', '6', '임시정지')
 ];
 
 var broadCast_summary = [
@@ -75,6 +76,7 @@ var member_declaration_slctType = [
     , new COMMON_CODE('stop7', '5', '7일정지')
     , new COMMON_CODE('withdrawal', '6', '영구정지')
     , new COMMON_CODE('stop15', '7', '강제탈퇴')
+    , new COMMON_CODE('pause', '8', '임시정지')
 ];
 
 var declaration_summary = [
