@@ -63,9 +63,9 @@
 
     <select id="callMemberBlock" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberBlock */
-        select block_day,block_end_date From rd_data.tb_member_basic where mem_no=#{mem_no}
+        select block_day,block_end_date, block_type From rd_data.tb_member_basic where mem_no=#{mem_no}
          union
-        select block_day,block_end_date From rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no}
+        select block_day,block_end_date, block_type From rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no}
     </select>
 
     <select id="callNickNameCheck" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
@@ -221,14 +221,22 @@
           </if>
           <if test="slctType gt 2 and slctType lt 6">    <!--  >   <  -->
               set mem_state = 3,
+                  block_type = 0,
                   block_day = #{blockDay},
                   block_end_date = DATE_ADD( now(), interval #{blockDay} day)
           </if>
           <if test="slctType == 6">
               set mem_state = 5
+                , block_type = 0
           </if>
           <if test="slctType == 7">
               set mem_state = 4
+                , block_type = 0
+          </if>
+          <if test="slctType == 8">
+              set mem_state = 5
+                , block_type = 1
+
           </if>
         where mem_no = #{reported_mem_no}
     </update>

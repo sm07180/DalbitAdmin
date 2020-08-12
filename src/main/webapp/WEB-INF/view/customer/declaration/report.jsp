@@ -43,6 +43,12 @@
     $("#chatLeft").addClass("col-md-12");
     $("#chatRight").addClass("hide");
 
+    //상세 버튼 처리
+    $(document).on('click', '._detailBtn', function(){
+        $(this).parent().parent().find('._getDeclarationDetail').click();
+    })
+
+
     var detailData;
     function fn_detail_success(dst_id, response, params) {
         dalbitLog(response);
@@ -77,8 +83,8 @@
             data[formArray[i]['name']] = formArray[i]['value'];
         }
 
-        data["notiContents"] = $("#notiContents").summernote('code');   // 알림 내용
         data["notiMemo"] = $("#notiMemo").val();  // 알림 제목
+        data["notiContents"] = $("#notiContents").summernote('code');   // 알림 내용
         data["sendNoti"] = $("input:radio[name='declaration_sendNoti']:checked").val();
 
         dalbitLog(data);
@@ -107,7 +113,6 @@
 
     function fn_declaration_success(dst_id, response) {
 
-        dalbitLog(response);
         alert(response.message);
 
         dtList_info.reload();
@@ -137,7 +142,11 @@
         if(radioValue == 6 || radioValue == 7){
             msgValue = declarationMessage.out;
             msgTitle = declarationMessage.outTitle;
-        } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+        } else if(radioValue == 8) {
+            msgValue = declarationMessage.pause;
+            msgTitle = declarationMessage.pauseTitle;
+
+        }else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
             if(radioValue == 3){blockDay = 1;}
             if(radioValue == 4){blockDay = 3;}
             if(radioValue == 5){blockDay = 7;}
@@ -183,8 +192,8 @@
             .replace(/{{timestamp}}/gi, timestamp)
             .replace(/{{blockDay}}/gi, blockDay)
 
-        $("#notiContents").summernote('code', msgValue);
         $("#notiMemo").val(msgTitle);
+        $("#notiContents").summernote('code', msgValue);
 
     }
 
@@ -414,12 +423,12 @@
 
             <%-- 에디터 --%>
             <div class="widget" id="declaration_editor">
-                <input type="hidden" id ="notiContents" name="notiContents">
+                <input type="hidden" id ="notiMemo" name="notiMemo">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
                 </div>
                 <div class="widget-content no-padding">
-                    <div class="_editor" id="notiMemo" name="notiMemo">{{replaceHtml declaration_Message}}</div>
+                    <div class="_editor" id="notiContents" name="notiContents">{{replaceHtml declaration_Message}}</div>
                 </div>
             </div>
         </div>

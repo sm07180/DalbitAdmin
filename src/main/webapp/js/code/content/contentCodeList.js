@@ -110,6 +110,11 @@ var push_slctPush3 = [
     , new COMMON_CODE('djpage', '36', '레벨업')
     , new COMMON_CODE('question', '37', '1:1문의')
     , new COMMON_CODE('broadnoti', '38', '방송공지')
+    , new COMMON_CODE('41', '41', 'DJ랭킹(일간)')
+    , new COMMON_CODE('42', '42', 'DJ랭킹(주간)')
+    , new COMMON_CODE('43', '43', 'FAN랭킹(일간)')
+    , new COMMON_CODE('44', '44', 'FAN랭킹(주간)')
+    , new COMMON_CODE('input', '50', '직접입력')
 ];
 
 var push_isDirect = [
