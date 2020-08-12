@@ -77,8 +77,8 @@
             data[formArray[i]['name']] = formArray[i]['value'];
         }
 
-        data["notiContents"] = $("#notiContents").summernote('code');   // 알림 내용
         data["notiMemo"] = $("#notiMemo").val();  // 알림 제목
+        data["notiContents"] = $("#notiContents").summernote('code');   // 알림 내용
         data["sendNoti"] = $("input:radio[name='declaration_sendNoti']:checked").val();
 
         dalbitLog(data);
@@ -183,8 +183,8 @@
             .replace(/{{timestamp}}/gi, timestamp)
             .replace(/{{blockDay}}/gi, blockDay)
 
-        $("#notiContents").summernote('code', msgValue);
         $("#notiMemo").val(msgTitle);
+        $("#notiContents").summernote('code', msgValue);
 
     }
 
@@ -414,12 +414,12 @@
 
             <%-- 에디터 --%>
             <div class="widget" id="declaration_editor">
-                <input type="hidden" id ="notiContents" name="notiContents">
+                <input type="hidden" id ="notiMemo" name="notiMemo">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
                 </div>
                 <div class="widget-content no-padding">
-                    <div class="_editor" id="notiMemo" name="notiMemo">{{replaceHtml declaration_Message}}</div>
+                    <div class="_editor" id="notiContents" name="notiContents">{{replaceHtml declaration_Message}}</div>
                 </div>
             </div>
         </div>
