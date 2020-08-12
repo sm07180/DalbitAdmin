@@ -104,7 +104,7 @@
         'checked' : 'checked'
         , 'disabled' : 'disabled'
     });
-    // $("#blockScope_1").attr('checked', 'checked');
+    $("#blockScope_1").attr('checked', 'checked');
 
     $("#member_declaration_slctType").html(util.getCommonCodeRadio(2, member_declaration_slctType));
     $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
@@ -160,6 +160,10 @@
         if(radioValue == 6 || radioValue == 7){
             msgValue = declarationMessage.out;
             msgTitle = declarationMessage.outTitle;
+        } else if(radioValue == 8) {
+            msgValue = declarationMessage.pause;
+            msgTitle = declarationMessage.pauseTitle;
+
         } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
             if(radioValue == 3){blockDay = 1;}
             if(radioValue == 4){blockDay = 3;}
@@ -196,7 +200,6 @@
 
             obj.blockScopeText = deviceUuid +','+ ip;
 
-            console.log(obj);
             util.getAjaxData("report", "/rest/member/member/report", obj, update_success);
         }return false;
 

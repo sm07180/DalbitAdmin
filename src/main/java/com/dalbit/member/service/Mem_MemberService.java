@@ -150,9 +150,14 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberInfo(procedureVo);
         P_MemberInfoOutputVo memberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoOutputVo.class);
 
+        if(memberInfo.getMemState().equals("5") && memberInfo.getBlock_type() == 1){
+            memberInfo.setMemState("6");
+        }
+
         P_MemberInfoOutputVo block = mem_MemberDao.callMemberBlock(pMemberInfoInputVo);
         if(!DalbitUtil.isEmpty(block)) {
             if (!DalbitUtil.isEmpty(block.getBlock_day()) && !DalbitUtil.isEmpty(block.getBlock_end_date())) {
+                memberInfo.setBlock_type(block.getBlock_type());
                 memberInfo.setBlock_day(block.getBlock_day());
                 memberInfo.setBlock_end_date(block.getBlock_end_date());
             }
@@ -215,7 +220,6 @@ public class Mem_MemberService {
             memberInfo.setIp(loginHostory.get(0).getIp());
             memberInfo.setDeviceUuid(loginHostory.get(0).getDevice_uuid());
         }
-
 
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
@@ -378,7 +382,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
 
         String cont = "이용정지가 해제되었습니다.";
-        String etcCont = "이용정지가 해제되었습니다.<br>서비스 이용에 주의 부탁드립니다.";
+        String etcCont = "이용정지가 해제되었습니다. 서비스 이용에 주의 부탁드립니다.";
         P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
         pPushInsertVo.setPush_slct("56");   //운영자 메시지(이용정지 해제)
 

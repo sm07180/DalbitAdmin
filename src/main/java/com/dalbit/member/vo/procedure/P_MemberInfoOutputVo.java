@@ -64,6 +64,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String auth_yn;
     private String parents_agree_yn;
     private String recant_yn;
+    private int block_type;
     private String block_day;
     private Date block_end_date;
     private String blockEndDateFormat;
