@@ -43,6 +43,12 @@
     $("#chatLeft").addClass("col-md-12");
     $("#chatRight").addClass("hide");
 
+    //상세 버튼 처리
+    $(document).on('click', '._detailBtn', function(){
+        $(this).parent().parent().find('._getDeclarationDetail').click();
+    })
+
+
     var detailData;
     function fn_detail_success(dst_id, response, params) {
         dalbitLog(response);

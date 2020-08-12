@@ -48,6 +48,9 @@ var customerDataTableSource = {
                 return util.roomNoLink(data, data);
             }}
             ,{'title': '처리자', 'data': 'opName', 'defaultContent':'-'}
+            ,{'title': '상세', 'data': '', 'render' : function(data) {
+                    return '<button type="button" class="btn btn-default btn-sm _detailBtn">상세</button>'
+                }}
         ]
         , 'comments' : ' • 최신 신고자를 기준으로 상위 구성하고, 확인하고자 하는 회원 정보 내 선택을 클릭하면 상세정보 및 회원 신고조치를 처리할 수 있습니다.'
     },
