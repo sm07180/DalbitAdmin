@@ -8,6 +8,7 @@ import lombok.Setter;
 public class P_MemberParentsAgreeOutputVo {
 
     private String mem_no;
+    private String parents_agree_yn;
     private String parents_name;
     private String parents_sex;
     private String parents_birth_year;

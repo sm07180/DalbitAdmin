@@ -529,6 +529,7 @@
         SELECT
             mem_no
             , parents_name
+            , parents_agree_yn
             , if(parents_sex=0, 'm', 'f') as parents_sex
             , substr(parents_birth_year, 3) as parents_birth_year
             , LPAD(parents_birth_month, 2, '0') as parents_birth_month
