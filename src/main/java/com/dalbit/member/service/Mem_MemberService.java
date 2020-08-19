@@ -736,8 +736,9 @@ public class Mem_MemberService {
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
 //        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
 //        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
-        pMemberReportVo.setNotiContents("운영자에게 선물이 도착했습니다.");
-        pMemberReportVo.setNotimemo("운영자에게 선물이 도착했습니다.");
+        pMemberReportVo.setType_noti(32);
+        pMemberReportVo.setNotiContents("운영자가 선물을 보냈습니다.");
+        pMemberReportVo.setNotimemo("운영자가 선물을 보냈습니다.");
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
 
@@ -748,7 +749,7 @@ public class Mem_MemberService {
                 pPushInsertVo.setSlct_push("32");
                 pPushInsertVo.setPush_slct("61");   //운영자 선물 알림
                 pPushInsertVo.setSend_title("운영자의 선물 도착!!");
-                pPushInsertVo.setSend_cont("운영자에게 선물이 도착했습니다.");
+                pPushInsertVo.setSend_cont("운영자가 선물을 보냈습니다.");
                 pPushInsertVo.setImage_type("102");
 
                 pushService.sendPushReqOK(pPushInsertVo);
@@ -790,8 +791,9 @@ public class Mem_MemberService {
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
 //        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
 //        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
-        pMemberReportVo.setNotiContents("운영자에게 선물이 도착했습니다.");
-        pMemberReportVo.setNotimemo("운영자에게 선물이 도착했습니다.");
+        pMemberReportVo.setType_noti(32);
+        pMemberReportVo.setNotiContents("운영자가 선물을 보냈습니다.");
+        pMemberReportVo.setNotimemo("운영자가 선물을 보냈습니다.");
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
         if(pMemberEditorVo.getAddByeolCnt() > 0){
@@ -801,7 +803,7 @@ public class Mem_MemberService {
                 pPushInsertVo.setSlct_push("32");
                 pPushInsertVo.setPush_slct("61");       //운영자 선물 알림
                 pPushInsertVo.setSend_title("운영자의 선물 도착!!");
-                pPushInsertVo.setSend_cont("운영자에게 선물이 도착했습니다.");
+                pPushInsertVo.setSend_cont("운영자가 선물을 보냈습니다.");
                 pPushInsertVo.setImage_type("102");
 
                 pushService.sendPushReqOK(pPushInsertVo);
