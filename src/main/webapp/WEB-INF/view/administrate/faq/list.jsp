@@ -241,7 +241,7 @@
     }
 
     $(document).on('click', '#bt_delete', function() {
-        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
+        var checked = $('#list_info > tbody > tr > td.dt-body-center input[type=checkbox]:checked');
         if(checked.length == 0){
             alert('삭제할 FAQ를 선택해주세요.');
             return;
@@ -250,12 +250,11 @@
         if(confirm(checked.length + "개의 FAQ를 삭제하시겠습니까?")){
             var faqIdxs = '';
             checked.each(function(){
-                faqIdxs += faqIdx + ",";
+                faqIdxs += $(this).parent().parent().find('._getFaqDetail').data('idx') + ",";
             });
             var data = {
                 faqIdxs : faqIdxs
             };
-            dalbitLog(data);
 
             util.getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
         }

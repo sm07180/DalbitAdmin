@@ -113,7 +113,7 @@
 
         if(_searchFormRadio == 1) {     // 일주일 전
             sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
-            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate(),2,"0");      // 일주일전 (getDate에서, 7/32 경우가 있어, +1지웠습니다)
             $("#startDate").val(sDate);
         }else if(_searchFormRadio == 0) {       // 한달전
 

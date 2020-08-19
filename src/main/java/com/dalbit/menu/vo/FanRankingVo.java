@@ -50,6 +50,9 @@ public class FanRankingVo extends PagingVo {
     private String rewardLastUpdDate;        // 랭킹보상 지급일
     private String badgeImage;               // 배찌 이미지
 
+    private String boostCnt;
+    private String boostDal;
+
     private int broadCnt;
     private int listenCnt;
     private int goodCnt;

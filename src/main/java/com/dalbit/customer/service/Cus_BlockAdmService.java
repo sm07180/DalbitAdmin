@@ -82,29 +82,32 @@ public class Cus_BlockAdmService {
 
         String[] idxs = blockAdmVo.getBlockIdxs().split(",");
         for(int i=0; i<idxs.length; i++) {
-            // rd_admin.tb_login_block_history에 insert하기 위함
-            BlockAdmVo history = blockInfo(idxs[i]);
-            String temp_blockType;
-            if(history.getBlock_type() == 1) {
-                temp_blockType = "deviceUuid";
-            } else {
-                temp_blockType = "ip";
-            }
-            blockAdmVo.setEdit_contents(temp_blockType + " 차단 해지 : " + history.getBlock_text());
-            blockAdmVo.setEdit_type(1);
-            if(!DalbitUtil.isEmpty(history.getReport_idx())) {
-                blockAdmVo.setReport_idx(history.getReport_idx());
-            }
-            cusBlockAdmDao.insertDelBlockHistory(blockAdmVo);
 
-            // rd_admin.tb_login_block에서 delete하기 위함
-            blockAdmVo.setIdx(idxs[i]);
+            if(!DalbitUtil.isEmpty(idxs[i])){
+                // rd_admin.tb_login_block_history에 insert하기 위함
+                BlockAdmVo history = blockInfo(idxs[i]);
+                String temp_blockType;
+                if(history.getBlock_type() == 1) {
+                    temp_blockType = "deviceUuid";
+                } else {
+                    temp_blockType = "ip";
+                }
+                blockAdmVo.setEdit_contents(temp_blockType + " 차단 해지 : " + history.getBlock_text());
+                blockAdmVo.setEdit_type(1);
+                if(!DalbitUtil.isEmpty(history.getReport_idx())) {
+                    blockAdmVo.setReport_idx(history.getReport_idx());
+                }
+                cusBlockAdmDao.insertDelBlockHistory(blockAdmVo);
 
-            int status = cusBlockAdmDao.deleteBlock(blockAdmVo);
-            if(status > 0) {
-                sucCnt++;
-            } else {
-                failCnt++;
+                // rd_admin.tb_login_block에서 delete하기 위함
+                blockAdmVo.setIdx(idxs[i]);
+
+                int status = cusBlockAdmDao.deleteBlock(blockAdmVo);
+                if(status > 0) {
+                    sucCnt++;
+                } else {
+                    failCnt++;
+                }
             }
         }
         HashMap resultMap = new HashMap();

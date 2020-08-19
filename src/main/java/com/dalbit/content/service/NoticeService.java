@@ -170,15 +170,17 @@ public class NoticeService {
         String result="";
 
         String[] idxs = pNoticeDeleteVo.getNoticeIdxs().split(",");
-        for(int i=0; i < idxs.length; i++) {
-            ProcedureVo procedureVo = new ProcedureVo(new P_noticeDeleteVo(idxs[i]));
+        for (int i = 0; i < idxs.length; i++) {
+            if(!DalbitUtil.isEmpty(pNoticeDeleteVo.getNoticeIdxs())) {
+                ProcedureVo procedureVo = new ProcedureVo(new P_noticeDeleteVo(idxs[i]));
 
-            noticeDao.callServiceCenterNoticeDelete(procedureVo);
+                noticeDao.callServiceCenterNoticeDelete(procedureVo);
 
-            if (Status.공지삭제_성공.getMessageCode().equals(procedureVo.getRet())) {
-                sucCnt++;
-            } else {
-                failCnt++;
+                if (Status.공지삭제_성공.getMessageCode().equals(procedureVo.getRet())) {
+                    sucCnt++;
+                } else {
+                    failCnt++;
+                }
             }
         }
 
