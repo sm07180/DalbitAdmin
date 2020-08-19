@@ -19,9 +19,9 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <label id="lb_title" style="display: none"><b>· 선택 날짜의 전주 랭킹을 확인할 수 있습니다.</b></label>
-                </div>
+                <%--<div>--%>
+                    <%--<label id="lb_title" style="display: none"><b>· 선택 날짜의 전주 랭킹을 확인할 수 있습니다.</b></label>--%>
+                <%--</div>--%>
             </div>
             </form>
             <!-- //serachBox -->
@@ -272,11 +272,11 @@
                 setMonday();
             }
         }
-        if($('input:radio[name="rankType"]:checked').val() == 2){
-            $("#lb_title").show();
-        }else{
-            $("#lb_title").hide();
-        }
+        // if($('input:radio[name="rankType"]:checked').val() == 2){
+        //     $("#lb_title").show();
+        // }else{
+        //     $("#lb_title").hide();
+        // }
         djRankListPagingInfo.pageNo = 1;
         init();
     }
