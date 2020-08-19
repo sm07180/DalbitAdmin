@@ -78,11 +78,11 @@
                                     <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
                                 </div>
 
-                                <input class="hide" name="startDate" id="startDate" style="width: 100px">
-                                <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                <%--<input class="hide" name="startDate" id="startDate" style="width: 100px">--%>
+                                <%--<input class="hide" name="endDate" id="endDate" style="width: 100px">--%>
 
-                                <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                <input name="startDate" id="startDate" style="width: 100px">
+                                <input name="endDate" id="endDate" style="width: 100px">
 
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
@@ -517,7 +517,7 @@
         <th>보낸 달<br/>(부스터 제외)</th>
         <th>보낸 좋아요</th>
         <th>부스터</th>
-        <th>부스터 달</th>
+        <th>부스터달</th>
         <th>청취 시간</th>
     </tr>
     </thead>
