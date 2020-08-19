@@ -436,7 +436,7 @@
                 <tr>
                     <th colspan="2">문의내용</th>
                     <td colspan="5">
-                        <textarea class="form-control" id="question_contents" oninput="util.textareaResize(this, 200)" style="height: 100%">{{{replaceHtml question_contents}}}</textarea>
+                        <textarea class="form-control" id="question_contents" oninput="util.textareaResize(this, 200)" style="height: 100%;width: 100%">{{{replaceHtml question_contents}}}</textarea>
                     </td>
 
                     <th>첨부파일 <br /> {{fileCnt}} 건</th>
