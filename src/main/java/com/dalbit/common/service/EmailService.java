@@ -1,6 +1,7 @@
 package com.dalbit.common.service;
 
 import com.dalbit.common.dao.EmailDao;
+import com.dalbit.common.vo.EmailInputVo;
 import com.dalbit.common.vo.EmailVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ public class EmailService {
     /**
      * 이메일 발송 - 타겟
      * */
-    public int sendEmail() throws UnsupportedEncodingException {
+    public int sendEmail(EmailInputVo emailInputVo) throws UnsupportedEncodingException {
 
         /*String title = new String("제목".getBytes("utf-8"), "euc-kr");
         String rcvMail = new String("leejaeho114@gmail.com".getBytes("utf-8"), "euc-kr");
         String msgCont = new String("내용".getBytes("utf-8"), "euc-kr");*/
-        String title = "제목";
-        String rcvMail = "leejaeho114@gmail.com";
-        String msgCont = "내용";
+        String title = emailInputVo.getTitle();
+        String rcvMail = emailInputVo.getRcvMail();
+        String msgCont = emailInputVo.getMsgCont();
 
         return emailDao.sendEmail(new EmailVo(title, rcvMail, msgCont));
     }

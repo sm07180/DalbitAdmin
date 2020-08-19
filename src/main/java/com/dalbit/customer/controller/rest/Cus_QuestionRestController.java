@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class Cus_QuestionRestController {
      *  1:1 문의하기 처리하기
      */
     @PostMapping("operate")
-    public String operate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException {
+    public String operate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException, UnsupportedEncodingException {
         return cus_questionService.callServiceCenterQnaOperate(pQuestionOperateVo);
     }
     /**

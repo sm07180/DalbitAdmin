@@ -64,6 +64,7 @@
     var noticeType = 0;
     var email;
     var phone;
+    var qnaTitle;
     function quest_detail_success(data, response, params){
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
@@ -73,6 +74,7 @@
         memId = response.data.mem_userid;
         phone = response.data.phone;
         email = response.data.email;
+        qnaTitle = response.data.question_title;
 
         if(!common.isEmpty(response.data.phone)){
             noticeType = 1;
@@ -165,6 +167,7 @@
     function operate_click(){
         var data = {};
         data["qnaIdx"] = qnaIdx;
+        data.qnaTitle = qnaTitle;
         if(noticeType == 2 || noticeType == 0){
             data["answer"] = $("#editor").summernote('code');
         }else{
