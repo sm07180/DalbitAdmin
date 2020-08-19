@@ -540,6 +540,12 @@ public enum Status {
     환전_취소_회원번호없음("-3", "exchange.cancel.no.member", "idx에 회원번호가 없을 시"),
     환전_취소_이미완료("-4", "exchange.cancel.already", "이미 취소 완료된 환전인 경우"),
 
+    크루명등록_성공("0", "insert.success", "크루명 등록 성공 시"),
+    크루명등록_실패("-1", "business.error", "크루명 등록 실패 시"),
+
+    크루원등록_성공("0", "insert.success", "크루원 등록 성공 시"),
+    크루원등록_실패("-1", "business.error", "크루원 등록 실패 시"),
+
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
     방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),
