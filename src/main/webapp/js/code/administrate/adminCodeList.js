@@ -90,3 +90,10 @@ var message_searchType = [
     , new COMMON_CODE('cont', '2', '내용')
     , new COMMON_CODE('opName', '3', '작성자')
 ];
+
+var crew_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('memno', '1', '회원번호')
+    , new COMMON_CODE('memid', '2', 'UserID')
+    , new COMMON_CODE('memnick', '3', '닉네임')
+];

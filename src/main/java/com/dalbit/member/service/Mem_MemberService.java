@@ -500,11 +500,11 @@ public class Mem_MemberService {
         }
 
         //디바이스 UUID or IP block 테이블 등록
-        if(3 <= pMemberReportVo.getSlctType() && pMemberReportVo.getSlctType() <= 6){
+        if((3 <= pMemberReportVo.getSlctType() && pMemberReportVo.getSlctType() <= 6) || pMemberReportVo.getSlctType() == 8){
             var blockScopes = pMemberReportVo.getBlockScope().split(",");
             var blockScopeTexts = pMemberReportVo.getBlockScopeText().split(",");
 
-            var blockDay = pMemberReportVo.getSlctType() == 6 ? 99 : pMemberReportVo.getBlockDay();
+            var blockDay = (pMemberReportVo.getSlctType() == 6 || pMemberReportVo.getSlctType() == 8) ? 99 : pMemberReportVo.getBlockDay();
 
             for(int i = 0; i < blockScopes.length; i++){
                 if(blockScopes[i].equals("true") && !DalbitUtil.isEmpty(blockScopeTexts[i])){

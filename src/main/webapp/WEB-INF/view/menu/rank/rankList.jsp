@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -19,9 +19,9 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <label id="lb_title" style="display: none"><b>· 선택 날짜의 전주 랭킹을 확인할 수 있습니다.</b></label>
-                </div>
+                <%--<div>--%>
+                    <%--<label id="lb_title" style="display: none"><b>· 선택 날짜의 전주 랭킹을 확인할 수 있습니다.</b></label>--%>
+                <%--</div>--%>
             </div>
             </form>
             <!-- //serachBox -->
@@ -52,6 +52,10 @@
                                     <input type="radio" name="rankType" value='3' />
                                     <span><i></i>월간</span>
                                 </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="rankType" value='4' />
+                                    <span><i></i>연간</span>
+                                </label>
 
                                 <div class="input-group date" id="oneDayDatePicker">
                                     <label for="onedayDate" class="input-group-addon">
@@ -65,6 +69,13 @@
                                         <span><i class="fa fa-calendar"></i></span>
                                     </label>
                                     <input id="monthDate" type="text" class="form-control" style="width: 168px;"/>
+                                </div>
+
+                                <div class="input-group date" id="yearDatepicker" style="display:none;">
+                                    <label for="yearDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
                                 </div>
 
                                 <input class="hide" name="startDate" id="startDate" style="width: 100px">
@@ -168,7 +179,24 @@
             init();
         });
 
+        $('#yearDate').datepicker({
+            minViewMode: 'years',
+            format: 'yyyy',
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            language: 'kr',
+        });
+
+        $("#yearDate").on('change', function () {
+            $("#startDate").val($("#yearDate").val() + '.01.01');
+            $("#endDate").val($("#yearDate").val() + ".12.31");
+            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
+            init();
+        });
+
         $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
+        $("#yearDate").val(moment(new Date()).format('YYYY'));
     });
 
     function init(tabName){
@@ -216,27 +244,39 @@
         rankTypeChange();
     });
     function rankTypeChange(){
-        if($('input:radio[name="rankType"]:checked').val() == 3){
+        if($('input:radio[name="rankType"]:checked').val() == 3) {
             $("#rangeDatepicker").show();
             $("#oneDayDatePicker").hide();
+            $("#yearDatepicker").hide();
             $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
+
             $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
             $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+        }else if($('input:radio[name="rankType"]:checked').val() == 4){
+            $("#rangeDatepicker").hide();
+            $("#oneDayDatePicker").hide();
+            $("#yearDatepicker").show();
+            $("#yearDate").val(moment(new Date()).format('YYYY'));
+
+            $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
+            $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
         }else{
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
+            $("#yearDatepicker").hide();
+            $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
+
             $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
             $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-            $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
             if($('input:radio[name="rankType"]:checked').val() == 2){       // 주간
                 setMonday();
             }
         }
-        if($('input:radio[name="rankType"]:checked').val() == 2){
-            $("#lb_title").show();
-        }else{
-            $("#lb_title").hide();
-        }
+        // if($('input:radio[name="rankType"]:checked').val() == 2){
+        //     $("#lb_title").show();
+        // }else{
+        //     $("#lb_title").hide();
+        // }
         djRankListPagingInfo.pageNo = 1;
         init();
     }
@@ -311,6 +351,16 @@
              }else if(dateType == 'next'){
                  setMonth(1);
              }
+         }else if(rankType == 4){
+             if(common.isEmpty(dateType)){
+                 $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
+                 $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
+                 $("#yearDate").val(moment(new Date()).format('YYYY'));
+             }else if(dateType == 'prev'){
+                 setYear(-1);
+             }else if(dateType == 'next'){
+                 setYear(1);
+             }
          }
          $("#bt_search").click();
      }
@@ -336,6 +386,11 @@
          $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
      }
 
+     function setYear(years){
+         $("#startDate").val(moment($("#startDate").val()).add('years', years).format('YYYY.01.01'));
+         $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
+         $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
+     }
 
 
 
@@ -365,20 +420,19 @@
     <thead id="djtableTop">
     <tr>
         <th>순위</th>
-        <th>프로필 이미지</th>
+        <th>프로필<br/>이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
         <th>성별</th>
         <th style="width: 110px">보상 배지</th>
         <th>배지 시작일</th>
         <th>배지 종료일</th>
-        <th>보상 달</th>
-        <th>보상 별</th>
-        <th>보상 경험치</th>
         <th>랭킹 점수</th>
-        <th>받은 별</th>
+        <th>받은 별<br/>(부스터 제외)</th>
         <th>누적 청취자</th>
         <th>받은 좋아요</th>
+        <th>부스터</th>
+        <th>부스터 별</th>
         <th>방송진행 시간</th>
     </tr>
     </thead>
@@ -416,15 +470,27 @@
                     {{#dalbit_if ../rankType '==' '3'}} 월간 DJ TOP {{reward_rank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
-            <td>{{rewardStartDate}}</td>
-            <td>{{rewardEndDate}}</td>
-            <td>{{addComma reward_dal}}</td>
-            <td>{{addComma reward_byeol}}</td>
-            <td>{{addComma reward_exp}}</td>
+            <td>
+                {{#dalbit_if badgeImage '==' ''}}
+                {{else}}
+                    {{rewardStartDate}}<br/>
+                    보상 달 : {{addComma reward_dal}}<br/>
+                    보상 경험치 : {{addComma reward_exp}}<br/>
+                {{/dalbit_if}}
+            </td>
+            <td>
+                {{#dalbit_if rewardEndDate '!=' ''}}
+                    {{rewardEndDate}}<br />
+                    {{#dalbit_if ../rankType '==' '1'}} (23:59:59){{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '2'}} (일요일 23:59:59){{/dalbit_if}}
+                {{/dalbit_if}}
+            </td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
             <td>{{addComma listenCnt}}명</td>
             <td>{{addComma goodCnt}}개</td>
+            <td>{{addComma boostCnt}}개</td>
+            <td>{{addComma boostByeol}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 
@@ -440,18 +506,18 @@
     <thead id="tableTop">
     <tr>
         <th>순위</th>
-        <th>프로필 이미지</th>
+        <th>프로필<br/>이미지</th>
         <th>회원번호</th>
         <th>닉네임</th>
         <th>성별</th>
         <th style="width: 110px">보상 배지</th>
         <th>배지 시작일</th>
         <th>배지 종료일</th>
-        <th>보상 달</th>
-        <th>보상 별</th>
-        <th>보상 경험치</th>
         <th>랭킹 점수</th>
-        <th>보낸 달</th>
+        <th>보낸 달<br/>(부스터 제외)</th>
+        <th>보낸 좋아요</th>
+        <th>부스터</th>
+        <th>부스터 달</th>
         <th>청취 시간</th>
     </tr>
     </thead>
@@ -476,19 +542,31 @@
             <td>
                 {{#dalbit_if badgeImage '==' ''}}
                 {{else}}
-                <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{reward_rank}} {{/dalbit_if}}
-                {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{reward_rank}} {{/dalbit_if}}
-                {{#dalbit_if ../rankType '==' '3'}} 월간 FAN TOP {{reward_rank}} {{/dalbit_if}}
+                    <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
+                    {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{reward_rank}} {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{reward_rank}} {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
-            <td>{{rewardStartDate}}</td>
-            <td>{{rewardEndDate}}</td>
-            <td>{{addComma reward_dal}}</td>
-            <td>{{addComma reward_byeol}}</td>
-            <td>{{addComma reward_exp}}</td>
+            <td>
+                {{#dalbit_if badgeImage '==' ''}}
+                {{else}}
+                    {{rewardStartDate}}<br/>
+                    보상 달 : {{addComma reward_dal}}<br/>
+                    보상 경험치 : {{addComma reward_exp}}<br/>
+                {{/dalbit_if}}
+            </td>
+            <td>
+                {{#dalbit_if rewardEndDate '!=' ''}}
+                    {{rewardEndDate}}<br/>
+                    {{#dalbit_if ../rankType '==' '1'}} (23:59:59) {{/dalbit_if}}
+                    {{#dalbit_if ../rankType '==' '2'}} (일요일 23:59:59) {{/dalbit_if}}
+                {{/dalbit_if}}
+            </td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
+            <td>{{addComma goodCnt}}개</td>
+            <td>{{addComma boostCnt}}개</td>
+            <td>{{addComma boostDal}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 
