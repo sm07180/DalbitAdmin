@@ -347,9 +347,12 @@
                         , mem.mem_birth_day
                         , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
                         , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
-                        , (select sum(good) from rd_data.tb_member_broadcast_listening lis where lis.mem_no = mem.mem_no) as goodCnt
-                        , (select count(*) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 2) as boostCnt
-                        , (select ifnull(sum(ifnull(ruby, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 2) as boostDal
+                        <!--, (select sum(good) from rd_data.tb_member_broadcast_listening lis where lis.mem_no = mem.mem_no) as goodCnt-->
+                        , fan.good_point as goodCnt
+                        <!--, (select count(*) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 2) as boostCnt-->
+                        , fan.booster_point as boostCnt
+                        <!--, (select ifnull(sum(ifnull(ruby, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 2) as boostDal-->
+                        , (fan.booster_point * 20) as boostDal
                         , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                         , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                         , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
