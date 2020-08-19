@@ -88,9 +88,9 @@ public class SampleRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
-    @PostMapping("sendEmail")
+    /*@PostMapping("sendEmail")
     public String sendEmail(EmailVo emailVo) throws UnsupportedEncodingException {
         int result = emailService.sendEmail(emailVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회));
-    }
+    }*/
 }
