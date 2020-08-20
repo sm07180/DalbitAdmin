@@ -88,6 +88,10 @@
         if(tabId == 'tab_payTime'){
             getPayTimeList();
         }else if(tabId == 'tab_payHistory'){
+            tmp_ostype = -1;
+            tmp_innerType = 0;
+            tmp_payWay = "all";
+
             getStatPayInfo();
         }else if(tabId == 'tab_payMonth'){
             getPayMonthList();
