@@ -22,10 +22,14 @@ public interface Con_CrewDao {
     int insertCrewMember(CrewMemberInsertVo crewMemberInsertVo);
 
     @Transactional(readOnly = true)
-    String selectMemberInfo(String memInfo);
+    String selectMemberInfo(CrewMemberInsertVo crewMemberInsertVo);
 
     @Transactional(readOnly = true)
     ArrayList<CrewMemberListVo> selectCrewMemberInfo(CrewMemberListVo crewMemberListVo);
     @Transactional(readOnly = true)
     int selectCrewMemberInfoCnt(CrewMemberListVo crewMemberListVo);
+
+    int updateCrewLeader(CrewMemberInsertVo crewMemberInsertVo);
+
+    int updateResetCrewLeader(CrewMemberInsertVo crewMemberInsertVo);
 }

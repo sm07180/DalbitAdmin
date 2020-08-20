@@ -50,4 +50,12 @@ public class Con_CrewRestController {
     public String selectCrewMemberInfo(CrewMemberListVo crewMemberListVo) {
         return crewService.selectCrewMemberInfo(crewMemberListVo);
     }
+
+    /**
+     * 크루장 지정
+     */
+    @PostMapping("/updateCrewLeader")
+    public String updateCrewLeader(CrewMemberInsertVo crewMemberInsertVo) {
+        return crewService.updateCrewLeader(crewMemberInsertVo);
+    }
 }

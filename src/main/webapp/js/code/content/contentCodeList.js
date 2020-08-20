@@ -413,3 +413,12 @@ var event_giftcon_type = [
     , new COMMON_CODE('1', 1, '커피')
     , new COMMON_CODE('2', 2, '치킨')
 ]
+
+/** =------ crew ---------- */
+
+var crew_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('memno', '1', '회원번호')
+    , new COMMON_CODE('memid', '2', 'UserID')
+    , new COMMON_CODE('memnick', '3', '닉네임')
+];
