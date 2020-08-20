@@ -179,7 +179,7 @@ public class Cus_QuestionService {
             EmailInputVo emailInputVo = new EmailInputVo();
             emailInputVo.setTitle("답변 : " + pQuestionOperateVo.getQnaTitle());
             emailInputVo.setMsgCont(_answer);
-            emailInputVo.setRcvMail("zox5702@naver.com");
+            emailInputVo.setRcvMail(pQuestionOperateVo.getEmail());
             emailService.sendEmail(emailInputVo);
 
         }else{          // 문자 or ( 문자 and 메일 )
