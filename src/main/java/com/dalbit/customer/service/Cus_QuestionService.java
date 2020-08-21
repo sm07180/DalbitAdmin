@@ -25,8 +25,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -193,7 +194,7 @@ public class Cus_QuestionService {
                     mailContent.append(sHtml);
                 }
 
-                String msgCont = "";
+                String msgCont;
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
                 String today = dateFormat.format(new Date());
 
