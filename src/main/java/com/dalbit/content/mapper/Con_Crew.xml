@@ -93,27 +93,25 @@
     </select>
 
     <sql id="crewMemberCondition">
-        <where>
             <if test='searchText != null and searchText != ""'>
                 <choose>
                     <when test='searchType == 1'>
-                        crew.mem_no like concat ('%', #{searchText}, '%')
+                        and crew.mem_no like concat ('%', #{searchText}, '%')
                     </when>
                     <when test='searchType == 2'>
-                        bas.mem_userid like concat ('%', #{searchText}, '%')
+                        and bas.mem_userid like concat ('%', #{searchText}, '%')
                     </when>
                     <when test='searchType == 3'>
-                        bas.mem_nick like concat ('%', #{searchText}, '%')
+                        and bas.mem_nick like concat ('%', #{searchText}, '%')
                     </when>
                     <otherwise>
-                        (crew.mem_no like concat ('%', #{searchText}, '%') or
+                        and (crew.mem_no like concat ('%', #{searchText}, '%') or
                         bas.mem_userid like concat ('%', #{searchText}, '%') or
                         bas.mem_nick like concat ('%', #{searchText}, '%')
                         )
                     </otherwise>
                 </choose>
             </if>
-        </where>
     </sql>
 
     <select id="selectCrewMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="com.dalbit.content.vo.CrewMemberListVo">
@@ -145,8 +143,8 @@
               inner join rd_data.tb_member_basic bas on crew.mem_no = bas.mem_no
               , (select @RNUM := 0) r
             where crewbas.delete_yn = 0
-              order by ranking asc
               <include refid="crewMemberCondition"/>
+            order by ranking asc
         )as a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
