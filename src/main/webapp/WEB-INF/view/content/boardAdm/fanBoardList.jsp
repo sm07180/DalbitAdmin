@@ -161,7 +161,7 @@
         <colgroup>
             <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
             <col width="6%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
-            <col width="6%"/><col width="4%"/><col width="5%"/><col width="25%"/><col width="3%"/>
+            <col width="6%"/><col width="4%"/><col width="5%"/><col width="25%"/><col width="5%"/>
             <col width="3%"/><col width="3%"/>
         </colgroup>
         <thead>
@@ -172,8 +172,8 @@
             <th rowspan="2">등록 / 수정 <br />/ 삭제</th>
             <th rowspan="2">일시</th>
             <th rowspan="2">작성 내용</th>
+            <th rowspan="2">비밀 글 여부</th>
             <th rowspan="2">댓글</th>
-            <th rowspan="2">비밀글</th>
             <th rowspan="2">삭제</th>
         </tr>
         <tr>
@@ -221,12 +221,10 @@
                 <td>{{{getCommonCodeLabel status 'fanBoard_status'}}}</td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>{{replaceHtml contents}}</td>
-                <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
                 <td>
-                    {{#dalbit_if view_yn '==' 0}} Y
-                    {{else}} N
-                    {{/dalbit_if}}
+                    {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
                 </td>
+                <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>
         {{else}}
