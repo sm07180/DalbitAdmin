@@ -222,9 +222,7 @@
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>{{replaceHtml contents}}</td>
                 <td>
-                    {{#dalbit_if view_yn '==' 0}} Y
-                    {{else}} N
-                    {{/dalbit_if}}
+                    {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
                 </td>
                 <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
