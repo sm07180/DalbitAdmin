@@ -113,6 +113,9 @@
             tmp +=     '</div>';
             tmp +=     '<div class="col-md-10">';
             tmp +=      '<label id="nickName' + i + '"></label>';
+
+            console.log("--------------------");
+            console.log(response.data[i].view_yn);
             if(response.data[i].view_yn == "0"){
                 tmp +=      '<i class="fa fa-lock" style="padding-left: 3px;padding-right: 3px"></i>';
             }
@@ -159,26 +162,10 @@
 <script id="tmp_fanBoardTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardList" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/>
-
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="7%"/>
-            <col width="8%"/>
-
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="7%"/>
-            <col width="8%"/>
-
-            <col width="7%"/> <!-- 등록 / 수정 / 삭제-->
-            <col width="5%"/> <!-- 일시 -->
-            <col width="8%"/> <!-- 작성 내용 -->
-            <col width="4%"/>
-            <col width="4%"/>
-            <col width="4%"/>
+            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
+            <col width="6%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
+            <col width="6%"/><col width="4%"/><col width="5%"/><col width="25%"/><col width="3%"/>
+            <col width="3%"/><col width="3%"/>
         </colgroup>
         <thead>
         <tr>
