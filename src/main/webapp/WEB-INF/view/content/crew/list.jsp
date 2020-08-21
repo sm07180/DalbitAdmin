@@ -12,11 +12,9 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 크루원 검색</h3>
                             <div>
-                                <span id="search_searchType_aria"></span>
-
-                                <label><input type="text" class="form-control _trim" name="searchText" id="searchText" placeholder="크루원을 입력하세요"></label>
+                                <span id="searchTypeAria"></span>
+                                <label><input type="text" class="form-control _trim" name="searchText" id="searchText" placeholder="크루원을 검색하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
-
                             </div>
                         </div>
                     </div>
@@ -56,17 +54,17 @@
             <!-- DATA TABLE -->
 
              <!-- 크루 정보 -->
-             <div class="col-lg-2 form-inline">
+             <div class="col-lg-4 form-inline">
                  <div class="widget widget-table mb10">
                      <div class="widget-header">
                          <h3><i class="fa fa-table"></i>크루 정보</h3>
                      </div>
                      <div class="widget-content mt10">
-                         <%--<div class="dataTables_paginate paging_full_numbers" id="crew_paginate_top"></div>--%>
+                         <div class="dataTables_paginate paging_full_numbers" id="crew_paginate_top"></div>
                          <table class="table table-bordered">
                              <thead>
                                  <tr>
-                                     <th><input type="checkbox"/></th>
+                                     <th></th>
                                      <th>크루명</th>
                                      <th>크루장</th>
                                      <th>인원</th>
@@ -74,7 +72,7 @@
                              </thead>
                              <tbody id="crewInfo"></tbody>
                          </table>
-                         <%--<div class="dataTables_paginate paging_full_numbers" id="crew_paginate"></div>--%>
+                         <div class="dataTables_paginate paging_full_numbers" id="crew_paginate"></div>
                      </div>
                      <div class="widget-footer">
                          <span>
@@ -86,13 +84,13 @@
              <!-- //테스트 계정 현황 -->
 
              <!-- 크루원 정보 -->
-             <div class="col-lg-10 form-inline">
+             <div class="col-lg-8 form-inline">
                  <div class="widget widget-table">
                      <div class="widget-header">
                          <h3><i class="fa fa-desktop"></i>크루원 정보</h3>
                      </div>
                      <div class="widget-content mt10">
-                         <div class="dataTables_paginate paging_full_numbers" id="crew_paginate_top"></div>
+                         <div class="dataTables_paginate paging_full_numbers" id="crewMem_paginate_top"></div>
                              <table id="list_info" class="table table-sorting table-hover table-bordered">
                                  <colgroup>
                                      <col width="1%"/><col width="3%"/><col width="3%"/><col width="4%"/><col width="3%"/>
@@ -102,7 +100,7 @@
                                  </colgroup>
                                  <thead>
                                      <tr>
-                                         <th><input type="checkbox" id="allChk" /></th>
+                                         <th></th>
                                          <th>No</th>
                                          <th>크루명</th>
                                          <th>UserID</th>
@@ -120,7 +118,7 @@
                                  <tbody id="crewMemberList">
                                  </tbody>
                              </table>
-                         <div class="dataTables_paginate paging_full_numbers" id="crew_paginate"></div>
+                         <div class="dataTables_paginate paging_full_numbers" id="crewMem_paginate"></div>
                      </div>
                      <div class="widget-footer">
                          <span>
@@ -139,14 +137,28 @@
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script>
-    var crewPagingInfo = new PAGING_INFO(0,1,500);
+    var crewPagingInfo = new PAGING_INFO(0,1,50);
 
     $(document).ready(function() {
         init();
     });
 
+    $('#bt_search').on('click', function() {
+        getCrewInfo();
+        getCrewMemberInfo();
+    });
+
+    $('input[id="searchText"]').keydown(function() {
+        if (event.keyCode === 13) {
+            getCrewInfo();
+            getCrewMemberInfo();
+        }
+    });
+
     function init(){
+        $('#searchTypeAria').html(util.getCommonCodeSelect(null, attendance_searchType));
         $('#crewMemberInfoArea').html(util.getCommonCodeSelect(null, crew_searchType));
+        $('#crew').attr('readonly', true);
         getCrewInfo();
         getCrewMemberInfo();
     }
@@ -163,9 +175,23 @@
         }
     });
 
+    $('input[id="crewName"]').keydown(function() {
+        if (event.keyCode === 13) {
+            if(common.isEmpty($('#crewName').val())) {
+                alert('크루명을 입력해주세요.');
+            } else {
+                if(confirm('크루명을 등록하시겠습니까?')) {
+                    insertCrewName();
+                } else {
+                    return false;
+                }
+            }
+        }
+    });
+
     function insertCrewName() {
         var data = {
-            'crewName' : $('#crewName').val()
+            'crewName' : $('#crewName').val().replace(/ /gi, '')
         };
         util.getAjaxData("insertCrewName", "/rest/content/crew/insertCrewName", data, fn_insertCrewName_success);
     }
@@ -188,9 +214,23 @@
        }
     });
 
+    $('input[id="crewMemberInfo"]').keydown(function() {
+        if (event.keyCode === 13) {
+            if(common.isEmpty($('#crewIdx').val())) {
+                alert('등록할 크루를 선택해주세요.');
+            } else if(common.isEmpty($('#crewMemberInfo').val())) {
+                alert('크루원 정보를 입력해주세요.');
+            } else {
+                if(confirm('크루원으로 등록하시겠습니까?')) {
+                    insertCrewMember();
+                }
+            }
+        }
+    });
+
     function insertCrewMember() {
         var data = {
-            'searchType' : $('#searchType option:selected').val()
+            'searchType' : $('#crewSearchType option:selected').val()
             , 'crewIdx' : $('#crewIdx').val()
             , 'memInfo' : $('#crewMemberInfo').val()
         };
@@ -220,8 +260,8 @@
         $('#crewInfo').html(html);
 
         crewPagingInfo.total = response.pagingVo.totalCnt;
-        // util.renderPagingNavigation('crew_paginate_top', crewPagingInfo);
-        // util.renderPagingNavigation('crew_paginate', crewPagingInfo);
+        util.renderPagingNavigation('crewMem_paginate_top', crewPagingInfo);
+        util.renderPagingNavigation('crewMem_paginate', crewPagingInfo);
         crewPagingInfo.pageNo=1;
 
         function handlebarsPaging(targetId, pagingInfo) {
@@ -233,6 +273,7 @@
     function getCrewMemberInfo() {
         var data = {
             'searchType' : $('#searchType').val()
+            , 'searchText' : $('#searchText').val().replace(/ /gi, '')
             , 'pageStart' : crewPagingInfo.pageNo
             , 'pageCnt' : crewPagingInfo.pageCnt
         };
@@ -242,7 +283,7 @@
     function fn_selectCrewMemberInfo_success(dst_id, response) {
         var template = $('#tmp_crewMemberList').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = response;
         var html = templateScript(context);
 
         $('#crewMemberList').html(html);
@@ -341,7 +382,6 @@
         <tr>
             <td><input type="checkbox"></td>
             <td><a href="javascript://" onclick="displayCrew('{{this.crewName}}', '{{this.crewIdx}}');" class="_crewInfo" data-crewidx="{{this.crewIdx}}">{{crewName}}</a></td>
-
             <td>
                 {{#equal crewLeader ''}}
                 -
@@ -349,7 +389,7 @@
                 {{../crewLeader}}
                 {{/equal}}
             </td>
-            <td>{{crewCnt}}명</td>
+            <td>{{addComma crewCnt}}명</td>
         </tr>
     {{else}}
         <tr>
@@ -359,10 +399,10 @@
 </script>
 
 <script id="tmp_crewMemberList" type="text/x-handlebars-template">
-    {{#each this as |user|}}
+    {{#each this.data as |user|}}
         <tr>
             <td><input type="checkbox"/><input type="hidden" class="_crewMember" data-memidx="{{user.idx}}"/> </td>
-            <td>{{index @index}}</td>
+            <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{#equal user.crewName ''}}
                 -
@@ -374,13 +414,18 @@
             <td>{{user.memNick}}</td>
             <td>{{{sexIcon user.memSex user.birthYear}}}</td>
             <td>{{convertToDate user.broadDate 'YYYY-MM-DD HH:mm:ss'}}</td>
-            <td>{{user.broadCnt}}</td>
+            <td>{{addComma user.broadCnt}}</td>
             <td>{{timeStamp user.broadTime}}
-            <td>{{user.ranking}}</td>
-            <td>{{user.payCnt}} / {{user.payAmount}}</td>
+            <td>
+                {{#equal user.ranking '9999'}}
+                -
+                {{else}}
+                {{user.ranking}}
+                {{/equal}}
+            </td>
+            <td>{{addComma user.payCnt}} / {{addComma user.payAmount}}</td>
             <td>{{user.level}}</td>
             <td>
-                <%--{{{getOnOffSwitch user.leader_yn 'leaderYN'}}}--%>
                 <div class="control-inline onoffswitch">
                     <input type="checkbox" name="leaderYN" id="leaderYN{{user.idx}}" class="onoffswitch-checkbox _leaderYN" data-memno="{{user.mem_no}}" data-idx="{{user.idx}}" data-crewidx="{{user.crewIdx}}" {{#dalbit_if user.leader_yn "==" "1"}}checked{{/dalbit_if}}>
                     <label class="onoffswitch-label" for="leaderYN{{user.idx}}">

@@ -10,9 +10,15 @@ import lombok.ToString;
 @ToString
 public class CrewUpdateDelStateVo extends BaseVo {
 
+    public CrewUpdateDelStateVo() {}
+    public CrewUpdateDelStateVo(String crewIdx, String lastOpName)
+    {
+        this.crewIdx = Integer.valueOf(crewIdx);
+        this.lastOpName = lastOpName;
+    }
+
     private int crewIdx;
     private String crewIdxs;
     private String lastOpName;
-    public CrewUpdateDelStateVo() {}
-    public CrewUpdateDelStateVo(String crewIdx) {this.crewIdx = Integer.valueOf(crewIdx);}
+
 }

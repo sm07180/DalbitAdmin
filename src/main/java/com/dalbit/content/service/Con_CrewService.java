@@ -34,12 +34,12 @@ public class Con_CrewService {
      */
     public String insertCrewName(CrewInsertVo crewInsertVo) {
         crewInsertVo.setOpName(MemberVo.getMyMemNo());
-        crewInsertVo.setCrewName(crewInsertVo.getCrewName());
-
-        int result = crewDao.insertCrewName(crewInsertVo);
-
+        int result = 0;
+        if(!DalbitUtil.isEmpty(crewInsertVo.getCrewName())) {
+            result = crewDao.insertCrewName(crewInsertVo);
+        }
         if (result > 0) {
-            return gsonUtil.toJson(new JsonOutputVo(Status.크루명등록_성공));
+             return gsonUtil.toJson(new JsonOutputVo(Status.크루명등록_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.크루명등록_실패));
         }
@@ -51,7 +51,6 @@ public class Con_CrewService {
     public String selectCrewInfo(CrewListVo crewListVo) {
         int count = crewDao.selectCrewInfoCnt(crewListVo);
         crewListVo.setTotalCnt(count);
-        crewListVo.setCrewIdx(crewListVo.getCrewIdx());
         ArrayList<CrewListVo> crewList = crewDao.selectCrewInfo(crewListVo);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, crewList, new PagingVo(crewListVo.getTotalCnt(), crewListVo.getPageStart(), crewListVo.getPageCnt())));
@@ -68,22 +67,36 @@ public class Con_CrewService {
     }
 
     /**
+     * 크루원 중복 등록 체크
+     */
+    public int duplicateCheckCnt(CrewMemberInsertVo crewMemberInsertVo) {
+        int result = crewDao.duplicateCheckCnt(crewMemberInsertVo);
+        return result;
+    }
+
+    /**
      * 크루원 등록
      */
     public String insertCrewMember(CrewMemberInsertVo crewMemberInsertVo) {
         crewMemberInsertVo.setOpName(MemberVo.getMyMemNo());
-        crewMemberInsertVo.setCrewIdx(crewMemberInsertVo.getCrewIdx());
 
         String result;
         int val = 0;
+        int val2 = 0;
         if(!DalbitUtil.isEmpty(crewMemberInsertVo.getMemInfo()) && crewMemberInsertVo.getCrewIdx() != 0) {
             String memNo = selectMemNo(crewMemberInsertVo);
             crewMemberInsertVo.setMemNo(memNo);
 
             if(!DalbitUtil.isEmpty(memNo)) {
-                val = crewDao.insertCrewMember(crewMemberInsertVo);
+                val2 = duplicateCheckCnt(crewMemberInsertVo);
+                if(val2 == 0) {
+                    val = crewDao.insertCrewMember(crewMemberInsertVo);
+                }
             }
-            if(val > 0) {
+
+            if(val2 > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_이미등록된회원));
+            } else if(val > 0) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_성공));
             } else {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_해당회원정보없음));
@@ -91,7 +104,7 @@ public class Con_CrewService {
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_실패));
         }
-        return result;
+         return result;
     }
 
     /**
@@ -142,7 +155,6 @@ public class Con_CrewService {
      * 크루 삭제
      */
     public String updateDelStateCrew(CrewUpdateDelStateVo crewUpdateDelStateVo) {
-        crewUpdateDelStateVo.setLastOpName(MemberVo.getMyMemNo());
 
         int sucCnt = 0;
         int failCnt = 0;
@@ -152,7 +164,7 @@ public class Con_CrewService {
         String[] crewIdx = crewUpdateDelStateVo.getCrewIdxs().split(",");
         for(int i=0; i<crewIdx.length; i++) {
             if(!DalbitUtil.isEmpty(crewUpdateDelStateVo.getCrewIdxs())) {
-                int val = crewDao.updateDelStateCrew(new CrewUpdateDelStateVo(crewIdx[i]));
+                int val = crewDao.updateDelStateCrew(new CrewUpdateDelStateVo(crewIdx[i], MemberVo.getMyMemNo()));
                 if(val > 0) {
                     sucCnt++;
                 } else {

@@ -545,6 +545,7 @@ public enum Status {
 
     크루원등록_성공("0", "crew.member.insert.success", "크루원 등록 성공 시"),
     크루원등록_해당회원정보없음("-1", "crew.member.no.data", "크루원 등록 시 해당 회원정보가 없을 때"),
+    크루원등록_이미등록된회원("-2", "crew.member.already.exist", "크루원 등록 시 이미 등록된 회원일 때"),
     크루원등록_실패("C006", "crew.member.insert.fail", "크루원 등록 실패 시"),
 
     크루장지정_성공("0", "crew.leader.insert.success", "크루장 지정 성공 시"),

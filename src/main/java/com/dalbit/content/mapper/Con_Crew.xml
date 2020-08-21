@@ -56,26 +56,65 @@
         )
     </insert>
 
+    <sql id="searchCondition">
+        <if test='memInfo != null and memInfo != ""'>
+            <choose>
+                <when test='searchType == 1'>
+                    and bas.mem_no = #{memInfo}
+                </when>
+                <when test='searchType == 2'>
+                    and bas.mem_userid = #{memInfo}
+                </when>
+                <when test='searchType == 3'>
+                    and bas.mem_nick = #{memInfo}
+                </when>
+            </choose>
+        </if>
+    </sql>
+
+
     <select id="selectMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberInsertVo" resultType="string">
     /* Con_Crew.xml - selectMemberInfo */
       select mem_no
-        from rd_data.tb_member_basic
+        from rd_data.tb_member_basic bas
         <where>
-            <if test='memInfo != null and memInfo != ""'>
+            <include refid="searchCondition"/>
+        </where>
+    </select>
+
+    <select id="duplicateCheckCnt" parameterType="com.dalbit.content.vo.CrewMemberInsertVo" resultType="integer">
+    /* Con_Crew.xml - duplicateCheckCnt */
+        select count(*)
+            from rd_admin.tb_crew_member crew
+             inner join rd_data.tb_member_basic bas on crew.mem_no = bas.mem_no
+            where crew.crew_idx = #{crewIdx}
+              and crew.mem_no = #{memNo}
+        <include refid="searchCondition"/>
+    </select>
+
+    <sql id="crewMemberCondition">
+        <where>
+            <if test='searchText != null and searchText != ""'>
                 <choose>
-                  <when test='searchType == 1'>
-                      mem_no = #{memInfo}
-                  </when>
-                  <when test='searchType == 2'>
-                      mem_userid = #{memInfo}
-                  </when>
-                  <when test='searchType == 3'>
-                      mem_nick = #{memInfo}
-                  </when>
+                    <when test='searchType == 1'>
+                        crew.mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        bas.mem_userid like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        bas.mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        (crew.mem_no like concat ('%', #{searchText}, '%') or
+                        bas.mem_userid like concat ('%', #{searchText}, '%') or
+                        bas.mem_nick like concat ('%', #{searchText}, '%')
+                        )
+                    </otherwise>
                 </choose>
             </if>
         </where>
-    </select>
+    </sql>
 
     <select id="selectCrewMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="com.dalbit.content.vo.CrewMemberListVo">
     /* Con_Crew.xml - selectCrewMemberInfo */
@@ -83,7 +122,7 @@
         from (
             select
               crew.idx as idx
-              , (select crew_name from rd_admin.tb_crew_basic where idx = crew.crew_idx) as crewName
+              , crewbas.crew_name as crewName
               , crew.mem_no as mem_no
               , crew.leader_yn as leader_yn
               , crew.crew_idx as crewIdx
@@ -94,13 +133,20 @@
               , (select start_date from rd_data.tb_broadcast_room where crew.mem_no = mem_no order by end_date desc limit 1) as broadDate
               , (select count(mem_no) from rd_data.tb_broadcast_room where start_date between date_add(now(), interval-1 week) and now() and mem_no = crew.mem_no) as broadCnt
               , (select sum(airtime) from rd_data.tb_broadcast_room where start_date between date_add(now(), interval-1 week) and now() and mem_no = crew.mem_no) as broadTime
-              , (select rank from rd_data.tb_ranking_dj_day where ranking_date between date_add(now(), interval-1 day) and now() and mem_no = crew.mem_no) as ranking
+              , ifnull((select rank from rd_data.tb_ranking_dj_day where ranking_date between date_add(now(), interval-2 day) and now() and mem_no = crew.mem_no), 9999) as ranking
               , (select count(*) from rd_data.tb_payment_succ where pay_yn = 'y' and mem_no = crew.mem_no) as payCnt
               , (select sum(pay_amt) from rd_data.tb_payment_succ where pay_yn = 'y' and mem_no = crew.mem_no) as payAmount
               , (select level from rd_data.tb_member_level where mem_no = crew.mem_no) as level
               , @RNUM := @RNUM + 1 as rowNum
+              , bas.mem_userid
+              , bas.mem_nick
             from rd_admin.tb_crew_member crew
+              inner join rd_admin.tb_crew_basic crewbas on crew.crew_idx = crewbas.idx
+              inner join rd_data.tb_member_basic bas on crew.mem_no = bas.mem_no
               , (select @RNUM := 0) r
+            where crewbas.delete_yn = 0
+              order by ranking asc
+              <include refid="crewMemberCondition"/>
         )as a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -108,7 +154,11 @@
     <select id="selectCrewMemberInfoCnt" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="integer">
     /* Con_Crew.xml - selectCrewMemberInfoCnt */
       select count(*)
-        from rd_admin.tb_crew_member
+        from rd_admin.tb_crew_member crew
+         inner join rd_admin.tb_crew_basic crewbas on crew.crew_idx = crewbas.idx
+         inner join rd_data.tb_member_basic bas on crew.mem_no = bas.mem_no
+        where crewbas.delete_yn = 0
+        <include refid="crewMemberCondition"/>
     </select>
 
     <update id="updateCrewLeader" parameterType="com.dalbit.content.vo.CrewMemberInsertVo">

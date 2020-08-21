@@ -22,6 +22,9 @@ public interface Con_CrewDao {
     String selectMemberInfo(CrewMemberInsertVo crewMemberInsertVo);
 
     @Transactional(readOnly = true)
+    int duplicateCheckCnt(CrewMemberInsertVo crewMemberInsertVo);
+
+    @Transactional(readOnly = true)
     ArrayList<CrewMemberListVo> selectCrewMemberInfo(CrewMemberListVo crewMemberListVo);
     @Transactional(readOnly = true)
     int selectCrewMemberInfoCnt(CrewMemberListVo crewMemberListVo);
