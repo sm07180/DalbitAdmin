@@ -25,11 +25,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -180,28 +181,25 @@ public class Cus_QuestionService {
         }
 
         if(pQuestionOperateVo.getNoticeType() == 2){      // 메일답변
-            URL url = null;
-            try {
-                url = new URL("http://image.dalbitlive.com/resource/mailForm/mailing.txt");
-            } catch(MalformedURLException e1) {
-                e1.printStackTrace();
-            }
+            String sHtml = "";
+            StringBuffer mailContent = new StringBuffer();
+            BufferedReader in = null;
+            try{
+                URL url = new URL("http://image.dalbitlive.com/resource/mailForm/mailing.txt");
+                URLConnection urlconn = url.openConnection();
+                in = new BufferedReader(new InputStreamReader(urlconn.getInputStream(),"utf-8"));
 
-            InputStream in;
-            try {
-                in = url.openStream();
-                byte[] buffer = new byte[128];
-                int readCount;
-                StringBuilder htmlResult = new StringBuilder();
-
-                while((readCount = in.read(buffer)) != -1) {
-                    String part = new String(buffer, 0, readCount);
-                    htmlResult.append(part);
+                while((sHtml = in.readLine()) != null){
+                    mailContent.append("\n");
+                    mailContent.append(sHtml);
                 }
-                //replace
-                String msgCont = "";
 
-                msgCont = htmlResult.toString().replaceAll("@@qnaType@@", pQuestionOperateVo.getQnaType());
+                String msgCont;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+                String today = dateFormat.format(new Date());
+
+                msgCont = mailContent.toString().replaceAll("@@qnaTime@@", today);
+                msgCont = msgCont.replaceAll("@@qnaType@@", pQuestionOperateVo.getQnaType());
                 msgCont = msgCont.replaceAll("@@qnaTitle@@", pQuestionOperateVo.getQnaTitle());
                 msgCont = msgCont.replaceAll("@@qnaContent@@", pQuestionOperateVo.getQnaContent());
                 if(!DalbitUtil.isEmpty(pQuestionOperateVo.getFileName())){
@@ -211,17 +209,15 @@ public class Cus_QuestionService {
                 }
                 msgCont = msgCont.replaceAll("@@answer@@", _answer);
 
-
                 EmailInputVo emailInputVo = new EmailInputVo();
                 emailInputVo.setTitle("[달빛라디오] 1:1문의에 대한 답변을 보내드립니다.");
                 emailInputVo.setMsgCont(msgCont);
                 emailInputVo.setRcvMail(pQuestionOperateVo.getEmail());
                 emailService.sendEmail(emailInputVo);
             }
-            catch (IOException e) {
-                e.printStackTrace();
+            catch(Exception e){
+                System.out.println("연결 에러");
             }
-
 
         }else{          // 문자 or ( 문자 and 메일 )
             String answer = _answer;
