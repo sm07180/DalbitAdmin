@@ -63,7 +63,11 @@ public class SocketUtil {
                 SocketVo vo = getSocketVo(param, command, message);
                 System.out.println(vo.toQueryString());
                 return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
-            }else{
+            }else if(command.equals("reqRoomChangeInfo")) {
+                SocketVo vo = getSocketVo(param, command, message);
+                System.out.println(vo.toQueryString());
+                return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
+            }else{      // 회원정보 변경시
                 SocketVo vo = getSocketVo(param, command, message);
                 System.out.println(vo.toQueryString());
                 return socketService.sendSocketApi(authToken, SERVER_SOCKET_GLOBAL_ROOM, vo.toQueryString());
