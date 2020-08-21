@@ -220,7 +220,7 @@
                 , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
                 , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.gifted_mem_no = mem.mem_no and item_type = 1) as byeol
                 , dj.booster_point as boostCnt
-                , (dj.booster_point * 10) as boostDal
+                , (dj.booster_point * 10) as boostByeol
                 , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                 , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                 , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
