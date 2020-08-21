@@ -17,17 +17,17 @@
                 select a.*
                 , @RNUM := @RNUM + 1 as rowNum
                 from (
-                      select
-                            crew.idx as crewIdx
+                      select crew.idx as crewIdx
                           , crew.crew_name as crewName
-                          , bas.mem_nick as crewLeader
-                          , lev.level as `level`
+                          , ifnull(ifnull(bas.mem_nick, withdrawal.mem_nick), '-') as crewLeader
                           , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
+                          , ifnull(lev.level,0) as `level`
                         from rd_admin.tb_crew_basic crew
-                         inner join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx
-                         left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1
-                         left join rd_data.tb_member_level lev on bas.mem_no = lev.mem_no
-                        group by crewIdx
+                          left join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx and crewm.leader_yn = '1'
+                          left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
+                          left join rd_data.tb_member_withdrawal_bak withdrawal on crewm.mem_no = withdrawal.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
+                          left join rd_data.tb_member_level lev on bas.mem_no = lev.mem_no
+                        where crew.delete_yn = 0
                         order by `level` desc
                       ) as a
                   , (select @RNUM := 0) r
@@ -130,5 +130,19 @@
         and crew_idx = #{crewIdx}
     </update>
 
+    <update id="updateDelStateCrew" parameterType="com.dalbit.content.vo.CrewUpdateDelStateVo">
+    /* Con_Crew.xml - updateDelStateCrew */
+      update rd_admin.tb_crew_basic
+        set delete_yn = 1
+        , last_op_name = #{lastOpName}
+        , last_upd_date = now()
+        where idx = #{crewIdx}
+    </update>
 
+    <delete id="deleteCrewMember" parameterType="com.dalbit.content.vo.CrewMemberDeleteVo">
+    /* Con_Crew.xml - deleteCrewMember */
+    delete
+      from rd_admin.tb_crew_member
+      where idx = #{crewMemberIdx}
+    </delete>
 </mapper>

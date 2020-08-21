@@ -1,12 +1,9 @@
 package com.dalbit.content.service;
 
 import com.dalbit.content.dao.Con_CrewDao;
-import com.dalbit.content.vo.CrewInsertVo;
-import com.dalbit.content.vo.CrewListVo;
-import com.dalbit.content.vo.CrewMemberInsertVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
-import com.dalbit.content.vo.CrewMemberListVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -15,9 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dalbit.common.code.Status;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Slf4j
 @Service
@@ -138,6 +135,78 @@ public class Con_CrewService {
             }
         }
         String result = gsonUtil.toJson(new JsonOutputVo(status));
+        return result;
+    }
+
+    /**
+     * 크루 삭제
+     */
+    public String updateDelStateCrew(CrewUpdateDelStateVo crewUpdateDelStateVo) {
+        crewUpdateDelStateVo.setLastOpName(MemberVo.getMyMemNo());
+
+        int sucCnt = 0;
+        int failCnt = 0;
+
+        String result;
+
+        String[] crewIdx = crewUpdateDelStateVo.getCrewIdxs().split(",");
+        for(int i=0; i<crewIdx.length; i++) {
+            if(!DalbitUtil.isEmpty(crewUpdateDelStateVo.getCrewIdxs())) {
+                int val = crewDao.updateDelStateCrew(new CrewUpdateDelStateVo(crewIdx[i]));
+                if(val > 0) {
+                    sucCnt++;
+                } else {
+                    failCnt++;
+                }
+            }
+        }
+
+        HashMap resultMap = new HashMap();
+        resultMap.put("sucCnt", sucCnt);
+        resultMap.put("failCnt", failCnt);
+
+        if(0 < sucCnt) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루명삭제_성공, resultMap));
+        }
+        else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루명삭제_실패, resultMap));
+        }
+        return result;
+    }
+
+    /**
+     * 크루원 삭제
+     */
+    public String deleteCrewMember(CrewMemberDeleteVo crewMemberDeleteVo) {
+        crewMemberDeleteVo.setLastOpName(MemberVo.getMyMemNo());
+
+        int sucCnt = 0;
+        int failCnt = 0;
+
+        String result;
+
+        String[] crewMemberIdx = crewMemberDeleteVo.getCrewMemberIdxs().split(",");
+        for(int i=0; i<crewMemberIdx.length; i++) {
+            if(!DalbitUtil.isEmpty(crewMemberDeleteVo.getCrewMemberIdxs())) {
+                int val = crewDao.deleteCrewMember(new CrewMemberDeleteVo(crewMemberIdx[i]));
+                if(val > 0) {
+                    sucCnt++;
+                } else {
+                    failCnt++;
+                }
+            }
+        }
+
+        HashMap resultMap = new HashMap();
+        resultMap.put("sucCnt", sucCnt);
+        resultMap.put("failCnt", failCnt);
+
+        if(0 < sucCnt) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루원삭제_성공, resultMap));
+        }
+        else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루원삭제_실패, resultMap));
+        }
         return result;
     }
 }

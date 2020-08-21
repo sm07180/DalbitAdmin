@@ -1,9 +1,6 @@
 package com.dalbit.content.dao;
 
-import com.dalbit.content.vo.CrewInsertVo;
-import com.dalbit.content.vo.CrewListVo;
-import com.dalbit.content.vo.CrewMemberInsertVo;
-import com.dalbit.content.vo.CrewMemberListVo;
+import com.dalbit.content.vo.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,4 +29,8 @@ public interface Con_CrewDao {
     int updateCrewLeader(CrewMemberInsertVo crewMemberInsertVo);
 
     int updateResetCrewLeader(CrewMemberInsertVo crewMemberInsertVo);
+
+    int updateDelStateCrew(CrewUpdateDelStateVo crewUpdateDelStateVo);
+
+    int deleteCrewMember(CrewMemberDeleteVo crewMemberDeleteVo);
 }
