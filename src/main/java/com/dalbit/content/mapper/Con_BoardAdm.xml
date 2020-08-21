@@ -70,7 +70,6 @@
     <update id="deleteFanBoard">
         update rd_data.tb_member_fanboard
         set `status` = 2
-          ,  contents = #{contents}
         where idx = #{idx}
     </update>
 

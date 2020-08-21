@@ -52,9 +52,7 @@ public class Con_BoardAdmService {
      * 팬보드 삭제
      */
     public String deleteFanBoard(BoardAdmFanBoardDeleteVo boardAdmFanBoardDeleteVo) {
-        boardAdmFanBoardDeleteVo.setContents("삭제되었습니다");
         int result = conBoardAdmDao.deleteFanBoard(boardAdmFanBoardDeleteVo);
-
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.Fanboard삭제성공));
         } else {
