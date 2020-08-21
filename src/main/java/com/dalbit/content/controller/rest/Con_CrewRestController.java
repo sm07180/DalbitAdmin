@@ -1,10 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_CrewService;
-import com.dalbit.content.vo.CrewInsertVo;
-import com.dalbit.content.vo.CrewListVo;
-import com.dalbit.content.vo.CrewMemberInsertVo;
-import com.dalbit.content.vo.CrewMemberListVo;
+import com.dalbit.content.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,5 +54,21 @@ public class Con_CrewRestController {
     @PostMapping("/updateCrewLeader")
     public String updateCrewLeader(CrewMemberInsertVo crewMemberInsertVo) {
         return crewService.updateCrewLeader(crewMemberInsertVo);
+    }
+
+    /**
+     * 크루 삭제
+     */
+    @PostMapping("/updateDelStateCrew")
+    public String updateDelStateCrew(CrewUpdateDelStateVo crewUpdateDelStateVo) {
+        return crewService.updateDelStateCrew(crewUpdateDelStateVo);
+    }
+
+    /**
+     * 크루원 삭제
+     */
+    @PostMapping("/deleteCrewMember")
+    public String deleteCrewMember(CrewMemberDeleteVo crewMemberDeleteVo) {
+        return crewService.deleteCrewMember(crewMemberDeleteVo);
     }
 }

@@ -78,7 +78,7 @@
                      </div>
                      <div class="widget-footer">
                          <span>
-                             <button class="btn btn-default" type="button" id="bt_delete2">선택삭제</button>
+                             <button class="btn btn-default" type="button" id="bt_updateDelStateCrew">선택삭제</button>
                          </span>
                      </div>
                  </div>
@@ -124,7 +124,7 @@
                      </div>
                      <div class="widget-footer">
                          <span>
-                             <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
+                             <button class="btn btn-default" type="button" id="bt_deleteCrewMember">선택삭제</button>
                          </span>
                      </div>
                  </div>
@@ -282,8 +282,57 @@
                 getCrewMemberInfo();
             });
         }
-
     });
+
+    $('#bt_updateDelStateCrew').on('click', function() {
+        var checked = $('#crewInfo > tr > td > input[type=checkbox]:checked');
+        if(checked.length == 0) {
+            alert('삭제할 크루명을 선택해 주세요.');
+            return;
+        }
+
+        if(confirm(checked.length + "건의 크루를 삭제하시겠습니까?")) {
+            var crewIdxs = '';
+            checked.each(function() {
+               crewIdxs += $(this).parent().parent().find('._crewInfo').data('crewidx') + ",";
+            });
+            var data = {
+                crewIdxs : crewIdxs
+            };
+            util.getAjaxData("updateDelStateCrew", "/rest/content/crew/updateDelStateCrew", data, fn_updateDelStateCrew_success);
+        }
+    });
+
+    function fn_updateDelStateCrew_success(dst_id, response) {
+        alert(response.message + '\n-성공 : ' + response.data.sucCnt + '건\n-실패 : ' + response.data.failCnt + '건');
+        getCrewInfo();
+        getCrewMemberInfo();
+    }
+
+    $('#bt_deleteCrewMember').on('click', function() {
+        var checked = $('#crewMemberList > tr > td > input[type=checkbox]:checked');
+        if(checked.length == 0) {
+            alert('삭제할 크루원을 선택해 주세요.');
+            return;
+        }
+        if(confirm(checked.length + "건의 크루원을 삭제하시겠습니까?")) {
+            var crewMemberIdxs = '';
+            checked.each(function () {
+                crewMemberIdxs += $(this).parent().find('._crewMember').data('memidx') + ",";
+            });
+            var data = {
+                crewMemberIdxs: crewMemberIdxs
+            };
+            console.log(data);
+            util.getAjaxData("deleteCrewMember", "/rest/content/crew/deleteCrewMember", data, fn_deleteCrewMember_success);
+        }
+    });
+
+    function fn_deleteCrewMember_success(dst_id, response) {
+        alert(response.message + '\n-성공 : ' + response.data.sucCnt + '건\n-실패 : ' + response.data.failCnt + '건');
+        getCrewInfo();
+        getCrewMemberInfo();
+    }
 
 </script>
 
@@ -291,7 +340,7 @@
     {{#each this}}
         <tr>
             <td><input type="checkbox"></td>
-            <td><a href="javascript://" onclick="displayCrew('{{this.crewName}}', '{{this.crewIdx}}');">{{crewName}}</a></td>
+            <td><a href="javascript://" onclick="displayCrew('{{this.crewName}}', '{{this.crewIdx}}');" class="_crewInfo" data-crewidx="{{this.crewIdx}}">{{crewName}}</a></td>
 
             <td>
                 {{#equal crewLeader ''}}
@@ -312,9 +361,15 @@
 <script id="tmp_crewMemberList" type="text/x-handlebars-template">
     {{#each this as |user|}}
         <tr>
-            <td><input type="checkbox"/></td>
+            <td><input type="checkbox"/><input type="hidden" class="_crewMember" data-memidx="{{user.idx}}"/> </td>
             <td>{{index @index}}</td>
-            <td>{{user.crewName}}</td>
+            <td>
+                {{#equal user.crewName ''}}
+                -
+                {{else}}
+                {{user.crewName}}
+                {{/equal}}
+            </td>
             <td>{{user.userId}}</td>
             <td>{{user.memNick}}</td>
             <td>{{{sexIcon user.memSex user.birthYear}}}</td>

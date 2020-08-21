@@ -552,6 +552,12 @@ public enum Status {
     크루장취소_성공("0", "crew.leader.cancel.success", "크루장 취소 성공 시"),
     크루장취소_실패("C006", "crew.leader.cancel.fail", "크루장 취소 실패 시"),
 
+    크루명삭제_성공("0", "crew.delete.success", "크루명 삭제 성공 시"),
+    크루명삭제_실패("C006", "crew.delete.fail", "크루명 삭제 실패 시"),
+
+    크루원삭제_성공("0", "crew.member.delete.success", "크루원 삭제 성공 시"),
+    크루원삭제_실패("C006", "crew.member.delete.fail", "크루원 삭제 실패 시"),
+
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
     방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),
