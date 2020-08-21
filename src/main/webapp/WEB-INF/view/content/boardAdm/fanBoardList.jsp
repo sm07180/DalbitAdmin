@@ -161,7 +161,7 @@
         <colgroup>
             <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
             <col width="6%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
-            <col width="6%"/><col width="4%"/><col width="5%"/><col width="25%"/><col width="3%"/>
+            <col width="6%"/><col width="4%"/><col width="5%"/><col width="25%"/><col width="5%"/>
             <col width="3%"/><col width="3%"/>
         </colgroup>
         <thead>
@@ -172,7 +172,7 @@
             <th rowspan="2">등록 / 수정 <br />/ 삭제</th>
             <th rowspan="2">일시</th>
             <th rowspan="2">작성 내용</th>
-            <th rowspan="2">비밀글</th>
+            <th rowspan="2">비밀 글 여부</th>
             <th rowspan="2">댓글</th>
             <th rowspan="2">삭제</th>
         </tr>
