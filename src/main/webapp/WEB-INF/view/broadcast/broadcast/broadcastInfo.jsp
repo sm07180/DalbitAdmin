@@ -234,13 +234,18 @@
                     } else return;
                 }
             } else if (tmp == "bt_title") {
-                console.log();
-                if (broadCast_responseData.title == detailData.dj_nickName + " 님의 방송입니다.") {
+                var dj_nickName;
+                if(detailData.dj_nickName.length > 10){             // 서비스에서 체크를 글자수로만 함
+                    dj_nickName = detailData.dj_nickName.substr(0,6) + "...";
+                }else{
+                    dj_nickName = detailData.dj_nickName;
+                }
+                if (broadCast_responseData.title == dj_nickName + " 님의 방송입니다.") {
                     alert("이미 초기화된 방송 제목입니다.");
                     return;
                 } else {
                     if (confirm('초기화하시겠습니까?')) {
-                        obj.title = detailData.dj_nickName + " 님의 방송입니다.";
+                        obj.title = dj_nickName + " 님의 방송입니다.";
                     } else return;
                 }
             } else if (tmp == "bt_freezing") {
@@ -420,6 +425,7 @@
         alert(response.message);
         getInfoDetail("bt_adminMemoList", "운영자메모");
     }
+
 </script>
 
 <script id="tmp_broadcast_detailFrm" type="text/x-handlebars-template">

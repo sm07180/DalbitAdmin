@@ -28,6 +28,7 @@ public class P_MemberFanboardOutputVo extends SearchVo {
     private String mem_birth_year;
     private String mem_birth_month;
     private String mem_birth_day;
+    private String view_yn;
 
     //summary
 

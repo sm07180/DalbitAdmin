@@ -45,6 +45,7 @@
                 , fan.status
                 , fan.last_upd_date
                 , fan.contents
+                , fan.view_yn
                 , (select count(*) from rd_data.tb_member_fanboard WHERE mem_no =  fan.mem_no and `status` = 1 AND board_no = fan.board_no AND depth = 2 ) as replyCnt
                 , @RNUM := @RNUM +1 as rowNum
             from rd_data.tb_member_fanboard fan
@@ -86,8 +87,9 @@
               a.contents AS contents,
               a.`status` AS `status`,
               a.last_upd_date AS writeDate,
+              a.view_yn,
               depth
-         from (select idx, board_no, contents, writer_no, `status`, last_upd_date, depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} and board_no = #{board_no} and `status` = 1) as a
+         from (select idx, board_no, contents, writer_no, `status`, last_upd_date, depth,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} and board_no = #{board_no} and `status` = 1) as a
           left outer join rd_data.tb_member_basic bas on a.writer_no = bas.mem_no
           left outer join rd_data.tb_member_withdrawal_bak bak on a.writer_no = bak.mem_no
           order by writeDate desc

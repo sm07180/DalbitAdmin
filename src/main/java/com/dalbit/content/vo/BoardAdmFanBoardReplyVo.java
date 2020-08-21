@@ -34,6 +34,7 @@ public class BoardAdmFanBoardReplyVo extends PagingVo {
     private String memSex;
     private int replyCnt;   // 팬보드 댓글수
     private String mem_birth_year;
+    private String view_yn;
 
     public void setWriteDate(Date writeDate){
         this.writeDate = writeDate;

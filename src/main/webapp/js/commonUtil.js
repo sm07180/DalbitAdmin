@@ -391,13 +391,15 @@ util.getOnOffSwitch = function(data, name) {
 },
 
 util.getCommonCodeLabel = function(code, targetCode) {
+    var targetCodeName = targetCode;
+
     targetCode = eval(targetCode);
     if (!common.isEmpty(targetCode)) {
         var html = "";
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
                 if (code == value.value) {
-                    html = '<lable>' + value.code + '</lable>';
+                    html = '<lable id = "' + targetCodeName + '">' + value.code + '</lable>';
                 }
             }
         });

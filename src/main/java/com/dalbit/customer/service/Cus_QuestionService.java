@@ -1,11 +1,9 @@
 package com.dalbit.customer.service;
 
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.EmailService;
 import com.dalbit.common.service.SmsService;
-import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.PagingVo;
-import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.common.vo.SmsVo;
+import com.dalbit.common.vo.*;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.customer.dao.Cus_QuestionDao;
@@ -27,6 +25,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 @Slf4j
@@ -45,6 +48,8 @@ public class Cus_QuestionService {
     ExcelService excelService;
     @Autowired
     SmsService smsService;
+    @Autowired
+    EmailService emailService;
 
     @Value("${admin.memNo}")
     String ADMIN_MEM_NO;
@@ -109,7 +114,7 @@ public class Cus_QuestionService {
     /**
      *  1:1 문의하기 처리하기
      */
-    public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException {
+    public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException, UnsupportedEncodingException {
         P_QuestionDetailOutputVo outVo = cus_questionDao.callServiceCenterQnaState(pQuestionOperateVo);
         String result = "";
         String _answer = pQuestionOperateVo.getAnswer();
@@ -175,6 +180,48 @@ public class Cus_QuestionService {
         }
 
         if(pQuestionOperateVo.getNoticeType() == 2){      // 메일답변
+            URL url = null;
+            try {
+                url = new URL("http://image.dalbitlive.com/resource/mailForm/mailing.txt");
+            } catch(MalformedURLException e1) {
+                e1.printStackTrace();
+            }
+
+            InputStream in;
+            try {
+                in = url.openStream();
+                byte[] buffer = new byte[128];
+                int readCount;
+                StringBuilder htmlResult = new StringBuilder();
+
+                while((readCount = in.read(buffer)) != -1) {
+                    String part = new String(buffer, 0, readCount);
+                    htmlResult.append(part);
+                }
+                //replace
+                String msgCont = "";
+
+                msgCont = htmlResult.toString().replaceAll("@@qnaType@@", pQuestionOperateVo.getQnaType());
+                msgCont = msgCont.replaceAll("@@qnaTitle@@", pQuestionOperateVo.getQnaTitle());
+                msgCont = msgCont.replaceAll("@@qnaContent@@", pQuestionOperateVo.getQnaContent());
+                if(!DalbitUtil.isEmpty(pQuestionOperateVo.getFileName())){
+                    msgCont = msgCont.replaceAll("@@fileName@@", pQuestionOperateVo.getFileName());
+                }else{
+                    msgCont = msgCont.replaceAll("@@fileName@@", "");
+                }
+                msgCont = msgCont.replaceAll("@@answer@@", _answer);
+
+
+                EmailInputVo emailInputVo = new EmailInputVo();
+                emailInputVo.setTitle("[달빛라디오] 1:1문의에 대한 답변을 보내드립니다.");
+                emailInputVo.setMsgCont(msgCont);
+                emailInputVo.setRcvMail(pQuestionOperateVo.getEmail());
+                emailService.sendEmail(emailInputVo);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }else{          // 문자 or ( 문자 and 메일 )
             String answer = _answer;
