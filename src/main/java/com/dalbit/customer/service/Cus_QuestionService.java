@@ -25,7 +25,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 @Slf4j
@@ -176,11 +180,48 @@ public class Cus_QuestionService {
         }
 
         if(pQuestionOperateVo.getNoticeType() == 2){      // 메일답변
-            EmailInputVo emailInputVo = new EmailInputVo();
-            emailInputVo.setTitle("답변 : " + pQuestionOperateVo.getQnaTitle());
-            emailInputVo.setMsgCont(_answer);
-            emailInputVo.setRcvMail(pQuestionOperateVo.getEmail());
-            emailService.sendEmail(emailInputVo);
+            URL url = null;
+            try {
+                url = new URL("http://image.dalbitlive.com/resource/mailForm/mailing.txt");
+            } catch(MalformedURLException e1) {
+                e1.printStackTrace();
+            }
+
+            InputStream in;
+            try {
+                in = url.openStream();
+                byte[] buffer = new byte[128];
+                int readCount;
+                StringBuilder htmlResult = new StringBuilder();
+
+                while((readCount = in.read(buffer)) != -1) {
+                    String part = new String(buffer, 0, readCount);
+                    htmlResult.append(part);
+                }
+                //replace
+                String msgCont = "";
+
+                msgCont = htmlResult.toString().replaceAll("@@qnaType@@", pQuestionOperateVo.getQnaType());
+                msgCont = msgCont.replaceAll("@@qnaTitle@@", pQuestionOperateVo.getQnaTitle());
+                msgCont = msgCont.replaceAll("@@qnaContent@@", pQuestionOperateVo.getQnaContent());
+                if(!DalbitUtil.isEmpty(pQuestionOperateVo.getFileName())){
+                    msgCont = msgCont.replaceAll("@@fileName@@", pQuestionOperateVo.getFileName());
+                }else{
+                    msgCont = msgCont.replaceAll("@@fileName@@", "");
+                }
+                msgCont = msgCont.replaceAll("@@answer@@", _answer);
+
+
+                EmailInputVo emailInputVo = new EmailInputVo();
+                emailInputVo.setTitle("[달빛라디오] 1:1문의에 대한 답변을 보내드립니다.");
+                emailInputVo.setMsgCont(msgCont);
+                emailInputVo.setRcvMail(pQuestionOperateVo.getEmail());
+                emailService.sendEmail(emailInputVo);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }else{          // 문자 or ( 문자 and 메일 )
             String answer = _answer;

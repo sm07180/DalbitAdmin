@@ -65,6 +65,9 @@
     var email;
     var phone;
     var qnaTitle;
+    var qnaType;
+    var qnaContent;
+    var fileName;
     function quest_detail_success(data, response, params){
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
@@ -75,6 +78,24 @@
         phone = response.data.phone;
         email = response.data.email;
         qnaTitle = response.data.question_title;
+
+        if(!common.isEmpty(response.data.file_name1)){
+            fileName = response.data.file_name1;
+        }
+        if(!common.isEmpty(response.data.file_name2)){
+            if(!common.isEmpty(fileName)){
+                fileName = fileName + ", " + response.data.file_name2;
+            }else{
+                fileName = response.data.file_name2;
+            }
+        }
+        if(!common.isEmpty(response.data.file_name3)){
+            if(!common.isEmpty(fileName)){
+                fileName = fileName + ", " + response.data.file_name3;
+            }else{
+                fileName = response.data.file_name3;
+            }
+        }
 
         if(!common.isEmpty(response.data.phone)){
             noticeType = 1;
@@ -105,6 +126,7 @@
                 response.data["msg_body"] = "[달빛라이브]\n";
             }
         }
+
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -177,6 +199,12 @@
         data.noticeType = noticeType;
         data.phone = phone;
         data.email = email;
+        data.qnaType = $("#question_type").text();
+        data.qnaContent = qnaContent;
+        data.fileName = fileName;
+        data.qnaContent = $("textarea#question_contents").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
+
+        console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
         }

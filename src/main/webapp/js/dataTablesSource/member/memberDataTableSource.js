@@ -420,6 +420,13 @@ var MemberDataTableSource = {
                         return "삭제";
                     }
                 }},
+            {'title': '비밀글', 'data': 'view_yn', 'render':function(data){
+                    if(data == "0"){
+                        return "Y";
+                    }else{
+                        return "N";
+                    }
+                }},
             {'title': '총 댓글 수', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
                     return data + '<br/><a href="javascript://" onclick="javascript:Fanboard(' + meta.row + ');">' + "[댓글]" + '</a>'
                 }},

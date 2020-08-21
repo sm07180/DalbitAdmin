@@ -110,7 +110,11 @@
             tmp +=      '</form>';
             tmp +=     '</div>';
             tmp +=     '<div class="col-md-10">';
-            tmp +=      '<label id="nickName' + i + '"></label> <label id="userId' + i + '" style="color: #6e696e"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
+            tmp +=      '<label id="nickName' + i + '"></label>';
+            if(response.data[i].view_yn == "0"){
+                tmp +=      '<i class="fa fa-lock" style="padding-left: 3px;padding-right: 3px"></i>';
+            }
+            tmp +=      '<label id="userId' + i + '" style="color: #6e696e"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
             tmp +=      '<lable id="contents' + i + '"></label><br>';
             tmp +=     '</div>';
             tmp +=     '</div>';

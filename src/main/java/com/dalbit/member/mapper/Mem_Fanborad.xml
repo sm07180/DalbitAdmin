@@ -23,9 +23,10 @@
           a.contents AS contents,
           ( SELECT COUNT(*) FROM rd_data.tb_member_fanboard WHERE mem_no =  #{mem_no} and `status` = 1 AND board_no = a.board_no AND depth = 2 ) AS replyCnt,
           a.`STATUS` AS `STATUS`,
-          a.last_upd_date AS writeDate
+          a.last_upd_date AS writeDate,
+          a.view_yn
         from
-          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a JOIN rd_data.tb_member_basic AS b
+          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a JOIN rd_data.tb_member_basic AS b
             ON a.writer_no = b.mem_no
 
         union
@@ -43,9 +44,10 @@
           a.contents AS contents,
           ( SELECT COUNT(*) FROM rd_data.tb_member_fanboard WHERE mem_no =  #{mem_no} and `status` = 1 AND board_no = a.board_no AND depth = 2 ) AS replyCnt,
           a.`STATUS` AS `STATUS`,
-          a.last_upd_date AS writeDate
+          a.last_upd_date AS writeDate,
+          a.view_yn
         from
-          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
+          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
             ON a.writer_no = b.mem_no
           limit #{pageNo}, #{pageCnt}
         ) aa, (select @rownum := #{pageNo}) b
@@ -76,9 +78,10 @@
             a.contents AS contents,
             a.`STATUS` AS `STATUS`,
             a.last_upd_date AS writeDate,
+            a.view_yn,
             depth
         from
-            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_basic AS b
+            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_basic AS b
         ON a.writer_no = b.mem_no
 
         union
@@ -97,9 +100,10 @@
             a.contents AS contents,
             a.`STATUS` AS `STATUS`,
             a.last_upd_date AS writeDate,
-            depth
+            depth,
+            a.view_yn
         from
-            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
+            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth, view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
         ON a.writer_no = b.mem_no
 
         order BY writeDate DESC
@@ -107,6 +111,6 @@
 
     <update id="callFanboardDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo">
         /* Mem_Fanboard.xml - callFanboardDelete */
-        UPDATE rd_data.tb_member_fanboard SET contents = '삭제되었습니다.', `STATUS` = 2 WHERE idx = #{idx}
+        UPDATE rd_data.tb_member_fanboard SET  `STATUS` = 2 WHERE idx = #{idx}
     </update>
 </mapper>

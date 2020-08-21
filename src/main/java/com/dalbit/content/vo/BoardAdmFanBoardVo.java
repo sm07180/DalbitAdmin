@@ -39,5 +39,6 @@ public class BoardAdmFanBoardVo extends PagingVo {
     private String last_upd_date;           // 작성 일자
     private String contents;                // 내용
     private String replyCnt;                // 댓글 개수
+    private String view_yn;                // 공개여부
 
 }

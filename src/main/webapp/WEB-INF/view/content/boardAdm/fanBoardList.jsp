@@ -112,7 +112,11 @@
             tmp +=      '</form>';
             tmp +=     '</div>';
             tmp +=     '<div class="col-md-10">';
-            tmp +=      '<label id="nickName' + i + '"></label> <label id="userId' + i + '" style="color: #6e696e"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
+            tmp +=      '<label id="nickName' + i + '"></label>';
+            if(response.data[i].view_yn == "0"){
+                tmp +=      '<i class="fa fa-lock" style="padding-left: 3px;padding-right: 3px"></i>';
+            }
+            tmp +=      '<label id="userId' + i + '" style="color: #6e696e"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
             tmp +=      '<lable id="contents' + i + '"></label><br>';
             tmp +=     '</div>';
             tmp +=     '</div>';
@@ -172,8 +176,9 @@
             <col width="7%"/> <!-- 등록 / 수정 / 삭제-->
             <col width="5%"/> <!-- 일시 -->
             <col width="8%"/> <!-- 작성 내용 -->
-            <col width="7%"/>
-            <col width="7%"/>
+            <col width="4%"/>
+            <col width="4%"/>
+            <col width="4%"/>
         </colgroup>
         <thead>
         <tr>
@@ -184,6 +189,7 @@
             <th rowspan="2">일시</th>
             <th rowspan="2">작성 내용</th>
             <th rowspan="2">댓글</th>
+            <th rowspan="2">비밀글</th>
             <th rowspan="2">삭제</th>
         </tr>
         <tr>
@@ -232,6 +238,11 @@
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>{{replaceHtml contents}}</td>
                 <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
+                <td>
+                    {{#dalbit_if view_yn '==' 0}} Y
+                    {{else}} N
+                    {{/dalbit_if}}
+                </td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>
         {{else}}
