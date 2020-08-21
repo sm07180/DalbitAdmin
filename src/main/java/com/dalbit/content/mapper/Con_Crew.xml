@@ -3,6 +3,7 @@
 <mapper namespace="com.dalbit.content.dao.Con_CrewDao" >
 
     <insert id="insertCrewName" parameterType="com.dalbit.content.vo.CrewInsertVo">
+    /* Con_Crew.xml - insertCrewName */
         insert into rd_admin.tb_crew_basic
           (crew_name, op_name, reg_date)
         values
@@ -10,26 +11,38 @@
     </insert>
 
     <select id="selectCrewInfo" parameterType="com.dalbit.content.vo.CrewListVo" resultType="com.dalbit.content.vo.CrewListVo">
-        select *
-            from (
-                  select
-                    idx as crewIdx
-                    , crew_name as crewName
-                    , (select crew_name from rd_admin.tb_crew_member where leader_yn = 1) as crewLeader
-                    , (select count(*) from rd_admin.tb_crew_member where crew_idx = #{crewIdx}) as crewCnt
-                    , @RNUM := @RNUM + 1 as rowNum
-                  from rd_admin.tb_crew_basic
-                    , (select @RNUM := 0) r
-                )as a
+    /* Con_Crew.xml - selectCrewInfo */
+          select *
+              from (
+                select a.*
+                , @RNUM := @RNUM + 1 as rowNum
+                from (
+                      select
+                            crew.idx as crewIdx
+                          , crew.crew_name as crewName
+                          , bas.mem_nick as crewLeader
+                          , lev.level as `level`
+                          , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
+                        from rd_admin.tb_crew_basic crew
+                         inner join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx
+                         left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1
+                         left join rd_data.tb_member_level lev on bas.mem_no = lev.mem_no
+                        group by crewIdx
+                        order by `level` desc
+                      ) as a
+                  , (select @RNUM := 0) r
+              ) as b
             where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
     <select id="selectCrewInfoCnt" parameterType="com.dalbit.content.vo.CrewListVo" resultType="integer">
+    /* Con_Crew.xml - selectCrewInfoCnt */
         select count(*)
           from rd_admin.tb_crew_basic
     </select>
 
     <insert id="insertCrewMember" parameterType="com.dalbit.content.vo.CrewMemberInsertVo">
+    /* Con_Crew.xml - insertCrewMember */
         insert into rd_admin.tb_crew_member
         (crew_idx
         , mem_no
@@ -43,18 +56,35 @@
         )
     </insert>
 
-    <select id="selectMemberInfo" parameterType="string" resultType="string">
+    <select id="selectMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberInsertVo" resultType="string">
+    /* Con_Crew.xml - selectMemberInfo */
       select mem_no
         from rd_data.tb_member_basic
-        where mem_no = #{memInfo}
-         or mem_userid = #{memInfo}
-         or mem_nick = #{memInfo}
+        <where>
+            <if test='memInfo != null and memInfo != ""'>
+                <choose>
+                  <when test='searchType == 1'>
+                      mem_no = #{memInfo}
+                  </when>
+                  <when test='searchType == 2'>
+                      mem_userid = #{memInfo}
+                  </when>
+                  <when test='searchType == 3'>
+                      mem_nick = #{memInfo}
+                  </when>
+                </choose>
+            </if>
+        </where>
     </select>
 
     <select id="selectCrewMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="com.dalbit.content.vo.CrewMemberListVo">
+    /* Con_Crew.xml - selectCrewMemberInfo */
         select *
         from (
-            select crew.mem_no as mem_no
+            select
+              crew.idx as idx
+              , (select crew_name from rd_admin.tb_crew_basic where idx = crew.crew_idx) as crewName
+              , crew.mem_no as mem_no
               , crew.leader_yn as leader_yn
               , crew.crew_idx as crewIdx
               , (select mem_userid from rd_data.tb_member_basic where crew.mem_no = mem_no) as userId
@@ -76,8 +106,29 @@
     </select>
 
     <select id="selectCrewMemberInfoCnt" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="integer">
+    /* Con_Crew.xml - selectCrewMemberInfoCnt */
       select count(*)
         from rd_admin.tb_crew_member
     </select>
+
+    <update id="updateCrewLeader" parameterType="com.dalbit.content.vo.CrewMemberInsertVo">
+    /* Con_Crew.xml - updateCrewLeader */
+        update rd_admin.tb_crew_member
+          set leader_yn = #{leader_yn}
+          , last_op_name = #{lastOpName}
+          , last_upd_date = now()
+          where idx = #{idx}
+            and crew_idx = #{crewIdx}
+            and mem_no = #{memNo}
+    </update>
+
+    <update id="updateResetCrewLeader" parameterType="com.dalbit.content.vo.CrewMemberInsertVo">
+    /* Con_Crew.xml - updateResetCrewLeader */
+      update rd_admin.tb_crew_member
+       set leader_yn = 0
+       where idx <![CDATA[<>]]> #{idx}
+        and crew_idx = #{crewIdx}
+    </update>
+
 
 </mapper>

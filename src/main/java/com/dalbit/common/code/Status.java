@@ -540,11 +540,17 @@ public enum Status {
     환전_취소_회원번호없음("-3", "exchange.cancel.no.member", "idx에 회원번호가 없을 시"),
     환전_취소_이미완료("-4", "exchange.cancel.already", "이미 취소 완료된 환전인 경우"),
 
-    크루명등록_성공("0", "insert.success", "크루명 등록 성공 시"),
-    크루명등록_실패("-1", "business.error", "크루명 등록 실패 시"),
+    크루명등록_성공("0", "crew.insert.success", "크루명 등록 성공 시"),
+    크루명등록_실패("C006", "crew.insert.fail", "크루명 등록 실패 시"),
 
-    크루원등록_성공("0", "insert.success", "크루원 등록 성공 시"),
-    크루원등록_실패("-1", "business.error", "크루원 등록 실패 시"),
+    크루원등록_성공("0", "crew.member.insert.success", "크루원 등록 성공 시"),
+    크루원등록_해당회원정보없음("-1", "crew.member.no.data", "크루원 등록 시 해당 회원정보가 없을 때"),
+    크루원등록_실패("C006", "crew.member.insert.fail", "크루원 등록 실패 시"),
+
+    크루장지정_성공("0", "crew.leader.insert.success", "크루장 지정 성공 시"),
+    크루장지정_실패("C006", "crew.leader.insert.fail", "크루장 지정 실패 시"),
+    크루장취소_성공("0", "crew.leader.cancel.success", "크루장 취소 성공 시"),
+    크루장취소_실패("C006", "crew.leader.cancel.fail", "크루장 취소 실패 시"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트

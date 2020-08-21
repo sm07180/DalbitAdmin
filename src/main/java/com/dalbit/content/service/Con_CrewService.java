@@ -8,12 +8,14 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.vo.CrewMemberListVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dalbit.common.code.Status;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 
@@ -63,8 +65,8 @@ public class Con_CrewService {
     /**
      * mem_no 조회를 위한 간단 조회
      */
-    public String selectMemNo(String memInfo) {
-        String result = crewDao.selectMemberInfo(memInfo);
+    public String selectMemNo(CrewMemberInsertVo crewMemberInsertVo) {
+        String result = crewDao.selectMemberInfo(crewMemberInsertVo);
         return result;
     }
 
@@ -74,16 +76,25 @@ public class Con_CrewService {
     public String insertCrewMember(CrewMemberInsertVo crewMemberInsertVo) {
         crewMemberInsertVo.setOpName(MemberVo.getMyMemNo());
         crewMemberInsertVo.setCrewIdx(crewMemberInsertVo.getCrewIdx());
-        String memNo = selectMemNo(crewMemberInsertVo.getMemInfo());
-        crewMemberInsertVo.setMemNo(memNo);
 
-        int result = crewDao.insertCrewMember(crewMemberInsertVo);
+        String result;
+        int val = 0;
+        if(!DalbitUtil.isEmpty(crewMemberInsertVo.getMemInfo()) && crewMemberInsertVo.getCrewIdx() != 0) {
+            String memNo = selectMemNo(crewMemberInsertVo);
+            crewMemberInsertVo.setMemNo(memNo);
 
-        if(result > 0) {
-            return gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_성공));
+            if(!DalbitUtil.isEmpty(memNo)) {
+                val = crewDao.insertCrewMember(crewMemberInsertVo);
+            }
+            if(val > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_성공));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_해당회원정보없음));
+            }
         } else {
-            return gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루원등록_실패));
         }
+        return result;
     }
 
     /**
@@ -96,6 +107,37 @@ public class Con_CrewService {
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, memberList, new PagingVo(crewMemberListVo.getTotalCnt(), crewMemberListVo.getPageStart(), crewMemberListVo.getPageCnt())));
 
+        return result;
+    }
+
+    /**
+     * 크루장 지정
+     */
+    public String updateCrewLeader(CrewMemberInsertVo crewMemberInsertVo) {
+        crewMemberInsertVo.setLastOpName(MemberVo.getMyMemNo());
+        Status status;
+
+        // leader_yn이 0이면 그냥 0으로 치면 됨
+        if(crewMemberInsertVo.getLeader_yn() == 1){
+            crewDao.updateResetCrewLeader(crewMemberInsertVo);
+        }
+
+        int val = crewDao.updateCrewLeader(crewMemberInsertVo);
+        if(val > 0) {
+            if(crewMemberInsertVo.getLeader_yn() == 1){
+                status = Status.크루장지정_성공;
+            }else{
+                status = Status.크루장취소_성공;
+            }
+
+        }else{
+            if(crewMemberInsertVo.getLeader_yn() == 1){
+                status = Status.크루장지정_실패;
+            }else{
+                status = Status.크루장취소_실패;
+            }
+        }
+        String result = gsonUtil.toJson(new JsonOutputVo(status));
         return result;
     }
 }
