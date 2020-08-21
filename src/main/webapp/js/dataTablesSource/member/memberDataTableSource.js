@@ -407,7 +407,7 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.writer_mem_no);
                 }},
             {'title': '팬ID', 'data': 'userId'},
-            {'title': '팬닉네임', 'data': 'nickName'},
+            {'title': '팬닉네임', 'data': 'nickName', 'width':'70px'},
             {'title': '성별', 'data': 'memSex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
@@ -420,11 +420,9 @@ var MemberDataTableSource = {
                         return "삭제";
                     }
                 }},
-            {'title': '비밀글', 'data': 'view_yn', 'render':function(data){
+            {'title': '비밀 글 여부', 'data': 'view_yn', 'render':function(data){
                     if(data == "0"){
-                        return "Y";
-                    }else{
-                        return "N";
+                        return "비밀 글";
                     }
                 }},
             {'title': '총 댓글 수', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
