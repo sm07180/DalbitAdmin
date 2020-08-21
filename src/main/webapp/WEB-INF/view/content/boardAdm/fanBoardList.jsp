@@ -113,9 +113,6 @@
             tmp +=     '</div>';
             tmp +=     '<div class="col-md-10">';
             tmp +=      '<label id="nickName' + i + '"></label>';
-
-            console.log("--------------------");
-            console.log(response.data[i].view_yn);
             if(response.data[i].view_yn == "0"){
                 tmp +=      '<i class="fa fa-lock" style="padding-left: 3px;padding-right: 3px"></i>';
             }

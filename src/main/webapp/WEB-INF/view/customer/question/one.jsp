@@ -65,7 +65,6 @@
     var email;
     var phone;
     var qnaTitle;
-    var qnaType;
     var qnaContent;
     var fileName;
     function quest_detail_success(data, response, params){
