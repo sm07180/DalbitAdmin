@@ -372,6 +372,24 @@
             and select_month = #{select_month}
     </select>
 
+    <select id="selectManageContentList" parameterType="com.dalbit.menu.vo.SpecialDjManageVo" resultType="com.dalbit.menu.vo.SpecialDjContentVo">
+        /* Men_Special.xml - selectManageContentList */
+        select
+            content_type
+            , image_pc_url
+            , image_mobile_url
+            , button_type
+            , button_name
+            , button_name_color
+            , button_color
+            , button_pc_link
+            , button_mobile_link
+        from rd_admin.tb_req_special_dj_content
+        where select_year = #{select_year}
+            and select_month = #{select_month}
+        order by content_order asc
+    </select>
+
     <insert id="insertManageInfo" parameterType="com.dalbit.menu.vo.SpecialDjManageVo">
         /* Men_Special.xml - insertManageInfo */
         insert into rd_admin.tb_req_special_dj_manage(
@@ -390,8 +408,6 @@
             , condition_data3
             , is_view
             , platform
-            , pc_image_url
-            , mobile_image_url
             , reg_date
             , op_name
         ) values (
@@ -410,8 +426,6 @@
             , #{condition_data3}
             , #{is_view}
             , #{platform}
-            , #{pc_image_url}
-            , #{mobile_image_url}
             , now()
             , #{op_name}
         )
@@ -433,11 +447,79 @@
             , condition_data3 = #{condition_data3}
             , is_view = #{is_view}
             , platform = #{platform}
-            , pc_image_url = #{pc_image_url}
-            , mobile_image_url = #{mobile_image_url}
             , last_upd_date = now()
             , last_op_name = #{op_name}
         where select_year = #{select_year}
             and select_month = #{select_month}
     </update>
+
+    <delete id="deleteManageContent" parameterType="com.dalbit.menu.vo.SpecialDjManageVo">
+        /* Men_Special.xml - deleteManageContent */
+        delete
+        from rd_admin.tb_req_special_dj_content
+        where select_year = #{select_year}
+            and select_month = #{select_month}
+    </delete>
+
+    <insert id="insertManageContent" parameterType="com.dalbit.menu.vo.SpecialDjContentVo">
+        /* Men_Special.xml - deleteContent */
+        insert into rd_admin.tb_req_special_dj_content(
+            select_year
+            , select_month
+            , content_order
+            , content_type
+            , image_pc_url
+            , image_mobile_url
+            , button_type
+            , button_name
+            , button_name_color
+            , button_color
+            , button_pc_link
+            , button_mobile_link
+        )values(
+            #{select_year, jdbcType=VARCHAR}
+            , #{select_month, jdbcType=VARCHAR}
+            , #{content_order, jdbcType=INTEGER}
+            , #{content_type, jdbcType=VARCHAR}
+            , #{image_pc_url, jdbcType=VARCHAR}
+            , #{image_mobile_url, jdbcType=VARCHAR}
+            , #{button_type, jdbcType=VARCHAR}
+            , #{button_name, jdbcType=VARCHAR}
+            , #{button_name_color, jdbcType=VARCHAR}
+            , #{button_color, jdbcType=VARCHAR}
+            , #{button_pc_link, jdbcType=VARCHAR}
+            , #{button_mobile_link, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <select id="selectManageList" parameterType="com.dalbit.menu.vo.SpecialDjManageVo" resultType="com.dalbit.menu.vo.SpecialDjManageVo">
+        /* Men_Special.xml - selectManageList */
+        select
+            title
+            , select_year
+            , select_month
+            , req_start_date
+            , req_end_date
+            , condition_start_date
+            , condition_end_date
+            , condition_code1
+            , (select code from rd_data.tbl_code_define where type = 'special_dj_condition' and `value` = condition_code1) condition_codeName1
+            , condition_data1
+            , condition_code2
+            , (select code from rd_data.tbl_code_define where type = 'special_dj_condition' and `value` = condition_code2) condition_codeName2
+            , condition_data2
+            , condition_code3
+            , (select code from rd_data.tbl_code_define where type = 'special_dj_condition' and `value` = condition_code3) condition_codeName3
+            , condition_data3
+            , pc_image_url
+            , mobile_image_url
+            , is_view
+            , platform
+            , reg_date
+            , op_name
+            , last_upd_date
+            , last_op_name
+        from rd_admin.tb_req_special_dj_manage
+        order by select_year desc, select_month desc
+    </select>
 </mapper>

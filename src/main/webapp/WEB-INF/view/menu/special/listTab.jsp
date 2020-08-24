@@ -9,10 +9,12 @@
            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                <li class="active"><a href="#dal" role="tab" data-toggle="tab" class="_tab">스페셜 DJ</a></li>
                <li><a href="#reqDal" role="tab" data-toggle="tab" class="_tab">스페셜 DJ 신청</a></li>
+               <li><a href="#reqManage" role="tab" data-toggle="tab" class="_tab">스페셜 DJ 신청관리</a></li>
            </ul>
            <div class="tab-content no-padding">
                <div class="tab-pane fade in active" id="dal"><jsp:include page="specialDal.jsp"/></div>           <!-- 스페셜 DJ -->
                <div class="tab-pane fade" id="reqDal"><jsp:include page="reqSpecialDal.jsp"/></div>               <!-- 스페셜 DJ 신청 -->
+               <div class="tab-pane fade" id="reqManage"><jsp:include page="reqManageList.jsp"/></div>               <!-- 스페셜 DJ 신청관리 -->
            </div>
        </div>
     </div>
@@ -43,17 +45,20 @@
     $('._tab').on('click', function(){
         $('#dalList, #sampleDalList, #reqDalList').empty();
 
+        emptySearch();
+
         var me = $(this);
         var tab = me.parent();
 
         var tabIndex = $('#tablist_con li').index(tab);
         if(tabIndex == 0){
-            emptySearch();
+
             specialDjPagingInfo.pageNo = 1;
             init();
-        } else{
-            emptySearch();
+        } else if (tabIndex == 1){
             initReq();
+        } else if(tabIndex == 2) {
+            initManage();
         }
     });
 </script>

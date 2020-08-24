@@ -45,8 +45,16 @@ public interface Men_SpecialDao {
 
     SpecialDjManageVo selectManageInfo(SpecialDjManageVo specialDjManageVo);
 
+    List<SpecialDjContentVo> selectManageContentList(SpecialDjManageVo specialDjManageVo);
+
     int insertManageInfo(SpecialDjManageVo specialDjManageVo);
 
     int updateManageInfo(SpecialDjManageVo specialDjManageVo);
+
+    int deleteManageContent(SpecialDjManageVo specialDjManageVo);
+
+    int insertManageContent(SpecialDjContentVo specialDjContentVo);
+
+    List<SpecialDjManageVo> selectManageList(SpecialDjManageVo specialDjManageVo);
 
 }

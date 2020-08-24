@@ -348,7 +348,12 @@ public class Men_SpecialService {
 
         try{
 
-            SpecialDjManageVo specialDjManageInfo = menSpecialDao.selectManageInfo(specialDjManageVo);
+            SpecialDjManageVo specialDjManageInfo = new SpecialDjManageVo();
+            if(!DalbitUtil.isEmpty(specialDjManageVo.getSelect_year())){
+                specialDjManageInfo = menSpecialDao.selectManageInfo(specialDjManageVo);
+                specialDjManageInfo.setContentList(menSpecialDao.selectManageContentList(specialDjManageVo));
+            }
+
             List<CodeVo> specialDjCondition = commonService.getCodeList("special_dj_condition");
 
             var result = new HashMap();
@@ -363,13 +368,27 @@ public class Men_SpecialService {
     }
 
     /**
-     * 스페셜 달D 신청 관리 조회
+     * 스페셜 달D 신청 관리 등록
      */
     public String insertManageInfo(SpecialDjManageVo specialDjManageVo) {
 
         try{
+
+            SpecialDjManageVo getManageInfo = menSpecialDao.selectManageInfo(specialDjManageVo);
+            if(!DalbitUtil.isEmpty(getManageInfo)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ_참여조건설정_중복));
+            }
+
             specialDjManageVo.setOp_name(MemberVo.getMyMemNo());
             menSpecialDao.insertManageInfo(specialDjManageVo);
+
+            //컨텐츠 삭제 후 다시 등록
+            menSpecialDao.deleteManageContent(specialDjManageVo);
+            specialDjManageVo.getContentList().stream().forEach(content -> {
+                content.setSelect_year(specialDjManageVo.getSelect_year());
+                content.setSelect_month(specialDjManageVo.getSelect_month());
+                menSpecialDao.insertManageContent(content);
+            });
 
             return gsonUtil.toJson(new JsonOutputVo(Status.생성));
 
@@ -386,8 +405,33 @@ public class Men_SpecialService {
         try{
             specialDjManageVo.setOp_name(MemberVo.getMyMemNo());
             menSpecialDao.updateManageInfo(specialDjManageVo);
+            
+            //컨텐츠 삭제 후 다시 등록
+            menSpecialDao.deleteManageContent(specialDjManageVo);
+            specialDjManageVo.getContentList().stream().forEach(content -> {
+                content.setSelect_year(specialDjManageVo.getSelect_year());
+                content.setSelect_month(specialDjManageVo.getSelect_month());
+                menSpecialDao.insertManageContent(content);
+            });
+
 
             return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+    /**
+     * 스페셜 달D 신청 관리 목록 조회
+     */
+    public String selectManageList(SpecialDjManageVo specialDjManageVo) {
+
+        try{
+            List<SpecialDjManageVo> list = menSpecialDao.selectManageList(specialDjManageVo);
+
+            int listCnt = list.size();
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(listCnt, 1, 9999)));
 
         }catch (Exception e){
             return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
