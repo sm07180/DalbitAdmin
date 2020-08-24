@@ -302,6 +302,10 @@
     function displayCrew(name, idx) {
         $('#crew').val(name);
         $('#crewIdx').val(idx);
+
+        $("#searchText").val(name);
+
+        getCrewMemberInfo();
     }
 
     $(document).on('change', '._leaderYN', function() {

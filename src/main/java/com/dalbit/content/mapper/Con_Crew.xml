@@ -104,10 +104,15 @@
                     <when test='searchType == 3'>
                         and bas.mem_nick like concat ('%', #{searchText}, '%')
                     </when>
+                    <when test='searchType == 4'>
+                        and crewbas.crew_bas like concat ('%', #{searchText}, '%')
+                    </when>
                     <otherwise>
-                        and (crew.mem_no like concat ('%', #{searchText}, '%') or
-                        bas.mem_userid like concat ('%', #{searchText}, '%') or
-                        bas.mem_nick like concat ('%', #{searchText}, '%')
+                        and (
+                            crew.mem_no like concat ('%', #{searchText}, '%') or
+                            bas.mem_userid like concat ('%', #{searchText}, '%') or
+                            bas.mem_nick like concat ('%', #{searchText}, '%') or
+                            crewbas.crew_name like concat ('%', #{searchText}, '%')
                         )
                     </otherwise>
                 </choose>
