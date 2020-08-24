@@ -184,7 +184,7 @@ var ItemDataTableSource = {
                     // return data;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" height="50px" />';
+                    return '<img class="fullSize_background _webpImage" src="'+ data +'" width="50px" height="50px" data-webpImage="' + row.webp_image+ '"/>';
 
                 }},
             {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
