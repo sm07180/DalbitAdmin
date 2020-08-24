@@ -54,6 +54,8 @@
             init();
         } else if (tabIndex == 1) {
             initReq();
+        } else if (tabIndex == 2) {
+            initManage();
         }
     });
 
@@ -66,6 +68,8 @@
                 init();
             } else if (tabIndex == 1) {
                 initReq();
+            } else if (tabIndex == 2) {
+                initManage();
             }
         }
     });

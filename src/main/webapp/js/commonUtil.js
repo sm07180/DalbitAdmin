@@ -307,6 +307,32 @@ util.getCommonCodeRadio = function(code, targetCode, isExcludeAllYn, name) {
     }
 },
 
+/**
+ * 여러개 등록 할 시
+ */
+util.getCommonCodeRadioMulti = function(code, targetCode, isExcludeAllYn, name, order) {
+    targetCode = eval(targetCode);
+    if (!common.isEmpty(targetCode)) {
+
+        var header = targetCode[0];
+        var html = '';
+        var radioName = common.isEmpty(name) ? header.value : name;
+        targetCode.forEach(function (value, index) {
+            if (!common.isEmpty(value.type)) {
+
+                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                    return;
+                }
+                html += '<label class="control-inline fancy-radio custom-color-green">';
+                html += '<input type="radio" value="' + value.value + '" id="'+ order + '_' + radioName + index +'" name="' + radioName + '_' + order + '" class="form-control '+radioName+'" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                html += '<span><i></i>' + value.code + '</span>'
+                html += '</label>';
+            }
+        });
+        return html;
+    }
+},
+
 util.getCommonCodeCheck = function(code, targetCode, isExcludeAllYn, name) {
     targetCode = eval(targetCode);
     if (!common.isEmpty(targetCode)) {
@@ -627,4 +653,21 @@ util.textareaResize = function(obj, initHeight){
     if(height <= obj.scrollHeight){
         obj.style.height = (12+obj.scrollHeight)+"px";
     }
+}
+
+util.serializeToJson = function(form){
+    var obj = null;
+
+    try {
+        var arr = form.serializeArray();
+        if(arr){
+            obj = {};
+            jQuery.each(arr, function() {
+                obj[this.name] = this.value;
+            });
+        }
+    }catch(e) {
+        alert(e.message);
+    }finally  {}
+    return obj;
 }

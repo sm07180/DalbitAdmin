@@ -794,7 +794,7 @@
             <th>처리일자</th>
             <th>처리현황</th>
             <th>처리자</th>
-            <th>상세보기</th>
+            <th>상세</th>
         </tr>
         </thead>
         <tbody id="tableBody"></tbody>

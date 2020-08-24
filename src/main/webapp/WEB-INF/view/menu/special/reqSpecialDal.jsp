@@ -23,7 +23,7 @@
                     </tbody>
                 </table>
 
-                <button type="button" class="btn btn-primary pull-right mt10 mr15" id="bt_manage"><i class="fa fa-floppy-o"></i>신청관리</button>
+                <%--<button type="button" class="btn btn-primary pull-right mt10 mr15" id="bt_manage"><i class="fa fa-floppy-o"></i>신청관리</button>--%>
             </div>
             <!-- //summary -->
 
@@ -98,7 +98,7 @@
        var data = {
            'idx': $(this).data('idx')
        };
-       util.getAjaxData("detail", "/rest/menu/special/reqDalDetail", data, fn_success_detail);
+       util.getAjaxData("detail", "/rest/menu/special/reqDalDetail", data, fn_success_req_detail_manage);
     });
 
     $(document).on('click', '#reqSpecialList .dt-body-center input[type="checkbox"]', function() {
@@ -111,7 +111,7 @@
        }
     });
 
-    function fn_success_detail(dst_id, response) {
+    function fn_success_req_detail_manage(dst_id, response) {
 
         response.data.select_year = moment(new Date()).format('YYYY');
         response.data.select_month = moment(new Date()).add('1', 'months').format('MM');
@@ -349,12 +349,15 @@
                 alert('스페셜DJ 신청관리가 수정되었습니다.');
             }
 
-            closeModal();
+            initManage();
+        }else{
+            alert(response.message);
         }
 
     }
 
 </script>
+
 
 <script id="tmp_reqDalList" type="text/x-handlebars-template">
     <div class="widget widget-table">
@@ -422,7 +425,6 @@
     </div>
 </script>
 
-
 <script type="text/x-handlebars-template" id="tmp_req_manage">
     <form id="manageForm">
         <input type="hidden" name="idx" value="{{this.specialDjManageInfo.idx}}" />
@@ -441,7 +443,7 @@
                                     <tr>
                                         <th>선정기간</th>
                                         <td colspan="3">
-                                            {{this.param.select_year}}년 {{this.param.select_month}}월
+                                            {{this.select_year}}년 {{this.select_month}}월
                                             <input type="hidden" name="select_year" id="select_year" value="{{this.param.select_year}}" />
                                             <input type="hidden" name="select_month" id="select_month" value="{{this.param.select_month}}" />
                                         </td>

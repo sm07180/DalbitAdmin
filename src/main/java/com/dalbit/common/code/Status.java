@@ -530,6 +530,7 @@ public enum Status {
     스페셜DJ승인취소_실패("C006", "server.error", "스페셜DJ 승인취소 실패 시"),
 
     스페셜DJ_중복("-1", "specialDj.fail.exist", "스페셜DJ 등록 시 이미 등록된 상태일 때"),
+    스페셜DJ_참여조건설정_중복("-1", "specialDj.manage.exist", "스페셜DJ 등록 시 이미 등록된 상태일 때"),
 
     스페셜DJ순위변경_성공("0", "update.success", "스페셜DJ 순위변경 성공 시"),
     스페셜DJ순위변경_실패("C006", "server.error", "스페셜DJ 순위변경 실패 시"),

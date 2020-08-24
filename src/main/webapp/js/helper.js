@@ -301,3 +301,31 @@ Handlebars.registerHelper("isCurrentDisplay", function(is_view, startDate, endDa
     }
     return off_text;
 });
+
+Handlebars.registerHelper('getCommonCodeRadio', function(code, targetCode, isExcludeAllYn, name){
+    return util.getCommonCodeRadio(code, targetCode, isExcludeAllYn, name);
+});
+
+Handlebars.registerHelper('getCommonCodeRadioMulti', function(code, targetCode, isExcludeAllYn, name, order){
+    return util.getCommonCodeRadioMulti(code, targetCode, isExcludeAllYn, name, order);
+});
+
+Handlebars.registerHelper('getCommonCodeCheck', function(code, targetCode, isExcludeAllYn, name){
+    return util.getCommonCodeCheck(code, targetCode, isExcludeAllYn, name);
+});
+
+Handlebars.registerHelper('getCommonCodeCheck2', function(code, targetCode, isExcludeAllYn, name){
+    return util.getCommonCodeCheck2(code, targetCode, isExcludeAllYn, name);
+});
+
+Handlebars.registerHelper('getCommonCodeHorizontalCheck', function(code, targetCode, isExcludeAllYn, name){
+    return util.getCommonCodeHorizontalCheck(code, targetCode, isExcludeAllYn, name);
+});
+
+Handlebars.registerHelper('getCommonCodeSelect', function(code, targetCode, isExcludeAllYn, name){
+    return util.getCommonCodeSelect(code, targetCode, isExcludeAllYn, name);
+});
+
+Handlebars.registerHelper('getCommonCodeSelectForName', function(code, targetCode, isExcludeAllYn, name){
+    return util.getCommonCodeSelectForName(code, targetCode, isExcludeAllYn, name);
+});
