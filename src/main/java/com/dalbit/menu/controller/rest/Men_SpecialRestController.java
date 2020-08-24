@@ -8,6 +8,7 @@ import com.dalbit.menu.service.Men_SpecialService;
 import com.dalbit.menu.service.RecommendService;
 import com.dalbit.menu.vo.*;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -156,7 +157,9 @@ public class Men_SpecialRestController {
      * 스페셜 달D 신청 관리 등록
      */
     @PostMapping("insertManageInfo")
-    public String insertManageInfo(SpecialDjManageVo specialDjManageVo) {
+    public String insertManageInfo(HttpServletRequest request) {
+        String jsonData = request.getParameter("jsonData");
+        SpecialDjManageVo specialDjManageVo = new Gson().fromJson(jsonData, SpecialDjManageVo.class);
         String result = menSpecialService.insertManageInfo(specialDjManageVo);
         return result;
     }
@@ -165,8 +168,19 @@ public class Men_SpecialRestController {
      * 스페셜 달D 신청 관리 수정
      */
     @PostMapping("updateManageInfo")
-    public String updateManageInfo(SpecialDjManageVo specialDjManageVo) {
+    public String updateManageInfo(HttpServletRequest request) {
+        String jsonData = request.getParameter("jsonData");
+        SpecialDjManageVo specialDjManageVo = new Gson().fromJson(jsonData, SpecialDjManageVo.class);
         String result = menSpecialService.updateManageInfo(specialDjManageVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 관리 목록
+     */
+    @PostMapping("selectManageList")
+    public String selectManageList(SpecialDjManageVo specialDjManageVo) {
+        String result = menSpecialService.selectManageList(specialDjManageVo);
         return result;
     }
 }

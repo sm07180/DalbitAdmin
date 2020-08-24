@@ -530,6 +530,7 @@ public enum Status {
     스페셜DJ승인취소_실패("C006", "server.error", "스페셜DJ 승인취소 실패 시"),
 
     스페셜DJ_중복("-1", "specialDj.fail.exist", "스페셜DJ 등록 시 이미 등록된 상태일 때"),
+    스페셜DJ_참여조건설정_중복("-1", "specialDj.manage.exist", "스페셜DJ 등록 시 이미 등록된 상태일 때"),
 
     스페셜DJ순위변경_성공("0", "update.success", "스페셜DJ 순위변경 성공 시"),
     스페셜DJ순위변경_실패("C006", "server.error", "스페셜DJ 순위변경 실패 시"),
@@ -540,11 +541,24 @@ public enum Status {
     환전_취소_회원번호없음("-3", "exchange.cancel.no.member", "idx에 회원번호가 없을 시"),
     환전_취소_이미완료("-4", "exchange.cancel.already", "이미 취소 완료된 환전인 경우"),
 
-    크루명등록_성공("0", "insert.success", "크루명 등록 성공 시"),
-    크루명등록_실패("-1", "business.error", "크루명 등록 실패 시"),
+    크루명등록_성공("0", "crew.insert.success", "크루명 등록 성공 시"),
+    크루명등록_실패("C006", "crew.insert.fail", "크루명 등록 실패 시"),
 
-    크루원등록_성공("0", "insert.success", "크루원 등록 성공 시"),
-    크루원등록_실패("-1", "business.error", "크루원 등록 실패 시"),
+    크루원등록_성공("0", "crew.member.insert.success", "크루원 등록 성공 시"),
+    크루원등록_해당회원정보없음("-1", "crew.member.no.data", "크루원 등록 시 해당 회원정보가 없을 때"),
+    크루원등록_이미등록된회원("-2", "crew.member.already.exist", "크루원 등록 시 이미 등록된 회원일 때"),
+    크루원등록_실패("C006", "crew.member.insert.fail", "크루원 등록 실패 시"),
+
+    크루장지정_성공("0", "crew.leader.insert.success", "크루장 지정 성공 시"),
+    크루장지정_실패("C006", "crew.leader.insert.fail", "크루장 지정 실패 시"),
+    크루장취소_성공("0", "crew.leader.cancel.success", "크루장 취소 성공 시"),
+    크루장취소_실패("C006", "crew.leader.cancel.fail", "크루장 취소 실패 시"),
+
+    크루명삭제_성공("0", "crew.delete.success", "크루명 삭제 성공 시"),
+    크루명삭제_실패("C006", "crew.delete.fail", "크루명 삭제 실패 시"),
+
+    크루원삭제_성공("0", "crew.member.delete.success", "크루원 삭제 성공 시"),
+    크루원삭제_실패("C006", "crew.member.delete.fail", "크루원 삭제 실패 시"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트

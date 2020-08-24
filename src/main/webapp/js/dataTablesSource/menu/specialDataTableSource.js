@@ -77,4 +77,46 @@ var specialDataTableSource = {
                 },'width':'60px'},
         ]
     },
+
+    'reqManageList' : {
+        'url': '/rest/menu/special/selectManageList'
+        , 'columns': [
+            {'title': '년', 'data': 'select_year','width':'70px'},
+            {'title': '월', 'data': 'select_month','width':'70px'},
+            {'title': '제목', 'data': 'title','width':'200px', 'render' : function(data, type, row, meta){
+                    return '<a href="javascript://" class="_detail" data-year="'+row.select_year+'" data-month="'+row.select_month+'">' + data + '</a>'
+                }},
+            {'title': '신청기간', 'data': 'mem_phone', 'render' : function(data, type, row, meta){
+                    return moment(row.req_start_date).format('YYYY.MM.DD') + ' ~<br />' + moment(row.req_end_date).format('YYYY.MM.DD')
+                },'width':'100px'},
+            {'title': '데이터<br />수집기간', 'data': '', 'render': function (data, type, row, meta) {
+                    return moment(row.condition_start_date).format('YYYY.MM.DD') + ' ~<br />' + moment(row.condition_end_date).format('YYYY.MM.DD')
+                },'width':'100px'},
+            {'title': '지원요건 1', 'data': '', 'render': function (data, type, row, meta) {
+                    return row.condition_codeName1 + '<br />' + specialDjUtil.getConditionData(row.condition_code1, row.condition_data1)
+                },'width':'200px'},
+            {'title': '지원요건 2', 'data': '', 'render': function (data, type, row, meta) {
+                    return row.condition_codeName2 + '<br />' + specialDjUtil.getConditionData(row.condition_code2, row.condition_data2)
+                },'width':'200px'},
+            {'title': '지원요건 3', 'data': '', 'render': function (data, type, row, meta) {
+                    return row.condition_codeName3 + '<br />' + specialDjUtil.getConditionData(row.condition_code3, row.condition_data3)
+                },'width':'200px'},
+            {'title': '등록일', 'data': 'reg_date', 'render': function (data, type, row, meta) {
+                    return moment(row.reg_date).format('YYYY.MM.DD HH:mm:ss')
+                },'width':'100px'},
+            {'title': '등록자', 'data': 'op_name','width':'100px'},
+            {'title': '수정일', 'data': 'last_upd_date', 'render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        return '-'
+                    }
+                    return moment(data).format('YYYY.MM.DD HH:mm:ss')
+                },'width':'100px'},
+            {'title': '수정자', 'data': 'last_op_name', 'render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        return '-'
+                    }
+                    return data
+                },'width':'100px'},
+        ]
+    }
 };

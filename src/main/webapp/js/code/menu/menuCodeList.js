@@ -37,7 +37,6 @@ var special_selectYears = [
     new COMMON_CODE(null, 'select_year', '년')
     , new COMMON_CODE('2021', '2021', '2021년')
     , new COMMON_CODE('2020', '2020', '2020년')
-    , new COMMON_CODE('2019', '2019', '2019년')
 ];
 
 var special_selectMonths = [
@@ -55,3 +54,16 @@ var special_selectMonths = [
     , new COMMON_CODE('2', '02', '2월')
     , new COMMON_CODE('1', '01', '1월')
 ];
+
+var special_manage_contentType = [
+    new COMMON_CODE(null, 'content_type', '컨텐츠타입')
+    , new COMMON_CODE('image', 'image', '이미지')
+    , new COMMON_CODE('button', 'button', '버튼')
+]
+
+var special_manage_content_button_type = [
+    new COMMON_CODE(null, 'button_type', '컨텐츠 버튼 타입')
+    , new COMMON_CODE('link', 'link', '링크이동')
+    , new COMMON_CODE('popup', 'popup', '팝업')
+    , new COMMON_CODE('function', 'function', '기능')
+]

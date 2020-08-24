@@ -9,7 +9,16 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CrewMemberListVo extends PagingVo {
+
+    /* input */
+    private int searchType;
+    private String searchText;
+
+    /* output */
+    private int idx;
+    private String mem_no;
     private int crewIdx;
+    private String crewName;
     private String userId;
     private String memNick;
     private String memSex;
