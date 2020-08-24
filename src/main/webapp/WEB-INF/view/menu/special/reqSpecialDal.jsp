@@ -358,6 +358,73 @@
 
 </script>
 
+
+<script id="tmp_reqDalList" type="text/x-handlebars-template">
+    <div class="widget widget-table">
+        <div class="widget-header">
+            <h3><i class="fa fa-desktop"></i> 스페셜 DJ 신청 세부사항</h3>
+        </div>
+        <div class="widget-content mt15">
+            <div class="row col-lg-12 form-inline">
+                <table class="table table-bordered table-dalbit">
+                    <input type="hidden" name="idx" data-idx="{{idx}}"/>
+                    <colgroup>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                    </colgroup>
+                    <tr>
+                        <th>신청일시</th>
+                        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                        <th>승인일시</th>
+                        <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>{{mem_name}}</td>
+
+                        <th>주요방송시간</th>
+                        <td>
+                            {{broadcast_time1}}<br />
+                            {{broadcast_time2}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>방송소개</th>
+                        <td colspan="3" style="height:200px">
+                            <textarea type="textarea" class="form-control" id="title" name="title" style="width: 100%; height: 100%" disabled>{{title}}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내가 스페셜 DJ가 된다면?!</th>
+                        <td colspan="3" style="height:200px">
+                            <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%" disabled>{{contents}}</textarea>
+                        </td>
+                    </tr>
+                    <colgroup>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                    </colgroup>
+                    <tr>
+                        <th>스페셜DJ 선정 연도</th>
+                        <td id="reqSelectYear">{{{getCommonCodeSelect select_year 'special_selectYears' 'Y' 'reqSelectYear'}}}</td>
+                        <th>선정 월</th>
+                        <td id="reqSelectMonth">{{{getCommonCodeSelect select_month 'special_selectMonths' 'Y' 'reqSelectMonth'}}}</td>
+                    </tr>
+                </table>
+                <!-- 승인완료 승인거부-->
+                {{^equal state '3'}}<button type="button" class="btn btn-danger btn-sm pull-right mb15" id="bt_reqReject">승인거부</button>{{/equal}}
+                {{^equal state '2'}}<button type="button" class="btn btn-success btn-sm pull-right mb15 mr10" id="bt_reqOk" data-idx="{{idx}}" data-memno="{{mem_no}}">승인완료</button>{{/equal}}
+            </div>
+        </div>
+    </div>
+</script>
+
 <script type="text/x-handlebars-template" id="tmp_req_manage">
     <form id="manageForm">
         <input type="hidden" name="idx" value="{{this.specialDjManageInfo.idx}}" />
