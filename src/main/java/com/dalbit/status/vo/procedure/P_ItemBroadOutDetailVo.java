@@ -11,6 +11,7 @@ import lombok.ToString;
 public class P_ItemBroadOutDetailVo extends SearchVo {
 
     private String item_code;
+    private String webp_image;
     private String item_thumbnail;
     private String item_name;
     private String sale_price;

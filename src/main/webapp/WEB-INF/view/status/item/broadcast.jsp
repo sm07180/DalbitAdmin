@@ -104,7 +104,7 @@
     {{#each this as |data|}}
     <tr>
         <td class="font-bold">{{rowNum}}</td>
-        <td><img src="{{data.item_thumbnail}}" width="50" height="50" /></td>
+        <td><img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{webp_image}}"/></td>
         <td>{{item_name}}</td>
         <td>{{sale_price}}</td>
         <td>{{addComma itemCnt}}</td>

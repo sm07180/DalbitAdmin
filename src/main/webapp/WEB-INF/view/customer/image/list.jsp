@@ -228,13 +228,13 @@
         });
 
         $("#preview")
-            .css("top",(e.pageY - (height/2)) + "px")
+            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
             .css("left",(e.pageX + yOffset) + "px")
             .fadeIn("fast");
     });
     $(document).on("mousemove",".thumbnailImg",function(e){ //마우스 이동
         $("#preview")
-            .css("top",(e.pageY - (height/2)) + "px")
+            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
             .css("left",(e.pageX + yOffset) + "px");
     });
     $(document).on("mouseout",".thumbnailImg",function(){ //마우스 아웃

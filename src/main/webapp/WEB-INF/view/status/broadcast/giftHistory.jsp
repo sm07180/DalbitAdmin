@@ -99,7 +99,7 @@
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>
                 {{^equal item_thumbnail ''}}
-                    <img src="{{data.item_thumbnail}}" width="50" height="50" />
+                    <img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{data.webp_image}}"/>
                 {{else}}
                     {{#equal data.item_name '부스터'}}
                             <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
@@ -114,7 +114,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="10" class="noData">{{isEmptyData}}<td>
+            <td colspan="11" class="noData">{{isEmptyData}}<td>
         </tr>
     {{/each}}
 </script>
