@@ -112,7 +112,7 @@
                             crew.mem_no like concat ('%', #{searchText}, '%') or
                             bas.mem_userid like concat ('%', #{searchText}, '%') or
                             bas.mem_nick like concat ('%', #{searchText}, '%') or
-                            crewbas.crew_name like concat ('%', #{searchText}, '%')
+                            crewbas.crew_name = #{searchText}
                         )
                     </otherwise>
                 </choose>
