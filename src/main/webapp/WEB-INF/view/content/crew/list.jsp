@@ -304,6 +304,7 @@
         $('#crewIdx').val(idx);
 
         $("#searchText").val(name);
+        $('#searchType').find('option[value="4"]').prop('selected', 'selected');
 
         getCrewMemberInfo();
     }
