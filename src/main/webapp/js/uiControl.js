@@ -142,21 +142,52 @@ ui.imageLayerView = function(){
             height = $(this).height();
         });
         $("#preview")
-            .css("top",(e.pageY - (height / 2)) + "px")
+            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
             .css("left",(e.pageX + yOffset) + "px")
             .fadeIn("fast");
     });
     $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
         $("#preview")
-            .css("top",(e.pageY - (height / 2)) + "px")
+            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
             .css("left",(e.pageX + yOffset) + "px");
     });
     $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
         $("#preview").remove();
     });
-}
+};
 ui.imageLayerView();
 
+// 마우스 오버시 움직이는 이미지 추가
+ui.webpImageView = function() {
+    var xOffset = 10;
+    var yOffset = 30;
+    var height = 0;
+    $(document).on("mouseover", "._webpImage", function (e) { //마우스 오버
+        if (common.isEmpty($(this).attr("data-webpImage"))) {
+            return;
+        }
+
+        $("body").append("<p id='preview'><img id='previewImage' src='" + $(this).attr("data-webpImage") + "' width='300px' style='width: auto;max-height: 500px'/></p>"); //이미지
+
+        $("#previewImage").load(function () {
+            height = $(this).height();
+        });
+
+        $("#preview")
+            .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
+            .css("left", (e.pageX + yOffset) + "px")
+            .fadeIn("fast");
+    });
+    $(document).on("mousemove", "._webpImage", function (e) { //마우스 이동
+        $("#preview")
+            .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
+            .css("left", (e.pageX + yOffset) + "px");
+    });
+    $(document).on("mouseout", "._webpImage", function () { //마우스 아웃
+        $("#preview").remove();
+    });
+}
+ui.webpImageView();
 
 $(document).on("click",".fullSize_background",function(){ //이미지 원본 크기
     util.fullSize_background($(this).prop('src'));

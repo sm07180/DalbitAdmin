@@ -49,9 +49,9 @@
         from
           ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
             ON a.writer_no = b.mem_no
+        order BY writeDate desc
           limit #{pageNo}, #{pageCnt}
         ) aa, (select @rownum := #{pageNo}) b
-        order BY writeDate desc
     </select>
 
     <select id="callFanboardHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardInputVo" resultType="integer">

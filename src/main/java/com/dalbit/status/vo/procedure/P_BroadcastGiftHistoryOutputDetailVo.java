@@ -29,4 +29,5 @@ public class P_BroadcastGiftHistoryOutputDetailVo extends BaseVo {
     private String gifted_mem_no;
     private String gifted_mem_userid;
     private String gifted_mem_nick;
+    private String webp_image;
 }
