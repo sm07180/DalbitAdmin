@@ -58,6 +58,7 @@
         } else if (tabIndex == 1){
             initReq();
         } else if(tabIndex == 2) {
+            $("#reqManageDetail").empty();
             initManage();
         }
     });
