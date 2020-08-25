@@ -179,8 +179,8 @@
         <colgroup>
             <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
             <col width="6%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
-            <col width="6%"/><col width="4%"/><col width="5%"/><col width="25%"/><col width="5%"/>
-            <col width="3%"/><col width="3%"/>
+            <col width="6%"/><col width="4%"/><col width="5%"/><col width="23%"/><col width="5%"/>
+            <col width="4%"/><col width="4%"/>
         </colgroup>
         <thead>
         <tr>
