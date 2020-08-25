@@ -15,6 +15,12 @@
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active">
             <div class="widget-content">
+                <div class="col-md-6 no-padding mt10">
+                    <span id="searchType_board" onchange="fanBoardList();"></span>
+                </div>
+                <div class="col-md-6 no-padding mt10" >
+                    <span id="fanBoardTable_summary"></span>
+                </div>
                 <div class="dataTables_paginate paging_full_numbers" id="fanBoard_paginate_top"></div>
                 <div id="fanBoardTable"></div>
                 <div class="dataTables_paginate paging_full_numbers" id="fanBoard_paginate"></div>
@@ -45,6 +51,7 @@
     var fanBoardPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
+        $("#searchType_board").html(util.getCommonCodeSelect(-1, searchType_board));
     });
 
     function fanBoardList() {
@@ -56,11 +63,12 @@
             , 'txt_search' : $('#txt_search').val()
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
+            , 'searchType' : $("select[name='searchType_board']").val()
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
     }
 
-    function fn_success_fanBoardList(dst_id, response) {
+    function fn_success_fanBoardList(dst_id, response, param) {
         var template = $('#tmp_fanBoardTable').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -85,6 +93,16 @@
             fanBoardPagingInfo = pagingInfo;
             fanBoardList();
         }
+
+        util.getAjaxData("fanBoardListSummary", "/rest/content/boardAdm/fanBoardList/summary", param, fn_success_fanBoardSummary);
+    }
+    function fn_success_fanBoardSummary(dst_id, response) {
+        var template = $('#fanboard_tableSummary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+
+        $('#fanBoardTable_summary').html(html);
     }
 
     $(document).on('click', '._selectReply', function() {
@@ -220,7 +238,12 @@
 
                 <td>{{{getCommonCodeLabel status 'fanBoard_status'}}}</td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-                <td>{{replaceHtml contents}}</td>
+                <td>
+                    {{#dalbit_if depth '==' 2}}
+                    <span class="pull-left" style="background-color: #fdf2ca">(댓글)</span>
+                    {{/dalbit_if}}
+                    {{replaceHtml contents}}
+                </td>
                 <td>
                     {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
                 </td>
@@ -229,9 +252,35 @@
             </tr>
         {{else}}
         <tr>
-            <td colspan="16">{{isEmptyData}}</td>
+            <td colspan="17">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
+    </table>
+</script>
+
+
+
+<script id="fanboard_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right no-padding" style="width: 70%;margin-right: 0px">
+        <tr>
+            <th colspan="5" style="background-color: #8fabdd">팬보드 (비밀글) 현황</th>
+        </tr>
+        <tr>
+            <th style="background-color: #7f7f7f; color: white">총합</th>
+            <th style="background-color: #d9d9d9">일평균</th>
+            <th style="background-color: #d9d9d9">성별-남성/여성/알수없음</th>
+            <th style="background-color: #d9d9d9">총 삭제 글</th>
+            <th style="background-color: #d9d9d9">총 일평균 삭제</th>
+        </tr>
+        <tr>
+            <td class="font-bold" style="background-color: #f4b282">{{totalCnt}}({{secretTotalCnt}})</td>
+            <td>{{avgTotalCnt}}({{secretAvgTotalCnt}})</td>
+            <td><span style="color: blue"><span class="font-bold">{{maleCnt}}</span>({{secretMaleCnt}})</span>
+                / <span style="color: red"><span class="font-bold">{{femaleCnt}}</span>({{secretFemaleCnt}})</span>
+                / <span class="font-bold">{{noneCnt}}</span>({{secretNoneCnt}})</td>
+            <td>{{totalDelCnt}}({{secretTotalDelCnt}})</td>
+            <td>{{avgTotalDelCnt}}({{secretAvgTotalDelCnt}})</td>
+        </tr>
     </table>
 </script>

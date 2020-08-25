@@ -18,6 +18,12 @@
           <if test='end_sel != null and end_sel != ""'>
               and fan.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
           </if>
+          <if test='searchType == "2" '>    <!-- 비밀글만 보기 -->
+              and fan.view_yn = 0
+          </if>
+          <if test='searchType == "3" '>    <!-- 삭제글만 보기 -->
+              and fan.`status` = 2
+          </if>
         </where>
     </sql>
 
@@ -46,6 +52,7 @@
                 , fan.last_upd_date
                 , fan.contents
                 , fan.view_yn
+                , fan.depth
                 , (select count(*) from rd_data.tb_member_fanboard WHERE mem_no =  fan.mem_no and `status` = 1 AND board_no = fan.board_no AND depth = 2 ) as replyCnt
                 , @RNUM := @RNUM +1 as rowNum
             from rd_data.tb_member_fanboard fan
@@ -55,7 +62,12 @@
                 left outer join rd_data.tb_member_basic writer_member on fan.writer_no = writer_member.mem_no
                 left outer join rd_data.tb_member_withdrawal_bak writer_withdrawal_member on fan.writer_no = writer_withdrawal_member.mem_no
                 <include refid="fanBoardCondition"/>
+        <if test='searchType == "1" '>    <!-- 댓글 많은 수 부터 보기 -->
+            order by replyCnt desc
+        </if>
+        <if test='searchType != "1" '>    <!-- 최근 등록 순으로 보기 -->
             order by fan.idx desc
+        </if>
         ) a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -65,6 +77,33 @@
         count(*)
       from rd_data.tb_member_fanboard fan
         <include refid="fanBoardCondition"/>
+    </select>
+
+    <!-- 팬보드 통계 -->
+    <select id="selectFanBoardSummary" parameterType="com.dalbit.content.vo.BoardAdmFanBoardVo" resultType="com.dalbit.content.vo.BoardAdmFanBoardVo">
+      select totalCnt,(totalCnt/datediff) as avgTotalCnt,  totalDelCnt, (totalDelCnt/datediff) as avgTotalDelCnt, maleCnt, femaleCnt, noneCnt, type, datediff
+          from (
+        select count(*) as totalCnt
+                , sum(if(view_yn=0,1,0)) as totalDelCnt
+                , sum(if((select mem_sex From rd_data.tb_member_basic where mem_no = fan.mem_no) = 'm', 1, 0)) as maleCnt
+                , sum(if((select mem_sex From rd_data.tb_member_basic where mem_no = fan.mem_no) = 'f', 1, 0)) as femaleCnt
+                , sum(if((select mem_sex From rd_data.tb_member_basic where mem_no = fan.mem_no) = 'n', 1, 0)) as noneCnt
+                , DATEDIFF(DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59'),DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')) as datediff
+                , 'nomal' as type
+        from rd_data.tb_member_fanboard fan
+        <include refid="fanBoardCondition"/>
+        union
+        select count(*) as totalCnt
+                , sum(if(view_yn=0,1,0)) as totalDelCnt
+                , sum(if((select mem_sex From rd_data.tb_member_basic where mem_no = fan.mem_no) = 'm', 1, 0)) as maleCnt
+                , sum(if((select mem_sex From rd_data.tb_member_basic where mem_no = fan.mem_no) = 'f', 1, 0)) as femaleCnt
+                , sum(if((select mem_sex From rd_data.tb_member_basic where mem_no = fan.mem_no) = 'n', 1, 0)) as noneCnt
+                , DATEDIFF(DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59'),DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')) as datediff
+                , 'del' as type
+        From rd_data.tb_member_fanboard fan
+        <include refid="fanBoardCondition"/>
+         and status='2'
+        ) a
     </select>
 
     <update id="deleteFanBoard">
