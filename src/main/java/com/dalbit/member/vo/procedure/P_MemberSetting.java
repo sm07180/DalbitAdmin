@@ -19,6 +19,7 @@ public class P_MemberSetting {
     private int set_5;
     private int set_6;
     private int set_7;
+    private int set_8;
     private String alim_slct;
     private Date last_upd_date;
 

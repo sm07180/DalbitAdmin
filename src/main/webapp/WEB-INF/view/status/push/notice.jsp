@@ -7,25 +7,29 @@
         <span class="_searchDate"></span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
+                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                <col width="4.7%"/>
             </colgroup>
             <thead>
             <tr class="_stateTopTh">
                 <th rowspan="2"></th>
-                <th colspan="2">DJ알림</th>
-                <th colspan="2">선물알림</th>
+                <th colspan="2">방송알림</th>
+                <th colspan="2">방송공지알림</th>
                 <th colspan="2">팬 알림</th>
-                <th colspan="2">댓글 알림</th>
-                <th colspan="2">공지 알림</th>
-                <th colspan="2">푸시 알림</th>
-                <th colspan="2">좋아요 알림</th>
+                <th colspan="2">팬보드 글 알림</th>
+                <th colspan="2">팬보드 댓글 알림</th>
+                <th colspan="2">선물 알림</th>
+                <th colspan="2">1:1 알림</th>
+                <th colspan="2">공지/이벤트 알림</th>
                 <th colspan="3">합계</th>
                 <th rowspan="2">총합</th>
             </tr>
             <tr class="_stateSubTh">
+                <th>설정</th>
+                <th>해제</th>
                 <th>설정</th>
                 <th>해제</th>
                 <th>설정</th>
@@ -96,6 +100,8 @@
         <td>{{addComma set_6_n}}</td>
         <td>{{addComma set_7_y}}</td>
         <td>{{addComma set_7_n}}</td>
+        <td>{{addComma set_8_y}}</td>
+        <td>{{addComma set_8_n}}</td>
         <td>{{addComma alim_n}}</td>
         <td>{{addComma alim_s}}</td>
         <td>{{addComma alim_v}}</td>

@@ -109,6 +109,11 @@
     var IMAGE_SERVER_URL = '${cfn:getProperty("server.img.url")}';
     var ANT_SERVER_URL = '${cfn:getProperty("server.ant.url")}';
     var ANT_APP_NAME = '${cfn:getProperty("ant.app.name")}';
+
+    var WOWZA_SERVER_URL = '${cfn:getProperty("wowza.wss.url")}';
+    var WOWZA_PREFIX = '${cfn:getProperty("wowza.prefix")}';
+    var WOWZA_SUFFIX = '${cfn:getProperty("wowza.suffix")}';
+
     var ADMIN_NICKNAME = '달빛지기';
 
     var LOGIN_USER_NAME = '${principal.getUserInfo().getName()}';

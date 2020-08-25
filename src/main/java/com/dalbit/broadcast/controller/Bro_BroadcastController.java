@@ -4,6 +4,7 @@ package com.dalbit.broadcast.controller;
 import com.dalbit.broadcast.service.Bro_BroadcastService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ public class Bro_BroadcastController {
 
     @Autowired
     Bro_BroadcastService bro_broadcastService;
+
+    @Value("${admin.player.type}")
+    String playerType;
 
     /**
      * 생방송 목록
@@ -34,8 +38,13 @@ public class Bro_BroadcastController {
 
     @RequestMapping("popup/playerPopup")
     public String playerPopup(HttpServletRequest request) {
-        bro_broadcastService.callBroadcastSimpleInfo(request);
-        return "broadcast/broadcast/popup/playerPopup";
+        if(playerType.equals("wowza")){
+            bro_broadcastService.callBroadcastWowzaSimpleInfo(request);
+            return "broadcast/broadcast/popup/playerPopup_wowza";
+        }else{
+            bro_broadcastService.callBroadcastSimpleInfo(request);
+            return "broadcast/broadcast/popup/playerPopup";
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.dalbit.broadcast.vo.procedure;
 
+import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class P_ChatListOutputVo extends PagingVo {
     private String msg;
     private String chatIdx;
     private String room_no;
+    private ImageVo image_profile;
+    private String mem_sex;
 
     /* summry */
     private int chatCnt;
@@ -32,6 +35,10 @@ public class P_ChatListOutputVo extends PagingVo {
     public void setWriteDate(Date writeDate){
         this.writeDate = writeDate;
         this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy.MM.dd HH:mm:ss");
+    }
+
+    public void setImage_profile(String path){
+        this.image_profile = new ImageVo(path, this.mem_sex, DalbitUtil.getProperty("server.photo.url"));
     }
 }
 
