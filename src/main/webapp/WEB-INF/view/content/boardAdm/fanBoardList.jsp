@@ -240,9 +240,13 @@
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>
                     {{#dalbit_if depth '==' 2}}
-                    <span class="pull-left" style="background-color: #fdf2ca">(댓글)</span>
+                    <span class="col-md-2"><span style="background-color: #fdf2ca">(댓글)</span></span>
                     {{/dalbit_if}}
-                    {{replaceHtml contents}}
+                    {{#dalbit_if depth '==' 1}}
+                    <span class="col-md-2"></span>
+                    {{/dalbit_if}}
+
+                    <span class="pull-left">{{replaceHtml contents}}</span>
                 </td>
                 <td>
                     {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
