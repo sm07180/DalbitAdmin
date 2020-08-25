@@ -210,7 +210,7 @@ public class Cus_QuestionService {
                 msgCont = msgCont.replaceAll("@@answer@@", _answer);
 
                 EmailInputVo emailInputVo = new EmailInputVo();
-                emailInputVo.setTitle("[달빛라디오] 1:1문의에 대한 답변을 보내드립니다.");
+                emailInputVo.setTitle("[달빛라이브] 1:1문의에 대한 답변을 보내드립니다.");
                 emailInputVo.setMsgCont(msgCont);
                 emailInputVo.setRcvMail(pQuestionOperateVo.getEmail());
                 emailService.sendEmail(emailInputVo);
