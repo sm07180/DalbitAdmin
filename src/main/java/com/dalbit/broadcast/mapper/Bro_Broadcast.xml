@@ -70,6 +70,7 @@
     <select id="callBroadcastSimpleInfo" parameterType="String" resultType="java.util.HashMap">
         SELECT
             a.title
+            , a.state
             , a.start_date AS srtDt
             , a.expected_end_date AS expectedEndDt
             , a.os_type AS osType
@@ -92,20 +93,30 @@
         FROM
         (
             SELECT
-                idx AS chatIdx
-                ,mem_no AS mem_no
-                ,nickname AS nickname
-                ,auth AS auth
-                ,last_upd_date AS writeDate
-                ,room_no AS room_no
-                ,msg AS msg
+                msg.idx AS chatIdx
+                ,msg.mem_no AS mem_no
+                ,msg.nickname AS nickname
+                ,msg.auth AS auth
+                ,msg.last_upd_date AS writeDate
+                ,msg.room_no AS room_no
+                ,msg.msg AS msg
+                ,basic.mem_sex AS mem_sex
+                ,profile.image_profile AS image_profile
             FROM
-                rd_data.tb_broadcast_room_msg
+                rd_data.tb_broadcast_room_msg AS msg
+            LEFT JOIN
+                rd_data.tb_member_basic AS basic
+			ON
+				msg.mem_no = basic.mem_no
+            LEFT JOIN
+                rd_data.tb_member_profile AS profile
+            ON
+                msg.mem_no = profile.mem_no
             WHERE
-                room_no = #{room_no}
-                AND `type`='chat'
-                AND idx > #{chatIdx}
-            ORDER BY idx
+                msg.room_no = #{room_no}
+                AND msg.`type`='chat'
+                AND msg.idx > #{chatIdx}
+            ORDER BY msg.idx
             DESC limit 500
         ) AS a
         ORDER BY chatIdx ASC;

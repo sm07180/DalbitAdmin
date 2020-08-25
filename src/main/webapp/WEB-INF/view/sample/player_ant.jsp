@@ -13,7 +13,7 @@
     }
 
     .player {
-        width: 600px;
+        width: 500px;
         text-align: center;
     }
 
@@ -47,6 +47,25 @@
         width: 100%;
         height: 100%;
         z-index: 2;
+    }
+
+    .liveChat__btn {
+        position: absolute;
+        width: 100%;
+        bottom: 15px;
+        z-index: 10;
+    }
+
+    .liveChat__btn button{
+        border-radius: 10px;
+        border: 0px;
+        background-color: white;
+        padding: 1px 10px 1px 10px;
+        font-weight: bold;
+    }
+
+    .liveChat__btn button:focus {
+        outline: 0;
     }
 
     .liveChat__chat p {
@@ -116,6 +135,9 @@
             <audio id="remoteVideo" autoplay="autoplay" controls="controls"></audio>
         </p>
         <p>
+            <h5 class="text-muted" id="state" style="color:red;"></h5>
+        </p>
+        <p>
             <input type="text" class="form-control" value="" id="roomNo" placeholder="Room No">
             <input type="text" class="form-control" value="" id="streamId" placeholder="Type stream ID">
             <input type="text" class="form-control" value="" id="tokenId" placeholder="Type token ID">
@@ -131,12 +153,17 @@
         </div>
         <div class="liveChat__cover" id="liveChat__cover">
         </div>
-    </div>
+        <div class="liveChat__btn" id="liveChat__btn" style="display: none;">
+            <button id="btn_scroll_down" onclick="fnScrollDown()">아래로 이동 <i class="fa fa-angle-double-down"></i></button>
+        </div>
 </div>
 
 
 <script>
     var pc_config = null;
+    var broadInfo = <%=in_BroadInfo%>;
+    var roomNo = "<%=in_roomNo%>";
+
 
     var sdpConstraints = {
         OfferToReceiveAudio : true,
@@ -171,40 +198,58 @@
                 //joined the stream
                 console.log("play started");
                 isReloadChat = true;
-                loadChat();
             } else if (info == "play_finished") {
                 //leaved the stream
+                isReloadChat = false;
                 console.log("play finished");
                 alert("방송이 종료되었습니다.");
+                // window.close();
+                $("#state").text("종료된 방송 입니다.");
+                return false;
             }
             else if (info == "closed") {
                 if (typeof description != "undefined") {
+                    isReloadChat = false;
                     console.log("Connecton closed: " + JSON.stringify(description));
+                    alert("방송이 종료되었습니다.");
+                    // window.close();
+                    $("#state").text("종료된 방송 입니다.");
+                    return false;
                 }
             }
         },
         callbackError : function(error) {
             //some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
             console.log("error callback: " + JSON.stringify(error));
-            alert(JSON.stringify(error));
+            alert("플레이어 실행 오류 발생");
+            // window.close();
+            $("#state").text("[플레이어 실행 오류] " + JSON.stringify(error));
+            return false;
         }
     });
-
-    var broadInfo = <%=in_BroadInfo%>;
-    var roomNo = "<%=in_roomNo%>";
 
     var streamId;
     var tokenId;
     var lastChatIdx = 0;
-    var isReloadChat = false;
+    var isReloadChat = true;
+
+    $(document).ready(function(){
+        if(common.isEmpty(roomNo)){
+            alert("방송방 번호가 없습니다.\n방송방 번호를 확인하여 주시기 바랍니다.");
+            window.close();
+            return false;
+        }
+    });
 
     $(window).load(function(){
         console.log("load");
         console.log(broadInfo);
 
         if(common.isEmpty(broadInfo)){
-            alert("방송이 종료되었습니다.");
-            return;
+            alert("종료된 방송입니다.");
+            // window.close();
+            $("#state").text("종료된 방송 입니다.");
+            // return false;
         }
 
         streamId = broadInfo.bjStreamId;
@@ -212,15 +257,17 @@
         $("#title").html(broadInfo.title);
         $("#streamId").val(streamId);
         $("#tokenId").val(tokenId);
-        console.log(PHOTO_SERVER_URL + broadInfo.roomBgImg);
         $(".liveChat").css("background-image", "url("+PHOTO_SERVER_URL + broadInfo.roomBgImg+")");
 
 
         setTimeout(function(){
-            $("#play").click()
+            $("#play").click();
         },1000)
     })
 
+    window.onbeforeunload = function() {
+       alert("test");
+    };
 
 
     /**
@@ -246,6 +293,7 @@
      * player 연결
      * */
     function play(){
+        loadChat();
         webRTCAdaptor.play(streamId, tokenId);
     }
 
@@ -276,9 +324,18 @@
             var context = response.data;
             var html=templateScript(context);
 
+            var scrollTop = $(".liveChat__chat").scrollTop();
+            var innerH = $(".liveChat__chat").innerHeight();
+            var scrollH = $(".liveChat__chat")[0].scrollHeight;
+
 
             $(".liveChat__chat").append(html);
-            $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
+
+            if((scrollTop + innerH) >= scrollH){    //스크롤 최하단에서는 자동 스크롤 이동
+                $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
+            }else{
+                $(".liveChat__btn").show();
+            }
         }else{
 
         }
@@ -291,6 +348,26 @@
         },5000)
     }
 
+
+    $(".liveChat__chat").on('scroll',function () {
+        var scrollTop = $(".liveChat__chat").scrollTop();
+        var innerH = $(".liveChat__chat").innerHeight();
+        var scrollH = $(".liveChat__chat")[0].scrollHeight;
+
+        if((scrollTop + innerH) < scrollH){    //스크롤 최하단에서는 자동 스크롤 이동
+            $(".liveChat__btn").show();
+        }else{
+            $(".liveChat__btn").hide();
+        }
+    });
+
+    /**
+     * 스크롤 다운
+     * */
+    function fnScrollDown(){
+        $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
+        $(".liveChat__btn").hide();
+    }
 
 
 </script>

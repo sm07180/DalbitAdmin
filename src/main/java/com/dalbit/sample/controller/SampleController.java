@@ -111,7 +111,13 @@ public class SampleController {
     @GetMapping("player")
     public String player(HttpServletRequest request){
         bro_broadcastService.callBroadcastSimpleInfo(request);
-        return "sample/player";
+        return "sample/player_ant";
+    }
+
+    @GetMapping("wowza/player")
+    public String wowzaPlayer(HttpServletRequest request){
+        bro_broadcastService.callBroadcastWowzaSimpleInfo(request);
+        return "sample/player_wowza";
     }
 
 }
