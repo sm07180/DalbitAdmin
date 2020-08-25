@@ -105,14 +105,14 @@
                         and bas.mem_nick like concat ('%', #{searchText}, '%')
                     </when>
                     <when test='searchType == 4'>
-                        and crewbas.crew_bas like concat ('%', #{searchText}, '%')
+                        and crewbas.crew_name like concat ('%', #{searchText}, '%')
                     </when>
                     <otherwise>
                         and (
                             crew.mem_no like concat ('%', #{searchText}, '%') or
                             bas.mem_userid like concat ('%', #{searchText}, '%') or
                             bas.mem_nick like concat ('%', #{searchText}, '%') or
-                            crewbas.crew_name like concat ('%', #{searchText}, '%')
+                            crewbas.crew_name = #{searchText}
                         )
                     </otherwise>
                 </choose>
@@ -149,7 +149,7 @@
               , (select @RNUM := 0) r
             where crewbas.delete_yn = 0
               <include refid="crewMemberCondition"/>
-            order by ranking asc
+            order by leader_yn desc, ranking asc
         )as a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>

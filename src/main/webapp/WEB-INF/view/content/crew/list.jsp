@@ -304,6 +304,7 @@
         $('#crewIdx').val(idx);
 
         $("#searchText").val(name);
+        $('#searchType').find('option[value="4"]').prop('selected', 'selected');
 
         getCrewMemberInfo();
     }
@@ -441,7 +442,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="12">{{isEmptyData}}</td>
+            <td colspan="13">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
