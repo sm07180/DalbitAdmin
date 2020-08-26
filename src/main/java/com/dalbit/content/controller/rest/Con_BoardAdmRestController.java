@@ -31,6 +31,14 @@ public class Con_BoardAdmRestController {
     }
 
     /**
+     * 팬보드 통계
+     */
+    @PostMapping("/fanBoardList/summary")
+    public String selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo) {
+        return conBoardAdmService.selectFanBoardSummary(boardAdmFanBoardVo);
+    }
+
+    /**
      * 팬보드 삭제
      */
     @PostMapping("/deleteFanBoard")

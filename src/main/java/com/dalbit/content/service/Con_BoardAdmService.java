@@ -49,6 +49,39 @@ public class Con_BoardAdmService {
     }
 
     /**
+     * 팬보드 통계
+     */
+    public String selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo) {
+        ArrayList<BoardAdmFanBoardVo> fanBoardSummaryList = conBoardAdmDao.selectFanBoardSummary(boardAdmFanBoardVo);
+
+        BoardAdmFanBoardVo fanBoardSummary = new BoardAdmFanBoardVo();
+        for(int i=0;i<fanBoardSummaryList.size();i++){
+            if(fanBoardSummaryList.get(i).getType().equals("nomal")) {
+                fanBoardSummary.setTotalCnt(fanBoardSummaryList.get(i).getTotalCnt());
+                fanBoardSummary.setAvgTotalCnt(fanBoardSummaryList.get(i).getAvgTotalCnt());
+                fanBoardSummary.setTotalDelCnt(fanBoardSummaryList.get(i).getTotalDelCnt());
+                fanBoardSummary.setAvgTotalDelCnt(fanBoardSummaryList.get(i).getAvgTotalDelCnt());
+                fanBoardSummary.setMaleCnt(fanBoardSummaryList.get(i).getMaleCnt());
+                fanBoardSummary.setFemaleCnt(fanBoardSummaryList.get(i).getFemaleCnt());
+                fanBoardSummary.setNoneCnt(fanBoardSummaryList.get(i).getNoneCnt());
+            }else{
+                fanBoardSummary.setSecretTotalCnt(fanBoardSummaryList.get(i).getTotalCnt());
+                fanBoardSummary.setSecretAvgTotalCnt(fanBoardSummaryList.get(i).getAvgTotalCnt());
+                fanBoardSummary.setSecretTotalDelCnt(fanBoardSummaryList.get(i).getTotalDelCnt());
+                fanBoardSummary.setSecretAvgTotalDelCnt(fanBoardSummaryList.get(i).getAvgTotalDelCnt());
+                fanBoardSummary.setSecretMaleCnt(fanBoardSummaryList.get(i).getMaleCnt());
+                fanBoardSummary.setSecretFemaleCnt(fanBoardSummaryList.get(i).getFemaleCnt());
+                fanBoardSummary.setSecretNoneCnt(fanBoardSummaryList.get(i).getNoneCnt());
+            }
+        }
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, fanBoardSummary));
+
+        return result;
+    }
+
+    /**
      * 팬보드 삭제
      */
     public String deleteFanBoard(BoardAdmFanBoardDeleteVo boardAdmFanBoardDeleteVo) {

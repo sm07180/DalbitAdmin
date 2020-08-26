@@ -18,6 +18,9 @@ public interface Con_BoardAdmDao {
     @Transactional(readOnly = true)
     ArrayList<BoardAdmFanBoardVo> selectFanBoardList(BoardAdmFanBoardVo boardAdmFanBoardVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<BoardAdmFanBoardVo> selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo);
+
     int deleteFanBoard(BoardAdmFanBoardDeleteVo boardAdmFanBoardDeleteVo);
 
     @Transactional(readOnly = true)

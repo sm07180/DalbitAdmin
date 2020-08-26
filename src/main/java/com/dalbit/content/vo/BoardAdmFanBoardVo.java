@@ -40,5 +40,25 @@ public class BoardAdmFanBoardVo extends PagingVo {
     private String contents;                // 내용
     private String replyCnt;                // 댓글 개수
     private String view_yn;                // 공개여부
+    private String depth;                   // 리플인지~
+
+    /* summary */
+
+    private String type;
+    private int avgTotalCnt;
+    private int totalDelCnt;
+    private int avgTotalDelCnt;
+    private int maleCnt;
+    private int femaleCnt;
+    private int noneCnt;
+
+    private int secretTotalCnt;
+    private int secretAvgTotalCnt;
+    private int secretTotalDelCnt;
+    private int secretAvgTotalDelCnt;
+    private int secretMaleCnt;
+    private int secretFemaleCnt;
+    private int secretNoneCnt;
+    private String datediff;
 
 }
