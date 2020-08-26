@@ -106,9 +106,10 @@
     }
 
     $(document).on('click', '._selectReply', function() {
-        if($(this).data('status') == 2) {
-            alert('삭제된 댓글입니다');
-        } else if($(this).data('reply') == 0) {
+        // if($(this).data('status') == 2) {
+        //     alert('삭제된 댓글입니다');
+        // } else
+        if($(this).data('reply') == 0) {
             alert('해당 팬보드의 댓글이 없습니다.');
         } else if($(this).data('reply') > 0) {
             var data = {
@@ -278,13 +279,13 @@
             <th style="background-color: #d9d9d9">총 일평균 삭제</th>
         </tr>
         <tr>
-            <td class="font-bold" style="background-color: #f4b282">{{totalCnt}} ({{secretTotalCnt}})</td>
-            <td>{{avgTotalCnt}} ({{secretAvgTotalCnt}})</td>
-            <td><span style="color: blue"><span class="font-bold">{{maleCnt}}</span> ({{secretMaleCnt}})</span>
-                / <span style="color: red"><span class="font-bold">{{femaleCnt}}</span> ({{secretFemaleCnt}})</span>
-                / <span class="font-bold">{{noneCnt}}</span> ({{secretNoneCnt}})</td>
-            <td>{{totalDelCnt}} ({{secretTotalDelCnt}})</td>
-            <td>{{avgTotalDelCnt}} ({{secretAvgTotalDelCnt}})</td>
+            <td class="font-bold" style="background-color: #f4b282">{{addComma totalCnt}} ({{addComma secretTotalCnt}})</td>
+            <td>{{addComma avgTotalCnt}} ({{addComma secretAvgTotalCnt}})</td>
+            <td><span style="color: blue"><span class="font-bold">{{addComma maleCnt}}</span> ({{addComma secretMaleCnt}})</span>
+                / <span style="color: red"><span class="font-bold">{{addComma femaleCnt}}</span> ({{addComma secretFemaleCnt}})</span>
+                / <span class="font-bold">{{addComma noneCnt}}</span> ({{addComma secretNoneCnt}})</td>
+            <td>{{addComma totalDelCnt}} ({{addComma secretTotalDelCnt}})</td>
+            <td>{{addComma avgTotalDelCnt}} ({{addComma secretAvgTotalDelCnt}})</td>
         </tr>
     </table>
 </script>
