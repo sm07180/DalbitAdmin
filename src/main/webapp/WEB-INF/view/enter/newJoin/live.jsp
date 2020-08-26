@@ -39,43 +39,43 @@
                 <th colspan="12" class="_sex_none _bgColor" data-bgColor="#ffd966"></th>
             </tr>
             <tr>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">구글</th>
+                <th colspan="2" class="_bgColor _phone" data-bgColor="#e9ebf5">전화</th>
+                <th colspan="2" class="_bgColor _kakao" data-bgColor="#e9ebf5">카카오</th>
+                <th colspan="2" class="_bgColor _naver" data-bgColor="#e9ebf5">네이버</th>
+                <th colspan="2" class="_bgColor _fbook" data-bgColor="#e9ebf5">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple" data-bgColor="#e9ebf5">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
+                <th colspan="2" class="_bgColor _phone" data-bgColor="#e9ebf5">전화</th>
+                <th colspan="2" class="_bgColor _kakao" data-bgColor="#e9ebf5">카카오</th>
+                <th colspan="2" class="_bgColor _naver" data-bgColor="#e9ebf5">네이버</th>
+                <th colspan="2" class="_bgColor _fbook" data-bgColor="#e9ebf5">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple" data-bgColor="#e9ebf5">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#e9ebf5">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#e9ebf5">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#e9ebf5">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#e9ebf5">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#e9ebf5">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
 
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#ffe699">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#ffe699">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#ffe699">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#ffe699">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#ffe699">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#ffe699">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#ffe699">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#ffe699">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#ffe699">구글</th>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
@@ -322,6 +322,7 @@
     var tmp_end = 0;
     var type;
     function getLive(){
+
         $("#live_th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -3).day()] + ")");
         $("#live_th_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -2).day()] + ")");
         $("#live_th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -1).day()] + ")");

@@ -1,7 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- serachBox -->
@@ -52,12 +54,17 @@
         <!-- //serachBox -->
         <!-- DATA TABLE -->
         <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-            <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">가입정보</a></li>
-            <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴정보</a></li>
+            <li><a href="/enter/newJoin/info?tabType=1">실시간</a></li>
+            <li><a href="/enter/newJoin/info?tabType=2">일자별</a></li>
+            <li><a href="/enter/newJoin/info?tabType=3">월간별</a></li>
+            <li><a href="/enter/newJoin/info?tabType=4">플랫폼(연령별)</a></li>
+            <li><a href="/enter/newJoin/info?tabType=5">플랫폼(성별)</a></li>
+            <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">가입 회원내역</a></li>
+            <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴 회원내역</a></li>
         </ul>
         <div class="row col-lg-12 form-inline">
             <div class="tab-content no-padding">
-                <div class="tab-pane fade in active " id="memberList">       <!-- 회원 -->
+                <div class="tab-pane fade in active" id="memberList">       <!-- 회원 -->
                     <div class="widget-content">
                         <span id="joinList_summaryArea"></span>
                         <table id="tb_memberList" class="table table-sorting table-hover table-bordered">
@@ -84,6 +91,9 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
+
+    var tabType = <%=in_tabType%>;
+
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     setTimeDate(dateTime);
@@ -100,7 +110,6 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
-        getUserInfo();
 
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
@@ -275,12 +284,29 @@
     var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
+
+    $("#memberList").hide();
+    $("#withdrawalList").hide();
+    if(!common.isEmpty(tabType)){
+        if(tabType == 1){
+            $('.nav-tabs li:eq(5) a').tab('show');
+            $("#memberList").show();
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(6) a').tab('show');
+            $("#withdrawalList").show();
+        }
+    }else{
+        $('.nav-tabs li:eq(5) a').tab('show');
+        $("#memberList").show();
+    }
+
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
         tmp_searchText = $('#txt_search').val();
         tmp_memWithdrawal = memWithdrawal;
         tmp_sDate = $("#startDate").val();
         tmp_eDate = $("#endDate").val();
+
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
         }else{
@@ -289,10 +315,14 @@
     }
     function memberList(){
         memWithdrawal = "0";
+        $("#memberList").show();
+        $("#withdrawalList").hide();
         getUserInfo();
     }
     function withdrawalList(){
         memWithdrawal = "1";
+        $("#memberList").hide();
+        $("#withdrawalList").show();
         getUserInfo();
     }
 

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
+
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-8 no-padding">
         <div class="container-fluid">
@@ -66,6 +70,9 @@
     setTimeDate(dateTime);
 
     var slctType;
+
+    var tabType = <%=in_tabType%>;
+    console.log(tabType);
 
     $(function(){
         // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));

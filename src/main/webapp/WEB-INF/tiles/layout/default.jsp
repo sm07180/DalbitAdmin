@@ -37,6 +37,14 @@
         $('._sex_male').html(common.sexIcon('m'));
         $('._sex_female').html(common.sexIcon('f'));
         $('._sex_none').html(common.sexIcon('n'));
+
+        $("._phone").html(util.renderSlct("p","30"));
+        $("._kakao").html(util.renderSlct("k","30"));
+        $("._naver").html(util.renderSlct("n","30"));
+        $("._fbook").html(util.renderSlct("f","30"));
+        $("._apple").html(util.renderSlct("i","30"));
+        $("._google").html(util.renderSlct("g","30"));
+
     });
 </script>
 
