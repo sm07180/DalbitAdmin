@@ -745,9 +745,9 @@
                 tmp = 0;
 
                 $("#liveTableBody tr:eq(26) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
-                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_join_male_total) + "%) </span> |" +
-                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_join_female_total) + "%) </span> | " +
-                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_join_none_total) + "%)"
+                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
                                                             );
             }else if(i == 0){
                 $("#liveTableBody tr:eq(0) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
@@ -809,9 +809,9 @@
 
 
                 $("#liveTableBody tr:eq(26) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
-                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_join_male_total) + "%) </span> |" +
-                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_join_female_total) + "%) </span> | " +
-                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_join_none_total) + "%)"
+                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
                                                             );
             }
 
@@ -875,9 +875,9 @@
                 $("#liveTableBody2 tr:eq(25) td:eq(" + (++tmp) + ")").html(sum_google_n);
 
                 $("#liveTableBody2 tr:eq(26) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
-                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_join_male_total) + "%) </span> |" +
-                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_join_female_total) + "%) </span> | " +
-                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_join_none_total) + "%)"
+                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
                                             );
             }else if(i == 3){
                 $("#liveTableBody2 tr:eq(0) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
@@ -937,9 +937,9 @@
                 $("#liveTableBody2 tr:eq(25) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
 
                 $("#liveTableBody2 tr:eq(26) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
-                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_join_male_total) + "%) </span> |" +
-                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_join_female_total) + "%) </span> | " +
-                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_join_none_total) + "%)"
+                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
                             );
             }
         }

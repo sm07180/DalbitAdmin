@@ -7,7 +7,7 @@
         <span class="font-bold">* 가입수치(연령대 내에서 플랫폼 별 가입에 대한 %비율)/탈퇴수치를 표기한 정보입니다.</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="10%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+                <col width="13%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
                 <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
                 <col width="7%"/><col width="7%"/><col width="7%"/>
             </colgroup>
@@ -52,8 +52,7 @@
 
         var data = dataSet();
         data.slctType = 1;
-
-        util.getAjaxData("platformAgeList", "/rest/enter/join/platform/age", data, fn_platformAge_success);
+        util.getAjaxData("platformAge", "/rest/enter/newJoin/platform/age", data, fn_platformAge_success);
     }
 
     function fn_platformAge_success(data, response){
@@ -67,13 +66,44 @@
             var totalContext = response.data.totalInfo;
             var totalHtml = templateScript(totalContext);
             tableBody.append(totalHtml);
-
-            response.data.detailList.slctType = 1
         }
 
         for(var i=0;i<response.data.detailList.length;i++){
-            toDay = week[moment(response.data.detailList[i].daily.replace(/-/gi,".")).add('days', 0).day()];
-            response.data.detailList[i].date = response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")";
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+
+
+            response.data.detailList[i].aos40_up_join_Cnt = response.data.detailList[i].aos40_join_Cnt  + response.data.detailList[i].aos50_join_Cnt
+                                                          + response.data.detailList[i].aos60_join_Cnt;
+            response.data.detailList[i].aos40_up_out_Cnt = response.data.detailList[i].aos40_out_Cnt  + response.data.detailList[i].aos50_out_Cnt
+                                                          + response.data.detailList[i].aos60_out_Cnt;
+
+            response.data.detailList[i].ios40_up_join_Cnt = response.data.detailList[i].ios40_join_Cnt  + response.data.detailList[i].ios50_join_Cnt
+                                                          + response.data.detailList[i].ios60_join_Cnt;
+            response.data.detailList[i].ios40_up_out_Cnt = response.data.detailList[i].ios40_out_Cnt  + response.data.detailList[i].ios50_out_Cnt
+                                                          + response.data.detailList[i].ios60_out_Cnt;
+
+            response.data.detailList[i].pc40_up_join_Cnt = response.data.detailList[i].pc40_join_Cnt  + response.data.detailList[i].pc50_join_Cnt
+                                                          + response.data.detailList[i].pc60_join_Cnt;
+            response.data.detailList[i].pc40_up_out_Cnt = response.data.detailList[i].pc40_out_Cnt  + response.data.detailList[i].pc50_out_Cnt
+                                                          + response.data.detailList[i].pc60_out_Cnt;
+
+
+            response.data.detailList[i].aos_join_total_Cnt = response.data.detailList[i].aos10_join_Cnt + response.data.detailList[i].aos20_join_Cnt
+                                                             + response.data.detailList[i].aos30_join_Cnt + response.data.detailList[i].aos40_up_join_Cnt;
+
+            response.data.detailList[i].ios_join_total_Cnt = response.data.detailList[i].ios10_join_Cnt + response.data.detailList[i].ios20_join_Cnt
+                                                             + response.data.detailList[i].ios30_join_Cnt + response.data.detailList[i].ios40_up_join_Cnt;
+
+            response.data.detailList[i].pc_join_total_Cnt = response.data.detailList[i].pc10_join_Cnt + response.data.detailList[i].pc20_join_Cnt
+                                                            + response.data.detailList[i].pc30_join_Cnt + response.data.detailList[i].pc40_up_join_Cnt;
+
         }
 
         var template = $('#tmp_platformAgeDetailList').html();
@@ -98,41 +128,42 @@
     <tr class="font-bold _bgColor _fontColor" data-bgColor="#d0cece" data-fontColor="#f37600">
         <td>
             총계<br/>
-            <span style="color: #555555;">가입수치(연령대별비율)<br/>/탈퇴수</span>
+            <span style="color: #555555;">가입수치(연령대별비율)/탈퇴수</span>
         </td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma aos10_join_Cnt}} ({{average sum_android10Cnt total_join_Cnt}}) / {{addComma aos10_out_Cnt}}</td>
+        <td>{{addComma ios10_join_Cnt}} ({{average sum_ios10Cnt total_join_Cnt}}) / {{addComma ios10_out_Cnt}}</td>
+        <td>{{addComma pc10_join_Cnt}} ({{average sum_pc10Cnt total_join_Cnt}}) / {{addComma pc10_out_Cnt}}</td>
+        <td>{{addComma aos20_join_Cnt}} ({{average sum_android20Cnt total_join_Cnt}}) / {{addComma aos20_out_Cnt}}</td>
+        <td>{{addComma ios20_join_Cnt}} ({{average sum_ios20Cnt total_join_Cnt}}) / {{addComma ios20_out_Cnt}}</td>
+        <td>{{addComma pc20_join_Cnt}} ({{average sum_pc20Cnt total_join_Cnt}}) / {{addComma pc20_out_Cnt}}</td>
+        <td>{{addComma aos30_join_Cnt}} ({{average sum_android30Cnt total_join_Cnt}}) / {{addComma aos30_out_Cnt}}</td>
+        <td>{{addComma ios30_join_Cnt}} ({{average sum_ios30Cnt total_join_Cnt}}) / {{addComma ios30_out_Cnt}}</td>
+        <td>{{addComma pc30_join_Cnt}} ({{average sum_pc30Cnt total_join_Cnt}}) / {{addComma pc30_out_Cnt}}</td>
+        <td>{{addComma aos40_up_join_Cnt}} ({{average sum_android40_upCnt total_join_Cnt}}) / {{addComma aos40_up_out_Cnt}}</td>
+        <td>{{addComma ios40_up_join_Cnt}} ({{average sum_ios40_upCnt total_join_Cnt}}) / {{addComma ios40_up_out_Cnt}}</td>
+        <td>{{addComma pc40_up_join_Cnt}} ({{average sum_pc40_upCnt total_join_Cnt}}) / {{addComma pc40_up_out_Cnt}}</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_platformAgeDetailList">
     {{#each this as |data|}}
-        <tr>
-            <td class="font-bold _bgColor" data-bgColor="#d8e2f3">
+        <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+            <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+                {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
                 {{data.date}}
             </td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma totalCnt}}</td>
+            <td>{{addComma aos10_join_Cnt}} ({{average aos10_join_Cnt aos_join_total_Cnt}}) / {{aos10_out_Cnt}}</td>
+            <td>{{addComma ios10_join_Cnt}} ({{average ios10_join_Cnt ios_join_total_Cnt}}) / {{ios10_out_Cnt}}</td>
+            <td>{{addComma pc10_join_Cnt}} ({{average pc10_join_Cnt pc_join_total_Cnt}}) / {{pc10_out_Cnt}}</td>
+            <td>{{addComma aos20_join_Cnt}} ({{average aos20_join_Cnt aos_join_total_Cnt}}) / {{aos20_out_Cnt}}</td>
+            <td>{{addComma ios20_join_Cnt}} ({{average ios20_join_Cnt ios_join_total_Cnt}}) / {{ios20_out_Cnt}}</td>
+            <td>{{addComma pc20_join_Cnt}} ({{average pc20_join_Cnt pc_join_total_Cnt}}) / {{pc20_out_Cnt}}</td>
+            <td>{{addComma aos30_join_Cnt}} ({{average aos30_join_Cnt aos_join_total_Cnt}}) / {{aos30_out_Cnt}}</td>
+            <td>{{addComma ios30_join_Cnt}} ({{average ios30_join_Cnt ios_join_total_Cnt}}) / {{ios30_out_Cnt}}</td>
+            <td>{{addComma pc30_join_Cnt}} ({{average pc30_join_Cnt pc_join_total_Cnt}} ) / {{pc30_out_Cnt}}</td>
+            <td>{{addComma aos40_up_join_Cnt}} ({{average aos40_up_join_Cnt aos_join_total_Cnt}}) / {{aos40_up_out_Cnt}}</td>
+            <td>{{addComma ios40_up_join_Cnt}} ({{average ios40_up_join_Cnt ios_join_total_Cnt}}) / {{ios40_up_out_Cnt}}</td>
+            <td>{{addComma pc40_up_join_Cnt}} ({{average pc40_up_join_Cnt pc_join_total_Cnt}}) / {{pc40_up_out_Cnt}}</td>
         </tr>
     {{else}}
         <tr>

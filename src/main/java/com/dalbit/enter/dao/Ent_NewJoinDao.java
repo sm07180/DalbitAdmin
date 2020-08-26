@@ -15,6 +15,15 @@ public interface Ent_NewJoinDao {
     ArrayList<P_JoinLiveOutDetailVo> callJoinLive(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
+    ArrayList<P_JoinCalenderOutDetailVo> callCalender(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
     ArrayList<P_JoinMonthOutDetailVo> callMonth(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_JoinPlatformAgeOutDetailVo> callJoinPlatformAge(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_JoinPlatformGenderOutDetailVo> callJoinPlatformGender(ProcedureVo procedureVo);
 
 }

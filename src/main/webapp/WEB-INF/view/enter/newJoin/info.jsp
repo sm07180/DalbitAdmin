@@ -56,6 +56,8 @@
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
+
 <script type="text/javascript">
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");

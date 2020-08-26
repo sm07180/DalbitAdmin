@@ -32,47 +32,46 @@ public class Ent_NewJoinRestController {
         return result;
     }
 
+    @PostMapping("info/calender")
+    public String calender(P_StatVo pStatVo){
+        String result = ent_NewJoinService.callCalender(pStatVo);
+        return result;
+    }
+
     @PostMapping("info/month")
     public String month(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
         }
-
         if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
             pStatVo.setEndDate(null);
         }
-
         String result = ent_NewJoinService.callMonth(pStatVo);
         return result;
     }
 
-//    @PostMapping("platform/gender")
-//    public String platformGender(P_StatVo pStatVo){
-//
-//        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
-//            pStatVo.setStartDate(null);
-//        }
-//
-//        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
-//            pStatVo.setEndDate(null);
-//        }
-//
-//        String result = ent_NewJoinService.callJoinPlatformGender(pStatVo);
-//        return result;
-//    }
-//
-//    @PostMapping("platform/age")
-//    public String platformAge(P_StatVo pStatVo){
-//
-//        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
-//            pStatVo.setStartDate(null);
-//        }
-//
-//        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
-//            pStatVo.setEndDate(null);
-//        }
-//
-//        String result = ent_NewJoinService.callJoinPlatformAge(pStatVo);
-//        return result;
-//    }
+    @PostMapping("platform/age")
+    public String platformAge(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = ent_NewJoinService.callJoinPlatformAge(pStatVo);
+        return result;
+    }
+
+    @PostMapping("platform/gender")
+    public String platformGender(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = ent_NewJoinService.callJoinPlatformGender(pStatVo);
+        return result;
+    }
+
 }

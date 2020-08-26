@@ -142,6 +142,33 @@ public class Ent_NewJoinService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
     }
+    /**
+     * 회원가입 일자별
+     * @param pStatVo
+     * @return
+     */
+    public String callCalender(P_StatVo pStatVo){
+        String[] dateList = pStatVo.getDateList().split("@");
+
+        pStatVo.setStartDate(dateList[0].split("-")[0]);
+        pStatVo.setEndDate(dateList[0].split("-")[1]);
+
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_JoinCalenderOutDetailVo> detailList =  ent_NewJoinDao.callCalender(procedureVo);
+        P_JoinCalenderOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinCalenderOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+        ArrayList resultList = new ArrayList();
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        resultList.add(result);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
+    }
 
     /**
      * 회원가입 플랫폼 성별
@@ -163,49 +190,42 @@ public class Ent_NewJoinService {
     }
 
     /**
+     * 회원가입 플랫폼 연령
+     * @param pStatVo
+     * @return
+     */
+    public String callJoinPlatformAge(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_JoinPlatformAgeOutDetailVo> detailList =  ent_NewJoinDao.callJoinPlatformAge(procedureVo);
+        P_JoinPlatformAgeOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinPlatformAgeOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
      * 회원가입 플랫폼 성별
      * @param pStatVo
      * @return
              */
-//    public String callJoinPlatformGender(P_StatVo pStatVo){
-//        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-//        List<P_JoinPlatformGenderOutDetailVo> detailList =  ent_NewJoinDao.callJoinPlatformGender(procedureVo);
-//
-//        P_JoinPlatformGenderOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinPlatformGenderOutVo.class);
-//
-//
-//        if(Integer.parseInt(procedureVo.getRet()) <= 0){
-//            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
-//        }
-//
-//        var result = new HashMap<String, Object>();
-//        result.put("totalInfo", totalInfo);
-//        result.put("detailList", detailList);
-//
-//        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
-//    }
-//
-//    /**
-//     * 회원가입 플랫폼 연령
-//     * @param pStatVo
-//     * @return
-//     */
-//    public String callJoinPlatformAge(P_StatVo pStatVo){
-//        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-//        List<P_JoinPlatformAgeOutDetailVo> detailList =  ent_NewJoinDao.callJoinPlatformAge(procedureVo);
-//
-//        P_JoinPlatformAgeOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinPlatformAgeOutVo.class);
-//
-//
-//        if(Integer.parseInt(procedureVo.getRet()) <= 0){
-//            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
-//        }
-//
-//        var result = new HashMap<String, Object>();
-//        result.put("totalInfo", totalInfo);
-//        result.put("detailList", detailList);
-//
-//        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
-//    }
+    public String callJoinPlatformGender(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_JoinPlatformGenderOutDetailVo> detailList =  ent_NewJoinDao.callJoinPlatformGender(procedureVo);
+        P_JoinPlatformGenderOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinPlatformGenderOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
 
 }

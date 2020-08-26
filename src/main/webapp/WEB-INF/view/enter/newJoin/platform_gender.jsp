@@ -74,18 +74,14 @@
         $("#genderDay").text(nowDay + "(" + genderDay + ")");
 
         var data = dataSet();
-        data.slctType = 1;
-        util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platformGender_success);
-
-
+        data.slctType = 0;
+        util.getAjaxData("platformGenderList", "/rest/enter/newJoin/platform/gender", data, fn_platformGender_success);
 
         var data = dataSet(true);
-
         var PrevDay = data.startDate;
         $("#genderDay2").text(PrevDay.substr(5,2) + " 월");
-
-        data.slctType = 1;
-        util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platformGender_success2);
+        data.slctType = 0;
+        util.getAjaxData("platformGenderList", "/rest/enter/newJoin/platform/gender", data, fn_platformGender_success2);
     }
 
     function fn_platformGender_success(data, response){
@@ -93,18 +89,31 @@
         var isDataEmpty = response.data.detailList == null;
         $("#platformGenderTableBody").empty();
         if(!isDataEmpty){
+            response.data.totalInfo.aos_total_join_Cnt = response.data.totalInfo.aos_total_join_mCnt + response.data.totalInfo.aos_total_join_fCnt + response.data.totalInfo.aos_total_join_nCnt;
+            response.data.totalInfo.ios_total_join_Cnt = response.data.totalInfo.ios_total_join_mCnt + response.data.totalInfo.ios_total_join_fCnt + response.data.totalInfo.ios_total_join_nCnt;
+            response.data.totalInfo.pc_total_join_Cnt = response.data.totalInfo.pc_total_join_mCnt + response.data.totalInfo.pc_total_join_fCnt + response.data.totalInfo.pc_total_join_nCnt;
+            response.data.totalInfo.total_join_Cnt = response.data.totalInfo.aos_total_join_Cnt + response.data.totalInfo.ios_total_join_Cnt + response.data.totalInfo.pc_total_join_Cnt;
+
             var template = $('#tmp_platformGenderTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
             var totalHtml = templateScript(totalContext);
             $("#platformGenderTableBody").append(totalHtml);
-
-            response.data.detailList.slctType = 1;
         }
 
         for(var i=0;i<response.data.detailList.length;i++){
-            toDay = week[moment(response.data.detailList[i].daily.replace(/-/gi,".")).add('days', 0).day()];
-            response.data.detailList[i].date = response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")";
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+
+            response.data.detailList[i].aos_total_join_Cnt = response.data.detailList[i].aos_total_join_mCnt + response.data.detailList[i].aos_total_join_fCnt + response.data.detailList[i].aos_total_join_nCnt;
+            response.data.detailList[i].ios_total_join_Cnt = response.data.detailList[i].ios_total_join_mCnt + response.data.detailList[i].ios_total_join_fCnt + response.data.detailList[i].ios_total_join_nCnt;
+            response.data.detailList[i].pc_total_join_Cnt = response.data.detailList[i].pc_total_join_mCnt + response.data.detailList[i].pc_total_join_fCnt + response.data.detailList[i].pc_total_join_nCnt;
+            response.data.detailList[i].total_join_Cnt = response.data.detailList[i].aos_total_join_Cnt + response.data.detailList[i].ios_total_join_Cnt + response.data.detailList[i].pc_total_join_Cnt;
+
         }
 
         var template = $('#tmp_platformGenderDetailList').html();
@@ -124,22 +133,36 @@
     }
 
     function fn_platformGender_success2(data, response){
-
         var isDataEmpty = response.data.detailList == null;
         $("#platformGenderTableBody2").empty();
         if(!isDataEmpty){
+
+            response.data.totalInfo.aos_total_join_Cnt = response.data.totalInfo.aos_total_join_mCnt + response.data.totalInfo.aos_total_join_fCnt + response.data.totalInfo.aos_total_join_nCnt;
+            response.data.totalInfo.ios_total_join_Cnt = response.data.totalInfo.ios_total_join_mCnt + response.data.totalInfo.ios_total_join_fCnt + response.data.totalInfo.ios_total_join_nCnt;
+            response.data.totalInfo.pc_total_join_Cnt = response.data.totalInfo.pc_total_join_mCnt + response.data.totalInfo.pc_total_join_fCnt + response.data.totalInfo.pc_total_join_nCnt;
+            response.data.totalInfo.total_join_Cnt = response.data.totalInfo.aos_total_join_Cnt + response.data.totalInfo.ios_total_join_Cnt + response.data.totalInfo.pc_total_join_Cnt;
+
             var template = $('#tmp_platformGenderTotal2').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
             var totalHtml = templateScript(totalContext);
             $("#platformGenderTableBody2").append(totalHtml);
-
-            response.data.detailList.slctType = 1;
         }
 
         for(var i=0;i<response.data.detailList.length;i++){
-            toDay = week[moment(response.data.detailList[i].daily.replace(/-/gi,".")).add('days', 0).day()];
-            response.data.detailList[i].date = response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")";
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+
+            response.data.detailList[i].aos_total_join_Cnt = response.data.detailList[i].aos_total_join_mCnt + response.data.detailList[i].aos_total_join_fCnt + response.data.detailList[i].aos_total_join_nCnt;
+            response.data.detailList[i].ios_total_join_Cnt = response.data.detailList[i].ios_total_join_mCnt + response.data.detailList[i].ios_total_join_fCnt + response.data.detailList[i].ios_total_join_nCnt;
+            response.data.detailList[i].pc_total_join_Cnt = response.data.detailList[i].pc_total_join_mCnt + response.data.detailList[i].pc_total_join_fCnt + response.data.detailList[i].pc_total_join_nCnt;
+            response.data.detailList[i].total_join_Cnt = response.data.detailList[i].aos_total_join_Cnt + response.data.detailList[i].ios_total_join_Cnt + response.data.detailList[i].pc_total_join_Cnt;
+
         }
 
         var template = $('#tmp_platformGenderDetailList2').html();
@@ -166,33 +189,34 @@
             총계<br/>
             <span style="color: #555555;">가입수치(성별 비율)/탈퇴수</span>
         </td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
+
+        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
+        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
+        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt}}%) / {{aos_total_out_nCnt}}</td>
+        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt}}%) / {{ios_total_out_mCnt}}</td>
+        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt}}%) / {{ios_total_out_fCnt}}</td>
+        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt}}%) / {{ios_total_out_nCnt}}</td>
+        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt}}%) / {{pc_total_out_mCnt}}</td>
+        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt}}%) / {{pc_total_out_fCnt}}</td>
+        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt}}%) / {{pc_total_out_nCnt}}</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_platformGenderDetailList">
     {{#each this as |data|}}
-    <tr>
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
         <td class="font-bold _bgColor" data-bgColor="#fff2cc">
             {{data.date}}
         </td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
+        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
+        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
+        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt}}%) / {{aos_total_out_nCnt}}</td>
+        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt}}%) / {{ios_total_out_mCnt}}</td>
+        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt}}%) / {{ios_total_out_fCnt}}</td>
+        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt}}%) / {{ios_total_out_nCnt}}</td>
+        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt}}%) / {{pc_total_out_mCnt}}</td>
+        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt}}%) / {{pc_total_out_fCnt}}</td>
+        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt}}%) / {{pc_total_out_nCnt}}</td>
     </tr>
     {{else}}
     <tr>
@@ -208,33 +232,35 @@
             총계<br/>
             <span style="color: #555555;">가입수치(성별 비율)/탈퇴수</span>
         </td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalCnt}}</td>
+
+        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
+        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
+        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt}}%) / {{aos_total_out_nCnt}}</td>
+        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt}}%) / {{ios_total_out_mCnt}}</td>
+        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt}}%) / {{ios_total_out_fCnt}}</td>
+        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt}}%) / {{ios_total_out_nCnt}}</td>
+        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt}}%) / {{pc_total_out_mCnt}}</td>
+        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt}}%) / {{pc_total_out_fCnt}}</td>
+        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt}}%) / {{pc_total_out_nCnt}}</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_platformGenderDetailList2">
     {{#each this as |data|}}
-    <tr>
-        <td class="font-bold _bgColor" data-bgColor="#d8e2f3">
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+            {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
             {{data.date}}
         </td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
+        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
+        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
+        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt}}%) / {{aos_total_out_nCnt}}</td>
+        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt}}%) / {{ios_total_out_mCnt}}</td>
+        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt}}%) / {{ios_total_out_fCnt}}</td>
+        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt}}%) / {{ios_total_out_nCnt}}</td>
+        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt}}%) / {{pc_total_out_mCnt}}</td>
+        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt}}%) / {{pc_total_out_fCnt}}</td>
+        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt}}%) / {{pc_total_out_nCnt}}</td>
     </tr>
     {{else}}
     <tr>
