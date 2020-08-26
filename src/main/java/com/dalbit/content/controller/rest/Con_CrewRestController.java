@@ -17,11 +17,19 @@ public class Con_CrewRestController {
     Con_CrewService crewService;
 
     /**
-     * 크루명 등록
+     * 크루 등록
      */
     @PostMapping("/insertCrewName")
     public String insertCrewName(CrewInsertVo crewInsertVo) {
         return crewService.insertCrewName(crewInsertVo);
+    }
+
+    /**
+     * 크루명 수정
+     */
+    @PostMapping("/updateCrewMemo")
+    public String updateCrewMemo(CrewUpdateVo crewUpdateVo) {
+        return crewService.updateCrewMemo(crewUpdateVo);
     }
 
     /**

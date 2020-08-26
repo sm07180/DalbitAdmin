@@ -10,6 +10,14 @@
           (#{crewName}, #{opName}, now())
     </insert>
 
+    <update id="updateCrewMemo" parameterType="com.dalbit.content.vo.CrewUpdateVo">
+    /* Con_Crew.xml - updateCrewMemo */
+        UPDATE rd_admin.tb_crew_basic
+          SET crew_memo = #{crewMemo}
+        WHERE
+          idx = #{crewIdx}
+    </update>
+
     <select id="selectCrewInfo" parameterType="com.dalbit.content.vo.CrewListVo" resultType="com.dalbit.content.vo.CrewListVo">
     /* Con_Crew.xml - selectCrewInfo */
           select *
@@ -19,6 +27,7 @@
                 from (
                       select crew.idx as crewIdx
                           , crew.crew_name as crewName
+                          , crew.crew_memo as crewMemo
                           , ifnull(ifnull(bas.mem_nick, withdrawal.mem_nick), '-') as crewLeader
                           , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
                           , ifnull(lev.level,0) as `level`
@@ -105,14 +114,18 @@
                         and bas.mem_nick like concat ('%', #{searchText}, '%')
                     </when>
                     <when test='searchType == 4'>
-                        and crewbas.crew_name like concat ('%', #{searchText}, '%')
+                        and crewbas.crew_name = #{searchText}
+                    </when>
+                    <when test='searchType == 5'>
+                        and crewbas.crew_memo = #{searchText}
                     </when>
                     <otherwise>
                         and (
                             crew.mem_no like concat ('%', #{searchText}, '%') or
                             bas.mem_userid like concat ('%', #{searchText}, '%') or
                             bas.mem_nick like concat ('%', #{searchText}, '%') or
-                            crewbas.crew_name = #{searchText}
+                            crewbas.crew_name = #{searchText} or
+                            crewbas.crew_memo = #{searchText}
                         )
                     </otherwise>
                 </choose>

@@ -381,7 +381,8 @@ var attendance_dayType = [
 var attendance_searchType = [
     new COMMON_CODE(null, 'searchType', '검색 조건')
     , new COMMON_CODE('all', '-1', '검색 조건(전체)')
-    , new COMMON_CODE('crew', '4', '크루명')
+    , new COMMON_CODE('crew', '4', '크루표식')
+    , new COMMON_CODE('memo', '5', '크루명')
     , new COMMON_CODE('memno', '1', '회원번호')
     , new COMMON_CODE('memid', '2', 'UserID')
     , new COMMON_CODE('memnick', '3', 'User닉네임')

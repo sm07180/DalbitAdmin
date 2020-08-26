@@ -39,11 +39,28 @@ public class Con_CrewService {
             result = crewDao.insertCrewName(crewInsertVo);
         }
         if (result > 0) {
-             return gsonUtil.toJson(new JsonOutputVo(Status.크루명등록_성공));
+             return gsonUtil.toJson(new JsonOutputVo(Status.크루등록_성공));
         } else {
-            return gsonUtil.toJson(new JsonOutputVo(Status.크루명등록_실패));
+            return gsonUtil.toJson(new JsonOutputVo(Status.크루등록_실패));
         }
     }
+
+
+    /**
+     * 크루명 등록
+     */
+    public String updateCrewMemo(CrewUpdateVo crewUpdateVo) {
+        crewUpdateVo.setOpName(MemberVo.getMyMemNo());
+        int result = 0;
+        result = crewDao.updateCrewMemo(crewUpdateVo);
+
+        if (result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.크루명수정_성공));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.크루명수정_실패));
+        }
+    }
+
 
     /**
      * 크루명 조회
@@ -178,10 +195,10 @@ public class Con_CrewService {
         resultMap.put("failCnt", failCnt);
 
         if(0 < sucCnt) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.크루명삭제_성공, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루삭제_성공, resultMap));
         }
         else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.크루명삭제_실패, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.크루삭제_실패, resultMap));
         }
         return result;
     }

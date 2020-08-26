@@ -29,7 +29,7 @@
                             <div class="col-md-4">
                                 <h3 class="title">크루등록</h3>
                                 <label>
-                                    <input type="text" class="form-control _trim" name="crewName" id="crewName" style="width:200px;" placeholder="등록할 크루명을 입력하세요.">
+                                    <input type="text" class="form-control _trim" name="crewName" id="crewName" style="width:200px;" placeholder="등록할 크루 표식을 입력하세요.">
                                 </label>
                                 <button type="button" class="btn btn-danger" id="bt_insertCrewName">등록</button>
                             </div>
@@ -62,9 +62,13 @@
                      <div class="widget-content mt10">
                          <div class="dataTables_paginate paging_full_numbers" id="crew_paginate_top"></div>
                          <table class="table table-bordered">
+                             <colgroup>
+                                 <col width="5%"/><col width="25%"/><col width="35%"/><col width="25%"/><col width="10%"/>
+                             </colgroup>
                              <thead>
                                  <tr>
                                      <th></th>
+                                     <th>크루 표식</th>
                                      <th>크루명</th>
                                      <th>크루장</th>
                                      <th>인원</th>
@@ -93,17 +97,18 @@
                          <div class="dataTables_paginate paging_full_numbers" id="crewMem_paginate_top"></div>
                              <table id="list_info" class="table table-sorting table-hover table-bordered">
                                  <colgroup>
-                                     <col width="1%"/><col width="3%"/><col width="3%"/><col width="4%"/><col width="3%"/>
-                                     <col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/>
-                                     <col width="5.5%"/><col width="5.5%"/><col width="7%"/><col width="5.5%"/><col width="5.5%"/>
-                                     <col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/>
+                                     <col width="3%"/><col width="4%"/><col width="12%"/><col width="11%"/><col width="12%"/>
+                                     <col width="9%"/><col width="9%"/><col width="7%"/><col width="8%"/><col width="5%"/>
+                                     <col width="10%"/><col width="5%"/><col width="5%"/>
+                                     <%--<col width="5.5%"/>--%>
+                                     <%--<col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/>--%>
                                  </colgroup>
                                  <thead>
                                      <tr>
                                          <th></th>
                                          <th>No</th>
-                                         <th>크루명</th>
-                                         <th>UserID</th>
+                                         <th>크루 표식</th>
+                                         <th>회원번호</th>
                                          <th>닉네임</th>
                                          <th>성별(나이)</th>
                                          <th>최근<br />방송 일시</th>
@@ -165,9 +170,9 @@
 
     $('#bt_insertCrewName').on('click', function() {
         if(common.isEmpty($('#crewName').val())) {
-            alert('크루명을 입력해주세요.');
+            alert('크루 표식을 입력해주세요.');
         } else {
-            if(confirm('크루명을 등록하시겠습니까?')) {
+            if(confirm('크루 표식을 등록하시겠습니까?')) {
                 insertCrewName();
             } else {
                 return false;
@@ -178,13 +183,33 @@
     $('input[id="crewName"]').keydown(function() {
         if (event.keyCode === 13) {
             if(common.isEmpty($('#crewName').val())) {
-                alert('크루명을 입력해주세요.');
+                alert('크루 표식을 입력해주세요.');
             } else {
-                if(confirm('크루명을 등록하시겠습니까?')) {
+                if(confirm('크루 표식을 등록하시겠습니까?')) {
                     insertCrewName();
                 } else {
                     return false;
                 }
+            }
+        }
+    });
+
+    $(document).on('click', '#bt_updateCrewMemo', function() {
+        var crewIdx = $(this).data("idx");
+        var crewMemo = $("#crewMemo_"+crewIdx).val();
+
+        if(common.isEmpty(crewMemo)) {
+            alert('크루명을 입력해주세요.');
+        } else {
+            if(confirm('크루명을 등록하시겠습니까?')) {
+                var data = {
+                    'crewIdx' : crewIdx
+                    ,'crewMemo' : crewMemo
+                };
+
+                util.getAjaxData("insertCrewName", "/rest/content/crew/updateCrewMemo", data, fn_insertCrewName_success);
+            } else {
+                return false;
             }
         }
     });
@@ -388,6 +413,10 @@
             <td><input type="checkbox"></td>
             <td><a href="javascript://" onclick="displayCrew('{{this.crewName}}', '{{this.crewIdx}}');" class="_crewInfo" data-crewidx="{{this.crewIdx}}">{{crewName}}</a></td>
             <td>
+                <input type="text" id="crewMemo_{{crewIdx}}" value="{{crewMemo}}" style="width:70%">
+                <button type="button" class="btn btn-success btn-xs" id="bt_updateCrewMemo" data-idx="{{crewIdx}}"> 저장</button>
+            </td>
+            <td>
                 {{#equal crewLeader ''}}
                 -
                 {{else}}
@@ -415,7 +444,9 @@
                 {{user.crewName}}
                 {{/equal}}
             </td>
-            <td>{{user.userId}}</td>
+            <td>
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_no}}</a>
+            </td>
             <td>{{user.memNick}}</td>
             <td>{{{sexIcon user.memSex user.birthYear}}}</td>
             <td>{{convertToDate user.broadDate 'YYYY-MM-DD HH:mm:ss'}}</td>
@@ -442,7 +473,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="12">{{isEmptyData}}</td>
+            <td colspan="13">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>

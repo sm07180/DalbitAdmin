@@ -541,8 +541,11 @@ public enum Status {
     환전_취소_회원번호없음("-3", "exchange.cancel.no.member", "idx에 회원번호가 없을 시"),
     환전_취소_이미완료("-4", "exchange.cancel.already", "이미 취소 완료된 환전인 경우"),
 
-    크루명등록_성공("0", "crew.insert.success", "크루명 등록 성공 시"),
-    크루명등록_실패("C006", "crew.insert.fail", "크루명 등록 실패 시"),
+    크루등록_성공("0", "crew.insert.success", "크루 등록 성공 시"),
+    크루등록_실패("C006", "crew.insert.fail", "크루 등록 실패 시"),
+
+    크루명수정_성공("0", "crew.name.update.success", "크루명 수정 성공 시"),
+    크루명수정_실패("C006", "crew.name.update.fail", "크루명 수정 실패 시"),
 
     크루원등록_성공("0", "crew.member.insert.success", "크루원 등록 성공 시"),
     크루원등록_해당회원정보없음("-1", "crew.member.no.data", "크루원 등록 시 해당 회원정보가 없을 때"),
@@ -554,8 +557,8 @@ public enum Status {
     크루장취소_성공("0", "crew.leader.cancel.success", "크루장 취소 성공 시"),
     크루장취소_실패("C006", "crew.leader.cancel.fail", "크루장 취소 실패 시"),
 
-    크루명삭제_성공("0", "crew.delete.success", "크루명 삭제 성공 시"),
-    크루명삭제_실패("C006", "crew.delete.fail", "크루명 삭제 실패 시"),
+    크루삭제_성공("0", "crew.delete.success", "크루 삭제 성공 시"),
+    크루삭제_실패("C006", "crew.delete.fail", "크루 삭제 실패 시"),
 
     크루원삭제_성공("0", "crew.member.delete.success", "크루원 삭제 성공 시"),
     크루원삭제_실패("C006", "crew.member.delete.fail", "크루원 삭제 실패 시"),
