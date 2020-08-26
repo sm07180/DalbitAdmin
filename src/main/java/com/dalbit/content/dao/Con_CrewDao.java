@@ -11,6 +11,8 @@ public interface Con_CrewDao {
 
     int insertCrewName(CrewInsertVo crewInsertVo);
 
+    int updateCrewMemo(CrewUpdateVo crewUpdateVo);
+
     @Transactional(readOnly = true)
     ArrayList<CrewListVo> selectCrewInfo(CrewListVo crewListVo);
     @Transactional(readOnly = true)
