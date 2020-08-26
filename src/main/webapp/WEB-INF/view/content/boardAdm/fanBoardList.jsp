@@ -106,9 +106,10 @@
     }
 
     $(document).on('click', '._selectReply', function() {
-        if($(this).data('status') == 2) {
-            alert('삭제된 댓글입니다');
-        } else if($(this).data('reply') == 0) {
+        // if($(this).data('status') == 2) {
+        //     alert('삭제된 댓글입니다');
+        // } else
+        if($(this).data('reply') == 0) {
             alert('해당 팬보드의 댓글이 없습니다.');
         } else if($(this).data('reply') > 0) {
             var data = {
