@@ -4,7 +4,7 @@
 <!-- 회원가입 > 플랫폼(연령별) -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <span class="font-bold">* 가입수치(연령대 내에서 플랫폼 별 가입에 대한 %비율)/탈퇴수치를 표기한 정보입니다.</span>
+        <span class="font-bold">※ 플랫폼(연령대)의 현황 수치는 <span class="font-bold _fontColor" data-fontColor="red">가입 수 (연령대의 플랫폼별 가입 비율 %) / 탈퇴 수」</span>를 표기한 정보입니다</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="13%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
@@ -76,6 +76,11 @@
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + toDay + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + toDay + '</span>';
+            }
             response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
 
 
@@ -128,7 +133,6 @@
     <tr class="font-bold _bgColor _fontColor" data-bgColor="#d0cece" data-fontColor="#f37600">
         <td>
             총계<br/>
-            <span style="color: #555555;">가입수치(연령대별비율)/탈퇴수</span>
         </td>
         <td>{{addComma aos10_join_Cnt}} ({{average sum_android10Cnt total_join_Cnt}}) / {{addComma aos10_out_Cnt}}</td>
         <td>{{addComma ios10_join_Cnt}} ({{average sum_ios10Cnt total_join_Cnt}}) / {{addComma ios10_out_Cnt}}</td>
@@ -150,7 +154,7 @@
         <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
             <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
                 {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
-                {{data.date}}
+                {{{data.date}}}
             </td>
             <td>{{addComma aos10_join_Cnt}} ({{average aos10_join_Cnt aos_join_total_Cnt}}) / {{aos10_out_Cnt}}</td>
             <td>{{addComma ios10_join_Cnt}} ({{average ios10_join_Cnt ios_join_total_Cnt}}) / {{ios10_out_Cnt}}</td>

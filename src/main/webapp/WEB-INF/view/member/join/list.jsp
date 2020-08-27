@@ -415,19 +415,19 @@
 
 <!-- summary -->
 <script id="joinList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px; width: 30%">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>
             <th colspan="6">가입플랫폼 별 수</th>
         </tr>
         <tr>
-            <th>휴대폰</th>
-            <th>Facebook</th>
-            <th>Google</th>
-            <th>Kakao</th>
-            <th>Naver</th>
-            <th>Apple</th>
+            <th>{{{renderSlct 'p' '30'}}}</th>
+            <th>{{{renderSlct 'f' '30'}}}</th>
+            <th>{{{renderSlct 'g' '30'}}}</th>
+            <th>{{{renderSlct 'k' '30'}}}</th>
+            <th>{{{renderSlct 'n' '30'}}}</th>
+            <th>{{{renderSlct 'i' '30'}}}</th>
         </tr>
         </thead>
         <tbody>
@@ -443,19 +443,19 @@
 </script>
 
 <script id="withdrawalList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 30%">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>
             <th colspan="6">가입플랫폼</th>
         </tr>
         <tr>
-            <th>휴대폰</th>
-            <th>Facebook</th>
-            <th>Google</th>
-            <th>Kakao</th>
-            <th>Naver</th>
-            <th>Apple</th>
+            <th>{{{renderSlct 'p' '30'}}}</th>
+            <th>{{{renderSlct 'f' '30'}}}</th>
+            <th>{{{renderSlct 'g' '30'}}}</th>
+            <th>{{{renderSlct 'k' '30'}}}</th>
+            <th>{{{renderSlct 'n' '30'}}}</th>
+            <th>{{{renderSlct 'i' '30'}}}</th>
         </tr>
         </thead>
         <tbody>
