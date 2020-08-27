@@ -318,7 +318,7 @@
 
     function listenClick(tmp){
         var popupUrl = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+tmp + "&type=1";
-        util.windowOpen(popupUrl,"1250", "700","방송정보");
+        util.windowOpen(popupUrl,"1450", "700","방송정보");
     }
 </script>
 
