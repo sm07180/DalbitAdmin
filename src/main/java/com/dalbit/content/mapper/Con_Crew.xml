@@ -114,10 +114,10 @@
                         and bas.mem_nick like concat ('%', #{searchText}, '%')
                     </when>
                     <when test='searchType == 4'>
-                        and crewbas.crew_name like concat ('%', #{searchText}, '%')
+                        and crewbas.crew_name = #{searchText}
                     </when>
                     <when test='searchType == 5'>
-                        and crewbas.crew_memo like concat ('%', #{searchText}, '%')
+                        and crewbas.crew_memo = #{searchText}
                     </when>
                     <otherwise>
                         and (
