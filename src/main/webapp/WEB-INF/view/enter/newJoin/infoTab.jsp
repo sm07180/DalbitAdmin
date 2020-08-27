@@ -11,7 +11,9 @@
                     <li><a href="#month" role="tab" data-toggle="tab" id="tab_month">월간별</a></li>
                     <li><a href="#platAge" role="tab" data-toggle="tab" id="tab_platformAge">플랫폼(연령별)</a></li>
                     <li><a href="#platGender" role="tab" data-toggle="tab" id="tab_platformGender">플랫폼(성별)</a></li>
-                    <li><a href="/member/join/list" id="tab_joMemberAllDetail" title="회원검색으로 이동합니다.">가입/탈퇴회원 내역</a></li>
+                    <li><a href="/member/join/list?tabType=1" id="tab_memberJoin" title="회원검색으로 이동합니다.">가입 회원내역</a></li>
+                    <li><a href="/member/join/list?tabType=2" id="tab_memberWithdrawal" title="회원검색으로 이동합니다.">탈퇴 회원내역</a></li>
+                    <%--<li><a href="/member/join/list" id="tab_joMemberAllDetail" title="회원검색으로 이동합니다.">가입/탈퇴회원 내역</a></li>--%>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="live"><jsp:include page="live.jsp"/></div>       <!-- 실시간 -->

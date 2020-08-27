@@ -803,8 +803,8 @@
     <tr>
         <th>환전</th>
         <td>{{vatMinus totalInfo2.sum_succCnt}}</td>
-        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{vatMinus totalInfo2.sum_inc_succCnt}} </td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{vatMinus totalInfo2.inc_sum_succCnt}} </td>
         <td>{{vatMinus totalInfo2.sum_succAmt}}</td>
-        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{vatMinus totalInfo2.sum_inc_succAmt}} </td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{vatMinus totalInfo2.inc_sum_succAmt}} </td>
     </tr>
 </script>

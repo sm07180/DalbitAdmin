@@ -39,43 +39,43 @@
                 <th colspan="12" class="_sex_none _bgColor" data-bgColor="#ffd966"></th>
             </tr>
             <tr>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">구글</th>
+                <th colspan="2" class="_bgColor _phone" data-bgColor="#e9ebf5">전화</th>
+                <th colspan="2" class="_bgColor _kakao" data-bgColor="#e9ebf5">카카오</th>
+                <th colspan="2" class="_bgColor _naver" data-bgColor="#e9ebf5">네이버</th>
+                <th colspan="2" class="_bgColor _fbook" data-bgColor="#e9ebf5">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple" data-bgColor="#e9ebf5">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
+                <th colspan="2" class="_bgColor _phone" data-bgColor="#e9ebf5">전화</th>
+                <th colspan="2" class="_bgColor _kakao" data-bgColor="#e9ebf5">카카오</th>
+                <th colspan="2" class="_bgColor _naver" data-bgColor="#e9ebf5">네이버</th>
+                <th colspan="2" class="_bgColor _fbook" data-bgColor="#e9ebf5">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple" data-bgColor="#e9ebf5">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#e9ebf5">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#e9ebf5">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#e9ebf5">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#e9ebf5">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#e9ebf5">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
 
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">구글</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">전화</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">카카오</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">네이버</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">페이<br/>스북</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">애플</th>
-                <th colspan="2" class="_bgColor" data-bgColor="#ffe699">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#ffe699">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#ffe699">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#ffe699">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#ffe699">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#ffe699">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#ffe699">구글</th>
+                <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
+                <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
+                <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
+                <th colspan="2" class="_bgColor _fbook"  data-bgColor="#ffe699">페이<br/>스북</th>
+                <th colspan="2" class="_bgColor _apple"  data-bgColor="#ffe699">애플</th>
+                <th colspan="2" class="_bgColor _google" data-bgColor="#ffe699">구글</th>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
@@ -322,6 +322,7 @@
     var tmp_end = 0;
     var type;
     function getLive(){
+
         $("#live_th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -3).day()] + ")");
         $("#live_th_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -2).day()] + ")");
         $("#live_th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -1).day()] + ")");
@@ -335,7 +336,7 @@
         var data = {};
         data.dateList = dateList;
         data.slctType = slctType;
-        util.getAjaxData("total", "/rest/connect/login/info/totalAll", data, fn_live_success);
+        util.getAjaxData("live", "/rest/enter/newJoin/info/live", data, fn_live_success);
     }
 
     function fn_live_success(data, response){
@@ -380,90 +381,225 @@
                     detail.accumAmt = 0;
                 }
 
-                // 상단
-                if (index == 1) {
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (1) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (2) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (3) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (4) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (5) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (6) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (7) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (8) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (9) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (10) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (11) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (12) + ")").html();
+                // 변수 ----
+                var phone_join_mCnt = common.addComma(detail.phone_join_mCnt,"Y");
+                var phone_out_mCnt = common.addComma(detail.phone_out_mCnt,"Y");
+                var kakao_join_mCnt = common.addComma(detail.kakao_join_mCnt,"Y");
+                var kakao_out_mCnt = common.addComma(detail.kakao_out_mCnt,"Y");
+                var naver_join_mCnt = common.addComma(detail.naver_join_mCnt,"Y");
+                var naver_out_mCnt = common.addComma(detail.naver_out_mCnt,"Y");
+                var fbook_join_mCnt = common.addComma(detail.fbook_join_mCnt,"Y");
+                var fbook_out_mCnt = common.addComma(detail.fbook_out_mCnt,"Y");
+                var apple_join_mCnt = common.addComma(detail.apple_join_mCnt,"Y");
+                var apple_out_mCnt = common.addComma(detail.apple_out_mCnt,"Y");
+                var google_join_mCnt = common.addComma(detail.google_join_mCnt,"Y");
+                var google_out_mCnt = common.addComma(detail.google_out_mCnt,"Y");
+                var phone_join_fCnt = common.addComma(detail.phone_join_fCnt,"Y");
+                var phone_out_fCnt = common.addComma(detail.phone_out_fCnt,"Y");
+                var kakao_join_fCnt = common.addComma(detail.kakao_join_fCnt,"Y");
+                var kakao_out_fCnt = common.addComma(detail.kakao_out_fCnt,"Y");
+                var naver_join_fCnt = common.addComma(detail.naver_join_fCnt,"Y");
+                var naver_out_fCnt = common.addComma(detail.naver_out_fCnt,"Y");
+                var fbook_join_fCnt = common.addComma(detail.fbook_join_fCnt,"Y");
+                var fbook_out_fCnt = common.addComma(detail.fbook_out_fCnt,"Y");
+                var apple_join_fCnt = common.addComma(detail.apple_join_fCnt,"Y");
+                var apple_out_fCnt = common.addComma(detail.apple_out_fCnt,"Y");
+                var google_join_fCnt = common.addComma(detail.google_join_fCnt,"Y");
+                var google_out_fCnt = common.addComma(detail.google_out_fCnt,"Y");
+                var phone_join_nCnt = common.addComma(detail.phone_join_nCnt,"Y");
+                var phone_out_nCnt = common.addComma(detail.phone_out_nCnt,"Y");
+                var kakao_join_nCnt = common.addComma(detail.kakao_join_nCnt,"Y");
+                var kakao_out_nCnt = common.addComma(detail.kakao_out_nCnt,"Y");
+                var naver_join_nCnt = common.addComma(detail.naver_join_nCnt,"Y");
+                var naver_out_nCnt = common.addComma(detail.naver_out_nCnt,"Y");
+                var fbook_join_nCnt = common.addComma(detail.fbook_join_nCnt,"Y");
+                var fbook_out_nCnt = common.addComma(detail.fbook_out_nCnt,"Y");
+                var apple_join_nCnt = common.addComma(detail.apple_join_nCnt,"Y");
+                var apple_out_nCnt = common.addComma(detail.apple_out_nCnt,"Y");
+                var google_join_nCnt = common.addComma(detail.google_join_nCnt,"Y");
+                var google_out_nCnt = common.addComma(detail.google_out_nCnt,"Y");
 
-                    if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                // 상단
+                var tmp = 0;
+
+                if (index == 1) {
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_out_nCnt);
+
+                    if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 1; i < 37 ; i ++){
-                            $("#liveTableBody tr._tr_" + (detail.hour) + " td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
-                            $("#liveTableBody tr._tr_" + (detail.hour) + " td:eq(" + (i) + ")").css("font-weight", "bold");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
 
                 if (index == 0) {
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 1) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 2) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 3) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 4) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 5) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 6) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 7) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 8) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 9) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 10) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 11) + ")").html();
-                    $("#liveTableBody tr._tr_" + detail.hour + " td:eq(" + (37 + 12) + ")").html();
-                    if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+                    if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 0; i < 37 ; i ++){
-                            $("#liveTableBody tr._tr_" + (detail.hour) + " td:eq(" + (37 + i) + ")").css("background-color", "#e3ecfb");
-                            $("#liveTableBody tr._tr_" + (detail.hour) + " td:eq(" + (37 + i) + ")").css("font-weight", "bold");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
                 // 하단
                 if (index == 2) {
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (1) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (2) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (3) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (4) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (5) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (6) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (7) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (8) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (9) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (10) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (11) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (12) + ")").html();
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(phone_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(kakao_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(naver_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(fbook_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(apple_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (++tmp) + ")").html(google_out_nCnt);
 
-                    if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                    if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 1; i < 37 ; i ++){
-                            $("#liveTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
-                            $("#liveTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (i) + ")").css("font-weight", "bold");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
                 if(index == 3){
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
 
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 1) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 2) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 3) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 4) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 5) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 6) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 7) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 8) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 9) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 10) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 11) + ")").html();
-                    $("#liveTableBody2 tr._tr_" + detail.hour + " td:eq(" + (37 + 12) + ")").html();
-
-                    if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                    if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 0; i < 37 ; i ++){
-                            $("#liveTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (37 + i) + ")").css("background-color", "#e3ecfb");
-                            $("#liveTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (37 + i) + ")").css("font-weight", "bold");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
@@ -476,91 +612,356 @@
                 ++tmp_index;
             }
             var totalInfo = response.data[i].totalInfo;
+
+            //변수 ----------
+            var phone_join_mCnt = common.addComma(totalInfo.phone_join_mCnt);
+            var phone_out_mCnt = common.addComma(totalInfo.phone_out_mCnt);
+            var kakao_join_mCnt = common.addComma(totalInfo.kakao_join_mCnt);
+            var kakao_out_mCnt = common.addComma(totalInfo.kakao_out_mCnt);
+            var naver_join_mCnt = common.addComma(totalInfo.naver_join_mCnt);
+            var naver_out_mCnt = common.addComma(totalInfo.naver_out_mCnt);
+            var fbook_join_mCnt = common.addComma(totalInfo.fbook_join_mCnt);
+            var fbook_out_mCnt = common.addComma(totalInfo.fbook_out_mCnt);
+            var apple_join_mCnt = common.addComma(totalInfo.apple_join_mCnt);
+            var apple_out_mCnt = common.addComma(totalInfo.apple_out_mCnt);
+            var google_join_mCnt = common.addComma(totalInfo.google_join_mCnt);
+            var google_out_mCnt = common.addComma(totalInfo.google_out_mCnt);
+            var phone_join_fCnt = common.addComma(totalInfo.phone_join_fCnt);
+            var phone_out_fCnt = common.addComma(totalInfo.phone_out_fCnt);
+            var kakao_join_fCnt = common.addComma(totalInfo.kakao_join_fCnt);
+            var kakao_out_fCnt = common.addComma(totalInfo.kakao_out_fCnt);
+            var naver_join_fCnt = common.addComma(totalInfo.naver_join_fCnt);
+            var naver_out_fCnt = common.addComma(totalInfo.naver_out_fCnt);
+            var fbook_join_fCnt = common.addComma(totalInfo.fbook_join_fCnt);
+            var fbook_out_fCnt = common.addComma(totalInfo.fbook_out_fCnt);
+            var apple_join_fCnt = common.addComma(totalInfo.apple_join_fCnt);
+            var apple_out_fCnt = common.addComma(totalInfo.apple_out_fCnt);
+            var google_join_fCnt = common.addComma(totalInfo.google_join_fCnt);
+            var google_out_fCnt = common.addComma(totalInfo.google_out_fCnt);
+            var phone_join_nCnt = common.addComma(totalInfo.phone_join_nCnt);
+            var phone_out_nCnt = common.addComma(totalInfo.phone_out_nCnt);
+            var kakao_join_nCnt = common.addComma(totalInfo.kakao_join_nCnt);
+            var kakao_out_nCnt = common.addComma(totalInfo.kakao_out_nCnt);
+            var naver_join_nCnt = common.addComma(totalInfo.naver_join_nCnt);
+            var naver_out_nCnt = common.addComma(totalInfo.naver_out_nCnt);
+            var fbook_join_nCnt = common.addComma(totalInfo.fbook_join_nCnt);
+            var fbook_out_nCnt = common.addComma(totalInfo.fbook_out_nCnt);
+            var apple_join_nCnt = common.addComma(totalInfo.apple_join_nCnt);
+            var apple_out_nCnt = common.addComma(totalInfo.apple_out_nCnt);
+            var google_join_nCnt = common.addComma(totalInfo.google_join_nCnt);
+            var google_out_nCnt = common.addComma(totalInfo.google_out_nCnt);
+
+            var sum_phone_m = common.addComma(totalInfo.phone_join_mCnt + totalInfo.phone_out_mCnt);
+            var sum_kakao_m = common.addComma(totalInfo.kakao_join_mCnt + totalInfo.kakao_out_mCnt);
+            var sum_naver_m = common.addComma(totalInfo.naver_join_mCnt + totalInfo.naver_out_mCnt);
+            var sum_fbook_m = common.addComma(totalInfo.fbook_join_mCnt + totalInfo.fbook_out_mCnt);
+            var sum_apple_m = common.addComma(totalInfo.apple_join_mCnt + totalInfo.apple_out_mCnt);
+            var sum_google_m = common.addComma(totalInfo.google_join_mCnt + totalInfo.google_out_mCnt);
+
+            var sum_phone_f = common.addComma(totalInfo.phone_join_fCnt + totalInfo.phone_out_fCnt);
+            var sum_kakao_f = common.addComma(totalInfo.kakao_join_fCnt + totalInfo.kakao_out_fCnt);
+            var sum_naver_f = common.addComma(totalInfo.naver_join_fCnt + totalInfo.naver_out_fCnt);
+            var sum_fbook_f = common.addComma(totalInfo.fbook_join_fCnt + totalInfo.fbook_out_fCnt);
+            var sum_apple_f = common.addComma(totalInfo.apple_join_fCnt + totalInfo.apple_out_fCnt);
+            var sum_google_f = common.addComma(totalInfo.google_join_fCnt + totalInfo.google_out_fCnt);
+
+            var sum_phone_n = common.addComma(totalInfo.phone_join_nCnt + totalInfo.phone_out_nCnt);
+            var sum_kakao_n = common.addComma(totalInfo.kakao_join_nCnt + totalInfo.kakao_out_nCnt);
+            var sum_naver_n = common.addComma(totalInfo.naver_join_nCnt + totalInfo.naver_out_nCnt);
+            var sum_fbook_n = common.addComma(totalInfo.fbook_join_nCnt + totalInfo.fbook_out_nCnt);
+            var sum_apple_n = common.addComma(totalInfo.apple_join_nCnt + totalInfo.apple_out_nCnt);
+            var sum_google_n = common.addComma(totalInfo.google_join_nCnt + totalInfo.google_out_nCnt);
+
+
+            var sum_join_male_total = totalInfo.phone_join_mCnt + totalInfo.kakao_join_mCnt + totalInfo.naver_join_mCnt + totalInfo.fbook_join_mCnt + totalInfo.apple_join_mCnt + totalInfo.google_join_mCnt;
+            var sum_out_male_total = totalInfo.phone_out_mCnt + totalInfo.kakao_out_mCnt + totalInfo.naver_out_mCnt + totalInfo.fbook_out_mCnt + totalInfo.apple_out_mCnt + totalInfo.google_out_mCnt;
+            var sum_join_female_total = totalInfo.phone_join_fCnt + totalInfo.kakao_join_fCnt + totalInfo.naver_join_fCnt + totalInfo.fbook_join_fCnt + totalInfo.apple_join_fCnt + totalInfo.google_join_fCnt;
+            var sum_out_female_total = totalInfo.phone_out_fCnt + totalInfo.kakao_out_fCnt + totalInfo.naver_out_fCnt + totalInfo.fbook_out_fCnt + totalInfo.apple_out_fCnt + totalInfo.google_out_fCnt;
+            var sum_join_none_total = totalInfo.phone_join_nCnt + totalInfo.kakao_join_nCnt + totalInfo.naver_join_nCnt + totalInfo.fbook_join_nCnt + totalInfo.apple_join_nCnt + totalInfo.google_join_nCnt;
+            var sum_out_none_total = totalInfo.phone_out_nCnt + totalInfo.kakao_out_nCnt + totalInfo.naver_out_nCnt + totalInfo.fbook_out_nCnt + totalInfo.apple_out_nCnt + totalInfo.google_out_nCnt;
+
+            var sum_join_total = sum_join_male_total + sum_join_female_total + sum_join_none_total;
+            var sum_out_total = sum_out_male_total + sum_out_female_total + sum_out_none_total;
+
             //상단
+            var tmp = 0;
+            if(i == 1){
+                $("#liveTableBody tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                );
 
-            if(i == 0){
-                $("#liveTableBody tr:eq(0) td:eq(" + (1) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (2) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (3) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (4) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (5) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (6) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (7) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (8) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (9) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (10) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (11) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (12) + ")").html();
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(google_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(google_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(google_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(google_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(google_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(google_out_nCnt);
 
-                $("#liveTableBody tr:eq(25) td:eq(" + (1) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (2) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (3) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (4) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (5) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (6) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (7) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (8) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (9) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (10) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (11) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (12) + ")").html();
-            }else if(i == 1){
-                $("#liveTableBody tr:eq(0) td:eq(" + (25 + 1) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (25 + 2) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (25 + 3) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (25 + 4) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (25 + 5) + ")").html();
-                $("#liveTableBody tr:eq(0) td:eq(" + (25 + 6) + ")").html();
+                tmp = 0;
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_phone_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_kakao_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_naver_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_fbook_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_phone_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_kakao_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_naver_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_fbook_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_phone_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_kakao_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_naver_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_fbook_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_n);
+                tmp = 0;
+                $("#liveTableBody tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                                                            );
+            }else if(i == 0){
+                $("#liveTableBody tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                );
 
-                $("#liveTableBody tr:eq(25) td:eq(" + (25 + 1) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (25 + 2) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (25 + 3) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (25 + 4) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (25 + 5) + ")").html();
-                $("#liveTableBody tr:eq(25) td:eq(" + (25 + 6) + ")").html();
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
+
+                $("#liveTableBody tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                                                            );
             }
 
             // 하단
             if(i == 2){
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (1) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (2) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (3) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (4) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (5) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (6) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (7) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (8) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (9) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (10) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (11) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (12) + ")").html();
+                $("#liveTableBody2 tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                );
 
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (1) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (2) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (3) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (4) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (5) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (6) + ")").html();
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(google_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(google_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(google_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(google_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(kakao_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(naver_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(fbook_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(apple_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(google_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(google_out_nCnt);
+
+                tmp = 0;
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_phone_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_kakao_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_naver_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_fbook_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_phone_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_kakao_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_naver_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_fbook_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_phone_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_kakao_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_naver_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_fbook_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_n);
+
+                $("#liveTableBody2 tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                                            );
             }else if(i == 3){
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 1) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 2) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 3) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 4) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 5) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 6) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 7) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 8) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 9) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 10) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 11) + ")").html();
-                $("#liveTableBody2 tr:eq(0) td:eq(" + (25 + 12) + ")").html();
+                $("#liveTableBody2 tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                );
 
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (25 + 1) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (25 + 2) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (25 + 3) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (25 + 4) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (25 + 5) + ")").html();
-                $("#liveTableBody2 tr:eq(25) td:eq(" + (25 + 6) + ")").html();
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
+
+                $("#liveTableBody2 tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
+                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
+                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                            );
             }
         }
         // ui.paintColor();
@@ -571,6 +972,11 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_dummyLive">
+    <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
+        <td>총계</td>
+        <td colspan="36">0</td>
+        <td colspan="36">0</td>
+    </tr>
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
@@ -607,7 +1013,7 @@
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
     </tr>
-    <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
+    <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
         <td>총계</td>
         <td colspan="36">0</td>
         <td colspan="36">0</td>
@@ -615,6 +1021,11 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyLive2">
+    <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
+        <td>총계</td>
+        <td colspan="36">0</td>
+        <td colspan="36">0</td>
+    </tr>
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
@@ -644,7 +1055,7 @@
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
     </tr>
-    <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
+    <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
         <td>총계</td>
         <td colspan="36">0</td>
         <td colspan="36">0</td>

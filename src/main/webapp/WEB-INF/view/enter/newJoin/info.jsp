@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
+
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-8 no-padding">
         <div class="container-fluid">
@@ -56,6 +60,8 @@
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
+
 <script type="text/javascript">
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
@@ -64,6 +70,9 @@
     setTimeDate(dateTime);
 
     var slctType;
+
+    var tabType = <%=in_tabType%>;
+    console.log(tabType);
 
     $(function(){
         // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
@@ -207,11 +216,25 @@
         $("#bt_search").click();
     }
 
-    function dataSet(){
+    function dataSet(isPrev){
+        var startDate;
+        var endDate;
+
+        if(!common.isEmpty(isPrev)){
+            var addDate = isPrev ? -1 : 1;
+            startDate = moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD');
+            var monthLastDate = new Date(startDate.substr(0,4),startDate.substr(5,7),-1);
+            endDate = startDate.substr(0,8) +(monthLastDate.getDate() + 1);
+        }else{
+            startDate = $("#startDate").val();
+            endDate = $("#endDate").val();
+
+        }
+
         var data = {
             slctType : slctType,
-            startDate : $("#startDate").val(),
-            endDate : $("#endDate").val()
+            startDate : startDate,
+            endDate : endDate
         };
 
         return data;

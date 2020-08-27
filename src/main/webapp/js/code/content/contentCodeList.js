@@ -409,12 +409,28 @@ var fanBoard_status = [
     , new COMMON_CODE('2', 2, '삭제')
 ];
 
+var searchType_notice = [
+    new COMMON_CODE(null, 'searchType_notice', '방송공지')
+    , new COMMON_CODE('0', 0, '최근 등록 순으로 보기')
+    , new COMMON_CODE('1', 1, '방송공지만 보기')
+    , new COMMON_CODE('2', 2, '회원공지만 보기')
+    , new COMMON_CODE('3', 3, '오래전 등록 순으로 보기')
+];
+
 var searchType_board = [
   new COMMON_CODE(null, 'searchType_board', '게시글 상태')
     , new COMMON_CODE('0', 0, '최근 등록 순으로 보기')
     , new COMMON_CODE('1', 1, '댓글 많은 수 부터 보기')
     , new COMMON_CODE('2', 2, '비밀글만 보기')
     , new COMMON_CODE('3', 3, '삭제글만 보기')
+];
+
+var searchType_story = [
+  new COMMON_CODE(null, 'searchType_story', '사연')
+    , new COMMON_CODE('0', 0, '최근 등록 순으로 보기')
+    , new COMMON_CODE('1', 1, '받은 사연 많은 회원부터 보기')
+    , new COMMON_CODE('2', 2, '보낸 사연 많은 회원부터 보기')
+    , new COMMON_CODE('3', 3, '오래전 등록 순으로 보기')
 ];
 
 var event_giftcon_type = [

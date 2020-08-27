@@ -4,6 +4,12 @@
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
+        <div class="col-md-6 no-padding mt10">
+            <span id="searchType_notice" onchange="noticeList();"></span>
+        </div>
+        <div class="col-md-6 no-padding mt10" >
+            <span id="noticeTable_summary"></span>
+        </div>
         <div class="dataTables_paginate paging_full_numbers" id="notice_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
@@ -18,6 +24,7 @@
                 <th rowspan="2">구분</th>
                 <th colspan="3">회원정보</th>
                 <th rowspan="2">보낸일시</th>
+                <th rowspan="2">상태</th>
                 <th rowspan="2">내용</th>
             </tr>
             <tr>
@@ -40,6 +47,7 @@
     var noticePagingInfo = new PAGING_INFO(0,1,40);
 
     $(document).ready(function() {
+        $("#searchType_notice").html(util.getCommonCodeSelect(-1, searchType_notice));
         noticeList();
     });
 
@@ -63,11 +71,13 @@
             , 'mem_no' : txt_search
             , 'sDate' : $("#startDate").val()
             , 'eDate' : $("#endDate").val()
+            , 'searchType' : $("select[name='searchType_notice']").val()
         };
+
         util.getAjaxData("noticeList", "/rest/content/boardAdm/noticeList", data, fn_success_noticeList);
     }
 
-    function fn_success_noticeList(dst_id, response) {
+    function fn_success_noticeList(dst_id, response, param) {
 
         for(var i=0 ; i<response.data.length;i++){
             response.data[i].contents = response.data[i].contents.replace(/\\n/gi,"<br/>");
@@ -91,6 +101,17 @@
             $("noticeList").find("#notice_paginate_top").show();
             $("noticeList").find('#notice_paginate').show();
         }
+
+        util.getAjaxData("noticeListSummary", "/rest/content/boardAdm/noticeList/summary", param, fn_success_noticeSummary);
+    }
+
+    function fn_success_noticeSummary(dst_id, response) {
+        var template = $('#notice_tableSummary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+
+        $('#noticeTable_summary').html(html);
     }
 
     $("#btn_noticeDelBtn").on("click", function () { //선택삭제
@@ -151,6 +172,7 @@
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td><a href="javascript://" class="_openBroadcastPop" data-roomNo="{{room_no}}">{{replaceHtml title}}</a></td>
             <td>{{lastUpdDateFormat}}</td>
+            <td>등록</td>
             <td class="word-break" style=""><span>{{{replaceHtml contents}}}</span></td>
         </tr>
     {{else}}
@@ -158,4 +180,28 @@
             <td colspan="9">{{isEmptyData}}</td>
         </tr>
     {{/each}}
+</script>
+
+<script id="notice_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right no-padding" style="width: 70%;margin-right: 0px">
+        <tr>
+            <th colspan="5" style="background-color: #8fabdd">팬보드 (비밀글) 현황</th>
+        </tr>
+        <tr>
+            <th style="background-color: #7f7f7f; color: white">총합</th>
+            <th style="background-color: #d9d9d9">일평균</th>
+            <th style="background-color: #d9d9d9">성별-남성/여성/알수없음</th>
+            <th style="background-color: #d9d9d9">총 삭제 글</th>
+            <th style="background-color: #d9d9d9">총 일평균 삭제</th>
+        </tr>
+        <tr>
+            <td class="font-bold" style="background-color: #f4b282">{{addComma totalCnt}} ({{addComma secretTotalCnt}})</td>
+            <td>{{addComma avgTotalCnt}} ({{addComma secretAvgTotalCnt}})</td>
+            <td><span style="color: blue"><span class="font-bold">{{addComma maleCnt}}</span> ({{addComma secretMaleCnt}})</span>
+                / <span style="color: red"><span class="font-bold">{{addComma femaleCnt}}</span> ({{addComma secretFemaleCnt}})</span>
+                / <span class="font-bold">{{addComma noneCnt}}</span> ({{addComma secretNoneCnt}})</td>
+            <td>{{addComma totalDelCnt}} ({{addComma secretTotalDelCnt}})</td>
+            <td>{{addComma avgTotalDelCnt}} ({{addComma secretAvgTotalDelCnt}})</td>
+        </tr>
+    </table>
 </script>

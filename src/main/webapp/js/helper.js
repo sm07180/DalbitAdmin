@@ -329,3 +329,7 @@ Handlebars.registerHelper('getCommonCodeSelect', function(code, targetCode, isEx
 Handlebars.registerHelper('getCommonCodeSelectForName', function(code, targetCode, isExcludeAllYn, name){
     return util.getCommonCodeSelectForName(code, targetCode, isExcludeAllYn, name);
 });
+
+Handlebars.registerHelper('renderSlct', function(type, size){
+    return util.renderSlct(type,size);
+});

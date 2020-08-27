@@ -33,4 +33,16 @@ public class BoardAdmStoryVo extends PagingVo {
     private String send_date;       // 보낸 일시
     private String story_content;   // 사연 내용
 
+    private int storyCnt;           // 받은 사연 수
+    private int sendStoryCnt;       // 보낸 사연 수
+
+    // summary --------------------------
+    private String type;
+    private int totalStroyMCnt;      // 총합 남자
+    private int totalStroyFCnt;      // 총합 여자
+    private int totalStroyNCnt;      // 총합 알수없음
+    private int memStoryMCnt;
+
+
+
 }

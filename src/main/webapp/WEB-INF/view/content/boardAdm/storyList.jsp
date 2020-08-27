@@ -4,6 +4,9 @@
 <!-- table -->
 <div class="no-padding col-lg-12 form-inline">
     <div class="tab-content no-padding">
+        <div class="col-md-12 no-padding mt10">
+            <span id="searchType_story" onchange="storyList();"></span>
+        </div>
         <div class="tab-pane fade in active" id="storyList">
             <div class="widget-content">
                 <div class="dataTables_paginate paging_full_numbers" id="story_paginate_top"></div>
@@ -20,6 +23,7 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
+        $("#searchType_story").html(util.getCommonCodeSelect(-1, searchType_story));
     });
 
     function storyList() {
@@ -29,10 +33,13 @@
             'pageStart': StoryPagingInfo.pageNo
             , 'pageCnt' : StoryPagingInfo.pageCnt
             , 'txt_search' : $('#txt_search').val()
-            , 'searchType' : $('select[name="searchType"]').find('option:selected').val()
+            // , 'searchType' : $('select[name="searchType"]').find('option:selected').val()
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
+            , 'searchType' : $("select[name='searchType_story']").val()
         };
+
+        console.log(data);
         util.getAjaxData("storyList", "/rest/content/boardAdm/storyList", data, fn_success_storyList);
     }
 
@@ -85,10 +92,12 @@
         <colgroup>
             <col width="3%"/>
             <col width="10%"/>
-            <col width="10%"/>
+            <col width="7%"/>
             <col width="15%"/>
+            <col width="3%"/>
             <col width="10%"/>
-            <col width="10%"/>
+            <col width="7%"/>
+            <col width="3%"/>
             <col width="10%"/>
             <col width="20%"/>
             <col width="5%"/>
@@ -98,7 +107,9 @@
         <tr>
             <th rowspan="2">No</th>
             <th colspan="3">대상회원</th>
+            <th rowspan="3">받은<br/>사연</th>
             <th colspan="2">보낸회원</th>
+            <th rowspan="3">보낸<br/>사연</th>
             <th rowspan="2">보낸 일시</th>
             <th rowspan="2">사연 내용</th>
             <th rowspan="2">삭제</th>
@@ -131,6 +142,7 @@
                 {{/equal}}
             </td>
             <td>{{replaceHtml title}}</td>
+            <td>{{addComma storyCnt}}</td>
             <td>
                 {{^equal send_mem_nick ''}}
                 {{{memNoLink ../send_mem_nick ../send_mem_no}}}
@@ -145,6 +157,7 @@
                 -
                 {{/equal}}
             </td>
+            <td>{{addComma sendStoryCnt}}</td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>
             <td class="word-break">{{replaceHtml story_content}}</td>
             <td><div style="width:45px;"><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></div></td>
