@@ -681,7 +681,7 @@
                 arrayList_yCnt.push(arrayCnt);
             }
             if(max_y < array){
-                max_y = array + 10;
+                max_y = Number(array) + 10;
             }
         }
         // 막대 ----------------
@@ -717,7 +717,7 @@
 
             arrayBarList_y.push(array);
             if (barMax_y < array) {
-                barMax_y = array + 10;
+                barMax_y = Number(array) + 10;
             }
         }
         if(barMax_y > max_y){
