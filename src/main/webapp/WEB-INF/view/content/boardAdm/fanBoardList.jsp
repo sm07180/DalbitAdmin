@@ -163,7 +163,7 @@
             var data = {
                 'idx' : $(this).data('idx')
             };
-            util.getAjaxData("deleteFanBoard", "/rest/content/boardAdm/deleteFanBoard", data, fn_success_deleteFanBoard);
+            util.getAjaxData("deleteFanBoard", "/rest/member/fanboard/delete", data, fn_success_deleteFanBoard);
         }
         return false;
     });
@@ -188,7 +188,7 @@
             <th rowspan="2">No</th>
             <th colspan="5">대상회원</th>
             <th colspan="5">작성회원</th>
-            <th rowspan="2">등록 / 수정 <br />/ 삭제</th>
+            <th rowspan="2">상태</th>
             <th rowspan="2">일시</th>
             <th rowspan="2">작성 내용</th>
             <th rowspan="2">비밀 글 여부</th>
@@ -234,10 +234,17 @@
                 </td>
                 <td>{{{memNoLink fan_mem_no fan_mem_no}}}</td>
                 <td>{{fan_mem_nick}}</td>
-                <td>{{{getCommonCodeLabel fan_mem_state 'mem_state'}}}</td>
+                <td>
+                    {{{getCommonCodeLabel fan_mem_state 'mem_state'}}}
+                </td>
                 <td>{{{sexIcon fan_mem_sex fan_birth_year}}}</td>
 
-                <td>{{{getCommonCodeLabel status 'fanBoard_status'}}}</td>
+                <td>
+                    {{{getCommonCodeLabel status 'fanBoard_status'}}}
+                    {{#dalbit_if opName '!=' ''}}
+                        <br/>({{opName}})
+                    {{/dalbit_if}}
+                </td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>
                     {{#dalbit_if depth '==' 2}}
@@ -263,8 +270,6 @@
         </tbody>
     </table>
 </script>
-
-
 
 <script id="fanboard_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right no-padding" style="width: 70%;margin-right: 0px">

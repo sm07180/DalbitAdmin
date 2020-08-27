@@ -132,8 +132,9 @@ ui.leftActiveFocus = function(){
 ui.imageLayerView = function(){
     var yOffset = 30;
     var height = 0;
-    $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+    var imageY;
 
+    $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
         if(common.isEmpty($(this).attr("src"))){
             return;
         }
@@ -145,11 +146,26 @@ ui.imageLayerView = function(){
             .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
             .css("left",(e.pageX + yOffset) + "px")
             .fadeIn("fast");
+        imageY = $("#previewImage").offset().top;
+        if(imageY < 0){
+            $("#preview")
+                .css("top",(e.pageY - (height/2) + 100) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+        }
     });
     $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
         $("#preview")
             .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
-            .css("left",(e.pageX + yOffset) + "px");
+            .css("left",(e.pageX + yOffset) + "px")
+        imageY = $("#previewImage").offset().top;
+        if(imageY < 0){
+            $("#preview")
+                .css("top",(e.pageY - (height/2) + 100) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+            if((e.pageY - (height/2) + 100) < 10){
+                $("#preview").css("top","0px");
+            }
+        }
     });
     $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
         $("#preview").remove();
@@ -159,29 +175,49 @@ ui.imageLayerView();
 
 // 마우스 오버시 움직이는 이미지 추가
 ui.webpImageView = function() {
-    var xOffset = 10;
     var yOffset = 30;
     var height = 0;
+    var imageY;
     $(document).on("mouseover", "._webpImage", function (e) { //마우스 오버
         if (common.isEmpty($(this).attr("data-webpImage"))) {
             return;
         }
-
-        $("body").append("<p id='preview'><img id='previewImage' src='" + $(this).attr("data-webpImage") + "' width='300px' style='width: auto;max-height: 500px'/></p>"); //이미지
-
-        $("#previewImage").load(function () {
+        $("body").append("<p id='preview'><img id='previewWebpImage' src='" + $(this).attr("data-webpImage") + "' width='300px' style='width: auto;max-height: 500px'/></p>"); //이미지
+        $("#previewWebpImage").load(function () {
             height = $(this).height();
         });
-
         $("#preview")
-            .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
-            .css("left", (e.pageX + yOffset) + "px")
+            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
+            .css("left",(e.pageX + yOffset) + "px")
             .fadeIn("fast");
+        imageY = $("#previewWebpImage").offset().top;
+        if(imageY < 0){
+            $("#preview")
+                .css("top",(e.pageY - (height/2) + 100) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+        }
     });
     $(document).on("mousemove", "._webpImage", function (e) { //마우스 이동
+
         $("#preview")
-            .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
-            .css("left", (e.pageX + yOffset) + "px");
+            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
+            .css("left",(e.pageX + yOffset) + "px")
+
+        imageY = $("#previewWebpImage").offset().top;
+
+        if(imageY < 0){
+            $("#preview")
+                .css("top",(e.pageY - (height/2) + 100) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+            if((e.pageY - (height/2) + 100) < 10){
+                $("#preview").css("top","0px")
+            }
+        }
+
+
+        // $("#preview")
+        //     .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
+        //     .css("left", (e.pageX + yOffset) + "px");
     });
     $(document).on("mouseout", "._webpImage", function () { //마우스 아웃
         $("#preview").remove();

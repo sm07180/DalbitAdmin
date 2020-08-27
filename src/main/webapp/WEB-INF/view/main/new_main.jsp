@@ -681,7 +681,7 @@
                 arrayList_yCnt.push(arrayCnt);
             }
             if(max_y < array){
-                max_y = array + 10;
+                max_y = Number(array) + 10;
             }
         }
         // 막대 ----------------
@@ -717,7 +717,7 @@
 
             arrayBarList_y.push(array);
             if (barMax_y < array) {
-                barMax_y = array + 10;
+                barMax_y = Number(array) + 10;
             }
         }
         if(barMax_y > max_y){
@@ -803,8 +803,8 @@
     <tr>
         <th>환전</th>
         <td>{{vatMinus totalInfo2.sum_succCnt}}</td>
-        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{vatMinus totalInfo2.sum_inc_succCnt}} </td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{vatMinus totalInfo2.inc_sum_succCnt}} </td>
         <td>{{vatMinus totalInfo2.sum_succAmt}}</td>
-        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{vatMinus totalInfo2.sum_inc_succAmt}} </td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{vatMinus totalInfo2.inc_sum_succAmt}} </td>
     </tr>
 </script>

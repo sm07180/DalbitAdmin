@@ -1,19 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
-    .sidebar-outer {
-        position: relative;
-    }
-    @media (min-width: 768px) {
-        .sidebar {
-            position: fixed;
-        }
-    }
-</style>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- serachBox -->
-        <div class="row col-lg-12 form-inline sidebar-outer">
+        <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i><span id="title"/></h3>

@@ -315,50 +315,50 @@
              {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#e8ebf5"  {{/dalbit_if}}>
              {{os_type}}
         </td>
-        <td>{{addComma phone_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma phone_join_mCnt 'Y'}}</td>
         <td>{{addComma phone_out_mCnt 'Y'}}</td>
-        <td>{{addComma kakao_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma kakao_join_mCnt 'Y'}}</td>
         <td>{{addComma kakao_out_mCnt 'Y'}}</td>
-        <td>{{addComma naver_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma naver_join_mCnt 'Y'}}</td>
         <td>{{addComma naver_out_mCnt 'Y'}}</td>
-        <td>{{addComma fbook_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma fbook_join_mCnt 'Y'}}</td>
         <td>{{addComma fbook_out_mCnt 'Y'}}</td>
-        <td>{{addComma apple_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma apple_join_mCnt 'Y'}}</td>
         <td>{{addComma apple_out_mCnt 'Y'}}</td>
-        <td>{{addComma google_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma google_join_mCnt 'Y'}}</td>
         <td>{{addComma google_out_mCnt 'Y'}}</td>
-        <td>{{addComma total_join_mCnt 'Y'}}</td>
-        <td>{{addComma total_out_mCnt 'Y'}}</td>
-        <td>{{addComma phone_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_mCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma phone_join_fCnt 'Y'}}</td>
         <td>{{addComma phone_out_fCnt 'Y'}}</td>
-        <td>{{addComma kakao_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma kakao_join_fCnt 'Y'}}</td>
         <td>{{addComma kakao_out_fCnt 'Y'}}</td>
-        <td>{{addComma naver_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma naver_join_fCnt 'Y'}}</td>
         <td>{{addComma naver_out_fCnt 'Y'}}</td>
-        <td>{{addComma fbook_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma fbook_join_fCnt 'Y'}}</td>
         <td>{{addComma fbook_out_fCnt 'Y'}}</td>
-        <td>{{addComma apple_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma apple_join_fCnt 'Y'}}</td>
         <td>{{addComma apple_out_fCnt 'Y'}}</td>
-        <td>{{addComma google_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma google_join_fCnt 'Y'}}</td>
         <td>{{addComma google_out_fCnt 'Y'}}</td>
-        <td>{{addComma total_join_fCnt 'Y'}}</td>
-        <td>{{addComma total_out_fCnt 'Y'}}</td>
-        <td>{{addComma phone_join_nCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_fCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_fCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma phone_join_nCnt 'Y'}}</td>
         <td>{{addComma phone_out_nCnt 'Y'}}</td>
-        <td>{{addComma kakao_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma kakao_join_nCnt 'Y'}}</td>
         <td>{{addComma kakao_out_nCnt 'Y'}}</td>
-        <td>{{addComma naver_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma naver_join_nCnt 'Y'}}</td>
         <td>{{addComma naver_out_nCnt 'Y'}}</td>
-        <td>{{addComma fbook_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma fbook_join_nCnt 'Y'}}</td>
         <td>{{addComma fbook_out_nCnt 'Y'}}</td>
-        <td>{{addComma apple_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma apple_join_nCnt 'Y'}}</td>
         <td>{{addComma apple_out_nCnt 'Y'}}</td>
-        <td>{{addComma google_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma google_join_nCnt 'Y'}}</td>
         <td>{{addComma google_out_nCnt 'Y'}}</td>
-        <td>{{addComma total_join_nCnt 'Y'}}</td>
-        <td>{{addComma total_out_nCnt 'Y'}}</td>
-        <td>{{addComma total_join_Cnt 'Y'}}</td>
-        <td>{{addComma total_out_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_nCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_nCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
@@ -367,20 +367,20 @@
     {{/each}}
     <tr class="font-bold">
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">소계</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_phone_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_kakao_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_naver_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_fbook_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_apple_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_google_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_phone_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_kakao_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_naver_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_fbook_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_apple_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_google_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_phone_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_kakao_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_naver_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_fbook_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_apple_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_google_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_total_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_phone_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_kakao_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_naver_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_fbook_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_apple_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_google_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_total_fCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_phone_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_kakao_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_naver_nCnt}}</td>
@@ -388,7 +388,7 @@
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_apple_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_google_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_nCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_Cnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="#fe7418" colspan="2">{{addComma totalInfo.sum_total_Cnt}}</td>
     </tr>
     <tr class="font-bold" style="background-color: #bfbfbf">
         <td colspan="2">총계</td>
@@ -414,50 +414,50 @@
              {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#e8ebf5"  {{/dalbit_if}}>
              {{os_type}}
         </td>
-        <td>{{addComma phone_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma phone_join_mCnt 'Y'}}</td>
         <td>{{addComma phone_out_mCnt 'Y'}}</td>
-        <td>{{addComma kakao_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma kakao_join_mCnt 'Y'}}</td>
         <td>{{addComma kakao_out_mCnt 'Y'}}</td>
-        <td>{{addComma naver_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma naver_join_mCnt 'Y'}}</td>
         <td>{{addComma naver_out_mCnt 'Y'}}</td>
-        <td>{{addComma fbook_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma fbook_join_mCnt 'Y'}}</td>
         <td>{{addComma fbook_out_mCnt 'Y'}}</td>
-        <td>{{addComma apple_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma apple_join_mCnt 'Y'}}</td>
         <td>{{addComma apple_out_mCnt 'Y'}}</td>
-        <td>{{addComma google_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma google_join_mCnt 'Y'}}</td>
         <td>{{addComma google_out_mCnt 'Y'}}</td>
-        <td>{{addComma total_join_mCnt 'Y'}}</td>
-        <td>{{addComma total_out_mCnt 'Y'}}</td>
-        <td>{{addComma phone_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_mCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma phone_join_fCnt 'Y'}}</td>
         <td>{{addComma phone_out_fCnt 'Y'}}</td>
-        <td>{{addComma kakao_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma kakao_join_fCnt 'Y'}}</td>
         <td>{{addComma kakao_out_fCnt 'Y'}}</td>
-        <td>{{addComma naver_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma naver_join_fCnt 'Y'}}</td>
         <td>{{addComma naver_out_fCnt 'Y'}}</td>
-        <td>{{addComma fbook_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma fbook_join_fCnt 'Y'}}</td>
         <td>{{addComma fbook_out_fCnt 'Y'}}</td>
-        <td>{{addComma apple_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma apple_join_fCnt 'Y'}}</td>
         <td>{{addComma apple_out_fCnt 'Y'}}</td>
-        <td>{{addComma google_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red">{{addComma google_join_fCnt 'Y'}}</td>
         <td>{{addComma google_out_fCnt 'Y'}}</td>
-        <td>{{addComma total_join_fCnt 'Y'}}</td>
-        <td>{{addComma total_out_fCnt 'Y'}}</td>
-        <td>{{addComma phone_join_nCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_fCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_fCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma phone_join_nCnt 'Y'}}</td>
         <td>{{addComma phone_out_nCnt 'Y'}}</td>
-        <td>{{addComma kakao_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma kakao_join_nCnt 'Y'}}</td>
         <td>{{addComma kakao_out_nCnt 'Y'}}</td>
-        <td>{{addComma naver_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma naver_join_nCnt 'Y'}}</td>
         <td>{{addComma naver_out_nCnt 'Y'}}</td>
-        <td>{{addComma fbook_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma fbook_join_nCnt 'Y'}}</td>
         <td>{{addComma fbook_out_nCnt 'Y'}}</td>
-        <td>{{addComma apple_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma apple_join_nCnt 'Y'}}</td>
         <td>{{addComma apple_out_nCnt 'Y'}}</td>
-        <td>{{addComma google_join_nCnt 'Y'}}</td>
+        <td class="font-bold">{{addComma google_join_nCnt 'Y'}}</td>
         <td>{{addComma google_out_nCnt 'Y'}}</td>
-        <td>{{addComma total_join_nCnt 'Y'}}</td>
-        <td>{{addComma total_out_nCnt 'Y'}}</td>
-        <td>{{addComma total_join_Cnt 'Y'}}</td>
-        <td>{{addComma total_out_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_nCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_nCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
@@ -466,20 +466,20 @@
     {{/each}}
     <tr class="font-bold">
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">소계</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_phone_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_kakao_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_naver_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_fbook_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_apple_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_google_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_mCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_phone_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_kakao_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_naver_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_fbook_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_apple_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_google_fCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_phone_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_kakao_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_naver_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_fbook_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_apple_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_google_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="blue" colspan="2">{{addComma totalInfo.sum_total_mCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_phone_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_kakao_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_naver_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_fbook_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_apple_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_google_fCnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="red" colspan="2">{{addComma totalInfo.sum_total_fCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_phone_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_kakao_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_naver_nCnt}}</td>
@@ -487,7 +487,7 @@
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_apple_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_google_nCnt}}</td>
         <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_nCnt}}</td>
-        <td class="_bgColor" data-bgColor="#b3c6e7" colspan="2">{{addComma totalInfo.sum_total_Cnt}}</td>
+        <td class="_bgColor _fontColor" data-bgColor="#b3c6e7" data-fontColor="#fe7418" colspan="2">{{addComma totalInfo.sum_total_Cnt}}</td>
     </tr>
     <tr class="font-bold" style="background-color: #bfbfbf">
         <td colspan="2">총계</td>

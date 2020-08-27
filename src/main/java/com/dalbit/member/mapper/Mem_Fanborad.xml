@@ -111,6 +111,6 @@
 
     <update id="callFanboardDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo">
         /* Mem_Fanboard.xml - callFanboardDelete */
-        UPDATE rd_data.tb_member_fanboard SET  `STATUS` = 2 WHERE idx = #{idx}
+        UPDATE rd_data.tb_member_fanboard SET  `STATUS` = 2, opName = #{opName} WHERE idx = #{idx}
     </update>
 </mapper>

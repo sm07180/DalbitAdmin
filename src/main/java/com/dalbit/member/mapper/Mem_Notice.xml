@@ -8,6 +8,7 @@
     <!--</select>-->
 
     <sql id="storyCondition">
+        <if test="searchType == 1 or searchType == 0 or searchType == 3">
         select a.idx
                     , '1' as type
                     , b.mem_no
@@ -25,7 +26,11 @@
                     and a.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 00:00:00')
                     and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
                 </if>
+        </if>
+        <if test="searchType == 0 or searchType == 3">
              union
+        </if>
+        <if test="searchType == 2 or searchType == 0 or searchType == 3">
             select a.idx
                     , '2' as type
                     , b.mem_no
@@ -44,6 +49,7 @@
                     and a.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 00:00:00')
                     and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
                 </if>
+        </if>
     </sql>
 
     <select id="callNoticeHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
@@ -53,7 +59,12 @@
         FROM (
           <include refid="storyCondition"/>
         ) AS c, (select @rownum := #{pageNo} ) AS d
-        order by last_upd_date desc
+        <if test="searchType == 0">
+          order by last_upd_date desc
+        </if>
+        <if test="searchType == 3">
+          order by last_upd_date asc
+        </if>
         limit #{pageNo}, #{pageCnt}
     </select>
 

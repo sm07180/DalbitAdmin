@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.Mem_FanboardDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberFanboardInputVo;
 import com.dalbit.member.vo.procedure.P_MemberFanboardOutputVo;
@@ -48,6 +49,7 @@ public class Mem_FanboardService {
      * 회원 공지 삭제
      */
     public String getFanboardDelete(P_MemberFanboardDeleteVo pMemberFanboardDeleteVo){
+        pMemberFanboardDeleteVo.setOpName(MemberVo.getMyMemNo());
         mem_FanboardDao.callFanboardDelete(pMemberFanboardDeleteVo);
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.Fanboard삭제성공));
