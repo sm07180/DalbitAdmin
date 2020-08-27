@@ -1,9 +1,6 @@
 package com.dalbit.content.dao;
 
-import com.dalbit.content.vo.AttendanceBonusVo;
-import com.dalbit.content.vo.AttendanceCalendarVo;
-import com.dalbit.content.vo.AttendanceGiftconVo;
-import com.dalbit.content.vo.AttendanceVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,4 +65,13 @@ public interface Con_EventDao {
     int selectGiftconCnt(AttendanceGiftconVo attendanceGiftconVo);
     @Transactional(readOnly = true)
     List<AttendanceGiftconVo> selectGiftconList(AttendanceGiftconVo attendanceGiftconVo);
+
+    @Transactional(readOnly = true)
+    int selectPhotoShotCnt(PhotoShotVo photoShotVo);
+    @Transactional(readOnly = true)
+    List<PhotoShotVo> selectPhotoShotList(PhotoShotVo photoShotVo);
+
+    int deleteEventMember(PhotoShotVo photoShotVo);
+
+    int deletePhotoShot(PhotoShotVo photoShotVo);
 }

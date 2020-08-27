@@ -1,10 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_EventService;
-import com.dalbit.content.vo.AttendanceBonusVo;
-import com.dalbit.content.vo.AttendanceCalendarVo;
-import com.dalbit.content.vo.AttendanceGiftconVo;
-import com.dalbit.content.vo.AttendanceVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -145,5 +142,16 @@ public class Con_EventRestController {
         return result;
     }
 
+    @PostMapping("/photo/shot/list")
+    public String photoShotList(PhotoShotVo photoShotVo) {
+        String result = con_EventService.selectPhotoShotList(photoShotVo);
+        return result;
+    }
 
+    @PostMapping("/photo/shot/delete")
+    public String photoShotDelete(PhotoShotVo photoShotVo) {
+        String result = con_EventService.deletePhotoShot(photoShotVo);
+        log.debug("1111");
+        return result;
+    }
 }

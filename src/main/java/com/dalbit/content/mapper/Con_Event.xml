@@ -507,4 +507,111 @@
         <include refid="giftconCondition" />
         order by win.idx desc
     </select>
+
+    <sql id="shotListCondition">
+        photo.event_idx = #{event_idx}
+        and photo.del_yn = 0
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    and photo.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    and (
+                        basic.mem_userid like concat('%', #{txt_search}, '%')
+                        or withdrawal.mem_userid like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "3"'>
+                    and (
+                        basic.mem_nick like concat('%', #{txt_search}, '%')
+                        or withdrawal.mem_nick like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "4"'>
+                    and (
+                        basic.mem_phone like concat('%', #{txt_search}, '%')
+                        or withdrawal.mem_phone like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <otherwise>
+                    and
+                    (
+                        photo.mem_no like concat('%', #{txt_search}, '%')
+                        or basic.mem_userid like concat('%', #{txt_search}, '%')
+                        or withdrawal.mem_userid like concat('%', #{txt_search}, '%')
+                        or basic.mem_nick like concat('%', #{txt_search}, '%')
+                        or withdrawal.mem_nick like concat('%', #{txt_search}, '%')
+                        or basic.mem_phone like concat('%', #{txt_search}, '%')
+                        or withdrawal.mem_phone like concat('%', #{txt_search}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <select id="selectPhotoShotList" parameterType="com.dalbit.content.vo.PhotoShotVo" resultType="com.dalbit.content.vo.PhotoShotVo">
+        /* Con_Event.xml - selectPhotoShotList */
+        select *
+        from(
+            select @rownum := @rownum + 1 as rowNum
+                 , photo.idx
+                 , photo.event_idx
+                 , photo.mem_no
+                 , photo.image_url
+                 , photo.contents
+                 , date_format(photo.reg_date, '%Y.%m.%d %H:%i:%s') reg_date
+                 , ifnull(basic.mem_nick, withdrawal.mem_nick) mem_nick
+                 , ifnull(basic.mem_sex, withdrawal.mem_sex) mem_sex
+                 , ifnull(basic.mem_userid, withdrawal.mem_userid) mem_userid
+                 , ifnull(basic.mem_birth_year, withdrawal.mem_birth_year) mem_birth_year
+            from rd_admin.tb_event_photo photo
+                 left join rd_data.tb_member_basic basic on photo.mem_no = basic.mem_no
+                 left join rd_data.tb_member_withdrawal_bak withdrawal on photo.mem_no = withdrawal.mem_no
+                 , (select @rownum := 0 ) rowNum
+            where
+                <include refid="shotListCondition" />
+            order by photo.idx desc
+        )a
+        where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+
+    </select>
+
+    <select id="selectPhotoShotCnt" parameterType="com.dalbit.content.vo.PhotoShotVo" resultType="int">
+        /* Con_Event.xml - selectPhotoShotList */
+        select count(*)
+        from rd_admin.tb_event_photo photo
+             left join rd_data.tb_member_basic basic on photo.mem_no = basic.mem_no
+             left join rd_data.tb_member_withdrawal_bak withdrawal on photo.mem_no = withdrawal.mem_no
+        where
+            <include refid="shotListCondition" />
+    </select>
+
+    <update id="deletePhotoShot" parameterType="com.dalbit.content.vo.PhotoShotVo">
+        /* Con_Event.xml - deletePhotoShot */
+        update rd_admin.tb_event_photo
+        set
+            del_yn = #{del_yn}
+            , op_name = #{opName}
+            , last_upd_date = now()
+        where idx in
+        <foreach collection="idxArr" item="idx" separator="," open="(" close=")">
+            #{idx}
+        </foreach>
+    </update>
+
+    <update id="deleteEventMember" parameterType="com.dalbit.content.vo.PhotoShotVo">
+        /* Con_Event.xml - deleteEventMember */
+        update rd_admin.tb_event_member
+        set
+            del_yn = #{del_yn}
+            , last_op_name = #{opName}
+            , last_upd_date = now()
+        where idx = (
+            select event_member_idx from rd_admin.tb_event_photo where idx in
+            <foreach collection="idxArr" item="idx" separator="," open="(" close=")">
+                #{idx}
+            </foreach>
+        )
+    </update>
 </mapper>

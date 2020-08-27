@@ -34,4 +34,9 @@ public class Con_EventController {
     public String attendanceGiftconList() {
         return "content/event/attendance/giftconList";
     }
+
+    @GetMapping("photo/shot/list")
+    public String photoShotList(){
+        return "content/event/shot/list";
+    }
 }
