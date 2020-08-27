@@ -54,11 +54,11 @@
         <!-- //serachBox -->
         <!-- DATA TABLE -->
         <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-            <li><a href="/enter/newJoin/info?tabType=1">실시간</a></li>
-            <li><a href="/enter/newJoin/info?tabType=2">일자별</a></li>
-            <li><a href="/enter/newJoin/info?tabType=3">월간별</a></li>
-            <li><a href="/enter/newJoin/info?tabType=4">플랫폼(연령별)</a></li>
-            <li><a href="/enter/newJoin/info?tabType=5">플랫폼(성별)</a></li>
+            <li><a href="/enter/newJoin/info?tabType=0">실시간</a></li>
+            <li><a href="/enter/newJoin/info?tabType=1">일자별</a></li>
+            <li><a href="/enter/newJoin/info?tabType=2">월간별</a></li>
+            <li><a href="/enter/newJoin/info?tabType=3">플랫폼(연령별)</a></li>
+            <li><a href="/enter/newJoin/info?tabType=4">플랫폼(성별)</a></li>
             <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">가입 회원내역</a></li>
             <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴 회원내역</a></li>
         </ul>

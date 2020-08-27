@@ -72,7 +72,6 @@
     var slctType;
 
     var tabType = <%=in_tabType%>;
-    console.log(tabType);
 
     $(function(){
         // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
@@ -238,5 +237,24 @@
         };
 
         return data;
+    }
+
+    console.log(tabType);
+
+    if(!common.isEmpty(tabType)){
+        if(tabType == 0){
+            $('.nav-tabs li:eq(0) a').tab('show');
+        }else if(tabType == 1){
+            $('.nav-tabs li:eq(1) a').tab('show');
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(2) a').tab('show');
+        }else if(tabType == 3){
+            $('.nav-tabs li:eq(3) a').tab('show');
+        }else if(tabType == 4){
+            $('.nav-tabs li:eq(4) a').tab('show');
+        }
+        $("#bt_search").click();
+    }else{
+        getLive();
     }
 </script>
