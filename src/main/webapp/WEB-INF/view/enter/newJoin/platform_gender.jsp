@@ -107,6 +107,11 @@
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + toDay + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + toDay + '</span>';
+            }
             response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
 
             response.data.detailList[i].aos_total_join_Cnt = response.data.detailList[i].aos_total_join_mCnt + response.data.detailList[i].aos_total_join_fCnt + response.data.detailList[i].aos_total_join_nCnt;
@@ -156,6 +161,11 @@
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + toDay + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + toDay + '</span>';
+            }
             response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
 
             response.data.detailList[i].aos_total_join_Cnt = response.data.detailList[i].aos_total_join_mCnt + response.data.detailList[i].aos_total_join_fCnt + response.data.detailList[i].aos_total_join_nCnt;
@@ -206,7 +216,7 @@
     {{#each this as |data|}}
     <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
         <td class="font-bold _bgColor" data-bgColor="#fff2cc">
-            {{data.date}}
+            {{{data.date}}}
         </td>
         <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
         <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
@@ -250,7 +260,7 @@
     <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
         <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
             {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
-            {{data.date}}
+            {{{data.date}}}
         </td>
         <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
         <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
