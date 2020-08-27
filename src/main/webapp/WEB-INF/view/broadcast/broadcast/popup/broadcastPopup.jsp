@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String in_roomNo = request.getParameter("roomNo");
+    String in_type = request.getParameter("type");
 %>
 
 <div class="col-md-12 no-padding">
