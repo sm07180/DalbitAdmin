@@ -1,13 +1,11 @@
 package com.dalbit.content.service;
 
+import com.dalbit.common.code.EventCode;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.dao.Con_EventDao;
-import com.dalbit.content.vo.AttendanceBonusVo;
-import com.dalbit.content.vo.AttendanceCalendarVo;
-import com.dalbit.content.vo.AttendanceGiftconVo;
-import com.dalbit.content.vo.AttendanceVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
@@ -278,5 +276,27 @@ public class Con_EventService {
         List<AttendanceGiftconVo> giftconList = con_EventDao.selectGiftconList(attendanceGiftconVo);
         int totalCnt = con_EventDao.selectGiftconCnt(attendanceGiftconVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, giftconList, new PagingVo(totalCnt)));
+    }
+
+    public String selectPhotoShotList(PhotoShotVo photoShotVo){
+        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
+
+        int totalCnt = con_EventDao.selectPhotoShotCnt(photoShotVo);
+        photoShotVo.setTotalCnt(totalCnt);
+        List<PhotoShotVo> giftconList = con_EventDao.selectPhotoShotList(photoShotVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, giftconList, new PagingVo(totalCnt)));
+    }
+
+    public String deletePhotoShot(PhotoShotVo photoShotVo){
+        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
+        photoShotVo.setIdxArr(photoShotVo.getIdxs().split(","));
+        photoShotVo.setDel_yn(1);
+        photoShotVo.setOpName(MemberVo.getMyMemNo());
+
+        int deleteMemCnt = con_EventDao.deleteEventMember(photoShotVo);
+        int deletePhotoCnt = con_EventDao.deletePhotoShot(photoShotVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
     }
 }
