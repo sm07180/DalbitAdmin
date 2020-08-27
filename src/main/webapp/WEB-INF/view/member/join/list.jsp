@@ -1,7 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- serachBox -->
@@ -52,12 +54,17 @@
         <!-- //serachBox -->
         <!-- DATA TABLE -->
         <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-            <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">가입정보</a></li>
-            <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴정보</a></li>
+            <li><a href="/enter/newJoin/info?tabType=1">실시간</a></li>
+            <li><a href="/enter/newJoin/info?tabType=2">일자별</a></li>
+            <li><a href="/enter/newJoin/info?tabType=3">월간별</a></li>
+            <li><a href="/enter/newJoin/info?tabType=4">플랫폼(연령별)</a></li>
+            <li><a href="/enter/newJoin/info?tabType=5">플랫폼(성별)</a></li>
+            <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">가입 회원내역</a></li>
+            <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴 회원내역</a></li>
         </ul>
         <div class="row col-lg-12 form-inline">
             <div class="tab-content no-padding">
-                <div class="tab-pane fade in active " id="memberList">       <!-- 회원 -->
+                <div class="tab-pane fade in active" id="memberList">       <!-- 회원 -->
                     <div class="widget-content">
                         <span id="joinList_summaryArea"></span>
                         <table id="tb_memberList" class="table table-sorting table-hover table-bordered">
@@ -84,6 +91,9 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
+
+    var tabType = <%=in_tabType%>;
+
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     setTimeDate(dateTime);
@@ -100,7 +110,6 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
-        getUserInfo();
 
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
@@ -275,12 +284,29 @@
     var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
+
+    $("#memberList").hide();
+    $("#withdrawalList").hide();
+    if(!common.isEmpty(tabType)){
+        if(tabType == 1){
+            $('.nav-tabs li:eq(5) a').tab('show');
+            $("#memberList").show();
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(6) a').tab('show');
+            $("#withdrawalList").show();
+        }
+    }else{
+        $('.nav-tabs li:eq(5) a').tab('show');
+        $("#memberList").show();
+    }
+
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
         tmp_searchText = $('#txt_search').val();
         tmp_memWithdrawal = memWithdrawal;
         tmp_sDate = $("#startDate").val();
         tmp_eDate = $("#endDate").val();
+
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
         }else{
@@ -289,10 +315,14 @@
     }
     function memberList(){
         memWithdrawal = "0";
+        $("#memberList").show();
+        $("#withdrawalList").hide();
         getUserInfo();
     }
     function withdrawalList(){
         memWithdrawal = "1";
+        $("#memberList").hide();
+        $("#withdrawalList").show();
         getUserInfo();
     }
 
@@ -385,23 +415,23 @@
 
 <!-- summary -->
 <script id="joinList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px; width: 30%">
         <thead>
         <tr class="align-middle">
-            <th colspan="2" rowspan="2">총 가입자 수</th>
-            <th colspan="6">가입플랫폼 별 수</th>
+            <th colspan="2" rowspan="2" style="background-color: #8fabdd;color: white;">총 가입자 수</th>
+            <th colspan="6" class="font-bold" style="background-color: #8fabdd;color: white">가입 플랫폼</th>
         </tr>
         <tr>
-            <th>휴대폰</th>
-            <th>Facebook</th>
-            <th>Google</th>
-            <th>Kakao</th>
-            <th>Naver</th>
-            <th>Apple</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'p' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'f' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'g' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'k' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'n' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'i' '30'}}}</th>
         </tr>
         </thead>
         <tbody>
-        <td colspan="2">{{content.allCnt}}명</td>
+        <td colspan="2" style="background-color: #f4b282">{{content.allCnt}}명</td>
         <td>{{content.slctPhonCnt}}명</td>
         <td>{{content.slctFaceCnt}}명</td>
         <td>{{content.slctGoogleCnt}}명</td>
@@ -413,23 +443,23 @@
 </script>
 
 <script id="withdrawalList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 30%">
         <thead>
         <tr class="align-middle">
-            <th colspan="2" rowspan="2">총 가입자 수</th>
-            <th colspan="6">가입플랫폼</th>
+            <th colspan="2" rowspan="2" style="background-color: #8fabdd;color: white;">총 탈퇴자 수</th>
+            <th colspan="6" style="background-color: #8fabdd;color: white">탈퇴 플랫폼</th>
         </tr>
         <tr>
-            <th>휴대폰</th>
-            <th>Facebook</th>
-            <th>Google</th>
-            <th>Kakao</th>
-            <th>Naver</th>
-            <th>Apple</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'p' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'f' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'g' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'k' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'n' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'i' '30'}}}</th>
         </tr>
         </thead>
         <tbody>
-        <td colspan="2">{{content.allCnt}}명</td>
+        <td colspan="2" class="font-bold" style="background-color: #f4b282">{{content.allCnt}}명</td>
         <td>{{content.slctPhonCnt}}명</td>
         <td>{{content.slctFaceCnt}}명</td>
         <td>{{content.slctGoogleCnt}}명</td>

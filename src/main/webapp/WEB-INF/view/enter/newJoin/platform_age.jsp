@@ -4,44 +4,34 @@
 <!-- 회원가입 > 플랫폼(연령별) -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <span class="_searchDate"></span>
-        <table class="table table-bordered">
+        <span class="font-bold">※ 플랫폼(연령대)의 현황 수치는 <span class="font-bold _fontColor" data-fontColor="red">가입 수 (연령대의 플랫폼별 가입 비율 %) / 탈퇴 수」</span>를 표기한 정보입니다</span>
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/>
+                <col width="13%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+                <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+                <col width="7%"/><col width="7%"/><col width="7%"/>
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2"></th>
-                <th rowspan="2">소계</th>
-                <th colspan="6">안드로이드</th>
-                <th colspan="6">아이폰</th>
-                <th colspan="6">PC</th>
+                <th class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="yellow" rowspan="2" id="ageDay"></th>
+                <th class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white" colspan="3">10대</th>
+                <th class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white" colspan="3">20대</th>
+                <th class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white" colspan="3">30대</th>
+                <th class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white" colspan="3">40대 이상</th>
             </tr>
             <tr>
-                <th>10대</th>
-                <th>20대</th>
-                <th>30대</th>
-                <th>40대</th>
-                <th>50대</th>
-                <th>60대 이상</th>
-
-                <th>10대</th>
-                <th>20대</th>
-                <th>30대</th>
-                <th>40대</th>
-                <th>50대</th>
-                <th>60대 이상</th>
-
-                <th>10대</th>
-                <th>20대</th>
-                <th>30대</th>
-                <th>40대</th>
-                <th>50대</th>
-                <th>60대 이상</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">Android</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">IOS</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">PC</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">Android</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">IOS</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">PC</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">Android</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">IOS</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">PC</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">Android</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">IOS</th>
+                <th class="_bgColor" data-bgColor="#cdd4ea">PC</th>
             </tr>
             </thead>
             <tbody id="platformAgeTableBody"></tbody>
@@ -56,7 +46,13 @@
 
 <script type="text/javascript">
     function getPlatformAgeList(){
-        util.getAjaxData("platformAgeList", "/rest/enter/join/platform/age", $("#searchForm").serialize(), fn_platformAge_success);
+        var nowDay = moment(new Date()).format('YYYY') + "." + moment(new Date()).format('MM') + "." + moment(new Date()).format('DD');
+        var ageDay = week[moment(nowDay).add('days', 0).day()];
+        $("#ageDay").text(nowDay + "(" + ageDay + ")");
+
+        var data = dataSet();
+        data.slctType = 1;
+        util.getAjaxData("platformAge", "/rest/enter/newJoin/platform/age", data, fn_platformAge_success);
     }
 
     function fn_platformAge_success(data, response){
@@ -70,8 +66,49 @@
             var totalContext = response.data.totalInfo;
             var totalHtml = templateScript(totalContext);
             tableBody.append(totalHtml);
+        }
 
-            response.data.detailList.slctType = 1
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + toDay + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + toDay + '</span>';
+            }
+            response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+
+
+            response.data.detailList[i].aos40_up_join_Cnt = response.data.detailList[i].aos40_join_Cnt  + response.data.detailList[i].aos50_join_Cnt
+                                                          + response.data.detailList[i].aos60_join_Cnt;
+            response.data.detailList[i].aos40_up_out_Cnt = response.data.detailList[i].aos40_out_Cnt  + response.data.detailList[i].aos50_out_Cnt
+                                                          + response.data.detailList[i].aos60_out_Cnt;
+
+            response.data.detailList[i].ios40_up_join_Cnt = response.data.detailList[i].ios40_join_Cnt  + response.data.detailList[i].ios50_join_Cnt
+                                                          + response.data.detailList[i].ios60_join_Cnt;
+            response.data.detailList[i].ios40_up_out_Cnt = response.data.detailList[i].ios40_out_Cnt  + response.data.detailList[i].ios50_out_Cnt
+                                                          + response.data.detailList[i].ios60_out_Cnt;
+
+            response.data.detailList[i].pc40_up_join_Cnt = response.data.detailList[i].pc40_join_Cnt  + response.data.detailList[i].pc50_join_Cnt
+                                                          + response.data.detailList[i].pc60_join_Cnt;
+            response.data.detailList[i].pc40_up_out_Cnt = response.data.detailList[i].pc40_out_Cnt  + response.data.detailList[i].pc50_out_Cnt
+                                                          + response.data.detailList[i].pc60_out_Cnt;
+
+
+            response.data.detailList[i].aos_join_total_Cnt = response.data.detailList[i].aos10_join_Cnt + response.data.detailList[i].aos20_join_Cnt
+                                                             + response.data.detailList[i].aos30_join_Cnt + response.data.detailList[i].aos40_up_join_Cnt;
+
+            response.data.detailList[i].ios_join_total_Cnt = response.data.detailList[i].ios10_join_Cnt + response.data.detailList[i].ios20_join_Cnt
+                                                             + response.data.detailList[i].ios30_join_Cnt + response.data.detailList[i].ios40_up_join_Cnt;
+
+            response.data.detailList[i].pc_join_total_Cnt = response.data.detailList[i].pc10_join_Cnt + response.data.detailList[i].pc20_join_Cnt
+                                                            + response.data.detailList[i].pc30_join_Cnt + response.data.detailList[i].pc40_up_join_Cnt;
+
         }
 
         var template = $('#tmp_platformAgeDetailList').html();
@@ -85,62 +122,52 @@
         }else{
             tableBody.append(totalHtml);
         }
+
+        ui.tableHeightSet();
+        ui.paintColor();
     }
 
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_platformAgeTotal">
-    <tr class="success font-bold">
-        <td>소계</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_android10Cnt}}</td>
-        <td>{{addComma sum_android20Cnt}}</td>
-        <td>{{addComma sum_android30Cnt}}</td>
-        <td>{{addComma sum_android40Cnt}}</td>
-        <td>{{addComma sum_android50Cnt}}</td>
-        <td>{{addComma sum_android60Cnt}}</td>
-        <td>{{addComma sum_ios10Cnt}}</td>
-        <td>{{addComma sum_ios20Cnt}}</td>
-        <td>{{addComma sum_ios30Cnt}}</td>
-        <td>{{addComma sum_ios40Cnt}}</td>
-        <td>{{addComma sum_ios50Cnt}}</td>
-        <td>{{addComma sum_ios60Cnt}}</td>
-        <td>{{addComma sum_pc10Cnt}}</td>
-        <td>{{addComma sum_pc20Cnt}}</td>
-        <td>{{addComma sum_pc30Cnt}}</td>
-        <td>{{addComma sum_pc40Cnt}}</td>
-        <td>{{addComma sum_pc50Cnt}}</td>
-        <td>{{addComma sum_pc60Cnt}}</td>
+    <tr class="font-bold _bgColor _fontColor" data-bgColor="#d0cece" data-fontColor="#f37600">
+        <td>
+            총계<br/>
+        </td>
+        <td>{{addComma aos10_join_Cnt}} ({{average sum_android10Cnt total_join_Cnt}}) / {{addComma aos10_out_Cnt}}</td>
+        <td>{{addComma ios10_join_Cnt}} ({{average sum_ios10Cnt total_join_Cnt}}) / {{addComma ios10_out_Cnt}}</td>
+        <td>{{addComma pc10_join_Cnt}} ({{average sum_pc10Cnt total_join_Cnt}}) / {{addComma pc10_out_Cnt}}</td>
+        <td>{{addComma aos20_join_Cnt}} ({{average sum_android20Cnt total_join_Cnt}}) / {{addComma aos20_out_Cnt}}</td>
+        <td>{{addComma ios20_join_Cnt}} ({{average sum_ios20Cnt total_join_Cnt}}) / {{addComma ios20_out_Cnt}}</td>
+        <td>{{addComma pc20_join_Cnt}} ({{average sum_pc20Cnt total_join_Cnt}}) / {{addComma pc20_out_Cnt}}</td>
+        <td>{{addComma aos30_join_Cnt}} ({{average sum_android30Cnt total_join_Cnt}}) / {{addComma aos30_out_Cnt}}</td>
+        <td>{{addComma ios30_join_Cnt}} ({{average sum_ios30Cnt total_join_Cnt}}) / {{addComma ios30_out_Cnt}}</td>
+        <td>{{addComma pc30_join_Cnt}} ({{average sum_pc30Cnt total_join_Cnt}}) / {{addComma pc30_out_Cnt}}</td>
+        <td>{{addComma aos40_up_join_Cnt}} ({{average sum_android40_upCnt total_join_Cnt}}) / {{addComma aos40_up_out_Cnt}}</td>
+        <td>{{addComma ios40_up_join_Cnt}} ({{average sum_ios40_upCnt total_join_Cnt}}) / {{addComma ios40_up_out_Cnt}}</td>
+        <td>{{addComma pc40_up_join_Cnt}} ({{average sum_pc40_upCnt total_join_Cnt}}) / {{addComma pc40_up_out_Cnt}}</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_platformAgeDetailList">
     {{#each this as |data|}}
-        <tr>
-            <td class="font-bold">
-                {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-                {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
-                {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+        <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+            <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+                {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+                {{{data.date}}}
             </td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma android10Cnt}}</td>
-            <td>{{addComma android20Cnt}}</td>
-            <td>{{addComma android30Cnt}}</td>
-            <td>{{addComma android40Cnt}}</td>
-            <td>{{addComma android50Cnt}}</td>
-            <td>{{addComma android60Cnt}}</td>
-            <td>{{addComma ios10Cnt}}</td>
-            <td>{{addComma ios20Cnt}}</td>
-            <td>{{addComma ios30Cnt}}</td>
-            <td>{{addComma ios40Cnt}}</td>
-            <td>{{addComma ios50Cnt}}</td>
-            <td>{{addComma ios60Cnt}}</td>
-            <td>{{addComma pc10Cnt}}</td>
-            <td>{{addComma pc20Cnt}}</td>
-            <td>{{addComma pc30Cnt}}</td>
-            <td>{{addComma pc40Cnt}}</td>
-            <td>{{addComma pc50Cnt}}</td>
-            <td>{{addComma pc60Cnt}}</td>
+            <td>{{addComma aos10_join_Cnt}} ({{average aos10_join_Cnt aos_join_total_Cnt}}) / {{aos10_out_Cnt}}</td>
+            <td>{{addComma ios10_join_Cnt}} ({{average ios10_join_Cnt ios_join_total_Cnt}}) / {{ios10_out_Cnt}}</td>
+            <td>{{addComma pc10_join_Cnt}} ({{average pc10_join_Cnt pc_join_total_Cnt}}) / {{pc10_out_Cnt}}</td>
+            <td>{{addComma aos20_join_Cnt}} ({{average aos20_join_Cnt aos_join_total_Cnt}}) / {{aos20_out_Cnt}}</td>
+            <td>{{addComma ios20_join_Cnt}} ({{average ios20_join_Cnt ios_join_total_Cnt}}) / {{ios20_out_Cnt}}</td>
+            <td>{{addComma pc20_join_Cnt}} ({{average pc20_join_Cnt pc_join_total_Cnt}}) / {{pc20_out_Cnt}}</td>
+            <td>{{addComma aos30_join_Cnt}} ({{average aos30_join_Cnt aos_join_total_Cnt}}) / {{aos30_out_Cnt}}</td>
+            <td>{{addComma ios30_join_Cnt}} ({{average ios30_join_Cnt ios_join_total_Cnt}}) / {{ios30_out_Cnt}}</td>
+            <td>{{addComma pc30_join_Cnt}} ({{average pc30_join_Cnt pc_join_total_Cnt}} ) / {{pc30_out_Cnt}}</td>
+            <td>{{addComma aos40_up_join_Cnt}} ({{average aos40_up_join_Cnt aos_join_total_Cnt}}) / {{aos40_up_out_Cnt}}</td>
+            <td>{{addComma ios40_up_join_Cnt}} ({{average ios40_up_join_Cnt ios_join_total_Cnt}}) / {{ios40_up_out_Cnt}}</td>
+            <td>{{addComma pc40_up_join_Cnt}} ({{average pc40_up_join_Cnt pc_join_total_Cnt}}) / {{pc40_up_out_Cnt}}</td>
         </tr>
     {{else}}
         <tr>

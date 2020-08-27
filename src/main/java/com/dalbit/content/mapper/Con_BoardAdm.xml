@@ -53,6 +53,7 @@
                 , fan.contents
                 , fan.view_yn
                 , fan.depth
+                , ifnull(fan.opName,'') as opName
                 , (select count(*) from rd_data.tb_member_fanboard WHERE mem_no =  fan.mem_no and `status` = 1 AND board_no = fan.board_no AND depth = 2 ) as replyCnt
                 , @RNUM := @RNUM +1 as rowNum
             from rd_data.tb_member_fanboard fan
@@ -108,7 +109,7 @@
 
     <update id="deleteFanBoard">
         update rd_data.tb_member_fanboard
-        set `status` = 2
+        set `status` = 2, opName = #{opName}
         where idx = #{idx}
     </update>
 
@@ -136,31 +137,9 @@
     <sql id="storyCondition">
         <where>
             <if test='txt_search != null and txt_search != ""'>
-                <choose>
-                    <when test='searchType == 1'>
-                        bas.mem_no like CONCAT('%',#{txt_search},'%')
-                    </when>
-                    <when test='searchType == 2'>
-                        bas.mem_userid like CONCAT('%',#{txt_search},'%')
-                    </when>
-                    <when test='searchType == 3'>
-                        bas.mem_nick like CONCAT('%',#{txt_search},'%')
-                    </when>
-                    <when test='searchType == 4'>
-                        sto.writer_no like CONCAT('%', #{txt_search}, '%')
-                    </when>
-                    <when test='searchType == 5'>
-                        sto.mem_userid like CONCAT('%', #{txt_search}, '%')
-                    </when>
-                    <when test='searchType == 6'>
-                        sto.mem_nick like CONCAT('%', #{txt_search}, '%')
-                    </when>
-                    <otherwise>
-                        (bas.mem_no like CONCAT('%',#{txt_search},'%') or sto.writer_no like CONCAT('%', #{txt_search}, '%')
-                        OR bas.mem_userid like CONCAT('%',#{txt_search},'%') or sto.mem_userid like CONCAT('%', #{txt_search}, '%')
-                        OR bas.mem_nick like CONCAT('%',#{txt_search},'%') or sto.mem_nick like CONCAT('%', #{txt_search}, '%'))
-                    </otherwise>
-                </choose>
+                (bas.mem_no like CONCAT('%',#{txt_search},'%') or sto.writer_no like CONCAT('%', #{txt_search}, '%')
+                OR bas.mem_userid like CONCAT('%',#{txt_search},'%') or sto.mem_userid like CONCAT('%', #{txt_search}, '%')
+                OR bas.mem_nick like CONCAT('%',#{txt_search},'%') or sto.mem_nick like CONCAT('%', #{txt_search}, '%'))
             </if>
             <if test='start_sel != null and start_sel !=""'>
                  and sto.write_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
@@ -174,7 +153,7 @@
     <select id="selectStoryList" parameterType="com.dalbit.content.vo.BoardAdmStoryVo" resultType="com.dalbit.content.vo.BoardAdmStoryVo">
     /* Con_BoardAdm.xml - selectStoryList*/
         select
-          *
+          a.*
         from (
             select
             sto.idx as storyIdx,
@@ -194,13 +173,26 @@
             where bas.mem_no = send_mem_no group by bas.mem_no) as send_birth_year,
             sto.write_date as send_date,
             sto.contents   as story_content,
+            (select count(*) from rd_data.tb_broadcast_room_story where room_no in (select room_no from rd_data.tb_broadcast_room where mem_no = bas.mem_no)) as storyCnt,
+            (select count(*) from rd_data.tb_broadcast_room_story where writer_no=sto.writer_no) as sendStoryCnt,
             @RNUM := @RNUM + 1 as rowNum
         from rd_data.tb_broadcast_room bro
         inner join rd_data.tb_broadcast_room_story sto on sto.room_no = bro.room_no
         inner join rd_data.tb_member_basic bas on bro.mem_no = bas.mem_no
         , (select @RNUM := 0) r
         <include refid="storyCondition"/>
-        order by sto.idx desc
+        <if test="searchType == 0">
+          order by sto.idx desc
+        </if>
+        <if test="searchType == 1">
+            order by storyCnt desc
+        </if>
+        <if test="searchType == 2">
+            order by sendStoryCnt desc
+        </if>
+        <if test="searchType == 3">
+          order by sto.idx asc
+        </if>
         ) a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>

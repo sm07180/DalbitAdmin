@@ -4,7 +4,7 @@
 <div class="wrapper">
     <div id="page-wrapper">
         <div id="container-fluid">
-            <div class="widget-content">
+            <div class="widget-content col-md-10">
                 <div class="calendar col-md-10 no-padding"></div>
                 <div class="col-md-2 no-padding" id="totalTable"></div>
             </div>
@@ -41,7 +41,7 @@
             events: function(start, end, timezone, callback) {
                 var month =  $('.fc-day').not('.fc-other-month').first().data('date').replace(/-/gi,".") + " - " + $('.fc-day').not('.fc-other-month').last().data('date').replace(/-/gi,".") + "@";
                 $.ajax({
-                    url: '/rest/connect/login/info/total',
+                    url: '/rest/enter/newJoin/info/calender',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -49,9 +49,11 @@
                         slctType : 1
                     },
                     success: function(response) {
+                        console.log("-----------------------");
+                        console.log(response);
                         response.data.forEach(function(info){
                             info.detailList.forEach(function(detail, detailIndex) {
-                                var the_date = moment($('.fc-day').not('.fc-other-month').first().data('date')).format('YYYY-MM-') + common.lpad(detail.day, 2, "0");
+                                var the_date = detail.the_date;
                                 var dayTarget = $('.fc-day[data-date="' + the_date + '"]').find('.fc-day-content');
                                 var template = $('#tmp_calendarData').html();
                                 var templateScript = Handlebars.compile(template);
@@ -78,11 +80,10 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div class="font-bold" style="color: black">비중복</div>
-    <div style="color: blue;">{{{sexIcon 'm'}}} : {{addComma maleCnt}}({{average maleCnt totalCnt}}%)</div>
-    <div style="color: red;">{{{sexIcon 'f'}}} : {{addComma femaleCnt}}({{average femaleCnt totalCnt}}%)</div>
-    <div style="color: black">{{{sexIcon 'n'}}} : {{addComma noneCnt}}({{average noneCnt totalCnt}}%)</div>
-    <div class="font-bold" style="color: #ff5600;">총계 : {{addComma totalCnt}} 명({{average totalCnt totalCnt}}%)</div>
+    <div style="color: blue;">{{{sexIcon 'm'}}} : {{addComma total_join_mCnt}}/{{addComma total_out_mCnt}} ({{average total_out_mCnt total_out_Cnt}}%)</div>
+    <div style="color: red;">{{{sexIcon 'f'}}} : {{addComma total_join_fCnt}}/{{addComma total_out_fCnt}} ({{average total_out_fCnt total_out_Cnt}}%)</div>
+    <div style="color: black">{{{sexIcon 'n'}}} : {{addComma total_join_nCnt}}/{{addComma total_out_nCnt}} ({{average total_out_nCnt total_out_Cnt}}%)</div>
+    <div class="font-bold" style="color: #ff5600;">총계 : {{addComma total_join_Cnt}}/{{addComma total_out_Cnt}} ({{average total_out_Cnt total_out_Cnt}}%)</div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_totalTable">
@@ -94,28 +95,28 @@
         <tbody>
             <tr>
                 <th>구분</th>
-                <th>비중복</th>
-                <th>중복</th>
+                <th>가입수</th>
+                <th>탈퇴수</th>
             </tr>
             <tr style="color: blue">
                 <td>{{{sexIcon 'm'}}}</td>
-                <td>{{addComma sum_umaleCnt}}({{average sum_umaleCnt sum_utotalCnt}}%)</td>
-                <td>{{addComma sum_maleCnt}}({{average sum_maleCnt sum_totalCnt}}%)</td>
+                <td>{{addComma total_join_mCnt}} ({{average total_join_mCnt total_join_Cnt}}%)</td>
+                <td>{{addComma total_out_mCnt}} ({{average total_out_mCnt total_out_Cnt}}%)</td>
             </tr>
             <tr style="color: red">
                 <td>{{{sexIcon 'f'}}}</td>
-                <td>{{addComma sum_ufemaleCnt}}({{average sum_ufemaleCnt sum_utotalCnt}}%)</td>
-                <td>{{addComma sum_femaleCnt}}({{average sum_femaleCnt sum_totalCnt}}%)</td>
+                <td>{{addComma total_join_fCnt}} ({{average total_join_fCnt total_join_Cnt}}%)</td>
+                <td>{{addComma total_out_fCnt}} ({{average total_out_fCnt total_out_Cnt}}%)</td>
             </tr>
             <tr>
                 <td>{{{sexIcon 'n'}}}</td>
-                <td>{{addComma sum_unoneCnt}}({{average sum_unoneCnt sum_utotalCnt}}%)</td>
-                <td>{{addComma sum_noneCnt}}({{average sum_noneCnt sum_totalCnt}}%)</td>
+                <td>{{addComma total_join_nCnt}} ({{average total_join_nCnt total_join_Cnt}}%)</td>
+                <td>{{addComma total_out_nCnt}} ({{average total_out_nCnt total_out_Cnt}}%)</td>
             </tr>
             <tr class="font-bold" style="color: #ff5600">
                 <td>총합</td>
-                <td>{{addComma sum_utotalCnt}}({{average sum_utotalCnt sum_utotalCnt}}%)</td>
-                <td>{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}}%)</td>
+                <td>{{addComma total_join_Cnt}} ({{average total_join_Cnt total_join_Cnt}}%)</td>
+                <td>{{addComma total_out_Cnt}} ({{average total_out_Cnt total_out_Cnt}}%)</td>
             </tr>
         </tbody>
     </table>

@@ -10,6 +10,7 @@ import com.dalbit.content.vo.BoardAdmFanBoardDeleteVo;
 import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
 import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
@@ -85,6 +86,7 @@ public class Con_BoardAdmService {
      * 팬보드 삭제
      */
     public String deleteFanBoard(BoardAdmFanBoardDeleteVo boardAdmFanBoardDeleteVo) {
+        boardAdmFanBoardDeleteVo.setOpName(MemberVo.getMyMemNo());
         int result = conBoardAdmDao.deleteFanBoard(boardAdmFanBoardDeleteVo);
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.Fanboard삭제성공));
@@ -110,6 +112,26 @@ public class Con_BoardAdmService {
         ArrayList<BoardAdmStoryVo> storyList = conBoardAdmDao.selectStoryList(boardAdmStoryVo);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, storyList, new PagingVo(boardAdmStoryVo.getTotalCnt(), boardAdmStoryVo.getPageStart(), boardAdmStoryVo.getPageCnt())));
+
+        return result;
+    }
+    /**
+     * 공지 통계
+     */
+    public String selectNoticeSummary(BoardAdmStoryVo boardAdmStoryVo) {
+//        ArrayList<BoardAdmStoryVo> noticeSummaryList = conBoardAdmDao.selectNoticeSummary(boardAdmStoryVo);
+//
+//        BoardAdmFanBoardVo noticeSummary = new BoardAdmFanBoardVo();
+//        for(int i=0;i<noticeSummaryList.size();i++){
+//            if(noticeSummaryList.get(i).getType().equals("broadcast")) {
+//                noticeSummary.setTotalCnt(noticeSummaryList.get(i).getTotalCnt());
+//            }else{
+//                noticeSummary.setSecretTotalCnt(noticeSummaryList.get(i).getTotalCnt());
+//            }
+//        }
+
+        String result="";
+//        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, noticeSummary));
 
         return result;
     }
