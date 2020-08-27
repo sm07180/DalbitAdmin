@@ -119,19 +119,39 @@
                             and gold.type = 2
                             and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
                             and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) receiveStar
+                , ifnull((select count(*)
+                            from rd_data.tb_broadcast_room room
+                                , rd_data.tb_broadcast_room_msg msg
+                            where dj.mem_no = room.mem_no
+                            and room.room_no = msg.room_no
+                            and msg.type = 'chat'
+                            and msg.category = 'chat.chat'
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>msg.last_upd_date
+                            and msg.last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) chatCnt
+                , ifnull((select count(*)
+                            from rd_data.tb_broadcast_room room
+                            where dj.mem_no = room.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> room.start_date
+                            and room.start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) broadCnt
+                , ifnull((select count(distinct listen.mem_no)
+                            from rd_data.tb_member_broadcast_listening listen
+                            where dj.mem_no = listen.dj_mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> listen.start_date
+                            and listen.start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')
+                            and 1800 <![CDATA[<=]]> listen.listentime), 0) listenCnt30
             from rd_admin.tb_req_special_dj dj
-            , rd_data.tb_member_profile profile
-            , rd_data.tb_member_basic basic
-            , rd_admin.tb_req_special_dj_manage manage
-            , (select @RNUM := 0) r
+                , rd_data.tb_member_profile profile
+                , rd_data.tb_member_basic basic
+                , rd_admin.tb_req_special_dj_manage manage
+                , (select @RNUM := 0) r
             where basic.mem_no = dj.mem_no
-            and profile.mem_no = dj.mem_no
-            and basic.mem_no = profile.mem_no
-            and dj.state <![CDATA[<>]]> 2
-            and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
-            and manage.select_year = #{select_year}
-            and manage.select_month = #{select_month}
-            <include refid="reqSpecial" />
+                and profile.mem_no = dj.mem_no
+                and basic.mem_no = profile.mem_no
+                and dj.state <![CDATA[<>]]> 2
+                and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
+                and manage.select_year = #{select_year}
+                and manage.select_month = #{select_month}
+                <include refid="reqSpecial" />
             order by idx desc
         ) a
         limit #{pageStart}, #{pageCnt}
