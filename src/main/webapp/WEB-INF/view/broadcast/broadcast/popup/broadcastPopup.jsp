@@ -20,6 +20,9 @@
     function init() {
         console.log("1");
         var roomNo =  <%=in_roomNo%>;
+        var type =  <%=in_type%>;
+
+        $('.nav-tabs li:eq(' + Number(type) + ') a').tab('show');
 
         getBroadCast_info_popup(roomNo);
     }
