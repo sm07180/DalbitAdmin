@@ -989,16 +989,18 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
+        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
+        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
+        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
+        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td>
+        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td>
+        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td>
+        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td>
+        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td>
+        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td>
         <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
         <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
         <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
@@ -1037,12 +1039,16 @@
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
+        <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
+        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
+        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
+        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
+        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
+        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
+        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
+        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
