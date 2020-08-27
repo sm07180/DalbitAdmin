@@ -55,6 +55,10 @@
     function getBroadHistory_listen(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = BroadcastDataTableSource[tmp];
+
+        if(!common.isEmpty(type) == 1){
+            tmp_sortAuth = 0;
+        }
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
             data.sortAuth = tmp_sortAuth;       // 청취자인지, 퇴장인지, 강퇴인지
@@ -74,9 +78,13 @@
         $("#" + tmp).find("#main_table").find(".footer-left").append(exitBtn);
         $("#state").html(util.getCommonCodeSelect(-1, state));
         forcedEventInit();
+
+        if(!common.isEmpty(type) == 1){
+            $("select[name='state']").val(0);
+        }
     }
 
-    function force_sel_change(){
+    function force_sel_change(type){
         tmp_sortAuth = $("select[name='state']").val();
         dtList_info_detail.reload(listen_summary_table);
     }

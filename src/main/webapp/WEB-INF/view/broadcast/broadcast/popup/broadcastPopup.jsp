@@ -18,13 +18,17 @@
     });
 
     init();
+
+    var type;
     function init() {
         console.log("1");
         var roomNo =  <%=in_roomNo%>;
-        var type =  <%=in_type%>;
+        type =  <%=in_type%>;
 
-        $('.nav-tabs li:eq(' + Number(type) + ') a').tab('show');
-
+        if(common.isEmpty(type)){
+            $('.nav-tabs li:eq(' + Number(type) + ') a').tab('show');
+        }
         getBroadCast_info_popup(roomNo);
+
     }
 </script>
