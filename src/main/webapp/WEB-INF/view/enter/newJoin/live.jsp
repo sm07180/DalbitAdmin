@@ -315,7 +315,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getLive();
+
     });
 
     var tmp = 0;
