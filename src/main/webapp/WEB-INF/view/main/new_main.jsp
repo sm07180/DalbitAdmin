@@ -676,8 +676,8 @@
 
             if(dataType == 3) {
                 var arrayCnt = {};
-                arrayCnt = "결제:" + common.addComma(detailData.detailList[i].succCnt)+ "건 : " + common.addComma(detailData.detailList[i].succAmt) + "원<br>"
-                      + "증감: " + common.addComma(detailData.detailList[i].inc_succCnt) + "건 : " + common.addComma(detailData.detailList[i].inc_succAmt) + "원";
+                arrayCnt = "결제:" + common.addComma(detailData.detailList[i].succCnt)+ "건 : " + common.vatMinus(detailData.detailList[i].succAmt) + "원<br>"
+                      + "증감: " + common.addComma(detailData.detailList[i].inc_succCnt) + "건 : " + common.vatMinus(detailData.detailList[i].inc_succAmt) + "원";
                 arrayList_yCnt.push(arrayCnt);
             }
             if(max_y < array){
@@ -699,7 +699,7 @@
                 array = detailData.detailList[i].createCnt;
             }else if(dataType == 3) {
                 if(!common.isEmpty(detailData.detailList2[i])){
-                    array = detailData.detailList2[i].succAmt;
+                    array = common.charVatMinus(detailData.detailList2[i].succAmt);
                 }else{
                     array = 0;
                 }
@@ -707,8 +707,8 @@
             if(dataType == 3) {
                 var arrayCnt = {};
                 if(!common.isEmpty(detailData.detailList2[i])) {
-                    arrayCnt = "결제:" + common.addComma(detailData.detailList2[i].succCnt)+ "건 : " + common.addComma(detailData.detailList2[i].succAmt) + "원<br>"
-                            + "증감: " + common.addComma(detailData.detailList2[i].inc_succCnt) + "건 : " + common.addComma(detailData.detailList2[i].inc_succAmt) + "원";
+                    arrayCnt = "결제:" + common.addComma(detailData.detailList2[i].succCnt)+ "건 : " + common.vatMinus(detailData.detailList2[i].succAmt) + "원<br>"
+                            + "증감: " + common.addComma(detailData.detailList2[i].inc_succCnt) + "건 : " + common.vatMinus(detailData.detailList2[i].inc_succAmt) + "원";
                 }else{
                     arrayCnt = "환전:0건/0";
                 }
@@ -781,10 +781,10 @@
 <script type="text/x-handlebars-template" id="tmp_paymentCancel_tableBody">
     <tr>
         <th>결제</th>
-        <td>{{addComma totalInfo.sum_succCnt}}</td>
-        <td class="{{upAndDownClass totalInfo.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_succCnt}}"></i> {{addComma totalInfo.inc_sum_succCnt}} </td>
-        <td>{{addComma totalInfo.sum_succAmt}}</td>
-        <td class="{{upAndDownClass totalInfo.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_succAmt}}"></i> {{addComma totalInfo.inc_sum_succAmt}} </td>
+        <td>{{vatMinus totalInfo.sum_succCnt}}</td>
+        <td class="{{upAndDownClass totalInfo.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_succCnt}}"></i> {{vatMinus totalInfo.inc_sum_succCnt}} </td>
+        <td>{{vatMinus totalInfo.sum_succAmt}}</td>
+        <td class="{{upAndDownClass totalInfo.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_succAmt}}"></i> {{vatMinus totalInfo.inc_sum_succAmt}} </td>
     </tr>
     <tr>
         <th>결제취소</th>
@@ -802,9 +802,9 @@
     </tr>
     <tr>
         <th>환전</th>
-        <td>{{addComma totalInfo2.sum_succCnt}}</td>
-        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{addComma totalInfo2.sum_inc_succCnt}} </td>
-        <td>{{addComma totalInfo2.sum_succAmt}}</td>
-        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{addComma totalInfo2.sum_inc_succAmt}} </td>
+        <td>{{vatMinus totalInfo2.sum_succCnt}}</td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{vatMinus totalInfo2.sum_inc_succCnt}} </td>
+        <td>{{vatMinus totalInfo2.sum_succAmt}}</td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{vatMinus totalInfo2.sum_inc_succAmt}} </td>
     </tr>
 </script>

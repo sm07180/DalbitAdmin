@@ -125,18 +125,18 @@
 
         //x축
         var arrayList_max_x = [
-            detailData.sum_mcAmt,
-            detailData.sum_cnAmt,
-            detailData.sum_inappAmt,
-            detailData.sum_vaAmt,
-            detailData.sum_gmAmt,
-            detailData.sum_hmAmt,
+            common.charVatMinus(detailData.sum_mcAmt),
+            common.charVatMinus(detailData.sum_cnAmt),
+            common.charVatMinus(detailData.sum_inappAmt),
+            common.charVatMinus(detailData.sum_vaAmt),
+            common.charVatMinus(detailData.sum_gmAmt),
+            common.charVatMinus(detailData.sum_hmAmt),
             // detailData.sum_ggAmt,
             // detailData.sum_gcAmt,
-            detailData.sum_tmoneyAmt,
-            detailData.sum_cashbeeAmt,
-            detailData.sum_paycoAmt,
-            detailData.sum_kakaopayAmt,
+            common.charVatMinus(detailData.sum_tmoneyAmt),
+            common.charVatMinus(detailData.sum_cashbeeAmt),
+            common.charVatMinus(detailData.sum_paycoAmt),
+            common.charVatMinus(detailData.sum_kakaopayAmt),
         ];
 
         var max_x;
@@ -144,18 +144,18 @@
 
         //x축
         var arrayList_x = [
-            detailData.sum_mcAmt,
-            detailData.sum_cnAmt,
-            detailData.sum_inappAmt,
-            detailData.sum_vaAmt,
-            detailData.sum_gmAmt,
-            detailData.sum_hmAmt,
+            common.charVatMinus(detailData.sum_mcAmt),
+            common.charVatMinus(detailData.sum_cnAmt),
+            common.charVatMinus(detailData.sum_inappAmt),
+            common.charVatMinus(detailData.sum_vaAmt),
+            common.charVatMinus(detailData.sum_gmAmt),
+            common.charVatMinus(detailData.sum_hmAmt),
             // detailData.sum_ggAmt,
             // detailData.sum_gcAmt,
-            detailData.sum_tmoneyAmt,
-            detailData.sum_cashbeeAmt,
-            detailData.sum_paycoAmt,
-            detailData.sum_kakaopayAmt,
+            common.charVatMinus(detailData.sum_tmoneyAmt),
+            common.charVatMinus(detailData.sum_cashbeeAmt),
+            common.charVatMinus(detailData.sum_paycoAmt),
+            common.charVatMinus(detailData.sum_kakaopayAmt),
         ];
         var arrayList_xCnt = [
             detailData.sum_mcCnt,
@@ -234,9 +234,9 @@
     function getPayGenderAgeChart(detailData, param) {
 
         var genderAmt = [
-            detailData.sum_maleAmt,
-            detailData.sum_femaleAmt,
-            detailData.sum_noneAmt,
+            common.charVatMinus(detailData.sum_maleAmt),
+            common.charVatMinus(detailData.sum_femaleAmt),
+            common.charVatMinus(detailData.sum_noneAmt),
         ];
         var genderType = [
             "남",
@@ -245,12 +245,12 @@
         ];
 
         var ageAmt = [
-            detailData.sum_age10Amt,
-            detailData.sum_age20Amt,
-            detailData.sum_age30Amt,
-            detailData.sum_age40Amt,
-            detailData.sum_age50Amt,
-            detailData.sum_age60Amt,
+            common.charVatMinus(detailData.sum_age10Amt),
+            common.charVatMinus(detailData.sum_age20Amt),
+            common.charVatMinus(detailData.sum_age30Amt),
+            common.charVatMinus(detailData.sum_age40Amt),
+            common.charVatMinus(detailData.sum_age50Amt),
+            common.charVatMinus(detailData.sum_age60Amt),
         ];
         var ageType = [
             "10대",
