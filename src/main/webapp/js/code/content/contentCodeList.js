@@ -425,6 +425,14 @@ var searchType_board = [
     , new COMMON_CODE('3', 3, '삭제글만 보기')
 ];
 
+var searchType_story = [
+  new COMMON_CODE(null, 'searchType_story', '사연')
+    , new COMMON_CODE('0', 0, '최근 등록 순으로 보기')
+    , new COMMON_CODE('1', 1, '받은 사연 많은 회원부터 보기')
+    , new COMMON_CODE('2', 2, '보낸 사연 많은 회원부터 보기')
+    , new COMMON_CODE('3', 3, '오래전 등록 순으로 보기')
+];
+
 var event_giftcon_type = [
     new COMMON_CODE(null, 'gifticon_type', '품목')
     , new COMMON_CODE('all', '-1', '품목구분')

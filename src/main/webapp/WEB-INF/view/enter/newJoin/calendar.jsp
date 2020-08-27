@@ -4,7 +4,7 @@
 <div class="wrapper">
     <div id="page-wrapper">
         <div id="container-fluid">
-            <div class="widget-content">
+            <div class="widget-content col-md-10">
                 <div class="calendar col-md-10 no-padding"></div>
                 <div class="col-md-2 no-padding" id="totalTable"></div>
             </div>

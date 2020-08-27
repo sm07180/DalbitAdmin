@@ -418,20 +418,20 @@
     <table class="table table-bordered table-summary pull-right" style="margin-right: 0px; width: 30%">
         <thead>
         <tr class="align-middle">
-            <th colspan="2" rowspan="2">총 가입자 수</th>
-            <th colspan="6">가입플랫폼 별 수</th>
+            <th colspan="2" rowspan="2" style="background-color: #8fabdd;color: white;">총 가입자 수</th>
+            <th colspan="6" class="font-bold" style="background-color: #8fabdd;color: white">가입 플랫폼</th>
         </tr>
         <tr>
-            <th>{{{renderSlct 'p' '30'}}}</th>
-            <th>{{{renderSlct 'f' '30'}}}</th>
-            <th>{{{renderSlct 'g' '30'}}}</th>
-            <th>{{{renderSlct 'k' '30'}}}</th>
-            <th>{{{renderSlct 'n' '30'}}}</th>
-            <th>{{{renderSlct 'i' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'p' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'f' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'g' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'k' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'n' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'i' '30'}}}</th>
         </tr>
         </thead>
         <tbody>
-        <td colspan="2">{{content.allCnt}}명</td>
+        <td colspan="2" style="background-color: #f4b282">{{content.allCnt}}명</td>
         <td>{{content.slctPhonCnt}}명</td>
         <td>{{content.slctFaceCnt}}명</td>
         <td>{{content.slctGoogleCnt}}명</td>
@@ -446,20 +446,20 @@
     <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 30%">
         <thead>
         <tr class="align-middle">
-            <th colspan="2" rowspan="2">총 가입자 수</th>
-            <th colspan="6">가입플랫폼</th>
+            <th colspan="2" rowspan="2" style="background-color: #8fabdd;color: white;">총 탈퇴자 수</th>
+            <th colspan="6" style="background-color: #8fabdd;color: white">탈퇴 플랫폼</th>
         </tr>
         <tr>
-            <th>{{{renderSlct 'p' '30'}}}</th>
-            <th>{{{renderSlct 'f' '30'}}}</th>
-            <th>{{{renderSlct 'g' '30'}}}</th>
-            <th>{{{renderSlct 'k' '30'}}}</th>
-            <th>{{{renderSlct 'n' '30'}}}</th>
-            <th>{{{renderSlct 'i' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'p' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'f' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'g' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'k' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'n' '30'}}}</th>
+            <th style="background-color: #d9d9d9">{{{renderSlct 'i' '30'}}}</th>
         </tr>
         </thead>
         <tbody>
-        <td colspan="2">{{content.allCnt}}명</td>
+        <td colspan="2" class="font-bold" style="background-color: #f4b282">{{content.allCnt}}명</td>
         <td>{{content.slctPhonCnt}}명</td>
         <td>{{content.slctFaceCnt}}명</td>
         <td>{{content.slctGoogleCnt}}명</td>

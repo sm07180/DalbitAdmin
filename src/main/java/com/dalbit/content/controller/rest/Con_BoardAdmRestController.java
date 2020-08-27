@@ -71,6 +71,16 @@ public class Con_BoardAdmRestController {
     }
 
     /**
+     * 사연 통계
+     * @param boardAdmStoryVo
+     * @return
+     */
+    @PostMapping("/noticeList/summary")
+    public String selectNoticeSummary(BoardAdmStoryVo boardAdmStoryVo) {
+        return conBoardAdmService.selectNoticeSummary(boardAdmStoryVo);
+    }
+
+    /**
      * 회원/방송공지 조회
      */
     @PostMapping("/noticeList")

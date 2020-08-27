@@ -327,8 +327,8 @@
         <td>{{addComma apple_out_mCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="blue">{{addComma google_join_mCnt 'Y'}}</td>
         <td>{{addComma google_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma total_join_mCnt 'Y'}}</td>
-        <td>{{addComma total_out_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_mCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_mCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red">{{addComma phone_join_fCnt 'Y'}}</td>
         <td>{{addComma phone_out_fCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red">{{addComma kakao_join_fCnt 'Y'}}</td>
@@ -341,8 +341,8 @@
         <td>{{addComma apple_out_fCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red">{{addComma google_join_fCnt 'Y'}}</td>
         <td>{{addComma google_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma total_join_fCnt 'Y'}}</td>
-        <td>{{addComma total_out_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_fCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_fCnt 'Y'}}</td>
         <td class="font-bold">{{addComma phone_join_nCnt 'Y'}}</td>
         <td>{{addComma phone_out_nCnt 'Y'}}</td>
         <td class="font-bold">{{addComma kakao_join_nCnt 'Y'}}</td>
@@ -355,10 +355,10 @@
         <td>{{addComma apple_out_nCnt 'Y'}}</td>
         <td class="font-bold">{{addComma google_join_nCnt 'Y'}}</td>
         <td>{{addComma google_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma total_join_nCnt 'Y'}}</td>
-        <td>{{addComma total_out_nCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="#fe7418">{{addComma total_join_Cnt 'Y'}}</td>
-        <td class="font-bold">{{addComma total_out_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_nCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_nCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
@@ -426,8 +426,8 @@
         <td>{{addComma apple_out_mCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="blue">{{addComma google_join_mCnt 'Y'}}</td>
         <td>{{addComma google_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma total_join_mCnt 'Y'}}</td>
-        <td>{{addComma total_out_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_mCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_mCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red">{{addComma phone_join_fCnt 'Y'}}</td>
         <td>{{addComma phone_out_fCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red">{{addComma kakao_join_fCnt 'Y'}}</td>
@@ -440,8 +440,8 @@
         <td>{{addComma apple_out_fCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red">{{addComma google_join_fCnt 'Y'}}</td>
         <td>{{addComma google_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma total_join_fCnt 'Y'}}</td>
-        <td>{{addComma total_out_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_fCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_fCnt 'Y'}}</td>
         <td class="font-bold">{{addComma phone_join_nCnt 'Y'}}</td>
         <td>{{addComma phone_out_nCnt 'Y'}}</td>
         <td class="font-bold">{{addComma kakao_join_nCnt 'Y'}}</td>
@@ -454,10 +454,10 @@
         <td>{{addComma apple_out_nCnt 'Y'}}</td>
         <td class="font-bold">{{addComma google_join_nCnt 'Y'}}</td>
         <td>{{addComma google_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma total_join_nCnt 'Y'}}</td>
-        <td>{{addComma total_out_nCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="#fe7418">{{addComma total_join_Cnt 'Y'}}</td>
-        <td class="font-bold">{{addComma total_out_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_nCnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_nCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
