@@ -316,6 +316,10 @@
         dtList_info.reload(summary_table);
     }
 
+    function listenClick(tmp){
+        var popupUrl = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+tmp + "&type=1";
+        util.windowOpen(popupUrl,"1250", "700","방송정보");
+    }
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">

@@ -63,8 +63,8 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data){
-                    return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
+            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
+                    return '<lable style="color:red" onclick="listenClick(' + row.room_no + ');">' + common.addComma(data)  + ' 명</lable>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
