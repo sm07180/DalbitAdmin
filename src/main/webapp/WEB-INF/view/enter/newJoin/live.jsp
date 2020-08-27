@@ -686,7 +686,7 @@
             //상단
             var tmp = 0;
             if(i == 1){
-                $("#liveTableBody tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                     +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                     " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                     + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
@@ -749,13 +749,13 @@
                 $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_n);
                 $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_n);
                 tmp = 0;
-                $("#liveTableBody tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                                                             +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                                                             " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                                                             + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
                                                             );
             }else if(i == 0){
-                $("#liveTableBody tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                     +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                     " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                     + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
@@ -817,7 +817,7 @@
                 $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_n);
                 $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
 
-                $("#liveTableBody tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                                                             +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                                                             " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                                                             + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
@@ -826,7 +826,7 @@
 
             // 하단
             if(i == 2){
-                $("#liveTableBody2 tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody2 tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                     +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                     " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                     + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
@@ -889,13 +889,13 @@
                 $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_apple_n);
                 $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_n);
 
-                $("#liveTableBody2 tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody2 tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                                             +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                                             " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                                             + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
                                             );
             }else if(i == 3){
-                $("#liveTableBody2 tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody2 tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                     +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                     " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                     + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
@@ -957,7 +957,7 @@
                 $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_n);
                 $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
 
-                $("#liveTableBody2 tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + "/" + sum_out_total + ") : "
+                $("#liveTableBody2 tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
                             +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
                             " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
                             + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
@@ -989,18 +989,16 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
-        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
-        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
-        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
+        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
+        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
+        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
+        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
-        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td>
-        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td>
-        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;color: blue"></td>
-        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td>
-        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td>
-        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;color: red"></td>
+        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;">
+        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;">
+        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td>
+        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td>
         <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
         <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
         <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
@@ -1040,15 +1038,15 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
-        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
-        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
-        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
+        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
+        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
+        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
+        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
-        <td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td><td style="color: blue"></td>
-        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
-        <td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td><td style="color: red"></td>
+        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
+        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
+        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
+        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
