@@ -109,7 +109,6 @@
     function init() {
         $("#searchTypeArea").html(util.getCommonCodeSelect(-1, attempSearchType));
 
-
         $('#txt_startSel').datepicker("setDate", new Date());
         $('#txt_endSel').datepicker("setDate", new Date());
 
@@ -119,6 +118,8 @@
         $('#txt_endSel').datepicker().on('dp.change',function(e){
             $(this).html($(this).val());
         });
+
+        $("#bt_search").click();
     }
 
     function getErrorList(){

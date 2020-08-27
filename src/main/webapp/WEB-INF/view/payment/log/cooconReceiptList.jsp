@@ -118,6 +118,8 @@
         $('#txt_endSel').datepicker().on('dp.change',function(e){
             $(this).html($(this).val());
         });
+
+        $("#bt_search").click();
     }
 
     function getReceiptList(){

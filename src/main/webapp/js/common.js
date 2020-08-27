@@ -401,6 +401,16 @@ common.vatMinus = function(lvalue) {
     return common.addComma((lvalue / 1.1).toFixed(0));
 };
 
+common.charVatMinus = function(lvalue) {
+    if(lvalue == 0){
+        return 0;
+    }
+    if(lvalue == "null" || lvalue == "NaN"){
+        return '';
+    }
+    return (lvalue / 1.1).toFixed(0);
+};
+
 common.payRate = function(lvalue,rvalue) {
     if (rvalue == 0) {
         return 0;
