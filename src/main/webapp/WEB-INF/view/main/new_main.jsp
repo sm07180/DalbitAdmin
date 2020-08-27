@@ -582,7 +582,7 @@
         }else if(dataType == 2) {
             lineName = "청취자";
             barName = "방송방";
-            lineTitle = "<b>청취자:%{y:.0f}";
+            lineTitle = "<b>청취자:%{y:,.0f}";
             barTitle = "<b>방송방:%{y:,.0f}";
         }else if(dataType == 3) {
             lineName = "결제";
