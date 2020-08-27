@@ -25,7 +25,7 @@
         var roomNo =  <%=in_roomNo%>;
         type =  <%=in_type%>;
 
-        if(common.isEmpty(type)){
+        if(!common.isEmpty(type)){
             $('.nav-tabs li:eq(' + Number(type) + ') a').tab('show');
         }
         getBroadCast_info_popup(roomNo);
