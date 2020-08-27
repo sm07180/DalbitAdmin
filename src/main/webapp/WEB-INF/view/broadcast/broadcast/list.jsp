@@ -48,6 +48,9 @@
 <script type="text/javascript" src="/js/util/memberUtil.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 <script>
+
+    var type;       // 팝업type
+
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
     $("#searchRoom_state").html(util.getCommonCodeSelect(1, searchRoom_state));
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
