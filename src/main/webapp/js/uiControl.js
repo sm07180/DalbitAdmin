@@ -132,6 +132,8 @@ ui.leftActiveFocus = function(){
 ui.imageLayerView = function(){
     var yOffset = 30;
     var height = 0;
+    var imageY;
+
     $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
 
         if(common.isEmpty($(this).attr("src"))){
@@ -141,15 +143,36 @@ ui.imageLayerView = function(){
         $("#previewImage").load(function () {
             height = $(this).height();
         });
-        $("#preview")
-            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
-            .css("left",(e.pageX + yOffset) + "px")
-            .fadeIn("fast");
+
+        imageY = $("#previewImage").offset();
+
+        if(imageY.top < 0){
+            $("#preview")
+                .css("top",(e.pageY - (height/2) + 30) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        }else{
+            $("#preview")
+                .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        }
     });
     $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
-        $("#preview")
-            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
-            .css("left",(e.pageX + yOffset) + "px");
+
+        if(imageY.top < 0){
+            $("#preview")
+                .css("top",(e.pageY - (height/2) + 30) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+        }else{
+            $("#preview")
+                .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+        }
+
+        // $("#preview")
+        //     .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
+        //     .css("left",(e.pageX + yOffset) + "px");
     });
     $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
         $("#preview").remove();
@@ -159,19 +182,24 @@ ui.imageLayerView();
 
 // 마우스 오버시 움직이는 이미지 추가
 ui.webpImageView = function() {
-    var xOffset = 10;
     var yOffset = 30;
     var height = 0;
+    var webpY;
     $(document).on("mouseover", "._webpImage", function (e) { //마우스 오버
         if (common.isEmpty($(this).attr("data-webpImage"))) {
             return;
         }
 
-        $("body").append("<p id='preview'><img id='previewImage' src='" + $(this).attr("data-webpImage") + "' width='300px' style='width: auto;max-height: 500px'/></p>"); //이미지
+        $("body").append("<p id='preview'><img id='previewWebpImage' src='" + $(this).attr("data-webpImage") + "' width='300px' style='width: auto;max-height: 500px'/></p>"); //이미지
 
-        $("#previewImage").load(function () {
+        $("#previewWebpImage").load(function () {
             height = $(this).height();
         });
+
+        console.log($("previewWebpImage").offsetParent());
+        console.log($("#previewWebpImage").offset());
+
+        console.log($("#previewWebpImage").offset());
 
         $("#preview")
             .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
