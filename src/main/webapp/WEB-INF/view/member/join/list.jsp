@@ -285,20 +285,7 @@
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
 
-    $("#memberList").hide();
-    $("#withdrawalList").hide();
-    if(!common.isEmpty(tabType)){
-        if(tabType == 1){
-            $('.nav-tabs li:eq(5) a').tab('show');
-            $("#memberList").show();
-        }else if(tabType == 2){
-            $('.nav-tabs li:eq(6) a').tab('show');
-            $("#withdrawalList").show();
-        }
-    }else{
-        $('.nav-tabs li:eq(5) a').tab('show');
-        $("#memberList").show();
-    }
+    getUserInfo();
 
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
@@ -410,6 +397,21 @@
         util.excelDownload($(this), "/rest/member/join/withdrawalListExcel", formData);
     });
     /*==================================*/
+
+    $("#memberList").hide();
+    $("#withdrawalList").hide();
+    if(!common.isEmpty(tabType)){
+        if(tabType == 1){
+            $('.nav-tabs li:eq(5) a').tab('show');
+            $("#memberList").show();
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(6) a').tab('show');
+            $("#withdrawalList").show();
+        }
+    }else{
+        $('.nav-tabs li:eq(5) a').tab('show');
+        $("#memberList").show();
+    }
 </script>
 
 
