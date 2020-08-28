@@ -57,7 +57,6 @@
                 <th colspan="2" class="_bgColor _fbook"  data-bgColor="#e9ebf5">페이<br/>스북</th>
                 <th colspan="2" class="_bgColor _apple"  data-bgColor="#e9ebf5">애플</th>
                 <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
-
                 <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
                 <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
                 <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
@@ -190,42 +189,42 @@
                 <th colspan="12" class="_sex_none"></th>
             </tr>
             <tr style="background-color: #e9ebf5">
-                <th colspan="2">전화</th>
-                <th colspan="2">카카오</th>
-                <th colspan="2">네이버</th>
-                <th colspan="2">페이스북</th>
-                <th colspan="2">애플</th>
-                <th colspan="2">구글</th>
-                <th colspan="2">전화</th>
-                <th colspan="2">카카오</th>
-                <th colspan="2">네이버</th>
-                <th colspan="2">페이스북</th>
-                <th colspan="2">애플</th>
-                <th colspan="2">구글</th>
-                <th colspan="2">전화</th>
-                <th colspan="2">카카오</th>
-                <th colspan="2">네이버</th>
-                <th colspan="2">페이스북</th>
-                <th colspan="2">애플</th>
-                <th colspan="2">구글</th>
-                <th colspan="2">전화</th>
-                <th colspan="2">카카오</th>
-                <th colspan="2">네이버</th>
-                <th colspan="2">페이스북</th>
-                <th colspan="2">애플</th>
-                <th colspan="2">구글</th>
-                <th colspan="2">전화</th>
-                <th colspan="2">카카오</th>
-                <th colspan="2">네이버</th>
-                <th colspan="2">페이스북</th>
-                <th colspan="2">애플</th>
-                <th colspan="2">구글</th>
-                <th colspan="2">전화</th>
-                <th colspan="2">카카오</th>
-                <th colspan="2">네이버</th>
-                <th colspan="2">페이스북</th>
-                <th colspan="2">애플</th>
-                <th colspan="2">구글</th>
+                <th colspan="2" class="_phone" >전화</th>
+                <th colspan="2" class="_kakao" >카카오</th>
+                <th colspan="2" class="_naver" >네이버</th>
+                <th colspan="2" class="_fbook" >페이스북</th>
+                <th colspan="2" class="_apple" >애플</th>
+                <th colspan="2" class="_google" >구글</th>
+                <th colspan="2" class="_phone" >전화</th>
+                <th colspan="2" class="_kakao" >카카오</th>
+                <th colspan="2" class="_naver" >네이버</th>
+                <th colspan="2" class="_fbook" >페이스북</th>
+                <th colspan="2" class="_apple" >애플</th>
+                <th colspan="2" class="_google" >구글</th>
+                <th colspan="2" class="_phone" >전화</th>
+                <th colspan="2" class="_kakao" >카카오</th>
+                <th colspan="2" class="_naver" >네이버</th>
+                <th colspan="2" class="_fbook" >페이스북</th>
+                <th colspan="2" class="_apple" >애플</th>
+                <th colspan="2" class="_google" >구글</th>
+                <th colspan="2" class="_phone" >전화</th>
+                <th colspan="2" class="_kakao" >카카오</th>
+                <th colspan="2" class="_naver" >네이버</th>
+                <th colspan="2" class="_fbook" >페이스북</th>
+                <th colspan="2" class="_apple" >애플</th>
+                <th colspan="2" class="_google" >구글</th>
+                <th colspan="2" class="_phone" >전화</th>
+                <th colspan="2" class="_kakao" >카카오</th>
+                <th colspan="2" class="_naver" >네이버</th>
+                <th colspan="2" class="_fbook" >페이스북</th>
+                <th colspan="2" class="_apple" >애플</th>
+                <th colspan="2" class="_google" >구글</th>
+                <th colspan="2" class="_phone" >전화</th>
+                <th colspan="2" class="_kakao" >카카오</th>
+                <th colspan="2" class="_naver" >네이버</th>
+                <th colspan="2" class="_fbook" >페이스북</th>
+                <th colspan="2" class="_apple" >애플</th>
+                <th colspan="2" class="_google" >구글</th>
             </tr>
             <tr style="background-color: #cfd5ea">
                 <th>가입</th>
