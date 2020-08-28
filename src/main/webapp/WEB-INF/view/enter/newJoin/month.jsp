@@ -394,9 +394,9 @@
         <td colspan="2">총계</td>
         <td colspan="44">
             가입/탈퇴 (총 {{totalInfo.total_join_Cnt}}/{{totalInfo.total_out_Cnt}}) :
-            <span style="color:blue">{{totalInfo.total_join_mCnt}}/{{totalInfo.total_out_mCnt}} ({{average totalInfo.total_out_mCnt totalInfo.total_out_Cnt}}% )</span> |
-            <span style="color:red">{{totalInfo.total_join_fCnt}}/{{totalInfo.total_out_fCnt}} ({{average totalInfo.total_out_fCnt totalInfo.total_out_Cnt}}%)</span> |
-            <span>{{totalInfo.total_join_nCnt}}/{{totalInfo.total_out_nCnt}} ({{average totalInfo.total_out_nCnt totalInfo.total_out_Cnt}}%)</span>
+            <span style="color:blue">{{totalInfo.total_join_mCnt}}/{{totalInfo.total_out_mCnt}} ({{average totalInfo.total_out_mCnt totalInfo.total_out_Cnt 0}}% )</span> |
+            <span style="color:red">{{totalInfo.total_join_fCnt}}/{{totalInfo.total_out_fCnt}} ({{average totalInfo.total_out_fCnt totalInfo.total_out_Cnt 0}}%)</span> |
+            <span>{{totalInfo.total_join_nCnt}}/{{totalInfo.total_out_nCnt}} ({{average totalInfo.total_out_nCnt totalInfo.total_out_Cnt 0}}%)</span>
         </td>
     </tr>
 </script>
@@ -493,9 +493,9 @@
         <td colspan="2">총계</td>
         <td colspan="44">
             가입/탈퇴 (총 {{totalInfo.total_join_Cnt}}/{{totalInfo.total_out_Cnt}}) :
-            <span style="color:blue">{{totalInfo.total_join_mCnt}}/{{totalInfo.total_out_mCnt}} ( {{average totalInfo.total_out_mCnt totalInfo.total_out_Cnt}}% )</span> |
-            <span style="color:red">{{totalInfo.total_join_fCnt}}/{{totalInfo.total_out_fCnt}} ({{average totalInfo.total_out_fCnt totalInfo.total_out_Cnt}}%)</span> |
-            <span>{{totalInfo.total_join_nCnt}}/{{totalInfo.total_out_nCnt}} ({{average totalInfo.total_out_nCnt totalInfo.total_out_Cnt}}%)</span>
+            <span style="color:blue">{{totalInfo.total_join_mCnt}}/{{totalInfo.total_out_mCnt}} ( {{average totalInfo.total_out_mCnt totalInfo.total_out_Cnt 0}}% )</span> |
+            <span style="color:red">{{totalInfo.total_join_fCnt}}/{{totalInfo.total_out_fCnt}} ({{average totalInfo.total_out_fCnt totalInfo.total_out_Cnt 0}}%)</span> |
+            <span>{{totalInfo.total_join_nCnt}}/{{totalInfo.total_out_nCnt}} ({{average totalInfo.total_out_nCnt totalInfo.total_out_Cnt 0}}%)</span>
         </td>
     </tr>
 </script>

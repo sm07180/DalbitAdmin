@@ -61,6 +61,29 @@
 
         tableBody.empty();
         if(!isDataEmpty){
+
+            response.data.totalInfo.aos40_up_join_Cnt = response.data.totalInfo.aos40_join_Cnt  + response.data.totalInfo.aos50_join_Cnt
+                + response.data.totalInfo.aos60_join_Cnt;
+            response.data.totalInfo.aos40_up_out_Cnt = response.data.totalInfo.aos40_out_Cnt  + response.data.totalInfo.aos50_out_Cnt
+                + response.data.totalInfo.aos60_out_Cnt;
+
+            response.data.totalInfo.ios40_up_join_Cnt = response.data.totalInfo.ios40_join_Cnt  + response.data.totalInfo.ios50_join_Cnt
+                + response.data.totalInfo.ios60_join_Cnt;
+            response.data.totalInfo.ios40_up_out_Cnt = response.data.totalInfo.ios40_out_Cnt  + response.data.totalInfo.ios50_out_Cnt
+                + response.data.totalInfo.ios60_out_Cnt;
+
+            response.data.totalInfo.pc40_up_join_Cnt = response.data.totalInfo.pc40_join_Cnt  + response.data.totalInfo.pc50_join_Cnt
+                + response.data.totalInfo.pc60_join_Cnt;
+            response.data.totalInfo.pc40_up_out_Cnt = response.data.totalInfo.pc40_out_Cnt  + response.data.totalInfo.pc50_out_Cnt
+                + response.data.totalInfo.pc60_out_Cnt;
+
+
+            response.data.totalInfo.join_total_Cnt = response.data.totalInfo.aos10_join_Cnt + response.data.totalInfo.aos20_join_Cnt
+                + response.data.totalInfo.aos30_join_Cnt + response.data.totalInfo.aos40_up_join_Cnt
+                + response.data.totalInfo.ios10_join_Cnt + response.data.totalInfo.ios20_join_Cnt
+                + response.data.totalInfo.pc10_join_Cnt + response.data.totalInfo.pc20_join_Cnt
+                + response.data.totalInfo.pc30_join_Cnt + response.data.totalInfo.pc40_up_join_Cnt;
+
             var template = $('#tmp_platformAgeTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -100,14 +123,11 @@
                                                           + response.data.detailList[i].pc60_out_Cnt;
 
 
-            response.data.detailList[i].aos_join_total_Cnt = response.data.detailList[i].aos10_join_Cnt + response.data.detailList[i].aos20_join_Cnt
-                                                             + response.data.detailList[i].aos30_join_Cnt + response.data.detailList[i].aos40_up_join_Cnt;
-
-            response.data.detailList[i].ios_join_total_Cnt = response.data.detailList[i].ios10_join_Cnt + response.data.detailList[i].ios20_join_Cnt
-                                                             + response.data.detailList[i].ios30_join_Cnt + response.data.detailList[i].ios40_up_join_Cnt;
-
-            response.data.detailList[i].pc_join_total_Cnt = response.data.detailList[i].pc10_join_Cnt + response.data.detailList[i].pc20_join_Cnt
-                                                            + response.data.detailList[i].pc30_join_Cnt + response.data.detailList[i].pc40_up_join_Cnt;
+            response.data.detailList[i].join_total_Cnt = response.data.detailList[i].aos10_join_Cnt + response.data.detailList[i].aos20_join_Cnt
+                                                             + response.data.detailList[i].aos30_join_Cnt + response.data.detailList[i].aos40_up_join_Cnt
+                                                             + response.data.detailList[i].ios10_join_Cnt + response.data.detailList[i].ios20_join_Cnt
+                                                             + response.data.detailList[i].pc10_join_Cnt + response.data.detailList[i].pc20_join_Cnt
+                                                             + response.data.detailList[i].pc30_join_Cnt + response.data.detailList[i].pc40_up_join_Cnt;
 
         }
 
@@ -134,18 +154,18 @@
         <td>
             총계<br/>
         </td>
-        <td>{{addComma aos10_join_Cnt}} ({{average sum_android10Cnt total_join_Cnt}}) / {{addComma aos10_out_Cnt}}</td>
-        <td>{{addComma ios10_join_Cnt}} ({{average sum_ios10Cnt total_join_Cnt}}) / {{addComma ios10_out_Cnt}}</td>
-        <td>{{addComma pc10_join_Cnt}} ({{average sum_pc10Cnt total_join_Cnt}}) / {{addComma pc10_out_Cnt}}</td>
-        <td>{{addComma aos20_join_Cnt}} ({{average sum_android20Cnt total_join_Cnt}}) / {{addComma aos20_out_Cnt}}</td>
-        <td>{{addComma ios20_join_Cnt}} ({{average sum_ios20Cnt total_join_Cnt}}) / {{addComma ios20_out_Cnt}}</td>
-        <td>{{addComma pc20_join_Cnt}} ({{average sum_pc20Cnt total_join_Cnt}}) / {{addComma pc20_out_Cnt}}</td>
-        <td>{{addComma aos30_join_Cnt}} ({{average sum_android30Cnt total_join_Cnt}}) / {{addComma aos30_out_Cnt}}</td>
-        <td>{{addComma ios30_join_Cnt}} ({{average sum_ios30Cnt total_join_Cnt}}) / {{addComma ios30_out_Cnt}}</td>
-        <td>{{addComma pc30_join_Cnt}} ({{average sum_pc30Cnt total_join_Cnt}}) / {{addComma pc30_out_Cnt}}</td>
-        <td>{{addComma aos40_up_join_Cnt}} ({{average sum_android40_upCnt total_join_Cnt}}) / {{addComma aos40_up_out_Cnt}}</td>
-        <td>{{addComma ios40_up_join_Cnt}} ({{average sum_ios40_upCnt total_join_Cnt}}) / {{addComma ios40_up_out_Cnt}}</td>
-        <td>{{addComma pc40_up_join_Cnt}} ({{average sum_pc40_upCnt total_join_Cnt}}) / {{addComma pc40_up_out_Cnt}}</td>
+        <td>{{addComma aos10_join_Cnt}} ({{average aos10_join_Cnt join_total_Cnt 0}}%) / {{addComma aos10_out_Cnt}}</td>
+        <td>{{addComma ios10_join_Cnt}} ({{average ios10_join_Cnt join_total_Cnt 0}}%) / {{addComma ios10_out_Cnt}}</td>
+        <td>{{addComma pc10_join_Cnt}} ({{average pc10_join_Cnt join_total_Cnt 0}}%) / {{addComma pc10_out_Cnt}}</td>
+        <td>{{addComma aos20_join_Cnt}} ({{average aos20_join_Cnt join_total_Cnt 0}}%) / {{addComma aos20_out_Cnt}}</td>
+        <td>{{addComma ios20_join_Cnt}} ({{average ios20_join_Cnt join_total_Cnt 0}}%) / {{addComma ios20_out_Cnt}}</td>
+        <td>{{addComma pc20_join_Cnt}} ({{average pc20_join_Cnt join_total_Cnt 0}}%) / {{addComma pc20_out_Cnt}}</td>
+        <td>{{addComma aos30_join_Cnt}} ({{average aos30_join_Cnt join_total_Cnt 0}}%) / {{addComma aos30_out_Cnt}}</td>
+        <td>{{addComma ios30_join_Cnt}} ({{average ios30_join_Cnt join_total_Cnt 0}}%) / {{addComma ios30_out_Cnt}}</td>
+        <td>{{addComma pc30_join_Cnt}} ({{average pc30_join_Cnt join_total_Cnt 0}}%) / {{addComma pc30_out_Cnt}}</td>
+        <td>{{addComma aos40_up_join_Cnt}} ({{average aos40_up_join_Cnt join_total_Cnt 0}}%) / {{addComma aos40_up_out_Cnt}}</td>
+        <td>{{addComma ios40_up_join_Cnt}} ({{average ios40_up_join_Cnt join_total_Cnt 0}}%) / {{addComma ios40_up_out_Cnt}}</td>
+        <td>{{addComma pc40_up_join_Cnt}} ({{average pc40_up_join_Cnt join_total_Cnt 0}}%) / {{addComma pc40_up_out_Cnt}}</td>
     </tr>
 </script>
 
@@ -156,18 +176,18 @@
                 {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
                 {{{data.date}}}
             </td>
-            <td>{{addComma aos10_join_Cnt}} ({{average aos10_join_Cnt aos_join_total_Cnt}}) / {{aos10_out_Cnt}}</td>
-            <td>{{addComma ios10_join_Cnt}} ({{average ios10_join_Cnt ios_join_total_Cnt}}) / {{ios10_out_Cnt}}</td>
-            <td>{{addComma pc10_join_Cnt}} ({{average pc10_join_Cnt pc_join_total_Cnt}}) / {{pc10_out_Cnt}}</td>
-            <td>{{addComma aos20_join_Cnt}} ({{average aos20_join_Cnt aos_join_total_Cnt}}) / {{aos20_out_Cnt}}</td>
-            <td>{{addComma ios20_join_Cnt}} ({{average ios20_join_Cnt ios_join_total_Cnt}}) / {{ios20_out_Cnt}}</td>
-            <td>{{addComma pc20_join_Cnt}} ({{average pc20_join_Cnt pc_join_total_Cnt}}) / {{pc20_out_Cnt}}</td>
-            <td>{{addComma aos30_join_Cnt}} ({{average aos30_join_Cnt aos_join_total_Cnt}}) / {{aos30_out_Cnt}}</td>
-            <td>{{addComma ios30_join_Cnt}} ({{average ios30_join_Cnt ios_join_total_Cnt}}) / {{ios30_out_Cnt}}</td>
-            <td>{{addComma pc30_join_Cnt}} ({{average pc30_join_Cnt pc_join_total_Cnt}} ) / {{pc30_out_Cnt}}</td>
-            <td>{{addComma aos40_up_join_Cnt}} ({{average aos40_up_join_Cnt aos_join_total_Cnt}}) / {{aos40_up_out_Cnt}}</td>
-            <td>{{addComma ios40_up_join_Cnt}} ({{average ios40_up_join_Cnt ios_join_total_Cnt}}) / {{ios40_up_out_Cnt}}</td>
-            <td>{{addComma pc40_up_join_Cnt}} ({{average pc40_up_join_Cnt pc_join_total_Cnt}}) / {{pc40_up_out_Cnt}}</td>
+            <td>{{addComma aos10_join_Cnt}} ({{average aos10_join_Cnt aos_join_total_Cnt 0}}%) / {{aos10_out_Cnt}}</td>
+            <td>{{addComma ios10_join_Cnt}} ({{average ios10_join_Cnt ios_join_total_Cnt 0}}%) / {{ios10_out_Cnt}}</td>
+            <td>{{addComma pc10_join_Cnt}} ({{average pc10_join_Cnt pc_join_total_Cnt 0}}%) / {{pc10_out_Cnt}}</td>
+            <td>{{addComma aos20_join_Cnt}} ({{average aos20_join_Cnt aos_join_total_Cnt 0}}%) / {{aos20_out_Cnt}}</td>
+            <td>{{addComma ios20_join_Cnt}} ({{average ios20_join_Cnt ios_join_total_Cnt 0}}%) / {{ios20_out_Cnt}}</td>
+            <td>{{addComma pc20_join_Cnt}} ({{average pc20_join_Cnt pc_join_total_Cnt 0}}%) / {{pc20_out_Cnt}}</td>
+            <td>{{addComma aos30_join_Cnt}} ({{average aos30_join_Cnt aos_join_total_Cnt 0}}%) / {{aos30_out_Cnt}}</td>
+            <td>{{addComma ios30_join_Cnt}} ({{average ios30_join_Cnt ios_join_total_Cnt 0}}%) / {{ios30_out_Cnt}}</td>
+            <td>{{addComma pc30_join_Cnt}} ({{average pc30_join_Cnt pc_join_total_Cnt 0}}%) / {{pc30_out_Cnt}}</td>
+            <td>{{addComma aos40_up_join_Cnt}} ({{average aos40_up_join_Cnt aos_join_total_Cnt 0}}%) / {{aos40_up_out_Cnt}}</td>
+            <td>{{addComma ios40_up_join_Cnt}} ({{average ios40_up_join_Cnt ios_join_total_Cnt 0}}%) / {{ios40_up_out_Cnt}}</td>
+            <td>{{addComma pc40_up_join_Cnt}} ({{average pc40_up_join_Cnt pc_join_total_Cnt 0}}%) / {{pc40_up_out_Cnt}}</td>
         </tr>
     {{else}}
         <tr>

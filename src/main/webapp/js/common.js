@@ -354,7 +354,7 @@ common.getListSum = function(value){
     return sumResult;
 };
 
-common.average = function(lvalue, rvalue) {
+common.average = function(lvalue, rvalue, point) {
     if(lvalue == "null" || lvalue == "NaN" || rvalue == "null" || rvalue == "NaN"){
         return '';
     }
@@ -365,7 +365,11 @@ common.average = function(lvalue, rvalue) {
         return 0;
     }
     var tmp = (lvalue / rvalue) * 100;
-    return tmp.toFixed(1);
+    if(!common.isEmpty(point)){
+        return tmp.toFixed(point);
+    }else{
+        return tmp.toFixed(1);
+    }
 };
 
 common.sexIcon = function(sex, birthYear, isBr){

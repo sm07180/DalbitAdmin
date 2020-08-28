@@ -80,10 +80,10 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div style="color: blue;">{{{sexIcon 'm'}}} : {{addComma total_join_mCnt}}/{{addComma total_out_mCnt}} ({{average total_out_mCnt total_out_Cnt}}%)</div>
-    <div style="color: red;">{{{sexIcon 'f'}}} : {{addComma total_join_fCnt}}/{{addComma total_out_fCnt}} ({{average total_out_fCnt total_out_Cnt}}%)</div>
-    <div style="color: black">{{{sexIcon 'n'}}} : {{addComma total_join_nCnt}}/{{addComma total_out_nCnt}} ({{average total_out_nCnt total_out_Cnt}}%)</div>
-    <div class="font-bold" style="color: #ff5600;">총계 : {{addComma total_join_Cnt}}/{{addComma total_out_Cnt}} ({{average total_out_Cnt total_out_Cnt}}%)</div>
+    <div style="color: blue;">{{{sexIcon 'm'}}} : {{addComma total_join_mCnt}}/{{addComma total_out_mCnt}} ({{average total_out_mCnt total_out_Cnt 0}}%)</div>
+    <div style="color: red;">{{{sexIcon 'f'}}} : {{addComma total_join_fCnt}}/{{addComma total_out_fCnt}} ({{average total_out_fCnt total_out_Cnt 0}}%)</div>
+    <div style="color: black">{{{sexIcon 'n'}}} : {{addComma total_join_nCnt}}/{{addComma total_out_nCnt}} ({{average total_out_nCnt total_out_Cnt 0}}%)</div>
+    <div class="font-bold" style="color: #ff5600;">총계 : {{addComma total_join_Cnt}}/{{addComma total_out_Cnt}} ({{average total_out_Cnt total_out_Cnt 0}}%)</div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_totalTable">
@@ -100,23 +100,23 @@
             </tr>
             <tr style="color: blue">
                 <td>{{{sexIcon 'm'}}}</td>
-                <td>{{addComma total_join_mCnt}} ({{average total_join_mCnt total_join_Cnt}}%)</td>
-                <td>{{addComma total_out_mCnt}} ({{average total_out_mCnt total_out_Cnt}}%)</td>
+                <td>{{addComma total_join_mCnt}} ({{average total_join_mCnt total_join_Cnt 0}}%)</td>
+                <td>{{addComma total_out_mCnt}} ({{average total_out_mCnt total_out_Cnt 0}}%)</td>
             </tr>
             <tr style="color: red">
                 <td>{{{sexIcon 'f'}}}</td>
-                <td>{{addComma total_join_fCnt}} ({{average total_join_fCnt total_join_Cnt}}%)</td>
-                <td>{{addComma total_out_fCnt}} ({{average total_out_fCnt total_out_Cnt}}%)</td>
+                <td>{{addComma total_join_fCnt}} ({{average total_join_fCnt total_join_Cnt 0}}%)</td>
+                <td>{{addComma total_out_fCnt}} ({{average total_out_fCnt total_out_Cnt 0}}%)</td>
             </tr>
             <tr>
                 <td>{{{sexIcon 'n'}}}</td>
-                <td>{{addComma total_join_nCnt}} ({{average total_join_nCnt total_join_Cnt}}%)</td>
-                <td>{{addComma total_out_nCnt}} ({{average total_out_nCnt total_out_Cnt}}%)</td>
+                <td>{{addComma total_join_nCnt}} ({{average total_join_nCnt total_join_Cnt 0}}%)</td>
+                <td>{{addComma total_out_nCnt}} ({{average total_out_nCnt total_out_Cnt 0}}%)</td>
             </tr>
             <tr class="font-bold" style="color: #ff5600">
                 <td>총합</td>
-                <td>{{addComma total_join_Cnt}} ({{average total_join_Cnt total_join_Cnt}}%)</td>
-                <td>{{addComma total_out_Cnt}} ({{average total_out_Cnt total_out_Cnt}}%)</td>
+                <td>{{addComma total_join_Cnt}} ({{average total_join_Cnt total_join_Cnt 0}}%)</td>
+                <td>{{addComma total_out_Cnt}} ({{average total_out_Cnt total_out_Cnt 0}}%)</td>
             </tr>
         </tbody>
     </table>

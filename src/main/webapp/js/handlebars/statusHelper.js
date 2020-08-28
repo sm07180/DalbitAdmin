@@ -6,8 +6,8 @@ Handlebars.registerHelper("payRate", function(lvalue,rvalue) {
     return common.payRate(lvalue, rvalue);
 });
 
-Handlebars.registerHelper("average", function(lvalue,rvalue) {
-    return common.average(lvalue, rvalue);
+Handlebars.registerHelper("average", function(lvalue,rvalue, point) {
+    return common.average(lvalue, rvalue, point);
 });
 
 Handlebars.registerHelper("division", function(lvalue,rvalue) {
