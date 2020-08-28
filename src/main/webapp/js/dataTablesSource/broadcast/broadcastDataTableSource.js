@@ -64,7 +64,7 @@ var BroadcastDataTableSource = {
                     return tmp + "명";
                 }},
             {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
-                    return '<lable style="color:red" onclick="listenClick(' + row.room_no + ');">' + common.addComma(data)  + ' 명</lable>';
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + common.addComma(data)  + ' 명</a>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
@@ -74,9 +74,9 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data){
+            {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(data);
-                    return tmp + "건";
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
                 }},
             {'title': '받은 별', 'data': 'byeolCnt','width' : '50px','render': function (data){
                     var tmp = common.addComma(data);
