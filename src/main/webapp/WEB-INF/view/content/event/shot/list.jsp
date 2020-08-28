@@ -35,7 +35,6 @@
             <div class="widget widget-table">
                 <div class="widget-content" style="border-top-width:0px;">
                     <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
-                    <form>
                     <table id="shotList" class="table table-sorting table-hover table-bordered mt15">
                         <colgroup>
                             <col width="2%"/>
@@ -67,10 +66,13 @@
 
                     <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
 
-                    <div class="btn-toolbar pb10">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sm btn-danger" id="deleteBtn"><i class="fa fa-trash-o"></i>선택삭제</button>
-                        </div>
+                    <div class="widget-footer">
+                        <span>
+                            <button class="btn btn-sm btn-danger" type="button" id="deleteBtn"><i class="fa fa-trash-o"></i> 선택삭제</button>
+                        </span>
+                        <span>
+                            <button class="btn btn-sm btn-default print-btn pull-right" type="button" id="excelDownBtn1"><i class="fa fa-print"></i> Excel Down</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -162,6 +164,16 @@
             });
         }
     });
+
+     $('#excelDownBtn1').on('click', function() {
+         var formElement = document.querySelector("form");
+         var formData = new FormData(formElement);
+
+         formData.append("txt_search", $("#txt_search").val());
+         formData.append("searchType", $('#searchType').val());
+
+         util.excelDownload($(this), "/rest/content/event/photo/shot/excel", formData);
+     });
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_shotList">

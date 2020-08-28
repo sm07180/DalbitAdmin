@@ -1,19 +1,31 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.service.Con_EventService;
 import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
+import com.dalbit.menu.vo.SpecialReqVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
 @RequestMapping("rest/content/event")
 public class Con_EventRestController {
+
+    @Autowired
+    ExcelService excelService;
 
     @Autowired
     Con_EventService con_EventService;
@@ -153,5 +165,15 @@ public class Con_EventRestController {
         String result = con_EventService.deletePhotoShot(photoShotVo);
         log.debug("1111");
         return result;
+    }
+
+    @PostMapping("/photo/shot/excel")
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, PhotoShotVo photoShotVo) throws GlobalException {
+
+        Model resultModel = con_EventService.getPhotoListExcel(photoShotVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+
     }
 }
