@@ -53,6 +53,7 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
+            {'title': '랭킹점수', 'data': 'djRankPoint','width' : '60px'},
             {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
                     if(data > 0){
                         return 'YES';
@@ -93,7 +94,7 @@ var BroadcastDataTableSource = {
             {'title': '사연', 'data': 'storyCnt','width' : '40px','render': function (data, type, row, meta) {
                     var url = "/broadcast/live/popup/storyPopup?roomNo=" + encodeURIComponent(row.room_no);
                     // var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'">' + 0 + '</a>';
-                    var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'">' + common.addComma(data) + '건</a>';
+                    var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'" style="color:#555555">' + common.addComma(data) + '건</a>';
                     return tmp;
                 }},
             {'title': '나가기<br/>시도', 'data': 'exit_try_count','width' : '55px','render': function (data){

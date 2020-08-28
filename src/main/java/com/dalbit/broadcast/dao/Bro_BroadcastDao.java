@@ -31,6 +31,9 @@ public interface Bro_BroadcastDao {
     ProcedureVo callBroadcastEdit(ProcedureVo procedureVo);
     HashMap<P_BroadcastDetailOutputVo,String> callBroadcastInfo_withdrawal(String mem_no);
 
+    @Transactional(readOnly = true)
+    P_BroadcastListOutputVo getDjRankPoint(String mem_no);
+
     int callBroadcastMemberExit(P_BroadcastEditInputVo pBroadcastEditInputVo);
     int callBroadcastExit(P_BroadcastEditInputVo pBroadcastEditInputVo);
     ProcedureVo callBroadcastRoomExit(ProcedureVo procedureVo);

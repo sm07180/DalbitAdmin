@@ -47,6 +47,12 @@
          where mem_no = #{mem_no}
     </select>
 
+    <select id="getDjRankPoint" parameterType="String" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
+        select dj_point as djRankPoint
+          from rd_data.tb_ranking_dj_live_data_day
+         where mem_no = #{mem_no}
+    </select>
+
     <update id="callBroadcastMemberExit" parameterType="com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo">
         update rd_data.tb_broadcast_room_member
 		   set state = 1,
