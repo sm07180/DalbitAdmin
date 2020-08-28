@@ -44,5 +44,8 @@ public class SpecialReqVo extends PagingVo {
     private int listenCnt;
     private int reportCnt;
     private int receiveStar;
+    private int chatCnt;
+    private int broadCnt;
+    private int listenCnt30;
 
 }

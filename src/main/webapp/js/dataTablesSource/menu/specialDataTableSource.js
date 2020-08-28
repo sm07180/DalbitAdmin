@@ -42,6 +42,15 @@ var specialDataTableSource = {
             , {'title': '받은 별', 'data': 'receiveStar', 'render': function(data, type, row) {
                     return common.addComma(data)+' 별';
                 }}
+            , {'title': '채팅<br />횟수', 'data': 'chatCnt', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 번';
+                }}
+            , {'title': '방송<br />횟수', 'data': 'broadCnt', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 번';
+                }}
+            , {'title': '30분 이상<br />청취자 수', 'data': 'listenCnt30', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 명';
+                }}
         ]
         // , 'comments': ''
     },

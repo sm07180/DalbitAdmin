@@ -607,7 +607,7 @@
             del_yn = #{del_yn}
             , last_op_name = #{opName}
             , last_upd_date = now()
-        where idx = (
+        where idx in (
             select event_member_idx from rd_admin.tb_event_photo where idx in
             <foreach collection="idxArr" item="idx" separator="," open="(" close=")">
                 #{idx}
