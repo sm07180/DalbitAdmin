@@ -54,6 +54,15 @@ public class Bro_BroadcastService {
     @Value("${ant.app.name}")
     private String antName;
 
+    @Value("${wowza.wss.url}")
+    private String WOWZA_WSS_URL;
+    @Value("${wowza.real.server}")
+    private String[] WOWZA_REAL_SERVER;
+    @Value("${wowza.prefix}")
+    private String WOWZA_PREFIX;
+    @Value("${wowza.suffix}")
+    private String WOWZA_SUFFIX;
+
     /**
      * 생방송 list 목록
      */
@@ -343,11 +352,27 @@ public class Bro_BroadcastService {
     }
 
 
+    /**
+     * 방송방 플레이어 (wowza)
+     */
+    public void callBroadcastWowzaSimpleInfo(HttpServletRequest request){
+        String roomNo = request.getParameter("roomNo");
+        if(!DalbitUtil.isEmpty(roomNo)){
+            HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(roomNo);
+            if(broadInfo != null){
+                log.info("[WOWZA] Request URL : {}", WOWZA_WSS_URL );
+                broadInfo.put("wsUrl", WOWZA_WSS_URL);
+                broadInfo.put("applicationName", "edge");
+                broadInfo.put("streamName", WOWZA_PREFIX + roomNo + WOWZA_SUFFIX);
+                request.setAttribute("BroadInfo", gsonUtil.toJson(broadInfo));
+            }
+        }
+    }
 
 
 
     /**
-     * 방송방 플레이어
+     * 방송방 플레이어 (구 ant)
      */
     public void callBroadcastSimpleInfo(HttpServletRequest request){
         String roomNo = request.getParameter("roomNo");

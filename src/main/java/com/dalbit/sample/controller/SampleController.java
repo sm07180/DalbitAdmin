@@ -107,14 +107,17 @@ public class SampleController {
     @GetMapping("tree")
     public String tree(){return "sample/tree";}
 
-    @GetMapping("sendEmail")
-    public String sendEmail(){return "sample/sendEmail";}
-
 
     @GetMapping("player")
     public String player(HttpServletRequest request){
         bro_broadcastService.callBroadcastSimpleInfo(request);
-        return "sample/player";
+        return "sample/player_ant";
+    }
+
+    @GetMapping("wowza/player")
+    public String wowzaPlayer(HttpServletRequest request){
+        bro_broadcastService.callBroadcastWowzaSimpleInfo(request);
+        return "sample/player_wowza";
     }
 
 }
