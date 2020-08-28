@@ -129,8 +129,6 @@
             }
             getUserInfo();
         });
-
-        getUserInfo();
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
@@ -218,23 +216,6 @@
     var _memNickSort_withdrawal = -1;
     var _memLoginIdSort_withdrawal = -1;
     var _memIpSort_withdrawal = -1;
-
-    $("#memberList").hide();
-    $("#withdrawalList").hide();
-    if(!common.isEmpty(tabType)){
-        if(tabType == 1){
-            $('.nav-tabs li:eq(5) a').tab('show');
-            $("#memberList").show();
-            memWithdrawal = "0";
-        }else if(tabType == 2){
-            $('.nav-tabs li:eq(6) a').tab('show');
-            $("#withdrawalList").show();
-            memWithdrawal = "1";
-        }
-    }else{
-        $('.nav-tabs li:eq(5) a').tab('show');
-        $("#memberList").show();
-    }
 
     var dtList_info_data = function ( data ) {
         data.searchText = tmp_searchText;                        // 검색명
@@ -378,6 +359,25 @@
         }
         var html = templateScript(data);
         $("#withdrawalList_summaryArea").html(html);
+    }
+
+    $("#memberList").hide();
+    $("#withdrawalList").hide();
+    if(!common.isEmpty(tabType)){
+        if(tabType == 1){
+            $('.nav-tabs li:eq(5) a').tab('show');
+            $("#memberList").show();
+            memWithdrawal = "0";
+            memberList();
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(6) a').tab('show');
+            $("#withdrawalList").show();
+            memWithdrawal = "1";
+            withdrawalList();
+        }
+    }else{
+        $('.nav-tabs li:eq(5) a').tab('show');
+        $("#memberList").show();
     }
 
     /*=============엑셀==================*/
