@@ -21,7 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -295,8 +297,8 @@ public class Con_EventService {
     }
 
     public Model getPhotoListExcel(PhotoShotVo photoShotVo, Model model) {
-        photoShotVo.setPageCnt(1000000);
-
+        photoShotVo.setTotalCnt(1000000);
+        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
         List<PhotoShotVo> list = con_EventDao.selectPhotoShotList(photoShotVo);
 
         String[] headers = {"No", "회원번호", "UID", "닉네임", "참여일시"};

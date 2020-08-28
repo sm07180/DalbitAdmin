@@ -168,7 +168,7 @@ public class Con_EventRestController {
     }
 
     @PostMapping("/photo/shot/excel")
-    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, PhotoShotVo photoShotVo) throws GlobalException {
+    public String photoShotExcel(HttpServletRequest request, HttpServletResponse response, Model model, PhotoShotVo photoShotVo) throws GlobalException {
 
         Model resultModel = con_EventService.getPhotoListExcel(photoShotVo, model);
 

@@ -71,7 +71,7 @@
                             <button class="btn btn-sm btn-danger" type="button" id="deleteBtn"><i class="fa fa-trash-o"></i> 선택삭제</button>
                         </span>
                         <span>
-                            <button class="btn btn-sm btn-default print-btn pull-right" type="button" id="excelDownBtn1"><i class="fa fa-print"></i> Excel Down</button>
+                            <button class="btn btn-sm btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
                         </span>
                     </div>
                 </div>
@@ -165,12 +165,14 @@
         }
     });
 
-     $('#excelDownBtn1').on('click', function() {
+     $('#excelDownBtn').on('click', function() {
          var formElement = document.querySelector("form");
          var formData = new FormData(formElement);
 
          formData.append("txt_search", $("#txt_search").val());
          formData.append("searchType", $('#searchType').val());
+         formData.append("pageCnt", 99999);
+         formData.append("pageStart", 1);
 
          util.excelDownload($(this), "/rest/content/event/photo/shot/excel", formData);
      });
