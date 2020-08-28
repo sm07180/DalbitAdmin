@@ -74,7 +74,7 @@
         dtList_info.createDataTable();
 
         ui.checkBoxInit('reqSpecialList');
-        dtList_info.reload();
+        //dtList_info.reload();
     }
 
     function reqGetSummary(){
