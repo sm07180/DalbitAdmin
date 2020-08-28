@@ -217,6 +217,23 @@
     var _memLoginIdSort_withdrawal = -1;
     var _memIpSort_withdrawal = -1;
 
+    $("#memberList").hide();
+    $("#withdrawalList").hide();
+    if(!common.isEmpty(tabType)){
+        if(tabType == 1){
+            $('.nav-tabs li:eq(5) a').tab('show');
+            $("#memberList").show();
+            memWithdrawal = "0";
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(6) a').tab('show');
+            $("#withdrawalList").show();
+            memWithdrawal = "1";
+        }
+    }else{
+        $('.nav-tabs li:eq(5) a').tab('show');
+        $("#memberList").show();
+    }
+
     var dtList_info_data = function ( data ) {
         data.searchText = tmp_searchText;                        // 검색명
         data.testid = _testid;
@@ -277,6 +294,7 @@
                             '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span></div>';
     $("#withdrawalList").find(".top-left").append(testid_withdrawal);
     $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
+    $("#memJoinDateSort_withdrawal").html(util.getCommonCodeSelect(-1, memJoinDateSort));
     $("#memNickSort_withdrawal").html(util.getCommonCodeSelect(-1, memNickSort));
     $("#memLoginIdSort_withdrawal").html(util.getCommonCodeSelect(-1, memLoginIdSort));
     $("#memIpSort_withdrawal").html(util.getCommonCodeSelect(-1, memIpSort));
@@ -397,21 +415,6 @@
         util.excelDownload($(this), "/rest/member/join/withdrawalListExcel", formData);
     });
     /*==================================*/
-
-    $("#memberList").hide();
-    $("#withdrawalList").hide();
-    if(!common.isEmpty(tabType)){
-        if(tabType == 1){
-            $('.nav-tabs li:eq(5) a').tab('show');
-            $("#memberList").show();
-        }else if(tabType == 2){
-            $('.nav-tabs li:eq(6) a').tab('show');
-            $("#withdrawalList").show();
-        }
-    }else{
-        $('.nav-tabs li:eq(5) a').tab('show');
-        $("#memberList").show();
-    }
 </script>
 
 
