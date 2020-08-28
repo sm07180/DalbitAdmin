@@ -18,6 +18,7 @@ public interface Cus_QuestionDao {
 
     @Transactional(readOnly = true)
     P_QuestionListOutputVo getQuestionCount(String mem_no);
+
     @Transactional(readOnly = true)
     P_QuestionListOutputVo getAdminCount(int qnaIdx);
 
@@ -27,7 +28,6 @@ public interface Cus_QuestionDao {
     @Transactional(readOnly = true)
     P_QuestionDetailOutputVo callServiceCenterQnaState(P_QuestionOperateVo pQuestionOperateVo);
 
-    @Transactional(readOnly = true)
     ProcedureVo callServiceCenterQnaOperate(ProcedureVo procedureVo);
     int callServiceCenterQnaUpdate(P_QuestionOperateVo pQuestionOperateVo);
 
