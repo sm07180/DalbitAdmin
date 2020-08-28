@@ -10,11 +10,11 @@
                 <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white">날짜</th>
                 <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white">구분</th>
                 <th colspan="12" class="_sex_male _bgColor" data-bgColor="#b3c6e7"></th>
-                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf">남성 합</th>
+                <th colspan="2" rowspan="2" class="_bgColor _fontColor" data-bgColor="#bfbfbf" data-fontColor="blue"><i class="fa fa-male"></i> 남성 합</th>
                 <th colspan="12" class="_sex_female _bgColor" data-bgColor="#b3c6e7"></th>
-                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf">여성 합</th>
+                <th colspan="2" rowspan="2" class="_bgColor _fontColor" data-bgColor="#bfbfbf" data-fontColor="red"><i class="fa fa-female"></i> 여성 합</th>
                 <th colspan="12" class="_sex_none _bgColor" data-bgColor="#b3c6e7"></th>
-                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf">알수없음 합</th>
+                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf"><i class="fa fa-question"></i> 알수없음 합</th>
                 <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#b3c6e7">총합</th>
             </tr>
             <tr>
@@ -41,49 +41,49 @@
             </tr>
             <tr>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
+                <th class="_bgColor" data-bgColor="#bfbfbf">가입</th>
+                <th class="_bgColor" data-bgColor="#bfbfbf">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
+                <th class="_bgColor" data-bgColor="#bfbfbf">가입</th>
+                <th class="_bgColor" data-bgColor="#bfbfbf">탈퇴</th>
+                <th class="_bgColor" data-bgColor="#b3c6e7">가입</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
                 <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">가입</th>
-                <th class="_bgColor" data-bgColor="#e8ebf5">탈퇴</th>
+                <th class="_bgColor" data-bgColor="white">탈퇴</th>
+                <th class="_bgColor" data-bgColor="#bfbfbf">가입</th>
+                <th class="_bgColor" data-bgColor="#bfbfbf">탈퇴</th>
+                <th class="_bgColor" data-bgColor="#b3c6e7">가입</th>
+                <th class="_bgColor" data-bgColor="#b3c6e7">탈퇴</th>
             </tr>
             </thead>
             <tbody id="month_tableBody"></tbody>
@@ -101,11 +101,11 @@
                 <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white">날짜</th>
                 <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="white">구분</th>
                 <th colspan="12" class="_sex_male _bgColor" data-bgColor="#b3c6e7"></th>
-                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf">남성 합</th>
+                <th colspan="2" rowspan="2" class="_bgColor _fontColor" data-bgColor="#bfbfbf" data-fontColor="blue"><i class="fa fa-male"></i> 남성 합</th>
                 <th colspan="12" class="_sex_female _bgColor" data-bgColor="#b3c6e7"></th>
-                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf">여성 합</th>
+                <th colspan="2" rowspan="2" class="_bgColor _fontColor" data-bgColor="#bfbfbf" data-fontColor="red"><i class="fa fa-female"></i> 여성 합</th>
                 <th colspan="12" class="_sex_none _bgColor" data-bgColor="#b3c6e7"></th>
-                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf">알수없음 합</th>
+                <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#bfbfbf"><i class="fa fa-question"></i> 알수없음 합</th>
                 <th colspan="2" rowspan="2" class="_bgColor" data-bgColor="#b3c6e7">총합</th>
             </tr>
             <tr>
@@ -205,6 +205,14 @@
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + toDay + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + toDay + '</span>';
+            }
+            response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
             if(response.data.detailList[i].the_date.substr(8,2) == tmpDay){
                 response.data.detailList[i].daySame = "Y"
@@ -257,6 +265,14 @@
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + toDay + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + toDay + '</span>';
+            }
+            response.data.detailList[i].date = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
             if(response.data.detailList[i].the_date.substr(8,2) == tmpDay){
                 response.data.detailList[i].daySame = "Y"
@@ -307,58 +323,58 @@
     <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
         {{#dalbit_if daySame '==' 'N'}}
             <td rowspan="3" {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-                {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#e8ebf5"  {{/dalbit_if}}>
-                {{the_date}}
+                {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="white"  {{/dalbit_if}}>
+                {{{date}}}
             </td>
         {{/dalbit_if}}
         <td  {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
              {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#e8ebf5"  {{/dalbit_if}}>
              {{os_type}}
         </td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma phone_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma phone_join_mCnt 'Y'}}</td>
         <td>{{addComma phone_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma kakao_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma kakao_join_mCnt 'Y'}}</td>
         <td>{{addComma kakao_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma naver_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma naver_join_mCnt 'Y'}}</td>
         <td>{{addComma naver_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma fbook_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma fbook_join_mCnt 'Y'}}</td>
         <td>{{addComma fbook_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma apple_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma apple_join_mCnt 'Y'}}</td>
         <td>{{addComma apple_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma google_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma google_join_mCnt 'Y'}}</td>
         <td>{{addComma google_out_mCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_mCnt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma phone_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma phone_join_fCnt 'Y'}}</td>
         <td>{{addComma phone_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma kakao_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma kakao_join_fCnt 'Y'}}</td>
         <td>{{addComma kakao_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma naver_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma naver_join_fCnt 'Y'}}</td>
         <td>{{addComma naver_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma fbook_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma fbook_join_fCnt 'Y'}}</td>
         <td>{{addComma fbook_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma apple_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma apple_join_fCnt 'Y'}}</td>
         <td>{{addComma apple_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma google_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma google_join_fCnt 'Y'}}</td>
         <td>{{addComma google_out_fCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_fCnt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_fCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma phone_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma phone_join_nCnt 'Y'}}</td>
         <td>{{addComma phone_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma kakao_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma kakao_join_nCnt 'Y'}}</td>
         <td>{{addComma kakao_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma naver_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma naver_join_nCnt 'Y'}}</td>
         <td>{{addComma naver_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma fbook_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma fbook_join_nCnt 'Y'}}</td>
         <td>{{addComma fbook_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma apple_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma apple_join_nCnt 'Y'}}</td>
         <td>{{addComma apple_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma google_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma google_join_nCnt 'Y'}}</td>
         <td>{{addComma google_out_nCnt 'Y'}}</td>
         <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_nCnt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_nCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
-        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
@@ -406,58 +422,58 @@
     <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
         {{#dalbit_if daySame '==' 'N'}}
             <td rowspan="3" {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-                {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#e8ebf5"  {{/dalbit_if}}>
-                {{the_date}}
+                {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="white"  {{/dalbit_if}}>
+                {{{date}}}
             </td>
         {{/dalbit_if}}
         <td  {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
              {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#e8ebf5"  {{/dalbit_if}}>
              {{os_type}}
         </td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma phone_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma phone_join_mCnt 'Y'}}</td>
         <td>{{addComma phone_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma kakao_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma kakao_join_mCnt 'Y'}}</td>
         <td>{{addComma kakao_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma naver_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma naver_join_mCnt 'Y'}}</td>
         <td>{{addComma naver_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma fbook_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma fbook_join_mCnt 'Y'}}</td>
         <td>{{addComma fbook_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma apple_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma apple_join_mCnt 'Y'}}</td>
         <td>{{addComma apple_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="blue">{{addComma google_join_mCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma google_join_mCnt 'Y'}}</td>
         <td>{{addComma google_out_mCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="blue" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_mCnt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_mCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma phone_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma phone_join_fCnt 'Y'}}</td>
         <td>{{addComma phone_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma kakao_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma kakao_join_fCnt 'Y'}}</td>
         <td>{{addComma kakao_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma naver_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma naver_join_fCnt 'Y'}}</td>
         <td>{{addComma naver_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma fbook_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma fbook_join_fCnt 'Y'}}</td>
         <td>{{addComma fbook_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma apple_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma apple_join_fCnt 'Y'}}</td>
         <td>{{addComma apple_out_fCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="red">{{addComma google_join_fCnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma google_join_fCnt 'Y'}}</td>
         <td>{{addComma google_out_fCnt 'Y'}}</td>
         <td class="font-bold _fontColor" data-fontColor="red" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_fCnt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_fCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma phone_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma phone_join_nCnt 'Y'}}</td>
         <td>{{addComma phone_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma kakao_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma kakao_join_nCnt 'Y'}}</td>
         <td>{{addComma kakao_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma naver_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma naver_join_nCnt 'Y'}}</td>
         <td>{{addComma naver_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma fbook_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma fbook_join_nCnt 'Y'}}</td>
         <td>{{addComma fbook_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma apple_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma apple_join_nCnt 'Y'}}</td>
         <td>{{addComma apple_out_nCnt 'Y'}}</td>
-        <td class="font-bold">{{addComma google_join_nCnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}} >{{addComma google_join_nCnt 'Y'}}</td>
         <td>{{addComma google_out_nCnt 'Y'}}</td>
         <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_nCnt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_nCnt 'Y'}}</td>
-        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
-        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #f2f2f2" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
+        <td class="font-bold _fontColor" data-fontColor="#fe7418" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma total_join_Cnt 'Y'}}</td>
+        <td class="font-bold" {{#dalbit_if nowDay '!=' day}} style="background-color: #e8ebf5" {{/dalbit_if}}>{{addComma total_out_Cnt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>

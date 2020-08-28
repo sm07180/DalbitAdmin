@@ -316,8 +316,8 @@
         dtList_info.reload(summary_table);
     }
 
-    function listenClick(tmp){
-        var popupUrl = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+tmp + "&type=1";
+    function broadCastLivePopUp(room_no, type){
+        var popupUrl = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+room_no + "&type=" + type;
         util.windowOpen(popupUrl,"1450", "700","방송정보");
     }
 </script>

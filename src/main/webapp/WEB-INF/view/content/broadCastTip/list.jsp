@@ -54,7 +54,7 @@
                 <button type="button" class="btn btn-default btn-sm pull-right">저장</button>
             </div>
             <div class="col-md-12 no-padding">
-                <span id="broadCastTip_detail"></span>
+                <div id="broadCastTip_detail"></div>
             </div>
         </div>
         <!-- //serachBox -->
@@ -67,32 +67,45 @@
     $(document).ready(function() {
         $("#broadTip_objType").html(util.getCommonCodeSelect(-1,broadTip_objType));
         $("#broadTip_viewType").html(util.getCommonCodeSelect(-1,broadTip_viewType));
+        init()
     });
+
+    function init(){
+        var template = $('#tmp_broadCastTip_detail').html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript();
+        $('#broadCastTip_detail').html(html);
+    }
 
 </script>
 
 
 <script id="tmp_broadCastTip_detail" type="text/x-handlebars-template">
+
     <div class="widget widget-table">
         <div class="widget-content">
             <table class="table table-sorting table-hover table-bordered datatable">
-                <tr>
-                    <th>노출 대상</th>
-                    <td>{{check}}</td>
-                    <th>노출여부</th>
-                    <td>{{radio}}</td>
-                    <th>최종수정일시</th>
-                    <th>{{lastDate}}</th>
-                    <th>최종수정자</th>
-                    <th>{{opName}}</th>
-                </tr>
-                <tr>
-                    <th>메시지 내용</th>
-                    <th>
-                        <textarea type="textarea" class="form-control" id="content" name="content" style="width: 100%; height: 100px">{{content}}</textarea>
-                    </th>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>노출 대상</th>
+                        <td>{{check}}</td>
+                        <th>노출여부</th>
+                        <td>{{radio}}</td>
+                        <th>최종수정일시</th>
+                        <th>{{lastDate}}</th>
+                        <th>최종수정자</th>
+                        <th>{{opName}}</th>
+                    </tr>
+                    <tr>
+                        <th>메시지 내용</th>
+                        <th>
+                            <textarea type="textarea" class="form-control" id="content" name="content" style="width: 100%; height: 100px">{{content}}</textarea>
+                        </th>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
+
+
 </script>
