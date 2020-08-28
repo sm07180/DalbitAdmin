@@ -7,22 +7,30 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.dao.Con_EventDao;
 import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.menu.vo.SpecialReqVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 @Slf4j
 @Service
 public class Con_EventService {
 
+    @Autowired
+    ExcelService excelService;
     @Autowired
     Con_EventDao con_EventDao;
     @Autowired
@@ -286,6 +294,35 @@ public class Con_EventService {
         List<PhotoShotVo> giftconList = con_EventDao.selectPhotoShotList(photoShotVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, giftconList, new PagingVo(totalCnt)));
+    }
+
+    public Model getPhotoListExcel(PhotoShotVo photoShotVo, Model model) {
+        photoShotVo.setTotalCnt(1000000);
+        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
+        List<PhotoShotVo> list = con_EventDao.selectPhotoShotList(photoShotVo);
+
+        String[] headers = {"No", "회원번호", "UID", "닉네임", "참여일시"};
+        int[] headerWidths = {3000, 5000, 5000, 6000, 6000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", list.size()-i);
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("mem_userid", DalbitUtil.isEmpty(list.get(i).getMem_userid()) ? "" : list.get(i).getMem_userid());
+            hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
+            hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("인증샷이벤트 신청 목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "인증샷이벤트 신청 목록");
+
+        return model;
     }
 
     public String deletePhotoShot(PhotoShotVo photoShotVo){
