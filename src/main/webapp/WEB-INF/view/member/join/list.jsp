@@ -361,9 +361,10 @@
         $("#withdrawalList_summaryArea").html(html);
     }
 
-    $("#memberList").hide();
-    $("#withdrawalList").hide();
+    // $("#memberList").hide();
+    // $("#withdrawalList").hide();
     if(!common.isEmpty(tabType)){
+        console.log("-------------------------------------     " + tabType);
         if(tabType == 1){
             $('.nav-tabs li:eq(5) a').tab('show');
             $("#memberList").show();
