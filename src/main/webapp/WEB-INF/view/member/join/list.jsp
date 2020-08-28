@@ -129,6 +129,8 @@
             }
             getUserInfo();
         });
+
+        getUserInfo();
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
@@ -301,9 +303,6 @@
 
     var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
-
-
-    getUserInfo();
 
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
