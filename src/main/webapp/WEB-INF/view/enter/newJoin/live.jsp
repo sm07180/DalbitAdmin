@@ -15,6 +15,8 @@
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
+                <col width="1.0%"/><col width="1.0%"/>
+                <col width="0.1%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
@@ -22,18 +24,20 @@
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
-                <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
+                <col width="1.0%"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="4" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="#ffffff">구분</th>
                 <th id="live_th_1" colspan="36" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="#ffffff">하루전</th>
+                <th class="_noBorder"></th>
                 <th id="live_th_0" colspan="36" class="_bgColor _fontColor" data-bgColor="#bf9000" data-fontColor="#ffffff">오늘</th>
             </tr>
             <tr>
                 <th colspan="12" class="_sex_male _bgColor" data-bgColor="#b4c7e7"></th>
                 <th colspan="12" class="_sex_female _bgColor" data-bgColor="#b4c7e7"></th>
                 <th colspan="12" class="_sex_none _bgColor" data-bgColor="#b4c7e7"></th>
+                <th class="_noBorder"></th>
                 <th colspan="12" class="_sex_male _bgColor" data-bgColor="#ffd966"></th>
                 <th colspan="12" class="_sex_female _bgColor" data-bgColor="#ffd966"></th>
                 <th colspan="12" class="_sex_none _bgColor" data-bgColor="#ffd966"></th>
@@ -57,7 +61,7 @@
                 <th colspan="2" class="_bgColor _fbook"  data-bgColor="#e9ebf5">페이<br/>스북</th>
                 <th colspan="2" class="_bgColor _apple"  data-bgColor="#e9ebf5">애플</th>
                 <th colspan="2" class="_bgColor _google" data-bgColor="#e9ebf5">구글</th>
-
+                <th class="_noBorder"></th>
                 <th colspan="2" class="_bgColor _phone"  data-bgColor="#ffe699">전화</th>
                 <th colspan="2" class="_bgColor _kakao"  data-bgColor="#ffe699">카카오</th>
                 <th colspan="2" class="_bgColor _naver"  data-bgColor="#ffe699">네이버</th>
@@ -79,78 +83,78 @@
             </tr>
             <tr>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#b4c7e7">가입</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">탈퇴</th>
-
+                <th>탈퇴</th>
+                <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
                 <th class="_bgColor" data-bgColor="#ffd966">가입</th>
-                <th class="_bgColor" data-bgColor="#ffd966">탈퇴</th>
+                <th>탈퇴</th>
             </tr>
             </thead>
             <tbody id="liveTableBody"></tbody>
@@ -166,6 +170,8 @@
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
+                <col width="1.0%"/><col width="1.0%"/>
+                <col width="0.1%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
@@ -173,18 +179,20 @@
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
                 <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
-                <col width="1.0%"/><col width="1.0%"/><col width="1.0%"/>
+                <col width="1.0%"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="4" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="#ffffff">구분</th>
                 <th id="live_th_3" colspan="36" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="#ffffff">삼일전</th>
+                <th class="_noBorder"></th>
                 <th id="live_th_2" colspan="36" class="_bgColor _fontColor" data-bgColor="#4472c4" data-fontColor="#ffffff">이틀전</th>
             </tr>
             <tr class="_bgColor" data-bgColor="#b4c7e7">
                 <th colspan="12" class="_sex_male"></th>
                 <th colspan="12" class="_sex_female"></th>
                 <th colspan="12" class="_sex_none"></th>
+                <th class="_noBorder"></th>
                 <th colspan="12" class="_sex_male"></th>
                 <th colspan="12" class="_sex_female"></th>
                 <th colspan="12" class="_sex_none"></th>
@@ -208,6 +216,7 @@
                 <th colspan="2">페이스북</th>
                 <th colspan="2">애플</th>
                 <th colspan="2">구글</th>
+                <th class="_noBorder"></th>
                 <th colspan="2">전화</th>
                 <th colspan="2">카카오</th>
                 <th colspan="2">네이버</th>
@@ -227,78 +236,79 @@
                 <th colspan="2">애플</th>
                 <th colspan="2">구글</th>
             </tr>
-            <tr style="background-color: #cfd5ea">
-                <th>가입</th>
+            <tr>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th class="_noBorder"></th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
-                <th>가입</th>
+                <th style="background-color: #cfd5ea">가입</th>
                 <th>탈퇴</th>
             </tr>
             </thead>
@@ -462,53 +472,53 @@
 
                     if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 1; i < 37 ; i ++){
-                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("background-color", "#fff7e5");
                             $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
 
                 if (index == 0) {
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
-                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_join_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_out_mCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_join_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_out_fCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_out_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_join_nCnt);
+                    $("#liveTableBody tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_out_nCnt);
                     if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 0; i < 37 ; i ++){
-                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("background-color", "#e3ecfb");
-                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("font-weight", "bold");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (38 + i) + ")").css("background-color", "#fff7e5");
+                            $("#liveTableBody tr._tr_" + (detail.the_hr) + " td:eq(" + (38 + i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
@@ -553,53 +563,53 @@
 
                     if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 1; i < 37 ; i ++){
-                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("background-color", "#fff7e5");
                             $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
                 if(index == 3){
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
-                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_join_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_out_mCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_join_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_out_fCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(phone_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(naver_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(apple_out_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_join_nCnt);
+                    $("#liveTableBody2 tr._tr_" + detail.the_hr + " td:eq(" + (37 + (++tmp)) + ")").html(google_out_nCnt);
 
                     if(Number(tmp_time.split(":")[0]) == detail.the_hr) {
                         for(var i = 0; i < 37 ; i ++){
-                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("background-color", "#e3ecfb");
-                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (36 + i) + ")").css("font-weight", "bold");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (37 + i) + ")").css("background-color", "#fff7e5");
+                            $("#liveTableBody2 tr._tr_" + (detail.the_hr) + " td:eq(" + (37 + i) + ")").css("font-weight", "bold");
                         }
                     }
                 }
@@ -687,9 +697,9 @@
             var tmp = 0;
             if(i == 1){
                 $("#liveTableBody tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                 );
 
                 $("#liveTableBody tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_mCnt);
@@ -750,86 +760,86 @@
                 $("#liveTableBody tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_n);
                 tmp = 0;
                 $("#liveTableBody tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                                                             );
             }else if(i == 0){
-                $("#liveTableBody tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                $("#liveTableBody tr:eq(0) td:eq(" + 3 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                 );
 
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
-                $("#liveTableBody tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_mCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_fCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_out_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_nCnt);
+                $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_nCnt);
 
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_m);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_m);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_m);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_m);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_m);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_m);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_f);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_f);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_f);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_f);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_f);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_f);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_n);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_n);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_n);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_n);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_n);
-                $("#liveTableBody tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_phone_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_kakao_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_naver_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_fbook_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_apple_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_google_m);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_phone_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_kakao_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_naver_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_fbook_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_apple_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_google_f);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_phone_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_kakao_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_naver_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_fbook_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_apple_n);
+                $("#liveTableBody tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_google_n);
 
-                $("#liveTableBody tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                $("#liveTableBody tr:eq(27) td:eq(" + 3 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
+                                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                                                             );
             }
 
             // 하단
             if(i == 2){
                 $("#liveTableBody2 tr:eq(0) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                 );
 
                 $("#liveTableBody2 tr:eq(1) td:eq(" + (++tmp) + ")").html(phone_join_mCnt);
@@ -890,82 +900,82 @@
                 $("#liveTableBody2 tr:eq(26) td:eq(" + (++tmp) + ")").html(sum_google_n);
 
                 $("#liveTableBody2 tr:eq(27) td:eq(" + 1 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                                             );
             }else if(i == 3){
-                $("#liveTableBody2 tr:eq(0) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                $("#liveTableBody2 tr:eq(0) td:eq(" + 3 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
+                    +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                    " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                    + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                 );
 
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_mCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_fCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_join_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(phone_out_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_join_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(kakao_out_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_join_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(naver_out_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_join_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(fbook_out_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_join_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(apple_out_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_join_nCnt);
-                $("#liveTableBody2 tr:eq(1) td:eq(" + (36 + (++tmp)) + ")").html(google_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_mCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_fCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(phone_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(kakao_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(naver_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(fbook_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(apple_out_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_nCnt);
+                $("#liveTableBody2 tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_nCnt);
 
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_m);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_m);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_m);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_m);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_m);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_m);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_f);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_f);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_f);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_f);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_f);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_f);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_phone_n);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_kakao_n);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_naver_n);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_fbook_n);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_apple_n);
-                $("#liveTableBody2 tr:eq(26) td:eq(" + (36 + (++tmp)) + ")").html(sum_google_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_phone_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_kakao_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_naver_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_fbook_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_apple_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_google_m);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_phone_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_kakao_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_naver_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_fbook_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_apple_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_google_f);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_phone_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_kakao_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_naver_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_fbook_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_apple_n);
+                $("#liveTableBody2 tr:eq(26) td:eq(" + (37 + (++tmp)) + ")").html(sum_google_n);
 
-                $("#liveTableBody2 tr:eq(27) td:eq(" + 2 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
-                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total) + "%) </span> |" +
-                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total) + "%) </span> | " +
-                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total) + "%)"
+                $("#liveTableBody2 tr:eq(27) td:eq(" + 3 + ")").html("가입/탈퇴 (총 " + sum_join_total + " / " + sum_out_total + ") : "
+                            +"<span style='color:blue'>" +  sum_join_male_total + " / " + sum_out_male_total + " (" + common.average(sum_out_male_total,sum_out_total, 0) + "%) </span> |" +
+                            " <span style='color:red'>" + sum_join_female_total + " / " + sum_out_female_total + " (" + common.average(sum_out_female_total,sum_out_total, 0) + "%) </span> | " +
+                            + sum_join_none_total + " / " + sum_out_none_total + " (" + common.average(sum_out_none_total,sum_out_total, 0) + "%)"
                             );
             }
         }
-        // ui.paintColor();
         ui.tableHeightSet();
+        ui.paintColor();
     }
 
 </script>
@@ -975,6 +985,7 @@
     <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
         <td>총계</td>
         <td colspan="36">0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td colspan="36">0</td>
     </tr>
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
@@ -982,26 +993,27 @@
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
-        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
-        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
-        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-
-        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;">
-        <td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;"><td style="background-color: #fff7e5;color: blue"></td><td style="background-color: #fff7e5;">
-        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td>
-        <td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td><td style="background-color: #fff7e5;color: red"></td><td style="background-color: #fff7e5;"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
-        <td style="background-color: #fff7e5"></td><td style="background-color: #fff7e5"></td>
+        <td class="font-bold">{{this}}</td>
+        <td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td>
+        <td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td>
+        <td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td>
+        <td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td>
+        <td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td>
+        <td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td>
+        <td class="_noBorder" style="background-color: white"></td>
+        <td style="background-color: #fff7e5;color: blue"></td><td></td><td style="background-color: #fff7e5;color: blue"></td><td></td><td style="background-color: #fff7e5;color: blue"></td><td></td>
+        <td style="background-color: #fff7e5;color: blue"></td><td></td><td style="background-color: #fff7e5;color: blue"></td><td></td><td style="background-color: #fff7e5;color: blue"></td><td></td>
+        <td style="background-color: #fff7e5;color: red"></td><td></td><td style="background-color: #fff7e5;color: red"></td><td></td><td style="background-color: #fff7e5;color: red"></td><td></td>
+        <td style="background-color: #fff7e5;color: red"></td><td></td><td style="background-color: #fff7e5;color: red"></td><td></td><td style="background-color: #fff7e5;color: red"></td><td></td>
+        <td style="background-color: #fff7e5"></td><td></td><td style="background-color: #fff7e5"></td><td></td><td style="background-color: #fff7e5"></td><td></td>
+        <td style="background-color: #fff7e5"></td><td></td><td style="background-color: #fff7e5"></td><td></td><td style="background-color: #fff7e5"></td><td></td>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
@@ -1009,6 +1021,7 @@
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
@@ -1016,6 +1029,7 @@
     <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
         <td>총계</td>
         <td colspan="36">0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td colspan="36">0</td>
     </tr>
 </script>
@@ -1024,6 +1038,7 @@
     <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
         <td>총계</td>
         <td colspan="36">0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td colspan="36">0</td>
     </tr>
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
@@ -1031,6 +1046,7 @@
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
@@ -1038,16 +1054,19 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
-        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
-        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
-        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
-        <td style="color: blue"></td><td></td><td style="color: blue"></td><td></td><td style="color: blue"></td><td></td>
-        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
-        <td style="color: red"></td><td></td><td style="color: red"></td><td></td><td style="color: red"></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3""></td><td></td><td style="color: blue;background-color: #dae3f3""></td><td></td>
+        <td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td>
+        <td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td>
+        <td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td>
+        <td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td>
+        <td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td>
+        <td class="_noBorder" style="background-color: white"></td>
+        <td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3""></td><td></td><td style="color: blue;background-color: #dae3f3""></td><td></td>
+        <td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td><td style="color: blue;background-color: #dae3f3"></td><td></td>
+        <td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td>
+        <td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td><td style="color: red;background-color: #dae3f3"></td><td></td>
+        <td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td>
+        <td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td><td style="background-color: #dae3f3"></td><td></td>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
@@ -1055,6 +1074,7 @@
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
         <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td>
@@ -1062,6 +1082,7 @@
     <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
         <td>총계</td>
         <td colspan="36">0</td>
+        <td class="_noBorder" style="background-color: white"></td>
         <td colspan="36">0</td>
     </tr>
 </script>

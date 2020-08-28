@@ -200,15 +200,15 @@
             <span style="color: #555555;">가입수치(성별 비율)/탈퇴수</span>
         </td>
 
-        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
-        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
-        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt}}%) / {{aos_total_out_nCnt}}</td>
-        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt}}%) / {{ios_total_out_mCnt}}</td>
-        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt}}%) / {{ios_total_out_fCnt}}</td>
-        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt}}%) / {{ios_total_out_nCnt}}</td>
-        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt}}%) / {{pc_total_out_mCnt}}</td>
-        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt}}%) / {{pc_total_out_fCnt}}</td>
-        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt}}%) / {{pc_total_out_nCnt}}</td>
+        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt 0}}%) / {{aos_total_out_mCnt}}</td>
+        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt 0}}%) / {{aos_total_out_fCnt}}</td>
+        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt 0}}%) / {{aos_total_out_nCnt}}</td>
+        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt 0}}%) / {{ios_total_out_mCnt}}</td>
+        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt 0}}%) / {{ios_total_out_fCnt}}</td>
+        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt 0}}%) / {{ios_total_out_nCnt}}</td>
+        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt 0}}%) / {{pc_total_out_mCnt}}</td>
+        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt 0}}%) / {{pc_total_out_fCnt}}</td>
+        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt 0}}%) / {{pc_total_out_nCnt}}</td>
     </tr>
 </script>
 
@@ -218,15 +218,15 @@
         <td class="font-bold _bgColor" data-bgColor="#fff2cc">
             {{{data.date}}}
         </td>
-        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt}}%) / {{aos_total_out_mCnt}}</td>
-        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt}}%) / {{aos_total_out_fCnt}}</td>
-        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt}}%) / {{aos_total_out_nCnt}}</td>
-        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt}}%) / {{ios_total_out_mCnt}}</td>
-        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt}}%) / {{ios_total_out_fCnt}}</td>
-        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt}}%) / {{ios_total_out_nCnt}}</td>
-        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt}}%) / {{pc_total_out_mCnt}}</td>
-        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt}}%) / {{pc_total_out_fCnt}}</td>
-        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt}}%) / {{pc_total_out_nCnt}}</td>
+        <td>{{aos_total_join_mCnt}} ({{average aos_total_join_mCnt total_join_Cnt 0}}%) / {{aos_total_out_mCnt}}</td>
+        <td>{{aos_total_join_fCnt}} ({{average aos_total_join_fCnt total_join_Cnt 0}}%) / {{aos_total_out_fCnt}}</td>
+        <td>{{aos_total_join_nCnt}} ({{average aos_total_join_nCnt total_join_Cnt 0}}%) / {{aos_total_out_nCnt}}</td>
+        <td>{{ios_total_join_mCnt}} ({{average ios_total_join_mCnt total_join_Cnt 0}}%) / {{ios_total_out_mCnt}}</td>
+        <td>{{ios_total_join_fCnt}} ({{average ios_total_join_fCnt total_join_Cnt 0}}%) / {{ios_total_out_fCnt}}</td>
+        <td>{{ios_total_join_nCnt}} ({{average ios_total_join_nCnt total_join_Cnt 0}}%) / {{ios_total_out_nCnt}}</td>
+        <td>{{pc_total_join_mCnt}} ({{average pc_total_join_mCnt total_join_Cnt 0}}%) / {{pc_total_out_mCnt}}</td>
+        <td>{{pc_total_join_fCnt}} ({{average pc_total_join_fCnt total_join_Cnt 0}}%) / {{pc_total_out_fCnt}}</td>
+        <td>{{pc_total_join_nCnt}} ({{average pc_total_join_nCnt total_join_Cnt 0}}%) / {{pc_total_out_nCnt}}</td>
     </tr>
     {{else}}
     <tr>

@@ -448,3 +448,18 @@ var crew_searchType = [
     , new COMMON_CODE('memid', '2', 'UserID')
     , new COMMON_CODE('memnick', '3', '닉네임')
 ];
+
+
+// 방송관리 tip 관리 --------------
+var broadTip_objType = [
+    new COMMON_CODE(null, 'broadTip_objType', '검색구분')
+    , new COMMON_CODE('-1', '-1', '노출대상 전체')
+    , new COMMON_CODE('0', '0', 'DJ')
+    , new COMMON_CODE('1', '1', '청취자')
+];
+var broadTip_viewType = [
+    new COMMON_CODE(null, 'broadTip_objType', '검색구분')
+    , new COMMON_CODE('-1', '-1', '노출여부 전체')
+    , new COMMON_CODE('0', '0', 'On')
+    , new COMMON_CODE('1', '1', 'Off')
+];

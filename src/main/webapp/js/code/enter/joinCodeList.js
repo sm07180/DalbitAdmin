@@ -25,3 +25,9 @@ var join_slctType2 = [
     , new COMMON_CODE('month', '2', '월간별')
     // , new COMMON_CODE('history', '3', 'PUSH')
 ];
+
+var exceptList = [
+    new COMMON_CODE(null, 'exceptList', '제외목록')
+    , new COMMON_CODE('0', '0', '내부 아이피 제외')
+    , new COMMON_CODE('1', '1', '테스트 아이디 제외')
+];

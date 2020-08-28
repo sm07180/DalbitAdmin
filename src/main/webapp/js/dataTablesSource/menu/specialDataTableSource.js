@@ -86,7 +86,7 @@ var specialDataTableSource = {
                 },'width':'60px'},
         ]
     },
-    
+
     'reqManageList' : {
         'url': '/rest/menu/special/selectManageList'
         , 'columns': [
