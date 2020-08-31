@@ -43,10 +43,10 @@ var BroadcastDataTableSource = {
             {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data) + '<br/>' + "(" +row.dj_korean_age + "세)";
                 }},
-            {'title': '방송 개설', 'data': 'broadCastCnt','width' : '70px', 'render': function (data, type, row, meta) {
+            {'title': '방송<br/>개설', 'data': 'broadCastCnt','width' : '40px', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '상태', 'data': 'state', 'width':'120px', 'render': function (data, type, row, meta) {
+            {'title': '상태', 'data': 'state', 'width':'110px', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data,room_state);
                 }},
             {'title': '시작일시', 'data': 'start_date','width' : '60px'},
