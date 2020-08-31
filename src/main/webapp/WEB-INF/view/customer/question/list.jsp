@@ -196,8 +196,8 @@
 
     function searchDate(dateType){
         if(common.isEmpty(dateType)){
-            $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-            $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+            $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+            $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
             $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
             getUserInfo();
         }else if(dateType == 'prev'){
