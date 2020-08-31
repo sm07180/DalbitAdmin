@@ -67,10 +67,12 @@
     $(document).ready(function() {
         $("#broadTip_objType").html(util.getCommonCodeSelect(-1,broadTip_objType));
         $("#broadTip_viewType").html(util.getCommonCodeSelect(-1,broadTip_viewType));
-        init()
+        init();
     });
 
     function init(){
+        util.getAjaxData("broadCastTipList", "/rest/content/broadCastTip/broadCastTip", data, fn_success_fanBoardList);
+
         var template = $('#tmp_broadCastTip_detail').html();
         var templateScript = Handlebars.compile(template);
         var html = templateScript();

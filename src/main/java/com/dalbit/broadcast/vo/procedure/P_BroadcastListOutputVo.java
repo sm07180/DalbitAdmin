@@ -52,7 +52,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private String dj_korean_age;
     private int broadCastCnt;
     private int extend_time_count;
-    private int djRankPoint;
+    private int total;
 
     /* summary */
     private int totalBroadCastCnt;

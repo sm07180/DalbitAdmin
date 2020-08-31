@@ -114,11 +114,6 @@ public class Bro_BroadcastService {
                     broadList.get(i).setDj_korean_age(Integer.toString(Integer.parseInt(year) - Integer.parseInt(memInfoOutVo.getMem_birth_year()) + 1));
                 }
             }
-
-            P_BroadcastListOutputVo DjRankPointOutVo = bro_BroadcastDao.getDjRankPoint(broadList.get(i).getDj_mem_no());
-            if(!DalbitUtil.isEmpty(DjRankPointOutVo)) {
-                broadList.get(i).setDjRankPoint(DjRankPointOutVo.getDjRankPoint());
-            }
         }
 
         String result;
