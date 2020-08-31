@@ -53,7 +53,9 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '랭킹점수', 'data': 'djRankPoint','width' : '60px'},
+            {'title': '방송랭킹<br/>점수', 'data': 'total','width' : '60px','render': function (data){
+                    return common.addComma(data) + "점";
+                }},
             {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
                     if(data > 0){
                         return 'YES';
