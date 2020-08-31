@@ -17,8 +17,33 @@
                             <div>
                                 <span name="question_searchType" id="question_searchType"></span>
                                 <span name="question_selbox_type" id="question_selbox_type"></span>
+
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="slctDateType" value='1' checked="checked" />
+                                    <span><i></i>접수일시</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="slctDateType" value='2' />
+                                    <span><i></i>처리일시</span>
+                                </label>
+
+                                <div class="input-group date" id="rangeDatepicker">
+                                    <label for="displayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                </div>
+
+                                <input type="hidden" name="startDate" id="startDate" />
+                                <input type="hidden" name="endDate" id="endDate" />
+                                <%--<input name="startDate" id="startDate" />--%>
+                                <%--<input name="endDate" id="endDate" />--%>
+
                                 <label><input type="text" class="form-control" id="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
@@ -70,7 +95,21 @@
 
 <script>
     var tabType = <%=in_tabType%>;
+
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
+    setTimeDate(dateTime);
+
     $(document).ready(function() {
+
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
 
         // ui.checkBoxInit('list_info');
 
@@ -123,7 +162,11 @@
         data.slctState = tmp_slctState;
         data.slctPlatform = tmp_slctPlatform;
         data.slctMember = tmp_slctMember;
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        data.slctDateType = $('input:radio[name="slctDateType"]:checked').val();
     };
+
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
@@ -135,9 +178,52 @@
     var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#main_table").find(".footer-right").append(excel);
 
+    function setTimeDate(dateTime){
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
+    $(document).on('click', '._todaySearch', function(){
+        searchDate();
+    });
+
+    function searchDate(dateType){
+        if(common.isEmpty(dateType)){
+            $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+            $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+            $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+            getUserInfo();
+        }else if(dateType == 'prev'){
+            setDay(-1);
+        }else if(dateType == 'next'){
+            setDay(1);
+        }
+    }
+
+    function setDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+        getUserInfo();
+    }
+
+    // function setMonth(months){
+    //     $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
+    //     $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+    //     $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+    //     getUserInfo();
+    // }
+
     questionDelEventInit();
     initDataTableTop_select_question();
-    getUserInfo();
+    // getUserInfo();
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
