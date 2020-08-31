@@ -217,23 +217,6 @@
     var _memLoginIdSort_withdrawal = -1;
     var _memIpSort_withdrawal = -1;
 
-    $("#memberList").hide();
-    $("#withdrawalList").hide();
-    if(!common.isEmpty(tabType)){
-        if(tabType == 1){
-            $('.nav-tabs li:eq(5) a').tab('show');
-            $("#memberList").show();
-            memWithdrawal = "0";
-        }else if(tabType == 2){
-            $('.nav-tabs li:eq(6) a').tab('show');
-            $("#withdrawalList").show();
-            memWithdrawal = "1";
-        }
-    }else{
-        $('.nav-tabs li:eq(5) a').tab('show');
-        $("#memberList").show();
-    }
-
     var dtList_info_data = function ( data ) {
         data.searchText = tmp_searchText;                        // 검색명
         data.testid = _testid;
@@ -301,9 +284,6 @@
 
     var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
-
-
-    getUserInfo();
 
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
@@ -379,6 +359,26 @@
         }
         var html = templateScript(data);
         $("#withdrawalList_summaryArea").html(html);
+    }
+
+    // $("#memberList").hide();
+    // $("#withdrawalList").hide();
+    if(!common.isEmpty(tabType)){
+        console.log("-------------------------------------     " + tabType);
+        if(tabType == 1){
+            $('.nav-tabs li:eq(5) a').tab('show');
+            $("#memberList").show();
+            memWithdrawal = "0";
+            memberList();
+        }else if(tabType == 2){
+            $('.nav-tabs li:eq(6) a').tab('show');
+            $("#withdrawalList").show();
+            memWithdrawal = "1";
+            withdrawalList();
+        }
+    }else{
+        $('.nav-tabs li:eq(5) a').tab('show');
+        $("#memberList").show();
     }
 
     /*=============엑셀==================*/
