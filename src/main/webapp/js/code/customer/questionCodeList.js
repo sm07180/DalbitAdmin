@@ -23,6 +23,13 @@ var question_selbox_type = [
     , new COMMON_CODE('6', '6', '내용')
 ];
 
+var slctDateType = [
+    new COMMON_CODE(null, 'slctDateType', '조회구분')
+    , new COMMON_CODE('0', '0', '날짜(전체)')
+    , new COMMON_CODE('1', '1', '접수일시')
+    , new COMMON_CODE('2', '2', '처리일시')
+];
+
 
 // ------------------------- table -----------------------------
 var question_summary = [

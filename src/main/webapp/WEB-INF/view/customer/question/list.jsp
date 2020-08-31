@@ -17,17 +17,9 @@
                             <div>
                                 <span name="question_searchType" id="question_searchType"></span>
                                 <span name="question_selbox_type" id="question_selbox_type"></span>
+                                <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"></span>
 
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="slctDateType" value='1' checked="checked" />
-                                    <span><i></i>접수일시</span>
-                                </label>
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="slctDateType" value='2' />
-                                    <span><i></i>처리일시</span>
-                                </label>
-
-                                <div class="input-group date" id="rangeDatepicker">
+                                <div class="input-group date" id="rangeDatepicker" style="display: none">
                                     <label for="displayDate" class="input-group-addon">
                                         <span><i class="fa fa-calendar"></i></span>
                                     </label>
@@ -142,6 +134,7 @@
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
     $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
+    $("#slctDateType").html(util.getCommonCodeSelect(-1, slctDateType));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
@@ -164,7 +157,7 @@
         data.slctMember = tmp_slctMember;
         data.startDate = $("#startDate").val();
         data.endDate = $("#endDate").val();
-        data.slctDateType = $('input:radio[name="slctDateType"]:checked').val();
+        data.slctDateType = $("#slctDateType").find("select").val();
     };
 
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
@@ -212,6 +205,14 @@
         $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
         getUserInfo();
+    }
+
+    function seldateType_change(){
+        if($("#slctDateType").find("select").val() == 0){
+            $("#rangeDatepicker").hide();
+        }else{
+            $("#rangeDatepicker").show();
+        }
     }
 
     // function setMonth(months){
@@ -301,6 +302,9 @@
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
+        console.log("---------------------------------------");
+        console.log(document.querySelector("form"));
+
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("slctState", -1);
