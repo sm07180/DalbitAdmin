@@ -36,16 +36,15 @@
     var dtList_info_lisetnUser;
     var slctType = 1;
     function getListenUserList(){
-        console.log($('input[name="testId"]:checked').val());
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 20;
             data.searchText = $("#txt_search").val();
-            data.inner = -1;
+            data.inner = 0;
             data.broad = 1;
         };
         dtList_info_lisetnUser = new DalbitDataTable($("#listenUser_tableList"), dtList_data, connectDataTableSource.current);
-        dtList_info_lisetnUser.setPageLength(20);
+        dtList_info_lisetnUser.setPageLength(50);
         dtList_info_lisetnUser.useCheckBox(false);
         dtList_info_lisetnUser.useIndex(true);
         dtList_info_lisetnUser.createDataTable(liveNextFunc);
@@ -65,11 +64,10 @@
         $("#tab_liveListener").text("실시간 청취자(" + json.recordsTotal + ")");
     }
 
-    // function listenUserType_sel_change(){
-    //     var value = $("#listenUserType").find("select[name='listenUserType']").val();
-    //     console.log("value : " + value);
-    //     slctType = value;
-    //     dtList_info_lisetnUser.reload();
-    // }
+    function getListenUserList_tabClick(tmp){
+        $("#selJoinDate").hide();
+        liveState = tmp;
+        dtList_info_lisetnUser.reload();
+    }
 
 </script>
