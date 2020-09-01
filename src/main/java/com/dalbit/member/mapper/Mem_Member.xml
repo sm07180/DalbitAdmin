@@ -49,9 +49,12 @@
         /* M_Member.xml - callMemberRoomListen */
         select a.room_no as listen_room_no
                ,b.title as listen_title
-          from rd_data.tb_broadcast_room_member a inner join rd_data.tb_broadcast_room b on a.room_no = b.room_no
+          from rd_data.tb_broadcast_room_member a
+          inner join rd_data.tb_broadcast_room b on a.room_no = b.room_no
          where a.mem_no=#{mem_no}
-           and a.state=0 and a.auth != 3
+           and a.state=0
+           and a.auth != 3
+           and b.state != 4
          order by a.last_upd_date desc
          limit 1;
     </select>
