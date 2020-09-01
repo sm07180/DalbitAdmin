@@ -34,8 +34,8 @@
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
         <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간 방송</a></li>
-        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);" class="hide">실시간 청취자</a></li>
-        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);" class="hide">방송 외 접속 회원</a></li>
+        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);">실시간 청취자</a></li>
+        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);">방송 외 접속 회원</a></li>
         <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>
     </ul>
     <div class="tab-content no-padding">
@@ -281,9 +281,9 @@
 
         // console.log("liveState ------------------- 1");
         // console.log(liveState);
-        // if(liveState == 1) {
-        //     $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
-        // }
+        if(liveState == 1) {
+            $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+        }
     }
 
     function getSearch(){
