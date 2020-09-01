@@ -31,12 +31,16 @@
 
 <tiles:insertAttribute name="setting"/>
 <script type="text/javascript">
-    $('._dalbit:first').click();
+    $('._dalbit:not([data-url=""]):first').click();
 
     window.onload = function() {
         window.addEventListener("message", function(e) {
-            console.log('message');
-            document.getElementById("iframePageContent").height = e.data.scrollHeight;
+            try{
+                document.getElementById("iframePageContent").height = e.data.scrollHeight;
+            }catch (exception){
+
+            }
+
         });
     };
 </script>
