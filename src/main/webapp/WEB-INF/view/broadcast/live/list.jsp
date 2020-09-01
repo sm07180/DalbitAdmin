@@ -33,31 +33,37 @@
 
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(1);">실시간방송</a></li>
-        <li><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(2);">종료방송</a></li>
+        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간 방송</a></li>
+        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList();">실시간 청취자</a></li>
+        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList();">방송 외 접속 회원</a></li>
+        <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>
     </ul>
     <div class="tab-content no-padding">
-        <div class="widget widget-table" id="liveList">
-            <div class="col-md-6">
-                <br/>
-                <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
-                <br/>
-                <span id="liveSort" onchange="sortChange();"></span>
-                <span id="endSort" style="display: none" onchange="sortChange();"></span>
-            </div>
-            <div class="col-md-6 pull-right no-padding">
-                <span id="live_summaryArea"></span>
-                <%--<span id="dj_typeSummaryArea"></span>--%>
-                <%--<span id="platform_summaryArea"></span>--%>
-            </div>
-            <div class="widget-content" style="border-top-width:0px;">
-                <table id="list_info" class="table table-sorting table-hover table-bordered">
-                    <thead id="tableTop"></thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-                <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+        <div class="tab-pane fade in active" id="liveList" >
+            <div class="widget widget-table">
+                <div class="col-md-6">
+                    <br/>
+                    <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
+                    <br/>
+                    <span id="liveSort" onchange="sortChange();"></span>
+                    <span id="endSort" style="display: none" onchange="sortChange();"></span>
+                </div>
+                <div class="col-md-6 pull-right no-padding">
+                    <span id="live_summaryArea"></span>
+                    <%--<span id="dj_typeSummaryArea"></span>--%>
+                    <%--<span id="platform_summaryArea"></span>--%>
+                </div>
+                <div class="widget-content" style="border-top-width:0px;">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <thead id="tableTop"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                    <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="liveListener"><jsp:include page="listenUser.jsp"/></div>
+        <div class="tab-pane fade" id="loginUserList"><jsp:include page="loginUser.jsp"/></div>
     </div>
 </div>
 <!-- DATA TABLE END -->
@@ -101,19 +107,15 @@
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
             getSearch();
-        };
-    });
-    $('input[id="txt_broad"]').keydown(function() {
-        if (event.keyCode === 13) {
-            getSearch();
+            getListenUserList();
+            getLoginUserList();
         };
     });
 
     $('#bt_search').on('click', function(){
         getSearch();
-    });
-    $('#bt_broad').on('click', function(){
-        getSearch();
+        getListenUserList();
+        getLoginUserList();
     });
 
 
@@ -268,6 +270,10 @@
         };
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
+
+        if(liveState == 1) {
+            $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
+        }
     }
 
     function getSearch(){
