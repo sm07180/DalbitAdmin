@@ -4,9 +4,9 @@
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
     <div class="col-md-12 no-padding">
-        <div class="col-md-2 no-padding">
-            <span name="listenUserType" id="listenUserType" onchange="listenUserType_sel_change()"></span>
-        </div>
+        <%--<div class="col-md-2 no-padding">--%>
+            <%--<span name="listenUserType" id="listenUserType" onchange="listenUserType_sel_change()"></span>--%>
+        <%--</div>--%>
 
         <table id="listenUser_tableList" class="table table-sorting table-hover table-bordered datatable">
             <thead id="tableTop_detail">
@@ -48,32 +48,28 @@
         dtList_info_lisetnUser.setPageLength(20);
         dtList_info_lisetnUser.useCheckBox(false);
         dtList_info_lisetnUser.useIndex(true);
-        dtList_info_lisetnUser.createDataTable();
-
-
-        $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
-
+        dtList_info_lisetnUser.createDataTable(liveNextFunc);
     }
 
     function liveNextFunc(json){
         dalbitLog(json);
-        var template = $("#live_tableSummary").html();
-        var templateScript = Handlebars.compile(template);
-        var data = {
-            content : json.summary
-            , length : json.recordsTotal
-        };
-        var html = templateScript(data);
-        $("#live_summaryArea").html(html);
+        // var template = $("#live_tableSummary").html();
+        // var templateScript = Handlebars.compile(template);
+        // var data = {
+        //     content : json.summary
+        //     , length : json.recordsTotal
+        // };
+        // var html = templateScript(data);
+        // $("#live_summaryArea").html(html);
 
-        $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
+        $("#tab_liveListener").text("실시간 청취자(" + json.recordsTotal + ")");
     }
 
-    function listenUserType_sel_change(){
-        var value = $("select[name='listenUserType']").val();
-        console.log("value : " + value);
-        slctType = value;
-        dtList_info_lisetnUser.reload();
-    }
+    // function listenUserType_sel_change(){
+    //     var value = $("#listenUserType").find("select[name='listenUserType']").val();
+    //     console.log("value : " + value);
+    //     slctType = value;
+    //     dtList_info_lisetnUser.reload();
+    // }
 
 </script>
