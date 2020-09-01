@@ -34,17 +34,16 @@
 
     var dtList_info_loginUser;
     var slctType = 1;
-    function getLoginUserList(){
-        console.log($('input[name="testId"]:checked').val());
+    function getLoginUserList(tmp){
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 20;
             data.searchText = $("#txt_search").val();
-            data.inner = -1;
+            data.inner = 0;
             data.broad = 0;
         };
         dtList_info_loginUser = new DalbitDataTable($("#loginUser_tableList"), dtList_data, connectDataTableSource.current);
-        dtList_info_loginUser.setPageLength(20);
+        dtList_info_loginUser.setPageLength(50);
         dtList_info_loginUser.useCheckBox(false);
         dtList_info_loginUser.useIndex(true);
         dtList_info_loginUser.createDataTable(loginNextFunc);
@@ -63,11 +62,10 @@
         $("#tab_LoginUser").text("방송 외 접속 회원(" + json.recordsTotal + ")");
     }
 
-    // function loginUserType_sel_change(){
-    //     var value = $("#loginUserType").find("select[name='loginUserType']").val();
-    //     console.log("value : " + value);
-    //     slctType = value;
-    //     dtList_info_loginUser.reload();
-    // }
+    function getLoginUserList_tabClick(tmp){
+        $("#selJoinDate").hide();
+        liveState = tmp;
+        dtList_info_loginUser.reload();
+    }
 
 </script>

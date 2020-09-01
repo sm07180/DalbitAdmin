@@ -34,8 +34,8 @@
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
         <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간 방송</a></li>
-        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList();">실시간 청취자</a></li>
-        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList();">방송 외 접속 회원</a></li>
+        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);" class="hide">실시간 청취자</a></li>
+        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);" class="hide">방송 외 접속 회원</a></li>
         <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>
     </ul>
     <div class="tab-content no-padding">
@@ -106,16 +106,24 @@
 
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
-            getSearch();
-            getListenUserList();
-            getLoginUserList();
+            if (liveState == 1 || liveState == 2) {
+                getSearch();
+            }else if(liveState == 3){
+                getListenUserList();
+            }else if(liveState == 4){
+                getLoginUserList();
+            }
         };
     });
 
     $('#bt_search').on('click', function(){
-        getSearch();
-        getListenUserList();
-        getLoginUserList();
+        if (liveState == 1 || liveState == 2) {
+            getSearch();
+        }else if(liveState == 3){
+            getListenUserList();
+        }else if(liveState == 4){
+            getLoginUserList();
+        }
     });
 
 
@@ -150,7 +158,7 @@
     });
 
 
-    var liveState=1;
+    var liveState = 1;
     var room_liveType = 1;
     var dtList_info="";
     // liveList(1);
@@ -271,9 +279,11 @@
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
 
-        if(liveState == 1) {
-            $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
-        }
+        // console.log("liveState ------------------- 1");
+        // console.log(liveState);
+        // if(liveState == 1) {
+        //     $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+        // }
     }
 
     function getSearch(){
