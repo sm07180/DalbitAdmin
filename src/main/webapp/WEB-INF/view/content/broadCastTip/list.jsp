@@ -29,7 +29,7 @@
             <div class="col-md-12 no-padding">
                 <div class="widget widget-table">
                     <div class="dataTables_paginate paging_full_numbers" id="broadCastTip_paginate_top"></div>
-                    <div class="widget-content mt10">
+                    <div class="widget-content mt10 mb10">
                         <table class="table table-sorting table-hover table-bordered no-margin">
                             <thead>
                                 <tr>
