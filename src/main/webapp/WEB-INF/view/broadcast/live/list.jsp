@@ -271,7 +271,9 @@
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
 
-        $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
+        if(liveState == 1) {
+            $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
+        }
     }
 
     function getSearch(){
