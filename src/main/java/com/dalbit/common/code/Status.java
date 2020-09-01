@@ -611,8 +611,25 @@ public enum Status {
     문자발송_성공("0", "sms.send.success", "문자 발송 성공 시"),
     문자발송_실패("C006", "sms.send.fail", "문자 발송 실패 시"),
 
+    // 방송팁 관리 목록
+    방송팁목록보기_성공("0", "broadcast.tip.list.success", "방송팁목록보기 성공 시"),
+    방송팁목록보기_실패("C006", "broadcast.tip.list.fail", "방송팁목록보기 실패 시"),
 
+    // 방송팁 관리 등록
+    방송팁등록_성공("0", "broadcast.tip.add.success", "방송팁등록 성공 시"),
+    방송팁등록_실패("C006", "broadcast.tip.add.fail", "방송팁등록 실패 시"),
 
+    // 방송팁 관리 삭제
+    방송팁삭제_성공("0", "broadcast.tip.del.success", "방송팁삭제 성공 시"),
+    방송팁삭제_실패("C006", "broadcast.tip.del.fail", "방송팁삭제 실패 시"),
+
+    // 방송팁 관리 상세
+    방송팁상세보기_성공("0", "broadcast.tip.detail.success", "방송팁상세보기 성공 시"),
+    방송팁상세보기_실패("C006", "broadcast.tip.detail.fail", "방송팁상세보기 실패 시"),
+
+    // 방송팁 관리 수정
+    방송팁수정_성공("0", "broadcast.tip.edit.success", "방송팁수정 성공 시"),
+    방송팁수정_실패("C006", "broadcast.tip.edit.fail", "방송팁수정 실패 시"),
     ;
 
 

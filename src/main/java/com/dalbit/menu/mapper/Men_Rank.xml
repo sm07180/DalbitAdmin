@@ -233,7 +233,13 @@
                 , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                 , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                 , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                , dj.broadcast_point as airTime
+                <if test='liveCnt != 0'>
+                    , @liveTime := ifnull((select TIMESTAMPDIFF( SECOND, start_date, NOW() ) from rd_data.tb_broadcast_room_live_list where mem_no = dj.mem_no), 0) as liveTime
+                    , ROUND((dj.broadcast_point + @liveTime )) AS airTime
+                </if>
+                <if test='liveCnt == 0'>
+                  , dj.broadcast_point as airTime
+                </if>
                 , CAST(dj.good_point AS INT) as goodCnt
                 , CAST(dj.dj_point AS INT) AS rankPoint
                 , dj.listener_point as listenCnt
