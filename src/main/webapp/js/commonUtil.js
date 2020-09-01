@@ -251,7 +251,7 @@ util.getCommonCodeSelect = function(code, targetCode, isExcludeAllYn, name) {
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
 
@@ -273,7 +273,7 @@ util.getCommonCodeSelectForName = function(codeName, targetCode, isExcludeAllYn,
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
                 html += '<option value="' + value.value + '" ' + (value.code == codeName ? 'selected="selected"' : '') + '>' + value.code + '</option>';
@@ -294,7 +294,7 @@ util.getCommonCodeRadio = function(code, targetCode, isExcludeAllYn, name) {
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
                 html += '<label class="control-inline fancy-radio custom-color-green">';
@@ -320,7 +320,7 @@ util.getCommonCodeRadioMulti = function(code, targetCode, isExcludeAllYn, name, 
         targetCode.forEach(function (value, index) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
                 html += '<label class="control-inline fancy-radio custom-color-green">';
@@ -343,7 +343,7 @@ util.getCommonCodeCheck = function(code, targetCode, isExcludeAllYn, name) {
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
                 html += '<label class="control-inline fancy-checkbox custom-color-green">';
@@ -366,13 +366,13 @@ util.getCommonCodeCheck2 = function(code, targetCode, isExcludeAllYn, name) {
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
                 html += '<label class="control-inline fancy-checkbox custom-color-green">';
                 html += '<input type="checkbox" value="' + value.value + '" id="' + checkName + '_' + value.value + '" name="' + checkName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
                 html += '<span><i></i>' + value.code + '</span>'
-                html += '</label><br/>';
+                html += '</label>';
             }
         });
         return html;
@@ -389,7 +389,7 @@ util.getCommonCodeHorizontalCheck = function(code, targetCode, isExcludeAllYn, n
         targetCode.forEach(function (value) {
             if (!common.isEmpty(value.type)) {
 
-                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                if (isExcludeAllYn == 'Y' && (value.type == 'all' || value.type == -1)) {
                     return;
                 }
                 html += '<label class="control-inline fancy-checkbox custom-color-green">';

@@ -454,11 +454,13 @@ var crew_searchType = [
 var broadTip_objType = [
     new COMMON_CODE(null, 'broadTip_objType', '검색구분')
     , new COMMON_CODE('-1', '-1', '노출대상 전체')
-    , new COMMON_CODE('0', '0', 'DJ')
-    , new COMMON_CODE('1', '1', '청취자')
+    , new COMMON_CODE('1', '1', 'DJ')
+    , new COMMON_CODE('2', '2', '청취자')
+    , new COMMON_CODE('3', '3', 'DJ/청취자')
 ];
+
 var broadTip_viewType = [
-    new COMMON_CODE(null, 'broadTip_objType', '검색구분')
+    new COMMON_CODE(null, 'broadTip_viewType', '검색구분')
     , new COMMON_CODE('-1', '-1', '노출여부 전체')
     , new COMMON_CODE('0', '0', 'On')
     , new COMMON_CODE('1', '1', 'Off')
