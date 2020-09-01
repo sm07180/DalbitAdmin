@@ -39,7 +39,10 @@
                 <div>
                     <div>
                         <div class="row col-lg-12 form-inline">
-                            <div class="table-option pt10 pull-right">
+                            <div class="col-md-7 no-padding mt10">
+                                <span id="tab_title">DJ 랭킹 점수는 받은 별(부스터 제외) 1점, 누적 청취자 2점, 받은 좋아요 1점, 부스터 횟수 20점으로 반영됩니다.</span>
+                            </div>
+                            <div class="col-md-5 table-option pt10 pull-right">
                                 <label class="control-inline fancy-radio custom-color-green">
                                     <input type="radio" name="rankType" value='1' checked="checked" />
                                     <span><i></i>일간</span>
@@ -227,6 +230,17 @@
 
         response.data.rankType = $('input:radio[name="rankType"]:checked').val();
 
+
+        if(dst_id == "djRankList"){
+            for(var i=0;i<response.data.length;i++){
+                response.data[i]["recByeol"] = response.data[i].itemCnt + Number(response.data[i].boostByeol);
+            }
+        }else if(dst_id == "fanRankList"){
+            for(var i=0;i<response.data.length;i++){
+                response.data[i]["giftDal"] = response.data[i].itemCnt + Number(response.data[i].boostDal);
+            }
+        }
+
         var template = $('#tmp_'+dst_id).html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -272,11 +286,6 @@
                 setMonday();
             }
         }
-        // if($('input:radio[name="rankType"]:checked').val() == 2){
-        //     $("#lb_title").show();
-        // }else{
-        //     $("#lb_title").hide();
-        // }
         djRankListPagingInfo.pageNo = 1;
         init();
     }
@@ -396,6 +405,12 @@
 
     $('#rankTab li').on('click', function(){
         var rank = $(this).find('a').data('rank');
+        if(rank == "djRankList"){
+            $("#tab_title").text("DJ 랭킹 점수는 받은 별(부스터 제외) 1점, 누적 청취자 2점, 받은 좋아요 1점, 부스터 횟수 20점으로 반영됩니다.");
+        }else if(rank == "fanRankList"){
+            $("#tab_title").text("FAN 랭킹 점수는 보낸 달 1점, 보낸 좋아요 1점으로 반영 됩니다.");
+        }
+
         djRankListPagingInfo.pageNo = 1;
         init(rank);
     });
@@ -428,11 +443,11 @@
         <th>배지 시작일</th>
         <th>배지 종료일</th>
         <th>랭킹 점수</th>
-        <th>받은 별<br/>(부스터 제외)</th>
-        <th>누적 청취자</th>
-        <th>받은 좋아요</th>
-        <th>부스터</th>
-        <th>부스터 별</th>
+        <th style="background-color: #4472c4;color: white">받은 별<br/>(부스터 제외)<br/>x1점</th>
+        <th style="background-color: #4472c4;color: white">누적 청취자<br/>x2점</th>
+        <th style="background-color: #4472c4;color: white">받은 좋아요<br/>x1점</th>
+        <th style="background-color: #4472c4;color: white">부스터 횟수<br/>x20점</th>
+        <th>받은 별</th>
         <th>방송진행 시간</th>
     </tr>
     </thead>
@@ -490,7 +505,7 @@
             <td>{{addComma listenCnt}}명</td>
             <td>{{addComma goodCnt}}개</td>
             <td>{{addComma boostCnt}}개</td>
-            <td>{{addComma boostByeol}}개</td>
+            <td>{{addComma recByeol}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 
@@ -514,10 +529,9 @@
         <th>배지 시작일</th>
         <th>배지 종료일</th>
         <th>랭킹 점수</th>
-        <th>보낸 달<br/>(부스터 제외)</th>
-        <th>보낸 좋아요</th>
-        <th>부스터</th>
-        <th>부스터 달</th>
+        <th style="background-color: #4472c4;color: white">보낸 달<br/>x1점</th>
+        <th style="background-color: #4472c4;color: white">보낸 좋아요<br/>x1점</th>
+        <th>부스터 횟수</th>
         <th>청취 시간</th>
     </tr>
     </thead>
@@ -563,10 +577,9 @@
                 {{/dalbit_if}}
             </td>
             <td>{{addComma rankPoint}}점</td>
-            <td>{{addComma itemCnt}}개</td>
+            <td>{{addComma giftDal}}개</td>
             <td>{{addComma goodCnt}}개</td>
             <td>{{addComma boostCnt}}개</td>
-            <td>{{addComma boostDal}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 
