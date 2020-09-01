@@ -83,6 +83,7 @@
           inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
           inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
           left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
+          left join rd_admin.tb_admin_test_account test on prof.mem_no = test.mem_no
           <if test='rankType == "3"'>
           </if>
 
@@ -102,6 +103,8 @@
                where date_format(dj.ranking_date,'%Y.%m.%d') = #{sDate}
             </if>
           </if>
+
+          AND (test.is_admin IS NULL OR test.is_admin = 0)
 
           <if test='txt_search != null and txt_search != ""'>
               <choose>
@@ -129,6 +132,7 @@
 
     <sql id="fanCondition">
       from rd_data.tb_member_basic mem
+        left join rd_admin.tb_admin_test_account test on mem.mem_no = test.mem_no
         left join rd_data.tb_member_profile prof on mem.mem_no = prof.mem_no
         left join rd_data.tb_member_level lev on mem.mem_no = lev.mem_no
 
@@ -165,6 +169,7 @@
             </if>
         </if>
         on mem.mem_no = fan.mem_no
+
         <if test='rankType == "1"'>
             <if test='liveCnt != 0'>
                 where date_format(fan.upd_date,'%Y.%m.%d') = #{sDate}
@@ -181,12 +186,16 @@
                 where date_format(fan.ranking_date,'%Y.%m.%d') = #{sDate}
             </if>
         </if>
+
+        AND (test.is_admin IS NULL OR test.is_admin = 0)
+
         <if test='txt_search != null and txt_search != ""'>
             and (mem.mem_no like concat('%', #{txt_search}, '%')
             or mem_id like concat('%', #{txt_search}, '%')
             or mem_nick like concat('%', #{txt_search}, '%')
             or mem.mem_phone like concat('%', #{txt_search}, '%'))
         </if>
+
     </sql>
     <!-- DJ -->
     <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
