@@ -123,16 +123,24 @@
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
-
         $('#broadCastTip_detail').html(html);
 
-        if(response.data.viewTarget == 3){
-            $("input:checkbox[id='viewTarget_1']").prop("checked",true);
-            $("input:checkbox[id='viewTarget_2']").prop("checked",true);
-        }else if(response.data.viewTarget == 2){
-            $("input:checkbox[id='viewTarget_2']").prop("checked",true);
-        }else if(response.data.viewTarget == 1){
-            $("input:checkbox[id='viewTarget_1']").prop("checked",true);
+        if(response.data.viewTarget == "111"){
+            $("input[name=viewTarget]").each(function () {
+                this.checked = true;
+            });
+        }else{
+            $("input[name=viewTarget]").each(function () {
+                this.checked = false;
+            });
+
+            var arrayViewTarget = response.data.viewTarget.split('');
+            for(var idx in arrayViewTarget){
+                if(arrayViewTarget[idx] == 1){
+                    var value = parseInt(idx) + 1;
+                    $("input[name='viewTarget'][id='viewTarget"+ value +"']").prop("checked", true);
+                }
+            }
         }
     }
 
@@ -146,11 +154,14 @@
         $('#broadCastTip_detail').html(html);
     }
 
-
     function tipEdit(){
-        var viewTarget = 0;
-        $("input[name=viewTarget]:checked").each(function() {
-            viewTarget = Number(viewTarget) + Number($(this).val());
+        var viewTarget="";
+        $("input[name=viewTarget]").each(function() {
+            if(this.checked){
+                viewTarget = viewTarget + "1";
+            }else{
+                viewTarget = viewTarget + "0";
+            }
         });
         var data = {
             'idx' : idx
@@ -159,8 +170,6 @@
             ,'tipDesc' : $("#content").val()
         };
 
-        console.log("111111111111111111111");
-        console.log(data);
         if(!common.isEmpty(idx)){        // 수정
             util.getAjaxData("broadCastTipEdit", "/rest/content/boardCastTip/edit", data, fn_success_tipEdit);
         }else{                      // 신규
@@ -171,12 +180,10 @@
 
     $('#tipDelete').on('click', function() {
         var checked = $('#broadCastTip_list > tr > td > input[type=checkbox]:checked');
-
         if(checked.length == 0) {
             alert('삭제할 방송Tip을 선택해 주세요.');
             return;
         }
-
         if(confirm(checked.length + "건의 방송Tip을 삭제하시겠습니까?")) {
             var tipIdxs = '';
             checked.each(function() {
@@ -184,14 +191,12 @@
             });
             var data = {
                 delete_idx_list : tipIdxs.substr(0, tipIdxs.length -1)
-        };
-
+            };
             util.getAjaxData("broadCastTipDel", "/rest/content/boardCastTip/del", data, fn_success_tipEdit);
         }
     });
 
     function fn_success_tipEdit(dst_id, response){
-        console.log(response);
         alert(response.message);
         init();
     }
@@ -228,20 +233,9 @@
                 <tbody>
                     <tr>
                         <th>노출 대상</th>
-                        <td id="detail_viewTarget">
-                            <label class="control-inline fancy-checkbox custom-color-green">
-                                <input type="checkbox" value="1" id="viewTarget_1" name="viewTarget" class="form-control">
-                                <span><i></i>DJ</span>
-                            </label>
-                            <label class="control-inline fancy-checkbox custom-color-green">
-                                <input type="checkbox" value="2" id="viewTarget_2" name="viewTarget" class="form-control">
-                                <span><i></i>청취자</span>
-                            </label>
-                        </td>
+                        <td id="detail_viewTarget">{{{getCommonCodeHorizontalCheck viewTarget 'broadTip_objType_detail' 'Y' 'viewTarget'}}}</td>
                         <th>노출여부</th>
-                        <td id="detail_viewOn">
-                            {{{getCommonCodeRadio viewOn 'broadTip_viewType' 'Y' 'viewOn'}}}
-                        </td>
+                        <td id="detail_viewOn">{{{getCommonCodeRadio viewOn 'broadTip_viewType' 'Y' 'viewOn'}}}</td>
                         <th>최종수정일시</th>
                         <td>{{updateDate}}</td>
                         <th>최종수정자</th>

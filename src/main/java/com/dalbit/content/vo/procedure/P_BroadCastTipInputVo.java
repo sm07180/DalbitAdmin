@@ -9,7 +9,7 @@ import lombok.Setter;
 public class P_BroadCastTipInputVo extends SearchVo {
     private int pageNo;
     private int idx;
-    private int viewTarget;
+    private String viewTarget;
     private String tipDesc;
     private String delete_idx_list;
 }

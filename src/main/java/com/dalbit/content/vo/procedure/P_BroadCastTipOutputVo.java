@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 public class P_BroadCastTipOutputVo extends BaseVo {
     private int idx;
-    private int viewTarget;
+    private String viewTarget;
     private String tipDesc;
     private int viewOn;
     private Date updateDate;
