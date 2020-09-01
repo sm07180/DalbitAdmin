@@ -236,6 +236,18 @@ util.memNoLink = function(display, memNo) {
     return template;
 },
 
+util.memNoLink_sex = function(display, memNo, sex) {
+    var template;
+    if(sex == "m"){
+        template = '<a href="javascript://" class="_openMemberPop" data-memNo="' + memNo + '" style="color: blue">' + display + '</a>';
+    }else if(sex == "f"){
+        template = '<a href="javascript://" class="_openMemberPop" data-memNo="' + memNo + '" style="color: red">' + display + '</a>';
+    }else if(sex == "n"){
+        template = '<a href="javascript://" class="_openMemberPop" data-memNo="' + memNo + '" style="color: #555555">' + display + '</a>';
+    }
+    return template;
+},
+
 util.roomNoLink = function(display, roomNo) {
     var template = '<a href="javascript://" class="_openBroadcastPop" data-roomNo="' + roomNo + '">' + display + '</a>';
     return template;

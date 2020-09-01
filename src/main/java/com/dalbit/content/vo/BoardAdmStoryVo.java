@@ -20,11 +20,13 @@ public class BoardAdmStoryVo extends PagingVo {
     /* output */
     private int storyIdx;           // 사연 idx
     private String room_no;         // 사연 방송방 번호
+    private String status;          // 사연 상태
     private String dj_mem_no;       // 대상 회원 멤버 번호
     private String dj_mem_nick;     // 대상 회원 닉네임
     private String dj_mem_sex;      // 대상 회원 성별
     private int dj_birth_year;      // 대상 회원 생년
     private String title;           // 대상 회원 방송제목
+    private String broState;        // 대상 회원 방송상태
 
     private String send_mem_no;     // 보낸 회원 멤버 번호
     private String send_mem_nick;   // 보낸 회원 닉네임

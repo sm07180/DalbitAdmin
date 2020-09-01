@@ -216,6 +216,10 @@ Handlebars.registerHelper("memNoLink", function(display, value) {
     return util.memNoLink(display,value);
 });
 
+Handlebars.registerHelper("memNoLink_sex", function(display, value, sex) {
+    return util.memNoLink_sex(display,value, sex);
+});
+
 Handlebars.registerHelper("roomNoLink", function(display, value) {
     return util.roomNoLink(display,value);
 });

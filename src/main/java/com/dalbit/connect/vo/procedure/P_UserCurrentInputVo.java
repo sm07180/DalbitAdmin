@@ -9,4 +9,5 @@ import lombok.Setter;
 public class P_UserCurrentInputVo extends SearchVo {
     private int pageNo;
     private String inner;
+    private String broad;   // 접속회원중 청취자/청취 아닌사람
 }

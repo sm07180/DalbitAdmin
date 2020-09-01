@@ -140,15 +140,16 @@ public class Con_BoardAdmService {
      * 사연 삭제
      */
     public String callStoryDelete(P_StoryDeleteVo pStoryDeleteVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pStoryDeleteVo);
-        conBoardAdmDao.callStoryDelete(procedureVo);
+//        ProcedureVo procedureVo = new ProcedureVo(pStoryDeleteVo);
+//        conBoardAdmDao.callStoryDelete(procedureVo);
+        int resultInt = conBoardAdmDao.callStoryDelete(pStoryDeleteVo.getStoryIdx());
 
         String result = "";
-        if(Status.생방송_사연삭제_성공.getMessageCode().equals(procedureVo.getRet())){
+        if(resultInt != 0){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_성공));
-        } else if(Status.생방송_사연삭제_번호없음.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_번호없음));
-        } else if(Status.생방송_사연삭제_방번호틀림.getMessageCode().equals(procedureVo.getRet())){
+//        } else if(Status.생방송_사연삭제_번호없음.getMessageCode().equals(procedureVo.getRet())){
+//            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_번호없음));
+        } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_방번호틀림));
         }
         return result;

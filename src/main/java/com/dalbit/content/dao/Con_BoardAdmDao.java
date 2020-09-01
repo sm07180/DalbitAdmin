@@ -35,5 +35,6 @@ public interface Con_BoardAdmDao {
     @Transactional(readOnly = true)
     int selectStoryListCnt(BoardAdmStoryVo boardAdmStoryVo);
 
-    ProcedureVo callStoryDelete(ProcedureVo procedureVo);
+//    ProcedureVo callStoryDelete(ProcedureVo procedureVo);
+    int callStoryDelete(String storyIdx);
 }
