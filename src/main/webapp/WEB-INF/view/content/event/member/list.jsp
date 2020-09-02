@@ -162,7 +162,7 @@
             <td>{{item.reg_date}}</td>
             <td>{{item.name}}</td>
             <td>{{phoneNumHyphen item.contact_no}}</td>
-            <td>{{item.recv_data_1}}</td>
+            <td style="text-align: left">{{{replaceNewLineToBr item.recv_data_1}}}</td>
         </tr>
 
         {{else}}
