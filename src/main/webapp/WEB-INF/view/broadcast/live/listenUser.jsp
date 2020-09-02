@@ -34,16 +34,13 @@
     });
 
     var dtList_info_lisetnUser;
-    var slctType = 1;
     function getListenUserList(){
         var dtList_data = function (data) {
-            data.slctType = slctType;
-            data.pageCnt = 20;
+            data.pageCnt = 50;
             data.searchText = $("#txt_search").val();
             data.inner = 0;
-            data.broad = 1;
         };
-        dtList_info_lisetnUser = new DalbitDataTable($("#listenUser_tableList"), dtList_data, connectDataTableSource.current);
+        dtList_info_lisetnUser = new DalbitDataTable($("#listenUser_tableList"), dtList_data, BroadcastDataTableSource.liveListenerList);
         dtList_info_lisetnUser.setPageLength(50);
         dtList_info_lisetnUser.useCheckBox(false);
         dtList_info_lisetnUser.useIndex(true);

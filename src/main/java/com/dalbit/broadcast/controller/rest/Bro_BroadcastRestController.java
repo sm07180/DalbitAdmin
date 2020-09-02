@@ -107,4 +107,14 @@ public class Bro_BroadcastRestController {
     }
 
 
+    /**
+     * 생방송 청취자 목록
+     * //@param model
+     * @return
+     */
+    @PostMapping("live/listener/list")
+    public String liveListenerList(P_BroadcastListInputVo pBroadcastListInputVo){
+        return bro_BroadcastService.callLiveListenerList(pBroadcastListInputVo);
+    }
+
 }

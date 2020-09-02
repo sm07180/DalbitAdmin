@@ -75,16 +75,22 @@ var BroadcastDataTableSource = {
                     return tmp + "건";
                 }},
             {'title': '부스터<br/>(만료/진행)', 'data': 'boosterCnt','width' : '50px','render': function (data, type, row, meta) {
-                    var tmp = common.addComma(data) + '건<br/>(' + common.addComma(data - row.liveBoostCnt ) +"건 / " + common.addComma(row.liveBoostCnt) + '건)';
+                    var liveboostCnt;
+                    if((data - row.liveBoostCnt) < 0){
+                        liveboostCnt = 0;
+                    }else{
+                        liveboostCnt = data - row.liveBoostCnt;
+                    }
+                    var tmp = common.addComma(data) + '건<br/>(' + common.addComma(liveboostCnt ) +"건 / " + common.addComma(row.liveBoostCnt) + '건)';
                     return tmp;
                 }},
-            {'title': '선물', 'data': 'giftCnt','width' : '30px','render': function (data, type, row, meta) {
+            // {'title': '선물', 'data': 'giftCnt','width' : '30px','render': function (data, type, row, meta) {
+            //         var tmp = common.addComma(data);
+            //         return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
+            //     }},
+            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(data);
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
-                }},
-            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "개";
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '개</a>';
                 }},
             // {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
             //         var tmp = common.addComma(data);
@@ -479,4 +485,39 @@ var BroadcastDataTableSource = {
             {'title': '운영자 메모 내용', 'data': 'memo'},
         ]
     },
+
+    'liveListenerList': {
+        'url': '/rest/broadcast/broadcast/live/listener/list'
+        , 'columns': [
+            {'title': '청취 방송제목', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'DJ 회원번호<br/>DJ 닉네임', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '구분', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취플랫폼', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취자<br/>프로필', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취자 회원번호<br/>닉네임', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '성별(나이)', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취 시간', 'data': 'connectDateFormat'},
+            {'title': '당일 청취 수', 'data': 'connectDateFormat'},
+            {'title': '좋아요 수', 'data': 'connectDateFormat'},
+            {'title': '선물 수', 'data': 'connectDateFormat'},
+            {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+        ]
+    },
+
 }
