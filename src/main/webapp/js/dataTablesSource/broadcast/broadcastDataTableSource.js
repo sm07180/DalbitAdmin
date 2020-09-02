@@ -2,7 +2,7 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '플랫폼', 'data': 'osType','width' : '50px', 'render': function (data) {
+            {'title': '플랫폼', 'data': 'osType','width' : '30px', 'render': function (data) {
                     if(data == 3){
                         var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/4bb20760-4afb-46a1-8bdf-35106f1a4e46.svg"> <br/>' ;
                     }else{
@@ -10,9 +10,9 @@ var BroadcastDataTableSource = {
                     }
                     return tmp + util.getCommonCodeLabel(data, os_type);
                 }},
-            {'title': '주제', 'data': 'subject_name','width' : '65px'},
-            {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
-                    return util.roomNoLink(data, row.room_no);
+            // {'title': '주제', 'data': 'subject_name','width' : '65px'},
+            {'title': '주제<br/>제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
+                    return row.subject_name + '<br/>' + util.roomNoLink(data, row.room_no);
                 }},
             {'title': '방송방', 'data': 'backgroundImage', 'width' : '50px', 'render' : function(data, type, row){
                     return '<img class="thumbnail fullSize_background" src="'+ PHOTO_SERVER_URL + data +'" width="65px" height="65px" />';
@@ -38,52 +38,59 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '회원번호<br/>닉네임', 'data': 'dj_nickname','width' : '75px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(row.dj_mem_no, row.dj_mem_no);
-                    return tmp + '<br/>' + data;
+                    return tmp + '<br/>' + data + '<br/>' + common.sexIcon(data) + " (" +row.dj_korean_age + "세)";
                 }},
-            {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data) + '<br/>' + "(" +row.dj_korean_age + "세)";
-                }},
-            {'title': '방송<br/>개설', 'data': 'broadCastCnt','width' : '40px', 'render': function (data, type, row, meta) {
+            // {'title': '성별', 'data': 'dj_memSex', 'width':'35px', 'render': function (data, type, row, meta) {
+            //         return ;
+            //     }},
+            {'title': '방송<br/>개설', 'data': 'broadCastCnt','width' : '30px', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '상태', 'data': 'state', 'width':'110px', 'render': function (data, type, row, meta) {
+            {'title': '상태', 'data': 'state', 'width':'35px', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data,room_state);
                 }},
-            {'title': '시작일시', 'data': 'start_date','width' : '60px'},
-            {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
+            {'title': '시작일시', 'data': 'start_date','width' : '50px'},
+            {'title': '진행시간', 'data': 'airTime','width' : '45px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '방송랭킹<br/>점수', 'data': 'total','width' : '60px','render': function (data){
+            {'title': '방송랭킹<br/>점수', 'data': 'total','width' : '45px','render': function (data){
                     return common.addComma(data) + "점";
                 }},
-            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
+            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '25px','render': function (data){
                     if(data > 0){
                         return 'YES';
                     }
                     return 'NO';
                 }},
-            {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '55px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "명";
+            {'title': '누적 청취<br/>(비회원)', 'data': 'totalListener','width' : '55px','render': function (data, type, row, meta) {
+                    var tmp = common.addComma(row.memTotalListener) + '명<br/>(' + common.addComma(row.notMemTotalListener) + '명)';
+                    return tmp;
                 }},
-            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + common.addComma(data)  + ' 명</a>';
+            {'title': '<lable style="color:red">청취자</lable><br/>(비회원)', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
+                    var tmp = common.addComma(row.memLiveListener) + '명<br/>(' + common.addComma(row.notMemLiveListener) + '명)';
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + tmp + '</a>';
                 }},
-            {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "건";
-                }},
-            {'title': '부스터', 'data': 'boosterCnt','width' : '40px','render': function (data){
+            {'title': '좋아요', 'data': 'goodCnt','width' : '35px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data, type, row, meta) {
-                    var tmp = common.addComma(data);
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
+            {'title': '부스터<br/>(만료/진행)', 'data': 'boosterCnt','width' : '50px','render': function (data, type, row, meta) {
+                    var liveboostCnt;
+                    if((data - row.liveBoostCnt) < 0){
+                        liveboostCnt = 0;
+                    }else{
+                        liveboostCnt = data - row.liveBoostCnt;
+                    }
+                    var tmp = common.addComma(data) + '건<br/>(' + common.addComma(liveboostCnt ) +"건 / " + common.addComma(row.liveBoostCnt) + '건)';
+                    return tmp;
                 }},
-            {'title': '받은 별', 'data': 'byeolCnt','width' : '50px','render': function (data){
+            // {'title': '선물', 'data': 'giftCnt','width' : '30px','render': function (data, type, row, meta) {
+            //         var tmp = common.addComma(data);
+            //         return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
+            //     }},
+            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(data);
-                    return tmp + "개";
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '개</a>';
                 }},
             // {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
             //         var tmp = common.addComma(data);
@@ -93,15 +100,13 @@ var BroadcastDataTableSource = {
             //         var tmp = common.addComma(data);
             //         return tmp + "명";
             //     }},
-            {'title': '사연', 'data': 'storyCnt','width' : '40px','render': function (data, type, row, meta) {
+            {'title': '사연', 'data': 'storyCnt','width' : '30px','render': function (data, type, row, meta) {
                     var url = "/broadcast/live/popup/storyPopup?roomNo=" + encodeURIComponent(row.room_no);
                     // var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'">' + 0 + '</a>';
                     var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'" style="color:#555555">' + common.addComma(data) + '건</a>';
                     return tmp;
                 }},
-            {'title': '나가기<br/>시도', 'data': 'exit_try_count','width' : '55px','render': function (data){
-                    return common.fontColor(data, 1, 'red') +'번';
-                }},
+
             {'title': '입장/<br/>강제종료', 'data': '','width' : '55px','render': function (data, type, row, meta) {
                     var tmp =  '<button type="button" id="bt_broadcastGo" class="btn btn-default btn-xs _openPlayerPop" style="width: 60px;margin-bottom: 1px" data-roomno="' + row.room_no + '" >입장</button><br/>';
                     tmp = tmp + '<button type="button" class="btn btn-danger btn-xs" onclick="forcedEnd($(this).data());" data-memno= "' + row.dj_mem_no + '" data-roomno="' + row.room_no + '" >강제종료</button>';
@@ -162,7 +167,7 @@ var BroadcastDataTableSource = {
             {'title': '방송 개설', 'data': 'broadCastCnt','width' : '70px', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '상태', 'data': 'state', 'width':'120px', 'render': function (data, type, row, meta) {
+            {'title': '상태', 'data': 'state', 'width':'50px', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data,room_state);
                 }},
             {'title': '시작일시', 'data': 'start_date','width' : '60px'},
@@ -480,4 +485,39 @@ var BroadcastDataTableSource = {
             {'title': '운영자 메모 내용', 'data': 'memo'},
         ]
     },
+
+    'liveListenerList': {
+        'url': '/rest/broadcast/broadcast/live/listener/list'
+        , 'columns': [
+            {'title': '청취 방송제목', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'DJ 회원번호<br/>DJ 닉네임', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '구분', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취플랫폼', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취자<br/>프로필', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취자 회원번호<br/>닉네임', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '성별(나이)', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '청취 시간', 'data': 'connectDateFormat'},
+            {'title': '당일 청취 수', 'data': 'connectDateFormat'},
+            {'title': '좋아요 수', 'data': 'connectDateFormat'},
+            {'title': '선물 수', 'data': 'connectDateFormat'},
+            {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+        ]
+    },
+
 }
