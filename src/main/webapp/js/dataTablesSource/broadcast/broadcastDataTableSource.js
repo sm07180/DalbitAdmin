@@ -38,7 +38,7 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '회원번호<br/>닉네임', 'data': 'dj_nickname','width' : '75px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(row.dj_mem_no, row.dj_mem_no);
-                    return tmp + '<br/>' + data + '<br/>' + common.sexIcon(data) + " (" +row.dj_korean_age + "세)";
+                    return tmp + '<br/>' + data + '<br/>' + common.sexIcon(row.dj_memSex) + " (" +row.dj_korean_age + "세)";
                 }},
             // {'title': '성별', 'data': 'dj_memSex', 'width':'35px', 'render': function (data, type, row, meta) {
             //         return ;
@@ -66,7 +66,7 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(row.memTotalListener) + '명<br/>(' + common.addComma(row.notMemTotalListener) + '명)';
                     return tmp;
                 }},
-            {'title': '<lable style="color:red">청취자</lable><br/>(비회원)', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
+            {'title': '<lable style="color:red">청취자<br/>(비회원)</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(row.memLiveListener) + '명<br/>(' + common.addComma(row.notMemLiveListener) + '명)';
                     return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + tmp + '</a>';
                 }},
@@ -489,33 +489,56 @@ var BroadcastDataTableSource = {
     'liveListenerList': {
         'url': '/rest/broadcast/broadcast/live/listener/list'
         , 'columns': [
-            {'title': '청취 방송제목', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': '청취 방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return util.roomNoLink(data, row.roomNo);
                 }},
-            {'title': 'DJ 회원번호<br/>DJ 닉네임', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': 'DJ 회원번호<br/>DJ 닉네임', 'data': 'djMemNo', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.djNickNm;
                 }},
-            {'title': '구분', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': '구분', 'data': 'auth', 'render': function (data, type, row, meta) {
+                    if(data == "0"){
+                        return '<lable style="color:#080004">청취자</lable><br/>';
+                    }else if(data == "1"){
+                        return '<lable style="color:#00ff32">매니저</lable><br/>';
+                    }else if(data == "2"){
+                        return '<lable style="color:#0036ff">게스트</lable><br/>';
+                    }
                 }},
-            {'title': '청취플랫폼', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': '청취플랫폼', 'data': 'os_type', 'render': function (data, type, row, meta) {
+                    if(data == 3){
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/4bb20760-4afb-46a1-8bdf-35106f1a4e46.svg"> <br/>' ;
+                    }else{
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/dca7b592-edb6-4080-b763-7e535529661f.svg"> <br/>' ;
+                    }
+                    return tmp + util.getCommonCodeLabel(data, os_type);
                 }},
-            {'title': '청취자<br/>프로필', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': '청취자<br/>프로필', 'data': 'profImg', 'render': function (data, type, row, meta) {
+                    return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.gender) +'" width="65px" height="65px" />';
                 }},
-            {'title': '청취자 회원번호<br/>닉네임', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': '청취자 회원번호<br/>닉네임', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + "<br/>" + row.nickNm;
                 }},
-            {'title': '성별(나이)', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+            {'title': '성별(나이)', 'data': 'gender', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data) + "(" + row.age +")";
                 }},
-            {'title': '청취 시간', 'data': 'connectDateFormat'},
-            {'title': '당일 청취 수', 'data': 'connectDateFormat'},
-            {'title': '좋아요 수', 'data': 'connectDateFormat'},
-            {'title': '선물 수', 'data': 'connectDateFormat'},
+            {'title': '청취시작 시간', 'data': 'joinDt'},
+            {'title': '청취 시간', 'data': 'listenTime','render' : function(data){
+                    return common.timeStamp(data);
+                }},
+            {'title': '당일 청취 수', 'data': 'listenCnt', 'render': function (data, type, row, meta) {
+                    return data + " 번";
+                }},
+            {'title': '좋아요 수', 'data': 'goodCnt', 'render': function (data, type, row, meta) {
+                    return data + " (" + row.boosterCnt +")";
+                }},
+            {'title': '선물 수', 'data': 'giftCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data) + " 개";
+                }},
             {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+                    var tmp;
+                    tmp = '<a href="javascript://" onclick="liveListenForced( ' + meta.row + ' );">[강제퇴장]</a><br/>'
+                    tmp = tmp + '<a href="javascript://" onclick="liveListenForced( ' + meta.row + ' );">[운영자알림]</a>';
+                    return tmp;
                 }},
         ]
     },

@@ -455,7 +455,7 @@
     {{#each this as |rank|}}
         <tr>
             <td>
-                {{rowNum}}
+                {{djRank}}
                 <%--{{djRank}} <br /><br />--%>
                 <%--{{upDown}}--%>
             </td>
@@ -539,7 +539,7 @@
     {{#each this as |fan|}}
         <tr>
             <td>
-                {{rowNum}}
+                {{fanRank}}
                 <%--{{fanRank}} <br /><br />--%>
                 <%--{{upDown}}--%>
             </td>
