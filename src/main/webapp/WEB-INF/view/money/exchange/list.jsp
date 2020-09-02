@@ -780,7 +780,7 @@
             <th>성별</th>
             <th>가입시<br />생년월일</th>
             <th>미성년자<br />여부</th>
-            <!--<th>이름</th>-->
+            <th>회원이름</th>
             <th>예금주</th>
             <th>신청금액</th>
             <th>스페셜DJ<br />혜택</th>
@@ -837,7 +837,7 @@
         <td>{{data.birth}}</td>
         <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br /><span style='font-weight:bold'>[철회됨]</span>{{/equal}}</td>
 
-        <!--<td>{{data.mem_name}}</td>-->
+        <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
         <td>{{addComma data.benefit}}원</td>
