@@ -456,8 +456,6 @@
         <tr>
             <td>
                 {{djRank}}
-                <%--{{djRank}} <br /><br />--%>
-                <%--{{upDown}}--%>
             </td>
             <td style="width: 50px">
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />

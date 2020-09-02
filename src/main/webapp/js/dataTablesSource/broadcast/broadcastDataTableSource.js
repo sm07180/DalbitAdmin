@@ -66,7 +66,7 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(row.memTotalListener) + '명<br/>(' + common.addComma(row.notMemTotalListener) + '명)';
                     return tmp;
                 }},
-            {'title': '<lable style="color:red">청취자</lable><br/>(비회원)', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
+            {'title': '<lable style="color:red">청취자<br/>(비회원)</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(row.memLiveListener) + '명<br/>(' + common.addComma(row.notMemLiveListener) + '명)';
                     return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + tmp + '</a>';
                 }},
@@ -536,8 +536,8 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     var tmp;
-                    tmp = '<a href="javascript://" onclick="liveListenForced( ' + meta.row + ' );">[강제퇴장]</a><br/>'
-                    tmp = tmp + '<a href="javascript://" onclick="liveListenForced( ' + meta.row + ' );">[운영자알림]</a>';
+                    tmp = '<button type="button" class="btn btn-danger btn-xs" onclick="liveListenForced( ' + meta.row + ' );" >강제퇴장</button><br/>';
+                    // tmp = tmp + '<button type="button" id="bt_broadcastGo" class="btn btn-default btn-xs" style="width: 60px;margin-bottom: 1px" onclick="liveListenForced( ' + meta.row + ' );">운영자알림</button>';
                     return tmp;
                 }},
         ]
