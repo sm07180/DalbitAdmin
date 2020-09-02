@@ -1,5 +1,6 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.common.code.EventCode;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.service.Con_EventService;
@@ -171,6 +172,23 @@ public class Con_EventRestController {
     public String photoShotExcel(HttpServletRequest request, HttpServletResponse response, Model model, PhotoShotVo photoShotVo) throws GlobalException {
 
         Model resultModel = con_EventService.getPhotoListExcel(photoShotVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+
+    }
+
+    @PostMapping("/member/list")
+    public String selectEventMemberList(EventMemberVo eventMemberVo){
+        eventMemberVo.setEvent_idx(EventCode.방송장비.getEventIdx());
+        String result = con_EventService.selectEventMemberList(eventMemberVo);
+        return result;
+    }
+
+    @PostMapping("/member/list/excel")
+    public String memberListExcel(HttpServletRequest request, HttpServletResponse response, Model model, EventMemberVo eventMemberVo) throws GlobalException {
+
+        Model resultModel = con_EventService.getEventMemberListExcel(eventMemberVo, model);
 
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));

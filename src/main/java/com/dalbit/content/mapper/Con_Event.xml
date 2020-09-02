@@ -614,4 +614,91 @@
             </foreach>
         )
     </update>
+
+    <sql id="memberListCondition">
+        evt.event_idx = #{event_idx}
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    and evt.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    and (
+                    mem.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMem.mem_userid like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "3"'>
+                    and (
+                    mem.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMem.mem_nick like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "4"'>
+                    and evt.contact_no like concat('%', #{txt_search}, '%')
+                </when>
+                <otherwise>
+                    and
+                    (
+                    evt.mem_no like concat('%', #{txt_search}, '%')
+                    or mem.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMem.mem_userid like concat('%', #{txt_search}, '%')
+                    or mem.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMem.mem_nick like concat('%', #{txt_search}, '%')
+                    or evt.contact_no like concat('%', #{txt_search}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <select id="selectEventMemberList" parameterType="com.dalbit.content.vo.EventMemberVo" resultType="com.dalbit.content.vo.EventMemberVo">
+        /* Con_Event.xml - selectEventMemberList */
+        select *
+        from(
+            select @rownum := @rownum + 1 as rowNum
+                , evt.idx
+                , evt.event_idx
+                , evt.mem_no
+                , evt.platform
+                , evt.is_win
+                , evt.`order`
+                , evt.`name`
+                , evt.contact_no
+                , evt.recv_data_1
+                , evt.recv_data_2
+                , evt.recv_data_3
+                , evt.recv_data_4
+                , evt.recv_data_5
+                , date_format(evt.enter_date, '%y%m%d') enter_date
+                , evt.del_yn
+                , date_format(evt.reg_date, '%y%m%d') reg_date
+                , evt.op_name
+                , date_format(evt.last_upd_date, '%y%m%d') last_upd_date
+                , evt.last_op_name
+                , ifnull(mem.mem_nick, outMem.mem_nick) mem_nick
+                , ifnull(mem.mem_sex, outMem.mem_sex) mem_sex
+                , ifnull(mem.mem_birth_year, outMem.mem_birth_year) mem_birth_year
+                , ifnull(mem.mem_state, outMem.mem_state) mem_state
+            from rd_admin.tb_event_member evt
+                left join rd_data.tb_member_basic mem on evt.mem_no = mem.mem_no
+                left join rd_data.tb_member_withdrawal_bak outMem on evt.mem_no = outMem.mem_no
+                , (select @rownum := 0 ) rowNum
+            where
+                <include refid="memberListCondition" />
+            order by idx desc
+        )a
+        where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectEventMemberCnt" parameterType="com.dalbit.content.vo.EventMemberVo" resultType="int">
+        /* Con_Event.xml - selectEventMemberCnt */
+        select
+            count(*)
+        from rd_admin.tb_event_member evt
+            left join rd_data.tb_member_basic mem on evt.mem_no = mem.mem_no
+            left join rd_data.tb_member_withdrawal_bak outMem on evt.mem_no = outMem.mem_no
+        where
+            <include refid="memberListCondition" />
+    </select>
 </mapper>
