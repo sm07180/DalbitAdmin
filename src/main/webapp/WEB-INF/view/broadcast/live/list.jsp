@@ -43,7 +43,12 @@
             <div class="widget widget-table">
                 <div class="col-md-6">
                     <br/>
-                    <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
+                    <label id="liveTitle">
+                        ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>
+                        ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.<br/>
+                        ㆍ실시간 방송 랭킹 점수 산출 방법 <br/>
+                        &nbsp&nbsp: 누적청취자 2점(비회원 제외) + 받은 별 1점(부스터 건당 10별 제외) + 받은 좋아요 1점 + 부스터(만료) 20점 + 부스터 (진행중) 30점
+                    </label>
                     <br/>
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>

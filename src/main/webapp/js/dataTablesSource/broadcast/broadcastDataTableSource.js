@@ -62,20 +62,21 @@ var BroadcastDataTableSource = {
                     }
                     return 'NO';
                 }},
-            {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '55px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "명";
+            {'title': '누적 청취자<br/>(비회원)', 'data': 'totalListener','width' : '55px','render': function (data, type, row, meta) {
+                    var tmp = common.addComma(row.memTotalListener) + '명<br/>(' + common.addComma(row.notMemTotalListener) + '명)';
+                    return tmp;
                 }},
-            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + common.addComma(data)  + ' 명</a>';
+            {'title': '<lable style="color:red">청취자</lable><br/>(비회원)', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data, type, row, meta) {
+                    var tmp = common.addComma(row.memLiveListener) + '명<br/>(' + common.addComma(row.notMemLiveListener) + '명)';
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + tmp + '</a>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '부스터', 'data': 'boosterCnt','width' : '40px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "건";
+            {'title': '부스터 총 건<br/>(만료/진행)', 'data': 'boosterCnt','width' : '40px','render': function (data, type, row, meta) {
+                    var tmp = common.addComma(data) + '건<br/>(' + common.addComma(data - row.liveBoostCnt ) +"건 / " + common.addComma(row.liveBoostCnt) + '건)';
+                    return tmp;
                 }},
             {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(data);
