@@ -563,6 +563,56 @@ public enum Status {
     크루원삭제_성공("0", "crew.member.delete.success", "크루원 삭제 성공 시"),
     크루원삭제_실패("C006", "crew.member.delete.fail", "크루원 삭제 실패 시"),
 
+    // 이벤트관리
+    이벤트관리_리스트조회_성공("C001", "event.management.list.success", "이벤트 리스트 조회 성공 시"),
+    이벤트관리_리스트조회_데이터없음("0", "event.management.list.no.data", "이벤트 리스트 데이터가 없을 시"),
+
+    이벤트관리_상세정보조회_성공("0", "event.management.info.success", "이벤트 상세 정보 조회 성공 시"),
+    이벤트관리_상세정보조회_이벤트번호없음("-1", "event.management.info.no.eventIdx", "이벤트 번호가 없어 조회 실패 시"),
+
+    이벤트관리_이벤트등록_성공("0", "event.management.add.success", "이벤트 등록 성공 시"),
+    이벤트관리_이벤트등록_실패("-1", "event.management.add.fail", "이벤트 등록 실패 시"),
+
+    이벤트관리_이벤트수정_성공("0", "event.management.edit.success", "이벤트 수정 성공 시"),
+    이벤트관리_이벤트수정_이벤트번호없음("-1", "event.management.edit.no.eventIdx", "이벤트 번호가 없어 수정 실패 시"),
+
+    이벤트관리_이벤트삭제_성공("0", "event.management.delete.success", "이벤트 삭제 성공 시"),
+    이벤트관리_이벤트삭제_이벤트번호없음("-1", "event.management.delete.no.eventIdx", "이벤트 번호가 없어 삭제 실패 시"),
+
+    // 경품관리
+    이벤트관리_경품리스트조회_성공("C001", "event.prize.list.success", "이벤트 경품 리스트 조회 성공 시"),
+    이벤트관리_경품리스트조회_데이터없음("0", "event.prize.list.no.data", "이벤트 경품 리스트 데이터가 없을 시"),
+    이벤트관리_경품리스트조회_이벤트번호없음("-1", "event.prize.list.no.eventIdx", "이벤트 번호가 없어 경품 리스트 조회 실패 시"),
+
+    이벤트관리_경품등록_성공("0", "event.prize.add.success", "이벤트 경품 등록 성공 시"),
+    이벤트관리_경품등록_이벤트번호없음("-1", "event.prize.add.no.eventIdx", "이벤트 번호가 없어 경품 등록 실패 시"),
+
+    이벤트관리_경품상세조회_성공("0", "event.prize.detail.success", "이벤트 경품 상세 조회 성공 시"),
+    이벤트관리_경품상세조회_이벤트번호없음("-1", "event.prize.detail.no.eventIdx", "이벤트 번호가 없어 경품 상세 조회 실패 시"),
+    이벤트관리_경품상세조회_경품번호없음("-2", "event.prize.detail.no.prizeIdx", "경품 번호가 없어 경품 상세 조회 실패 시"),
+
+    이벤트관리_경품수정_성공("0", "event.prize.edit.success", "이벤트 경품 수정 성공 시"),
+    이벤트관리_경품수정_이벤트번호없음("-1", "event.prize.edit.no.eventIdx", "이벤트 번호가 없어 경품 수정 실패 시"),
+    이벤트관리_경품수정_경품번호없음("-2", "event.prize.edit.no.prizeIdx", "경품 번호가 없어 경품 수정 실패 시"),
+
+    이벤트관리_경품삭제_성공("0", "event.prize.delete.success", "이벤트 경품 삭제 성공 시"),
+//    이벤트관리_경품삭제_이벤트번호없음("-1", "event.prize.delete.no.eventIdx", "이벤트 번호가 없어 경품 삭제 실패 시"),
+//    이벤트관리_경품삭제_경품번호없음("-2", "event.prize.delete.no.prizeIdx", "경품 번호가 없어 경품 삭제 실패 시"),
+    이벤트관리_경품삭제_실패("C006", "event.prize.delete.fail", "이벤트 경품 삭제 실패 시"),
+
+    // 응모자/당첨자 관리
+    이벤트관리_응모자당첨자정보조회_성공("C001", "event.winner.info.success", "이벤트 응모자/당첨자 정보 조회 성공 시"),
+    이벤트관리_응모자당첨자정보조회_리스트없음("0", "event.winner.info.no,data", "이벤트 응모자/당첨자 정보 데이터가 없을 시"),
+    이벤트관리_응모자당첨자정보조회_이벤트번호없음("-1", "event.winner.info.no.eventIdx", "이벤트 번호가 없어 응모자/당첨자 정보 조회 실패 시"),
+
+    이벤트관리_응모자당첨자리스트조회_성공("C001", "event.winner.applicant.list.success", "이벤트 응모자/당첨자 리스트 조회 성공 시"),
+    이벤트관리_응모자당첨자리스트조회_리스트없음("0", "event.winner.applicant.list.no,data", "이벤트 응모자/당첨자 리스트 데이터가 없을 시"),
+    이벤트관리_응모자당첨자리스트조회_이벤트번호없음("-1", "event.winner.applicant.list.no.eventIdx", "이벤트 번호가 없어 응모자/당첨자 리스트 조회 실패 시"),
+
+    이벤트관리_당첨자리스트조회_성공("C001", "event.winner.list.success", "이벤트 당첨자 리스트 조회 성공 시"),
+    이벤트관리_당첨자리스트조회_리스트없음("0", "event.winner.list.no,data", "이벤트 당첨자 리스트 데이터가 없을 시"),
+    이벤트관리_당첨자리스트조회_이벤트번호없음("-1", "event.winner.list.no.eventIdx", "이벤트 번호가 없어 당첨자 리스트 조회 실패 시"),
+
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
     방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),
