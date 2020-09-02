@@ -437,14 +437,16 @@ public class Bro_BroadcastService {
      */
     public String callLiveListenerList(P_BroadcastListInputVo pBroadcastListInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
-        ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(procedureVo);
-        P_BroadcastListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_BroadcastListOutputVo.class);
+        ArrayList<P_LiveListenerListOutputVo> liveListenerList = bro_BroadcastDao.callLiveListenerList(procedureVo);
+        P_LiveListenerListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_LiveListenerListOutputVo.class);
+
+
 
         String result = "";
-        if(broadList.size() > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, broadList, new PagingVo(procedureVo.getRet()),summary));
+        if(liveListenerList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송청취자목록보기_성공, liveListenerList, new PagingVo(procedureVo.getRet()),summary));
         }else{
-            result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송청취자목록보기_실패));
         }
         return result;
     }
