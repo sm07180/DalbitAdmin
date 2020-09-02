@@ -108,7 +108,7 @@
                 </if>
 
                 <if test='search_testId == 1'>
-                    and basic.inner = 0
+                    and (basic.inner = 0 or withdrawal.inner = 0)
                 </if>
 
                 <choose>

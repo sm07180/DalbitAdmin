@@ -455,9 +455,7 @@
     {{#each this as |rank|}}
         <tr>
             <td>
-                {{rowNum}}
-                <%--{{djRank}} <br /><br />--%>
-                <%--{{upDown}}--%>
+                {{djRank}}
             </td>
             <td style="width: 50px">
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
@@ -539,9 +537,7 @@
     {{#each this as |fan|}}
         <tr>
             <td>
-                {{rowNum}}
-                <%--{{fanRank}} <br /><br />--%>
-                <%--{{upDown}}--%>
+                {{fanRank}}
             </td>
             <td style="width: 50px">
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />

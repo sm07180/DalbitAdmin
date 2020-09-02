@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- serachBox -->
 <form id="searchForm">
@@ -342,7 +343,7 @@
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="width: 80%">
+    <table class="table table-bordered table-summary pull-right" style="width: 100%">
         <tr>
             <th colspan="8" style="background-color: #bf9000;color: white">방송방</th>
             <th colspan="3" style="background-color: #2f5496;color: white">청취자</th>

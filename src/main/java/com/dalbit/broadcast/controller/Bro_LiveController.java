@@ -24,4 +24,7 @@ public class Bro_LiveController {
 
     @RequestMapping("popup/storyPopup")
     public String storyPopup(Model model) { return "broadcast/live/popup/storyPopup"; }
+
+    @RequestMapping("popup/noticeSendPopup")
+    public String noticeSendPopup(Model model) { return "broadcast/live/popup/noticeSendPopup"; }
 }
