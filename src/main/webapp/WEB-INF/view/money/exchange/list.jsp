@@ -752,7 +752,7 @@
             <col width="6%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <!--<col width="7%"/>-->
+            <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
@@ -856,7 +856,7 @@
 
     {{else}}
     <tr>
-        <td colspan="23">{{isEmptyData}}</td>
+        <td colspan="24">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
