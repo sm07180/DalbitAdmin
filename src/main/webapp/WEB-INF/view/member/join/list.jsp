@@ -217,74 +217,6 @@
     var _memLoginIdSort_withdrawal = -1;
     var _memIpSort_withdrawal = -1;
 
-    var dtList_info_data = function ( data ) {
-        data.searchText = tmp_searchText;                        // 검색명
-        data.testid = _testid;
-        data.memWithdrawal = memWithdrawal;
-        data.memJoinDateSort = _memJoinDateSort;
-        data.memNickSort = _memNickSort;
-        data.memLoginIdSort = _memLoginIdSort;
-        data.memIpSort = _memIpSort;
-        data.memJoinPath = tmp_joinPath;
-
-        data.sDate = tmp_sDate;
-        data.eDate = tmp_eDate;
-    };
-    dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
-    dtList_info.useCheckBox(false);
-    dtList_info.useIndex(true);
-    dtList_info.useInitReload(false);
-    dtList_info.setPageLength(100);
-    dtList_info.createDataTable(joinListSummary);
-
-    var dtList_info2;
-    var dtList_info_data2 = function ( data ) {
-        data.searchText = tmp_searchText;                        // 검색명
-        data.testid = _testid;
-        data.memWithdrawal = memWithdrawal;
-        data.memJoinDateSort_withdrawal = _memJoinDateSort_withdrawal;
-        data.memNickSort_withdrawal = _memNickSort_withdrawal;
-        data.memLoginIdSort_withdrawal = _memLoginIdSort_withdrawal;
-        data.memIpSort_withdrawal = _memIpSort_withdrawal;
-        data.memJoinPath = tmp_joinPath;
-        data.sDate = tmp_sDate;
-        data.eDate = tmp_eDate;
-    };
-    dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.withdrawalList);
-    dtList_info2.useCheckBox(false);
-    dtList_info2.useIndex(true);
-    dtList_info2.useInitReload(false);
-    dtList_info2.setPageLength(100);
-    dtList_info2.createDataTable(withdrawalListSummary);
-
-    var testid = '<br/><br/><span id="memJoinDateSort" onchange="joinSort();"></span>' +
-                '<span id="memNickSort" onchange="joinSort();"></span>' +
-                '<span id="memLoginIdSort" onchange="joinSort();"></span>' +
-                '<span id="memIpSort" onchange="joinSort();"></span></div>';
-    $("#memberList").find(".top-left").append(testid);
-    $("#memJoinDateSort").html(util.getCommonCodeSelect(-1, memJoinDateSort));
-    $("#memNickSort").html(util.getCommonCodeSelect(-1, memNickSort));
-    $("#memLoginIdSort").html(util.getCommonCodeSelect(-1, memLoginIdSort));
-    $("#memIpSort").html(util.getCommonCodeSelect(-1, memIpSort));
-
-
-    var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#memberList").find(".footer-right").append(excel);
-
-    var testid_withdrawal = '<br/><br/><span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
-                            '<span id="memNickSort_withdrawal" onchange="withdrawalSort();"></span>' +
-                            '<span id="memLoginIdSort_withdrawal" onchange="withdrawalSort();"></span>' +
-                            '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span></div>';
-    $("#withdrawalList").find(".top-left").append(testid_withdrawal);
-    $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
-    $("#memJoinDateSort_withdrawal").html(util.getCommonCodeSelect(-1, memJoinDateSort));
-    $("#memNickSort_withdrawal").html(util.getCommonCodeSelect(-1, memNickSort));
-    $("#memLoginIdSort_withdrawal").html(util.getCommonCodeSelect(-1, memLoginIdSort));
-    $("#memIpSort_withdrawal").html(util.getCommonCodeSelect(-1, memIpSort));
-
-    var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
-
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
         tmp_searchText = $('#txt_search').val();
@@ -295,9 +227,76 @@
         console.log("memWithdrawal ------------------------");
         console.log(memWithdrawal);
         if(memWithdrawal == "0"){
-            dtList_info.reload(joinListSummary);
+            var dtList_info_data = function ( data ) {
+                data.searchText = tmp_searchText;                        // 검색명
+                data.testid = _testid;
+                data.memWithdrawal = memWithdrawal;
+                data.memJoinDateSort = _memJoinDateSort;
+                data.memNickSort = _memNickSort;
+                data.memLoginIdSort = _memLoginIdSort;
+                data.memIpSort = _memIpSort;
+                data.memJoinPath = tmp_joinPath;
+
+                data.sDate = tmp_sDate;
+                data.eDate = tmp_eDate;
+            };
+            dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
+            dtList_info.useCheckBox(false);
+            dtList_info.useIndex(true);
+            dtList_info.useInitReload(false);
+            dtList_info.setPageLength(100);
+            dtList_info.createDataTable(joinListSummary);
+            // dtList_info.reload(joinListSummary);
+
+            var testid = '<br/><br/><span id="memJoinDateSort" onchange="joinSort();"></span>' +
+                '<span id="memNickSort" onchange="joinSort();"></span>' +
+                '<span id="memLoginIdSort" onchange="joinSort();"></span>' +
+                '<span id="memIpSort" onchange="joinSort();"></span></div>';
+            $("#memberList").find(".top-left").append(testid);
+            $("#memJoinDateSort").html(util.getCommonCodeSelect(-1, memJoinDateSort));
+            $("#memNickSort").html(util.getCommonCodeSelect(-1, memNickSort));
+            $("#memLoginIdSort").html(util.getCommonCodeSelect(-1, memLoginIdSort));
+            $("#memIpSort").html(util.getCommonCodeSelect(-1, memIpSort));
+
+
+            var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+            $("#memberList").find(".footer-right").append(excel);
         }else{
-            dtList_info2.reload(withdrawalListSummary);
+            var dtList_info2;
+            var dtList_info_data2 = function ( data ) {
+                data.searchText = tmp_searchText;                        // 검색명
+                data.testid = _testid;
+                data.memWithdrawal = memWithdrawal;
+                data.memJoinDateSort_withdrawal = _memJoinDateSort_withdrawal;
+                data.memNickSort_withdrawal = _memNickSort_withdrawal;
+                data.memLoginIdSort_withdrawal = _memLoginIdSort_withdrawal;
+                data.memIpSort_withdrawal = _memIpSort_withdrawal;
+                data.memJoinPath = tmp_joinPath;
+                data.sDate = tmp_sDate;
+                data.eDate = tmp_eDate;
+            };
+            dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.withdrawalList);
+            dtList_info2.useCheckBox(false);
+            dtList_info2.useIndex(true);
+            dtList_info2.useInitReload(false);
+            dtList_info2.setPageLength(100);
+            dtList_info2.createDataTable(withdrawalListSummary);
+            // dtList_info2.reload(withdrawalListSummary);
+
+            var testid_withdrawal = '<br/><br/><span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
+                '<span id="memNickSort_withdrawal" onchange="withdrawalSort();"></span>' +
+                '<span id="memLoginIdSort_withdrawal" onchange="withdrawalSort();"></span>' +
+                '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span></div>';
+            $("#withdrawalList").find(".top-left").append(testid_withdrawal);
+            $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
+            $("#memJoinDateSort_withdrawal").html(util.getCommonCodeSelect(-1, memJoinDateSort));
+            $("#memNickSort_withdrawal").html(util.getCommonCodeSelect(-1, memNickSort));
+            $("#memLoginIdSort_withdrawal").html(util.getCommonCodeSelect(-1, memLoginIdSort));
+            $("#memIpSort_withdrawal").html(util.getCommonCodeSelect(-1, memIpSort));
+
+            var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+            $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
+
         }
     }
     function memberList(){
