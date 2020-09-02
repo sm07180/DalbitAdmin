@@ -100,16 +100,19 @@
 
     function liveListenForced(index){
         var data = dtList_info_lisetnUser.getDataRow(index);
-        var obj = {};
-        obj.mem_no = data.memNo;
-        obj.room_no = data.roomNo;
-        obj.mem_nickName = data.nickNm;
-        obj.roomBlock = "N";
-        obj.NotificationYn = "N";
-        obj.NotiMemo = "청취 강제 퇴장";
-        obj.forced = "exit";
+        if(confirm(data.nickNm + "님을 강제 퇴장 하시겠습니까?")){
+            var obj = {};
+            obj.mem_no = data.memNo;
+            obj.room_no = data.roomNo;
+            obj.mem_nickName = data.nickNm;
+            obj.roomBlock = "N";
+            obj.NotificationYn = "N";
+            obj.NotiMemo = "청취 강제 퇴장";
+            obj.forced = "exit";
 
-        util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave", obj, liveListenForced_success);
+            util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave", obj, liveListenForced_success);
+
+        }else{ return false ;}
 
     }
     function liveListenForced_success(dst_id, response){
