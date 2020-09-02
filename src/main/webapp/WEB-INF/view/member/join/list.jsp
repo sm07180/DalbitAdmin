@@ -292,6 +292,8 @@
         tmp_sDate = $("#startDate").val();
         tmp_eDate = $("#endDate").val();
 
+        console.log("memWithdrawal ------------------------");
+        console.log(memWithdrawal);
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
         }else{
