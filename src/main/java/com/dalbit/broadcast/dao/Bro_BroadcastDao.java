@@ -42,5 +42,7 @@ public interface Bro_BroadcastDao {
 
     int callBroadCastEditHistoryAdd(P_BroadcastEditInputVo pBroadcastEditInputVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_LiveListenerListOutputVo> callLiveListenerList(ProcedureVo procedureVo);
 
 }
