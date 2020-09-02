@@ -115,9 +115,44 @@
         }else{ return false ;}
 
     }
+
+    function liveListenNotice(index){
+        var data = dtList_info_lisetnUser.getDataRow(index);
+        tmp = "/broadcast/live/popup/noticeSendPopup?memNo=" + data.memNo + "&memNick=" + data.nickNm;
+        util.windowOpen(tmp,"750","320","회원 메시지발송");
+
+
+        // if(confirm(data.nickNm + "에게 알림을 보내시겠습니까?")){
+        //     var obj = {};
+        //     obj.image_type = "101";
+        //     obj.is_all = "7";
+        //     obj.is_direct = "0";
+        //     obj.mem_nos = data.memNo;
+        //     obj.platform =  "111";
+        //     obj.push_idx = "";
+        //     obj.send_cnt = 1;
+        //     obj.send_cont = "[내부개발] 운영자가 선물을 보냈습니다.";
+        //     obj.send_datetime = "202009020000";
+        //     obj.send_title = "[내부개발] 테스트 입니다";
+        //     obj.send_type = "01";
+        //     obj.slct_push = "2";
+        //     obj.send_datetime = "202009020000";
+        //     obj.status = 0;
+        //     obj.target_mem_no = "10000000000001";
+        //     obj.timeHour = "00";
+        //     obj.timeMinute = "00";
+        //     obj.msg_type = 0;
+        //
+        //     util.getAjaxData("insert", "/rest/content/push/insert", obj, fn_notice_add_success);
+        // }else{ return false ;}
+    }
+
     function liveListenForced_success(dst_id, response){
         dalbitLog(response);
         dtList_info_lisetnUser.reload(liveNextFunc);
+    }
+    function fn_notice_add_success(dst_id, response){
+        dalbitLog(response);
     }
 
 </script>

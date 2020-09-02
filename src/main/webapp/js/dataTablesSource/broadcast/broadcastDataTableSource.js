@@ -528,7 +528,7 @@ var BroadcastDataTableSource = {
             {'title': '당일 청취 수', 'data': 'listenCnt', 'render': function (data, type, row, meta) {
                     return data + " 번";
                 }},
-            {'title': '좋아요 수', 'data': 'goodCnt', 'render': function (data, type, row, meta) {
+            {'title': '좋아요(부스트) 수', 'data': 'goodCnt', 'render': function (data, type, row, meta) {
                     return data + " (" + row.boosterCnt +")";
                 }},
             {'title': '선물 수', 'data': 'giftCnt', 'render': function (data, type, row, meta) {
@@ -536,8 +536,8 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     var tmp;
-                    tmp = '<button type="button" class="btn btn-danger btn-xs" onclick="liveListenForced( ' + meta.row + ' );" >강제퇴장</button><br/>';
-                    // tmp = tmp + '<button type="button" id="bt_broadcastGo" class="btn btn-default btn-xs" style="width: 60px;margin-bottom: 1px" onclick="liveListenForced( ' + meta.row + ' );">운영자알림</button>';
+                    tmp = '<button type="button" class="btn btn-danger btn-xs" onclick="liveListenForced( ' + meta.row + ' );" style="width: 75px;margin-bottom: 1px" >강제퇴장</button><br/>';
+                    // tmp = tmp + '<button type="button" class="btn btn-default btn-xs" style="width: 75px" onclick="liveListenNotice( ' + meta.row + ' );">운영자알림</button>';
                     return tmp;
                 }},
         ]
