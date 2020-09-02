@@ -538,8 +538,6 @@
         <tr>
             <td>
                 {{fanRank}}
-                <%--{{fanRank}} <br /><br />--%>
-                <%--{{upDown}}--%>
             </td>
             <td style="width: 50px">
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
