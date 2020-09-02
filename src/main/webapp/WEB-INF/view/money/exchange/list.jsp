@@ -55,7 +55,7 @@
                         <a href="#recommend" id="tab_user" name="tab_user" role="tab" data-toggle="tab" data-specialDj="0">일반회원</a>
                     </li>
 
-                    <c:if test="${fn:contains('|고병권|이재호|양효진', principal.getUserInfo().getName())}">
+                    <c:if test="${fn:contains('|이재은|이형원|전유신|강다인|고병권|이재호|양효진|최계석|손우걸|', principal.getUserInfo().getName())}">
                         <li class="_tab ml15">
                             <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">불가내역</a>
                         </li>
