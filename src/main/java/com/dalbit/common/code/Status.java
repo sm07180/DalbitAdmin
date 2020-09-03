@@ -617,6 +617,20 @@ public enum Status {
     이벤트관리_당첨자리스트조회_리스트없음("0", "event.winner.list.no,data", "이벤트 당첨자 리스트 데이터가 없을 시"),
     이벤트관리_당첨자리스트조회_이벤트번호없음("-1", "event.winner.list.no.eventIdx", "이벤트 번호가 없어 당첨자 리스트 조회 실패 시"),
 
+    이벤트관리_당첨자추가_성공("0", "event.winner.add.success", "이벤트 당첨자 추가 성공 시"),
+    이벤트관리_당첨자추가_실패("1", "event.winner.add.fail", "이벤트 당첨자 추가 실패 시"),
+    이벤트관리_당첨자추가_이벤트번호없음("-1", "event.winner.add.no.eventIdx", "이벤트 번호가 없어 당첨자 추가 실패 시"),
+    이벤트관리_당첨자추가_경품번호없음("-2", "event.winner.add.no.prizeIdx", "경품번호가 없어 당첨자 추가 실패 시"),
+    이벤트관리_당첨자추가_당첨인원초과("-3", "event.winner.add.exceed.winner", "당첨자 추가 시 당첨 인원을 초과했을 때"),
+    이벤트관리_당첨자추가_응모자리스트없음("-4", "event.winner.add.no.applicant.list", "당첨자 추가 시 응모자 리스트에 없을 때"),
+    이벤트관리_당첨자추가_당첨자선정완료후추가안됨("-5", "event.winner.no.add.already.complete", "선정 완료 후에 당첨자로 추가가 되지 않았을 때(선정중으로 변경해야함)"),
+
+    이벤트관리_당첨자취소_성공("0", "event.winner.delete.success", "이벤트 당첨자 취소 성공 시"),
+    이벤트관리_당첨자취소_실패("1", "event.winner.delete.fail", "이벤트 당첨자 취소 실패 시"),
+    이벤트관리_당첨자취소_이벤트번호없음("-1", "event.winner.delete.no.eventIdx", "이벤트 번호가 없어 당첨자 취소 실패 시"),
+    이벤트관리_당첨자취소_당첨자번호리스트없음("-2", "event.winner.delete.no.winnerIdxList", "당첨자 취소 시 당첨자 번호 리스트가 없을 때"),
+    이벤트관리_당첨자취소_당첨자선정완료후삭제안됨("-3", "event.winner.no.delete.already.complete", "선정 완료 후에 당첨자가 취소가 되지 않았을 때(선정중으로 변경해야함)"),
+
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
     방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),

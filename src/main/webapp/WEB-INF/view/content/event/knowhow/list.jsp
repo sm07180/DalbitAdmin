@@ -280,11 +280,11 @@
         <td>{{item.good_cnt}}</td>
         <td>{{item.view_cnt}}</td>
         <td>
-            {{#equal item.slct_device 1}}mobile{{/equal}}
-            {{#equal item.slct_device 2}}mobile{{/equal}}
-            {{#equal item.slct_device 3}}pc{{/equal}}
-            {{#equal item.slct_device 4}}pc{{/equal}}
-            {{#equal item.slct_device 5}}pc{{/equal}}
+            {{#equal item.slct_device 1}}pc{{/equal}}
+            {{#equal item.slct_device 2}}pc{{/equal}}
+            {{#equal item.slct_device 3}}모바일{{/equal}}
+            {{#equal item.slct_device 4}}모바일{{/equal}}
+            {{#equal item.slct_device 5}}모바일{{/equal}}
         </td>
         <td>
             {{#equal item.slct_device 1}}데스크탑{{/equal}}

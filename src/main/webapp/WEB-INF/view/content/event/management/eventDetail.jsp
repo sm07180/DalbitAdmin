@@ -48,15 +48,15 @@
 
     $(document).on('click', '#alwaysYnCheck', function() {
         if($(this).prop('checked')) {
-            // $('#eventStartDate').val("");
+            $('#eventStartDate').val("");
             $('#eventStartDate').prop('disabled', true);
-            // $('#eventEndDate').val("");
+            $('#eventEndDate').val("");
             $('#eventEndDate').prop('disabled', true);
         } else {
             $('#eventStartDate').prop('disabled', false);
-            // $('#eventStartDate').val(dateTime);
+            $('#eventStartDate').val(dateTime);
             $('#eventEndDate').prop('disabled', false);
-            // $('#eventEndDate').val(dateTime);
+            $('#eventEndDate').val(dateTime);
         }
     });
 

@@ -281,6 +281,11 @@ public class Con_EventService {
      */
     public String callEventManagementAdd(P_EventManagementAddVo pEventManagementAddVo) {
         pEventManagementAddVo.setOpName(MemberVo.getMyMemNo());
+
+        if(pEventManagementAddVo.getAlwaysYn() == 1){
+            pEventManagementAddVo.setStartDate(null);
+            pEventManagementAddVo.setEndDate(null);
+        }
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementAddVo);
 
         con_EventDao.callEventManagementAdd(procedureVo);
@@ -524,6 +529,56 @@ public class Con_EventService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_이벤트번호없음));
         }
 
+        return result;
+    }
+
+    /**
+     * 당첨자 추가
+     */
+    public String callEventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) {
+        pEventWinnerAddVo.setOpName(MemberVo.getMyMemNo());
+        ProcedureVo procedureVo = new ProcedureVo(pEventWinnerAddVo);
+        con_EventDao.callEventWinnerAdd(procedureVo);
+
+        String result;
+        if(Status.이벤트관리_당첨자추가_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_성공));
+        } else if(Status.이벤트관리_당첨자추가_실패.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_실패));
+        } else if(Status.이벤트관리_당첨자추가_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_이벤트번호없음));
+        } else if(Status.이벤트관리_당첨자추가_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_경품번호없음));
+        } else if(Status.이벤트관리_당첨자추가_당첨인원초과.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_당첨인원초과));
+        } else if (Status.이벤트관리_당첨자추가_응모자리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_응모자리스트없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_당첨자선정완료후추가안됨));
+        }
+        return result;
+    }
+
+    /**
+     * 당첨자 취소
+     */
+    public String callEventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) {
+        pEventWinnerDeleteVo.setOpName(MemberVo.getMyMemNo());
+        ProcedureVo procedureVo = new ProcedureVo(pEventWinnerDeleteVo);
+        con_EventDao.callEventWinnerDelete(procedureVo);
+
+        String result;
+        if(Status.이벤트관리_당첨자취소_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_성공));
+        } else if(Status.이벤트관리_당첨자취소_실패.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_실패));
+        } else if(Status.이벤트관리_당첨자취소_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_이벤트번호없음));
+        } else if(Status.이벤트관리_당첨자취소_당첨자번호리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자번호리스트없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자선정완료후삭제안됨));
+        }
         return result;
     }
 
