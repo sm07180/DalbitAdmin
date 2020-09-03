@@ -1,9 +1,123 @@
 var EventDataTableSource = {
+    'eventList' : {
+        'url' : '/rest/content/event/management/list'
+        , 'columns': [
+            {'title': '이벤트 상태', 'data' : 'state', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_stateSlct);
+                }},
+            {'title': '이벤트 제목', 'data' : 'title', 'render' : function(data, type, row, meta) {
+                return '<a href="javascript://" class="_getEventDetail" data-eventidx="'+ row.eventIdx +'">' + data + '</a>'
+                }},
+            {'title': '이벤트 기간', 'data' : 'alwaysYn', 'render' : function(data, type, row, meta) {
+                var startDate = common.convertToDate(row.startDate).split(" ")[0];
+                var endDate = common.convertToDate(row.endDate).split(" ")[0];
+                if(data == 0) {
+                    return startDate + " ~ " + endDate;
+                } else if(data == 1) {
+                    return util.getCommonCodeLabel(data, event_alwaysYn);
+                }
+                }},
+            {'title': '노출 여부', 'data' : 'viewYn', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_viewYn);
+                }},
+            {'title': '응모자 수', 'data' : '', 'render' : function(data) {
+                if(data == null || data == 0) {
+                    return '-';
+                } else {
+                    return common.addComma(data);
+                }
+                }},
+            {'title': '당첨자 발표', 'data' : 'announceYn', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_announceYn);
+                }},
+            {'title': '최종 수정일', 'data' : 'lastUpdDate', 'render' : function(data) {
+                return common.convertToDate(data);
+                }},
+            {'title': '최종 수정자', 'data' : 'lastOpName'},
+        ]
+    },
+
+    'eventPrize' : {
+        'url' : '/rest/content/event/management/prize/list'
+        , 'columns': [
+            {'title': '등수', 'data' : 'prizeRank', 'render' : function(data) {
+                return common.addComma(data);
+                }},
+            {'title': '당첨 인원', 'data' : 'prizeCnt', 'render' : function(data) {
+                return common.addComma(data);
+                }},
+            {'title': '경품명', 'data' : 'prizeName', 'render' : function(data, type, row, meta) {
+                return '<a href="javascript://" class="_getPrizeDetail" data-eventidx="'+ row.eventIdx +'" data-prizeidx="'+ row.prizeIdx +'">' + data + '</a>'
+                }},
+            {'title': '경품 구분', 'data' : 'prizeSlct', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_prizeReceive);
+                }},
+            {'title': '금액', 'data' : 'giveAmt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '제세공과금', 'data' : 'taxAmt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '달/별 수', 'data' : 'dalByeol', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '달로 받기', 'data' : 'receiveDal', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '최종 수정일', 'data' : 'lastUpdDate', 'render' : function(data) {
+                    return common.convertToDate(data);
+                }},
+            {'title': '최종 수정자', 'data' : 'lastOpName'},
+        ]
+    },
+
+    'eventWinnerApplicant' : {
+        'url' : '/rest/content/event/management/winner/applicant'
+        , 'columns': [
+            {'title': '회원번호', 'data' : 'mem_no'},
+            {'title': '닉네임', 'data' : 'nickName'},
+            {'title': '응모 횟수', 'data' : 'applyCnt'},
+            {'title': '결제 금액', 'data' : 'payAmt'},
+            {'title': '방송 시간', 'data' : 'airTime'},
+            {'title': '좋아요', 'data' : 'goodCnt'},
+            {'title': '경험치', 'data' : 'expCnt'},
+            {'title': '받은 선물', 'data' : 'giftedCnt'},
+            {'title': '보낸 선물', 'data' : 'giftCnt'},
+            {'title': '팬 수', 'data' : 'fanCnt'},
+            {'title': '당첨 여부', 'data' : 'prizeWin'},
+            {'title': '등수', 'data' : 'prizeRank'},
+            {'title': '응모일시', 'data' : 'applyDate'},
+            {'title': '상세 정보', 'data' : 'add_idx', 'render': function(data, type, row, meta) {
+                return '<button>상세보기</button>';
+                }},
+        ]
+    },
+
+    'eventWinner' : {
+        'url' : '/rest/content/event/management/winner/list'
+        , 'columns': [
+            {'title': '경품번호', 'data' : 'prizeIdx'},
+            {'title': '등수', 'data' : 'prizeRank'},
+            {'title': '당첨 인원', 'data' : 'prizeCnt'},
+            {'title': '경품명', 'data' : 'prizeName'},
+            {'title': '회원번호', 'data' : 'mem_no'},
+            {'title': '닉네임', 'data' : 'nickName'},
+            {'title': '본인인증 여부', 'data' : 'certificationYn'},
+            {'title': '미성년자 여부', 'data' : 'minorYn'},
+            {'title': '수령방법', 'data' : 'receiveWay'},
+            {'title': '추가 정보', 'data' : 'addInfo'},
+            {'title': '입금 확인', 'data' : 'depositConfirm'},
+            {'title': '상세 정보', 'data' : 'addIdx', 'render': function(data, type, row, meta) {
+                    return '<button>상세보기</button>';
+                }},
+        ]
+    },
+
     'event': {
         'url': '/rest/content/event/list'
         , 'columns': [
-            {'title': '진행여부', 'data': 'state'},
-            {'title': '구분', 'data': 'platform', 'render': function (data, type, row, meta) {
+            {'title': '이벤트 상태', 'data': 'state'},
+            {'title': '이벤트 제목', 'data': 'platform', 'render': function (data, type, row, meta) {
                 var arrCode = data.toString().split("");
                 if(arrCode.length < 3)
                     return data;
@@ -19,22 +133,22 @@ var EventDataTableSource = {
                 }
                 return result;
             }},
-            {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
+            {'title': '이벤트 기간', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
                 return '<img class="thumbnail" src="' + data + '" style="width: 45px; height: 45px;" onclick="eventList_fullSize(this.src);" />'
             }},
-            {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
+            {'title': '노출 여부', 'data': 'event_title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_eventList.getEventDetail_info('+meta.row+');">' + data + '</a>'
                 }},
-            {'title': '이벤트 기간', 'data': 'startDatetimeFormat', 'render': function (data, type, row, meta) {
+            {'title': '응모자 수', 'data': 'startDatetimeFormat', 'render': function (data, type, row, meta) {
                 var tmp = data + " ~ " + row.endDatetimeFormat;
                 return tmp;
             }},
-            {'title': '노출 기간', 'data': 'viewStartDatetimeFormat', 'render': function (data, type, row, meta) {
+            {'title': '당첨자 발표', 'data': 'viewStartDatetimeFormat', 'render': function (data, type, row, meta) {
                 var tmp = data + " ~ " + row.viewEndDatetimeFormat;
                 return tmp;
             }},
-            {'title': '조회수', 'data': 'event_col10', 'defaultContent': '0'},
-            {'title': '총 응모자', 'data': 'mem_cnt', 'render': function (data) {
+            {'title': '최종 수정일', 'data': 'event_col10', 'defaultContent': '0'},
+            {'title': '최종 수정자', 'data': 'mem_cnt', 'render': function (data) {
                     return data + " 명";
                 }},
             {'title': '<label style="color: blue">남</lable>', 'data': 'male_cnt', 'render': function (data) {
@@ -47,7 +161,6 @@ var EventDataTableSource = {
         ]
         , 'comments': '<div>• 이벤트 기간을 기준으로 이벤트 기간 마감 1초전까지의 리스트입니다.</div><div>• [등록 ]버튼 클릭 시 이벤트 상세정보 입력 페이지를 제공하고 , 선택 시 해당 이벤트 상세페이지를 확인 및 관리할 수 있습니다.</div><div>• 이벤트 제목 클릭 시 미리보기가 가능합니다.</div>'
     },
-
 
     'endEvent': {
         'url': '/rest/content/event/list'

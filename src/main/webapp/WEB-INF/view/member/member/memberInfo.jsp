@@ -1097,7 +1097,7 @@
             </td>
             <th>법정대리인<br>(보호자)</br>동의</th>
             <td>
-                {{#equal ../parents_agree_yn 'y'}}
+                {{#equal parents_agree_yn 'y'}}
                 <label style="color: red; font-weight: bold;">Yes</label>
                 <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
                 <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>

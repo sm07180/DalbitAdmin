@@ -37,4 +37,10 @@ public class Con_UserRestController {
         return result;
     }
 
+    @PostMapping("info/current/live/summary")
+    public String currentLiveSummary(P_UserCurrentInputVo pUserCurrentInputVo){
+        String result = con_UserService.callCurrentLiveSummary(pUserCurrentInputVo);
+        return result;
+    }
+
 }

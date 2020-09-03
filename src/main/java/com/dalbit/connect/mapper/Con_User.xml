@@ -10,4 +10,7 @@
         call rd_admin.sp_admin_connect_stat_current_member(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callCurrentLiveSummary" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.connect.vo.procedure.P_ConnectNonBroadOutDetailVo">
+        call rd_admin.sp_admin_connect_none_broad_member(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

@@ -421,6 +421,15 @@ public class Men_SpecialService {
             });
 
 
+            //컨텐츠 삭제 후 다시 등록
+            menSpecialDao.deleteManageContent(specialDjManageVo);
+            specialDjManageVo.getContentList().stream().forEach(content -> {
+                content.setSelect_year(specialDjManageVo.getSelect_year());
+                content.setSelect_month(specialDjManageVo.getSelect_month());
+                menSpecialDao.insertManageContent(content);
+            });
+
+
             return gsonUtil.toJson(new JsonOutputVo(Status.수정));
 
         }catch (Exception e){

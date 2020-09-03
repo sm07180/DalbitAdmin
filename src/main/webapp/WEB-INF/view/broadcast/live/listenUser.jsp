@@ -100,22 +100,33 @@
 
     function liveListenForced(index){
         var data = dtList_info_lisetnUser.getDataRow(index);
-        var obj = {};
-        obj.mem_no = data.memNo;
-        obj.room_no = data.roomNo;
-        obj.mem_nickName = data.nickNm;
-        obj.roomBlock = "N";
-        obj.NotificationYn = "N";
-        obj.NotiMemo = "청취 강제 퇴장";
-        obj.forced = "exit";
+        if(confirm(data.nickNm + "님을 강제 퇴장 하시겠습니까?")){
+            var obj = {};
+            obj.mem_no = data.memNo;
+            obj.room_no = data.roomNo;
+            obj.mem_nickName = data.nickNm;
+            obj.roomBlock = "N";
+            obj.NotificationYn = "N";
+            obj.NotiMemo = "청취 강제 퇴장";
+            obj.forced = "exit";
 
-        util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave", obj, liveListenForced_success);
+            util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave", obj, liveListenForced_success);
+
+        }else{ return false ;}
 
     }
+
+    function liveListenNotice(index){
+        var data = dtList_info_lisetnUser.getDataRow(index);
+        tmp = "/broadcast/live/popup/noticeSendPopup?memNo=" + encodeURIComponent(data.memNo) + "&memNick=" + encodeURIComponent(data.nickNm);
+        util.windowOpen(tmp,"750","320","회원 메시지발송");
+    }
+
     function liveListenForced_success(dst_id, response){
         dalbitLog(response);
         dtList_info_lisetnUser.reload(liveNextFunc);
     }
+
 
 </script>
 
@@ -146,7 +157,7 @@
             <td>{{addComma content.noneCnt}}</td>
         </tr>
         <tr>
-            <td colspan="6" class="font-bold" style="background-color: #7f7f7f;color: white">{{addComma content.totalCnt}}</td>
+            <td colspan="6" class="font-bold" style="background-color: #7f7f7f;color: white">총 수 {{addComma content.totalCnt}}</td>
         </tr>
     </table>
 </script>

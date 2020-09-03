@@ -191,6 +191,16 @@ common.timeStampMinutes = function(time){
     return time ;
 }
 
+common.timeStampDay = function(time){
+    time = parseInt(time);
+    var day = Math.floor((time / 3600)/24);
+    var hours = common.lpad(Math.floor(time - ((day * 3600) * 24) / 3600),2,"0");
+    var minutes = common.lpad(Math.floor((time - (hours * 3600)) /60),2,"0");
+    var seconds = common.lpad(time - (hours * 3600) - (minutes * 60),2,"0");
+    var time = day + "일 " + hours  + "시" + minutes + "분" + seconds + "초";
+    return time ;
+}
+
 common.profileImage = function(PHOTO_SERVER_URL, path, gender){
     var image;
     if(common.isEmpty(path)){
