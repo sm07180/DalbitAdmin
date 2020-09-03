@@ -336,4 +336,43 @@ public class Con_EventService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
     }
+
+    public String selectEventMemberList(EventMemberVo eventMemberVo){
+        int totalCnt = con_EventDao.selectEventMemberCnt(eventMemberVo);
+        eventMemberVo.setTotalCnt(totalCnt);
+        List<EventMemberVo> list = con_EventDao.selectEventMemberList(eventMemberVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
+    }
+
+    public Model getEventMemberListExcel(EventMemberVo eventMemberVo, Model model) {
+        eventMemberVo.setTotalCnt(1000000);
+        eventMemberVo.setEvent_idx(EventCode.방송장비.getEventIdx());
+        List<EventMemberVo> list = con_EventDao.selectEventMemberList(eventMemberVo);
+
+        String[] headers = {"No", "회원번호", "닉네임", "신청일", "이름", "연락처", "방송소개"};
+        int[] headerWidths = {3000, 5000, 5000, 6000, 6000, 10000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", list.size()-i);
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
+            hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
+            hm.put("name", DalbitUtil.isEmpty(list.get(i).getName()) ? "" : list.get(i).getName());
+            hm.put("contact_no", DalbitUtil.isEmpty(list.get(i).getContact_no()) ? "" : list.get(i).getContact_no());
+            hm.put("recv_data_1", DalbitUtil.isEmpty(list.get(i).getRecv_data_1()) ? "" : list.get(i).getRecv_data_1());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("방송지원 신청 목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "방송지원 신청 목록");
+
+        return model;
+    }
 }

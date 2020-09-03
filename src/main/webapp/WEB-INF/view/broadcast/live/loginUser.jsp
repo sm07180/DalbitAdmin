@@ -4,9 +4,9 @@
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
     <div class="col-md-12 no-padding">
-        <div class="col-md-2 no-padding">
-            <span name="loginUserType" id="loginUserType" onchange="loginUserType_sel_change()"></span>
-        </div>
+        <%--<div class="col-md-2 no-padding">--%>
+            <%--<span name="loginUserType" id="loginUserType" onchange="loginUserType_sel_change()"></span>--%>
+        <%--</div>--%>
 
         <table id="loginUser_tableList" class="table table-sorting table-hover table-bordered datatable">
             <thead id="tableTop_detail">
@@ -34,27 +34,37 @@
 
     var dtList_info_loginUser;
     var slctType = 1;
-    function getLoginUserList(){
-        console.log($('input[name="testId"]:checked').val());
+    function getLoginUserList(tmp){
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 20;
             data.searchText = $("#txt_search").val();
-            data.inner = -1;
+            data.inner = 0;
             data.broad = 0;
         };
         dtList_info_loginUser = new DalbitDataTable($("#loginUser_tableList"), dtList_data, connectDataTableSource.current);
-        dtList_info_loginUser.setPageLength(20);
+        dtList_info_loginUser.setPageLength(50);
         dtList_info_loginUser.useCheckBox(false);
         dtList_info_loginUser.useIndex(true);
-        dtList_info_loginUser.createDataTable();
+        dtList_info_loginUser.createDataTable(loginNextFunc);
+    }
+    function loginNextFunc(json){
+        dalbitLog(json);
+        // var template = $("#live_tableSummary").html();
+        // var templateScript = Handlebars.compile(template);
+        // var data = {
+        //     content : json.summary
+        //     , length : json.recordsTotal
+        // };
+        // var html = templateScript(data);
+        // $("#live_summaryArea").html(html);
 
+        $("#tab_LoginUser").text("방송 외 접속 회원(" + json.recordsTotal + ")");
     }
 
-    function loginUserType_sel_change(){
-        var value = $("select[name='loginUserType']").val();
-        console.log("value : " + value);
-        slctType = value;
+    function getLoginUserList_tabClick(tmp){
+        $("#selJoinDate").hide();
+        liveState = tmp;
         dtList_info_loginUser.reload();
     }
 

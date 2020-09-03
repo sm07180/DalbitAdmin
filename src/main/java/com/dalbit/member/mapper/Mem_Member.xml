@@ -255,7 +255,7 @@
     <insert id="callMemberNotification_Add_ALL" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         insert into rd_data.tb_member_notification
             ( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  )
-            SELECT 
+            SELECT
                 a.mem_no
                 , IFNULL(#{type_noti},70)
                 , #{notiContents}
@@ -263,14 +263,14 @@
                 , IFNULL(#{targetMemNo}, #{reported_mem_no})
                 , IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL))
                 , IFNULL(#{targetRedirectUrl}, NULL)
-            FROM 
+            FROM
             (
-                SELECT 
+                SELECT
                     a.mem_no, b.all_ok, b.set_1, b.set_2, b.set_3, b.set_4, b.set_5, b.set_6, b.set_7
-                FROM 				      											 
-                    rd_data.tb_member_stmp_token AS a 
+                FROM
+                    rd_data.tb_member_stmp_token AS a
                     INNER JOIN rd_data.tb_member_setting AS b ON a.mem_no = b.mem_no
-                    INNER JOIN rd_data.tb_member_basic AS c ON a.mem_no = c.mem_no 
+                    INNER JOIN rd_data.tb_member_basic AS c ON a.mem_no = c.mem_no
                 WHERE
                     length(a.device_token) > 0
                     <if test=" slctOs != null and slctOs != '' ">

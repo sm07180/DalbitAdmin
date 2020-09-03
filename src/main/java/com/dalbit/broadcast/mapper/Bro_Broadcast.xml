@@ -35,6 +35,7 @@
         call rd_admin.sp_admin_broadcast_room_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+
     <select id="callBroadcastEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         call rd_admin.sp_admin_broadcast_room_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
@@ -146,5 +147,9 @@
         insert into rd_data.tb_broadcast_room_edit_history (room_no,edit_contents,op_name,last_upd_date)
          value (#{room_no}, #{editContents}, #{opName}, now())
     </insert>
+
+    <select id="callLiveListenerList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_LiveListenerListOutputVo">
+        call rd_admin.sp_admin_broadcast_room_listener(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 </mapper>

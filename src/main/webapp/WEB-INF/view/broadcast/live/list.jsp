@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- serachBox -->
 <form id="searchForm">
@@ -33,17 +34,22 @@
 
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간방송</a></li>
-        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList();">실시간청취자</a></li>
-        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList();">방송외접속회원</a></li>
-        <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료방송</a></li>
+        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간 방송</a></li>
+        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);">실시간 청취자</a></li>
+        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);">방송 외 접속 회원</a></li>
+        <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>
     </ul>
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active" id="liveList" >
             <div class="widget widget-table">
                 <div class="col-md-6">
                     <br/>
-                    <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
+                    <label id="liveTitle">
+                        ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>
+                        ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.<br/>
+                        ㆍ실시간 방송 랭킹 점수 산출 방법 <br/>
+                        &nbsp&nbsp: 누적청취자 2점(비회원 제외) + 받은 별 1점(부스터 건당 10별 제외) + 받은 좋아요 1점 + 부스터(만료) 20점 + 부스터 (진행중) 30점
+                    </label>
                     <br/>
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
@@ -106,16 +112,24 @@
 
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
-            getSearch();
-            getListenUserList();
-            getLoginUserList();
+            if (liveState == 1 || liveState == 2) {
+                getSearch();
+            }else if(liveState == 3){
+                getListenUserList();
+            }else if(liveState == 4){
+                getLoginUserList();
+            }
         };
     });
 
     $('#bt_search').on('click', function(){
-        getSearch();
-        getListenUserList();
-        getLoginUserList();
+        if (liveState == 1 || liveState == 2) {
+            getSearch();
+        }else if(liveState == 3){
+            getListenUserList();
+        }else if(liveState == 4){
+            getLoginUserList();
+        }
     });
 
 
@@ -150,7 +164,7 @@
     });
 
 
-    var liveState=1;
+    var liveState = 1;
     var room_liveType = 1;
     var dtList_info="";
     // liveList(1);
@@ -271,7 +285,9 @@
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
 
-        $("#tab_liveList").text("실시간방송(" + json.summary.totalBroadCastCnt + ")");
+        if(liveState == 1) {
+            $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+        }
     }
 
     function getSearch(){
@@ -327,7 +343,7 @@
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="width: 80%">
+    <table class="table table-bordered table-summary pull-right" style="width: 100%">
         <tr>
             <th colspan="8" style="background-color: #bf9000;color: white">방송방</th>
             <th colspan="3" style="background-color: #2f5496;color: white">청취자</th>
