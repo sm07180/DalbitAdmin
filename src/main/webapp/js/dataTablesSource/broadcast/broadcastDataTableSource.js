@@ -537,8 +537,49 @@ var BroadcastDataTableSource = {
             {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     var tmp;
                     tmp = '<button type="button" class="btn btn-danger btn-xs" onclick="liveListenForced( ' + meta.row + ' );" style="width: 75px;margin-bottom: 1px" >강제퇴장</button><br/>';
-                    // tmp = tmp + '<button type="button" class="btn btn-default btn-xs" style="width: 75px" onclick="liveListenNotice( ' + meta.row + ' );">운영자알림</button>';
+                    tmp = tmp + '<button type="button" class="btn btn-default btn-xs" style="width: 75px" onclick="liveListenNotice( ' + meta.row + ' );">운영자알림</button>';
                     return tmp;
+                }},
+        ]
+    },
+
+
+    'loginUser': {
+        'url': '/rest/connect/user/info/current'
+        , 'columns': [
+            {'title': '가입일시', 'data': 'memJoinDateFormat'},
+            {'title': '접속일시', 'data': 'connectDateFormat'},
+            {'title': 'OS', 'data': 'os_type', 'render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        data = 3;
+                    }
+                    if(data == 3){
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/4bb20760-4afb-46a1-8bdf-35106f1a4e46.svg"> <br/>' ;
+                    }else{
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/dca7b592-edb6-4080-b763-7e535529661f.svg"> <br/>' ;
+                    }
+                    return tmp + util.getCommonCodeLabel(data, os_type);
+                }},
+            {'title': '프로필', 'data': 'profile', 'render': function (data, type, row, meta) {
+                    return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.mem_sex) +'" width="65px" height="65px" />';
+                }},
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no) + "<br/>" + row.mem_nick;
+                }},
+            {'title': '성별(나이)', 'data': 'mem_sex', 'width':'120px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year);
+                }},
+            {'title': 'IP', 'data': 'ip'},
+            {'title': '방생성수', 'data': 'broadcastingCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '청취일수', 'data': 'listenTime'},
+            {'title': '당일 청취 수', 'data': 'listenCnt'},
+            {'title': '결제 건 수/금액', 'data': 'payCnt', 'render': function (data, type, row, meta) {
+                    return data + " / " + common.addComma(row.payAmount);
+                }},
+            {'title': '보유 달', 'data': 'dal', 'render': function (data, type, row, meta) {
+                    return common.addComma(data) + " 달";
                 }},
         ]
     },
