@@ -139,11 +139,11 @@
 <script id="liveListener_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right no-margin" style="width: 80%">
         <tr>
-            <th colspan="6" style="background-color: #2f5597;color: white">청취자</th>
+            <th colspan="7" style="background-color: #2f5597;color: white">청취자</th>
         </tr>
         <tr>
             <th colspan="3" style="background-color: #d9d9d9;color: black">플랫폼</th>
-            <th colspan="3" style="background-color: #d9d9d9;color: black">성별</th>
+            <th colspan="4" style="background-color: #d9d9d9;color: black">성별</th>
         </tr>
         <tr>
             <td style="background-color: #dae3f3" class="font-bold">Android</td>
@@ -152,6 +152,7 @@
             <td style="background-color: #dae3f3">{{{sexIcon 'm'}}}</td>
             <td style="background-color: #dae3f3">{{{sexIcon 'f'}}}</td>
             <td style="background-color: #dae3f3">{{{sexIcon 'n'}}}</td>
+            <th style="background-color: #dae3f3;">비회원</th>
         </tr>
         <tr>
             <td>{{addComma content.aosCnt}}</td>
@@ -160,9 +161,10 @@
             <td>{{addComma content.maleCnt}}</td>
             <td>{{addComma content.femaleCnt}}</td>
             <td>{{addComma content.noneCnt}}</td>
+            <td>{{addComma content.noneMemberCnt}}</td>
         </tr>
         <tr>
-            <td colspan="6" class="font-bold" style="background-color: #7f7f7f;color: white">총 수 {{addComma content.totalCnt}}</td>
+            <td colspan="7" class="font-bold" style="background-color: #7f7f7f;color: white">총 수 {{addComma content.totalCnt}}</td>
         </tr>
     </table>
 </script>

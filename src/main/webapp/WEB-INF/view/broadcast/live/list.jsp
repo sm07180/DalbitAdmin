@@ -347,13 +347,14 @@
     <table class="table table-bordered table-summary pull-right" style="width: 100%">
         <tr>
             <th colspan="8" style="background-color: #bf9000;color: white">방송방</th>
-            <th colspan="3" style="background-color: #2f5496;color: white">청취자</th>
+            <th colspan="4" style="background-color: #2f5496;color: white">청취자</th>
         </tr>
         <tr>
             <th colspan="3" style="background-color: #fff2cc;">플랫폼</th>
             <th colspan="2" style="background-color: #fff2cc;">DJ구분</th>
             <th colspan="3" style="background-color: #fff2cc;">DJ성별</th>
             <th colspan="3" style="background-color: #cdd4ea;">청취자성별</th>
+            <th rowspan="2" style="background-color: #cdd4ea;">비회원</th>
         </tr>
         <tr>
             <th style="background-color: #f2f2f2;">Android</th>
@@ -380,12 +381,13 @@
             <td>{{content.liveListenMaleCnt}}</td>
             <td>{{content.liveListenFemaleCnt}}</td>
             <td>{{content.liveListenNoneCnt}}</td>
+            <td>{{content.liveNoneMemberCnt}}</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
             <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="2">총 수</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31">{{content.liveListenerCnt}}</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="2">{{content.liveListenerCnt}}</td>
         </tr>
     </table>
 </script>

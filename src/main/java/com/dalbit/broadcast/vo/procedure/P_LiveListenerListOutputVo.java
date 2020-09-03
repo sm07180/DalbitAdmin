@@ -38,6 +38,7 @@ public class P_LiveListenerListOutputVo extends PagingVo {
     private int maleCnt;
     private int femaleCnt;
     private int noneCnt;
+    private int noneMemberCnt;
 }
 
 
