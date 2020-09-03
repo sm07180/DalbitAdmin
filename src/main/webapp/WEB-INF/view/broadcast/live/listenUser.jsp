@@ -82,9 +82,14 @@
         $("#selJoinDate").hide();
         liveState = tmp;
         dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_loginUser.reload(loginNextFunc);
+        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
     function listenUserType_sel_change(){
+        $("#selJoinDate").hide();
         dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_loginUser.reload(loginNextFunc);
+        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
 
     function fn_success_live_summary(dst_id,response){

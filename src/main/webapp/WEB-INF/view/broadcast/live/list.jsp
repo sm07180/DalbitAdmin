@@ -112,24 +112,16 @@
 
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
-            if (liveState == 1 || liveState == 2) {
                 getSearch();
-            }else if(liveState == 3){
                 getListenUserList();
-            }else if(liveState == 4){
                 getLoginUserList();
-            }
         };
     });
 
     $('#bt_search').on('click', function(){
-        if (liveState == 1 || liveState == 2) {
             getSearch();
-        }else if(liveState == 3){
             getListenUserList();
-        }else if(liveState == 4){
             getLoginUserList();
-        }
     });
 
 
@@ -214,7 +206,7 @@
                 if ($("select[name='liveSort']").val() == 6)
                     data.sortByeol = 1;
             }
-        }else{
+        }else if(liveState == 2) {
             $("#selJoinDate").show();
             if($("select[name='endSort']").val() != 0){
                 if ($("select[name='endSort']").val() == 2)
@@ -265,11 +257,14 @@
         }
         room_liveType = tmp;
 
-        if(liveState == 1){
-            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
-        }else{
+
+        if(liveState != 1){
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
         }
+        dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_loginUser.reload(loginNextFunc);
+        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
+
 
         // getSearch();
     }
@@ -286,7 +281,13 @@
         $("#live_summaryArea").html(html);
 
         if(liveState == 1) {
+            $("#selJoinDate").hide();
             $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+        }else{
+            $("#selJoinDate").hide();
+            if(liveState == 2){
+                $("#selJoinDate").show();
+            }
         }
     }
 
