@@ -67,7 +67,7 @@
 
     function modalSetting(data) {
         if(data == 1) {
-            $('#htmlArea').html("<h3>경품 등록</h3> <br /><h5>진행 중인 이벤트의 경우 경품 정보 수정에 주의 부탁드립니다!</h5>");
+            $('#htmlArea').html("<h3>경품 등록</h3>");
         } else if(data == 2) {
             $('#htmlArea').html("<h3>경품 상세</h3> <br /><h5>진행 중인 이벤트의 경우 경품 정보 수정에 주의 부탁드립니다!</h5>");
         }

@@ -100,7 +100,9 @@ var EventDataTableSource = {
             {'title': '등수', 'data' : 'prizeRank'},
             {'title': '당첨 인원', 'data' : 'prizeCnt'},
             {'title': '경품명', 'data' : 'prizeName'},
-            {'title': '회원번호', 'data' : 'mem_no'},
+            {'title': '회원번호', 'data' : 'mem_no', 'render': function(data, type, row, meta) {
+                return '<a href="javascript://" class="_getWinnerDetail" data-memno="'+ row.mem_no +'" data-winneridx="'+ row.winnerIdx +'">' + data + '</a>'
+                }},
             {'title': '닉네임', 'data' : 'nickName'},
             {'title': '본인인증 여부', 'data' : 'certificationYn'},
             {'title': '미성년자 여부', 'data' : 'minorYn'},

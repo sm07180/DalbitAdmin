@@ -267,6 +267,24 @@ public class Con_EventRestController {
         return result;
     }
 
+    /**
+     * 당첨자 추가
+     */
+    @PostMapping("/management/winner/add")
+    public String eventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) {
+        String result = con_EventService.callEventWinnerAdd(pEventWinnerAddVo);
+        return result;
+    }
+
+    /**
+     * 당첨자 취소
+     */
+    @PostMapping("/management/winner/delete")
+    public String eventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) {
+        String result = con_EventService.callEventWinnerDelete(pEventWinnerDeleteVo);
+        return result;
+    }
+
     /*======================= 기존 이벤트 관리 ======================= */
 //    /**
 //     * 이벤트 목록
