@@ -7,6 +7,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.connect.dao.Con_UserDao;
+import com.dalbit.connect.vo.procedure.P_ConnectNonBroadOutDetailVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentInputVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentOutputVo;
 import com.dalbit.connect.vo.procedure.P_UserTotalOutDetailVo;
@@ -56,6 +57,7 @@ public class Con_UserService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, detailList));
     }
 
+
     /**
      * 현재 접속자 통계 총계
      * @return
@@ -76,4 +78,15 @@ public class Con_UserService {
         return result;
     }
 
+    /**
+     * 방송 접속 외 현제 접속자 통계
+     * @return
+     */
+    public String callCurrentLiveSummary(P_UserCurrentInputVo pUserCurrentInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pUserCurrentInputVo);
+        con_UserDao.callCurrentLiveSummary(procedureVo);
+        P_ConnectNonBroadOutDetailVo detailList = new Gson().fromJson(procedureVo.getExt(), P_ConnectNonBroadOutDetailVo.class);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, detailList));
+    }
 }
