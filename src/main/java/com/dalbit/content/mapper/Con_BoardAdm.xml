@@ -24,7 +24,6 @@
           <if test='searchType == "3" '>    <!-- 삭제글만 보기 -->
               and fan.`status` = 2
           </if>
-          and fan.depth = 1
         </where>
     </sql>
 
@@ -159,14 +158,12 @@
             select
             sto.idx as storyIdx,
             sto.room_no as room_no,
-            sto.status as status,
             bas.mem_no     as dj_mem_no,
             bas.mem_nick   as dj_mem_nick,
             bas.mem_userid as dj_mem_userid,
             bas.mem_sex    as dj_mem_sex,
             bas.mem_birth_year as dj_birth_year,
             bro.title      as title,
-            bro.state      as broState,
             sto.mem_nick   as send_mem_nick,
             sto.mem_userid as send_mem_userid,
             sto.mem_sex    as send_mem_sex,
@@ -210,14 +207,9 @@
         <include refid="storyCondition"/>
     </select>
 
-    <!--<select id="callStoryDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">-->
-        <!--/* Con_BoardAdm.xml - callStoryDelete */-->
-        <!--call rd_admin.sp_admin_broadcast_room_story_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
-    <!--</select>-->
-
-    <update id="callStoryDelete" parameterType="string">
+    <select id="callStoryDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         /* Con_BoardAdm.xml - callStoryDelete */
-        update rd_data.tb_broadcast_room_story set `status`=1 where idx=#{storyIdx}
-    </update>
+        call rd_admin.sp_admin_broadcast_room_story_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 </mapper>
