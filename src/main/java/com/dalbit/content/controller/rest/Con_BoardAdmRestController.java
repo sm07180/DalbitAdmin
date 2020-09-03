@@ -63,6 +63,14 @@ public class Con_BoardAdmRestController {
     }
 
     /**
+     * 사연 통계
+     */
+    @PostMapping("/storyList/summary")
+    public String selectstoryListSummary(BoardAdmStoryVo boardAdmStoryVo) {
+        return conBoardAdmService.selectStorySummary(boardAdmStoryVo);
+    }
+
+    /**
      * 사연 삭제
      */
     @PostMapping("/deleteStory")

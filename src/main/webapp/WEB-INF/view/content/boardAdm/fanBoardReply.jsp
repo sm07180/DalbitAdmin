@@ -15,6 +15,10 @@
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active">
             <div class="widget-content">
+                <div class="col-md-12 no-padding mt10">
+                    <span id="fanboardReplyListCnt"></span><br/>
+                    <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
+                </div>
                 <div class="col-md-6 no-padding mt10">
                     <span id="searchType_boardReply" onchange="fanBoardReply();"></span>
                 </div>
@@ -49,6 +53,7 @@
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
             , 'searchType' : $("select[name='searchType_boardReply']").val()
+            , 'boardType' : 2
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardReply);
     }
@@ -77,12 +82,20 @@
         util.getAjaxData("fanBoardListSummary", "/rest/content/boardAdm/fanBoardList/summary", param, fn_success_fanBoardReplySummary);
     }
     function fn_success_fanBoardReplySummary(dst_id, response) {
-        var template = $('#fanBoardReply_tableSummary').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
+        $("#tab_fanBoardReply").text("팬보드댓글" + "(" + response.data.totalCnt +")");
+        $("#fanboardReplyListCnt").html(
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+        );
 
-        $('#fanBoardReplyTable_summary').html(html);
+        // var template = $('#fanBoardReply_tableSummary').html();
+        // var templateScript = Handlebars.compile(template);
+        // var context = response.data;
+        // var html = templateScript(context);
+        //
+        // $('#fanBoardReplyTable_summary').html(html);
     }
 
     function handlebarsPaging(targetId, pagingInfo) {
@@ -112,88 +125,48 @@
 <script id="tmp_fanBoardReplyTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardReply" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
-            <col width="6%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="2%"/>
-            <col width="6%"/><col width="4%"/><col width="5%"/><col width="24%"/><col width="5%"/>
-            <col width="4%"/><col width="4%"/>
+            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
         </colgroup>
         <thead>
         <tr>
-            <th rowspan="2">No</th>
-            <th colspan="5">대상회원</th>
-            <th colspan="5">작성회원</th>
-            <th rowspan="2">상태</th>
-            <th rowspan="2">일시</th>
-            <th rowspan="2">작성 내용</th>
-            <th rowspan="2">비밀 글 여부</th>
-            <th rowspan="2">댓글</th>
-            <th rowspan="2">삭제</th>
-        </tr>
-        <tr>
-            <th>프로필</th>
-            <th>회원번호</th>
-            <th>닉네임</th>
-            <th>상태</th>
-            <th>성별<br />(나이)</th>
-
-            <th>프로필</th>
-            <th>회원번호</th>
-            <th>닉네임</th>
-            <th>상태</th>
-            <th>성별<br />(나이)</th>
+            <th>No</th>
+            <th>팬보드주인</th>
+            <th>팬보드글등록자</th>
+            <th>비밀 글 여부</th>
+            <th>팬보드 등록 글</th>
+            <th>댓글등록자</th>
+            <th>등록된 댓글</th>
+            <th>등록일시</th>
+            <th>관리</th>
         </tr>
         </thead>
         <tbody>
         {{#each this.data as |data|}}
             <tr>
                 <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
-                <td style="width: 65px; height:65px;">
-                    {{^equal star_image_profile ''}}
-                    <img class="thumbnail" src="{{renderImage ../star_image_profile}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
-                    {{else}}
-                    <img class="thumbnail" src="{{renderProfileImage ../star_image_profile ../star_mem_sex}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
-                    {{/equal}}
-                </td>
-                <td>{{{memNoLink star_mem_no star_mem_no}}}</td>
-                <td>{{star_mem_nick}}</td>
-                <td>{{{getCommonCodeLabel star_mem_state 'mem_state'}}}</td>
-                <td>{{{sexIcon star_mem_sex star_birth_year}}}</td>
-
-                <td style="width: 65px; height:65px;">
-                    {{^equal fan_image_profile ''}}
-                    <img class="thumbnail" src="{{renderImage ../fan_image_profile}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
-                    {{else}}
-                    <img class="thumbnail" src="{{renderProfileImage ../fan_image_profile ../fan_mem_sex}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
-                    {{/equal}}
-                </td>
-                <td>{{{memNoLink fan_mem_no fan_mem_no}}}</td>
-                <td>{{fan_mem_nick}}</td>
                 <td>
-                    {{{getCommonCodeLabel fan_mem_state 'mem_state'}}}
+                    {{{memNoLink_sex star_mem_no star_mem_no star_mem_sex}}}<br/>
+                    {{{memNoLink_sex star_mem_nick star_mem_no star_mem_sex}}}
                 </td>
-                <td>{{{sexIcon fan_mem_sex fan_birth_year}}}</td>
-
                 <td>
-                    {{{getCommonCodeLabel status 'fanBoard_status'}}}
-                    {{#dalbit_if opName '!=' ''}}
-                        <br/>({{opName}})
-                    {{/dalbit_if}}
-                </td>
-                <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-                <td>
-                    {{#dalbit_if depth '==' 2}}
-                    <span class="col-md-2"><span style="background-color: #fdf2ca">(댓글)</span></span>
-                    {{/dalbit_if}}
-                    {{#dalbit_if depth '==' 1}}
-                    <span class="col-md-2"></span>
-                    {{/dalbit_if}}
-
-                    <span class="pull-left">{{replaceHtml contents}}</span>
+                    {{{memNoLink_sex fan_mem_no fan_mem_no fan_mem_sex}}}<br/>
+                    {{{memNoLink_sex fan_mem_nick fan_mem_no fan_mem_sex}}}
                 </td>
                 <td>
                     {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
                 </td>
-                <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
+                <td>
+                    <span class="pull-left">{{replaceHtml contents}}</span>
+                </td>
+                <td>
+                    {{{memNoLink_sex fan_reply_mem_no fan_reply_mem_no fan_reply_mem_sex}}}<br/>
+                    {{{memNoLink_sex fan_reply_mem_nick fan_reply_mem_no fan_reply_mem_sex}}}
+                </td>
+                <td>
+                    <span class="pull-left">{{replaceHtml replyContents}}</span>
+                </td>
+                <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>
         {{else}}
@@ -205,6 +178,7 @@
     </table>
 </script>
 
+<%--
 <script id="fanBoardReply_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right no-padding" style="width: 70%;margin-right: 0px">
         <tr>
@@ -227,4 +201,4 @@
             <td>{{addComma avgTotalDelCnt}} ({{addComma secretAvgTotalDelCnt}})</td>
         </tr>
     </table>
-</script>
+</script>--%>

@@ -47,34 +47,11 @@
         util.getAjaxData("storyList", "/rest/content/boardAdm/storyList", data, fn_success_storyList);
     }
 
-    function fn_success_storyList(dst_id, response) {
-        var sendMemMaleCnt=0;
-        var sendMemFemaleCnt=0;
-        var sendMemNoneCnt=0;
-
-        for(var i=0;i<response.data.length;i++){
-            if(response.data[i].send_mem_sex == "m"){
-                ++sendMemMaleCnt;
-            }else if (response.data[i].send_mem_sex == "f"){
-                ++sendMemFemaleCnt;
-            }else if (response.data[i].send_mem_sex == "n"){
-                ++sendMemNoneCnt;
-            }
-        }
-
-        $("#storyListCnt").html(
-            '<span style="color:black">[검색결과 : ' +  response.data.length + '건]</span>' +
-            '<span style="color: blue;">[남' + sendMemMaleCnt + "건]</span>" + "," +
-            '<span style="color: red;">[여' + sendMemFemaleCnt + "건]</span>" + "," +
-            '<span style="color: #555555;">[알수없음' + sendMemNoneCnt + "건]</span>"
-        );
+    function fn_success_storyList(dst_id, response, param) {
         var template = $('#tmp_storyTable').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
-
-        $("#tab_storyList").text("사연" + "(" + response.data.length +")");
-
         $('#storyTable').html(html);
 
         StoryPagingInfo.totalCnt = response.pagingVo.totalCnt;
@@ -89,8 +66,19 @@
             $("storyList").find("#story_paginate_top").show();
             $("storyList").find('#story_paginate').show();
         }
+
+        util.getAjaxData("storyListSummary", "/rest/content/boardAdm/storyList/summary", param, fn_success_storySummary);
     }
 
+    function fn_success_storySummary(dst_id, response){
+        $("#tab_storyList").text("사연" + "(" + response.data.totalCnt +")");
+        $("#storyListCnt").html(
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+        );
+    }
 
 
     $(document).on('click', '._deleteStory', function() {

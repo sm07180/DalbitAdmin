@@ -70,45 +70,12 @@
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
             , 'searchType' : $("select[name='searchType_board']").val()
+            , 'boardType' : 1
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
     }
 
     function fn_success_fanBoardList(dst_id, response, param) {
-
-        var memMaleCnt=0;
-        var viewMaleCnt=0;
-        var memFemaleCnt=0;
-        var viewFemaleCnt=0;
-        var memNoneCnt=0;
-        var viewNoneCnt=0;
-
-        for(var i=0;i<response.data.length;i++){
-            if(response.data[i].send_mem_sex == "m"){
-                ++memMaleCnt;
-                if(response.data[i].view_yn == 0){
-                    ++viewMaleCnt;
-                }
-            }else if (response.data[i].send_mem_sex == "f"){
-                ++memFemaleCnt;
-                if(response.data[i].view_yn == 0){
-                    ++viewFemaleCnt;
-                }
-            }else if (response.data[i].send_mem_sex == "n"){
-                ++memNoneCnt;
-                if(response.data[i].view_yn == 0){
-                    ++viewNoneCnt;
-                }
-            }
-        }
-
-        $("#fanboardListCnt").html(
-            '<span style="color:black">[검색결과 : ' +  response.data.length + '건]</span>' +
-            '<span style="color: blue;">[남' + memMaleCnt + "(" + "건]</span>" + "," +
-            '<span style="color: red;">[여' + memFemaleCnt + "건]</span>" + "," +
-            '<span style="color: #555555;">[알수없음' + memNoneCnt + "건]</span>"
-        );
-
 
         var template = $('#tmp_fanBoardTable').html();
         var templateScript = Handlebars.compile(template);
@@ -135,16 +102,25 @@
             fanBoardList();
         }
 
-        // util.getAjaxData("fanBoardListSummary", "/rest/content/boardAdm/fanBoardList/summary", param, fn_success_fanBoardSummary);
+        util.getAjaxData("fanBoardListSummary", "/rest/content/boardAdm/fanBoardList/summary", param, fn_success_fanBoardSummary);
     }
-    // function fn_success_fanBoardSummary(dst_id, response) {
-    //     var template = $('#fanboard_tableSummary').html();
-    //     var templateScript = Handlebars.compile(template);
-    //     var context = response.data;
-    //     var html = templateScript(context);
-    //
-    //     $('#fanBoardTable_summary').html(html);
-    // }
+    function fn_success_fanBoardSummary(dst_id, response) {
+        $("#tab_fanBoardList").text("팬보드" + "(" + response.data.totalCnt +")");
+        $("#fanboardListCnt").html(
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+        );
+
+
+        // var template = $('#fanboard_tableSummary').html();
+        // var templateScript = Handlebars.compile(template);
+        // var context = response.data;
+        // var html = templateScript(context);
+        //
+        // $('#fanBoardTable_summary').html(html);
+    }
 
     $(document).on('click', '._selectReply', function() {
         // if($(this).data('status') == 2) {
@@ -225,11 +201,11 @@
         <thead>
         <tr>
             <th>No</th>
-            <th>대상회원</th>
-            <th>작성회원</th>
+            <th>팬보드주인</th>
+            <th>팬보드글등록자</th>
             <th>비밀 글 여부</th>
             <th>팬보드등록글</th>
-            <th>일시</th>
+            <th>등록일시</th>
             <th>댓글수</th>
             <th>관리</th>
         </tr>

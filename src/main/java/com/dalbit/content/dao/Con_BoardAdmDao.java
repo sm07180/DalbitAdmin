@@ -18,8 +18,11 @@ public interface Con_BoardAdmDao {
     @Transactional(readOnly = true)
     ArrayList<BoardAdmFanBoardVo> selectFanBoardList(BoardAdmFanBoardVo boardAdmFanBoardVo);
 
+//    @Transactional(readOnly = true)
+//    ArrayList<BoardAdmFanBoardVo> selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo);
+
     @Transactional(readOnly = true)
-    ArrayList<BoardAdmFanBoardVo> selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo);
+    BoardAdmFanBoardVo selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo);
 
     int deleteFanBoard(BoardAdmFanBoardDeleteVo boardAdmFanBoardDeleteVo);
 
@@ -31,6 +34,9 @@ public interface Con_BoardAdmDao {
 
     @Transactional(readOnly = true)
     ArrayList<BoardAdmStoryVo> selectStoryList(BoardAdmStoryVo boardAdmStoryVo);
+
+    @Transactional(readOnly = true)
+    BoardAdmStoryVo selectStoryListSummary(BoardAdmStoryVo boardAdmStoryVo);
 
     @Transactional(readOnly = true)
     int selectStoryListCnt(BoardAdmStoryVo boardAdmStoryVo);
