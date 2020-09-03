@@ -796,6 +796,15 @@
         call rd_admin.sp_admin_event_winner_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callEventWinnerAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_winner_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventWinnerDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_winner_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
     <!--======================= 기존 이벤트 관리 ======================= -->
     <!--<select id="callEventList" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">-->
     <!--select @rownum := @rownum + 1 as rowNum, a.*-->

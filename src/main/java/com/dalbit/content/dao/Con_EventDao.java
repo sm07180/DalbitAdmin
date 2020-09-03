@@ -114,6 +114,11 @@ public interface Con_EventDao {
     @Transactional(readOnly = true)
     ArrayList<P_EventWinnerListOutputVo> callEventWinnerList(ProcedureVo procedureVo);
 
+    ProcedureVo callEventWinnerAdd(ProcedureVo procedureVo);
+
+    ProcedureVo callEventWinnerDelete(ProcedureVo procedureVo);
+
+
     /*======================= 기존 이벤트 관리 ======================= */
 //    @Transactional(readOnly = true)
 //    ArrayList<P_EventListOutputVo> callEventList(P_EventListInputVo P_EventListInputVo);
