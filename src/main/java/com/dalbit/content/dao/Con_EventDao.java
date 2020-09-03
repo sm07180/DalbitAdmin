@@ -13,7 +13,43 @@ import java.util.List;
 @Repository
 public interface Con_EventDao {
 
+    @Transactional(readOnly = true)
+    ArrayList<P_EventListOutputVo> callEventList(P_EventListInputVo P_EventListInputVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_EventListOutputVo> callEventList_End(P_EventListInputVo P_EventListInputVo);
+
+    @Transactional(readOnly = true)
+    int callEventList_totalCnt(P_EventListInputVo P_EventListInputVo);
+
+    @Transactional(readOnly = true)
+    int callEventList_End_totalCnt(P_EventListInputVo P_EventListInputVo);
+
+    int callEventDelete(P_EventDeleteVo pEventDeleteVo);
+    int callEventMemberDelete(P_EventDeleteVo pEventDeleteVo);
+    int callEventInsert(P_EventUpdateVo pEventUpdateVo);
+    int callEventUpdate(P_EventUpdateVo pEventUpdateVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_EventMemberListOutputVo> callEventMemberList(P_EventMemberListInputVo P_EventMemberListInputVo);
+
+    @Transactional(readOnly = true)
+    int callEventMemberList_totalCnt(P_EventMemberListInputVo P_EventMemberListInputVo);
+
+    @Transactional(readOnly = true)
+    int callEventMemberList_winCnt(String mem_no);
+
+    int callEventSelWIn(P_EventMemberSelWinVo pEventMemberSelWinVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_EventMemberListOutputVo> callEventOverlapApplyList(P_EventMemberListInputVo pEventMemberListInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_EventReplyListOutputVo> callEventReplyList(P_EventReplyListInputVo pEventReplyListInputVo);
+    @Transactional(readOnly = true)
+    int callEventReplyList_totalCnt(P_EventReplyListInputVo pEventReplyListInputVo);
+
+    int callEventReplyDelete(P_EventReplyDeleteInputVo pEventReplyDeleteInputVo);
 
     @Transactional(readOnly = true)
     ArrayList<AttendanceVo> selectAttendanceList(AttendanceVo attendanceVo);
@@ -40,6 +76,11 @@ public interface Con_EventDao {
     int deleteEventMember(PhotoShotVo photoShotVo);
 
     int deletePhotoShot(PhotoShotVo photoShotVo);
+
+    int updatePhotoGood(PhotoShotVo photoShotVo);
+
+    List<EventMemberVo> selectEventMemberList(EventMemberVo eventMemberVo);
+    int selectEventMemberCnt(EventMemberVo eventMemberVo);
 
     @Transactional(readOnly = true)
     ArrayList<P_EventManagementListOutputVo> callEventManagementList(ProcedureVo procedureVo);
