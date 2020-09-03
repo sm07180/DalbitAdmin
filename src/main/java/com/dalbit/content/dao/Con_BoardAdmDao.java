@@ -37,5 +37,4 @@ public interface Con_BoardAdmDao {
 
 //    ProcedureVo callStoryDelete(ProcedureVo procedureVo);
     int callStoryDelete(String storyIdx);
-
 }

@@ -193,10 +193,13 @@ common.timeStampMinutes = function(time){
 
 common.timeStampDay = function(time){
     time = parseInt(time);
-    var day = Math.floor((time / 3600)/24);
-    var hours = common.lpad(Math.floor(time - ((day * 3600) * 24) / 3600),2,"0");
-    var minutes = common.lpad(Math.floor((time - (hours * 3600)) /60),2,"0");
-    var seconds = common.lpad(time - (hours * 3600) - (minutes * 60),2,"0");
+    var day = Math.floor(time / 60 / 60 / 24);
+    var day_s = day * 60 * 60 * 24;
+    var hours_s = time - (day_s);
+    var hours = Math.floor(hours_s / 60 / 60);
+    var minutes_s = time - (day_s + (hours * 60 * 60));
+    var minutes = Math.floor(minutes_s / 60);
+    var seconds = time - ((day * 60 * 60 * 24) + (hours * 60 * 60) + (minutes * 60) );
     var time = day + "일 " + hours  + "시" + minutes + "분" + seconds + "초";
     return time ;
 }

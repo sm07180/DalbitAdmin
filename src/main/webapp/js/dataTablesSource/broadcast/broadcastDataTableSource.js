@@ -573,7 +573,9 @@ var BroadcastDataTableSource = {
             {'title': '방생성수', 'data': 'broadcastingCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '청취일수', 'data': 'listenTime'},
+            {'title': '청취일수', 'data': 'listenTime', 'render': function (data, type, row, meta) {
+                    return common.timeStampDay(data);
+                }},
             {'title': '당일 청취 수', 'data': 'listenCnt'},
             {'title': '결제 건 수/금액', 'data': 'payCnt', 'render': function (data, type, row, meta) {
                     return data + " / " + common.addComma(row.payAmount);
