@@ -273,4 +273,54 @@
         update rd_data.tb_broadcast_room_story set `status`=1 where idx=#{storyIdx}
     </update>
 
+    <select id="selectprofileMsgListCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="int">
+        /* Con_BoardAdm.xml - selectprofileMsgListCnt */
+        select count(*)
+        from (
+            select
+                session.last_upd_date as last_upd_date
+                , session.mem_no as mem_no
+                , profile.image_profile as image_profile
+                , basic.mem_nick as mem_nick
+                , basic.mem_userid as mem_userid
+                , basic.mem_join_date as mem_join_date
+                , basic.mem_phone as mem_phone
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join (select mem_no, max(last_upd_date) last_upd_date
+                                from rd_data.tb_member_session
+                                group by mem_no
+                                order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
+            where session.mem_no is not null
+        ) list
+    </select>
+
+    <select id="selectProfileMsgList" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo">
+        /* Con_BoardAdm.xml - selectProfileMsgList */
+        select *
+        from (
+            select
+                @RNUM := @RNUM +1 as rowNum
+                , date_format(session.last_upd_date,'%Y.%m.%d %H:%i:%s') as last_upd_date
+                , session.mem_no as mem_no
+                , profile.image_profile as image_profile
+                , profile.msg_profile as msg_profile
+                , basic.mem_nick as mem_nick
+                , basic.mem_sex as mem_sex
+                , basic.mem_birth_year as mem_birth_year
+                , basic.mem_userid as mem_userid
+                , basic.mem_join_date as mem_join_date
+                , basic.mem_phone as mem_phone
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join (select mem_no, max(last_upd_date) last_upd_date
+                                from rd_data.tb_member_session
+                                group by mem_no
+                                order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
+                inner join (select @RNUM := 0) r
+            where session.mem_no is not null
+            order by session.last_upd_date desc
+        ) list
+        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
 </mapper>

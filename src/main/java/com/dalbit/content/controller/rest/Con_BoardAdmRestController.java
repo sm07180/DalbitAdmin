@@ -7,6 +7,7 @@ import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
 import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,5 +95,13 @@ public class Con_BoardAdmRestController {
     @PostMapping("/noticeList")
     public String noticeList(P_MemberNoticeInputVo pMemberNoticeInputVo) {
         return conBoardAdmService.selectNoticeList(pMemberNoticeInputVo);
+    }
+
+    /**
+     * 프로필메세지 조회
+     */
+    @PostMapping("/profileMsgList")
+    public String profileMsgList(P_MemberProfileInputVo pMemberNoticeInputVo) {
+        return conBoardAdmService.selectprofileMsgList(pMemberNoticeInputVo);
     }
 }
