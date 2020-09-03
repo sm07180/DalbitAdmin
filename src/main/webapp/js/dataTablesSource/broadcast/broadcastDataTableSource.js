@@ -516,7 +516,11 @@ var BroadcastDataTableSource = {
                     return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.gender) +'" width="65px" height="65px" />';
                 }},
             {'title': '청취자 회원번호<br/>닉네임', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, data) + "<br/>" + row.nickNm;
+                    if(data.substr(0,1) == "8"){
+                        return "비회원";
+                    }else{
+                        return util.memNoLink(data, data) + "<br/>" + row.nickNm;
+                    }
                 }},
             {'title': '성별(나이)', 'data': 'gender', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data) + "(" + row.age +")";
@@ -537,7 +541,9 @@ var BroadcastDataTableSource = {
             {'title': '강제 퇴장<br/>운영자 알림', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     var tmp;
                     tmp = '<button type="button" class="btn btn-danger btn-xs" onclick="liveListenForced( ' + meta.row + ' );" style="width: 75px;margin-bottom: 1px" >강제퇴장</button><br/>';
-                    tmp = tmp + '<button type="button" class="btn btn-default btn-xs" style="width: 75px" onclick="liveListenNotice( ' + meta.row + ' );">운영자알림</button>';
+                    if(row.memNo.substr(0,1) != "8") {
+                        tmp = tmp + '<button type="button" class="btn btn-default btn-xs" style="width: 75px" onclick="liveListenNotice( ' + meta.row + ' );">운영자알림</button>';
+                    }
                     return tmp;
                 }},
         ]
