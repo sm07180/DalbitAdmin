@@ -7,10 +7,13 @@ import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileOutputVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface Con_BoardAdmDao {
@@ -43,4 +46,9 @@ public interface Con_BoardAdmDao {
 
 //    ProcedureVo callStoryDelete(ProcedureVo procedureVo);
     int callStoryDelete(String storyIdx);
+
+    @Transactional(readOnly = true)
+    int selectprofileMsgListCnt(P_MemberProfileInputVo pMemberProfileInputVo);
+    @Transactional(readOnly = true)
+    List<P_MemberProfileOutputVo> selectProfileMsgList(P_MemberProfileInputVo pMemberProfileInputVo);
 }

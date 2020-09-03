@@ -11,6 +11,8 @@ import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
 import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileOutputVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -179,6 +182,19 @@ public class Con_BoardAdmService {
 
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(totalCnt)));
+        return result;
+
+    }
+
+    /**
+     * 프로필메세지 조회
+     */
+    public String selectprofileMsgList(P_MemberProfileInputVo pMemberNoticeInputVo) {
+        int profileMsgCount = conBoardAdmDao.selectprofileMsgListCnt(pMemberNoticeInputVo);
+        pMemberNoticeInputVo.setTotalCnt(profileMsgCount);
+        List<P_MemberProfileOutputVo> profileMsgList = conBoardAdmDao.selectProfileMsgList(pMemberNoticeInputVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, profileMsgList, new PagingVo(profileMsgCount)));
         return result;
 
     }
