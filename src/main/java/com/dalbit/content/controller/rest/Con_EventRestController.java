@@ -157,14 +157,15 @@ public class Con_EventRestController {
 
     @PostMapping("/photo/shot/list")
     public String photoShotList(PhotoShotVo photoShotVo) {
+        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
         String result = con_EventService.selectPhotoShotList(photoShotVo);
         return result;
     }
 
     @PostMapping("/photo/shot/delete")
     public String photoShotDelete(PhotoShotVo photoShotVo) {
+        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
         String result = con_EventService.deletePhotoShot(photoShotVo);
-        log.debug("1111");
         return result;
     }
 
@@ -172,6 +173,44 @@ public class Con_EventRestController {
     public String photoShotExcel(HttpServletRequest request, HttpServletResponse response, Model model, PhotoShotVo photoShotVo) throws GlobalException {
 
         Model resultModel = con_EventService.getPhotoListExcel(photoShotVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+
+    }
+
+    @PostMapping("/knowhow/list")
+    public String knowhowList(PhotoShotVo photoShotVo) {
+        photoShotVo.setEvent_idx(EventCode.노하우.getEventIdx());
+        String result = con_EventService.selectPhotoShotList(photoShotVo);
+        return result;
+    }
+
+    @PostMapping("/knowhow/detail")
+    public String knowhowDetail(PhotoShotVo photoShotVo) {
+        photoShotVo.setEvent_idx(EventCode.노하우.getEventIdx());
+        String result = con_EventService.selectPhotoShotDetail(photoShotVo);
+        return result;
+    }
+
+    @PostMapping("/knowhow/delete")
+    public String knowhowDelete(PhotoShotVo photoShotVo) {
+        photoShotVo.setEvent_idx(EventCode.노하우.getEventIdx());
+        String result = con_EventService.deletePhotoShot(photoShotVo);
+        return result;
+    }
+
+    @PostMapping("/knowhow/good")
+    public String knowhowGood(PhotoShotVo photoShotVo) {
+        photoShotVo.setEvent_idx(EventCode.노하우.getEventIdx());
+        String result = con_EventService.updatePhotoGood(photoShotVo);
+        return result;
+    }
+
+    @PostMapping("/knowhow/excel")
+    public String knowhowExcel(HttpServletRequest request, HttpServletResponse response, Model model, PhotoShotVo photoShotVo) throws GlobalException {
+
+        Model resultModel = con_EventService.getKnowhowListExcel(photoShotVo, model);
 
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));

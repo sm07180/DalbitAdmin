@@ -75,6 +75,8 @@ public interface Con_EventDao {
 
     int deletePhotoShot(PhotoShotVo photoShotVo);
 
+    int updatePhotoGood(PhotoShotVo photoShotVo);
+
     List<EventMemberVo> selectEventMemberList(EventMemberVo eventMemberVo);
     int selectEventMemberCnt(EventMemberVo eventMemberVo);
 }

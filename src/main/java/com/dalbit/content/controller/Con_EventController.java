@@ -40,6 +40,11 @@ public class Con_EventController {
         return "content/event/shot/list";
     }
 
+    @GetMapping("knowhow/list")
+    public String knowhowList(){
+        return "content/event/knowhow/list";
+    }
+
     @GetMapping("member/list")
     public String memberList(){
         return "content/event/member/list";

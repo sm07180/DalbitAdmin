@@ -511,6 +511,25 @@
     <sql id="shotListCondition">
         photo.event_idx = #{event_idx}
         and photo.del_yn = 0
+
+        <if test="only_check == 1">
+            and photo.is_check = 1
+        </if>
+
+        <if test="idx != 0">
+            and photo.idx = #{idx}
+        </if>
+
+        <choose>
+            <when test="slct_type == 1">
+                and photo.slct_device in (1, 2)
+            </when>
+            <when test="slct_type == 2">
+                and photo.slct_device in (3, 4, 5)
+            </when>
+
+        </choose>
+
         <if test='txt_search != null and txt_search != ""'>
             <choose>
                 <when test='searchType == "1"'>
@@ -559,7 +578,16 @@
                  , photo.event_idx
                  , photo.mem_no
                  , photo.image_url
+                 , photo.image_url2
+                 , photo.image_url3
+                 , photo.title
                  , photo.contents
+                 , photo.slct_device
+                 , photo.device1
+                 , photo.device2
+                 , photo.view_cnt
+                 , photo.good_cnt
+                 , photo.is_check
                  , date_format(photo.reg_date, '%Y.%m.%d %H:%i:%s') reg_date
                  , ifnull(basic.mem_nick, withdrawal.mem_nick) mem_nick
                  , ifnull(basic.mem_sex, withdrawal.mem_sex) mem_sex
@@ -571,7 +599,11 @@
                  , (select @rownum := 0 ) rowNum
             where
                 <include refid="shotListCondition" />
-            order by photo.idx desc
+            order by
+                <if test="slct_order == 1">
+                    photo.good_cnt desc,
+                </if>
+                photo.idx desc
         )a
         where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
 
@@ -598,6 +630,16 @@
         <foreach collection="idxArr" item="idx" separator="," open="(" close=")">
             #{idx}
         </foreach>
+    </update>
+
+    <update id="updatePhotoGood" parameterType="com.dalbit.content.vo.PhotoShotVo">
+        /* Con_Event.xml - updatePhotoGood */
+        update rd_admin.tb_event_photo
+        set
+            is_check = #{is_check}
+            , op_name = #{opName}
+            , last_upd_date = now()
+        where idx = #{idx}
     </update>
 
     <update id="deleteEventMember" parameterType="com.dalbit.content.vo.PhotoShotVo">
@@ -670,11 +712,11 @@
                 , evt.recv_data_3
                 , evt.recv_data_4
                 , evt.recv_data_5
-                , date_format(evt.enter_date, '%y%m%d') enter_date
+                , date_format(evt.enter_date, '%Y.%m.%d %H:%i:%s') enter_date
                 , evt.del_yn
-                , date_format(evt.reg_date, '%y%m%d') reg_date
+                , date_format(evt.reg_date, '%Y.%m.%d %H:%i:%s') reg_date
                 , evt.op_name
-                , date_format(evt.last_upd_date, '%y%m%d') last_upd_date
+                , date_format(evt.last_upd_date, '%Y.%m.%d %H:%i:%s') last_upd_date
                 , evt.last_op_name
                 , ifnull(mem.mem_nick, outMem.mem_nick) mem_nick
                 , ifnull(mem.mem_sex, outMem.mem_sex) mem_sex

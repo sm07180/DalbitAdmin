@@ -2015,8 +2015,9 @@ if (typeof jQuery === 'undefined') {
     var $this    = this.element
     var $ul      = $this.closest('ul:not(.dropdown-menu)')
     var selector = $this.data('target')
+    var isTabLinkVoid = $this.attr('href') == 'javascript://' ? true : false ;
 
-    if (!selector) {
+    if (!selector && !isTabLinkVoid) {
       selector = $this.attr('href')
       selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
     }

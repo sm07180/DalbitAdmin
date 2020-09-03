@@ -287,13 +287,21 @@ public class Con_EventService {
     }
 
     public String selectPhotoShotList(PhotoShotVo photoShotVo){
-        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
 
         int totalCnt = con_EventDao.selectPhotoShotCnt(photoShotVo);
         photoShotVo.setTotalCnt(totalCnt);
         List<PhotoShotVo> giftconList = con_EventDao.selectPhotoShotList(photoShotVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, giftconList, new PagingVo(totalCnt)));
+    }
+
+    public String selectPhotoShotDetail(PhotoShotVo photoShotVo){
+
+        photoShotVo.setTotalCnt(1);
+        photoShotVo.setSearchStartNo(1);
+        photoShotVo.setSearchEndNo(1);
+        List<PhotoShotVo> giftconList = con_EventDao.selectPhotoShotList(photoShotVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, giftconList.get(0)));
     }
 
     public Model getPhotoListExcel(PhotoShotVo photoShotVo, Model model) {
@@ -326,7 +334,6 @@ public class Con_EventService {
     }
 
     public String deletePhotoShot(PhotoShotVo photoShotVo){
-        photoShotVo.setEvent_idx(EventCode.인증샷.getEventIdx());
         photoShotVo.setIdxArr(photoShotVo.getIdxs().split(","));
         photoShotVo.setDel_yn(1);
         photoShotVo.setOpName(MemberVo.getMyMemNo());
@@ -335,6 +342,57 @@ public class Con_EventService {
         int deletePhotoCnt = con_EventDao.deletePhotoShot(photoShotVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+    }
+
+    public Model getKnowhowListExcel(PhotoShotVo photoShotVo, Model model) {
+        photoShotVo.setTotalCnt(1000000);
+        photoShotVo.setEvent_idx(EventCode.노하우.getEventIdx());
+        List<PhotoShotVo> list = con_EventDao.selectPhotoShotList(photoShotVo);
+
+        String[] headers = {"No", "회원번호", "UID", "닉네임", "참여일시"
+                            , "추천수", "조회수", "구분", "디바이스", "기종1"
+                            , "기종2", "채택여부"};
+        int[] headerWidths = {3000, 5000, 5000, 6000, 6000
+                            , 3000, 3000, 5000, 5000, 8000
+                            , 8000, 3000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", list.size()-i);
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("mem_userid", DalbitUtil.isEmpty(list.get(i).getMem_userid()) ? "" : list.get(i).getMem_userid());
+            hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
+            hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
+            hm.put("good_cnt", DalbitUtil.isEmpty(list.get(i).getGood_cnt()) ? "" : list.get(i).getGood_cnt());
+            hm.put("view_cnt", DalbitUtil.isEmpty(list.get(i).getView_cnt()) ? "" : list.get(i).getView_cnt());
+
+            String slct_device = "mobile";
+            if(list.get(i).getSlct_device() < 3){
+                slct_device = "pc";
+            }
+            hm.put("slct_device", slct_device);
+            hm.put("device1", DalbitUtil.isEmpty(list.get(i).getDevice1()) ? "" : list.get(i).getDevice1());
+            hm.put("device2", DalbitUtil.isEmpty(list.get(i).getDevice2()) ? "" : list.get(i).getDevice2());
+            hm.put("is_check", list.get(i).getIs_check() == 0 ? "N" : "Y");
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("노하우이벤트 신청 목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "노하우이벤트 신청 목록");
+
+        return model;
+    }
+
+    public String updatePhotoGood(PhotoShotVo photoShotVo){
+        photoShotVo.setOpName(MemberVo.getMyMemNo());
+        int goodResult = con_EventDao.updatePhotoGood(photoShotVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정, goodResult));
     }
 
     public String selectEventMemberList(EventMemberVo eventMemberVo){
