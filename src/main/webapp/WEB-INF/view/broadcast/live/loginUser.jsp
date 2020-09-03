@@ -74,7 +74,9 @@
     function getLoginUserList_tabClick(tmp){
         $("#selJoinDate").hide();
         liveState = tmp;
+        dtList_info_lisetnUser.reload(liveNextFunc);
         dtList_info_loginUser.reload(loginNextFunc);
+        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
 
 </script>
