@@ -632,6 +632,16 @@
         </foreach>
     </update>
 
+    <update id="updatePhotoGood" parameterType="com.dalbit.content.vo.PhotoShotVo">
+        /* Con_Event.xml - updatePhotoGood */
+        update rd_admin.tb_event_photo
+        set
+            is_check = #{is_check}
+            , op_name = #{opName}
+            , last_upd_date = now()
+        where idx = #{idx}
+    </update>
+
     <update id="deleteEventMember" parameterType="com.dalbit.content.vo.PhotoShotVo">
         /* Con_Event.xml - deleteEventMember */
         update rd_admin.tb_event_member
