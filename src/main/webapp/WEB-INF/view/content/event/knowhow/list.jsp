@@ -65,15 +65,15 @@
                             <col width="10%"/>
                             <col width="5%"/>
                             <col width="5%"/>
-                            <col width="2%"/>
-                            <col width="3%"/>
+                            <col width="15%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
                             <col width="10%"/>
                             <col width="5%"/>
                             <col width="5%"/>
-                            <col width="10%"/>
-                            <col width="5%"/>
-                            <col width="5%"/>
-                            <col width="*"/>
                         </colgroup>
                         <thead>
                             <tr>
@@ -85,6 +85,7 @@
                                 <th>닉네임</th>
                                 <th>성별(나이)</th>
                                 <th>참여일시</th>
+                                <th>제목</th>
                                 <th>추천수</th>
                                 <th>조회수</th>
                                 <th>구분</th>
@@ -294,6 +295,7 @@
         <td>{{item.mem_nick}}</td>
         <td>{{{sexIcon item.mem_sex item.mem_birth_year}}}</td>
         <td>{{item.reg_date}}</td>
+        <td>{{{fontColor item.title 0 }}}</td>
         <td>{{item.good_cnt}}</td>
         <td>{{item.view_cnt}}</td>
         <td>

@@ -411,15 +411,6 @@ public class Men_SpecialService {
         try{
             specialDjManageVo.setOp_name(MemberVo.getMyMemNo());
             menSpecialDao.updateManageInfo(specialDjManageVo);
-            
-            //컨텐츠 삭제 후 다시 등록
-            menSpecialDao.deleteManageContent(specialDjManageVo);
-            specialDjManageVo.getContentList().stream().forEach(content -> {
-                content.setSelect_year(specialDjManageVo.getSelect_year());
-                content.setSelect_month(specialDjManageVo.getSelect_month());
-                menSpecialDao.insertManageContent(content);
-            });
-
 
             //컨텐츠 삭제 후 다시 등록
             menSpecialDao.deleteManageContent(specialDjManageVo);
