@@ -24,7 +24,7 @@
           <if test='searchType == "3" '>    <!-- 삭제글만 보기 -->
               and fan.`status` = 2
           </if>
-          and fan.depth = 1
+            and fan.depth = #{boardType}
         </where>
     </sql>
 
@@ -42,16 +42,48 @@
                 , ifnull(member.mem_sex, withdrawal_member.mem_sex) as star_mem_sex
                 , ifnull(member.mem_birth_year, withdrawal_member.mem_birth_year) as star_birth_year
 
-                , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = fan.writer_no) as fan_image_profile
-                , fan.writer_no as fan_mem_no
-                , ifnull(writer_member.mem_userid, writer_withdrawal_member.mem_userid)  as fan_userid
-                , ifnull(writer_member.mem_nick, writer_withdrawal_member.mem_nick) as fan_mem_nick
-                , ifnull(writer_member.mem_state, writer_withdrawal_member.mem_state) as fan_mem_state
-                , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_mem_sex
-                , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_birth_year
+                <if test="boardType == 1">
+                    , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = fan.writer_no) as fan_image_profile
+                    , fan.writer_no as fan_mem_no
+                    , ifnull(writer_member.mem_userid, writer_withdrawal_member.mem_userid)  as fan_userid
+                    , ifnull(writer_member.mem_nick, writer_withdrawal_member.mem_nick) as fan_mem_nick
+                    , ifnull(writer_member.mem_state, writer_withdrawal_member.mem_state) as fan_mem_state
+                    , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_mem_sex
+                    , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_birth_year
+                </if>
+                <if test="boardType == 2">
+                    , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)) as fan_image_profile
+                    , (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no) as fan_mem_no
+                    , ifnull((select mem_userid from rd_data.tb_member_basic a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)),
+                              (select mem_userid from rd_data.tb_member_withdrawal_bak a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)))  as fan_userid
+                    , ifnull((select mem_nick from rd_data.tb_member_basic a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)),
+                              (select mem_nick from rd_data.tb_member_withdrawal_bak a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no))) as fan_mem_nick
+                    , ifnull((select mem_state from rd_data.tb_member_basic a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)),
+                              (select mem_state from rd_data.tb_member_withdrawal_bak a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no))) as fan_mem_state
+                    , ifnull((select mem_sex from rd_data.tb_member_basic a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)),
+                              (select mem_sex from rd_data.tb_member_withdrawal_bak a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no))) as fan_mem_sex
+                    , ifnull((select mem_birth_year from rd_data.tb_member_basic a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)),
+                              (select mem_birth_year from rd_data.tb_member_withdrawal_bak a where a.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no))) as fan_birth_year
+
+                    , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = fan.writer_no) as fan_reply_image_profile
+                    , fan.writer_no as fan_reply_mem_no
+                    , ifnull(writer_member.mem_userid, writer_withdrawal_member.mem_userid)  as fan_reply_userid
+                    , ifnull(writer_member.mem_nick, writer_withdrawal_member.mem_nick) as fan_reply_mem_nick
+                    , ifnull(writer_member.mem_state, writer_withdrawal_member.mem_state) as fan_reply_mem_state
+                    , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_reply_mem_sex
+                    , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_reply_birth_year
+                </if>
                 , fan.status
                 , fan.last_upd_date
-                , fan.contents
+                <if test="boardType == 1">
+                  , fan.contents
+                  ,'' replyContents
+                </if>
+                <if test="boardType == 2">
+                    , (select contents from rd_data.tb_member_fanboard where idx=fan.board_no) as contents
+                    , fan.contents as replyContents
+                </if>
+
                 , fan.view_yn
                 , fan.depth
                 , ifnull(fan.opName,'') as opName
@@ -81,8 +113,17 @@
         <include refid="fanBoardCondition"/>
     </select>
 
-    <!-- 팬보드 통계 -->
     <select id="selectFanBoardSummary" parameterType="com.dalbit.content.vo.BoardAdmFanBoardVo" resultType="com.dalbit.content.vo.BoardAdmFanBoardVo">
+        select count(*) as totalCnt
+            ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'm',1,0)) as maleCnt
+            ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'f',1,0)) as femaleCnt
+            ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'n',1,0)) as noneCnt
+            from rd_data.tb_member_fanboard as fan
+        <include refid="fanBoardCondition"/>
+    </select>
+
+    <!-- 팬보드 통계 -->
+    <!-- <select id="selectFanBoardSummary" parameterType="com.dalbit.content.vo.BoardAdmFanBoardVo" resultType="com.dalbit.content.vo.BoardAdmFanBoardVo">
       select totalCnt,(totalCnt/datediff) as avgTotalCnt,  totalDelCnt, (totalDelCnt/datediff) as avgTotalDelCnt, maleCnt, femaleCnt, noneCnt, type, datediff
           from (
         select count(*) as totalCnt
@@ -106,7 +147,7 @@
         <include refid="fanBoardCondition"/>
          and status='2'
         ) a
-    </select>
+    </select>-->
 
     <update id="deleteFanBoard">
         update rd_data.tb_member_fanboard
@@ -210,6 +251,18 @@
         <include refid="storyCondition"/>
     </select>
 
+    <select id="selectStoryListSummary" parameterType="com.dalbit.content.vo.BoardAdmStoryVo" resultType="com.dalbit.content.vo.BoardAdmStoryVo">
+      /* Con_BoardAdm.xml - selectStoryListSummary*/
+      SELECT count(*) as totalCnt
+              ,sum(if(bas.mem_sex = 'm',1,0)) as maleCnt
+              ,sum(if(bas.mem_sex = 'f',1,0)) as femaleCnt
+              ,sum(if(bas.mem_sex = 'n',1,0)) as noneCnt
+      from rd_data.tb_broadcast_room bro
+              inner join rd_data.tb_broadcast_room_story sto on sto.room_no = bro.room_no
+              inner join rd_data.tb_member_basic bas on bro.mem_no = bas.mem_no
+        <include refid="storyCondition"/>
+    </select>
+
     <!--<select id="callStoryDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">-->
         <!--/* Con_BoardAdm.xml - callStoryDelete */-->
         <!--call rd_admin.sp_admin_broadcast_room_story_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
@@ -220,4 +273,54 @@
         update rd_data.tb_broadcast_room_story set `status`=1 where idx=#{storyIdx}
     </update>
 
+    <select id="selectprofileMsgListCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="int">
+        /* Con_BoardAdm.xml - selectprofileMsgListCnt */
+        select count(*)
+        from (
+            select
+                session.last_upd_date as last_upd_date
+                , session.mem_no as mem_no
+                , profile.image_profile as image_profile
+                , basic.mem_nick as mem_nick
+                , basic.mem_userid as mem_userid
+                , basic.mem_join_date as mem_join_date
+                , basic.mem_phone as mem_phone
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join (select mem_no, max(last_upd_date) last_upd_date
+                                from rd_data.tb_member_session
+                                group by mem_no
+                                order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
+            where session.mem_no is not null
+        ) list
+    </select>
+
+    <select id="selectProfileMsgList" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo">
+        /* Con_BoardAdm.xml - selectProfileMsgList */
+        select *
+        from (
+            select
+                @RNUM := @RNUM +1 as rowNum
+                , date_format(session.last_upd_date,'%Y.%m.%d %H:%i:%s') as last_upd_date
+                , session.mem_no as mem_no
+                , profile.image_profile as image_profile
+                , profile.msg_profile as msg_profile
+                , basic.mem_nick as mem_nick
+                , basic.mem_sex as mem_sex
+                , basic.mem_birth_year as mem_birth_year
+                , basic.mem_userid as mem_userid
+                , basic.mem_join_date as mem_join_date
+                , basic.mem_phone as mem_phone
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join (select mem_no, max(last_upd_date) last_upd_date
+                                from rd_data.tb_member_session
+                                group by mem_no
+                                order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
+                inner join (select @RNUM := 0) r
+            where session.mem_no is not null
+            order by session.last_upd_date desc
+        ) list
+        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
 </mapper>

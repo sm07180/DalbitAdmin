@@ -40,10 +40,9 @@ public class BoardAdmStoryVo extends PagingVo {
 
     // summary --------------------------
     private String type;
-    private int totalStroyMCnt;      // 총합 남자
-    private int totalStroyFCnt;      // 총합 여자
-    private int totalStroyNCnt;      // 총합 알수없음
-    private int memStoryMCnt;
+    private int maleCnt;      // 총합 남자
+    private int femaleCnt;    // 총합 여자
+    private int noneCnt;      // 총합 알수없음
 
 
 

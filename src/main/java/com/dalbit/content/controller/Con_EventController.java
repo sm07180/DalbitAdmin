@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/content/event")
 public class Con_EventController {
 
-    @GetMapping("/list")
+    @GetMapping("/management/list")
     public String list() {
-        return "content/event/list";
+        return "content/event/management/list";
     }
 
     @GetMapping("attendance/list")
@@ -38,5 +38,15 @@ public class Con_EventController {
     @GetMapping("photo/shot/list")
     public String photoShotList(){
         return "content/event/shot/list";
+    }
+
+    @GetMapping("knowhow/list")
+    public String knowhowList(){
+        return "content/event/knowhow/list";
+    }
+
+    @GetMapping("member/list")
+    public String memberList(){
+        return "content/event/member/list";
     }
 }

@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- serachBox -->
 <form id="searchForm">
@@ -34,8 +35,8 @@
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
         <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간 방송</a></li>
-        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);" class="hide">실시간 청취자</a></li>
-        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);" class="hide">방송 외 접속 회원</a></li>
+        <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);">실시간 청취자</a></li>
+        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);">방송 외 접속 회원</a></li>
         <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>
     </ul>
     <div class="tab-content no-padding">
@@ -43,7 +44,12 @@
             <div class="widget widget-table">
                 <div class="col-md-6">
                     <br/>
-                    <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
+                    <label id="liveTitle">
+                        ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>
+                        ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.<br/>
+                        ㆍ실시간 방송 랭킹 점수 산출 방법 <br/>
+                        &nbsp&nbsp: 누적청취자 2점(비회원 제외) + 받은 별 1점(부스터 건당 10별 제외) + 받은 좋아요 1점 + 부스터(만료) 20점 + 부스터 (진행중) 30점
+                    </label>
                     <br/>
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
@@ -106,24 +112,16 @@
 
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
-            if (liveState == 1 || liveState == 2) {
                 getSearch();
-            }else if(liveState == 3){
                 getListenUserList();
-            }else if(liveState == 4){
                 getLoginUserList();
-            }
         };
     });
 
     $('#bt_search').on('click', function(){
-        if (liveState == 1 || liveState == 2) {
             getSearch();
-        }else if(liveState == 3){
             getListenUserList();
-        }else if(liveState == 4){
             getLoginUserList();
-        }
     });
 
 
@@ -208,7 +206,7 @@
                 if ($("select[name='liveSort']").val() == 6)
                     data.sortByeol = 1;
             }
-        }else{
+        }else if(liveState == 2) {
             $("#selJoinDate").show();
             if($("select[name='endSort']").val() != 0){
                 if ($("select[name='endSort']").val() == 2)
@@ -259,11 +257,14 @@
         }
         room_liveType = tmp;
 
-        if(liveState == 1){
-            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
-        }else{
+
+        if(liveState != 1){
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
         }
+        dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_loginUser.reload(loginNextFunc);
+        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
+
 
         // getSearch();
     }
@@ -279,11 +280,15 @@
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
 
-        // console.log("liveState ------------------- 1");
-        // console.log(liveState);
-        // if(liveState == 1) {
-        //     $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
-        // }
+        if(liveState == 1) {
+            $("#selJoinDate").hide();
+            $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+        }else{
+            $("#selJoinDate").hide();
+            if(liveState == 2){
+                $("#selJoinDate").show();
+            }
+        }
     }
 
     function getSearch(){
@@ -339,16 +344,17 @@
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="width: 80%">
+    <table class="table table-bordered table-summary pull-right" style="width: 100%">
         <tr>
             <th colspan="8" style="background-color: #bf9000;color: white">방송방</th>
-            <th colspan="3" style="background-color: #2f5496;color: white">청취자</th>
+            <th colspan="4" style="background-color: #2f5496;color: white">청취자</th>
         </tr>
         <tr>
             <th colspan="3" style="background-color: #fff2cc;">플랫폼</th>
             <th colspan="2" style="background-color: #fff2cc;">DJ구분</th>
             <th colspan="3" style="background-color: #fff2cc;">DJ성별</th>
             <th colspan="3" style="background-color: #cdd4ea;">청취자성별</th>
+            <th rowspan="2" style="background-color: #cdd4ea;">비회원</th>
         </tr>
         <tr>
             <th style="background-color: #f2f2f2;">Android</th>
@@ -375,12 +381,13 @@
             <td>{{content.liveListenMaleCnt}}</td>
             <td>{{content.liveListenFemaleCnt}}</td>
             <td>{{content.liveListenNoneCnt}}</td>
+            <td>{{content.liveNoneMemberCnt}}</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
             <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="2">총 수</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31">{{content.liveListenerCnt}}</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="2">{{content.liveListenerCnt}}</td>
         </tr>
     </table>
 </script>

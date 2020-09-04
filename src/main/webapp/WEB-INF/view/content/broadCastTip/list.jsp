@@ -124,24 +124,6 @@
         var context = response.data;
         var html = templateScript(context);
         $('#broadCastTip_detail').html(html);
-
-        if(response.data.viewTarget == "111"){
-            $("input[name=viewTarget]").each(function () {
-                this.checked = true;
-            });
-        }else{
-            $("input[name=viewTarget]").each(function () {
-                this.checked = false;
-            });
-
-            var arrayViewTarget = response.data.viewTarget.split('');
-            for(var idx in arrayViewTarget){
-                if(arrayViewTarget[idx] == 1){
-                    var value = parseInt(idx) + 1;
-                    $("input[name='viewTarget'][id='viewTarget"+ value +"']").prop("checked", true);
-                }
-            }
-        }
     }
 
     function newTip(){
@@ -155,17 +137,9 @@
     }
 
     function tipEdit(){
-        var viewTarget="";
-        $("input[name=viewTarget]").each(function() {
-            if(this.checked){
-                viewTarget = viewTarget + "1";
-            }else{
-                viewTarget = viewTarget + "0";
-            }
-        });
         var data = {
             'idx' : idx
-            ,'viewTarget' : viewTarget
+            ,'viewTarget' : Number($("#detail_viewTarget").find('input[name="viewTarget"]:checked').val())
             ,'viewOn' : Number($("#detail_viewOn").find('input[name="viewOn"]:checked').val())
             ,'tipDesc' : $("#content").val()
         };
@@ -233,7 +207,7 @@
                 <tbody>
                     <tr>
                         <th>노출 대상</th>
-                        <td id="detail_viewTarget">{{{getCommonCodeHorizontalCheck viewTarget 'broadTip_objType_detail' 'Y' 'viewTarget'}}}</td>
+                        <td id="detail_viewTarget">{{{getCommonCodeRadio viewTarget 'broadTip_objType_detail' 'Y' 'viewTarget'}}}</td>
                         <th>노출여부</th>
                         <td id="detail_viewOn">{{{getCommonCodeRadio viewOn 'broadTip_viewType' 'Y' 'viewOn'}}}</td>
                         <th>최종수정일시</th>

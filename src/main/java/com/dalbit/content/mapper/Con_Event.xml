@@ -511,6 +511,25 @@
     <sql id="shotListCondition">
         photo.event_idx = #{event_idx}
         and photo.del_yn = 0
+
+        <if test="only_check == 1">
+            and photo.is_check = 1
+        </if>
+
+        <if test="idx != 0">
+            and photo.idx = #{idx}
+        </if>
+
+        <choose>
+            <when test="slct_type == 1">
+                and photo.slct_device in (1, 2)
+            </when>
+            <when test="slct_type == 2">
+                and photo.slct_device in (3, 4, 5)
+            </when>
+
+        </choose>
+
         <if test='txt_search != null and txt_search != ""'>
             <choose>
                 <when test='searchType == "1"'>
@@ -559,7 +578,16 @@
                  , photo.event_idx
                  , photo.mem_no
                  , photo.image_url
+                 , photo.image_url2
+                 , photo.image_url3
+                 , photo.title
                  , photo.contents
+                 , photo.slct_device
+                 , photo.device1
+                 , photo.device2
+                 , photo.view_cnt
+                 , photo.good_cnt
+                 , photo.is_check
                  , date_format(photo.reg_date, '%Y.%m.%d %H:%i:%s') reg_date
                  , ifnull(basic.mem_nick, withdrawal.mem_nick) mem_nick
                  , ifnull(basic.mem_sex, withdrawal.mem_sex) mem_sex
@@ -571,7 +599,11 @@
                  , (select @rownum := 0 ) rowNum
             where
                 <include refid="shotListCondition" />
-            order by photo.idx desc
+            order by
+                <if test="slct_order == 1">
+                    photo.good_cnt desc,
+                </if>
+                photo.idx desc
         )a
         where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
 
@@ -600,6 +632,16 @@
         </foreach>
     </update>
 
+    <update id="updatePhotoGood" parameterType="com.dalbit.content.vo.PhotoShotVo">
+        /* Con_Event.xml - updatePhotoGood */
+        update rd_admin.tb_event_photo
+        set
+            is_check = #{is_check}
+            , op_name = #{opName}
+            , last_upd_date = now()
+        where idx = #{idx}
+    </update>
+
     <update id="deleteEventMember" parameterType="com.dalbit.content.vo.PhotoShotVo">
         /* Con_Event.xml - deleteEventMember */
         update rd_admin.tb_event_member
@@ -614,4 +656,367 @@
             </foreach>
         )
     </update>
+
+    <sql id="memberListCondition">
+        evt.event_idx = #{event_idx}
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    and evt.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    and (
+                    mem.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMem.mem_userid like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "3"'>
+                    and (
+                    mem.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMem.mem_nick like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "4"'>
+                    and evt.contact_no like concat('%', #{txt_search}, '%')
+                </when>
+                <otherwise>
+                    and
+                    (
+                    evt.mem_no like concat('%', #{txt_search}, '%')
+                    or mem.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMem.mem_userid like concat('%', #{txt_search}, '%')
+                    or mem.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMem.mem_nick like concat('%', #{txt_search}, '%')
+                    or evt.contact_no like concat('%', #{txt_search}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <select id="selectEventMemberList" parameterType="com.dalbit.content.vo.EventMemberVo" resultType="com.dalbit.content.vo.EventMemberVo">
+        /* Con_Event.xml - selectEventMemberList */
+        select *
+        from(
+            select @rownum := @rownum + 1 as rowNum
+                , evt.idx
+                , evt.event_idx
+                , evt.mem_no
+                , evt.platform
+                , evt.is_win
+                , evt.`order`
+                , evt.`name`
+                , evt.contact_no
+                , evt.recv_data_1
+                , evt.recv_data_2
+                , evt.recv_data_3
+                , evt.recv_data_4
+                , evt.recv_data_5
+                , date_format(evt.enter_date, '%y%m%d') enter_date
+                , evt.del_yn
+                , date_format(evt.reg_date, '%y%m%d') reg_date
+                , evt.op_name
+                , date_format(evt.last_upd_date, '%y%m%d') last_upd_date
+                , evt.last_op_name
+                , ifnull(mem.mem_nick, outMem.mem_nick) mem_nick
+                , ifnull(mem.mem_sex, outMem.mem_sex) mem_sex
+                , ifnull(mem.mem_birth_year, outMem.mem_birth_year) mem_birth_year
+                , ifnull(mem.mem_state, outMem.mem_state) mem_state
+            from rd_admin.tb_event_member evt
+                left join rd_data.tb_member_basic mem on evt.mem_no = mem.mem_no
+                left join rd_data.tb_member_withdrawal_bak outMem on evt.mem_no = outMem.mem_no
+                , (select @rownum := 0 ) rowNum
+            where
+                <include refid="memberListCondition" />
+            order by idx desc
+        )a
+        where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectEventMemberCnt" parameterType="com.dalbit.content.vo.EventMemberVo" resultType="int">
+        /* Con_Event.xml - selectEventMemberCnt */
+        select
+            count(*)
+        from rd_admin.tb_event_member evt
+            left join rd_data.tb_member_basic mem on evt.mem_no = mem.mem_no
+            left join rd_data.tb_member_withdrawal_bak outMem on evt.mem_no = outMem.mem_no
+        where
+            <include refid="memberListCondition" />
+    </select>
+
+    <select id="callEventManagementList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventManagementListOutputVo">
+        call rd_admin.sp_admin_event_management_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventManagementInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventManagementInfoOutputVo">
+        call rd_admin.sp_admin_event_management_Info(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventManagementAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_management_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventManagementEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_management_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventManagementDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_management_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventPrizeList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventPrizeListOutputVo">
+        call rd_admin.sp_admin_event_prize_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventPrizeAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_prize_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventPrizeDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventPrizeDetailOutputVo">
+        call rd_admin.sp_admin_event_prize_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventPrizeEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_prize_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventPrizeDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_prize_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventWinnerInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventWinnerInfoOutputVo">
+        call rd_admin.sp_admin_event_winner_info(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventWinnerApplicant" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventWinnerApplicantOutputVo">
+        call rd_admin.sp_admin_event_winner_applicant(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventWinnerList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_EventWinnerListOutputVo">
+        call rd_admin.sp_admin_event_winner_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventWinnerAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_winner_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventWinnerDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_winner_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
+    <!--======================= 기존 이벤트 관리 ======================= -->
+    <!--<select id="callEventList" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">-->
+    <!--select @rownum := @rownum + 1 as rowNum, a.*-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) mem_cnt-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_sex = 'm' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) male_cnt-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_sex = 'f' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) female_cnt-->
+    <!--from ( select if(start_datetime > now(),'대기 중','진행중') as state ,b.*-->
+    <!--From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d-->
+    <!--where end_datetime >= now()-->
+    <!--and event_title like concat('%', #{searchText}, '%')-->
+    <!--order by reg_date desc-->
+    <!--limit #{pageNo}, #{pageCnt}) a-->
+    <!--</select>-->
+    <!--<select id="callEventList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">-->
+    <!--select count(*) From rd_admin.tb_event_basic where end_datetime >= now()-->
+    <!--</select>-->
+
+    <!--<select id="callEventList_End" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">-->
+    <!--select @rownum := @rownum + 1 as rowNum, a.*-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) mem_cnt-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_sex = 'm' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) male_cnt-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_sex = 'f' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) female_cnt-->
+    <!--,(select count(*) from rd_data.tb_member_basic where mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx and is_win='1')) as win_cnt-->
+    <!--from ( select '마감' as state ,b.*-->
+    <!--From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d-->
+    <!--where end_datetime <![CDATA[<]]> now()-->
+    <!--and event_title like concat('%', #{searchText}, '%')-->
+    <!--order by reg_date desc-->
+    <!--limit #{pageNo}, #{pageCnt}) a-->
+    <!--</select>-->
+    <!--<select id="callEventList_End_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">-->
+    <!--select count(*) From rd_admin.tb_event_basic where end_datetime  <![CDATA[<]]>  now()-->
+    <!--</select>-->
+
+    <!--<update id="callEventDelete" parameterType="com.dalbit.content.vo.procedure.P_EventDeleteVo">-->
+    <!--/* Con_Event.xml - callEventDelete */-->
+    <!--delete from rd_admin.tb_event_basic-->
+    <!--where idx=#{idx}-->
+    <!--</update>-->
+
+    <!--<update id="callEventMemberDelete" parameterType="com.dalbit.content.vo.procedure.P_EventDeleteVo">-->
+    <!--/* Con_Event.xml - callEventDelete */-->
+    <!--delete from rd_admin.tb_event_member-->
+    <!--where event_idx=#{idx}-->
+    <!--</update>-->
+
+    <!--&lt;!&ndash; 이벤트 정보 등록/수정 &ndash;&gt;-->
+    <!--<insert id="callEventInsert" parameterType="com.dalbit.content.vo.procedure.P_EventUpdateVo">-->
+    <!--/* Con_Event.xml - callEventInsert */-->
+    <!--insert into rd_admin.tb_event_basic-->
+    <!--(event_title,start_datetime,end_datetime,view_start_datetime,view_end_datetime,platform,event_slct,is_pop,is_view,is_reply,-->
+    <!--pc_img_url,pc_link_url,mobile_img_url,mobile_link_url,thumb_img_url,`desc`,reg_date,op_name,last_upd_date,last_op_name)-->
+    <!--value-->
+    <!--(#{event_title},STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_end_datetime},'%Y%m%d %H%i%S'),#{platform},#{loginType},#{viewType},#{viewYn},#{is_reply},-->
+    <!--#{pc_img_url},#{pc_link_url},#{mobile_img_url},#{mobile_link_url},#{thumb_img_url},#{desc},now(),#{opName},now(),#{opName})-->
+    <!--</insert>-->
+
+    <!--<update id="callEventUpdate" parameterType="com.dalbit.content.vo.procedure.P_EventUpdateVo">-->
+    <!--/* Con_Event.xml - callEventUpdate */-->
+    <!--update rd_admin.tb_event_basic-->
+    <!--set event_title = #{event_title},-->
+    <!--start_datetime = STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'),-->
+    <!--end_datetime = STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'),-->
+    <!--view_start_datetime = STR_TO_DATE(#{view_start_datetime},'%Y%m%d %H%i%S'),-->
+    <!--view_end_datetime = STR_TO_DATE(#{view_end_datetime},'%Y%m%d %H%i%S'),-->
+    <!--platform = #{platform},-->
+    <!--event_slct = #{loginType},-->
+    <!--is_pop = #{viewType},-->
+    <!--is_view = #{viewYn},-->
+    <!--is_reply = #{is_reply},-->
+    <!--pc_img_url = #{pc_img_url},-->
+    <!--pc_link_url = #{pc_link_url},-->
+    <!--mobile_img_url = #{mobile_img_url},-->
+    <!--mobile_link_url = #{mobile_link_url},-->
+    <!--thumb_img_url = #{thumb_img_url},-->
+    <!--`desc` = #{desc},-->
+    <!--last_upd_date=now(),-->
+    <!--last_op_name = #{opName}-->
+    <!--where idx=#{idx}-->
+    <!--</update>-->
+
+    <!--&lt;!&ndash;이벤트 응모자 목록 &ndash;&gt;-->
+    <!--<select id="callEventMemberList" parameterType="com.dalbit.content.vo.procedure.P_EventMemberListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventMemberListOutputVo">-->
+    <!--/* Con_Event.xml - callEventMemberList */-->
+    <!--select  @rownum := @rownum + 1 as rowNum, a.*-->
+    <!--from ( select b.event_idx-->
+    <!--,b.mem_no-->
+    <!--,b.is_win-->
+    <!--,b.order-->
+    <!--,(select mem_userid from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_userid-->
+    <!--,(select mem_nick from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_nick-->
+    <!--,(select mem_sex from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_sex-->
+    <!--,(select mem_birth_year from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_birth_year-->
+    <!--,(select mem_birth_month from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_birth_month-->
+    <!--,(select mem_birth_day from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_birth_day-->
+    <!--,(select mem_phone from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_phone-->
+    <!--,(select count(*) from rd_data.tb_broadcast_room_member where mem_no=b.mem_no and auth <![CDATA[<]]>  3) as listenCnt-->
+    <!--,(select count(*) from rd_data.tb_broadcast_room where mem_no=b.mem_no) as broadCnt-->
+    <!--,(select count(*) From rd_data.tb_member_broadcast_item where mem_no=b.mem_no or gifted_mem_no=b.mem_no) as giftCnt-->
+    <!--,sum(1) as applyCnt-->
+    <!--From rd_admin.tb_event_member b-->
+    <!--where event_idx=#{event_idx}-->
+    <!--group by event_idx,mem_no,`order`, mem_userid,mem_nick, mem_sex, mem_phone, listenCnt, broadCnt, giftCnt-->
+    <!--order by mem_no limit #{pageNo}, #{pageCnt}) a, (select @rownum := #{pageNo} ) AS d-->
+    <!--</select>-->
+    <!--<select id="callEventMemberList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">-->
+    <!--/* Con_Event.xml - callEventList_totalCnt */-->
+    <!--select count(*) totalCnt From (select distinct mem_no From rd_admin.tb_event_member b where event_idx=#{event_idx}) a-->
+    <!--</select>-->
+    <!--<select id="callEventMemberList_winCnt" parameterType="String" resultType="integer">-->
+    <!--/* Con_Event.xml - callEventMemberList_winCnt */-->
+    <!--select count(*) winCnt from rd_admin.tb_event_member where mem_no=#{mem_no} and is_win =0-->
+    <!--</select>-->
+
+
+    <!--<update id="callEventSelWIn" parameterType="com.dalbit.content.vo.procedure.P_EventMemberSelWinVo">-->
+    <!--/* Con_Event.xml - callEventSelWIn */-->
+    <!--update rd_admin.tb_event_member set is_win=1, `order`=#{choiceNum}, op_name=#{opName}, reg_date=now() where event_idx=#{event_idx} and mem_no=#{mem_no}-->
+    <!--</update>-->
+
+    <!--&lt;!&ndash;이벤트 중복 응모자 목록 &ndash;&gt;-->
+    <!--<select id="callEventOverlapApplyList" parameterType="com.dalbit.content.vo.procedure.P_EventMemberListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventMemberListOutputVo">-->
+    <!--/* Con_Event.xml - callEventOverlapApplyList */-->
+    <!--select b.mem_no-->
+    <!--,(select mem_userid FROM rd_data.tb_member_basic WHERE mem_no = b.mem_no) as mem_userid-->
+    <!--,(select mem_nick FROM rd_data.tb_member_basic WHERE mem_no = b.mem_no) as mem_nick-->
+    <!--,enter_date-->
+    <!--from rd_admin.tb_event_member b-->
+    <!--where event_idx=#{event_idx}-->
+    <!--and mem_no=#{mem_no}-->
+    <!--order by enter_date desc-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;이벤트 댓글 목록 &ndash;&gt;-->
+    <!--<select id="callEventReplyList" parameterType="com.dalbit.content.vo.procedure.P_EventReplyListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventReplyListOutputVo">-->
+    <!--/* Con_Event.xml - callEventReplyList */-->
+    <!--SELECT  @rownum := @rownum + 1 as rowNum, a.*-->
+    <!--FROM (-->
+    <!--SELECT-->
+    <!--a.idx AS reply_idx-->
+    <!--,a.event_idx AS event_idx-->
+    <!--,a.mem_no AS write_mem_no-->
+    <!--,a.depth AS depth-->
+    <!--,a.contents AS contents-->
+    <!--,a.status AS status-->
+    <!--,a.reg_date AS writeDate-->
+    <!--,a.op_name AS op_name-->
+    <!--,a.last_upd_date AS updateDate-->
+    <!--,mb.mem_userId AS userId-->
+    <!--,mb.mem_nick AS nickName-->
+    <!--,mb.mem_sex AS memSex-->
+    <!--,(SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.mem_no) AS profileImage-->
+    <!--,mv.level AS level-->
+    <!--,mv.grade AS grade-->
+    <!--,c.applyCnt AS applyCnt-->
+    <!--FROM-->
+    <!--rd_admin.tb_event_reply AS a-->
+    <!--LEFT JOIN-->
+    <!--rd_data.tb_member_basic AS mb-->
+    <!--ON-->
+    <!--a.mem_no = mb.mem_no-->
+    <!--LEFT JOIN-->
+    <!--rd_data.tb_member_level AS mv-->
+    <!--ON-->
+    <!--a.mem_no = mv.mem_no-->
+    <!--LEFT JOIN-->
+    <!--(SELECT mem_no, COUNT(*) as applyCnt FROM rd_admin.tb_event_reply WHERE event_idx = #{event_idx} AND depth = 1 AND status = 1 GROUP BY mem_no HAVING COUNT(*) > 0) AS c-->
+    <!--ON-->
+    <!--a.mem_no = c.mem_no-->
+    <!--WHERE-->
+    <!--a.event_idx = #{event_idx}-->
+    <!--AND a.depth = 1-->
+    <!--AND a.status = 1-->
+    <!--ORDER BY-->
+    <!--a.idx desc-->
+    <!--LIMIT #{pageStart}, #{pageCnt}-->
+    <!--) a-->
+    <!--, (select @rownum := #{pageStart} ) AS d-->
+    <!--</select>-->
+
+
+    <!--<select id="callEventReplyList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventReplyListInputVo" resultType="Integer">-->
+    <!--/* Con_Event.xml - callEventReplyList_totalCnt */-->
+    <!--SELECT-->
+    <!--COUNT(*) AS totalCnt-->
+    <!--FROM-->
+    <!--rd_admin.tb_event_reply AS a-->
+    <!--LEFT JOIN-->
+    <!--rd_data.tb_member_basic AS mb-->
+    <!--ON-->
+    <!--a.mem_no = mb.mem_no-->
+    <!--LEFT JOIN-->
+    <!--rd_data.tb_member_level AS mv-->
+    <!--ON-->
+    <!--a.mem_no = mv.mem_no-->
+    <!--WHERE-->
+    <!--a.event_idx = ${event_idx}-->
+    <!--AND a.depth = 1-->
+    <!--AND a.status = 1-->
+    <!--</select>-->
+
+
+    <!--&lt;!&ndash;이벤트 댓글 삭제 &ndash;&gt;-->
+    <!--<update id="callEventReplyDelete" parameterType="com.dalbit.content.vo.procedure.P_EventReplyDeleteInputVo">-->
+    <!--/* Con_Event.xml - callEventReplyDelete */-->
+    <!--UPDATE rd_admin.tb_event_reply-->
+    <!--SET-->
+    <!--status = 2-->
+    <!--,op_name = #{opName}-->
+    <!--,last_upd_date = NOW()-->
+    <!--WHERE-->
+    <!--idx = #{reply_idx}-->
+    <!--AND event_idx = #{event_idx}-->
+    <!--</update>-->
 </mapper>

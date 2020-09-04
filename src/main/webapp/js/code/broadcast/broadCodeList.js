@@ -121,6 +121,18 @@ var endSort = [
 ];
 
 
+var liveListenSort = [
+    new COMMON_CODE(null, 'liveListenSort', '실시간청취자')
+    , new COMMON_CODE('0', '0', '최근 청취자 순으로')
+    , new COMMON_CODE('1', '1', '청취시간 많은 순으로')
+    , new COMMON_CODE('2', '2', '청취시작 오래된 순으로')
+    , new COMMON_CODE('3', '3', '좋아요 수가 많은 순으로')
+    , new COMMON_CODE('4', '4', '선물 수가 많은 순으로')
+    , new COMMON_CODE('5', '5', '청취자만')
+    , new COMMON_CODE('6', '6', '매니저만')
+    , new COMMON_CODE('7', '7', '게스트만')
+];
+
 // ------------------------- table -----------------------------
 var listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')

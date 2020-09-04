@@ -55,7 +55,7 @@
                         <a href="#recommend" id="tab_user" name="tab_user" role="tab" data-toggle="tab" data-specialDj="0">일반회원</a>
                     </li>
 
-                    <c:if test="${fn:contains('|고병권|이재호|양효진', principal.getUserInfo().getName())}">
+                    <c:if test="${fn:contains('|이재은|이형원|전유신|강다인|고병권|이재호|양효진|최계석|손우걸|', principal.getUserInfo().getName())}">
                         <li class="_tab ml15">
                             <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">불가내역</a>
                         </li>
@@ -752,7 +752,7 @@
             <col width="6%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <!--<col width="7%"/>-->
+            <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
@@ -780,7 +780,7 @@
             <th>성별</th>
             <th>가입시<br />생년월일</th>
             <th>미성년자<br />여부</th>
-            <!--<th>이름</th>-->
+            <th>회원이름</th>
             <th>예금주</th>
             <th>신청금액</th>
             <th>스페셜DJ<br />혜택</th>
@@ -837,7 +837,7 @@
         <td>{{data.birth}}</td>
         <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br /><span style='font-weight:bold'>[철회됨]</span>{{/equal}}</td>
 
-        <!--<td>{{data.mem_name}}</td>-->
+        <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
         <td>{{addComma data.benefit}}원</td>
@@ -856,7 +856,7 @@
 
     {{else}}
     <tr>
-        <td colspan="23">{{isEmptyData}}</td>
+        <td colspan="24">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>

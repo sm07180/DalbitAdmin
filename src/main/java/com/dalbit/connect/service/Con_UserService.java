@@ -7,6 +7,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.connect.dao.Con_UserDao;
+import com.dalbit.connect.vo.procedure.P_ConnectNonBroadOutDetailVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentInputVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentOutputVo;
 import com.dalbit.connect.vo.procedure.P_UserTotalOutDetailVo;
@@ -56,6 +57,7 @@ public class Con_UserService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, detailList));
     }
 
+
     /**
      * 현재 접속자 통계 총계
      * @return
@@ -65,9 +67,14 @@ public class Con_UserService {
         ProcedureVo procedureVo = new ProcedureVo(pUserCurrentInputVo);
         ArrayList<P_UserCurrentOutputVo> currentList = con_UserDao.callUserCurrent(procedureVo);
 
+        //방송 접속 외 현재 접속자 통계
+        ProcedureVo procedureVo2 = new ProcedureVo(pUserCurrentInputVo);
+        con_UserDao.callCurrentLiveSummary(procedureVo2);
+        P_ConnectNonBroadOutDetailVo detailList = new Gson().fromJson(procedureVo2.getExt(), P_ConnectNonBroadOutDetailVo.class);
+
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, currentList, new PagingVo(procedureVo.getRet())));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, currentList, new PagingVo(procedureVo.getRet()), detailList));
         }else if(Integer.parseInt(procedureVo.getRet()) == 0){
             result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
         }else{

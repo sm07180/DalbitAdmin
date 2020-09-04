@@ -53,6 +53,12 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int broadCastCnt;
     private int extend_time_count;
     private int total;
+    private int memLiveListener;
+    private int notMemLiveListener;
+    private int memTotalListener;
+    private int notMemTotalListener;
+    private int liveBoostCnt;
+
 
     /* summary */
     private int totalBroadCastCnt;
@@ -79,6 +85,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int liveListenMaleCnt;
     private int liveListenFemaleCnt;
     private int liveListenNoneCnt;
+    private int liveNoneMemberCnt;
     private int broadMaleCnt;
     private int broadFemaleCnt;
     private int broadNoneCnt;

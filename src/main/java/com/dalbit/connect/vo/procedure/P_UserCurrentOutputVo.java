@@ -34,6 +34,12 @@ public class P_UserCurrentOutputVo extends SearchVo {
     private Date mem_join_date;
     private String memJoinDateFormat;
 
+    private String ip;
+    private String os_type;
+    private String profile;
+    private int listenCnt;
+    private int listenTime;
+
     public void setConnectDate(Date connectDate){
         this.connectDate = connectDate;
         this.connectDateFormat = DalbitUtil.convertDateFormat(connectDate, "yyyy.MM.dd HH:mm:ss");

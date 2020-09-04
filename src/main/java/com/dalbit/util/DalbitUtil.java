@@ -997,16 +997,14 @@ public class DalbitUtil {
             return setting.getSet_2() == 0;
         }else if(type == 16){   //팬 알림
             return setting.getSet_3() == 0;
-        }else if(type == 17 || type == 22){   //팬보드 글 등록 알림
+        }else if(type == 17){   //팬보드 알림
             return setting.getSet_4() == 0;
-        }else if(type == 21 || type == 23){   //팬보드 댓글 등록 알림
-            return setting.getSet_5() == 0;
         }else if(type == 15 || type == 61){ //선물 알림
-            return setting.getSet_6() == 0;
+            return setting.getSet_5() == 0;
         }else if(type == 60){      // 1:1 문의 답변 알림
+            return setting.getSet_6() == 0;
+        }else if(type == 51 || type == 59 || type == 92 || type == 93 || type == 94 ) {     // 서비스 알림
             return setting.getSet_7() == 0;
-        }else if(type == 52 || type == 53 || type == 92 || type == 93 || type == 94 ) {     // 서비스 알림
-            return setting.getSet_8() == 0;
         }else{     // 기타
             return setting.getAll_ok() == 0;
         }

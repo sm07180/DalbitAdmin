@@ -36,5 +36,4 @@ public class Con_UserRestController {
         String result = con_UserService.callUserCurrentUser(pUserCurrentInputVo);
         return result;
     }
-
 }
