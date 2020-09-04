@@ -92,7 +92,7 @@
         util.getAjaxData("noticeListSummary", "/rest/content/boardAdm/noticeList/summary", param, fn_success_noticeSummary);
     }
     function fn_success_noticeSummary(dst_id, response) {
-        $("#tab_noticeList").text("회원" + "(" + response.data.totalCnt +")");
+        $("#tab_noticeList").text("회원공지" + "(" + response.data.totalCnt +")");
         $("#noticeListCnt").html(
             '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
             '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
