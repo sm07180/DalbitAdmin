@@ -18,7 +18,7 @@ var UtilDataTableSource = {
             {'title': '닉네임', 'data': 'mem_nick','width':'100px'},
             {'title': '연락처', 'data': 'mem_phone','width':'50px'},
             {'title': '수신대상등록하기', 'data': '','defaultContent': '', 'render': function (data, type, row, meta) {
-                    return '<a onclick="javascript:setModalMemberData('+meta.row+')" data-dismiss="modal">' + "[등록하기]" + '</a>'
+                    return '<a onclick="javascript:setModalMemberData('+meta.row+')">' + "[등록하기]" + '</a>'
                 },'width':'60px'},
         ]
     },
