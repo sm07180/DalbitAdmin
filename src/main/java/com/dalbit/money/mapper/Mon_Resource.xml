@@ -15,4 +15,9 @@
     <select id="callResourceDetail_byeol" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.money.vo.procedure.P_ResourceDetailByeolOutVo">
         call rd_admin.sp_admin_stat_resource_byeol(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callMemberDataList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.money.vo.procedure.P_memberDataListOutVo">
+        call rd_admin.sp_admin_stat_resource_member_data_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
 </mapper>

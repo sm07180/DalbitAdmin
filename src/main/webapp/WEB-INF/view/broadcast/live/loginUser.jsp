@@ -51,24 +51,14 @@
     function loginNextFunc(json){
         $("#tab_LoginUser").text("방송 외 접속 회원(" + json.recordsTotal + ")");
 
-
-        var data = {
-            inner : 1
-        };
-
-        util.getAjaxData("currentLiveSummary", "/rest/connect/user/info/current/live/summary", data, currentLiveSummary_success);
-    }
-
-    function currentLiveSummary_success(dst_id, response){
-        console.log(response);
-
         var template = $("#loginUser_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            content : response.data
+            content : json.summary
         };
         var html = templateScript(data);
         $("#login_summaryArea").html(html);
+
     }
 
     function getLoginUserList_tabClick(tmp){

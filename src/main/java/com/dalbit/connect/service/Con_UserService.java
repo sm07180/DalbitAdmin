@@ -67,9 +67,14 @@ public class Con_UserService {
         ProcedureVo procedureVo = new ProcedureVo(pUserCurrentInputVo);
         ArrayList<P_UserCurrentOutputVo> currentList = con_UserDao.callUserCurrent(procedureVo);
 
+        //방송 접속 외 현재 접속자 통계
+        ProcedureVo procedureVo2 = new ProcedureVo(pUserCurrentInputVo);
+        con_UserDao.callCurrentLiveSummary(procedureVo2);
+        P_ConnectNonBroadOutDetailVo detailList = new Gson().fromJson(procedureVo2.getExt(), P_ConnectNonBroadOutDetailVo.class);
+
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, currentList, new PagingVo(procedureVo.getRet())));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, currentList, new PagingVo(procedureVo.getRet()), detailList));
         }else if(Integer.parseInt(procedureVo.getRet()) == 0){
             result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
         }else{
@@ -78,15 +83,4 @@ public class Con_UserService {
         return result;
     }
 
-    /**
-     * 방송 접속 외 현제 접속자 통계
-     * @return
-     */
-    public String callCurrentLiveSummary(P_UserCurrentInputVo pUserCurrentInputVo){
-        ProcedureVo procedureVo = new ProcedureVo(pUserCurrentInputVo);
-        con_UserDao.callCurrentLiveSummary(procedureVo);
-        P_ConnectNonBroadOutDetailVo detailList = new Gson().fromJson(procedureVo.getExt(), P_ConnectNonBroadOutDetailVo.class);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, detailList));
-    }
 }

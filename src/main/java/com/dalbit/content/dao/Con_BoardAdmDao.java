@@ -49,6 +49,12 @@ public interface Con_BoardAdmDao {
 
     @Transactional(readOnly = true)
     int selectprofileMsgListCnt(P_MemberProfileInputVo pMemberProfileInputVo);
+
     @Transactional(readOnly = true)
     List<P_MemberProfileOutputVo> selectProfileMsgList(P_MemberProfileInputVo pMemberProfileInputVo);
+
+    @Transactional(readOnly = true)
+    P_MemberProfileOutputVo profileMsgListSummary(P_MemberProfileInputVo pMemberProfileInputVo);
+
+    int callProfileMsgDelete(P_MemberProfileInputVo pMemberProfileInputVo);
 }

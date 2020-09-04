@@ -80,16 +80,6 @@ public class Con_BoardAdmRestController {
     }
 
     /**
-     * 사연 통계
-     * @param boardAdmStoryVo
-     * @return
-     */
-    @PostMapping("/noticeList/summary")
-    public String selectNoticeSummary(BoardAdmStoryVo boardAdmStoryVo) {
-        return conBoardAdmService.selectNoticeSummary(boardAdmStoryVo);
-    }
-
-    /**
      * 회원/방송공지 조회
      */
     @PostMapping("/noticeList")
@@ -98,10 +88,38 @@ public class Con_BoardAdmRestController {
     }
 
     /**
+     * 공지 통계
+     * @param pMemberNoticeInputVo
+     * @return
+     */
+    @PostMapping("/noticeList/summary")
+    public String noticeListSummary(P_MemberNoticeInputVo pMemberNoticeInputVo) {
+        return conBoardAdmService.selectNoticeSummary(pMemberNoticeInputVo);
+    }
+
+    /**
      * 프로필메세지 조회
      */
     @PostMapping("/profileMsgList")
     public String profileMsgList(P_MemberProfileInputVo pMemberNoticeInputVo) {
         return conBoardAdmService.selectprofileMsgList(pMemberNoticeInputVo);
+    }
+
+    /**
+     * 프로필메세지 통계
+     * @param pMemberProfileInputVo
+     * @return
+     */
+    @PostMapping("/profileMsg/summary")
+    public String profileMsgListSummary(P_MemberProfileInputVo pMemberProfileInputVo) {
+        return conBoardAdmService.profileMsgListSummary(pMemberProfileInputVo);
+    }
+
+    /**
+     * 프로필메시지 삭제
+     */
+    @PostMapping("/profileMsg/del")
+    public String profileMsgDel(P_MemberProfileInputVo pMemberProfileInputVo) {
+        return conBoardAdmService.profileDelete(pMemberProfileInputVo);
     }
 }

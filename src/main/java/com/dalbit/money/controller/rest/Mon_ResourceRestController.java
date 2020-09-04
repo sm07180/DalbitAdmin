@@ -47,4 +47,10 @@ public class Mon_ResourceRestController {
         String result = mon_ResourceService.resourceDetail(pResourceDetailInPutVo);
         return result;
     }
+
+    @PostMapping("memberDataList")
+    public String memberDataList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.memberDataList(pResourceInfoInPutVo);
+        return result;
+    }
 }

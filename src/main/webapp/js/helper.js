@@ -176,6 +176,10 @@ Handlebars.registerHelper("timeStampMinutes", function(value) {
    return common.timeStampMinutes(value);
 });
 
+Handlebars.registerHelper("timeStampDay", function(value) {
+    return common.timeStampDay(value);
+});
+
 Handlebars.registerHelper("replaceEnter", function(value) {
    return common.replaceEnter(value);
 });

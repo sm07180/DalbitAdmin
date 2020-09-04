@@ -19,9 +19,9 @@
                     <span id="fanboardReplyListCnt"></span><br/>
                     <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
                 </div>
-                <div class="col-md-6 no-padding mt10">
-                    <span id="searchType_boardReply" onchange="fanBoardReply();"></span>
-                </div>
+                <%--<div class="col-md-6 no-padding mt10">--%>
+                    <%--<span id="searchType_boardReply" onchange="fanBoardReply();"></span>--%>
+                <%--</div>--%>
                 <div class="col-md-6 no-padding mt10" >
                     <span id="fanBoardReplyTable_summary"></span>
                 </div>
@@ -40,7 +40,7 @@
     var fanBoardReplyPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-        $("#searchType_boardReply").html(util.getCommonCodeSelect(-1, searchType_board, "N","searchType_boardReply"));
+        // $("#searchType_boardReply").html(util.getCommonCodeSelect(-1, searchType_board, "N","searchType_boardReply"));
     });
 
     function fanBoardReply() {
@@ -52,7 +52,7 @@
             , 'txt_search' : $('#txt_search').val()
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
-            , 'searchType' : $("select[name='searchType_boardReply']").val()
+            , 'searchType' : 0
             , 'boardType' : 2
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardReply);
@@ -125,8 +125,8 @@
 <script id="tmp_fanBoardReplyTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardReply" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="15%"/>
+            <col width="5%"/><col width="15%"/><col width="5%"/><col width="5%"/>
         </colgroup>
         <thead>
         <tr>
@@ -134,9 +134,9 @@
             <th>팬보드주인</th>
             <th>팬보드글등록자</th>
             <th>비밀 글 여부</th>
-            <th>팬보드 등록 글</th>
+            <td class="word-break" style="width: 200px">팬보드 등록 글</th>
             <th>댓글등록자</th>
-            <th>등록된 댓글</th>
+            <td class="word-break" style="width: 200px">등록된 댓글</th>
             <th>등록일시</th>
             <th>관리</th>
         </tr>
@@ -156,14 +156,14 @@
                 <td>
                     {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
                 </td>
-                <td>
+                <td class="word-break" style="width: 200px">
                     <span class="pull-left">{{replaceHtml contents}}</span>
                 </td>
                 <td>
                     {{{memNoLink_sex fan_reply_mem_no fan_reply_mem_no fan_reply_mem_sex}}}<br/>
                     {{{memNoLink_sex fan_reply_mem_nick fan_reply_mem_no fan_reply_mem_sex}}}
                 </td>
-                <td>
+                <td class="word-break" style="width: 200px">
                     <span class="pull-left">{{replaceHtml replyContents}}</span>
                 </td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>

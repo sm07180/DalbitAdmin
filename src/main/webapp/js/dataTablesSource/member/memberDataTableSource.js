@@ -690,7 +690,9 @@ var MemberDataTableSource = {
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
-            {'title': '구분', 'data': 'gubun'},
+            {'title': '구분', 'data': 'gubun', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, mem_wallet_byeol_code);
+                }},
             {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},

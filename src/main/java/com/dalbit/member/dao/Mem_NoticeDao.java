@@ -17,6 +17,9 @@ public interface Mem_NoticeDao {
     ArrayList<P_MemberNoticeOutputVo> callNoticeHistory(P_MemberNoticeInputVo pMemberNoticeInputVo);
 
     @Transactional(readOnly = true)
+    P_MemberNoticeOutputVo selectNoticeSummary(P_MemberNoticeInputVo pMemberNoticeInputVo);
+
+    @Transactional(readOnly = true)
     int callNoticeHistory_totalCnt(P_MemberNoticeInputVo pMemberNoticeInputVo);
 
     int callMemberNoticeDelete(String idx);

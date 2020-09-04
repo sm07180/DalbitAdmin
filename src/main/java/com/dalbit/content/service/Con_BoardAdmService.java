@@ -131,27 +131,6 @@ public class Con_BoardAdmService {
     }
 
     /**
-     * 공지 통계
-     */
-    public String selectNoticeSummary(BoardAdmStoryVo boardAdmStoryVo) {
-//        ArrayList<BoardAdmStoryVo> noticeSummaryList = conBoardAdmDao.selectNoticeSummary(boardAdmStoryVo);
-//
-//        BoardAdmFanBoardVo noticeSummary = new BoardAdmFanBoardVo();
-//        for(int i=0;i<noticeSummaryList.size();i++){
-//            if(noticeSummaryList.get(i).getType().equals("broadcast")) {
-//                noticeSummary.setTotalCnt(noticeSummaryList.get(i).getTotalCnt());
-//            }else{
-//                noticeSummary.setSecretTotalCnt(noticeSummaryList.get(i).getTotalCnt());
-//            }
-//        }
-
-        String result="";
-//        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, noticeSummary));
-
-        return result;
-    }
-
-    /**
      * 사연 삭제
      */
     public String callStoryDelete(P_StoryDeleteVo pStoryDeleteVo) {
@@ -170,7 +149,6 @@ public class Con_BoardAdmService {
         return result;
     }
 
-
     /**
      * 회원/방송공지 조회
      */
@@ -187,6 +165,17 @@ public class Con_BoardAdmService {
     }
 
     /**
+     * 공지 통계
+     */
+    public String selectNoticeSummary(P_MemberNoticeInputVo pMemberNoticeInputVo) {
+        P_MemberNoticeOutputVo noticeSummaryList = mem_NoticeDao.selectNoticeSummary(pMemberNoticeInputVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, noticeSummaryList));
+
+        return result;
+    }
+
+    /**
      * 프로필메세지 조회
      */
     public String selectprofileMsgList(P_MemberProfileInputVo pMemberNoticeInputVo) {
@@ -197,5 +186,31 @@ public class Con_BoardAdmService {
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, profileMsgList, new PagingVo(profileMsgCount)));
         return result;
 
+    }
+
+    /**
+     * 프로필메시지 삭제
+     */
+    public String profileDelete(P_MemberProfileInputVo pMemberNoticeInputVo) {
+        int resultInt = conBoardAdmDao.callProfileMsgDelete(pMemberNoticeInputVo);
+
+        String result;
+        if(resultInt != 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+        return result;
+    }
+
+    /**
+     * 공지 통계
+     */
+    public String profileMsgListSummary(P_MemberProfileInputVo pMemberProfileInputVo) {
+        P_MemberProfileOutputVo profileMsgSummaryList = conBoardAdmDao.profileMsgListSummary(pMemberProfileInputVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, profileMsgSummaryList));
+
+        return result;
     }
 }

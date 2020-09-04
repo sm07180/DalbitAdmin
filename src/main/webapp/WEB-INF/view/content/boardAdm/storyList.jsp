@@ -8,7 +8,7 @@
             <span class="mb5" id="storyListCnt"></span>
         </div>
         <div class="col-md-12 no-padding">
-            <span id="searchType_story" onchange="storyList();"></span>
+            <%--<span id="searchType_story" onchange="storyList();"></span>--%>
         </div>
         <div class="tab-pane fade in active" id="storyList">
             <div class="widget-content">
@@ -26,7 +26,7 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-        $("#searchType_story").html(util.getCommonCodeSelect(-1, searchType_story));
+        // $("#searchType_story").html(util.getCommonCodeSelect(-1, searchType_story));
         storyList();
     });
 
@@ -40,7 +40,7 @@
             // , 'searchType' : $('select[name="searchType"]').find('option:selected').val()
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
-            , 'searchType' : $("select[name='searchType_story']").val()
+            , 'searchType' : 0
         };
 
         console.log(data);
@@ -104,8 +104,8 @@
     <table id="tb_storyList" class="table table-sorting table-hover table-bordered mt10">
 
         <colgroup>
-            <col width="3%"/><col width="5%"/><col width="15%"/><col width="10%"/><col width="10%"/>
-            <col width="17%"/><col width="11%"/><col width="11%"/><col width="11%"/>
+            <col width="3%"/><col width="5%"/><col width="17%"/><col width="10%"/><col width="10%"/>
+            <col width="39%"/><col width="10%"/><col width="4%"/><col width="3%"/>
         </colgroup>
 
         <thead>
@@ -117,8 +117,8 @@
             <th>등록자</th>
             <th>사연내용</th>
             <th>등록일시</th>
-            <th style="width: 70px">처리</th>
-            <th>삭제</th>
+            <th class="word-break">처리</th>
+            <th class="word-break">삭제</th>
         </tr>
         </thead>
 
@@ -148,9 +148,9 @@
                 (탈퇴한 회원)
                 {{/equal}}
             </td>
-            <td class="word-break">{{replaceHtml story_content}}</td>
+            <td  class="word-break" style="width: 500px"><span class="pull-left">{{replaceHtml story_content}}</span></td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>
-            <td style="width: 70px">
+            <td>
                 {{#dalbit_if broState '==' 4}}
                     <span class="font-bold">종료됨</span>
                 {{else}}

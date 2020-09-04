@@ -19,9 +19,9 @@
                     <span id="fanboardListCnt"></span><br/>
                     <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
                 </div>
-                <div class="col-md-6 no-padding mt10">
-                    <span id="searchType_board" onchange="fanBoardList();"></span>
-                </div>
+                <%--<div class="col-md-6 no-padding mt10">--%>
+                    <%--<span id="searchType_board" onchange="fanBoardList();"></span>--%>
+                <%--</div>--%>
                 <div class="col-md-6 no-padding mt10" >
                     <span id="fanBoardTable_summary"></span>
                 </div>
@@ -57,7 +57,7 @@
     var fanBoardPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-        $("#searchType_board").html(util.getCommonCodeSelect(-1, searchType_board));
+        // $("#searchType_board").html(util.getCommonCodeSelect(-1, searchType_board));
     });
 
     function fanBoardList() {
@@ -69,7 +69,7 @@
             , 'txt_search' : $('#txt_search').val()
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
-            , 'searchType' : $("select[name='searchType_board']").val()
+            , 'searchType' : 0
             , 'boardType' : 1
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
