@@ -10,13 +10,13 @@ import lombok.ToString;
 @ToString
 public class P_EventManagementDeleteVo {
 
-    private int eventIdx;
+    private String eventIdx;
     private String eventIdxs;
     private String opName;
     public P_EventManagementDeleteVo(){}
     public P_EventManagementDeleteVo(String eventIdx, String opName)
     {
-        this.eventIdx = Integer.valueOf(eventIdx);
+        this.eventIdx = eventIdx;
         this.opName = opName;
     }
 }

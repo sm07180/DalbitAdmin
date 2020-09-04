@@ -79,33 +79,33 @@
         $('#prize_receive').on('change', function() {
             if($('#prize_receive').val() == 1) {
                 // 현물일 시
-                $('#dalByeol').prop('disabled', true);
-                $('#dalByeol').val("");
-                $('#prizeUrl').prop('disabled', false);
-                $('#giveCnt').prop('disabled', false);
-                $('#giveAmt').prop('disabled', false);
-                $('#taxAmt').prop('disabled', false);
-                $('#receiveDal').prop('disabled', false);
+                $('input[name="dalByeol"]').prop('disabled', true);
+                $('input[name="dalByeol"]').val("");
+                $('input[name="prizeUrl"]').prop('disabled', false);
+                $('input[name="giveCnt"]').prop('disabled', false);
+                $('input[name="giveAmt"]').prop('disabled', false);
+                $('input[name="taxAmt"]').prop('disabled', false);
+                $('input[name="receiveDal"]').prop('disabled', false);
             } else if($('#prize_receive').val() == 2 || $('#prize_receive').val() == 3) {
                 // 달/별일 시
-                $('#dalByeol').prop('disabled', false);
-                $('#prizeUrl').prop('disabled', true);
-                $('#prizeUrl').val("");
-                $('#giveCnt').prop('disabled', true);
-                $('#giveCnt').val("");
-                $('#giveAmt').prop('disabled', true);
-                $('#giveAmt').val("");
-                $('#taxAmt').prop('disabled', true);
-                $('#taxAmt').val("");
-                $('#receiveDal').prop('disabled', true);
-                $('#receiveDal').val("");
+                $('input[name="dalByeol"]').prop('disabled', false);
+                $('input[name="prizeUrl"]').prop('disabled', true);
+                $('input[name="prizeUrl"]').val("");
+                $('input[name="giveCnt"]').prop('disabled', true);
+                $('input[name="giveCnt"]').val("");
+                $('input[name="giveAmt"]').prop('disabled', true);
+                $('input[name="giveAmt"]').val("");
+                $('input[name="taxAmt"]').prop('disabled', true);
+                $('input[name="taxAmt"]').val("");
+                $('input[name="receiveDal"]').prop('disabled', true);
+                $('input[name="receiveDal"]').val("");
             } else {
-                $('#dalByeol').prop('disabled', false);
-                $('#prizeUrl').prop('disabled', false);
-                $('#giveCnt').prop('disabled', false);
-                $('#giveAmt').prop('disabled', false);
-                $('#taxAmt').prop('disabled', false);
-                $('#receiveDal').prop('disabled', false);
+                $('input[name="dalByeol"]').prop('disabled', false);
+                $('input[name="prizeUrl"]').prop('disabled', false);
+                $('input[name="giveCnt"]').prop('disabled', false);
+                $('input[name="giveAmt"]').prop('disabled', false);
+                $('input[name="taxAmt"]').prop('disabled', false);
+                $('input[name="receiveDal"]').prop('disabled', false);
             }
         });
     }
@@ -165,23 +165,81 @@
        });
     });
 
-    $(document).on('click', '._eventPrizeDetailButton', function() {
+    function prizeFormValidation() {
+        if(common.isEmpty($('#prizeRank').val())) {
+            alert('등수를 입력해주세요.');
+            return false;
+        }
+
+        if(common.isEmpty($('#prizeCnt').val())) {
+            alert('당첨 인원을 입력해주세요.');
+            return false;
+        }
+
+        if(common.isEmpty($('#prizeName').val())) {
+            alert('경품명을 입력해주세요.');
+            return false;
+        }
+
+        if($('#eventPrizeForm #prize_receive').val() == 1) {
+            // 현물일 시
+            if(common.isEmpty($('input[name="prizeUrl"]').val())) {
+                alert('경품 URL을 입력해주세요.');
+                return false;
+            }
+
+            if(common.isEmpty($('input[name="giveCnt"]').val())) {
+                alert('지급 수량을 입력해주세요.');
+                return false;
+            }
+
+            if(common.isEmpty($('input[name="giveAmt"]').val())) {
+                alert('금액을 입력해주세요.');
+                return false;
+            }
+
+            if(common.isEmpty($('input[name="taxAmt"]').val())) {
+                alert('제세 공과금을 입력해주세요.');
+                return false;
+            }
+
+            if(common.isEmpty($('input[name="receiveDal"]').val())) {
+                alert('달로 받기 개수를 입력해주세요.');
+                return false;
+            }
+        } else if($('#eventPrizeForm #prize_receive').val() == 2 || $('#eventPrizeForm #prize_receive').val() == 3) {
+            // 달/ 별일 시
+            if (common.isEmpty($('input[name="dalByeol"]').val())) {
+                alert('달/별 수를 입력해주세요.');
+                return false;
+            }
+        }
+        return true;
+    }
+
+    $(document).on('click', '._eventPrizeButton', function() {
        var id = $(this).prop("id").split("_")[1];
        if(id == "eventPrizeRegister") {
            console.log($('#eventPrizeForm').serialize());
-           if(confirm('경품을 등록하시겠습니까?')) {
-               util.getAjaxData("eventPrizeAdd", "/rest/content/event/management/prize/add", getPrizeAddParam(), function fn_eventPrizeAdd_success(dst_id, response) {
-                   alert(response.message);
-                   initPrize(); //todo - 수정 필요 (eventIdx)를 어떻게 넣을지
-               });
+           if(prizeFormValidation()) {
+               if(confirm('경품을 등록하시겠습니까?')) {
+                   util.getAjaxData("eventPrizeAdd", "/rest/content/event/management/prize/add", getPrizeAddParam(), function fn_eventPrizeAdd_success(dst_id, response) {
+                       alert(response.message);
+                       $('#tab_eventPrize').click();
+                       initPrize(eventIdx);
+                   });
+               }
            }
        } else if(id == "eventPrizeUpdate") {
            console.log($('#eventPrizeForm').serialize());
-           if(confirm('경품을 수정하시겠습니까?')) {
-               util.getAjaxData("eventPrizeEdit", "/rest/content/event/management/prize/edit", getPrizeEditParam(), function fn_eventPrizeEdit_success(dst_id, response) {
-                   alert(response.message);
-                   initPrize(); //todo - 수정 필요
-               });
+           if(prizeFormValidation()) {
+               if(confirm('경품을 수정하시겠습니까?')) {
+                   util.getAjaxData("eventPrizeEdit", "/rest/content/event/management/prize/edit", getPrizeEditParam(), function fn_eventPrizeEdit_success(dst_id, response) {
+                       alert(response.message);
+                       $('#tab_eventPrize').click();
+                       initPrize(eventIdx);
+                   });
+               }
            }
        }
     });
@@ -215,6 +273,7 @@
 </script>
 
 <script id="tmp_eventPrizeDetail" type="text/x-handlebars-template">
+    {{#this as |data|}}
     <div class="modal-content">
         <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="bt_x();">&times;</button>
@@ -250,30 +309,86 @@
                                      {{/equal}}
                                  </td>
                              </tr>
-                             <tr>
-                                 <th>경품 URL</th>
-                                 <td><input type="text" id="prizeUrl" name="prizeUrl" class="form-control" style="width: 100%;" value="{{prizeUrl}}"/></td>
-                             </tr>
-                             <tr>
-                                 <th>지급 수량</th>
-                                 <td><input type="number" id="giveCnt" name="giveCnt" class="form-control" style="width: 100%;" value="{{giveCnt}}"/></td>
-                             </tr>
-                             <tr>
-                                 <th>금액</th>
-                                 <td><input type="number" id="giveAmt" name="giveAmt" class="form-control" style="width: 100%;" value="{{giveAmt}}"/></td>
-                             </tr>
-                             <tr>
-                                 <th>제세공과금</th>
-                                 <td><input type="number" id="taxAmt" name="taxAmt" class="form-control" style="width: 100%;" value="{{taxAmt}}"/></td>
-                             </tr>
-                             <tr>
-                                 <th>달/별 수</th>
-                                 <td><input type="number" id="dalByeol" name="dalByeol" class="form-control" style="width: 100%;" value="{{dalByeol}}"/></td>
-                             </tr>
-                             <tr>
-                                 <th>달로 받기</th>
-                                 <td><input type="number" id="receiveDal" name="receiveDal" class="form-control" style="width: 100%;" value="{{receiveDal}}"/></td>
-                             </tr>
+
+
+                             {{^equal prizeSlct ''}} <%-- 경품 구분에 값이 있을 때 -> 상세보기일 때 --%>
+                                {{#equal ../prizeSlct '1'}} <%-- 현물일 때 --%>
+                                     <tr>
+                                         <th>경품 URL</th>
+                                         <td><input type="text" name="prizeUrl" class="form-control" style="width: 100%;" value="{{../prizeUrl}}"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>지급 수량</th>
+                                         <td><input type="number" name="giveCnt" class="form-control" style="width: 100%;" value="{{../giveCnt}}"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>금액</th>
+                                         <td><input type="number" name="giveAmt" class="form-control" style="width: 100%;" value="{{../giveAmt}}"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>제세 공과금</th>
+                                         <td><input type="number" name="taxAmt" class="form-control" style="width: 100%;" value="{{../taxAmt}}"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>달/별 수</th>
+                                         <td><input type="number" name="dalByeol" class="form-control" style="width: 100%;" disabled/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>달로 받기</th>
+                                         <td><input type="number" name="receiveDal" class="form-control" style="width: 100%;" value="{{../receiveDal}}"/></td>
+                                     </tr>
+                                {{else}} <%-- 달/별일 때 --%>
+                                     <tr>
+                                         <th>경품 URL</th>
+                                         <td><input type="text" name="prizeUrl" class="form-control" style="width: 100%;" disabled/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>지급 수량</th>
+                                         <td><input type="number" name="giveCnt" class="form-control" style="width: 100%;" disabled/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>금액</th>
+                                         <td><input type="number" name="giveAmt" class="form-control" style="width: 100%;" disabled/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>제세 공과금</th>
+                                         <td><input type="number" name="taxAmt" class="form-control" style="width: 100%;" disabled/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>달/별 수</th>
+                                         <td><input type="number" name="dalByeol" class="form-control" style="width: 100%;" value="{{../dalByeol}}"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>달로 받기</th>
+                                         <td><input type="number" name="receiveDal" class="form-control" style="width: 100%;" disabled/></td>
+                                     </tr>
+                                {{/equal}}
+                             {{else}}
+                                     <tr>
+                                         <th>경품 URL</th>
+                                         <td><input type="text" id="prizeUrl" class="form-control" style="width: 100%;"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>지급 수량</th>
+                                         <td><input type="number" id="giveCnt" class="form-control" style="width: 100%;"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>금액</th>
+                                         <td><input type="number" id="giveAmt" class="form-control" style="width: 100%;"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>제세 공과금</th>
+                                         <td><input type="number" id="taxAmt" class="form-control" style="width: 100%;"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>달/별 수</th>
+                                         <td><input type="number" id="dalByeol" class="form-control" style="width: 100%;"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>달로 받기</th>
+                                         <td><input type="number" id="receiveDal" class="form-control" style="width: 100%;"/></td>
+                                     </tr>
+                             {{/equal}}
                              </tbody>
                          </table>
                      </div>
@@ -281,8 +396,9 @@
              </form>
          </div>
          <div class="modal-footer">
-             {{^prizeRank}}<button type="button" id="bt_eventPrizeRegister" class="btn btn-default _eventPrizeDetailButton" data-dismiss="modal">등록</button>{{/prizeRank}}
-             {{#prizeRank}}<button type="button" id="bt_eventPrizeUpdate" class="btn btn-default _eventPrizeDetailButton" data-dismiss="modal">수정</button>{{/prizeRank}}
+             {{^prizeRank}}<button type="button" id="bt_eventPrizeRegister" class="btn btn-default _eventPrizeButton" data-dismiss="modal">등록</button>{{/prizeRank}}
+             {{#prizeRank}}<button type="button" id="bt_eventPrizeUpdate" class="btn btn-default _eventPrizeButton" data-dismiss="modal">수정</button>{{/prizeRank}}
          </div>
     </div>
+    {{/this}}
 </script>

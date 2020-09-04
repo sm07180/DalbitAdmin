@@ -7,13 +7,15 @@
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#eventDetail" role="tab" data-toggle="tab" id="tab_eventDetail">이벤트 정보</a></li>
-                    <li><a href="#eventPrize" role="tab" data-toggle="tab" class="disabled" id="tab_eventPrize">경품 관리</a></li>
-                    <li><a href="#eventWinnerApplicant" role="tab" data-toggle="tab" class="disabled" id="tab_eventWinnerApplicant">응모자 / 당첨자 관리</a></li>
+                    <li><a href="#eventPrize" role="tab" data-toggle="tab" id="tab_eventPrize">경품 관리</a></li>
+                    <li><a href="#eventWinnerApplicant" role="tab" data-toggle="tab" id="tab_eventWinnerApplicant">응모자 / 당첨자 관리</a></li>
+                    <li><a href="#eventWinnerAnnounce" role="tab" data-toggle="tab" id="tab_eventWinnerAnnounce">당첨자 발표</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="eventDetail"><jsp:include page="eventDetail.jsp"/></div>
                     <div class="tab-pane fade" id="eventPrize"><jsp:include page="eventPrize.jsp"/></div>
                     <div class="tab-pane fade" id="eventWinnerApplicant"><jsp:include page="eventWinnerApplicant.jsp"/></div>
+                    <div class="tab-pane fade" id="eventWinnerAnnounce"><jsp:include page="eventWinnerAnnounce.jsp"/></div>
                 </div>
             </div>
         </div>
@@ -32,6 +34,8 @@
            initPrize();
        } else if(tab == 'eventWinnerApplicant') {
            initWinnerApplicant();
+       } else if(tab == 'eventWinnerAnnounce') {
+           initWinnerAnnounce();
        }
     });
 
@@ -40,10 +44,12 @@
             initDetail_insert();
             $('#tab_eventPrize').hide();
             $('#tab_eventWinnerApplicant').hide();
+            $('#tab_eventWinnerAnnounce').hide();
         } else if (data != 0) {
             initDetail(data);
             $('#tab_eventPrize').show();
             $('#tab_eventWinnerApplicant').show();
+            $('#tab_eventWinnerAnnounce').show();
             tabClick(data);
         }
         $(".main-content").show();
