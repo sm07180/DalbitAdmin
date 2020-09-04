@@ -45,8 +45,9 @@
                 <button class="btn btn-danger btn-sm" type="button" id="bt_cancelEventWinner">당첨 취소</button>
             </div>
             <div class="mb15 form-inline pull-right">
-                <button class="btn btn-default btn-sm" type="button" id="bt_tmpSaveWinner">임시저장</button>
-                <button class="btn btn-default btn-sm" type="button" id="bt_completeSaveWinner"><i class="fa fa-floppy-o"></i>완료</button>
+                <%--<button class="btn btn-default btn-sm" type="button" id="bt_tmpSaveWinner">임시저장</button>--%>
+                <button class="btn btn-default btn-sm" type="button" id="bt_completeSaveWinner">선정 완료</button>
+                <button class="btn btn-default btn-sm" type="button" id="bt_completeSaveWinner_2">(재)선정 완료</button>
             </div>
         </div>
     </div>
@@ -57,7 +58,11 @@
 
 <script type="text/javascript">
 
+    var sortSlct = 0;
+    var winSlct = 0;
+    var event_idx;
     function initWinnerApplicant(index) {
+        event_idx = index;
         // input box에 eventIdx입력
         $('#winnerApplicant_table #winner_eventIdx').val(index);
 
@@ -80,7 +85,20 @@
 
         // 당첨자 리스트
         winnerList(index);
+
+        slctChange();
     }
+
+    $(document).on('change', '#sortSlct', function() {
+        sortSlct = $('select[name="sortSlct"]').val();
+        alert(sortSlct);
+        initWinnerApplicant(event_idx);
+    });
+
+    $(document).on('change', '#winSlct', function() {
+        winSlct = $('select[name="winSlct"]').val();
+        initWinnerApplicant(event_idx);
+    });
 
     function winnerInfo(index) {
         var data = {
@@ -93,7 +111,6 @@
             var html = templateScript(context);
 
             $('#list_winnerInfo').html(html);
-
 
             var template1 = $('#tmp_winnerRegieterArea').html();
             var templateScript1 = Handlebars.compile(template1);
@@ -115,21 +132,25 @@
         dtList_info_winner.createDataTable();
     }
 
-
     $(document).on('click','#bt_registerEventWinner', function() {
-        if(common.isEmpty($('#registerEventWinner').val())) {
+        var winnerVal = $('#registerEventWinner').val();
+        if(common.isEmpty(winnerVal)) {
             alert('당첨자 회원번호를 입력해주세요.');
             return false;
         }
 
-        var winner = $('#registerEventWinner').val().split("|");
+        if(winnerVal.substr(winnerVal.length-1, 1) == "|") {
+            winnerVal = winnerVal.slice(0,-1);
+        }
+
+        var winner = winnerVal.split("|");
         var winnerCount = winner.length;
 
         if(confirm(winnerCount + "건의 당첨자 리스트를 추가하시겠습니까?")) {
             var data = {
                 eventIdx : $('#winnerList_eventIdx').val()
                 , prizeIdx : $('select[name="prizeRank"]').find('option:selected').data('prizeidx')
-                , memNoList : $('#registerEventWinner').val()
+                , memNoList : winnerVal
             };
             util.getAjaxData("EventWinnerAdd", "/rest/content/event/management/winner/add", data, function fn_eventWinnerAdd_success(dst_id, response) {
                alert(response.message);
