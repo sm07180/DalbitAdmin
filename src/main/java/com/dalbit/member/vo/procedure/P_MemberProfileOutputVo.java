@@ -16,6 +16,11 @@ public class P_MemberProfileOutputVo extends SearchVo {
     private String msg_profile;
     private String mem_nick;
     private String mem_userid;
+    private String mem_sex;
     private String mem_join_date;
     private String mem_phone;
+
+    private int maleCnt;
+    private int femaleCnt;
+    private int noneCnt;
 }
