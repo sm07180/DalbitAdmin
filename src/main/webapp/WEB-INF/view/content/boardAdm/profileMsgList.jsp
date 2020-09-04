@@ -4,11 +4,8 @@
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
-        <div class="col-md-6 no-padding mt10">
-            <span id="searchType_notice" onchange="profileMsgList();"></span>
-        </div>
-        <div class="col-md-6 no-padding mt10" >
-            <span id="noticeTable_summary"></span>
+        <div class="col-md-12 no-padding">
+            <span id ="profileMsgListCnt"></span>
         </div>
         <div class="dataTables_paginate paging_full_numbers" id="profile_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
@@ -43,8 +40,7 @@
     var profilePagingInfo = new PAGING_INFO(0,1,40);
 
     $(document).ready(function() {
-        $("#searchType_notice").html(util.getCommonCodeSelect(-1, searchType_notice));
-        profileMsgList();
+        // profileMsgList();
     });
 
     var memNo;
@@ -59,10 +55,10 @@
         var data = {
             'pageStart': profilePagingInfo.pageNo
             , 'pageCnt' : profilePagingInfo.pageCnt
-            , 'mem_no' : txt_search
+            , 'searchText' : txt_search
             , 'sDate' : $("#startDate").val()
             , 'eDate' : $("#endDate").val()
-            , 'searchType' : $("select[name='searchType_notice']").val()
+            , 'searchType' : 0
         };
 
         util.getAjaxData("profileMsgList", "/rest/content/boardAdm/profileMsgList", data, fn_success_profileMsgList);
@@ -81,22 +77,39 @@
         util.renderPagingNavigation('profile_paginate_top', profilePagingInfo);
         util.renderPagingNavigation('profile_paginate', profilePagingInfo);
 
+        util.getAjaxData("profileMsgSummary", "/rest/content/boardAdm/profileMsg/summary", param, fn_success_profileMsgSummary);
     }
-
-    function fn_success_noticeSummary(dst_id, response) {
-        var template = $('#notice_tableSummary').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
-
-        $('#noticeTable_summary').html(html);
+    function fn_success_profileMsgSummary(dst_id, response) {
+        $("#tab_profileMsgList").text("프로필 메시지" + "(" + response.data.totalCnt +")");
+        $("#profileMsgListCnt").html(
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+        );
     }
 
     function handlebarsPaging(targetId, pagingInfo) {
-        console.log('ddd')
-        console.log(targetId)
-        console.log(pagingInfo)
+        console.log('ddd');
+        console.log(targetId);
+        console.log(pagingInfo);
         profilePagingInfo = pagingInfo;
+        profileMsgList();
+    }
+
+    $(document).on('click', '._profileMsgDelBtn', function() {
+        if(confirm("프로필 메시지를 삭제하시겠습니까?")) {
+            var data = {
+                mem_no: $(this).data('memno')
+            };
+
+            console.log(data);
+            util.getAjaxData("delete", "/rest/content/boardAdm/profileMsg/del", data, profileMsgDel_success);
+        }else return;
+    });
+
+    function profileMsgDel_success(dst_id, response){
+        alert(response.message);
         profileMsgList();
     }
 
@@ -108,41 +121,16 @@
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td><img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:68px; width:68px; margin: auto;' /></td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a>
-                <br/>
-                {{mem_nick}}
+                {{{memNoLink_sex mem_no mem_no mem_sex}}}<br/>
+                {{{memNoLink_sex mem_nick mem_no mem_sex}}}
             </td>
             <td>{{{replaceEnter msg_profile}}}</td>
             <td>{{last_upd_date}}</td>
-            <td class="word-break" style=""><span>{{{replaceHtml contents}}}</span></td>
+            <td><a href="javascript://" class="_profileMsgDelBtn" data-memno="{{mem_no}}">[삭제]</a></td>
         </tr>
     {{else}}
         <tr>
             <td colspan="9">{{isEmptyData}}</td>
         </tr>
     {{/each}}
-</script>
-
-<script id="notice_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-padding" style="width: 70%;margin-right: 0px">
-        <tr>
-            <th colspan="5" style="background-color: #8fabdd">팬보드 (비밀글) 현황</th>
-        </tr>
-        <tr>
-            <th style="background-color: #7f7f7f; color: white">총합</th>
-            <th style="background-color: #d9d9d9">일평균</th>
-            <th style="background-color: #d9d9d9">성별-남성/여성/알수없음</th>
-            <th style="background-color: #d9d9d9">총 삭제 글</th>
-            <th style="background-color: #d9d9d9">총 일평균 삭제</th>
-        </tr>
-        <tr>
-            <td class="font-bold" style="background-color: #f4b282">{{addComma totalCnt}} ({{addComma secretTotalCnt}})</td>
-            <td>{{addComma avgTotalCnt}} ({{addComma secretAvgTotalCnt}})</td>
-            <td><span style="color: blue"><span class="font-bold">{{addComma maleCnt}}</span> ({{addComma secretMaleCnt}})</span>
-                / <span style="color: red"><span class="font-bold">{{addComma femaleCnt}}</span> ({{addComma secretFemaleCnt}})</span>
-                / <span class="font-bold">{{addComma noneCnt}}</span> ({{addComma secretNoneCnt}})</td>
-            <td>{{addComma totalDelCnt}} ({{addComma secretTotalDelCnt}})</td>
-            <td>{{addComma avgTotalDelCnt}} ({{addComma secretAvgTotalDelCnt}})</td>
-        </tr>
-    </table>
 </script>

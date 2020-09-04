@@ -59,6 +59,7 @@
         }else if(tabId == "tab_broadNoticeList" ){
             broadNoticeList();
         }else if(tabId == "tab_profileMsgList" ){
+            profileMsgList();
         }
     });
 

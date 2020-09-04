@@ -8,9 +8,13 @@
               (select mem_no from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
               or (select mem_userid from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
               or (select mem_nick from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
+              or (select mem_id from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
+              or (select mem_phone from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
               or (select mem_no from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
               or (select mem_userid from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
               or (select mem_nick from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
+              or (select mem_id from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
+              or (select mem_phone from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
           </if>
           <if test='start_sel != null and start_sel != ""'>
               and fan.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
@@ -182,6 +186,8 @@
                 (bas.mem_no like CONCAT('%',#{txt_search},'%') or sto.writer_no like CONCAT('%', #{txt_search}, '%')
                 OR bas.mem_userid like CONCAT('%',#{txt_search},'%') or sto.mem_userid like CONCAT('%', #{txt_search}, '%')
                 OR bas.mem_nick like CONCAT('%',#{txt_search},'%') or sto.mem_nick like CONCAT('%', #{txt_search}, '%'))
+                OR bas.mem_id like CONCAT('%',#{txt_search},'%') or sto.mem_id like CONCAT('%', #{txt_search}, '%'))
+                OR bas.mem_phone like CONCAT('%',#{txt_search},'%') or sto.mem_phone like CONCAT('%', #{txt_search}, '%'))
             </if>
             <if test='start_sel != null and start_sel !=""'>
                  and sto.write_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
@@ -273,33 +279,8 @@
         update rd_data.tb_broadcast_room_story set `status`=1 where idx=#{storyIdx}
     </update>
 
-    <select id="selectprofileMsgListCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="int">
-        /* Con_BoardAdm.xml - selectprofileMsgListCnt */
-        select count(*)
-        from (
-            select
-                session.last_upd_date as last_upd_date
-                , session.mem_no as mem_no
-                , profile.image_profile as image_profile
-                , basic.mem_nick as mem_nick
-                , basic.mem_userid as mem_userid
-                , basic.mem_join_date as mem_join_date
-                , basic.mem_phone as mem_phone
-            from rd_data.tb_member_basic basic
-                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
-                inner join (select mem_no, max(last_upd_date) last_upd_date
-                                from rd_data.tb_member_session
-                                group by mem_no
-                                order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
-            where session.mem_no is not null
-        ) list
-    </select>
-
-    <select id="selectProfileMsgList" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo">
-        /* Con_BoardAdm.xml - selectProfileMsgList */
-        select *
-        from (
-            select
+    <sql id="profileCondition">
+        select
                 @RNUM := @RNUM +1 as rowNum
                 , date_format(session.last_upd_date,'%Y.%m.%d %H:%i:%s') as last_upd_date
                 , session.mem_no as mem_no
@@ -319,8 +300,54 @@
                                 order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
                 inner join (select @RNUM := 0) r
             where session.mem_no is not null
+              and profile.msg_profile is not null
+              and profile.msg_profile != ''
+            <if test='searchText != null and searchText != ""'>
+                and (basic.mem_no like CONCAT('%',#{searchText},'%')
+                OR basic.mem_userid like CONCAT('%',#{searchText},'%')
+                OR basic.mem_nick like CONCAT('%',#{searchText},'%')
+                OR basic.mem_id like CONCAT('%',#{searchText},'%')
+                OR basic.mem_phone like CONCAT('%',#{searchText},'%'))
+            </if>
+            <if test='sDate != null and sDate !=""'>
+                and date_format(profile.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+            </if>
+            <if test='eDate != null and eDate != ""'>
+                and date_format(profile.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+            </if>
             order by session.last_upd_date desc
+    </sql>
+
+    <select id="selectprofileMsgListCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="int">
+        /* Con_BoardAdm.xml - selectprofileMsgListCnt */
+        select count(*)
+        from (
+          <include refid="profileCondition"/>
+        ) list
+    </select>
+
+    <select id="selectProfileMsgList" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo">
+        /* Con_BoardAdm.xml - selectProfileMsgList */
+        select *
+        from (
+          <include refid="profileCondition"/>
         ) list
         where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
+
+    <select id="profileMsgListSummary" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo">
+        /* Con_BoardAdm.xml - profileMsgListSummary */
+          select count(*) as totalCnt
+                  ,sum(if(mem_sex = 'm',1,0)) as maleCnt
+                  ,sum(if(mem_sex = 'f',1,0)) as femaleCnt
+                  ,sum(if(mem_sex = 'n',1,0)) as noneCnt
+                    from (
+              <include refid="profileCondition"/>
+                    ) list
+    </select>
+
+    <update id="callProfileMsgDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo">
+        /* Con_BoardAdm.xml - callProfileMsgDelete */
+        update rd_data.tb_member_profile set msg_profile='', last_update_date = now() where mem_no=#{mem_no}
+    </update>
 </mapper>
