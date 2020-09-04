@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-12 no-padding">
@@ -41,6 +42,11 @@
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                <label class="control-inline fancy-checkbox custom-color-green">
+                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                    <span>테스트 아이디 제외</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -51,29 +57,33 @@
     <!-- tab -->
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-            <li class="active"><a href="#resourceTime" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
-            <li><a href="#resourceDay" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
-            <li><a href="#resourceMonth" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
+            <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
+            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
+            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
+            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();">회원Data</a></li>
         </ul>
-        <div class="tab-content no-padding">
-            <div id="infoTable_dal"></div>
-            <div id="infoTable_byeol" style="display: none"></div>
+        <div class="tab-pane fade in active" id="resourceState" >
+            <div class="tab-content no-padding">
+                <div id="infoTable_dal"></div>
+                <div id="infoTable_byeol" style="display: none"></div>
+            </div>
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                <li class="active" style="width: 60px;text-align: center;"><a href="#dal" role="tab" data-toggle="tab" onclick="itemTabClick(0);">달</a></li>
+                <li style="width: 60px;text-align: center;"><a href="#byeol" role="tab" data-toggle="tab" onclick="itemTabClick(1);">별</a></li>
+            </ul>
+            <div class="tab-content no-padding">
+                <div class="tab-pane fade in active" id="dal">
+                    <div id="dalListTable">
+                    </div>
+                </div>              <!-- 달 -->
+                <div class="tab-pane fade" id="byeol">
+                    <div id="byeolListTable"></div>
+                </div>          <!-- 별 -->
+            </div>
         </div>
-    </div>
-    <div class="widget-content">
-        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-            <li class="active" style="width: 60px;text-align: center;"><a href="#dal" role="tab" data-toggle="tab" onclick="itemTabClick(0);">달</a></li>
-            <li style="width: 60px;text-align: center;"><a href="#byeol" role="tab" data-toggle="tab" onclick="itemTabClick(1);">별</a></li>
-        </ul>
-        <div class="tab-content no-padding">
-            <div class="tab-pane fade in active" id="dal">
-                <div id="dalListTable">
-                </div>
-            </div>              <!-- 달 -->
-            <div class="tab-pane fade" id="byeol">
-                <div id="byeolListTable"></div>
-            </div>          <!-- 별 -->
-        </div>
+        <div class="tab-pane fade" id="memberDataList"><jsp:include page="memberDataList.jsp"/></div>
+        <%--<div class="tab-pane fade" id="resourceState" ></div>--%>
+
     </div>
     <!-- //tab -->
 </div>
@@ -126,6 +136,7 @@
 
     $("#bt_search").on('click', function(){
         getResourceInfo();
+        memberDataListTabClick();
     });
 
     function setTimeDate(dateTime){
@@ -247,6 +258,7 @@
     getResourceInfo();
     function infoTabClick(tmp){
         _datePicker = tmp;
+        $("#resourceState").show();
         changeDatepicker();
     }
     var _itemClick = 0;
