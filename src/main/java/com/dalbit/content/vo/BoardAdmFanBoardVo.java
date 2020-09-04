@@ -45,6 +45,7 @@ public class BoardAdmFanBoardVo extends PagingVo {
     private int fan_reply_birth_year;           // 팬보드 리플 회원 생년
 
     private int status;                     // 게시글 상태
+    private int reply_status;               // 리플 상태
     private String last_upd_date;           // 작성 일자
     private String contents;                // 내용
     private String replyContents;           // 리플 내용

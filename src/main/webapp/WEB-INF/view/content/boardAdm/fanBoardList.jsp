@@ -72,6 +72,7 @@
             , 'searchType' : 0
             , 'boardType' : 1
         };
+
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
     }
 
@@ -206,6 +207,7 @@
             <th>비밀 글 여부</th>
             <th>팬보드등록글</th>
             <th>등록일시</th>
+            <th>상태</th>
             <th>댓글수</th>
             <th>관리</th>
         </tr>
@@ -229,6 +231,13 @@
                     <span class="pull-left">{{replaceHtml contents}}</span>
                 </td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <td>
+                    {{#dalbit_if status '==' 1}}
+                        정상
+                    {{else}}
+                        삭제
+                    {{/dalbit_if}}
+                </td>
                 <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>

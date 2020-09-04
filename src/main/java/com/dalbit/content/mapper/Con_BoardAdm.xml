@@ -28,7 +28,12 @@
           <if test='searchType == "3" '>    <!-- 삭제글만 보기 -->
               and fan.`status` = 2
           </if>
-            and fan.depth = #{boardType}
+            <if test="boardType == 1">
+              and fan.depth = 1
+            </if>
+            <if test="boardType == 2">
+              and fan.depth = 2
+            </if>
         </where>
     </sql>
 
@@ -77,13 +82,15 @@
                     , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_reply_mem_sex
                     , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_reply_birth_year
                 </if>
-                , fan.status
                 , fan.last_upd_date
                 <if test="boardType == 1">
+                  , fan.status as status
                   , fan.contents
                   ,'' replyContents
                 </if>
                 <if test="boardType == 2">
+                    , (select status from rd_data.tb_member_fanboard where idx=fan.board_no) as status
+                    , fan.status as reply_status
                     , (select contents from rd_data.tb_member_fanboard where idx=fan.board_no) as contents
                     , fan.contents as replyContents
                 </if>

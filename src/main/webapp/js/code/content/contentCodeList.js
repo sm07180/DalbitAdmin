@@ -533,6 +533,6 @@ var broadTip_objType_detail = [
 var broadTip_viewType = [
     new COMMON_CODE(null, 'broadTip_viewType', '검색구분')
     , new COMMON_CODE('-1', '-1', '노출여부 전체')
-    , new COMMON_CODE('0', '0', 'On')
-    , new COMMON_CODE('1', '1', 'Off')
+    , new COMMON_CODE('1', '1', 'On')
+    , new COMMON_CODE('0', '0', 'Off')
 ];
