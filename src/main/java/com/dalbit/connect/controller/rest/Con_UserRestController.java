@@ -36,11 +36,4 @@ public class Con_UserRestController {
         String result = con_UserService.callUserCurrentUser(pUserCurrentInputVo);
         return result;
     }
-
-    @PostMapping("info/current/live/summary")
-    public String currentLiveSummary(P_UserCurrentInputVo pUserCurrentInputVo){
-        String result = con_UserService.callCurrentLiveSummary(pUserCurrentInputVo);
-        return result;
-    }
-
 }

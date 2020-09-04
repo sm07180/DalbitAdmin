@@ -100,6 +100,10 @@ ui.topScroll = function(){
     $('html').animate({scrollTop : 0}, 100);
 }
 
+ui.bottomScroll = function(){
+    $('html').animate({scrollTop : $(document).height()}, 100);
+}
+
 /* 원하는 element로 이동 */
 ui.scrollIntoView = function(elementId) {
     document.getElementById(elementId).scrollIntoView();
@@ -135,36 +139,44 @@ ui.imageLayerView = function(){
     var imageY;
 
     $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
-        if(common.isEmpty($(this).attr("src"))){
-            return;
-        }
-        $("body").append("<p id='preview'><img id='previewImage'  src='"+ $(this).attr("src") +"' width='300px' /></p>" ); //이미지
-        $("#previewImage").load(function () {
-            height = $(this).height();
-        });
-        $("#preview")
-            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
-            .css("left",(e.pageX + yOffset) + "px")
-            .fadeIn("fast");
-        imageY = $("#previewImage").offset().top;
-        if(imageY < 0){
+        try {
+            if (common.isEmpty($(this).attr("src"))) {
+                return;
+            }
+            $("body").append("<p id='preview'><img id='previewImage'  src='" + $(this).attr("src") + "' width='300px' /></p>"); //이미지
+            $("#previewImage").load(function () {
+                height = $(this).height();
+            });
             $("#preview")
-                .css("top",(e.pageY - (height/2) + 100) + "px")
-                .css("left",(e.pageX + yOffset) + "px")
+                .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
+                .css("left", (e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+            imageY = $("#previewImage").offset().top;
+            if (imageY < 0) {
+                $("#preview")
+                    .css("top", (e.pageY - (height / 2) + 100) + "px")
+                    .css("left", (e.pageX + yOffset) + "px")
+            }
+        }catch (exception){
+
         }
     });
     $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
-        $("#preview")
-            .css("top",(e.pageY - ((height/2) + (height/2)) + 30) + "px")
-            .css("left",(e.pageX + yOffset) + "px")
-        imageY = $("#previewImage").offset().top;
-        if(imageY < 0){
+        try {
             $("#preview")
-                .css("top",(e.pageY - (height/2) + 100) + "px")
-                .css("left",(e.pageX + yOffset) + "px")
-            if((e.pageY - (height/2) + 100) < 10){
-                $("#preview").css("top","0px");
+                .css("top", (e.pageY - ((height / 2) + (height / 2)) + 30) + "px")
+                .css("left", (e.pageX + yOffset) + "px")
+            imageY = $("#previewImage").offset().top;
+            if (imageY < 0) {
+                $("#preview")
+                    .css("top", (e.pageY - (height / 2) + 100) + "px")
+                    .css("left", (e.pageX + yOffset) + "px")
+                if ((e.pageY - (height / 2) + 100) < 10) {
+                    $("#preview").css("top", "0px");
+                }
             }
+        }catch (exception){
+
         }
     });
     $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
