@@ -38,15 +38,17 @@
 
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
+                                <input type="text" class="form-control" id="txt_search" name="txt_search" style="display: none">
+
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
 
-                                <label class="control-inline fancy-checkbox custom-color-green">
+                                <span class="control-inline fancy-checkbox custom-color-green">
                                     <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                                    <span>테스트 아이디 제외</span>
-                                </label>
+                                    <span id="checkTestid" style="display: none">테스트 아이디 제외</span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -259,6 +261,12 @@
     function infoTabClick(tmp){
         _datePicker = tmp;
         $("#resourceState").show();
+        $("._prevSearch").show();
+        $("._todaySearch").show();
+        $("._nextSearch").show();
+        $("#txt_search").hide();
+        $("#checkTestid").hide();
+
         changeDatepicker();
     }
     var _itemClick = 0;
