@@ -320,7 +320,7 @@
 
     {{else}}
         <tr>
-            <td colspan="9">{{isEmptyData}}</td>
+            <td colspan="17">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
@@ -410,7 +410,9 @@
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td colspan="5"><textarea style="width:100%" rows='15' disabled>{{{contents}}}</textarea></td>
+                        <td colspan="5">
+                            <p style="width:100%;white-space: pre-line;">{{{replaceEnter contents}}}</p>
+                        </td>
                     </tr>
                 </tbody>
             </table>

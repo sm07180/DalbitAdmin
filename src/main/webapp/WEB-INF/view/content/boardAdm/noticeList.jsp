@@ -10,7 +10,7 @@
         <div class="dataTables_paginate paging_full_numbers" id="notice_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
-                <col width="4%"/><col width="10%"/><col width="55%"/><col width="10%"/>
+                <col width="4%"/><col width="10%"/><col width="66%"/><col width="10%"/>
                 <col width="10%"/>
             </colgroup>
             <thead>
@@ -132,7 +132,7 @@
                 {{{memNoLink_sex mem_no mem_no mem_sex}}}<br/>
                 {{{memNoLink_sex mem_nick mem_no mem_sex}}}
             </td>
-            <td class="word-break" style="width: 400px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
+            <td class="word-break" style="width: 550px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
             <td>{{lastUpdDateFormat}}</td>
             <td><a href="javascript://" class="_noticeDelBtn" data-noticeIdx="{{idx}}" data-type="{{type}}">[삭제]</a></td>
         </tr>

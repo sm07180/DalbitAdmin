@@ -38,6 +38,8 @@
 
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
+                                <input type="text" class="form-control" id="txt_search" name="txt_search" style="display: none">
+
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
@@ -45,7 +47,7 @@
 
                                 <label class="control-inline fancy-checkbox custom-color-green">
                                     <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                                    <span>테스트 아이디 제외</span>
+                                    <span id="checkTestid" style="display: none">테스트 아이디 제외</span>
                                 </label>
                             </div>
                         </div>
@@ -60,7 +62,7 @@
             <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
-            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();">회원Data</a></li>
+            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();" class="hide">회원Data</a></li>
         </ul>
         <div class="tab-pane fade in active" id="resourceState" >
             <div class="tab-content no-padding">
@@ -259,6 +261,11 @@
     function infoTabClick(tmp){
         _datePicker = tmp;
         $("#resourceState").show();
+        $("._prevSearch").show();
+        $("._todaySearch").show();
+        $("._nextSearch").show();
+        $("#txt_search").hide();
+        $("#checkTestid").hide();
         changeDatepicker();
     }
     var _itemClick = 0;

@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class P_StatVo {
     private int slctType;
+    private int orderType;
     private String startDate;
     private String endDate;
     private int pageNo;
