@@ -4,7 +4,11 @@
 <!-- 방송 > 선물내역 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <span class="_searchDate2"></span>
+        <div class="col-md-12 no-padding mb5 mt5">
+            <div class="col-md-2 no-padding">
+                <span id="giftSort" onchange="giftSortChange();"></span>
+            </div>
+        </div>
         <table class="table table-bordered">
             <colgroup>
                 <col width="2%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
@@ -42,8 +46,11 @@
 <script type="text/javascript">
     giftHistoryListPagingInfo = new PAGING_INFO(0, 1, 20);
 
-    function getGiftHistoryList(){
+    $(function(){
+        $("#giftSort").html(util.getCommonCodeSelect(-1, giftSort));
+    });
 
+    function getGiftHistoryList(){
 
         var nowDay = moment(new Date()).format('YYYY') + "." + moment(new Date()).format('MM') + "." + moment(new Date()).format('DD');
         var timeDay = week[moment(nowDay).add('days', 0).day()];
@@ -51,8 +58,11 @@
 
         var data = dataSet();
         data.slctType = 0;
+        data.orderType = $("select[name='giftSort']").val();
         data.pageNo = giftHistoryListPagingInfo.pageNo;
         data.pageCnt = giftHistoryListPagingInfo.pageCnt;
+
+        console.log(data);
 
         util.getAjaxData("gift", "/rest/status/newBroadcast/info/gift", data, fn_gift_success);
     }
@@ -66,8 +76,6 @@
 
         if(response.data != ''){
             var pagingInfo = response.data.totalInfo;
-            console.log("---------------");
-            console.log(pagingInfo.totalCnt);
             giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
             util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
 
@@ -82,6 +90,10 @@
         giftHistoryListPagingInfo = pagingInfo;
         getGiftHistoryList();
     }
+    function giftSortChange(){
+        getGiftHistoryList();
+    }
+
 
 </script>
 
