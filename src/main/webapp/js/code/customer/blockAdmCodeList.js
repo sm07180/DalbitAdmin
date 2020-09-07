@@ -27,6 +27,7 @@ var block_blockDay = [
     , new COMMON_CODE('1', 1, '1일 정지')
     , new COMMON_CODE('3', 3, '3일 정지')
     , new COMMON_CODE('7', 7, '7일 정지')
+    , new COMMON_CODE('98', 98, '임시 정지')
     , new COMMON_CODE('99', 99, '영구 정지')
 ];
 

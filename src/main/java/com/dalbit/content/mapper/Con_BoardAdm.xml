@@ -355,6 +355,9 @@
 
     <update id="callProfileMsgDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo">
         /* Con_BoardAdm.xml - callProfileMsgDelete */
-        update rd_data.tb_member_profile set msg_profile='', last_update_date = now() where mem_no=#{mem_no}
+        update rd_data.tb_member_profile
+        set msg_profile = ''
+            , last_upd_date = now()
+        where mem_no=#{mem_no}
     </update>
 </mapper>
