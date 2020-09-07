@@ -11,6 +11,8 @@ import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
 import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
+import com.dalbit.member.vo.procedure.P_MemberProfileOutputVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -53,31 +56,31 @@ public class Con_BoardAdmService {
      * 팬보드 통계
      */
     public String selectFanBoardSummary(BoardAdmFanBoardVo boardAdmFanBoardVo) {
-        ArrayList<BoardAdmFanBoardVo> fanBoardSummaryList = conBoardAdmDao.selectFanBoardSummary(boardAdmFanBoardVo);
+        BoardAdmFanBoardVo fanBoardSummaryList = conBoardAdmDao.selectFanBoardSummary(boardAdmFanBoardVo);
 
-        BoardAdmFanBoardVo fanBoardSummary = new BoardAdmFanBoardVo();
-        for(int i=0;i<fanBoardSummaryList.size();i++){
-            if(fanBoardSummaryList.get(i).getType().equals("nomal")) {
-                fanBoardSummary.setTotalCnt(fanBoardSummaryList.get(i).getTotalCnt());
-                fanBoardSummary.setAvgTotalCnt(fanBoardSummaryList.get(i).getAvgTotalCnt());
-                fanBoardSummary.setTotalDelCnt(fanBoardSummaryList.get(i).getTotalDelCnt());
-                fanBoardSummary.setAvgTotalDelCnt(fanBoardSummaryList.get(i).getAvgTotalDelCnt());
-                fanBoardSummary.setMaleCnt(fanBoardSummaryList.get(i).getMaleCnt());
-                fanBoardSummary.setFemaleCnt(fanBoardSummaryList.get(i).getFemaleCnt());
-                fanBoardSummary.setNoneCnt(fanBoardSummaryList.get(i).getNoneCnt());
-            }else{
-                fanBoardSummary.setSecretTotalCnt(fanBoardSummaryList.get(i).getTotalCnt());
-                fanBoardSummary.setSecretAvgTotalCnt(fanBoardSummaryList.get(i).getAvgTotalCnt());
-                fanBoardSummary.setSecretTotalDelCnt(fanBoardSummaryList.get(i).getTotalDelCnt());
-                fanBoardSummary.setSecretAvgTotalDelCnt(fanBoardSummaryList.get(i).getAvgTotalDelCnt());
-                fanBoardSummary.setSecretMaleCnt(fanBoardSummaryList.get(i).getMaleCnt());
-                fanBoardSummary.setSecretFemaleCnt(fanBoardSummaryList.get(i).getFemaleCnt());
-                fanBoardSummary.setSecretNoneCnt(fanBoardSummaryList.get(i).getNoneCnt());
-            }
-        }
+//        BoardAdmFanBoardVo fanBoardSummary = new BoardAdmFanBoardVo();
+//        for(int i=0;i<fanBoardSummaryList.size();i++){
+//            if(fanBoardSummaryList.get(i).getType().equals("nomal")) {
+//                fanBoardSummary.setTotalCnt(fanBoardSummaryList.get(i).getTotalCnt());
+//                fanBoardSummary.setAvgTotalCnt(fanBoardSummaryList.get(i).getAvgTotalCnt());
+//                fanBoardSummary.setTotalDelCnt(fanBoardSummaryList.get(i).getTotalDelCnt());
+//                fanBoardSummary.setAvgTotalDelCnt(fanBoardSummaryList.get(i).getAvgTotalDelCnt());
+//                fanBoardSummary.setMaleCnt(fanBoardSummaryList.get(i).getMaleCnt());
+//                fanBoardSummary.setFemaleCnt(fanBoardSummaryList.get(i).getFemaleCnt());
+//                fanBoardSummary.setNoneCnt(fanBoardSummaryList.get(i).getNoneCnt());
+//            }else{
+//                fanBoardSummary.setSecretTotalCnt(fanBoardSummaryList.get(i).getTotalCnt());
+//                fanBoardSummary.setSecretAvgTotalCnt(fanBoardSummaryList.get(i).getAvgTotalCnt());
+//                fanBoardSummary.setSecretTotalDelCnt(fanBoardSummaryList.get(i).getTotalDelCnt());
+//                fanBoardSummary.setSecretAvgTotalDelCnt(fanBoardSummaryList.get(i).getAvgTotalDelCnt());
+//                fanBoardSummary.setSecretMaleCnt(fanBoardSummaryList.get(i).getMaleCnt());
+//                fanBoardSummary.setSecretFemaleCnt(fanBoardSummaryList.get(i).getFemaleCnt());
+//                fanBoardSummary.setSecretNoneCnt(fanBoardSummaryList.get(i).getNoneCnt());
+//            }
+//        }
 
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, fanBoardSummary));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, fanBoardSummaryList));
 
         return result;
     }
@@ -115,23 +118,14 @@ public class Con_BoardAdmService {
 
         return result;
     }
-    /**
-     * 공지 통계
-     */
-    public String selectNoticeSummary(BoardAdmStoryVo boardAdmStoryVo) {
-//        ArrayList<BoardAdmStoryVo> noticeSummaryList = conBoardAdmDao.selectNoticeSummary(boardAdmStoryVo);
-//
-//        BoardAdmFanBoardVo noticeSummary = new BoardAdmFanBoardVo();
-//        for(int i=0;i<noticeSummaryList.size();i++){
-//            if(noticeSummaryList.get(i).getType().equals("broadcast")) {
-//                noticeSummary.setTotalCnt(noticeSummaryList.get(i).getTotalCnt());
-//            }else{
-//                noticeSummary.setSecretTotalCnt(noticeSummaryList.get(i).getTotalCnt());
-//            }
-//        }
 
-        String result="";
-//        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, noticeSummary));
+    /**
+     * 팬보드 통계
+     */
+    public String selectStorySummary(BoardAdmStoryVo boardAdmStoryVo) {
+        BoardAdmStoryVo storySummaryList = conBoardAdmDao.selectStoryListSummary(boardAdmStoryVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, storySummaryList));
 
         return result;
     }
@@ -140,20 +134,20 @@ public class Con_BoardAdmService {
      * 사연 삭제
      */
     public String callStoryDelete(P_StoryDeleteVo pStoryDeleteVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pStoryDeleteVo);
-        conBoardAdmDao.callStoryDelete(procedureVo);
+//        ProcedureVo procedureVo = new ProcedureVo(pStoryDeleteVo);
+//        conBoardAdmDao.callStoryDelete(procedureVo);
+        int resultInt = conBoardAdmDao.callStoryDelete(pStoryDeleteVo.getStoryIdx());
 
         String result = "";
-        if(Status.생방송_사연삭제_성공.getMessageCode().equals(procedureVo.getRet())){
+        if(resultInt != 0){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_성공));
-        } else if(Status.생방송_사연삭제_번호없음.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_번호없음));
-        } else if(Status.생방송_사연삭제_방번호틀림.getMessageCode().equals(procedureVo.getRet())){
+//        } else if(Status.생방송_사연삭제_번호없음.getMessageCode().equals(procedureVo.getRet())){
+//            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_번호없음));
+        } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_방번호틀림));
         }
         return result;
     }
-
 
     /**
      * 회원/방송공지 조회
@@ -168,5 +162,55 @@ public class Con_BoardAdmService {
         result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(totalCnt)));
         return result;
 
+    }
+
+    /**
+     * 공지 통계
+     */
+    public String selectNoticeSummary(P_MemberNoticeInputVo pMemberNoticeInputVo) {
+        P_MemberNoticeOutputVo noticeSummaryList = mem_NoticeDao.selectNoticeSummary(pMemberNoticeInputVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, noticeSummaryList));
+
+        return result;
+    }
+
+    /**
+     * 프로필메세지 조회
+     */
+    public String selectprofileMsgList(P_MemberProfileInputVo pMemberNoticeInputVo) {
+        int profileMsgCount = conBoardAdmDao.selectprofileMsgListCnt(pMemberNoticeInputVo);
+        pMemberNoticeInputVo.setTotalCnt(profileMsgCount);
+        List<P_MemberProfileOutputVo> profileMsgList = conBoardAdmDao.selectProfileMsgList(pMemberNoticeInputVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, profileMsgList, new PagingVo(profileMsgCount)));
+        return result;
+
+    }
+
+    /**
+     * 프로필메시지 삭제
+     */
+    public String profileDelete(P_MemberProfileInputVo pMemberNoticeInputVo) {
+        int resultInt = conBoardAdmDao.callProfileMsgDelete(pMemberNoticeInputVo);
+
+        String result;
+        if(resultInt != 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+        return result;
+    }
+
+    /**
+     * 공지 통계
+     */
+    public String profileMsgListSummary(P_MemberProfileInputVo pMemberProfileInputVo) {
+        P_MemberProfileOutputVo profileMsgSummaryList = conBoardAdmDao.profileMsgListSummary(pMemberProfileInputVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, profileMsgSummaryList));
+
+        return result;
     }
 }

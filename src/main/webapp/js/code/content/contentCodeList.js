@@ -165,12 +165,6 @@ var splash_exposureType = [
     , new COMMON_CODE('reservation', '1', '예약게시')
 ];
 
-var search_event = [
-    new COMMON_CODE(null, 'search_event', '이벤트')
-    , new COMMON_CODE('all', '0', '전체')
-    , new COMMON_CODE('title', '1', '이벤트제목')
-];
-
 
 /** =------ Banner ---------- */
 var banner_searchType = [
@@ -235,16 +229,129 @@ var banner_cookieYn = [
 ];
 
 /** =------ Event ---------- */
-var event_searchType = [
-    new COMMON_CODE(null, 'searchType', '검색구분')
-    , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('title', '1', '제목')
+// var event_searchType = [
+//     new COMMON_CODE(null, 'searchType', '검색구분')
+//     , new COMMON_CODE('all', '-1', '전체')
+//     , new COMMON_CODE('title', '1', '제목')
+// ];
+//
+// var event_isReply = [
+//     new COMMON_CODE(null, 'is_reply', '댓글사용여부')
+//     , new COMMON_CODE('no', '0', '사용안함')
+//     , new COMMON_CODE('yes', '1', '사용')
+// ];
+
+var event_stateSlct = [
+    new COMMON_CODE(null, 'stateSlct', '이벤트 상태 구분')
+    , new COMMON_CODE('all', '-1', '이벤트 상태(전체)')
+    , new COMMON_CODE('will', '0', '예정')
+    , new COMMON_CODE('ing', '1', '진행 중')
+    , new COMMON_CODE('end', '2', '종료')
 ];
 
-var event_isReply = [
-    new COMMON_CODE(null, 'is_reply', '댓글사용여부')
-    , new COMMON_CODE('no', '0', '사용안함')
-    , new COMMON_CODE('yes', '1', '사용')
+var event_alwaysYn = [
+    new COMMON_CODE(null, 'alwaysYn', '상시 여부')
+    , new COMMON_CODE('no', '0', '날짜 지정')
+    , new COMMON_CODE('yes', '1', '상시')
+];
+
+var event_viewYn = [
+    new COMMON_CODE(null, 'viewYn', '노출 여부')
+    , new COMMON_CODE('no', '0', '비노출')
+    , new COMMON_CODE('yes', '1', '노출')
+];
+
+var event_announceYn = [
+    new COMMON_CODE(null, 'announceYn', '당첨자 발표 구분')
+    , new COMMON_CODE('all', '-1', '당첨자 발표 여부(전체)')
+    , new COMMON_CODE('no', '0', '미발표')
+    , new COMMON_CODE('yes', '1', '발표')
+];
+
+var event_announceYn_radio = [
+    new COMMON_CODE(null, 'announceYn', '당첨자 발표 구분')
+    , new COMMON_CODE('no', '0', '비노출')
+    , new COMMON_CODE('yes', '1', '노출')
+];
+
+var event_addInfoSlct = [
+    new COMMON_CODE(null, 'addInfoSlct', '추가 정보 구분')
+    , new COMMON_CODE('no', '0', '없음')
+    , new COMMON_CODE('image', '1', '이미지')
+    , new COMMON_CODE('reply', '2', '댓글')
+    , new COMMON_CODE('etc', '9', '기타')
+];
+
+var event_prizeSlct = [
+    new COMMON_CODE(null, 'prizeSlct', '경품 구분')
+    , new COMMON_CODE('rank', '1', '등수구분')
+    , new COMMON_CODE('all', '2', '일괄지급')
+];
+
+var event_prizeReceive = [
+    new COMMON_CODE(null, 'prizeSlct', '경품 수령 구분')
+    , new COMMON_CODE('prize', '1', '현물')
+    , new COMMON_CODE('dal', '2', '달')
+    , new COMMON_CODE('byeol', '3', '별')
+];
+
+var event_winnerSortSlct = [
+    new COMMON_CODE(null, 'sortSlct', '정렬 구분')
+    , new COMMON_CODE('recent', '0', '최근 응모 순')
+    , new COMMON_CODE('count', '1', '응모 횟수')
+    , new COMMON_CODE('payAmt', '2', '결제 금액')
+    , new COMMON_CODE('airTime', '3', '방송 시간')
+    , new COMMON_CODE('good', '4', '좋아요')
+    , new COMMON_CODE('exp', '5', '경험치')
+    , new COMMON_CODE('byeol', '6', '받은 선물')
+    , new COMMON_CODE('dal', '7', '보낸 선물')
+    , new COMMON_CODE('fan', '8', '팬')
+];
+
+var event_winnerWinSlct = [
+    new COMMON_CODE(null, 'winSlct', '당첨 구분')
+    , new COMMON_CODE('no', '0', '미당첨자')
+    , new COMMON_CODE('yes', '1', '당첨자')
+    , new COMMON_CODE('all', '2', '당첨자 + 미당첨자')
+];
+
+var event_winnerCertificationYn = [
+    new COMMON_CODE(null, 'certificationYn', '본인 인증 여부')
+    , new COMMON_CODE('no', '0', '미인증')
+    , new COMMON_CODE('yes', '1', '인증')
+];
+
+var event_minorYn = [
+    new COMMON_CODE(null, 'minorYn', '미성년자 여부')
+    , new COMMON_CODE('no', '0', '성인')
+    , new COMMON_CODE('yes', '1', '미성년')
+];
+
+var event_receiveWay = [
+    new COMMON_CODE(null, 'receiveWay', '경품 수령 방법')
+    , new COMMON_CODE('not yet', '0', '선택 전')
+    , new COMMON_CODE('prize', '1', '배송 수령')
+    , new COMMON_CODE('dal', '1', '달로 받기')
+];
+
+var event_addInfoYn = [
+    new COMMON_CODE(null, 'addInfo', '추가 정보 입력 여부')
+    , new COMMON_CODE('no', '0', '미입력')
+    , new COMMON_CODE('yes', '1', '입력')
+];
+
+var event_depositYn = [
+    new COMMON_CODE(null, 'depositConfirm', '입금 확인')
+    , new COMMON_CODE('no', '0', '미확인')
+    , new COMMON_CODE('yes', '1', '확인')
+];
+
+var event_winnerState = [
+    new COMMON_CODE(null, 'state', '당첨자 상태')
+    , new COMMON_CODE('input wait', '0', '입력 대기 중')
+    , new COMMON_CODE('deposit wait', '1', '입금 대기 중')
+    , new COMMON_CODE('send wait', '2', '발송 대기 중')
+    , new COMMON_CODE('complete', '3', '완료')
 ];
 
 /** =------ Item ---------- */
@@ -470,6 +577,6 @@ var broadTip_objType_detail = [
 var broadTip_viewType = [
     new COMMON_CODE(null, 'broadTip_viewType', '검색구분')
     , new COMMON_CODE('-1', '-1', '노출여부 전체')
-    , new COMMON_CODE('0', '0', 'On')
-    , new COMMON_CODE('1', '1', 'Off')
+    , new COMMON_CODE('1', '1', 'On')
+    , new COMMON_CODE('0', '0', 'Off')
 ];

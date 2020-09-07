@@ -25,6 +25,10 @@ public class P_MemberNoticeOutputVo extends SearchVo {
     private String mem_birth_year;
     private String title;
 
+    private int maleCnt;      // 총합 남자
+    private int femaleCnt;    // 총합 여자
+    private int noneCnt;      // 총합 알수없음
+
     public void setLast_upd_date(Date last_upd_date){
         this.last_upd_date = last_upd_date;
         this.lastUpdDateFormat = DalbitUtil.convertDateFormat(last_upd_date, "yyyy.MM.dd HH:mm:ss");

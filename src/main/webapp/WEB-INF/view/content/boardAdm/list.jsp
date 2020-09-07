@@ -144,6 +144,12 @@
         } else if(targetId == "fanBoard_paginate_top" || targetId == "fanBoard_paginate") {
             fanBoardPagingInfo = pagingInfo;
             fanBoardList(pagingInfo.pageNo);
+        } else if(targetId == "fanBoard_paginate_top" || targetId == "fanBoard_paginate") {
+            fanBoardPagingInfo = pagingInfo;
+            fanBoardList(pagingInfo.pageNo);
+        } else if(targetId == "list_info_paginate_top" || targetId == "list_info_paginate") {
+            shotListPagingInfo = pagingInfo;
+            profileMsgList(pagingInfo.pageNo);
         }
     }
 </script>
