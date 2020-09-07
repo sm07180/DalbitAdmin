@@ -117,8 +117,12 @@ var MemberDataTableSource = {
                      return common.addComma(data);
                  }},
              {'title': '결제 건 수/금액', 'data': 'payCntAmount', 'width':'90px'},
-             {'title': '회원상태', 'data': 'mem_state',  'width':'60px', 'render': function (data) {
-                     return util.getCommonCodeLabel(data, mem_state);
+             {'title': '회원상태', 'data': 'mem_state',  'width':'60px', 'render': function (data, type, row) {
+                    var tmpData = data;
+                    if(tmpData == 5 && row.block_type == 1){
+                        tmpData = 6;
+                    }
+                     return util.getCommonCodeLabel(tmpData, mem_state);
                  }},
              {'title': '접속상태', 'data': 'connectState', 'width':'80px'},
              {'title': '방송상태', 'data': 'liveBroad', 'width':'80px'},
