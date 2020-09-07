@@ -33,7 +33,7 @@
 </div>
 
 
-
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
 
@@ -261,9 +261,10 @@
                 prizeIdxs : prizeIdxs
                 , eventIdx : eventIdx
             };
-            alert(data.eventIdx);
             util.getAjaxData("eventPrizeDelete", "/rest/content/event/management/prize/delete", data, function fn_eventPrizeDelete_success(dst_id, response) {
                 alert(response.message);
+                $('#tab_eventPrize').click();
+                initPrize(eventIdx);
             });
         }
     });

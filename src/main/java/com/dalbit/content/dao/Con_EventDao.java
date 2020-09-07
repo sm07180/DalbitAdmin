@@ -118,6 +118,9 @@ public interface Con_EventDao {
 
     ProcedureVo callEventWinnerDelete(ProcedureVo procedureVo);
 
+    ProcedureVo callEventWinnerComplete(ProcedureVo procedureVo);
+
+    ProcedureVo callEventWinnerUpdate(ProcedureVo procedureVo);
 
     /*======================= 기존 이벤트 관리 ======================= */
 //    @Transactional(readOnly = true)
