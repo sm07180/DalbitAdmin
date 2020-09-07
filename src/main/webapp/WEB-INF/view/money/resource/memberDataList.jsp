@@ -5,45 +5,59 @@
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
-        <div class="col-md-2 no-padding mt10 mb10">
-            <span id="memberDataList_searchType" onchange="memberDataList_searchType_click();"></span>
+        <div class="col-md-12 no-padding mt10 mb10">
+            <div class="col-md-2 no-padding">
+                <span id="memberDataList_searchType" onchange="memberDataList_searchType_click();"></span>
+            </div>
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #fff2cc"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="dataTables_paginate paging_full_numbers" id="memberData_paginate_top"></div>
-        <table id="memberDataTable" class="table table-sorting table-hover table-bordered mt10">
-            <colgroup>
-                <col width="3%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-            </colgroup>
-            <thead>
-            <tr>
-                <th class="_bgColor _fontColor" data-bgColor="#416dbb" data-fontColor="white">No</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">회원No</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">성별(나이)</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">회원상태</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">총 방송 시간</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">총 청취 시간</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">클립 등록<br/>(삭제)</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">결제금액</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">결제취소</th>
-                <th class="_bgColor" data-bgColor="#fff2cc">총 지급 달<br/>(결제+무료+선물)</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">무료 지급 달</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">사용 달</th>
-                <th class="_bgColor" data-bgColor="#fff2cc">잔여 달</th>
-                <th class="_bgColor" data-bgColor="#f4b183">총 획득 별<br/>(아이템+무료+환전불가)</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">무료지급 별</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">교환</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">환전승인</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">환전금액</th>
-                <th class="_bgColor" data-bgColor="#f4b183">잔여 별</th>
-                <th class="_bgColor" data-bgColor="#b8b8b8">가입일자</th>
-            </tr>
-            </thead>
-            <tbody id="tb_memberDataList">
-            </tbody>
-        </table>
-        <div class="dataTables_paginate paging_full_numbers" id="memberData_paginate"></div>
+        <div class="col-md-12 no-padding">
+            <div class="dataTables_paginate paging_full_numbers" id="memberData_paginate_top"></div>
+            <table id="memberDataTable" class="table table-sorting table-hover table-bordered mt10">
+                <colgroup>
+                    <col width="3%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+                    <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+                    <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+                    <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="_bgColor _fontColor" data-bgColor="#416dbb" data-fontColor="white">No</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">회원No</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">성별(나이)</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">회원상태</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">총 방송 시간</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">총 청취 시간</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">클립 등록<br/>(삭제)</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">결제금액</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">결제취소</th>
+                    <th class="_bgColor" data-bgColor="#8faadc">총 지급 달<br/>(결제+무료+선물)</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">무료 지급 달</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">사용 달</th>
+                    <th class="_bgColor" data-bgColor="#8faadc">잔여 달</th>
+                    <th class="_bgColor" data-bgColor="#f4b183">총 획득 별<br/>(아이템+무료+환전불가)</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">무료지급 별</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">교환</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">환전승인</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">환전금액</th>
+                    <th class="_bgColor" data-bgColor="#f4b183">잔여 별</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">가입일자</th>
+                </tr>
+                </thead>
+                <tbody id="tb_memberDataList">
+                </tbody>
+            </table>
+            <div class="dataTables_paginate paging_full_numbers" id="memberData_paginate"></div>
+        </div>
     </div>
 </div>
 <!-- //table -->
@@ -59,6 +73,14 @@
 
     function memberDataListTabClick(){
         $("#resourceState").hide();
+        $("#oneDayDatePicker").hide();
+        $("#monthDatepicker").hide();
+        $("#yearDatepicker").hide();
+        $("._prevSearch").hide();
+        $("._todaySearch").hide();
+        $("._nextSearch").hide();
+
+        $("#txt_search").show();
         memberDataList();
     }
 
@@ -75,6 +97,7 @@
             // , 'searchText' : $('#txt_search').val()
             // , 'sDate' : $("#startDate").val()
             // , 'eDate' : $("#endDate").val()
+            , 'searchText' : $("#txt_search").val()
             , 'slctType' : $('input[name="search_testId"]').is(":checked") ? "1" : "0"
             , 'orderType' : $("select[name='memberDataList']").val()
         };
@@ -119,7 +142,7 @@
 
 <script id="tmp_memberDataTable" type="text/x-handlebars-template">
     {{#each this as |data|}}
-        <tr {{#dalbit_if inner '==' 1}} style="background-color : #acc5f6" {{/dalbit_if}}
+        <tr {{#dalbit_if inner '==' 1}} style="background-color : #fff2cc" {{/dalbit_if}}
         >
             <td>{{rowNum}}</td>
             <td>
@@ -141,16 +164,16 @@
             </td>
             <td>{{addComma payAmt}}원</td>
             <td>{{addComma cancelAmt}}원</td>
-            <td style="background-color: #fff2cc">{{addComma totalDal}}개</td>
+            <td style="background-color: #dae3f3">{{addComma totalDal}}개</td>
             <td>{{addComma freeDal}}개</td>
             <td>{{addComma useDal}}개</td>
-            <td style="background-color: #fff2cc">{{addComma nowDal}}개</td>
-            <td style="background-color: #f4b183">{{addComma totalByeol}}개</td>
+            <td style="background-color: #dae3f3">{{addComma nowDal}}개</td>
+            <td style="background-color: #fbe5d6">{{addComma totalByeol}}개</td>
             <td>{{addComma freeByeol}}개</td>
             <td>{{addComma changeByeol}}개</td>
             <td>{{addComma exchangeByeol}}개</td>
             <td>{{addComma exchangeAmt}}원</td>
-            <td style="background-color: #f4b183">{{addComma nowByeol}}개</td>
+            <td style="background-color: #fbe5d6">{{addComma nowByeol}}개</td>
             <td>{{memJoinDateFormat}}</td>
         </tr>
     {{else}}
