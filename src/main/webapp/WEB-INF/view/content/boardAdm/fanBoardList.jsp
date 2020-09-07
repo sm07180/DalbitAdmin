@@ -107,11 +107,14 @@
     }
     function fn_success_fanBoardSummary(dst_id, response) {
         $("#tab_fanBoardList").text("팬보드" + "(" + response.data.totalCnt +")");
+
+
+
         $("#fanboardListCnt").html(
-            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
-            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
-            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
-            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + '(' + response.data.secretTotalCnt + ') 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + '(' + response.data.secretMaleCnt + ') 건]</span>' + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + '(' + response.data.secretFemaleCnt + ') 건]</span>' + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + '(' + response.data.secretNoneCnt + ') 건]</span>'
         );
 
 
@@ -196,7 +199,7 @@
 <script id="tmp_fanBoardTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardList" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="8%"/><col width="8%"/><col width="5%"/><col width="25%"/>
+            <col width="2%"/><col width="8%"/><col width="8%"/><col width="5%"/><col width="56%"/>
             <col width="8%"/><col width="4%"/><col width="4%"/>
         </colgroup>
         <thead>

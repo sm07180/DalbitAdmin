@@ -84,10 +84,10 @@
     function fn_success_fanBoardReplySummary(dst_id, response) {
         $("#tab_fanBoardReply").text("팬보드댓글" + "(" + response.data.totalCnt +")");
         $("#fanboardReplyListCnt").html(
-            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
-            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
-            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
-            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + '(' + response.data.secretTotalCnt + ') 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + '(' + response.data.secretMaleCnt + ') 건]</span>' + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + '(' + response.data.secretFemaleCnt + ') 건]</span>' + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + '(' + response.data.secretNoneCnt + ') 건]</span>'
         );
 
         // var template = $('#fanBoardReply_tableSummary').html();
@@ -125,8 +125,8 @@
 <script id="tmp_fanBoardReplyTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardReply" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="15%"/>
-            <col width="5%"/><col width="15%"/><col width="5%"/><col width="5%"/>
+            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="25%"/>
+            <col width="5%"/><col width="5%"/><col width="25%"/><col width="5%"/>
         </colgroup>
         <thead>
         <tr>
@@ -134,10 +134,10 @@
             <th>팬보드주인</th>
             <th>팬보드글등록자</th>
             <th>비밀 글 여부</th>
-            <td class="word-break" style="width: 200px">팬보드 등록 글</th>
+            <td class="word-break" style="width: 220px">팬보드 등록 글</th>
             <td>상태</td>
             <th>댓글등록자</th>
-            <td class="word-break" style="width: 200px">등록된 댓글</th>
+            <td class="word-break" style="width: 220px">등록된 댓글</th>
             <td>상태</td>
             <th>등록일시</th>
             <th>관리</th>

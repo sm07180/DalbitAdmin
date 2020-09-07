@@ -46,8 +46,11 @@
 <script type="text/javascript">
     giftHistoryListPagingInfo = new PAGING_INFO(0, 1, 20);
 
-    function getGiftHistoryList(){
+    $(function(){
         $("#giftSort").html(util.getCommonCodeSelect(-1, giftSort));
+    });
+
+    function getGiftHistoryList(){
 
         var nowDay = moment(new Date()).format('YYYY') + "." + moment(new Date()).format('MM') + "." + moment(new Date()).format('DD');
         var timeDay = week[moment(nowDay).add('days', 0).day()];
@@ -55,7 +58,7 @@
 
         var data = dataSet();
         data.slctType = 0;
-        data.giftSort = $("select[name='giftSort']").val();
+        data.orderType = $("select[name='giftSort']").val();
         data.pageNo = giftHistoryListPagingInfo.pageNo;
         data.pageCnt = giftHistoryListPagingInfo.pageCnt;
 

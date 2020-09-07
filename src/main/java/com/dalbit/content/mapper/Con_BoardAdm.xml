@@ -129,6 +129,10 @@
             ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'm',1,0)) as maleCnt
             ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'f',1,0)) as femaleCnt
             ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'n',1,0)) as noneCnt
+            ,sum(if(view_yn = 0,1,0)) as secretTotalCnt
+            ,sum(if(view_yn = 0,if((select mem_sex FROM rd_data.tb_member_basic WHERE mem_no = fan.writer_no) = 'm', 1, 0),0)) as secretMaleCnt
+            ,sum(if(view_yn = 0,if((select mem_sex FROM rd_data.tb_member_basic WHERE mem_no = fan.writer_no) = 'f', 1, 0),0)) as secretFemaleCnt
+            ,sum(if(view_yn = 0,if((select mem_sex FROM rd_data.tb_member_basic WHERE mem_no = fan.writer_no) = 'n', 1, 0),0)) as secretNoneCnt
             from rd_data.tb_member_fanboard as fan
         <include refid="fanBoardCondition"/>
     </select>

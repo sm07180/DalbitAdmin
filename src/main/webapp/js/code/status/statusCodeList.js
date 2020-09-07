@@ -9,6 +9,13 @@ var levelFilter = [
     , new COMMON_CODE('level', '0', '레벨 순위로 보기')
     , new COMMON_CODE('service', '1', '서비스 순위로 보기')
 ];
+
+var giftSort = [
+    new COMMON_CODE(null, 'giftSort', '방송현황 선물내역정렬')
+    , new COMMON_CODE('0', '0', '최근 구매 순으로')
+    , new COMMON_CODE('1', '1', '아이템 구매달 많은 순으로')
+];
+
 /*================ 앱버전현황 ===================*/
 var appVersion_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼')

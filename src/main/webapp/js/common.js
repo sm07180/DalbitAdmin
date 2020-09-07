@@ -174,25 +174,33 @@ common.rpad = function(s, padLength, padString){
 }
 
 common.timeStamp = function(time){
-    time = parseInt(time);
-    var hours = common.lpad(Math.floor(time / 3600),2,"0");
-    var minutes = common.lpad(Math.floor((time - (hours * 3600)) /60),2,"0");
-    var seconds = common.lpad(time - (hours * 3600) - (minutes * 60),2,"0");
-    var time = hours  + ":" + minutes + ":" + seconds;
-    return time ;
+    if(!common.isEmpty(time) && time != 0) {
+        time = parseInt(time);
+        var hours = common.lpad(Math.floor(time / 3600), 2, "0");
+        var minutes = common.lpad(Math.floor((time - (hours * 3600)) / 60), 2, "0");
+        var seconds = common.lpad(time - (hours * 3600) - (minutes * 60), 2, "0");
+        var time = hours + ":" + minutes + ":" + seconds;
+        return time;
+    }else{
+        return "";
+    }
 }
 
 common.timeStampMinutes = function(time){
-    time = parseInt(time);
-    time = time * 60;
-    var hours = common.lpad(Math.floor(time / 3600),2,"0");
-    var minutes = common.lpad(Math.floor((time - (hours * 3600)) /60),2,"0");
-    var time = hours  + ":" + minutes;
-    return time ;
+    if(!common.isEmpty(time) && time != 0) {
+        time = parseInt(time);
+        time = time * 60;
+        var hours = common.lpad(Math.floor(time / 3600),2,"0");
+        var minutes = common.lpad(Math.floor((time - (hours * 3600)) /60),2,"0");
+        var time = hours  + ":" + minutes;
+        return time ;
+    }else{
+        return "";
+    }
 }
 
 common.timeStampDay = function(time){
-    if(!common.isEmpty(time)){
+    if(!common.isEmpty(time) && time != 0){
         time = parseInt(time);
         var day = Math.floor(time / 60 / 60 / 24);
         var day_s = day * 60 * 60 * 24;
