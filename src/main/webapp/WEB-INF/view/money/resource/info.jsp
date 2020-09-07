@@ -45,10 +45,10 @@
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
 
-                                <label class="control-inline fancy-checkbox custom-color-green">
+                                <span class="control-inline fancy-checkbox custom-color-green">
                                     <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                                    <span>테스트 아이디 제외</span>
-                                </label>
+                                    <span id="checkTestid" style="display: none">테스트 아이디 제외</span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -265,6 +265,7 @@
         $("._todaySearch").show();
         $("._nextSearch").show();
         $("#txt_search").hide();
+        $("#checkTestid").hide();
 
         changeDatepicker();
     }

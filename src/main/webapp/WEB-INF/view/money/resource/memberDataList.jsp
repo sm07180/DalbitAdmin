@@ -81,6 +81,7 @@
         $("._nextSearch").hide();
 
         $("#txt_search").show();
+        $("#checkTestid").show();
         memberDataList();
     }
 
