@@ -24,11 +24,11 @@
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설수</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설수</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
             </tr>
             </thead>
             <tbody id="dayTableBody"></tbody>
@@ -132,17 +132,17 @@
     {{#dalbit_if nowDay '!=' date}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
     {{{data.date}}}
     </td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma create_mCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma create_fCnt}}</td>
-        <td>{{addComma create_nCnt}}</td>
-        <td>{{addComma create_max_Cnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma listener_mCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma listener_fCnt}}</td>
-        <td>{{addComma listener_nCnt}}</td>
-        <td>{{addComma listener_max_Cnt}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma create_mCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma create_fCnt 'Y'}}</td>
+        <td>{{addComma create_nCnt 'Y'}}</td>
+        <td>{{addComma create_max_Cnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma listener_mCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma listener_fCnt 'Y'}}</td>
+        <td>{{addComma listener_nCnt 'Y'}}</td>
+        <td>{{addComma listener_max_Cnt 'Y'}}</td>
         <td>{{timeStampDay airtime}}</td>
-        <td>{{addComma gift_Cnt}}</td>
-        <td>{{addComma gift_Amt}}</td>
+        <td>{{addComma gift_Cnt 'Y'}}</td>
+        <td>{{addComma gift_Amt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>

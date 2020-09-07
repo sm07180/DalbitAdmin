@@ -54,7 +54,7 @@
     <!-- //tab -->
 </div>
 
-<script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/status/statusCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
 

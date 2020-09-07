@@ -65,9 +65,10 @@
             tableBody.append(totalHtml);
         }
 
+
         for(var i=0;i<response.data.detailList.length;i++){
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
-            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
             response.data.detailList[i].day = response.data.detailList[i].daily.substr(8,2);
@@ -121,9 +122,9 @@
 
 <script type="text/x-handlebars-template" id="tmp_typeDetailList">
     {{#each this as |data|}}
-    <tr {{#dalbit_if nowDay '==' date}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-        <td {{#dalbit_if nowDay '==' date}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-        {{#dalbit_if nowDay '!=' date}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{data.date}}}
         </td>
         <td>{{addComma create03Cnt}}</td>
