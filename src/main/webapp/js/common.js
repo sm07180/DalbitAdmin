@@ -211,9 +211,13 @@ common.timeStampDay = function(time){
         var seconds = time - ((day * 60 * 60 * 24) + (hours * 60 * 60) + (minutes * 60) );
         if(day != 0){
             var time = day + "일 " + hours  + "시" + minutes + "분" + seconds + "초";
-
         }else{
-            var time = hours  + "시" + minutes + "분" + seconds + "초";
+            if(hours != 0){
+                var time = hours  + "시" + minutes + "분" + seconds + "초";
+            }else{
+                var time = minutes + "분" + seconds + "초";
+            }
+
         }
         return time ;
     }else{

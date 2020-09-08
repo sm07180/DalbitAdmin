@@ -7,25 +7,25 @@
         <span class="font-bold" id="platformDate"></span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="11.2%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+                <col width="4.2%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
                 <col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7"></th>
+                <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
                 <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">방송개설</th>
                 <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#b4c7e7">소계</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">PC웹</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">안드로이드</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">아이폰</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">소계</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">PC웹</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">안드로이드</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">아이폰</th>
 
-                <th class="_bgColor" data-bgColor="#b4c7e7">소계</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">PC웹</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">안드로이드</th>
-                <th class="_bgColor" data-bgColor="#b4c7e7">아이폰</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">소계</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">PC웹</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">안드로이드</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">아이폰</th>
             </tr>
             </thead>
             <tbody id="platformListBody">
