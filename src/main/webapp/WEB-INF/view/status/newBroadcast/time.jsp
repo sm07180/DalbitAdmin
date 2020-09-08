@@ -19,7 +19,7 @@
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 건 수</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 달 수</th>
-            </tr>                                                              
+            </tr>
             <tr>
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
