@@ -28,6 +28,8 @@ public class P_GiftListOutputVo extends PagingVo {
     private String item_thumbnail;
     private int accumCnt;
     private int itemCnt;
+    private int byeolCnt;
+    private int accumByeolCnt;
     private int secret;
     private String mem_no;
 
@@ -36,6 +38,7 @@ public class P_GiftListOutputVo extends PagingVo {
     private int male;
     private int female;
     private int none;
+    private int totalByeol;
 
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;

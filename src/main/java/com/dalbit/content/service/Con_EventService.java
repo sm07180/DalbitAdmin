@@ -17,6 +17,7 @@ import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -495,11 +496,16 @@ public class Con_EventService {
     public String callEventWinnerInfo(P_EventWinnerInfoInputVo pEventWinnerInfoInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerInfoInputVo);
         ArrayList<P_EventWinnerInfoOutputVo> infoList = con_EventDao.callEventWinnerInfo(procedureVo);
+        P_EventWinnerInfoExtVo winnerInfoPrizeYn = new Gson().fromJson(procedureVo.getExt(), P_EventWinnerInfoExtVo.class);
 
         String result;
 
+        LinkedHashMap resultMap = new LinkedHashMap();
+        resultMap.put("infoList", infoList);
+        resultMap.put("winnerInfoPrizeYn", winnerInfoPrizeYn);
+
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_성공, infoList));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_성공, resultMap));
         } else if(Status.이벤트관리_응모자당첨자정보조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_리스트없음));
         } else if(Status.이벤트관리_응모자당첨자정보조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
@@ -601,6 +607,71 @@ public class Con_EventService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자번호리스트없음));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자선정완료후삭제안됨));
+        }
+        return result;
+    }
+
+    /**
+     * 당첨자 선정 완료 / 재선정
+     */
+    public String callEventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) {
+        pEventWinnerCompleteVo.setOpName(MemberVo.getMyMemNo());
+        ProcedureVo procedureVo = new ProcedureVo(pEventWinnerCompleteVo);
+
+        con_EventDao.callEventWinnerComplete(procedureVo);
+
+        String result;
+
+        if(Status.이벤트관리_당첨자선정완료_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_성공));
+        } else if(Status.이벤트관리_당첨자선정완료_재선정성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_재선정성공));
+        } else if(Status.이벤트관리_당첨자선정완료_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_이벤트번호없음));
+        } else if(Status.이벤트관리_당첨자선정완료_당첨인원안맞음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_당첨인원안맞음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_실패));
+        }
+        return result;
+    }
+
+    /**
+     * 당첨자 상태 변경
+     */
+    public String callEventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) {
+        String result;
+        if(!DalbitUtil.isEmpty(pEventWinnerUpdateVo.getEventIdx())) {
+            int succ_cnt = 0;
+            int fail_cnt = 0;
+            String[] winnerIdxArr = pEventWinnerUpdateVo.getWinnerIdxs().split(",");
+
+            for (String winnerIdx : winnerIdxArr) {
+                if (NumberUtils.isDigits(winnerIdx)) {
+                    int eventIdx = pEventWinnerUpdateVo.getEventIdx();
+                    int updateSlct = pEventWinnerUpdateVo.getUpdateSlct();
+                    ProcedureVo procedureVo = new ProcedureVo(new P_EventWinnerUpdateVo(eventIdx, updateSlct, winnerIdx, MemberVo.getMyMemNo()));
+
+                    con_EventDao.callEventWinnerUpdate(procedureVo);
+                    if (Status.이벤트관리_당첨자상태변경_성공.getMessageCode().equals(procedureVo.getRet())) {
+                        succ_cnt++;
+                    } else {
+                        fail_cnt++;
+                    }
+                }
+            }
+
+            var resultMap = new HashMap();
+            resultMap.put("succ_cnt", succ_cnt);
+            resultMap.put("fail_cnt", fail_cnt);
+
+            if(0 < succ_cnt) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자상태변경_성공, resultMap));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자상태변경_실패, resultMap));
+            }
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자상태변경_변경구분값오류));
         }
         return result;
     }
