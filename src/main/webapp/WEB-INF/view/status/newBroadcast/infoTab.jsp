@@ -31,6 +31,11 @@
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
 
+        if(tabId == 'tab_gift'){
+            $("#checkTestid").show();
+        }else{
+            $("#checkTestid").hide();
+        }
         if(tabId == 'tab_time' || tabId == 'tab_gift'){
             slctType = "0";
             me = 0;

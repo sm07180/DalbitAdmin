@@ -51,13 +51,12 @@
     });
 
     function getGiftHistoryList(){
-
         var nowDay = moment(new Date()).format('YYYY') + "." + moment(new Date()).format('MM') + "." + moment(new Date()).format('DD');
         var timeDay = week[moment(nowDay).add('days', 0).day()];
         $("#timeDate").text(nowDay + "(" + timeDay + ")");
 
         var data = dataSet();
-        data.slctType = 0;
+        data.slctType = $('input[name="search_testId"]').is(":checked") ? "1" : "0";
         data.orderType = $("select[name='giftSort']").val();
         data.pageNo = giftHistoryListPagingInfo.pageNo;
         data.pageCnt = giftHistoryListPagingInfo.pageCnt;
@@ -68,7 +67,7 @@
     }
 
     function fn_gift_success(dst_id, response) {
-        response.data.detailList.totalCnt = response.data.totalInfo.totalCnt;
+        $("#giftHistoryListArea").empty();
 
         var template = $('#tmp_giftHistoryList').html();
         var templateScript = Handlebars.compile(template);
@@ -80,6 +79,9 @@
             util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
 
             detailContext.totalCnt = pagingInfo.totalCnt;
+            $("#list_info_paginate").show();
+        }else{
+            $("#list_info_paginate").hide();
         }
 
         var html=templateScript(detailContext);
@@ -101,7 +103,7 @@
     {{#each this as |data|}}
     <tr>
         <td>
-            {{indexDesc ../totalCnt rowNum}}
+            {{rowNum}}
         </td>
         <td>{{convertToDate purchaseDate 'YYYY-MM-DD HH:MM:SS'}}</td>
         <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>

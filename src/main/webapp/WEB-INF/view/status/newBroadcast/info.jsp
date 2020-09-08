@@ -40,6 +40,12 @@
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                <label class="control-inline fancy-checkbox custom-color-green">
+                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                    <span id="checkTestid" style="display: none">테스트 아이디 제외</span>
+                                </label>
+
                             </div>
                         </div>
                     </div>
@@ -55,6 +61,7 @@
 </div>
 
 <script type="text/javascript" src="/js/code/status/statusCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
 

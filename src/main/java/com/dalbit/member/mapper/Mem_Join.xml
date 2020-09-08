@@ -24,7 +24,8 @@
                        or mem_userid like concat('%', #{searchText}, '%')
                        or mem_nick like concat('%', #{searchText}, '%')
                        or mem_phone like concat('%', #{searchText}, '%')
-                       or mem_id like concat('%', #{searchText}, '%'))
+                       or mem_id like concat('%', #{searchText}, '%')
+                       or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
                 )as c, (select @rownum := #{pageNo} ) AS d
 
 
@@ -60,7 +61,8 @@
                 or mem_userid like concat('%', #{searchText}, '%')
                 or mem_nick like concat('%', #{searchText}, '%')
                 or mem_phone like concat('%', #{searchText}, '%')
-                or mem_id like concat('%', #{searchText}, '%'))
+                or mem_id like concat('%', #{searchText}, '%')
+                or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
     </select>
 
     <select id="callJoinList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
@@ -101,7 +103,8 @@
                        or mem_userid like concat('%', #{searchText}, '%')
                        or mem_nick like concat('%', #{searchText}, '%')
                        or mem_phone like concat('%', #{searchText}, '%')
-                       or mem_id like concat('%', #{searchText}, '%'))
+                       or mem_id like concat('%', #{searchText}, '%')
+                       or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
                 )as c, (select @rownum := #{pageNo} ) AS d
 
         <trim prefix="ORDER BY" suffixOverrides=",">
@@ -136,7 +139,8 @@
                 or mem_userid like concat('%', #{searchText}, '%')
                 or mem_nick like concat('%', #{searchText}, '%')
                 or mem_phone like concat('%', #{searchText}, '%')
-                or mem_id like concat('%', #{searchText}, '%'))
+                or mem_id like concat('%', #{searchText}, '%')
+                or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
     </select>
 
     <select id="callWithdrawalList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
