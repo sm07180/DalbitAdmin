@@ -99,10 +99,10 @@
         <td>{{addComma sum_pcCnt}}</td>
         <td>{{addComma sum_androidCnt}}</td>
         <td>{{addComma sum_iosCnt}}</td>
-        <td>{{timeStampDay sum_totalBroadcastingTime}}</td>
-        <td>{{timeStampDay sum_pcTime}}</td>
-        <td>{{timeStampDay sum_androidTime}}</td>
-        <td>{{timeStampDay sum_iosTime}}</td>
+        <td style="text-align: right">{{timeStampDay sum_totalBroadcastingTime}}</td>
+        <td style="text-align: right">{{timeStampDay sum_pcTime}}</td>
+        <td style="text-align: right">{{timeStampDay sum_androidTime}}</td>
+        <td style="text-align: right">{{timeStampDay sum_iosTime}}</td>
     </tr>
 </script>
 
@@ -117,10 +117,10 @@
         <td>{{addComma pcCnt 'Y'}}</td>
         <td>{{addComma androidCnt 'Y'}}</td>
         <td>{{addComma iosCnt 'Y'}}</td>
-        <td>{{timeStampDay totalBroadcastingTime}}</td>
-        <td>{{timeStampDay pcTime}}</td>
-        <td>{{timeStampDay androidTime}}</td>
-        <td>{{timeStampDay iosTime}}</td>
+        <td style="text-align: right">{{timeStampDay totalBroadcastingTime}}</td>
+        <td style="text-align: right">{{timeStampDay pcTime}}</td>
+        <td style="text-align: right">{{timeStampDay androidTime}}</td>
+        <td style="text-align: right">{{timeStampDay iosTime}}</td>
     </tr>
     {{/each}}
 </script>

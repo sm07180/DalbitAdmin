@@ -132,7 +132,7 @@
         <td>{{addComma total_listener_nCnt}}</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>
         <td>{{addComma total_listener_max_Cnt}}</td>
-        <td>{{timeStampDay total_airtime}}</td>
+        <td style="text-align: right">{{timeStampDay total_airtime}}</td>
         <td>{{addComma total_gift_Cnt}}</td>
         <td>{{addComma total_gift_Amt}}</td>
     </tr>
@@ -155,7 +155,7 @@
         <td>{{addComma listener_nCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_totalCnt 'Y'}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
-        <td>{{timeStampDay airtime}}</td>
+        <td style="text-align: right">{{timeStampDay airtime}}</td>
         <td>{{addComma gift_Cnt 'Y'}}</td>
         <td>{{addComma gift_Amt 'Y'}}</td>
     </tr>
