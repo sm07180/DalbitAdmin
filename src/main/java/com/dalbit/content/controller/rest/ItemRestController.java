@@ -5,6 +5,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.ItemService;
+import com.dalbit.content.vo.GiftOrder;
 import com.dalbit.content.vo.ItemVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.socket.service.SocketService;
@@ -307,6 +308,24 @@ public class ItemRestController {
     @PostMapping("quick")
     public String quick() {
         String result = itemService.getQuickList();
+        return result;
+    }
+
+    /**
+     * 아이템 순서 변경
+     */
+    @PostMapping("gift/order/list")
+    public String giftOrderList(GiftOrder giftOrder) {
+        String result = itemService.getGiftOrderList(giftOrder);
+        return result;
+    }
+
+    /**
+     * 아이템 순서 변경 수정
+     */
+    @PostMapping("set/giftList")
+    public String setGiftList(GiftOrder giftOrder) {
+        String result = itemService.setGiftOrderList(giftOrder);
         return result;
     }
 
