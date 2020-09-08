@@ -45,10 +45,8 @@
     });
 
     function getPlatformList(){
-        console.log("----------------------------");
         var data = dataSet();
         data.slctType = 0;
-        console.log(data);
 
         var timeDay = week[moment(data.startDate).add('days', 0).day()];
         $("#platformDate").text(data.startDate + "(" + timeDay + ")");
