@@ -1,6 +1,7 @@
 package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.vo.GiftOrder;
 import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,9 @@ public interface ItemDao {
     @Transactional(readOnly = true)
     ArrayList<P_QuickListOutputVo> getQuickList();
 
+    @Transactional(readOnly = true)
+    ArrayList<GiftOrder> getGiftOrderList(GiftOrder GiftOrder);
+
+    int setGiftOrderList(GiftOrder GiftOrder);
 
 }

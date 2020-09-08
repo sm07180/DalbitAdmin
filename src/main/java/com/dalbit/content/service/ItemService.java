@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.ItemDao;
+import com.dalbit.content.vo.GiftOrder;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
@@ -439,6 +440,33 @@ public class ItemService {
 
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(0)));
+
+        return result;
+    }
+
+    /* 아이템 순서 변경 목록 */
+    public String getGiftOrderList(GiftOrder giftOrder) {
+        ArrayList<GiftOrder> list = itemDao.getGiftOrderList(giftOrder);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(0)));
+
+        return result;
+    }
+
+    /* 아이템 순서 변경 */
+    public String setGiftOrderList(GiftOrder giftOrder) {
+
+        for(int i=0;i<giftOrder.getEditData().size();i++) {
+            GiftOrder setGiftOrder = new GiftOrder();
+            setGiftOrder.setItem_code(giftOrder.getEditData().get(i).get("item_code"));
+            setGiftOrder.setOrder(Integer.parseInt(giftOrder.getEditData().get(i).get("itemOrder")));
+
+            itemDao.setGiftOrderList(setGiftOrder);
+        }
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.수정));
 
         return result;
     }
