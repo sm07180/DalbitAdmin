@@ -5,6 +5,8 @@
 
 <div id="eventDetail_fullSize"></div>
 
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
+
 <script type="text/javascript">
 
     var dateTime = new Date();
@@ -110,6 +112,7 @@
             , mobileLinkUrl : $('#mobileLinkUrl').val()
             , listImgUrl : $('#listImgUrl').val()
             , announcementDate : $('#announcementDate').val().replace(/\./g, '-')
+            , announceYn : $('input[name="announceYn"]:checked').val()
         };
     }
 
@@ -139,6 +142,7 @@
             , mobileLinkUrl : $('#mobileLinkUrl').val()
             , listImgUrl : $('#listImgUrl').val()
             , announcementDate : $('#announcementDate').val().replace(/\./g, '-')
+            , announceYn : $('input[name="announceYn"]:checked').val()
         };
     }
 

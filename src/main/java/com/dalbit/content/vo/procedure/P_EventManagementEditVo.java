@@ -13,6 +13,7 @@ public class P_EventManagementEditVo extends BaseVo {
     private String title;
     private int state;
     private int alwaysYn;
+    private int announceYn;
     private String startDate;
     private String endDate;
     private int viewYn;

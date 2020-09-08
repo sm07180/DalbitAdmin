@@ -25,33 +25,43 @@
     </div>
 </div>
 
-<div class="row col-lg-12 form-inline" id="winner_table">
-    <div class="mt15">
-        <div>• 당첨자 추가</div>
-        <div id="winnerRegieterArea"></div>
-    </div>
+<div class="row col-lg-12 form-inline mt15 mb15" id="winner_table">
     <div>• 당첨자 리스트</div>
     <div class="widget widget-table">
-        <input type="text" id="winnerList_eventIdx" name="winnerList_eventIdx" readonly/>
-        <input type="text" id="winnerList_prizeIdx" name="winnerList_prizeIdx" readonly/>
+        <input type="hidden" id="winnerList_eventIdx" name="winnerList_eventIdx"/>
         <div class="widget-content">
+            <div class="mt15" id="winnerArea">
+                <div>• 당첨자 추가</div>
+                <div id="winnerRegieterArea"></div>
+            </div>
+            <div class="mb15 mt15 form-inline pull-right" id="reSave">
+                <button class="btn btn-default btn-sm" type="button" id="bt_reSaveWinner">재선정</button>
+            </div>
             <table id="list_eventWinner" class="table table-sorting table-hover table-bordered">
                 <thead></thead>
                 <tbody></tbody>
             </table>
         </div>
-        <div class="widget-footer">
+        <div class="widget-footer" id="complete_no">
             <div class="mb15 form-inline pull-left">
                 <button class="btn btn-danger btn-sm" type="button" id="bt_cancelEventWinner">당첨 취소</button>
             </div>
             <div class="mb15 form-inline pull-right">
-                <%--<button class="btn btn-default btn-sm" type="button" id="bt_tmpSaveWinner">임시저장</button>--%>
                 <button class="btn btn-default btn-sm" type="button" id="bt_completeSaveWinner">선정 완료</button>
-                <button class="btn btn-default btn-sm" type="button" id="bt_completeSaveWinner_2">(재)선정 완료</button>
+            </div>
+        </div>
+        <div class="widget-footer" id="complete_yes">
+            <div class="mb15 form-inline pull-left">
+                <button class="btn btn-default btn-sm _bt_complete_yes" type="button" id="bt_sendComplete">발송 완료</button>
+            </div>
+            <div class="mb15 ml15 form-inline pull-left">
+                <button class="btn btn-default btn-sm _bt_complete_yes" type="button" id="bt_depositComplete">입금 확인</button>
             </div>
         </div>
     </div>
 </div>
+
+
 <!-- DATA TABLE END -->
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
@@ -82,11 +92,6 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
-
-        // 당첨자 리스트
-        winnerList(index);
-
-        slctChange();
     }
 
     $(document).on('change', '#sortSlct', function() {
@@ -100,6 +105,7 @@
         initWinnerApplicant(event_idx);
     });
 
+    var winnerInfoPrizeYn;
     function winnerInfo(index) {
         var data = {
             eventIdx : index
@@ -107,29 +113,49 @@
         util.getAjaxData("eventWinnerInfo", "/rest/content/event/management/winner/info", data, function fn_eventWinnerInfo_success(dst_id, response) {
             var template = $('#tmp_list_winnerInfo').html();
             var templateScript = Handlebars.compile(template);
-            var context = response.data;
+            var context = response.data.infoList;
             var html = templateScript(context);
 
             $('#list_winnerInfo').html(html);
 
+            winnerInfoPrizeYn = response.data.winnerInfoPrizeYn.prizeWinner;
             var template1 = $('#tmp_winnerRegieterArea').html();
             var templateScript1 = Handlebars.compile(template1);
-            var context1 = response.data;
+            var context1 = response.data.infoList;
             var html1 = templateScript1(context1);
             $('#winnerRegieterArea').html(html1);
+
+            // 당첨자 리스트
+            winnerList(index, winnerInfoPrizeYn);
         });
     }
 
 
-    function winnerList(index) {
+    function winnerList(index, winnerInfoPrizeYn) {
         $('#winner_table #winnerList_eventIdx').val(index);
-        var dtList_info_data = function(data) {
+
+        var dtList_info_data = function (data) {
             data.eventIdx = index;
         };
         var dtList_info_winner = new DalbitDataTable($('#list_eventWinner'), dtList_info_data, EventDataTableSource.eventWinner);
         dtList_info_winner.useCheckBox(true);
         dtList_info_winner.useIndex(false);
         dtList_info_winner.createDataTable();
+        if(winnerInfoPrizeYn == 1) {
+            // 선정완료돼서 발송완료/입금확인/재선정버튼이 보여야 함
+            $('#winnerArea').hide();
+            $('#complete_no').hide();
+
+            $('#complete_yes').show();
+            $('#reSave').show();
+        } else if(winnerInfoPrizeYn == 0) {
+            // 선정 중이라서 당첨자추가/선정취소/선정완료가 보여야 함
+            $('#winnerArea').show();
+            $('#complete_no').show();
+
+            $('#complete_yes').hide();
+            $('#reSave').hide();
+        }
     }
 
     $(document).on('click','#bt_registerEventWinner', function() {
@@ -154,6 +180,8 @@
             };
             util.getAjaxData("EventWinnerAdd", "/rest/content/event/management/winner/add", data, function fn_eventWinnerAdd_success(dst_id, response) {
                alert(response.message);
+               initWinnerApplicant($('#winnerList_eventIdx').val());
+                $('#tab_eventWinnerApplicant').click();
             });
         }
     });
@@ -182,10 +210,81 @@
             console.log(data);
             util.getAjaxData("EventWinnerCancel", "/rest/content/event/management/winner/delete", data, function fn_eventWinnerDelete_success(dst_id, response) {
                alert(response.message);
+                initWinnerApplicant($('#winnerList_eventIdx').val());
+                $('#tab_eventWinnerApplicant').click();
             });
         }
 
     });
+
+    $('#bt_completeSaveWinner').on('click', function() {
+       if(confirm("당첨자 선정을 완료하시겠습니까?")) {
+           var data = {
+               eventIdx : $('#winnerList_eventIdx').val()
+               , completeSlct : 1
+           };
+           util.getAjaxData("EventWinnerComplete", "/rest/content/event/management/winner/complete", data, function fn_eventWinnerComplete_success(dst_id, response) {
+               alert(response.message);
+               initWinnerApplicant($('#winnerList_eventIdx').val());
+               $('#tab_eventWinnerApplicant').click();
+           });
+       }
+    });
+
+    $('#bt_reSaveWinner').on('click', function() {
+        if(confirm("당첨자를 재선정하시겠습니까?")) {
+            var data = {
+                eventIdx : $('#winnerList_eventIdx').val()
+                , completeSlct : 0
+            };
+            util.getAjaxData("EventWinnerComplete", "/rest/content/event/management/winner/complete", data, function fn_eventWinnerComplete_success(dst_id, response) {
+                alert(response.message);
+                initWinnerApplicant($('#winnerList_eventIdx').val());
+                $('#tab_eventWinnerApplicant').click();
+            });
+        }
+    });
+
+    $('._bt_complete_yes').on('click', function() {
+        var checked = $('#list_eventWinner > tbody > tr > td > input[type=checkbox]:checked');
+
+        if(checked.length == 0) {
+            alert('처리할 사항을 선택해주세요.');
+            return false;
+        }
+
+        var Idxs = '';
+        checked.each(function() {
+            Idxs += $(this).parent().parent().find('._getWinnerDetail').data('winneridx') + ",";
+        });
+
+        // 여기서 winnerIdxs를 처리하고, 목록을 받아낸뒤,
+        if($(this).prop('id') == 'bt_depositComplete') {
+            alert(Idxs);
+            if(confirm(checked.length + "건의 사항을 발송 완료 처리하시겠습니까?")) {
+               var data = {
+                   eventIdx : $('#winnerList_eventIdx').val()
+                   , winnerIdxs : Idxs
+                   , updateSlct : 1
+               };
+                util.getAjaxData("EventWinnerStateUpdate", "/rest/content/event/management/winner/update", data, fn_eventWinnerUpdate_success);
+           }
+        } else if($(this).prop('id') == 'bt_sendComplete') {
+            if(confirm(checked.length + "건의 사항을 발송 완료 처리하시겠습니까?")) {
+                var data = {
+                    eventIdx : $('#winnerList_eventIdx').val()
+                    , winnerIdxs : Idxs
+                    , updateSlct : 2
+                };
+                util.getAjaxData("EventWinnerStateUpdate", "/rest/content/event/management/winner/update", data, fn_eventWinnerUpdate_success);
+            }
+        }
+    });
+    function fn_eventWinnerUpdate_success(dst_id, response) {
+        alert(response.message);
+        initWinnerApplicant($('#winnerList_eventIdx').val());
+        $('#tab_eventWinnerApplicant').click();
+    }
 
 </script>
 
