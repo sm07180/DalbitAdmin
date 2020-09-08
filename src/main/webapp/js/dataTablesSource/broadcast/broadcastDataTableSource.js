@@ -399,6 +399,12 @@ var BroadcastDataTableSource = {
             {'title': '누적 선물', 'data': 'accumCnt', 'render': function (data) {
                     return data + " 개"
                 }},
+            {'title': '받은 별 수', 'data': 'byeolCnt', 'render': function (data) {
+                    return data + " 개"
+                }},
+            {'title': '누적 받은 별 수', 'data': 'accumByeolCnt', 'render': function (data) {
+                    return data + " 개"
+                }},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },

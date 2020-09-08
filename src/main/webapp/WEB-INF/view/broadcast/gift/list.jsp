@@ -48,6 +48,7 @@
     <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr>
+            <th>누적 받은 별 수</th>
             <th>방송 중 선물</th>
             <th>{{{sexIcon 'm'}}}</th>
             <th>{{{sexIcon 'f'}}}</th>
@@ -55,6 +56,7 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
+        <td>{{#equal length '0'}}0{{/equal}}{{content.totalByeol}}개</td>
         <td>{{#equal length '0'}}0{{/equal}}{{content.giftCnt}}건</td>
         <td>{{#equal length '0'}}0{{/equal}}{{content.male}}건</td>
         <td>{{#equal length '0'}}0{{/equal}}{{content.female}}건</td>
