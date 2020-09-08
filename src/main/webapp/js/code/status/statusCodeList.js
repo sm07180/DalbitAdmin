@@ -12,7 +12,7 @@ var levelFilter = [
 
 var giftSort = [
     new COMMON_CODE(null, 'giftSort', '방송현황 선물내역정렬')
-    , new COMMON_CODE('0', '0', '최근 구매 순으로')
+    , new COMMON_CODE('0', '0', '최근 선물 순으로')
     , new COMMON_CODE('1', '1', '아이템 구매달 많은 순으로')
 ];
 
