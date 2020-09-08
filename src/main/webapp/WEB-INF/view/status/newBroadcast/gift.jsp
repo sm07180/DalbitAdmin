@@ -103,7 +103,7 @@
     {{#each this as |data|}}
     <tr>
         <td>
-            {{rowNum}}
+            {{indexDesc ../totalCnt rowNum}}
         </td>
         <td>{{convertToDate purchaseDate 'YYYY-MM-DD HH:MM:SS'}}</td>
         <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>
