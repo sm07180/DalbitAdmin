@@ -18,6 +18,7 @@ public class P_DeclarationDetailOutputVo extends BaseVo {
     private int status;
     private String op_name;
     private int op_code;
+    private String op_msg;
     private String mem_no;
     private String mem_id;
     private String mem_nick;
