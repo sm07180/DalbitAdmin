@@ -140,7 +140,7 @@
 
     $(document).on('click', '._todaySearch', function(){
 
-        if(tabId == 'tab_time' || tabId == 'tab_gift'){
+        if(tabId == 'tab_time' || tabId == 'tab_gift' || tabId == 'tab_platform'){
             slctType = "0";
             me = 0;
         }else if(tabId == 'tab_day' || tabId == 'tab_type') {
@@ -157,6 +157,8 @@
             getDayList();
         }else if(tabId == 'tab_year'){
             getYearList();
+        }else if(tabId == 'tab_platform'){
+            getPlatformList();
         }else if(tabId == 'tab_year'){
             getTypeList();
         }else if(tabId == 'tab_gift'){

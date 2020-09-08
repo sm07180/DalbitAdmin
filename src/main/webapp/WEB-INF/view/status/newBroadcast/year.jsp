@@ -4,31 +4,32 @@
 <!-- 방송현황 > 시간대별 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <span class="font-bold" id="yearDate"></span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
-                <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
-                <col width="8.3%"/><col width="8.3%"/>
+                <col width="5.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
+                <col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
+                <col width="7.1%"/><col width="9.1%"/><col width="7.1%"/><col width="7.1%"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
-                <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
-                <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
+                <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
+                <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 건 수</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 달 수</th>
-            </tr>                                                              
+            </tr>
             <tr>
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">누적 방송 총계</th>
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">누적 청취 총계</th>
             </tr>
             </thead>
             <tbody id="yearTableBody"></tbody>
@@ -45,12 +46,7 @@
     $(function(){
         // getYearList();
     });
-
-
     function getYearList(){
-        var nowYear = moment(new Date()).format('YYYY');
-        $("#yearDate").text(nowYear);
-
         var data = dataSet();
         data.slctType = 2;
         util.getAjaxData("time", "/rest/status/newBroadcast/info/time", data, fn_year_success);
@@ -62,6 +58,20 @@
 
         tableBody.empty();
         if(!isDataEmpty){
+            var total_create_totalCnt = [
+                response.data.totalInfo.total_create_mCnt,
+                response.data.totalInfo.total_create_fCnt,
+                response.data.totalInfo.total_create_nCnt,
+            ];
+            response.data.totalInfo["total_create_totalCnt"] = common.getListSum(total_create_totalCnt);
+
+            var total_listener_totalCnt = [
+                response.data.totalInfo.total_listener_mCnt,
+                response.data.totalInfo.total_listener_fCnt,
+                response.data.totalInfo.total_listener_nCnt,
+            ];
+            response.data.totalInfo["total_listener_totalCnt"] = common.getListSum(total_listener_totalCnt);
+
             var template = $('#tmp_yearTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -75,6 +85,20 @@
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
             response.data.detailList[i].month = response.data.detailList[i].the_date.substr(5,6);
+
+            var create_totalCnt = [
+                response.data.detailList[i].create_mCnt,
+                response.data.detailList[i].create_fCnt,
+                response.data.detailList[i].create_nCnt,
+            ];
+            response.data.detailList[i].create_totalCnt = common.getListSum(create_totalCnt);
+
+            var listener_totalCnt = [
+                response.data.detailList[i].listener_mCnt,
+                response.data.detailList[i].listener_fCnt,
+                response.data.detailList[i].listener_nCnt,
+            ];
+            response.data.detailList[i].listener_totalCnt = common.getListSum(listener_totalCnt);
         }
 
         var template = $('#tmp_yearDetailList').html();
@@ -101,10 +125,12 @@
         <td class="_fontColor" data-fontColor="blue">{{addComma total_create_mCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_create_fCnt}}</td>
         <td>{{addComma total_create_nCnt}}</td>
+        <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_create_totalCnt}}</td>
         <td>{{addComma total_create_max_Cnt}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma total_listener_mCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}}</td>
         <td>{{addComma total_listener_nCnt}}</td>
+        <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>
         <td>{{addComma total_listener_max_Cnt}}</td>
         <td>{{timeStampDay total_airtime}}</td>
         <td>{{addComma total_gift_Cnt}}</td>
@@ -122,10 +148,12 @@
         <td class="_fontColor" data-fontColor="blue">{{addComma create_mCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma create_fCnt 'Y'}}</td>
         <td>{{addComma create_nCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="#ff3300">{{addComma create_totalCnt 'Y'}}</td>
         <td>{{addComma create_max_Cnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma listener_mCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma listener_fCnt 'Y'}}</td>
         <td>{{addComma listener_nCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_totalCnt 'Y'}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
         <td>{{timeStampDay airtime}}</td>
         <td>{{addComma gift_Cnt 'Y'}}</td>
