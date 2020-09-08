@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
-                <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">DJ(방송개별)</th>
+                <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
                 <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 건 수</th>

@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
-                <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">DJ(방송개별)</th>
+                <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
                 <th colspan="4" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
                 <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 건 수</th>
@@ -118,7 +118,7 @@
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}}</td>
         <td>{{addComma total_listener_nCnt}}</td>
         <td>{{addComma total_listener_max_Cnt}}</td>
-        <td>{{timeStamp total_airtime}}</td>
+        <td>{{timeStampDay total_airtime}}</td>
         <td>{{addComma total_gift_Cnt}}</td>
         <td>{{addComma total_gift_Amt}}</td>
     </tr>
@@ -139,7 +139,7 @@
         <td class="_fontColor" data-fontColor="red">{{addComma listener_fCnt 'Y'}}</td>
         <td>{{addComma listener_nCnt 'Y'}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
-        <td>{{timeStamp airtime}}</td>
+        <td>{{timeStampDay airtime}}</td>
         <td>{{addComma gift_Cnt 'Y'}}</td>
         <td>{{addComma gift_Amt 'Y'}}</td>
     </tr>
