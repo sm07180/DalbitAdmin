@@ -187,11 +187,7 @@
                    and item_slct = 1
                    and (item_price != 0 or item_price_ios != 0)
         ) a, (select @rownum := 0) r
-        ORDER BY (CASE
-        WHEN item_code = 'G1021' THEN 0
-        ELSE 1
-        END) DESC, isNew asc , `order` desc, item_price DESC
-        <!--order by (CASE WHEN item_code = 'G1021' THEN 0 ELSE 1 END) desc, isNew asc , `order` asc, item_price desc-->
+        ORDER BY (CASE WHEN item_code = 'G1021' THEN 0 ELSE 1 END) DESC, isNew asc , `order` desc, item_price DESC
     </select>
 
     <update id="setGiftOrderList" parameterType="com.dalbit.content.vo.GiftOrder">
