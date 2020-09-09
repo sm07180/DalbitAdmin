@@ -11,7 +11,7 @@
     <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">회원공지</a></li>
     <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">방송공지</a></li>
     <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
-    <%--<li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->--%>
+    <li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->
 </ul>
 <div class="tab-content no-padding">
     <div class="tab-pane fade in active" id="storyList"><jsp:include page="storyList.jsp"/></div>
@@ -20,7 +20,7 @@
     <div class="tab-pane fade" id="noticeList"><jsp:include page="noticeList.jsp"/></div>
     <div class="tab-pane fade" id="broadNoticeList"><jsp:include page="broadNoticeList.jsp"/></div>
     <div class="tab-pane fade" id="profileMsgList"><jsp:include page="profileMsgList.jsp"/></div>
-    <%--<div class="tab-pane fade" id="clipReply"><jsp:include page="clipReply.jsp"/></div>--%>
+    <div class="tab-pane fade" id="clipReply"><jsp:include page="clipReply.jsp"/></div>
 </div>
 
 
@@ -40,6 +40,8 @@
             broadNoticeList();
         }else if(tabId == "tab_profileMsgList" ){
             profileMsgList();
+        }else if(tabId == "tab_clipReply" ){
+            clipReplyList();
         }
     });
     $('input[id="txt_search"]').keydown(function(e) {
@@ -60,6 +62,8 @@
             broadNoticeList();
         }else if(tabId == "tab_profileMsgList" ){
             profileMsgList();
+        }else if(tabId == "tab_clipReply" ){
+            clipReplyList();
         }
     });
 

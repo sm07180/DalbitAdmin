@@ -2,10 +2,7 @@ package com.dalbit.content.controller.rest;
 
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
-import com.dalbit.content.vo.BoardAdmFanBoardDeleteVo;
-import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
-import com.dalbit.content.vo.BoardAdmFanBoardVo;
-import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
 import lombok.extern.slf4j.Slf4j;
@@ -121,5 +118,29 @@ public class Con_BoardAdmRestController {
     @PostMapping("/profileMsg/del")
     public String profileMsgDel(P_MemberProfileInputVo pMemberProfileInputVo) {
         return conBoardAdmService.profileDelete(pMemberProfileInputVo);
+    }
+
+    /**
+     * 클립 목록 조회
+     */
+    @PostMapping("/clipReplyList")
+    public String clipReplyList(ClipReplyListVo clipReplyListVo) {
+        return conBoardAdmService.selectClipReplyList(clipReplyListVo);
+    }
+
+    /**
+     * 프로필메세지 통계
+     */
+    @PostMapping("/clipReplyList/summary")
+    public String clipReplyListSummary(ClipReplyListVo clipReplyListVo) {
+        return conBoardAdmService.clipReplyListSummary(clipReplyListVo);
+    }
+
+    /**
+     * 팬보드 삭제
+     */
+    @PostMapping("/clipReplyList/del")
+    public String clipReplyListDel(ClipReplyListVo clipReplyListVo) {
+        return conBoardAdmService.clipReplyListDel(clipReplyListVo);
     }
 }

@@ -1,10 +1,7 @@
 package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.content.vo.BoardAdmFanBoardDeleteVo;
-import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
-import com.dalbit.content.vo.BoardAdmFanBoardVo;
-import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
@@ -57,4 +54,15 @@ public interface Con_BoardAdmDao {
     P_MemberProfileOutputVo profileMsgListSummary(P_MemberProfileInputVo pMemberProfileInputVo);
 
     int callProfileMsgDelete(P_MemberProfileInputVo pMemberProfileInputVo);
+
+    @Transactional(readOnly = true)
+    int selectClipReplyListCnt(ClipReplyListVo clipReplyListVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<ClipReplyListVo> selectClipReplyList(ClipReplyListVo clipReplyListVo);
+
+    @Transactional(readOnly = true)
+    ClipReplyListVo clipReplyListSummary(ClipReplyListVo clipReplyListVo);
+
+    int clipReplyDelete(ClipReplyListVo clipReplyListVo);
 }

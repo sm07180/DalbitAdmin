@@ -6,10 +6,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BoardAdmDao;
-import com.dalbit.content.vo.BoardAdmFanBoardDeleteVo;
-import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
-import com.dalbit.content.vo.BoardAdmFanBoardVo;
-import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileOutputVo;
@@ -213,4 +210,43 @@ public class Con_BoardAdmService {
 
         return result;
     }
+
+
+    /**
+     * 클립댓글 조회
+     */
+    public String selectClipReplyList(ClipReplyListVo clipReplyListVo) {
+        int clipReplyListCount = conBoardAdmDao.selectClipReplyListCnt(clipReplyListVo);
+        clipReplyListVo.setTotalCnt(clipReplyListCount);
+        List<ClipReplyListVo> clipReplyList = conBoardAdmDao.selectClipReplyList(clipReplyListVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.클립댓글조회_성공, clipReplyList, new PagingVo(clipReplyListCount)));
+        return result;
+    }
+    /**
+     * 클립댓글 통계
+     */
+    public String clipReplyListSummary(ClipReplyListVo clipReplyListVo) {
+        ClipReplyListVo clipReplyListSummary = conBoardAdmDao.clipReplyListSummary(clipReplyListVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.클립댓글조회_성공, clipReplyListSummary));
+
+        return result;
+    }
+
+    /**
+     * 클립댓글 삭제
+     */
+    public String clipReplyListDel(ClipReplyListVo clipReplyListVo) {
+        int resultInt = conBoardAdmDao.clipReplyDelete(clipReplyListVo);
+
+        String result;
+        if(resultInt != 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.클립댓글삭제_성공));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.클립댓글삭제_실패));
+        }
+        return result;
+    }
+
 }

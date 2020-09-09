@@ -737,6 +737,11 @@ public enum Status {
     클립삭제_성공("0", "delete.success", "클립삭제 성공 시"),
     클립삭제_에러("C006", "server.error", "클립삭제에서 에러 발생 시"),
 
+    클립댓글조회_성공("0", "clip.select.success", "클립댓글 조회 성공 시"),
+    클립댓글조회_실패("C006", "clip.select.fail", "클립댓글 조회 에러 발생 시"),
+
+    클립댓글삭제_성공("0","clip.del.success", "클립댓글 삭제 성공 시"),
+    클립댓글삭제_실패("C006","clip.del.fail", "클립댓글 삭제 실패 시"),
     ;
 
 
