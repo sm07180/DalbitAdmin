@@ -80,26 +80,48 @@
         }
 
         for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].index = common.lpad(Number(moment().format("HH")),2,"0");
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
-
             response.data.detailList[i].month = response.data.detailList[i].the_date.substr(5,6);
+        }
 
+        //현재 객체 배열을 정렬
+        response.data.detailList.sort(function (a, b) {
+            return a.index < b.index ? 1 : -1;
+        });
+
+        var tmp_create_totalCnt = 0;
+        var tmp_listener_totalCnt = 0;
+        for(var i=0;i<response.data.detailList.length;i++){
             var create_totalCnt = [
                 response.data.detailList[i].create_mCnt,
                 response.data.detailList[i].create_fCnt,
                 response.data.detailList[i].create_nCnt,
             ];
-            response.data.detailList[i].create_totalCnt = common.getListSum(create_totalCnt);
-
+            if(common.getListSum(create_totalCnt) != 0 ){
+                response.data.detailList[i].create_totalCnt = tmp_create_totalCnt + common.getListSum(create_totalCnt);
+                tmp_create_totalCnt = tmp_create_totalCnt + common.getListSum(create_totalCnt);
+            }else{
+                response.data.detailList[i].create_totalCnt = 0;
+            }
             var listener_totalCnt = [
                 response.data.detailList[i].listener_mCnt,
                 response.data.detailList[i].listener_fCnt,
                 response.data.detailList[i].listener_nCnt,
             ];
-            response.data.detailList[i].listener_totalCnt = common.getListSum(listener_totalCnt);
+            if(common.getListSum(listener_totalCnt) != 0){
+                response.data.detailList[i].listener_totalCnt = tmp_listener_totalCnt + common.getListSum(listener_totalCnt);
+                tmp_listener_totalCnt = tmp_listener_totalCnt + common.getListSum(listener_totalCnt);
+            }else{
+                response.data.detailList[i].listener_totalCnt = 0;
+            }
         }
+        //현재 객체 배열을 정렬
+        response.data.detailList.sort(function (a, b) {
+            return a.index < b.index ? 1 : -1;
+        });
 
         var template = $('#tmp_yearDetailList').html();
         var templateScript = Handlebars.compile(template);
