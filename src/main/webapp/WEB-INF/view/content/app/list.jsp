@@ -301,15 +301,15 @@
 
     function fn_version_select_success(dst_id, response){
         console.log("등록된 최신버전 가져오기");
-        $('#ios').text(response.data.aosVersion);
-        $('#aos').text(response.data.iosVersion);
+        $('#ios').text(response.data.iosVersion);
+        $('#aos').text(response.data.aosVersion);
     }
 
     function fn_version_update_success(){
         alert("업데이트 되었습니다.");
-        versionSelect()
         $("#aosVersion").val("");
         $("#iosVersion").val("");
+        versionSelect();
     }
 
 
