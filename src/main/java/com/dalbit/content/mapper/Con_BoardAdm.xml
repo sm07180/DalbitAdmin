@@ -354,7 +354,7 @@
                   ,sum(if(mem_sex = 'n',1,0)) as noneCnt
                     from (
               <include refid="profileCondition"/>
-                    ) list
+            ) list
     </select>
 
     <update id="callProfileMsgDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo">
@@ -364,4 +364,81 @@
             , last_upd_date = now()
         where mem_no=#{mem_no}
     </update>
+
+
+    <sql id="clipReplyCondition">
+        select @RNUM := @RNUM +1 as rowNum
+                , a.title
+                , a.cast_no
+                , b.cast_mem_no
+                , castMem.mem_nick as cast_mem_nick
+                , castMem.mem_sex as cast_mem_sex
+                , b.writer_mem_no
+                , writerMem.mem_nick as writer_mem_nick
+                , writerMem.mem_sex as writer_mem_sex
+                , b.contents
+                , b.write_date
+                , b.last_upd_date
+                , `status`
+                , b.idx as castReplyIdx
+          from rd_data.tb_cast_room a
+          join rd_data.tb_cast_room_board b on a.cast_no = b.cast_no
+          left join rd_data.tb_member_basic castMem on b.cast_mem_no = castMem.mem_no
+          left join rd_data.tb_member_basic writerMem on b.writer_mem_no = writerMem.mem_no
+          inner join (select @RNUM := 0) r
+        where ((castMem.mem_no like CONCAT('%',#{searchText},'%')
+                OR castMem.mem_userid like CONCAT('%',#{searchText},'%')
+                OR castMem.mem_nick like CONCAT('%',#{searchText},'%')
+                OR castMem.mem_id like CONCAT('%',#{searchText},'%')
+                OR castMem.mem_phone like CONCAT('%',#{searchText},'%'))
+                or (writerMem.mem_no like CONCAT('%',#{searchText},'%')
+                OR writerMem.mem_userid like CONCAT('%',#{searchText},'%')
+                OR writerMem.mem_nick like CONCAT('%',#{searchText},'%')
+                OR writerMem.mem_id like CONCAT('%',#{searchText},'%')
+                OR writerMem.mem_phone like CONCAT('%',#{searchText},'%'))
+            )
+        <if test='sDate != null and sDate !=""'>
+            and date_format(b.write_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+        </if>
+        <if test='eDate != null and eDate != ""'>
+            and date_format(b.write_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        order by b.write_date desc
+    </sql>
+
+    <select id="selectClipReplyListCnt" parameterType="com.dalbit.content.vo.ClipReplyListVo" resultType="int">
+        /* Con_BoardAdm.xml - selectClipReplyListCnt */
+        select count(*)
+        from (
+          <include refid="clipReplyCondition"/>
+        ) list
+    </select>
+
+    <select id="selectClipReplyList" parameterType="com.dalbit.content.vo.ClipReplyListVo" resultType="com.dalbit.content.vo.ClipReplyListVo">
+        /* Con_BoardAdm.xml - selectClipReplyList */
+        select *
+        from (
+          <include refid="clipReplyCondition"/>
+        ) list
+        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="clipReplyListSummary"  parameterType="com.dalbit.content.vo.ClipReplyListVo" resultType="com.dalbit.content.vo.ClipReplyListVo">
+      /* Con_BoardAdm.xml - clipReplyListSummary */
+      select count(*) as totalCnt
+              ,sum(if(writer_mem_sex = 'm',1,0)) as maleCnt
+              ,sum(if(writer_mem_sex = 'f',1,0)) as femaleCnt
+              ,sum(if(writer_mem_sex = 'n',1,0)) as noneCnt
+                from (
+          <include refid="clipReplyCondition"/>
+        ) list
+    </select>
+
+    <update id="clipReplyDelete" parameterType="com.dalbit.content.vo.ClipReplyListVo">
+        /* Con_BoardAdm.xml - clipReplyDelete */
+        update rd_data.tb_cast_room_board set `status`=2, last_upd_date=now() where cast_no=#{cast_no} and idx=#{castReplyIdx}
+    </update>
+
+
+
 </mapper>
