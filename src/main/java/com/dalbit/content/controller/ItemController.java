@@ -14,4 +14,9 @@ public class ItemController {
     public String list() {
         return "content/item/list";
     }
+
+    @GetMapping("popup/itemOrder")
+    public String itemOrder() {
+        return "content/item/popup/itemOrder";
+    }
 }

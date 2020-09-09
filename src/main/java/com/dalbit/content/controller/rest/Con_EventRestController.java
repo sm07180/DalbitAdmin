@@ -285,6 +285,25 @@ public class Con_EventRestController {
         return result;
     }
 
+    /**
+     * 당첨자 선정 완료 / 재선정
+     */
+    @PostMapping("/management/winner/complete")
+    public String eventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) {
+        String result = con_EventService.callEventWinnerComplete(pEventWinnerCompleteVo);
+        return result;
+    }
+
+    /**
+     * 당첨자 상태 변경
+     */
+    @PostMapping("/management/winner/update")
+    public String eventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) {
+        String result = con_EventService.callEventWinnerUpdate(pEventWinnerUpdateVo);
+        return result;
+    }
+
+
     /*======================= 기존 이벤트 관리 ======================= */
 //    /**
 //     * 이벤트 목록

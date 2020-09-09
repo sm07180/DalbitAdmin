@@ -268,6 +268,12 @@ var event_announceYn = [
     , new COMMON_CODE('yes', '1', '발표')
 ];
 
+var event_announceYn_radio = [
+    new COMMON_CODE(null, 'announceYn', '당첨자 발표 구분')
+    , new COMMON_CODE('no', '0', '비노출')
+    , new COMMON_CODE('yes', '1', '노출')
+];
+
 var event_addInfoSlct = [
     new COMMON_CODE(null, 'addInfoSlct', '추가 정보 구분')
     , new COMMON_CODE('no', '0', '없음')
@@ -284,7 +290,6 @@ var event_prizeSlct = [
 
 var event_prizeReceive = [
     new COMMON_CODE(null, 'prizeSlct', '경품 수령 구분')
-    , new COMMON_CODE('all', '0', '선택')
     , new COMMON_CODE('prize', '1', '현물')
     , new COMMON_CODE('dal', '2', '달')
     , new COMMON_CODE('byeol', '3', '별')
@@ -308,6 +313,45 @@ var event_winnerWinSlct = [
     , new COMMON_CODE('no', '0', '미당첨자')
     , new COMMON_CODE('yes', '1', '당첨자')
     , new COMMON_CODE('all', '2', '당첨자 + 미당첨자')
+];
+
+var event_winnerCertificationYn = [
+    new COMMON_CODE(null, 'certificationYn', '본인 인증 여부')
+    , new COMMON_CODE('no', '0', '미인증')
+    , new COMMON_CODE('yes', '1', '인증')
+];
+
+var event_minorYn = [
+    new COMMON_CODE(null, 'minorYn', '미성년자 여부')
+    , new COMMON_CODE('no', '0', '성인')
+    , new COMMON_CODE('yes', '1', '미성년')
+];
+
+var event_receiveWay = [
+    new COMMON_CODE(null, 'receiveWay', '경품 수령 방법')
+    , new COMMON_CODE('not yet', '0', '선택 전')
+    , new COMMON_CODE('prize', '1', '배송 수령')
+    , new COMMON_CODE('dal', '1', '달로 받기')
+];
+
+var event_addInfoYn = [
+    new COMMON_CODE(null, 'addInfo', '추가 정보 입력 여부')
+    , new COMMON_CODE('no', '0', '미입력')
+    , new COMMON_CODE('yes', '1', '입력')
+];
+
+var event_depositYn = [
+    new COMMON_CODE(null, 'depositConfirm', '입금 확인')
+    , new COMMON_CODE('no', '0', '미확인')
+    , new COMMON_CODE('yes', '1', '확인')
+];
+
+var event_winnerState = [
+    new COMMON_CODE(null, 'state', '당첨자 상태')
+    , new COMMON_CODE('input wait', '0', '입력 대기 중')
+    , new COMMON_CODE('deposit wait', '1', '입금 대기 중')
+    , new COMMON_CODE('send wait', '2', '발송 대기 중')
+    , new COMMON_CODE('complete', '3', '완료')
 ];
 
 /** =------ Item ---------- */
@@ -533,6 +577,6 @@ var broadTip_objType_detail = [
 var broadTip_viewType = [
     new COMMON_CODE(null, 'broadTip_viewType', '검색구분')
     , new COMMON_CODE('-1', '-1', '노출여부 전체')
-    , new COMMON_CODE('0', '0', 'On')
-    , new COMMON_CODE('1', '1', 'Off')
+    , new COMMON_CODE('1', '1', 'On')
+    , new COMMON_CODE('0', '0', 'Off')
 ];

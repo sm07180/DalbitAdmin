@@ -428,7 +428,12 @@
                     <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
                 </div>
                 <div class="widget-content no-padding">
-                    <div class="_editor" id="notiContents" name="notiContents">{{replaceHtml declaration_Message}}</div>
+                    {{#equal status '0'}}
+                        <div class="_editor" id="notiContents" name="notiContents">{{replaceHtml declaration_Message}}</div>
+                    {{/equal}}
+                    {{^equal status '0'}}
+                        <div class="_editor" id="notiContents" name="notiContents">{{{replaceHtml ../op_msg}}}</div>
+                    {{/equal}}
                 </div>
             </div>
         </div>

@@ -82,13 +82,15 @@ var fnc_giftList = {};
 
     // DataTable Button
     fnc_giftList.initDataTableButton= function() {
-        var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
-        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
-        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
-        var changeItemBtn = '<input type="button" value="네이티브 전송" class="btn btn-success btn-sm" id="btn_changeItem" style="margin-left: 3px;"/>'
+        var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>';
+        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px; margin-top:6px"/>';
+        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>';
+        var changeItemBtn = '<input type="button" value="네이티브 전송" class="btn btn-success btn-sm" id="btn_changeItem" style="margin-left: 3px;"/>';
+        var itemOrder = '<input type="button" value="아이템순서변경" class="btn btn-success btn-sm" id="btn_itemOrder" style="margin-top:5px"/>';
 
         fnc_giftList.divDataTable.find(".footer-left").append(delBtn);
         fnc_giftList.divDataTable.find(".top-right").append(addBtn);
+        fnc_giftList.divDataTable.find(".top-left").append(itemOrder);
         fnc_giftList.divDataTable.find(".footer-right").append(changeItemBtn);
     };
 
@@ -97,6 +99,10 @@ var fnc_giftList = {};
     fnc_giftList.initEvent= function(){
         fnc_giftList.target.find("#btn_insert").off("click").on("click", function () { //등록
             fnc_giftList.insertEvent();
+        })
+
+        fnc_giftList.target.find("#btn_itemOrder").off("click").on("click", function () { //아이템순서변경
+            fnc_giftList.itemOrder();
         })
 
         fnc_giftList.target.find("#btn_delete").off("click").on("click", function () { //삭제
@@ -129,6 +135,12 @@ var fnc_giftList = {};
 
         $("#tab_giftDetail").click();
         ui.unCheck(fnc_giftList.targetDataTableId);
+    };
+
+    fnc_giftList.itemOrder= function() {
+        //아이템 순서 변경 팝업
+        var popupUrl = "/content/item/popup/itemOrder";
+        util.windowOpen(popupUrl,"500", "700","아이템 노출 순서 변경");
     };
 
     // 삭제

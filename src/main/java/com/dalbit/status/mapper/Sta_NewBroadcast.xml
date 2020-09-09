@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.status.dao.Sta_NewBroadcastDao" >
+
+    <select id="callNewBroadcastTime" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_NewBroadcastTimeOutVo">
+        /* Sta_NewBroadcastDao.xml - callNewBroadcastTime */
+        call rd_admin.sp_admin_stat_broadcast_time(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callNewBroadcastType" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_NewBroadcastTypeOutVo">
+        /* Sta_NewBroadcastDao.xml - callNewBroadcastType */
+        call rd_admin.sp_admin_stat_broadcast_subject_create_new(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callNewBroadcastGift" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_NewBroadcastGiftOutputVo">
+        /* Sta_NewBroadcastDao.xml - callNewBroadcastGift */
+        call rd_admin.sp_admin_stat_item_purchase_new(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+</mapper>

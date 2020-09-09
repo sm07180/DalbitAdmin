@@ -72,6 +72,7 @@
             , 'searchType' : 0
             , 'boardType' : 1
         };
+
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
     }
 
@@ -106,11 +107,14 @@
     }
     function fn_success_fanBoardSummary(dst_id, response) {
         $("#tab_fanBoardList").text("팬보드" + "(" + response.data.totalCnt +")");
+
+
+
         $("#fanboardListCnt").html(
-            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
-            '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
-            '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
-            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
+            '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + '(' + response.data.secretTotalCnt + ') 건]</span>' +
+            '<span style="color: blue;"> [남' + response.data.maleCnt + '(' + response.data.secretMaleCnt + ') 건]</span>' + "," +
+            '<span style="color: red;"> [여' + response.data.femaleCnt + '(' + response.data.secretFemaleCnt + ') 건]</span>' + "," +
+            '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + '(' + response.data.secretNoneCnt + ') 건]</span>'
         );
 
 
@@ -195,7 +199,7 @@
 <script id="tmp_fanBoardTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardList" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="8%"/><col width="8%"/><col width="5%"/><col width="25%"/>
+            <col width="2%"/><col width="8%"/><col width="8%"/><col width="5%"/><col width="56%"/>
             <col width="8%"/><col width="4%"/><col width="4%"/>
         </colgroup>
         <thead>
@@ -206,6 +210,7 @@
             <th>비밀 글 여부</th>
             <th>팬보드등록글</th>
             <th>등록일시</th>
+            <th>상태</th>
             <th>댓글수</th>
             <th>관리</th>
         </tr>
@@ -229,6 +234,13 @@
                     <span class="pull-left">{{replaceHtml contents}}</span>
                 </td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <td>
+                    {{#dalbit_if status '==' 1}}
+                        정상
+                    {{else}}
+                        삭제
+                    {{/dalbit_if}}
+                </td>
                 <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-status="{{status}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-mem_no="{{star_mem_no}}">[댓글]</a></td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>

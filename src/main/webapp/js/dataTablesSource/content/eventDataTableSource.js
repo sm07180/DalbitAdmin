@@ -74,19 +74,41 @@ var EventDataTableSource = {
     'eventWinnerApplicant' : {
         'url' : '/rest/content/event/management/winner/applicant'
         , 'columns': [
-            {'title': '회원번호', 'data' : 'mem_no'},
+            {'title': '회원번호', 'data' : 'mem_no', 'render' : function(data, type, row, meta){
+                return util.memNoLink(data, row.mem_no);
+            }},
             {'title': '닉네임', 'data' : 'nickName'},
             {'title': '응모 횟수', 'data' : 'applyCnt'},
-            {'title': '결제 금액', 'data' : 'payAmt'},
-            {'title': '방송 시간', 'data' : 'airTime'},
-            {'title': '좋아요', 'data' : 'goodCnt'},
-            {'title': '경험치', 'data' : 'expCnt'},
-            {'title': '받은 선물', 'data' : 'giftedCnt'},
-            {'title': '보낸 선물', 'data' : 'giftCnt'},
-            {'title': '팬 수', 'data' : 'fanCnt'},
-            {'title': '당첨 여부', 'data' : 'prizeWin'},
-            {'title': '등수', 'data' : 'prizeRank'},
-            {'title': '응모일시', 'data' : 'applyDate'},
+            {'title': '결제 금액', 'data' : 'payAmt', 'render' : function(data) {
+                return common.addComma(data);
+                }},
+            {'title': '방송 시간', 'data' : 'airTime', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '좋아요', 'data' : 'goodCnt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '경험치', 'data' : 'expCnt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '받은 선물', 'data' : 'giftedCnt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '보낸 선물', 'data' : 'giftCnt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '팬 수', 'data' : 'fanCnt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '당첨 여부', 'data' : 'prizeWin', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_winnerWinSlct);
+                }},
+            {'title': '등수', 'data' : 'prizeRank', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '응모일시', 'data' : 'applyDate', 'render' : function(data) {
+                    return common.convertToDate(data);
+                }},
             {'title': '상세 정보', 'data' : 'add_idx', 'render': function(data, type, row, meta) {
                 return '<button>상세보기</button>';
                 }},
@@ -96,19 +118,33 @@ var EventDataTableSource = {
     'eventWinner' : {
         'url' : '/rest/content/event/management/winner/list'
         , 'columns': [
-            {'title': '경품번호', 'data' : 'prizeIdx'},
-            {'title': '등수', 'data' : 'prizeRank'},
-            {'title': '당첨 인원', 'data' : 'prizeCnt'},
+            {'title': '등수', 'data' : 'prizeRank', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
+            {'title': '당첨 인원', 'data' : 'prizeCnt', 'render' : function(data) {
+                    return common.addComma(data);
+                }},
             {'title': '경품명', 'data' : 'prizeName'},
             {'title': '회원번호', 'data' : 'mem_no', 'render': function(data, type, row, meta) {
-                return '<a href="javascript://" class="_getWinnerDetail" data-memno="'+ row.mem_no +'" data-winneridx="'+ row.winnerIdx +'">' + data + '</a>'
+                return util.memNoLink(data, row.mem_no)
+                    + '<a href="javascript://" style="display:none;" class="_getWinnerDetail" data-memno="'+ row.mem_no +'" data-winneridx="'+ row.winnerIdx +'"></a>'
                 }},
             {'title': '닉네임', 'data' : 'nickName'},
-            {'title': '본인인증 여부', 'data' : 'certificationYn'},
-            {'title': '미성년자 여부', 'data' : 'minorYn'},
-            {'title': '수령방법', 'data' : 'receiveWay'},
-            {'title': '추가 정보', 'data' : 'addInfo'},
-            {'title': '입금 확인', 'data' : 'depositConfirm'},
+            {'title': '본인인증 여부', 'data' : 'certificationYn', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, event_winnerCertificationYn);
+                }},
+            {'title': '미성년자 여부', 'data' : 'minorYn', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, event_minorYn);
+                }},
+            {'title': '수령방법', 'data' : 'receiveWay', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, event_receiveWay);
+                }},
+            {'title': '추가 정보', 'data' : 'addInfo', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, event_addInfoYn);
+                }},
+            {'title': '입금 확인', 'data' : 'depositConfirm', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, event_depositYn);
+                }},
             {'title': '상세 정보', 'data' : 'addIdx', 'render': function(data, type, row, meta) {
                     return '<button>상세보기</button>';
                 }},

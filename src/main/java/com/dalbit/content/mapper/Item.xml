@@ -158,6 +158,44 @@
           from rd_data.tbl_quickmsg_item, (select @rownum := 3) r
     </select>
 
-    
+    <select id="getGiftOrderList" parameterType="com.dalbit.content.vo.GiftOrder" resultType="com.dalbit.content.vo.GiftOrder">
+        select  @rownum := @rownum + 1 as rowNum, a.* from (
+            SELECT item_code
+                    , item_name
+                    , item_image
+                    , item_thumbnail
+                    , item_price
+                    , byeol
+                    , item_type
+                    , sale_price
+                    , item_slct
+                    , use_area
+                    , webp_image
+                    , ifnull(`order`,0) as  `order`
+                    , (DATEDIFF(NOW(), IFNULL(reg_date, '2020-01-01')) > 8) AS isNew
+                  FROM rd_data.tbl_gift_item
+                 where view_yn =1
+                  <if test="itemType == 1">
+                   and use_area not in ('1','2','30')
+                  </if>
+                  <if test="itemType == 2">
+                   and use_area = '1'
+                  </if>
+                  <if test="itemType == 3">
+                   and use_area = '2'
+                  </if>
+                   and item_slct = 1
+                   and (item_price != 0 or item_price_ios != 0)
+        ) a, (select @rownum := 0) r
+        ORDER BY (CASE
+        WHEN item_code = 'G1021' THEN 0
+        ELSE 1
+        END) DESC, isNew asc , `order` desc, item_price DESC
+        <!--order by (CASE WHEN item_code = 'G1021' THEN 0 ELSE 1 END) desc, isNew asc , `order` asc, item_price desc-->
+    </select>
+
+    <update id="setGiftOrderList" parameterType="com.dalbit.content.vo.GiftOrder">
+        update rd_data.tbl_gift_item set `order`=#{order} where item_code=#{item_code}
+    </update>
     
 </mapper>

@@ -24,6 +24,7 @@ public class P_MemberListOutputVo extends SearchVo {
     private int connectCnt;
     private String payCntAmount;
     private int mem_state;
+    private int block_type;
     private String connectState;
     private String liveBroad;
 

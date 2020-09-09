@@ -28,7 +28,12 @@
           <if test='searchType == "3" '>    <!-- 삭제글만 보기 -->
               and fan.`status` = 2
           </if>
-            and fan.depth = #{boardType}
+            <if test="boardType == 1">
+              and fan.depth = 1
+            </if>
+            <if test="boardType == 2">
+              and fan.depth = 2
+            </if>
         </where>
     </sql>
 
@@ -77,13 +82,15 @@
                     , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_reply_mem_sex
                     , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_reply_birth_year
                 </if>
-                , fan.status
                 , fan.last_upd_date
                 <if test="boardType == 1">
+                  , fan.status as status
                   , fan.contents
                   ,'' replyContents
                 </if>
                 <if test="boardType == 2">
+                    , (select status from rd_data.tb_member_fanboard where idx=fan.board_no) as status
+                    , fan.status as reply_status
                     , (select contents from rd_data.tb_member_fanboard where idx=fan.board_no) as contents
                     , fan.contents as replyContents
                 </if>
@@ -122,6 +129,10 @@
             ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'm',1,0)) as maleCnt
             ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'f',1,0)) as femaleCnt
             ,sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) = 'n',1,0)) as noneCnt
+            ,sum(if(view_yn = 0,1,0)) as secretTotalCnt
+            ,sum(if(view_yn = 0,if((select mem_sex FROM rd_data.tb_member_basic WHERE mem_no = fan.writer_no) = 'm', 1, 0),0)) as secretMaleCnt
+            ,sum(if(view_yn = 0,if((select mem_sex FROM rd_data.tb_member_basic WHERE mem_no = fan.writer_no) = 'f', 1, 0),0)) as secretFemaleCnt
+            ,sum(if(view_yn = 0,if((select mem_sex FROM rd_data.tb_member_basic WHERE mem_no = fan.writer_no) = 'n', 1, 0),0)) as secretNoneCnt
             from rd_data.tb_member_fanboard as fan
         <include refid="fanBoardCondition"/>
     </select>
@@ -348,6 +359,9 @@
 
     <update id="callProfileMsgDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo">
         /* Con_BoardAdm.xml - callProfileMsgDelete */
-        update rd_data.tb_member_profile set msg_profile='', last_update_date = now() where mem_no=#{mem_no}
+        update rd_data.tb_member_profile
+        set msg_profile = ''
+            , last_upd_date = now()
+        where mem_no=#{mem_no}
     </update>
 </mapper>

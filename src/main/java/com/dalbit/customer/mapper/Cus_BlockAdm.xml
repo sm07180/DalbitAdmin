@@ -118,6 +118,9 @@
             <when test="block_day == 99">
                 , '9999-12-31'
             </when>
+            <when test="block_day == 98">
+                , '9999-12-30'
+            </when>
             <otherwise>
                 , DATE_ADD(now(), interval #{block_day} day)
             </otherwise>

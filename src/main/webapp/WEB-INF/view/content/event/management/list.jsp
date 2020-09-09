@@ -113,36 +113,16 @@
                eventIdxs += $(this).parent().parent().find('._getEventDetail').data('eventidx') +",";
             });
             var data = {
-              eventIdxs : eventIdxs
+              eventIdx : eventIdxs
             };
             console.log(data);
             util.getAjaxData("eventDelete", "/rest/content/event/management/delete", data, function fn_eventDelete_success(dst_id, response) {
                 alert(response.message) +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건';
-                getEventList();
-                hideTab();
+                location.reload();
             });
         }
     });
 
-    function getImg(data) {
-        var url = $('input[name="+data+"]');
-        alert(url);
-        if(url.length <= 0 || url.val().length <= 0) {
-            alert('이미지 url을 확인하여 주시기 바랍니다.');
-            return false;
-        }
 
-        var imgUrl = url.val();
-        console.log(imgUrl);
-
-        $('#'+data+'Viewer').attr('src', imgUrl);
-        $('#'+data+'Viewer').attr('onerror', 'imgError(this.src)');
-    }
-
-    function imgError(imgURL) {
-        if(imgURL.length > 0){
-            alert("이미지 URL이 정상적이지 않습니다.\n입력 URL :" + imgURL);
-        }
-    }
 
 </script>

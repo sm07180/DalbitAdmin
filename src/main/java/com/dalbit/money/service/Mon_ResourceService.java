@@ -71,4 +71,17 @@ public class Mon_ResourceService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
+    public String memberDataList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
+        ArrayList<P_memberDataListOutVo> listOutVo = mon_ResourceDao.callMemberDataList(procedureVo);
+        P_memberDataListOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_memberDataListOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+
 }

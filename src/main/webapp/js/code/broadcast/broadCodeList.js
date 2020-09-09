@@ -145,6 +145,13 @@ var listen_summary = [
     ,new COMMON_CODE('','totalGiftCnt','선물 수')
 ];
 
+var guest_summary = [
+    new COMMON_CODE('','totalCnt','연결횟수')
+    ,new COMMON_CODE('','totalSexM','연결인원')
+    ,new COMMON_CODE('','totalAirTime','게스트 방송시간')
+    ,new COMMON_CODE('','totalGiftCnt','받은 선물')
+];
+
 var like_summary = [
     new COMMON_CODE('','goodCnt','좋아요')
     ,new COMMON_CODE('','boosterCnt','청취자 부스터')

@@ -11,6 +11,7 @@ import lombok.ToString;
 public class P_EventManagementInfoOutputVo extends BaseVo {
     private String title;
     private int alwaysYn;
+    private int announceYn;
     private String startDate;
     private String endDate;
     private int state;
