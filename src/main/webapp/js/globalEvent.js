@@ -32,6 +32,12 @@ $(document).on('click', '._openPlayerPop', function(){
     util.windowOpen(url, 530, 980, 'roomPlayer');
 });
 
+/*클립 플레이어 팝업*/
+$(document).on('click', '._openClipPlayerPop', function(){
+    var url = "/clip/history/popup/clipPlayerPopup?clipPath="+encodeURIComponent($(this).data('clippath')) + "&clipNo="+encodeURIComponent($(this).data('clipno'));
+    util.windowOpen(url, 340, 135, 'clipPlayer');
+});
+
 /*문자 발송 팝업*/
 $(document).on('click', '._openSmsSendPop', function(){
     var url = "/customer/sms/popup/smsSendPopup?cmid="+encodeURIComponent($(this).data('cmid'))+"&rownum="+encodeURIComponent($(this).data('rownum'))+"&logtable="+encodeURIComponent($(this).data('logtable'));;

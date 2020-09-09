@@ -192,6 +192,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     var columnDefs = columnsInfo.columnDefs;
     var columns = columnsInfo.columns;
+    var createdRow = columnsInfo.createdRow;
 
     if(!common.isEmpty(columnDefs)){
         this.dataTableSource.columnDefs = this.dataTableSource.columnDefs.concat(columnDefs);
@@ -199,6 +200,10 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     if(!common.isEmpty(columns)){
         this.dataTableSource.columns = this.dataTableSource.columns.concat(columns);
+    }
+
+    if(!common.isEmpty(createdRow)){
+        this.dataTableSource.createdRow = createdRow;
     }
 }
 
