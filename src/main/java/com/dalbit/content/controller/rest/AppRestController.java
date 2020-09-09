@@ -43,6 +43,24 @@ public class AppRestController {
         return result;
     }
 
+    /**
+     * 직접입력 앱버전 업데이트
+     */
+    @PostMapping("/update")
+    public String appVersionUpdate(AppVo appVo){
+        String result = appService.updateAppVersion(appVo);
+        return result;
+    }
+
+    /**
+     * 등록된 최신버전 가져오기
+     */
+    @PostMapping("/select")
+    public String appVersionSelect(){
+        String result = appService.appVersionSelect();
+        return result;
+    }
+
 //    /**
 //     * 앱버전 리스트 수정
 //     */
