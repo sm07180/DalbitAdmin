@@ -24,13 +24,13 @@
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
                 <th class="_bgColor" data-bgColor="#e9ebf5">누적 방송 총계</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
                 <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                 <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
                 <th class="_bgColor" data-bgColor="#e9ebf5">누적 청취 총계</th>
+                <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
             </tr>
             </thead>
             <tbody id="dayTableBody"></tbody>
