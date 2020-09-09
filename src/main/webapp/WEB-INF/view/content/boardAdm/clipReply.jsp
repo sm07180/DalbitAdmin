@@ -4,7 +4,7 @@
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
-        <div class="col-md-12 no-padding">
+        <div class="col-md-12 no-padding mt10">
             <span id ="clipReplyListCnt"></span>
         </div>
         <div class="dataTables_paginate paging_full_numbers" id="clipReply_paginate_top"></div>
@@ -21,17 +21,17 @@
                 <col width="5%"/>
             </colgroup>
             <thead>
-            <tr>
-                <th>No</th>
-                <th>클립 주인</th>
-                <th>클립 제목</th>
-                <th>댓글등록자</th>
-                <th>클립 댓글 내용</th>
-                <th>등록일시</th>
-                <th>수정일시</th>
-                <th>상태</th>
-                <th>관리</th>
-            </tr>
+                <tr>
+                    <th>No</th>
+                    <th>클립 주인</th>
+                    <th>클립 제목</th>
+                    <th>댓글등록자</th>
+                    <th>클립 댓글 내용</th>
+                    <th>등록일시</th>
+                    <th>수정일시</th>
+                    <th>상태</th>
+                    <th>관리</th>
+                </tr>
             </thead>
             <tbody id="tb_clipList">
             </tbody>
@@ -123,32 +123,32 @@
 
 <script id="tmp_clipReplyTable" type="text/x-handlebars-template">
     {{#each this.data as |data|}}
-    <tr>
-        <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
-        <td>
-            {{{memNoLink_sex cast_mem_no cast_mem_no cast_mem_sex}}}<br/>
-            {{{memNoLink_sex cast_mem_nick cast_mem_no cast_mem_sex}}}
-        </td>
-        <td>{{title}}</td>
-        <td>
-            {{{memNoLink_sex writer_mem_no writer_mem_no writer_mem_sex}}}<br/>
-            {{{memNoLink_sex writer_mem_nick writer_mem_no writer_mem_sex}}}
-        </td>
-        <td>{{contents}}</td>
-        <td>{{write_date}}</td>
-        <td>{{last_upd_date}}</td>
-        <td>
-            {{#dalbit_if status '==' 1}}
-            정상
-            {{else}}
-            삭제
-            {{/dalbit_if}}
-        </td>
-        <td><a href="javascript://" class="_clipReplyDelBtn" data-castno="{{cast_no}}" data-castreplyidx="{{castReplyIdx}}">[삭제]</a></td>
-    </tr>
+        <tr>
+            <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
+            <td>
+                {{{memNoLink_sex cast_mem_no cast_mem_no cast_mem_sex}}}<br/>
+                {{{memNoLink_sex cast_mem_nick cast_mem_no cast_mem_sex}}}
+            </td>
+            <td>{{title}}</td>
+            <td>
+                {{{memNoLink_sex writer_mem_no writer_mem_no writer_mem_sex}}}<br/>
+                {{{memNoLink_sex writer_mem_nick writer_mem_no writer_mem_sex}}}
+            </td>
+            <td>{{contents}}</td>
+            <td>{{write_date}}</td>
+            <td>{{last_upd_date}}</td>
+            <td>
+                {{#dalbit_if status '==' 1}}
+                    정상
+                {{else}}
+                    삭제
+                {{/dalbit_if}}
+            </td>
+            <td><a href="javascript://" class="_clipReplyDelBtn" data-castno="{{cast_no}}" data-castreplyidx="{{castReplyIdx}}">[삭제]</a></td>
+        </tr>
     {{else}}
-    <tr>
-        <td colspan="9">{{isEmptyData}}</td>
-    </tr>
+        <tr>
+            <td colspan="9">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>
