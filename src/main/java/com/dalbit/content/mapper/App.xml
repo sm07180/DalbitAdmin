@@ -79,6 +79,27 @@
         where idx <![CDATA[ <> ]]> #{idx} and os = #{os}
     </update>
 
+    <update id="updateAppVersion" parameterType="com.dalbit.content.vo.AppVo">
+        /* App.xml - updateAppVersion */
+        update rd_data.tbl_ranking_point
+        <if test = 'os == 1'>
+            set aosVersion = #{version}
+        </if>
+        <if test = 'os == 2'>
+            set iosVersion = #{version}
+        </if>
+        where entry = 1
+    </update>
+
+    <select id="appVersionSelect" resultType="com.dalbit.content.vo.AppVo">
+        /* App.xml - appVersionSelect */
+        select
+            iosVersion
+            , aosVersion
+        from rd_data.tbl_ranking_point
+        where entry = 1
+    </select>
+
     <!--<update id="updateAppVersion" parameterType="com.dalbit.content.vo.AppVo">-->
         <!--/* App.xml - updateAppVersion */-->
         <!--update rd_admin.tb_app_version-->

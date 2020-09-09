@@ -64,6 +64,28 @@ public class AppService {
         }
     }
 
+    /**
+     * 직접입력 앱버전 업데이트
+     */
+    public String updateAppVersion(AppVo appVo) {
+        int result = appDao.updateAppVersion(appVo);
+        if(result > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+        }
+    }
+
+
+    /**
+     * 등록된 최신버전 가져오기
+     */
+    public String appVersionSelect() {
+        AppVo versionInfo = appDao.appVersionSelect();
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, versionInfo));
+        return result;
+    }
+
 //    /**
 //     * 앱버전 리스트 수정
 //     */
