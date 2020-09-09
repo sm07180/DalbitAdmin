@@ -812,6 +812,24 @@
         call rd_admin.sp_admin_event_winner_update(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callEventAnnouncementInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_announcement_info(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callEventAnnouncementEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_admin_event_announcement_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="selectEventAnnounceListDefault" parameterType="com.dalbit.content.vo.procedure.P_EventManagementEventIdxInputVo" resultType="com.dalbit.content.vo.procedure.P_EventAnnouncementInfoExtVo">
+        /* Con_Event.xml - selectEventAnnounceListDefault */
+        select
+          prize_rank as prizeRank
+          , prize_count as prizeCnt
+          , prize_name as prizeName
+        from rd_admin.tb_event_prize_winner
+        where event_idx = #{eventIdx}
+        group by (prize_rank)
+    </select>
 
     <!--======================= 기존 이벤트 관리 ======================= -->
     <!--<select id="callEventList" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">-->

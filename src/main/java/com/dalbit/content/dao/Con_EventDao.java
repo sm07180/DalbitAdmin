@@ -122,6 +122,14 @@ public interface Con_EventDao {
 
     ProcedureVo callEventWinnerUpdate(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    ProcedureVo callEventAnnouncementInfo(ProcedureVo procedureVo);
+
+    ProcedureVo callEventAnnouncementEdit(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_EventAnnouncementInfoExtVo> selectEventAnnounceListDefault(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo);
+
     /*======================= 기존 이벤트 관리 ======================= */
 //    @Transactional(readOnly = true)
 //    ArrayList<P_EventListOutputVo> callEventList(P_EventListInputVo P_EventListInputVo);

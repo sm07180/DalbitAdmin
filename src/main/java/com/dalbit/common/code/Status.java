@@ -657,6 +657,16 @@ public enum Status {
     이벤트관리_당첨자상태변경_변경구분값오류("-2", "param.error", "변경 구분값 오류로 당첨자 상태 변경 실패 시"),
     이벤트관리_당첨자상태변경_실패("C006", "server.error", "이벤트 당첨자 상태 변경 실패 시"),
 
+    이벤트관리_당첨자발표가져오기_성공("0", "event.announcement.info.success", "이벤트 당첨자 발표 가져오기 성공 시"),
+    이벤트관리_당첨자발표가져오기_이벤트번호없음("-1", "event.announcement.info.no.eventIdx", "이벤트 번호가 없어 당첨자 발표 가져오기 실패 시"),
+    이벤트관리_당첨자발표가져오기_선정완료안됨("-2", "event.announcement.info.complete.not.yet", "당첨자 선정이 완료되지 않아 당첨자 발표 가져오기 실패 시"),
+    이벤트관리_당첨자발표가져오기_실패("C006", "server.error", "이벤트 당첨자 발표 가져오기 실패 시"),
+
+    이벤트관리_당첨자발표리스트등록수정_성공("0", "event.announcement.edit.success", "이벤트 당첨자 발표리스트 등록/수정 성공 시"),
+    이벤트관리_당첨자발표리스트등록수정_이벤트번호없음("-1", "event.announcement.edit.no.eventIdx", "이벤트 번호가 없어 발표리스트 등록/수정 실패 시"),
+    이벤트관리_당첨자발표리스트등록수정_선정완료안됨("-2", "event.announcement.edit.complete.not.yet", "당첨자 선정이 완료되지 않아 발표리스트 등록/수정 실패 시"),
+    이벤트관리_당첨자발표리스트등록수정_실패("C006", "server.error", "이벤트 당첨자 발표리스트 등록/수정 실패 시"),
+
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
     방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),
