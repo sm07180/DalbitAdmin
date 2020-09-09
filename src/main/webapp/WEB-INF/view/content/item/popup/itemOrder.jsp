@@ -9,8 +9,8 @@
         <div class="widget-content mt15">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                 <li class="active"><a href="#gift" role="tab" data-toggle="tab" id="tab_gift" onclick="giftList(1);">일반</a></li>
-                <li><a href="#combo" role="tab" data-toggle="tab" id="tab_combo" onclick="giftList(2);">콤보</a></li>
-                <li><a href="#emotion" role="tab" data-toggle="tab" id="tab_emotion" onclick="giftList(3);">감정</a></li>
+                <li><a href="#emotion" role="tab" data-toggle="tab" id="tab_emotion" onclick="giftList(3);">콤보</a></li>
+                <li><a href="#combo" role="tab" data-toggle="tab" id="tab_combo" onclick="giftList(2);">감정</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="gift">
