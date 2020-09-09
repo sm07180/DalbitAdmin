@@ -152,6 +152,21 @@
         }
 
         radioChange();
+
+        // if(tabId == 'tab_time'){
+        //     getTimeList();
+        // }else if(tabId == 'tab_day'){
+        //     getDayList();
+        // }else if(tabId == 'tab_year'){
+        //     getYearList();
+        // }else if(tabId == 'tab_platform'){
+        //     getPlatformList();
+        // }else if(tabId == 'tab_year'){
+        //     getTypeList();
+        // }else if(tabId == 'tab_gift'){
+        //     getGiftHistoryList();
+        // }
+
         setTimeDate(dateTime);
         $("#bt_search").click();
     });

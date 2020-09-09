@@ -643,6 +643,20 @@ public enum Status {
     이벤트관리_당첨자취소_당첨자번호리스트없음("-2", "event.winner.delete.no.winnerIdxList", "당첨자 취소 시 당첨자 번호 리스트가 없을 때"),
     이벤트관리_당첨자취소_당첨자선정완료후삭제안됨("-3", "event.winner.no.delete.already.complete", "선정 완료 후에 당첨자가 취소가 되지 않았을 때(선정중으로 변경해야함)"),
 
+    이벤트관리_당첨자선정완료_성공("0", "event.winner.complete.success", "이벤트 당첨자 선정 완료 성공 시"),
+    이벤트관리_당첨자선정완료_재선정성공("1", "event.winner.re.complete.success", "이벤트 당첨자 재선정 시"),
+    이벤트관리_당첨자선정완료_이벤트번호없음("-1", "event.winner.complete.no.eventIdx", "이벤트 번호가 없어 당첨자 선정 완료 실패 시"),
+    이벤트관리_당첨자선정완료_당첨인원안맞음("-2", "event.winner.complete.mismatch.prizeCnt", "당첨 인원이 맞지 않아 당첨자 선정 완료 실패 시"),
+    이벤트관리_당첨자선정완료_실패("C006", "server.error", "이벤트 당첨자 선정완료 실패 시"),
+
+    이벤트관리_당첨자상태변경_성공("0", "event.winner.update.success", "이벤트 당첨자 상태 변경 성공 시"),
+//    이벤트관리_당첨자상태변경_이벤트번호없음("-1", "event.winner.update.no.eventIdx", "이벤트 번호가 없어 당첨자 상태 변경 실패 시"),
+//    이벤트관리_당첨자상태변경_당첨자번호없음("-2", "event.winner.update.no.winnerIdx", "당첨자 번호가 없어 당첨자 상태 변경 실패 시"),
+//    이벤트관리_당첨자상태변경_입금대기중아님("-2", "event.winner.update.no.deposit.wait", "입금 대기 중이 아닐 시"),
+//    이벤트관리_당첨자상태변경_발송대기중아님("-2", "event.winner.update.no.send.wait", "발송 대기 중이 아닐 시"),
+    이벤트관리_당첨자상태변경_변경구분값오류("-2", "param.error", "변경 구분값 오류로 당첨자 상태 변경 실패 시"),
+    이벤트관리_당첨자상태변경_실패("C006", "server.error", "이벤트 당첨자 상태 변경 실패 시"),
+
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
     방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),
@@ -710,6 +724,24 @@ public enum Status {
     // 방송팁 관리 수정
     방송팁수정_성공("0", "broadcast.tip.edit.success", "방송팁수정 성공 시"),
     방송팁수정_실패("C006", "broadcast.tip.edit.fail", "방송팁수정 실패 시"),
+
+
+    //============ 클립 ======================
+    클립목록조회_데이터없음("C001", "no.data", "클립목록 조회 데이터가 없을 시"),
+    클립목록조회_성공("0", "select.success", "클립목록 조회 성공 시"),
+    클립목록조회_에러("C006", "server.error", "클립목록 조회에서 에러 발생 시"),
+
+    클립숨기기수정_성공("0", "update.success", "클립숨기기/해제 성공 시"),
+    클립숨기기수정_에러("C006", "server.error", "클립숨기기/해제에서 에러 발생 시"),
+
+    클립삭제_성공("0", "delete.success", "클립삭제 성공 시"),
+    클립삭제_에러("C006", "server.error", "클립삭제에서 에러 발생 시"),
+
+    클립댓글조회_성공("0", "clip.select.success", "클립댓글 조회 성공 시"),
+    클립댓글조회_실패("C006", "clip.select.fail", "클립댓글 조회 에러 발생 시"),
+
+    클립댓글삭제_성공("0","clip.del.success", "클립댓글 삭제 성공 시"),
+    클립댓글삭제_실패("C006","clip.del.fail", "클립댓글 삭제 실패 시"),
     ;
 
 
