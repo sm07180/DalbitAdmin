@@ -17,4 +17,8 @@ public class AppVo extends PagingVo {
     private int is_use;         // 0: 사용안함, 1: 사용
     private String reg_date;    // 등록일
     private String memo;        // 운영자 메모
+
+    private String iosVersion;
+    private String aosVersion;
+
 }

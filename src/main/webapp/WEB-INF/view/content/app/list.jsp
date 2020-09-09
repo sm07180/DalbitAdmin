@@ -16,7 +16,23 @@
                 </div>
             </form>
             <div class="row col-lg-12 form-inline" id="insertBtn">
-                <button type="button" class="btn btn-default btn-sm pull-right mb5" id="bt_insert">등록</button>
+                [현재 최신버전]<br/>
+                <div class="col-md-9 no-padding">
+                    <div class="col-md-3 no-padding">
+                        IOS: <span id="ios"></span><br/>
+                        <input type="text" class="form-control mb5" id="iosVersion" placeholder="직접입력" maxlength="10">
+                        <button type="button" class="btn btn-default btn-sm mb5" id="iosUpdateBtn">IOS업데이트</button>
+                    </div>
+                    <div class="col-md-3 no-padding">
+                        AOS: <span id="aos"></span><br/>
+                        <input type="text" class="form-control mb5" id="aosVersion" placeholder="직접입력" maxlength="10">
+                        <button type="button" class="btn btn-default btn-sm mb5" id="aosUpdateBtn">AOS업데이트</button>
+                    </div>
+                </div>
+                <div class="col-md-3 no-padding"><br/>
+                    <button type="button" class="btn btn-default btn-sm pull-right mb5" id="bt_insert">등록</button>
+                </div>
+
             </div>
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
@@ -31,12 +47,12 @@
                     </table>
                 </div>
                 <%--<div class="widget-footer">--%>
-                    <%--<span>--%>
-                        <%--<button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>--%>
-                    <%--</span>--%>
-                    <%--<span>--%>
-                        <%--<button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>--%>
-                    <%--</span>--%>
+                <%--<span>--%>
+                <%--<button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>--%>
+                <%--</span>--%>
+                <%--<span>--%>
+                <%--<button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>--%>
+                <%--</span>--%>
                 <%--</div>--%>
             </div> <!-- #DataTable -->
             <form id="appList"></form>
@@ -48,6 +64,7 @@
 <script type="text/javascript">
     var dtList_info;
     $(document).ready(function () {
+        versionSelect();
         init();
         ui.checkBoxInit('list_info')
     });
@@ -250,6 +267,51 @@
     //     $("#bt_edit").hide();
     // }
 
+    //등록된 최신버전 가져오기
+    function versionSelect(){
+        util.getAjaxData("versionSelect", "/rest/content/app/select", "", fn_version_select_success);
+    }
+
+
+    //AOS 버전 업데이트
+    $("#aosUpdateBtn").on('click', function () {
+        if(common.isEmpty($("#aosVersion").val())){
+            alert("버전을 입력해주세요");
+            return false;
+        }
+        var data = {
+            'os': 1
+            ,'version' : $("#aosVersion").val()
+        };
+        util.getAjaxData("versionUpdate", "/rest/content/app/update", data, fn_version_update_success);
+    });
+
+    //IOS 버전 업데이트
+    $("#iosUpdateBtn").on('click', function () {
+        if(common.isEmpty($("#iosVersion").val())){
+            alert("버전을 입력해주세요");
+            return false;
+        }
+        var data = {
+            'os': 2
+            ,'version' : $("#iosVersion").val()
+        };
+        util.getAjaxData("versionUpdate", "/rest/content/app/update", data, fn_version_update_success);
+    });
+
+    function fn_version_select_success(dst_id, response){
+        console.log("등록된 최신버전 가져오기");
+        $('#ios').text(response.data.aosVersion);
+        $('#aos').text(response.data.iosVersion);
+    }
+
+    function fn_version_update_success(){
+        alert("업데이트 되었습니다.");
+        versionSelect()
+        $("#aosVersion").val("");
+        $("#iosVersion").val("");
+    }
+
 
 </script>
 
@@ -306,7 +368,7 @@
             <tr>
                 <th>운영자 메모</th>
                 <td>
-                <textarea type="textarea" class="form-control" id="memo" name="memo" style="width: 100%; height: 100px">{{memo}}</textarea>
+                    <textarea type="textarea" class="form-control" id="memo" name="memo" style="width: 100%; height: 100px">{{memo}}</textarea>
                 </td>
             </tr>
         </table>
