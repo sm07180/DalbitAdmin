@@ -17,6 +17,8 @@
 </c:forEach>
 
 <div>
+    <span id="memberAccumData"></span>
+    <span id="memberAccumData2"></span>
     <form id="memberInfoFrm"></form>
 </div>
 
@@ -224,6 +226,29 @@
         });
 
         // 버튼 끝
+        console.log("--------------------------1");
+        var data = {
+            mem_no : memNo,
+        };
+        util.getAjaxData("info", "/rest/member/member/accumData", data, info_accumData_success, fn_fail);
+    }
+
+    function info_accumData_success(dst_id, response){
+        var template = $('#tmp_memberAccumData').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#memberAccumData").html(html);
+
+        var template = $('#tmp_memberAccumData2').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#memberAccumData2").html(html);
+
+        ui.paintColor();
+        ui.tableHeightSet();
+
     }
 
     var tmp_bt;
@@ -817,7 +842,7 @@
 </script>
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
-    <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
+
     <table class="table table-bordered table-dalbit borderBlack" style="margin-bottom: 0px;">
         <colgroup>
             <col width="6%"/>
@@ -1282,3 +1307,67 @@
     </div>
 </script>
 
+<script id="tmp_memberAccumData" type="text/x-handlebars-template">
+    <table class="table table-sorting table-hover table-bordered borderBlack _tableHeight" style="width: 60%;margin-bottom: 5px;" data-height="23px">
+        <tr>
+            <th colspan="3" class="_bgColor" data-bgcolor="#b4c6e7">달</th>
+            <th colspan="4" class="_bgColor" data-bgcolor="#fff5a3">별</th>
+        </tr>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 결제(취소)</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 결제(취소) 금액</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">직접 보낸/받은 달</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">누적 환전</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">누적 환전(불가) 금액</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">누적 교환</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">누적 교환 별</th>
+        </tr>
+        <tr>
+            <td>{{addComma payCnt}} ({{addComma payCanCnt}})</td>
+            <td>{{addComma payAmt}} ({{addComma payCanAmt}})</td>
+            <td>{{addComma sendDal}} / {{addComma giftedDal}}</td>
+            <td>{{addComma exchangeCnt}} ({{addComma exchangeCancelCnt}})</td>
+            <td>{{addComma exchangeAmt}} ({{addComma exchangeCancelAmt}})</td>
+            <td>{{addComma changeCnt}}</td>
+            <td>{{addComma changeByeol}}</td>
+        </tr>
+    </table>
+</script>
+
+<script id="tmp_memberAccumData2" type="text/x-handlebars-template">
+    <table class="table table-sorting table-hover table-bordered borderBlack _tableHeight" style="width: 75%;margin-bottom: 5px;" data-height="23px">
+        <tr>
+            <th colspan="5" class="_bgColor" data-bgcolor="#b4c6e7">방송</th>
+            <th colspan="3" class="_bgColor" data-bgcolor="#fff5a3">청취</th>
+            <th colspan="4" class="_bgColor" data-bgcolor="#b4c6e7">클립</th>
+        </tr>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 방송 개설</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 방송 시간</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">방송중 받은 별</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 청취자</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 좋아요</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">총 청취</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">누적 청취 시간</th>
+            <th class="_bgColor" data-bgcolor="#fff2cc">청취 중 보낸 달</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 등록</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 받은 별</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 청취자</th>
+            <th class="_bgColor" data-bgcolor="#d9e2f4">누적 좋아요</th>
+        </tr>
+        <tr>
+            <td>{{addComma brodCnt}}</td>
+            <td>{{timeStampDay broadTime}}</td>
+            <td>{{addComma byeolCnt}}</td>
+            <td>{{addComma listenerCnt}}</td>
+            <td>{{addComma goodCnt}}</td>
+            <td>{{addComma listenCnt}}</td>
+            <td>{{timeStampDay listenTime}}</td>
+            <td>{{addComma dalCnt}}</td>
+            <td>{{addComma clipCnt}}</td>
+            <td>{{addComma clipByeol}}</td>
+            <td>{{addComma clipPlay}}</td>
+            <td>{{addComma clipGood}}</td>
+        </tr>
+    </table>
+</script>
