@@ -118,13 +118,13 @@ public class Men_SpecialService {
             hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAirTime());
             hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getBroadcastCnt());
             hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getGoodCnt());
-            hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getFanCnt());
+            /*hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getFanCnt());*/
             hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAllListenCnt());
             hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getListenCnt());
             hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReportCnt());
             hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReceiveStar());
 
-            hm.put("chatCnt", DalbitUtil.isEmpty(list.get(i).getChatCnt()) ? "" : list.get(i).getChatCnt());
+            /*hm.put("chatCnt", DalbitUtil.isEmpty(list.get(i).getChatCnt()) ? "" : list.get(i).getChatCnt());*/
             hm.put("broadCnt", DalbitUtil.isEmpty(list.get(i).getBroadCnt()) ? "" : list.get(i).getBroadCnt());
             hm.put("listenCnt30", DalbitUtil.isEmpty(list.get(i).getListenCnt30()) ? "" : list.get(i).getListenCnt30());
 
