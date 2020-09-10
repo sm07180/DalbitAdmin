@@ -4,7 +4,7 @@
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
-        <div class="col-md-12 no-padding">
+        <div class="col-md-12 no-padding mt10">
             <span id ="profileMsgListCnt"></span>
         </div>
         <div class="dataTables_paginate paging_full_numbers" id="profile_paginate_top"></div>
@@ -87,14 +87,6 @@
             '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
             '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
         );
-    }
-
-    function handlebarsPaging(targetId, pagingInfo) {
-        console.log('ddd');
-        console.log(targetId);
-        console.log(pagingInfo);
-        profilePagingInfo = pagingInfo;
-        profileMsgList();
     }
 
     $(document).on('click', '._profileMsgDelBtn', function() {

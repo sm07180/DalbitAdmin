@@ -25,28 +25,11 @@
             <div class="col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h3 class="title">크루등록</h3>
-                                <label>
-                                    <input type="text" class="form-control _trim" name="crewName" id="crewName" style="width:200px;" placeholder="등록할 크루 표식을 입력하세요.">
-                                </label>
-                                <button type="button" class="btn btn-danger" id="bt_insertCrewName">등록</button>
-                            </div>
-                            <div class="ml15">
-                                <h3 class="title">크루원 등록</h3>
-                                <label>
-                                    <input type="text" class="form-control _trim" name="crew" id="crew" placeholder="크루 정보에서 선택하세요.">
-                                    <input type="hidden" id="crewIdx" name="crewIdx"/>
-                                </label>
-                                <span id="crewMemberInfoArea"></span>
-                                <label>
-                                    <input type="text" class="form-control _trim" name="crewMemberInfo" id="crewMemberInfo" style="width:250px;" placeholder="등록하실 크루원 정보를 입력하세요.">
-                                </label>
-                                <%-- 해당되는 정보가 없으면 alert창 띄우기 --%>
-                                <button type="button" class="btn btn-danger" id="bt_insertCrewMember">등록</button>
-                            </div>
-                        </div>
+                        <h3 class="title">크루등록</h3>
+                        <label>
+                            <input type="text" class="form-control _trim" name="crewName" id="crewName" style="width:200px;" placeholder="등록할 크루 표식을 입력하세요.">
+                        </label>
+                        <button type="button" class="btn btn-danger" id="bt_insertCrewName">등록</button>
                     </div>
                 </div>
             </div>
@@ -54,16 +37,29 @@
             <!-- DATA TABLE -->
 
              <!-- 크루 정보 -->
-             <div class="col-lg-4 form-inline">
-                 <div class="widget widget-table mb10">
+             <div class="col-lg-12 form-inline pt5">
+                 <div class="widget widget-table">
                      <div class="widget-header">
                          <h3><i class="fa fa-table"></i>크루 정보</h3>
                      </div>
                      <div class="widget-content mt10">
-                         <div class="dataTables_paginate paging_full_numbers" id="crew_paginate_top"></div>
+
+                         <div class="pull-right">
+                             <input type="checkbox" id="monthPayChk" /> <label for="monthPayChk">월 결제 건 순으로 보기</label>
+                         </div>
+
                          <table class="table table-bordered">
                              <colgroup>
-                                 <col width="5%"/><col width="25%"/><col width="35%"/><col width="25%"/><col width="10%"/>
+                                 <col width="3%"/>
+                                 <col width="10%"/>
+                                 <col width="15%"/>
+                                 <col width="10%"/>
+                                 <col width="5%"/>
+                                 <col width="5%"/>
+                                 <col width="10%"/>
+                                 <col width="10%"/>
+                                 <col width="10%"/>
+                                 <col width="5%"/>
                              </colgroup>
                              <thead>
                                  <tr>
@@ -72,6 +68,11 @@
                                      <th>크루명</th>
                                      <th>크루장</th>
                                      <th>인원</th>
+                                     <th>평균 레벨</th>
+                                     <th>월간 결제건</th>
+                                     <th>월간 결제금액</th>
+                                     <th>크루 등록일</th>
+                                     <th>크루 진행중</th>
                                  </tr>
                              </thead>
                              <tbody id="crewInfo"></tbody>
@@ -88,7 +89,25 @@
              <!-- //테스트 계정 현황 -->
 
              <!-- 크루원 정보 -->
-             <div class="col-lg-8 form-inline">
+             <div class="col-lg-12 form-inline pt15">
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <h3 class="title">크루원 등록</h3>
+                        <label>
+                            <input type="text" class="form-control _trim" name="crew" id="crew" placeholder="크루 정보에서 선택하세요.">
+                            <input type="hidden" id="crewIdx" name="crewIdx"/>
+                        </label>
+                        <span id="crewMemberInfoArea"></span>
+                        <label>
+                            <input type="text" class="form-control _trim" name="crewMemberInfo" id="crewMemberInfo" style="width:250px;" placeholder="등록하실 크루원 정보를 입력하세요.">
+                        </label>
+                        <%-- 해당되는 정보가 없으면 alert창 띄우기 --%>
+                        <button type="button" class="btn btn-danger" id="bt_insertCrewMember">등록</button>
+                    </div>
+                </div>
+             </div>
+
+             <div class="col-lg-12 form-inline pt5">
                  <div class="widget widget-table">
                      <div class="widget-header">
                          <h3><i class="fa fa-desktop"></i>크루원 정보</h3>
@@ -97,26 +116,36 @@
                          <div class="dataTables_paginate paging_full_numbers" id="crewMem_paginate_top"></div>
                              <table id="list_info" class="table table-sorting table-hover table-bordered">
                                  <colgroup>
-                                     <col width="3%"/><col width="4%"/><col width="12%"/><col width="11%"/><col width="12%"/>
-                                     <col width="9%"/><col width="9%"/><col width="7%"/><col width="8%"/><col width="5%"/>
-                                     <col width="10%"/><col width="5%"/><col width="5%"/>
-                                     <%--<col width="5.5%"/>--%>
-                                     <%--<col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/>--%>
+                                     <col width="3%"/>
+                                     <col width="4%"/>
+                                     <col width="10%"/>
+                                     <col width="5%"/>
+                                     <col width="12%"/>
+                                     <col width="11%"/>
+                                     <col width="7%"/>
+                                     <col width="9%"/>
+                                     <col width="9%"/>
+                                     <col width="7%"/>
+                                     <col width="8%"/>
+                                     <col width="7%"/>
+                                     <col width="5%"/>
+                                     <col width="5%"/>
                                  </colgroup>
                                  <thead>
                                      <tr>
                                          <th></th>
                                          <th>No</th>
                                          <th>크루 표식</th>
-                                         <th>회원번호</th>
+                                         <th>회원상태</th>
                                          <th>닉네임</th>
-                                         <th>성별(나이)</th>
-                                         <th>최근<br />방송 일시</th>
-                                         <th>최근 7일<br />방송 횟수</th>
-                                         <th>최근 7일<br />방송 시간</th>
-                                         <th>일간<br />DJ 랭킹</th>
-                                         <th>결제 건 / 금액</th>
+                                         <th>최근 접속 일시</th>
+                                         <th>최근 7일 접속</th>
+                                         <th>최근 방송 일시</th>
+                                         <th>보낸 달</th>
+                                         <th>받은 별</th>
+                                         <th>일간 DJ 랭킹</th>
                                          <th>레벨</th>
+                                         <th>회원가입일</th>
                                          <th>크루장</th>
                                      </tr>
                                  </thead>
@@ -142,7 +171,8 @@
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script>
-    var crewPagingInfo = new PAGING_INFO(0,1,50);
+    var crewPagingInfo = new PAGING_INFO(0,1,10);
+    var crewMemberPagingInfo = new PAGING_INFO(0,1,20);
 
     $(document).ready(function() {
         init();
@@ -272,6 +302,7 @@
         var data = {
             'pageStart' : crewPagingInfo.pageNo
             , 'pageCnt' : crewPagingInfo.pageCnt
+            , 'slct_type' : $('#monthPayChk').prop('checked') ? 1 : 0
         };
         util.getAjaxData("selectCrewInfo", "/rest/content/crew/selectCrewInfo", data, fn_selectCrewInfo_success);
     }
@@ -284,23 +315,16 @@
 
         $('#crewInfo').html(html);
 
-        crewPagingInfo.total = response.pagingVo.totalCnt;
-        util.renderPagingNavigation('crewMem_paginate_top', crewPagingInfo);
-        util.renderPagingNavigation('crewMem_paginate', crewPagingInfo);
-        crewPagingInfo.pageNo=1;
-
-        function handlebarsPaging(targetId, pagingInfo) {
-            crewPagingInfo = pagingInfo;
-            getCrewInfo();
-        }
+        crewPagingInfo.totalCnt = response.pagingVo.totalCnt;
+        util.renderPagingNavigation('crew_paginate', crewPagingInfo);
     }
 
     function getCrewMemberInfo() {
         var data = {
             'searchType' : $('#searchType').val()
             , 'searchText' : $('#searchText').val().replace(/ /gi, '')
-            , 'pageStart' : crewPagingInfo.pageNo
-            , 'pageCnt' : crewPagingInfo.pageCnt
+            , 'pageStart' : crewMemberPagingInfo.pageNo
+            , 'pageCnt' : crewMemberPagingInfo.pageCnt
         };
         util.getAjaxData("selectCrewMemberInfo", "/rest/content/crew/selectCrewMemberInfo", data, fn_selectCrewMemberInfo_success);
     }
@@ -313,14 +337,21 @@
 
         $('#crewMemberList').html(html);
 
-        crewPagingInfo.total = response.pagingVo.totalCnt;
-        util.renderPagingNavigation('crew_paginate_top', crewPagingInfo);
-        util.renderPagingNavigation('crew_paginate', crewPagingInfo);
-        crewPagingInfo.pageNo=1;
+        crewMemberPagingInfo.totalCnt = response.pagingVo.totalCnt;
+        /*util.renderPagingNavigation('crew_paginate_top', crewPagingInfo);*/
+        /*util.renderPagingNavigation('crew_paginate', crewMemberPagingInfo);*/
+        util.renderPagingNavigation('crewMem_paginate_top', crewMemberPagingInfo);
+        util.renderPagingNavigation('crewMem_paginate', crewMemberPagingInfo);
 
-        function handlebarsPaging(targetId, pagingInfo) {
+    }
+
+    function handlebarsPaging(targetId, pagingInfo) {
+        if(targetId == 'crew_paginate'){
             crewPagingInfo = pagingInfo;
             getCrewInfo();
+        }else{
+            crewMemberPagingInfo = pagingInfo;
+            getCrewMemberInfo();
         }
     }
 
@@ -405,6 +436,26 @@
         getCrewMemberInfo();
     }
 
+
+    $(document).on('click', '.onoffswitch-checkbox' , function(event){
+        var me = $(this);
+
+        if(confirm('진행중 상태를 변경하시겠습니까?')){
+            var data = {
+                crewIdx : me.prop('name')
+                , state : me.prop('checked') ? 1 : 0
+            }
+            util.getAjaxData('stateChange', "/rest/content/crew/updateState", data, function(dist_id, response){
+
+            });
+        }else{
+            event.preventDefault();
+        }
+    });
+
+    $('#monthPayChk').on('click', function(){
+        init();
+    });
 </script>
 
 <script id="tmp_crewInfo" type="text/x-handlebars-template">
@@ -424,6 +475,11 @@
                 {{/equal}}
             </td>
             <td>{{addComma crewCnt}}명</td>
+            <td>{{addComma levelAvg}}</td>
+            <td>{{addComma payCnt}}</td>
+            <td>{{addComma payAmtSum}}</td>
+            <td>{{regDate}}</td>
+            <td>{{{getOnOffSwitch state crewIdx}}}</td>
         </tr>
     {{else}}
         <tr>
@@ -439,28 +495,29 @@
             <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{#equal user.crewName ''}}
-                -
+                    -
                 {{else}}
-                {{user.crewName}}
+                    {{user.crewName}}
                 {{/equal}}
             </td>
+            <td>{{{getMemStateName user.memState}}}</td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_no}}</a>
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.memNick}}</a>
             </td>
-            <td>{{user.memNick}}</td>
-            <td>{{{sexIcon user.memSex user.birthYear}}}</td>
-            <td>{{convertToDate user.broadDate 'YYYY-MM-DD HH:mm:ss'}}</td>
-            <td>{{addComma user.broadCnt}}</td>
-            <td>{{timeStamp user.broadTime}}
+            <td>{{user.lastLoginDate}}</td>
+            <td>{{user.weekLoginCnt}}회</td>
+            <td>{{user.broadDate}}</td>
+            <td>{{addComma user.present}}</td>
+            <td>{{addComma user.receive}}
             <td>
                 {{#equal user.ranking '9999'}}
-                -
+                    -
                 {{else}}
-                {{user.ranking}}
+                    {{user.ranking}}
                 {{/equal}}
             </td>
-            <td>{{addComma user.payCnt}} / {{addComma user.payAmount}}</td>
             <td>{{user.level}}</td>
+            <td>{{user.mem_join_date}}</td>
             <td>
                 <div class="control-inline onoffswitch">
                     <input type="checkbox" name="leaderYN" id="leaderYN{{user.idx}}" class="onoffswitch-checkbox _leaderYN" data-memno="{{user.mem_no}}" data-idx="{{user.idx}}" data-crewidx="{{user.crewIdx}}" {{#dalbit_if user.leader_yn "==" "1"}}checked{{/dalbit_if}}>

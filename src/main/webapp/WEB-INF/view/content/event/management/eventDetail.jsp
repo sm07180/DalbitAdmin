@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <form id="eventInfoForm"></form>
+<input type="hidden" id="prizewinner"/>
 
 <div id="eventDetail_fullSize"></div>
 
@@ -31,9 +32,9 @@
         $('#announcementDate').val(dateTime);
     }
 
-    function initDetail(idx) {
+    function initDetail() {
         var data = {
-            eventIdx : idx
+            eventIdx : $("#eventidx").val()
         };
         util.getAjaxData("eventInfo", "/rest/content/event/management/info", data, function fn_eventInfo_success(dst_id, response) {
             var template = $('#tmp_eventInfoForm').html();
@@ -42,7 +43,9 @@
             var html = templateScript(context);
 
             $('#eventInfoForm').html(html);
-            $('#eventInfoForm #datail_eventIdx').val(idx);
+
+            $('#eventInfoForm #datail_eventIdx').val($("#eventidx").val());
+            $('#prizeslct').val(response.data.prizeSlct);
 
             $('._calendar').datepicker('._calendar', new Date()).on('changeDate', function(dateText, inst) {
                 var selectDate = moment(dateText.date).format('YYYY.MM.DD');
@@ -54,6 +57,20 @@
                 // $('#eventStartDate').prop('disabled', true);
                 $('#eventEndDate').val("");
                 $('#eventEndDate').prop('disabled', true);
+
+                $('#alwaysYnCheck').attr('checked', true);
+            }
+
+            if(response.data.addInfoSlct != 9) {
+                $('#etcUrl').attr('readonly', true);
+            }
+
+            var prizeWinner = response.data.prizeWinner;
+            $('#prizewinner').val(prizeWinner);
+            if(prizeWinner == 1) {
+                $('#tab_eventWinnerAnnounce').removeAttr('disabled');
+            } else if(prizeWinner == 0) {
+                $('#tab_eventWinnerAnnounce').attr('disabled', true);
             }
         });
     }
@@ -91,11 +108,27 @@
 
         var viewyn = $('input[name="viewYn"]:checked').val();
         if(common.isEmpty(viewyn)) {
-            alert('노출/비노출을 선택해주세요.');
-            viewyn.focus();
+            alert('이벤트 노출 여부를 선택해주세요.');
             return false;
         }
+
+        if($('#prizewinner') == 1) {
+            var announceyn = $('input[name="announceYn"]:checked').val();
+            if (common.isEmpty(announceyn)) {
+                alert('발표결과 노출 여부를 선택해주세요.');
+                return false;
+            }
+        }
+
+        if($('#addInfoSlct').val() == 9) {
+            if(common.isEmpty($('#etcUrl').val())) {
+                alert('추가 정보를 입력해주세요.');
+                return false;
+            }
+        }
+
         return true;
+
     }
 
     function getAddParameter() {
@@ -105,6 +138,7 @@
             , startDate : $('#eventStartDate').val().replace(/\./g, '-')
             , endDate : $('#eventEndDate').val().replace(/\./g, '-')
             , viewYn : $('input[name="viewYn"]:checked').val()
+            , announceYn : $('input[name="announceYn"]:checked').val()
             , prizeSlct : $('#prizeSlct').val()
             , addInfoSlct : $('#addInfoSlct').val()
             , etcUrl : $('#etcUrl').val()
@@ -112,7 +146,6 @@
             , mobileLinkUrl : $('#mobileLinkUrl').val()
             , listImgUrl : $('#listImgUrl').val()
             , announcementDate : $('#announcementDate').val().replace(/\./g, '-')
-            , announceYn : $('input[name="announceYn"]:checked').val()
         };
     }
 
@@ -129,12 +162,13 @@
 
     function getUpdateParameter() {
         return data = {
-            eventIdx : $('#datail_eventIdx').val()
+            eventIdx : $('#eventidx').val()
             , title : $('#title').val()
             , alwaysYn : $('input[name="alwaysYnCheck"]').is(':checked') ? 1 : 0
             , startDate : $('#eventStartDate').val().replace(/\./g, '-')
             , endDate : $('#eventEndDate').val().replace(/\./g, '-')
             , viewYn : $('input[name="viewYn"]:checked').val()
+            , announceYn : $('input[name="announceYn"]:checked').val()
             , prizeSlct : $('#prizeSlct').val()
             , addInfoSlct : $('#addInfoSlct').val()
             , etcUrl : $('#etcUrl').val()
@@ -142,7 +176,6 @@
             , mobileLinkUrl : $('#mobileLinkUrl').val()
             , listImgUrl : $('#listImgUrl').val()
             , announcementDate : $('#announcementDate').val().replace(/\./g, '-')
-            , announceYn : $('input[name="announceYn"]:checked').val()
         };
     }
 
@@ -160,7 +193,7 @@
     $(document).on('click', '#bt_deleteOneEvent', function() {
         if(confirm('해당 이벤트를 삭제하시겠습니까?')) {
             var data = {
-                eventIdx : $('#datail_eventIdx').val()
+                eventIdx : $('#eventidx').val()
             };
             util.getAjaxData("eventDeleteOne", "/rest/content/event/management/delete", data, function fn_eventDeleteOne_success(dst_id, response) {
                alert(response.message);
@@ -175,7 +208,6 @@
             alert('이미지 url을 확인하여 주시기 바랍니다.');
             return false;
         }
-        console.log(imgUrl);
         $('#'+targetName+'Viewer').attr('src', imgUrl);
         $('#'+targetName+'Viewer').attr('onerror', 'imgError(this.src)');
     }
@@ -232,11 +264,7 @@
                             <input type="text" class="form-control _calendar" id="eventEndDate" name="eventEndDate" value="{{convertToDate endDate 'YYYY.MM.DD'}}">
                         </div>
                     </div>
-                    {{#equal alwaysYn '1'}}
-                    <input type="checkbox" class="_alwaysYnCheck" id="alwaysYnCheck" name="alwaysYnCheck" checked/> <label for="alwaysYnCheck">상시 이벤트</label>
-                    {{else}}
-                    <input type="checkbox" class="_alwaysYnCheck" id="alwaysYnCheck_" name="alwaysYnCheck"/> <label for="alwaysYnCheck_">상시 이벤트</label>
-                    {{/equal}}
+                    <input type="checkbox" class="_alwaysYnCheck" id="alwaysYnCheck" name="alwaysYnCheck"/> <label for="alwaysYnCheck">상시 이벤트</label>
                 </td>
                 <th>노출여부</th>
                 <td>
@@ -244,24 +272,28 @@
                 </td>
                 <th>당첨자 발표</th>
                 <td>
-                    {{{getCommonCodeRadio announceYn 'event_announceYn_radio'}}}
+                    {{#equal prizeWinner '1'}}
+                    {{{getCommonCodeRadio ../announceYn 'event_announceYn_radio'}}}
+                    {{else}}
+                    (당첨자 집계 중)
+                    {{/equal}}
                 </td>
             </tr>
             <tr>
                 <th>등록일</th>
                 <td>{{regDate}}</td>
                 <th>등록자</th>
-                <td><input type="text" class="form-control" value="{{regOpName}}" readonly/></td>
+                <td>{{regOpName}}</td>
                 <th>최종수정일</th>
                 <td>{{lastUpdDate}}</td>
                 <th>최종수정자</th>
-                <td><input type="text" class="form-control" value="{{lastOpName}}" readonly/></td>
+                <td>{{lastOpName}}</td>
             </tr>
             <tr>
                 <th>추가 정보</th>
                 <td colspan="3">
                     {{{getCommonCodeSelect addInfoSlct 'event_addInfoSlct'}}}
-                    <input type="text" style="width:80%;" id="etcUrl" name="etcUrl" class="form-control" value="{{etcUrl}}" readonly/>
+                    <input type="text" style="width:80%;" id="etcUrl" name="etcUrl" class="form-control _trim" value="{{etcUrl}}" placeholder="기타 선택 시 추가 URL을 입력해주세요."/>
                 </td>
                 <th>당첨자 발표 날짜</th>
                 <td>

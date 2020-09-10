@@ -91,8 +91,6 @@ ui.iframeBodyAutoResize = function(iframe){
     //document.getElementById('the_iframe').scrolling = "no";
     document.getElementById('iframePageContent').style.overflow = "hidden";
 
-    console.log('iframeBodyAutoResize');
-
 }
 
 ui.topScroll = function(){

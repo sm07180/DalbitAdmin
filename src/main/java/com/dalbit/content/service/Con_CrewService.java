@@ -70,7 +70,7 @@ public class Con_CrewService {
         crewListVo.setTotalCnt(count);
         ArrayList<CrewListVo> crewList = crewDao.selectCrewInfo(crewListVo);
 
-        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, crewList, new PagingVo(crewListVo.getTotalCnt(), crewListVo.getPageStart(), crewListVo.getPageCnt())));
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, crewList, new PagingVo(count, crewListVo.getPageStart(), crewListVo.getPageCnt())));
 
         return result;
     }
@@ -238,4 +238,13 @@ public class Con_CrewService {
         }
         return result;
     }
+
+    public String updateState(CrewListVo crewListVo) {
+        crewListVo.setOpName(MemberVo.getMyMemNo());
+        int goodResult = crewDao.updateState(crewListVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정, goodResult));
+    }
+
+
 }

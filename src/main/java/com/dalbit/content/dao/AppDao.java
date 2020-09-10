@@ -20,6 +20,11 @@ public interface AppDao {
 
     int addAppVersion(AppVo appVo);
     int updateOs(AppVo appVo);
+
+    int updateAppVersion(AppVo appVo);
+
+    @Transactional(readOnly = true)
+    AppVo appVersionSelect();
 //    int updateAppVersion(AppVo appVo);
 //    int deleteAppVersion(AppVo appVo);
 }

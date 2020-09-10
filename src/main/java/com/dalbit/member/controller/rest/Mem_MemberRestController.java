@@ -279,4 +279,13 @@ public class Mem_MemberRestController {
     public String rollbackCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
         return mem_MemberService.rollbackCert(pMemberParentsAgreeInputVo);
     }
+
+    /**
+     * 회원 상세정보 누적 통계 정보
+     */
+    @PostMapping("accumData")
+    public String getMemberAccumData(P_MemberInfoInputVo pMemberInfoInputVo){
+        String result = mem_MemberService.getMemberAccumData(pMemberInfoInputVo);
+        return result;
+    }
 }

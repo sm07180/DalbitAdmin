@@ -29,9 +29,6 @@
         <!-- DATA TABLE -->
         <div class="row col-lg-12 form-inline mb10">
             <div class="widget widget-table">
-                <%--<div class="widget-header">--%>
-                <%--<h3><i class="fa fa-desktop"></i> 검색결과</h3>--%>
-                <%--</div>--%>
                 <div class="widget-content">
                     <table id="list_eventInfo" class="table table-sorting table-hover table-bordered">
                         <thead>
@@ -55,6 +52,9 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" id="eventidx" value="0"/>
+<input type="hidden" id="prizeslct"/>
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
@@ -90,14 +90,18 @@
 
 
     $('#registerButton').on('click', function() {
+        $("#eventidx").val(0);
+
         $('#tab_eventDetail').click();
-        showTab(0);
+        showTab();
     });
 
     $(document).on('click', '._getEventDetail', function() {
-        var data = $(this).data('eventidx');
+        var eventidx = $(this).data('eventidx');
+        $("#eventidx").val(eventidx);
+
         $('#tab_eventDetail').click();
-        showTab(data);
+        showTab();
     });
 
     $('#bt_deleteEvent').on('click', function() {
@@ -115,7 +119,6 @@
             var data = {
               eventIdx : eventIdxs
             };
-            console.log(data);
             util.getAjaxData("eventDelete", "/rest/content/event/management/delete", data, function fn_eventDelete_success(dst_id, response) {
                 alert(response.message) +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건';
                 location.reload();
