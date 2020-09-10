@@ -62,7 +62,7 @@
             <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
-            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();" class="hide">회원Data</a></li>
+            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();">회원Data</a></li>
         </ul>
         <div class="tab-pane fade in active" id="resourceState" >
             <div class="tab-content no-padding">
@@ -337,73 +337,138 @@
     <div class="col-md-12 no-padding">
         <table class="table table-bordered mb10 mt5">
             <tr>
-                <th rowspan="3" class="_bgColor _fontColor" data-bgcolor="#0f243e" data-fontcolor="white">회원</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">가입보상</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">레벨업 보상</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">결제</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">(아이템)선물</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">교환</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">이벤트(자동지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">영구정지</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">탈퇴</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
+                <th rowspan="5" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">달 구매</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">가입 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">레벨 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">랭킹 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">출석이멘트</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">증가 합</th>
+                <th class="_bgColor _fontColor" data-bgcolor="#000000" data-fontcolor="white">총 합</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">승인</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">취소</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">(고정)출석체크</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">(변동)이벤트-이벤트명</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'm'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td rowspan="4">{{addComma aa}}</td>
+                <td rowspan="9">{{addComma aa}}</td>
             </tr>
             <tr>
-                <td>{{addComma sum_join_cnt}}</td>
-                <td>{{addComma sum_levelup_cnt}}</td>
-                <td>{{addComma sum_charge_cnt}}</td>
-                <td>{{addComma sum_cancel_cnt}}</td>
-                <td>{{addComma sum_itemgift_cnt}}</td>
-                <td>{{addComma sum_change_cnt}}</td>
-                <td>{{addComma sum_attendance_cnt}}</td>
-                <td>{{addComma sum_event_cnt}}</td>
-                <td>{{addComma sum_block_cnt}}</td>
-                <td>{{addComma sum_withdrawal_cnt}}</td>
-                <td>{{addComma sum_mem_total_cnt}}</td>
-                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
             <tr>
-                <th rowspan="3" class="_bgColor _fontColor" data-bgcolor="#974806" data-fontcolor="white">운영자</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">결제</th>
-                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#ffe699">방송 내 직접선물</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">교환</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">소실금액복구</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">직원 테스트 지급</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">이벤트(직접지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th rowspan="2" class="_bgColor _fontColor font-bold" data-bgcolor="black" data-fontcolor="white">총 소진 달</th>
-                <th rowspan="2" class="_bgColor _fontColor font-bold" data-bgcolor="black" data-fontcolor="red">총 보유 달</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'n'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgcolor="#fff2cc">승인</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">취소</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">지급</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">회수</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">(고정)출석체크</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">(변동)이벤트명</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">테스트</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
             <tr>
-                <td>{{addComma sum_op_charge_cnt}}</td>
-                <td>{{addComma sum_op_cancel_cnt}}</td>
-                <td colspan="2">{{addComma sum_op_gift_cnt}}</td>
-                <td>{{addComma sum_op_change_cnt}}</td>
-                <td>{{addComma sum_op_admin_cnt}}</td>
-                <td>{{addComma sum_op_test_in_cnt}}</td>
-                <td>{{addComma sum_op_test_out_cnt}}</td>
-                <td>{{addComma sum_op_attendance_cnt}}</td>
-                <td>{{addComma sum_op_event_cnt}}</td>
-                <td>{{addComma sum_op_total_cnt}}</td>
-                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                <td class="font-bold">{{addComma total_use_dal}}</td>
-                <td class="font-bold" style="color: #ff5600;">{{addComma total_exist_dal}}</td>
+                <th rowspan="5" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
+                <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물<br/>(비밀 선물)</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">아이템 사용</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                <td colspan="5" rowspan="5"></td>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">감소 합</th>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td rowspan="4">{{addComma aa}}</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'f'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'n'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">테스트</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
         </table>
     </div>
@@ -413,67 +478,109 @@
     <div class="col-md-12 no-padding">
         <table class="table table-bordered mb10 mt5">
             <tr>
-                <th rowspan="3"  class="_bgColor _fontColor" data-bgcolor="#0f243e" data-fontcolor="white">회원</th>
-                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">교환</th>
-                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">선물</th>
-                <th colspan="3" class="_bgColor" data-bgcolor="#b4c7e7">환전</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7">이벤트(직접지급)</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7">영구정지</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7">탈퇴</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
+                <th rowspan="5" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀선물)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 직접 지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">환전 불가</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">증가 합</th>
+                <th class="_bgColor _fontColor" data-bgcolor="#000000" data-fontcolor="white">총 합</th>
             </tr>
             <tr>
-                <th colspan="2" class="_bgColor" data-bgcolor="#c5d8f1">승인</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">불가</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">(변동)이벤트명</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">보유달</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">보유달</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'm'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td rowspan="4">{{addComma aa}}</td>
+                <td rowspan="9">{{addComma aa}}</td>
             </tr>
             <tr>
-                <td colspan="2">{{addComma sum_change_cnt}}</td>
-                <td colspan="2">{{addComma sum_gift_cnt}}</td>
-                <td colspan="2">{{addComma sum_exchange_cnt}}</td>
-                <td>{{addComma sum_cancel_cnt}}</td>
-                <td>{{addComma sum_event_cnt}}</td>
-                <td>{{addComma sum_block_cnt}}</td>
-                <td>{{addComma sum_withdrawal_cnt}}</td>
-                <td>{{addComma sum_mem_total_cnt}}</td>
-                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
             <tr>
-                <th rowspan="3" class="_bgColor _fontColor" data-bgcolor="#974806" data-fontcolor="white">운영자</th>
-                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#ffe699">교환</th>
-                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#ffe699">선물</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">환전</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">소실금액 복구</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">직원 테스트 지급</th>
-                <th class="_bgColor" data-bgcolor="#ffe699">이벤트(직접지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총 소진 별</th>
-                <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="red">총 보유 별</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'n'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgcolor="#fff2cc">승인</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">불가</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">지급</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">회수</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">(변동)이벤트명</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">테스트</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+            </tr>
+
+            <tr>
+                <th rowspan="5" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
+                <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                <td rowspan="5"></td>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">감소 합</th>
             </tr>
             <tr>
-                <td colspan="2">{{addComma sum_op_change_cnt}}</td>
-                <td colspan="2">{{addComma sum_op_gift_cnt}}</td>
-                <td>{{addComma sum_op_exchange_cnt}}</td>
-                <td>{{addComma sum_op_cancel_cnt}}</td>
-                <td>{{addComma sum_op_admin_cnt}}</td>
-                <td>{{addComma sum_op_test_in_cnt}}</td>
-                <td>{{addComma sum_op_test_out_cnt}}</td>
-                <td>{{addComma sum_op_event_cnt}}</td>
-                <td>{{addComma sum_op_total_cnt}}</td>
-                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                <td>{{addComma total_use_byeol}}</td>
-                <td>{{addComma total_exist_byeol}}</td>
+                <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td rowspan="4">{{addComma aa}}</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'f'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'n'}}}</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f8cbad">테스트</th>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
+                <td>{{addComma aa}}</td>
             </tr>
         </table>
     </div>
@@ -490,140 +597,124 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="12" class="_bgColor _fontColor" data-bgcolor="#0f243e" data-fontcolor="white">회원</th>
+                <th colspan="13" class="_bgColor" data-bgcolor="#8faadc">달증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="11" class="_bgColor _fontColor" data-bgcolor="#974806" data-fontcolor="white">운영자</th>
+                <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">운영자</th>
             </tr>
             <tr>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">가입보상</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">레벨업보상</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">결제</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">(아이템)<br/>선물</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">교환</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">이벤트<br/>(자동지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">영구정지</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">탈퇴</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">달 구매</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">가입보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">레벨 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">랭킹 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">출석이벤트</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">구분</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">결제</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">방송 내<br/>직접선물</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">교환</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">소실금액<br/>복구</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">직원 테스트 지급</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">이벤트<br/>(직접지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
-            </tr>
-            <tr>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">승인</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">취소</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">(고정)<br/>출석체크</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">(변동)<br/>이벤트-이벤트명</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">승인</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">취소</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">지급</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">회수</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">(고정)<br/>출석체크</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">(변동)<br/>이벤트-이벤트명</th>
+                <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물(비밀선물)</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">아이템 선물</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
             </tr>
             </thead>
             <tbody>
-                <tr class="font-bold" style="background-color: #d8d8d8">
+                <tr class="font-bold" style="background-color: #d9d9d9">
                     <td>총합</td>
-                    <td>{{addComma totalInfo.sum_join_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_levelup_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_charge_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_cancel_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_itemgift_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_change_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_attendance_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_event_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_block_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_withdrawal_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_mem_total_cnt}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                     <td>총합</td>
-                    <td>{{addComma totalInfo.sum_op_charge_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_cancel_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_gift_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_change_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_admin_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_test_in_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_test_out_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_attendance_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_event_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_total_cnt}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
                 </tr>
                 {{#each detailList}}
                 <tr
-                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' hour}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
-                    {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
-                    {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' monthly}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' hour}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' monthly}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
                 >
-                    <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
+                    <td class="font-bold _bgColor" data-bgcolor="#dae3f3">
                         {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
                         {{#dalbit_if ../detailList.slctType '==' '1'}}{{substr daily 5}}{{/dalbit_if}}
                         {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
                     </td>
-                    <td>{{addComma joinCnt}}</td>
-                    <td>{{addComma levelupCnt}}</td>
-                    <td>{{addComma chargeCnt}}</td>
-                    <td>{{addComma cancelCnt}}</td>
-                    <td>{{addComma itemgiftCnt}}</td>
-                    <td>{{addComma changeCnt}}</td>
-                    <td>{{addComma attendanceCnt}}</td>
-                    <td>{{addComma eventCnt}}</td>
-                    <td>{{addComma blockCnt}}</td>
-                    <td>{{addComma withdrawalCnt}}</td>
-                    <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma memTotalCnt}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma aa}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                    <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
+                    <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
                         {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
                         {{#dalbit_if ../detailList.slctType '==' '1'}}{{substr daily 5}}{{/dalbit_if}}
                         {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
                     </td>
-                    <td>{{addComma opChargeCnt}}</td>
-                    <td>{{addComma opCancelCnt}}</td>
-                    <td>{{addComma opGiftCnt}}</td>
-                    <td>{{addComma opChangeCnt}}</td>
-                    <td>{{addComma opAdminCnt}}</td>
-                    <td>{{addComma opTestInCnt}}</td>
-                    <td>{{addComma opTestOutCnt}}</td>
-                    <td>{{addComma opAttendanceCnt}}</td>
-                    <td>{{addComma opEventCnt}}</td>
-                    <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma opTotalCnt}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma aa}}</td>
                 </tr>
                 {{else}}
                 <td colspan="23" class="noData">{{isEmptyData}}<td>
                 {{/each}}
-                    <tr class="font-bold" style="background-color: #d8d8d8">
-                        <td>총합</td>
-                        <td>{{addComma totalInfo.sum_join_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_levelup_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_charge_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_cancel_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_itemgift_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_change_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_attendance_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_event_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_block_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_withdrawal_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_mem_total_cnt}}</td>
-                        <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                        <td>총합</td>
-                        <td>{{addComma totalInfo.sum_op_charge_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_cancel_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_gift_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_change_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_admin_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_test_in_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_test_out_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_attendance_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_event_cnt}}</td>
-                        <td>{{addComma totalInfo.sum_op_total_cnt}}</td>
-                    </tr>
+                <tr class="font-bold" style="background-color: #d9d9d9">
+                    <td>총합</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                    <td>총합</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -639,123 +730,97 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="9" class="_bgColor _fontColor" data-bgcolor="#0f243e" data-fontcolor="white">회원</th>
+                <th colspan="8" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="10" class="_bgColor _fontColor" data-bgcolor="#974806" data-fontcolor="white">운영자</th>
+                <th colspan="7" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
             </tr>
             <tr>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">교환</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">선물</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">환전</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7">이벤트<br/>(직접지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">영구정지</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">탈퇴</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
+                <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물(비밀 선물)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">환전 불가</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">교환</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">선물</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">환전</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">소실금액<br/>복구</th>
-                <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">직원 테스트지급</th>
-                <th class="_bgColor" data-bgcolor="#ffe699">이벤트(직접지급)</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
-            </tr>
-            <tr>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">승인</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">불가</th>
-                <th class="_bgColor" data-bgcolor="#c5d8f1">(변동)이벤트명</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">승인</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">불가</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">지급</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">회수</th>
-                <th class="_bgColor" data-bgcolor="#fff2cc">(변동)이벤트명</th>
+                <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="font-bold" style="background-color: #d8d8d8">
-                <td>총합</td>
-                <td>{{addComma totalInfo.sum_change_cnt}}</td>
-                <td>{{addComma totalInfo.sum_gift_cnt}}</td>
-                <td>{{addComma totalInfo.sum_exchange_cnt}}</td>
-                <td>{{addComma totalInfo.sum_cancel_cnt}}</td>
-                <td>{{addComma totalInfo.sum_event_cnt}}</td>
-                <td>{{addComma totalInfo.sum_block_cnt}}</td>
-                <td>{{addComma totalInfo.sum_withdrawal_cnt}}</td>
-                <td>{{addComma totalInfo.sum_withdrawal_cnt}}</td>
-                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                <td>총합</td>
-                <td>{{addComma totalInfo.sum_op_change_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_gift_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_exchange_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_cancel_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_admin_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_test_in_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_test_out_cnt}}</td>
-                <td>{{addComma totalInfo.sum_op_event_cnt}}</td>
-                <td>{{addComma totalInfo.sum_mem_total_cnt}}</td>
-            </tr>
-            {{#each detailList}}
-            <tr
-                {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' hour}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' monthly}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
-            >
-            <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
-                {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{substr daily 5}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
-            </td>
-            <td>{{addComma changeCnt}}</td>
-            <td>{{addComma giftCnt}}</td>
-            <td>{{addComma exchangeCnt}}</td>
-            <td>{{addComma cancelCnt}}</td>
-            <td>{{addComma eventCnt}}</td>
-            <td>{{addComma blockCnt}}</td>
-            <td>{{addComma withdrawalCnt}}</td>
-            <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma memTotalCnt}}</td>
-            <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-            <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
-                {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1status/push/info'}}{{substr daily 5}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
-            </td>
-            <td>{{addComma opChangeCnt}}</td>
-            <td>{{addComma opGiftCnt}}</td>
-            <td>{{addComma opExchangeCnt}}</td>
-            <td>{{addComma opCancelCnt}}</td>
-            <td>{{addComma opAdminCnt}}</td>
-            <td>{{addComma opTestInCnt}}</td>
-            <td>{{addComma opTestOutCnt}}</td>
-            <td>{{addComma opEventCnt}}</td>
-            <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma opTotalCnt}}</td>
-            </tr>
-            {{else}}
-            <td colspan="19" class="noData">{{isEmptyData}}<td>
-                {{/each}}
-                <tr class="font-bold" style="background-color: #d8d8d8">
+                <tr class="font-bold" style="background-color: #d9d9d9">
                     <td>총합</td>
-                    <td>{{addComma totalInfo.sum_change_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_gift_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_exchange_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_cancel_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_event_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_block_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_withdrawal_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_withdrawal_cnt}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                     <td>총합</td>
-                    <td>{{addComma totalInfo.sum_op_change_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_gift_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_exchange_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_cancel_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_admin_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_test_in_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_test_out_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_op_event_cnt}}</td>
-                    <td>{{addComma totalInfo.sum_mem_total_cnt}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                </tr>
+            {{#each detailList}}
+                <tr
+                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' hour}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' monthly}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                >
+                    <td class="font-bold _bgColor" data-bgcolor="#b4c7e7">
+                        {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
+                        {{#dalbit_if ../detailList.slctType '==' '1'}}{{substr daily 5}}{{/dalbit_if}}
+                        {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
+                    </td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma aa}}</td>
+                    <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                    <td class="font-bold _bgColor" data-bgcolor="#f8cbad">
+                        {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
+                        {{#dalbit_if ../detailList.slctType '==' '1status/push/info'}}{{substr daily 5}}{{/dalbit_if}}
+                        {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
+                    </td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma aa}}</td>
+                </tr>
+                {{/each}}
+                <tr class="font-bold" style="background-color: #d9d9d9">
+                    <td>총합</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                    <td>총합</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
+                    <td>{{addComma aa}}</td>
                 </tr>
             </tbody>
         </table>
