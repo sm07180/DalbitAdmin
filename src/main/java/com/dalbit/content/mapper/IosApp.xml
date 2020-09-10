@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.IosAppDao" >
+    <select id="selectVersion" resultType="java.util.HashMap">
+        SELECT
+            verName
+            , COUNT(*) AS cnt
+        FROM rd_admin.tb_ios_test_app
+        WHERE delYn = 0
+        GROUP BY verName
+        ORDER BY verName DESC
+    </select>
+
+    <select id="selectLast" resultType="java.util.HashMap">
+        SELECT
+            verName
+            , appBuild
+            , dirName
+        FROM rd_admin.tb_ios_test_app
+        WHERE delYn = 0
+            AND idx = (SELECT idx FROM rd_admin.tb_ios_test_app WHERE delYn = 0 ORDER BY appBuild DESC LIMIT 1)
+    </select>
+
+    <select id="selectApp" parameterType="String" resultType="java.util.HashMap">
+        SELECT
+            *
+        FROM rd_admin.tb_ios_test_app
+        WHERE delYn = 0
+            AND verName = #{value}
+        ORDER BY verName DESC, appBuild DESC
+    </select>
+
+    <insert id="insertApp" parameterType="java.util.HashMap">
+        INSERT INTO rd_admin.tb_ios_test_app (
+            verName
+            , appBuild
+            , dirName
+            , description
+            , regDate
+            , opName
+        ) VALUES (
+            #{verName}
+            , #{appBuild}
+            , #{dirName}
+            , #{description}
+            , NOW()
+            , #{opName}
+        )
+    </insert>
+
+    <update id="deleteApp" parameterType="java.util.HashMap">
+        UPDATE rd_admin.tb_ios_test_app SET
+            delYn = 1
+            , delDate = NOW()
+            , delName = #{opName}
+        WHERE idx = #{idx}
+    </update>
+</mapper>
