@@ -9,6 +9,7 @@
                 <span id="giftSort" onchange="giftSortChange();"></span>
             </div>
         </div>
+        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
         <table class="table table-bordered">
             <colgroup>
                 <col width="2%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
@@ -76,11 +77,14 @@
         if(response.data != ''){
             var pagingInfo = response.data.totalInfo;
             giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
+            util.renderPagingNavigation('list_info_paginate_top', giftHistoryListPagingInfo);
             util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
 
             detailContext.totalCnt = pagingInfo.totalCnt;
+            $("#list_info_paginate_top").show();
             $("#list_info_paginate").show();
         }else{
+            $("#list_info_paginate_top").hide();
             $("#list_info_paginate").hide();
         }
 
