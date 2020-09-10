@@ -119,7 +119,7 @@
                 if(response.result == 'success'){
                     const last = response.data.last;
                     if(last != undefined && last.verName != undefined && last.appBuild != undefined && last.dirName != undefined){
-                        $(".last > span").html("<a href=\"https://devimage2.dalbitlive.com/ios/" + last.dirName + "/manifest.plist\">" + last.verName + " (" + last.appBuild + ")</a>");
+                        $(".last > span").html("<a href=\"itms-services://?action=download-manifest&url=https://devimage2.dalbitlive.com/ios/" + last.dirName + "/manifest.plist\">" + last.verName + " (" + last.appBuild + ")</a>");
                     }else{
                         $(".last > span").html("-");
                     }
@@ -171,7 +171,7 @@
                         $(list).each(function(i, data){
                             let html = "";
                             html += "<tr>";
-                            html += "<td><a href=\"https://devimage2.dalbitlive.com/ios/" + data.dirName + "/manifest.plist\">" + data.appBuild + "</a></td>";
+                            html += "<td><a href=\"itms-services://?action=download-manifest&url=https://devimage2.dalbitlive.com/ios/" + data.dirName + "/manifest.plist\">" + data.appBuild + "</a></td>";
                             html += "<td style=\"text-align: left;\">" + data.description.split("\n").join("<br />") + "</td>";
                             html += "<td><a href=\"#\" onclick=\"fnDeleteApp(" + data.idx + ");return false;\">X</a></td>";
                             html += "</tr>";
