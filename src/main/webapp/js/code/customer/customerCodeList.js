@@ -40,10 +40,11 @@ var declaration_opCode = [
 var declaration_reason = [
     new COMMON_CODE(null, 'slctReason', '신고 구분')
     , new COMMON_CODE('all', '-1', '신고 구분(전체)')
-    , new COMMON_CODE('profile', '1', '프로필사진')
+    , new COMMON_CODE('profile', '1', '이미지')
     , new COMMON_CODE('obs', '2', '음란성')
     , new COMMON_CODE('adv', '3', '광고 및 상업성')
     , new COMMON_CODE('abuse', '4', '욕설 및 비방성')
+    , new COMMON_CODE('nick', '6', '닉네임')
     , new COMMON_CODE('etc', '5', '기타')
     , new COMMON_CODE('admin', '98', '관리자신고')
 ];

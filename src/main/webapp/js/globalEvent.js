@@ -11,7 +11,7 @@ $(document).on('click', '._openPop', function(){
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
     var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent($(this).data('memno'));
-    util.windowOpen(url, 1460, 780, 'memberInfo' + $(this).data('memno'));
+    util.windowOpen(url, 1460, 825, 'memberInfo' + $(this).data('memno'));
 });
 
 /*방송정보보기 팝업*/
@@ -30,6 +30,12 @@ $(document).on('click', '._openAdminMessagePop', function(){
 $(document).on('click', '._openPlayerPop', function(){
     var url = "/broadcast/broadcast/popup/playerPopup?roomNo="+encodeURIComponent($(this).data('roomno'));
     util.windowOpen(url, 530, 980, 'roomPlayer');
+});
+
+/*클립 플레이어 팝업*/
+$(document).on('click', '._openClipPlayerPop', function(){
+    var url = "/clip/history/popup/clipPlayerPopup?clipPath="+encodeURIComponent($(this).data('clippath')) + "&clipNo="+encodeURIComponent($(this).data('clipno'));
+    util.windowOpen(url, 340, 135, 'clipPlayer');
 });
 
 /*문자 발송 팝업*/
