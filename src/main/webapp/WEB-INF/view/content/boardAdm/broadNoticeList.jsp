@@ -114,11 +114,6 @@
         }else return;
     });
 
-    function handlebarsPaging(targetId, pagingInfo) {
-        broadNoticePagingInfo = pagingInfo;
-        broadNoticeList(pagingInfo.pageNo);
-    }
-
     function broadNoticeDel_success(dst_id, response){
         alert(response.message);
         broadNoticeList();

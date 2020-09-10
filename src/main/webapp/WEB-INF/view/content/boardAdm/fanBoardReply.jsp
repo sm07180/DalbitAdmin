@@ -98,11 +98,6 @@
         // $('#fanBoardReplyTable_summary').html(html);
     }
 
-    function handlebarsPaging(targetId, pagingInfo) {
-        fanBoardReplyPagingInfo = pagingInfo;
-        fanBoardReply();
-    }
-
     $(document).on('click', '._deleteFanBoardReply', function() {
         if($(this).data('status') == 2) {
             alert('이미 삭제된 댓글입니다.');

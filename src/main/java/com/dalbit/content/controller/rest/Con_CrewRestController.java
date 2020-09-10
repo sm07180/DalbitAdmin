@@ -79,4 +79,12 @@ public class Con_CrewRestController {
     public String deleteCrewMember(CrewMemberDeleteVo crewMemberDeleteVo) {
         return crewService.deleteCrewMember(crewMemberDeleteVo);
     }
+
+    /**
+     * 크루원 삭제
+     */
+    @PostMapping("/updateState")
+    public String updateState(CrewListVo crewListVo) {
+        return crewService.updateState(crewListVo);
+    }
 }

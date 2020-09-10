@@ -432,7 +432,7 @@
                         <div class="_editor" id="notiContents" name="notiContents">{{replaceHtml declaration_Message}}</div>
                     {{/equal}}
                     {{^equal status '0'}}
-                        <div class="_editor" id="notiContents" name="notiContents">{{{replaceHtml ../op_msg}}}</div>
+                        <div class="_editor" id="notiContents" name="notiContents" style="white-space: pre-line;">{{{replaceHtml ../op_msg}}}</div>
                     {{/equal}}
                 </div>
             </div>
