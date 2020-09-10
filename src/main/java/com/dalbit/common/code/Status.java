@@ -586,7 +586,6 @@ public enum Status {
     이벤트관리_이벤트삭제_성공("0", "event.management.delete.success", "이벤트 삭제 성공 시"),
 //    이벤트관리_이벤트삭제_이벤트번호없음("-1", "event.management.delete.no.eventIdx", "이벤트 번호가 없어 삭제 실패 시"),
     이벤트관리_이벤트삭제_실패("C006", "event.management.delete.fail", "이벤트 삭제 실패 시"),
-    이벤트관리_이벤트삭제_파라미터오류("C006", "param.error", "이벤트 삭제 실패 시 파라미터 오류일 때"),
 
     // 경품관리
     이벤트관리_경품리스트조회_성공("C001", "event.prize.list.success", "이벤트 경품 리스트 조회 성공 시"),

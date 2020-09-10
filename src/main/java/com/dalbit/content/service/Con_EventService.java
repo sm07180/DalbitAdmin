@@ -245,15 +245,20 @@ public class Con_EventService {
      */
     public String callEventManagementList(P_EventManagementListInputVo pEventManagementListInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementListInputVo);
-        ArrayList<P_EventManagementListOutputVo> eventList = con_EventDao.callEventManagementList(procedureVo);
-
         String result;
-        if(Integer.parseInt(procedureVo.getRet())> 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_성공, eventList, new PagingVo(procedureVo.getRet())));
-        } else if(Status.이벤트관리_리스트조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_데이터없음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_실패));
+
+        try {
+            ArrayList<P_EventManagementListOutputVo> eventList = con_EventDao.callEventManagementList(procedureVo);
+
+            if (Integer.parseInt(procedureVo.getRet()) > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_성공, eventList, new PagingVo(procedureVo.getRet())));
+            } else if (Status.이벤트관리_리스트조회_데이터없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_데이터없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_실패));
+            }
+        } catch(Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
@@ -264,23 +269,30 @@ public class Con_EventService {
      */
     public String callEventManagementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
-        con_EventDao.callEventManagementInfo(procedureVo);
-        P_EventManagementInfoOutputVo eventInfo = new Gson().fromJson(procedureVo.getExt(), P_EventManagementInfoOutputVo.class);
-
-        pEventManagementEventIdxInputVo.setEventIdx(pEventManagementEventIdxInputVo.getEventIdx());
-        ProcedureVo winnerProcedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
-        con_EventDao.callEventWinnerInfo(winnerProcedureVo);
-        P_EventWinnerInfoExtVo winnerInfoPrize = new Gson().fromJson(winnerProcedureVo.getExt(), P_EventWinnerInfoExtVo.class);
-        eventInfo.setPrizeWinner(winnerInfoPrize.getPrizeWinner());
 
         String result;
-        if(Status.이벤트관리_상세정보조회_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_상세정보조회_성공, eventInfo));
-        } else if(Status.이벤트관리_상세정보조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_상세정보조회_이벤트번호없음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_상세정보조회_실패));
+
+        try {
+            con_EventDao.callEventManagementInfo(procedureVo);
+            P_EventManagementInfoOutputVo eventInfo = new Gson().fromJson(procedureVo.getExt(), P_EventManagementInfoOutputVo.class);
+
+            pEventManagementEventIdxInputVo.setEventIdx(pEventManagementEventIdxInputVo.getEventIdx());
+            ProcedureVo winnerProcedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
+            con_EventDao.callEventWinnerInfo(winnerProcedureVo);
+            P_EventWinnerInfoExtVo winnerInfoPrize = new Gson().fromJson(winnerProcedureVo.getExt(), P_EventWinnerInfoExtVo.class);
+            eventInfo.setPrizeWinner(winnerInfoPrize.getPrizeWinner());
+
+            if (Status.이벤트관리_상세정보조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_상세정보조회_성공, eventInfo));
+            } else if (Status.이벤트관리_상세정보조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_상세정보조회_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_상세정보조회_실패));
+            }
+        } catch(Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
+
         return result;
     }
 
@@ -289,19 +301,23 @@ public class Con_EventService {
      */
     public String callEventManagementAdd(P_EventManagementAddVo pEventManagementAddVo) {
         pEventManagementAddVo.setOpName(MemberVo.getMyMemNo());
-
-        if(pEventManagementAddVo.getAlwaysYn() == 1){
-            pEventManagementAddVo.setEndDate("0000-00-00 00:00:00");
-        }
-        ProcedureVo procedureVo = new ProcedureVo(pEventManagementAddVo);
-
-        con_EventDao.callEventManagementAdd(procedureVo);
-
         String result;
-        if(Status.이벤트관리_이벤트등록_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트등록_성공));
+
+        if(!DalbitUtil.isEmpty(pEventManagementAddVo.getTitle())) {
+            if (pEventManagementAddVo.getAlwaysYn() == 1) {
+                pEventManagementAddVo.setEndDate("0000-00-00 00:00:00");
+            }
+            ProcedureVo procedureVo = new ProcedureVo(pEventManagementAddVo);
+
+            con_EventDao.callEventManagementAdd(procedureVo);
+
+            if (Status.이벤트관리_이벤트등록_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트등록_성공));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트등록_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트등록_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
 
         return result;
@@ -313,21 +329,27 @@ public class Con_EventService {
     public String callEventManagementEdit(P_EventManagementEditVo pEventManagementEditVo) {
         pEventManagementEditVo.setOpName(MemberVo.getMyMemNo());
 
-        if(pEventManagementEditVo.getAlwaysYn() == 1) {
-            pEventManagementEditVo.setEndDate("0000-00-00 00:00:00");
-        }
+        String result="";
 
-        ProcedureVo procedureVo = new ProcedureVo(pEventManagementEditVo);
+        if(!DalbitUtil.isEmpty(pEventManagementEditVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventManagementEditVo.getTitle())) {
 
-        con_EventDao.callEventManagementEdit(procedureVo);
+            if (pEventManagementEditVo.getAlwaysYn() == 1) {
+                pEventManagementEditVo.setEndDate("0000-00-00 00:00:00");
+            }
 
-        String result;
-        if(Status.이벤트관리_이벤트수정_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트수정_성공));
-        } else if(Status.이벤트관리_이벤트수정_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트수정_이벤트번호없음));
+            ProcedureVo procedureVo = new ProcedureVo(pEventManagementEditVo);
+
+            con_EventDao.callEventManagementEdit(procedureVo);
+
+            if (Status.이벤트관리_이벤트수정_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트수정_성공));
+            } else if (Status.이벤트관리_이벤트수정_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트수정_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트수정_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트수정_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
 
         return result;
@@ -369,8 +391,9 @@ public class Con_EventService {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트삭제_실패, resultMap));
             }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_이벤트삭제_파라미터오류));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
+
         return result;
     }
 
@@ -379,17 +402,22 @@ public class Con_EventService {
      */
     public String callEventPrizeList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
-        ArrayList<P_EventPrizeListOutputVo> prizeList = con_EventDao.callEventPrizeList(procedureVo);
-
         String result;
-        if(Integer.parseInt(procedureVo.getRet())> 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_성공, prizeList, new PagingVo(procedureVo.getRet())));
-        } else if(Status.이벤트관리_경품리스트조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_데이터없음));
-        } else if(Status.이벤트관리_경품리스트조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_이벤트번호없음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_실패));
+
+        try {
+            ArrayList<P_EventPrizeListOutputVo> prizeList = con_EventDao.callEventPrizeList(procedureVo);
+
+            if (Integer.parseInt(procedureVo.getRet()) > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_성공, prizeList, new PagingVo(procedureVo.getRet())));
+            } else if (Status.이벤트관리_경품리스트조회_데이터없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_데이터없음));
+            } else if (Status.이벤트관리_경품리스트조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품리스트조회_실패));
+            }
+        } catch (Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
@@ -401,16 +429,20 @@ public class Con_EventService {
     public String callEventPrizeAdd(P_EventPrizeAddVo pEventPrizeAddVo) {
         pEventPrizeAddVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventPrizeAddVo);
-
-        con_EventDao.callEventPrizeAdd(procedureVo);
-
         String result;
-        if(Status.이벤트관리_경품등록_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품등록_성공));
-        } else if(Status.이벤트관리_경품등록_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품등록_이벤트번호없음));
+
+        if(!DalbitUtil.isEmpty(pEventPrizeAddVo.getEventIdx())) {
+            con_EventDao.callEventPrizeAdd(procedureVo);
+
+            if (Status.이벤트관리_경품등록_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품등록_성공));
+            } else if (Status.이벤트관리_경품등록_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품등록_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품등록_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품등록_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
 
         return result;
@@ -421,20 +453,26 @@ public class Con_EventService {
      */
     public String callEventPrizeDetail(P_EventPrizeDetailInputVo pEventPrizeDetailInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventPrizeDetailInputVo);
-        con_EventDao.callEventPrizeDetail(procedureVo);
-        P_EventPrizeDetailOutputVo prizeDetail = new Gson().fromJson(procedureVo.getExt(), P_EventPrizeDetailOutputVo.class);
-
         String result;
 
-        if(Status.이벤트관리_경품상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_성공, prizeDetail));
-        } else if(Status.이벤트관리_경품상세조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_이벤트번호없음));
-        } else if(Status.이벤트관리_경품상세조회_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_경품번호없음));
+        if(!DalbitUtil.isEmpty(pEventPrizeDetailInputVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventPrizeDetailInputVo.getPrizeIdx())){
+            con_EventDao.callEventPrizeDetail(procedureVo);
+            P_EventPrizeDetailOutputVo prizeDetail = new Gson().fromJson(procedureVo.getExt(), P_EventPrizeDetailOutputVo.class);
+
+
+            if (Status.이벤트관리_경품상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_성공, prizeDetail));
+            } else if (Status.이벤트관리_경품상세조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_이벤트번호없음));
+            } else if (Status.이벤트관리_경품상세조회_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_경품번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품상세조회_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
+
         return result;
     }
 
@@ -444,18 +482,22 @@ public class Con_EventService {
     public String callEventPrizeEdit(P_EventPrizeEditVo pEventPrizeEditVo) {
         pEventPrizeEditVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventPrizeEditVo);
-
-        con_EventDao.callEventPrizeEdit(procedureVo);
-
         String result;
-        if(Status.이벤트관리_경품수정_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_성공));
-        } else if(Status.이벤트관리_경품수정_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_이벤트번호없음));
-        } else if(Status.이벤트관리_경품수정_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_경품번호없음));
+
+        if(!DalbitUtil.isEmpty(pEventPrizeEditVo.getEventIdx())) {
+            con_EventDao.callEventPrizeEdit(procedureVo);
+
+            if (Status.이벤트관리_경품수정_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_성공));
+            } else if (Status.이벤트관리_경품수정_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_이벤트번호없음));
+            } else if (Status.이벤트관리_경품수정_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_경품번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품수정_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
 
         return result;
@@ -470,29 +512,34 @@ public class Con_EventService {
 
         String result;
 
-        String[] idxs = pEventPrizeDeleteVo.getPrizeIdxs().split(",");
-        for(int i=0; i<idxs.length; i++) {
-            if(!DalbitUtil.isEmpty(pEventPrizeDeleteVo.getPrizeIdxs())) {
-                ProcedureVo procedureVo = new ProcedureVo(new P_EventPrizeDeleteVo(idxs[i], pEventPrizeDeleteVo.getEventIdx(), MemberVo.getMyMemNo()));
-                con_EventDao.callEventPrizeDelete(procedureVo);
+        if(!DalbitUtil.isEmpty(pEventPrizeDeleteVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventPrizeDeleteVo.getPrizeIdxs())) {
+            String[] idxs = pEventPrizeDeleteVo.getPrizeIdxs().split(",");
+            for (int i = 0; i < idxs.length; i++) {
+                if (!DalbitUtil.isEmpty(pEventPrizeDeleteVo.getPrizeIdxs())) {
+                    ProcedureVo procedureVo = new ProcedureVo(new P_EventPrizeDeleteVo(idxs[i], pEventPrizeDeleteVo.getEventIdx(), MemberVo.getMyMemNo()));
+                    con_EventDao.callEventPrizeDelete(procedureVo);
 
-                if(Status.이벤트관리_경품삭제_성공.getMessageCode().equals(procedureVo.getRet())) {
-                    sucCnt++;
-                } else {
-                    failCnt++;
+                    if (Status.이벤트관리_경품삭제_성공.getMessageCode().equals(procedureVo.getRet())) {
+                        sucCnt++;
+                    } else {
+                        failCnt++;
+                    }
                 }
             }
-        }
 
-        HashMap resultMap = new HashMap();
-        resultMap.put("sucCnt", sucCnt);
-        resultMap.put("failCnt", failCnt);
+            HashMap resultMap = new HashMap();
+            resultMap.put("sucCnt", sucCnt);
+            resultMap.put("failCnt", failCnt);
 
-        if(0 < sucCnt) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품삭제_성공, resultMap));
+            if (0 < sucCnt) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품삭제_성공, resultMap));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품삭제_실패, resultMap));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_경품삭제_실패, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
+
         return result;
     }
 
@@ -501,23 +548,28 @@ public class Con_EventService {
      */
     public String callEventWinnerInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
-        ArrayList<P_EventWinnerInfoOutputVo> infoList = con_EventDao.callEventWinnerInfo(procedureVo);
-        P_EventWinnerInfoExtVo winnerInfoPrizeYn = new Gson().fromJson(procedureVo.getExt(), P_EventWinnerInfoExtVo.class);
-
         String result;
 
-        LinkedHashMap resultMap = new LinkedHashMap();
-        resultMap.put("infoList", infoList);
-        resultMap.put("winnerInfoPrizeYn", winnerInfoPrizeYn);
+        try {
+            ArrayList<P_EventWinnerInfoOutputVo> infoList = con_EventDao.callEventWinnerInfo(procedureVo);
+            P_EventWinnerInfoExtVo winnerInfoPrizeYn = new Gson().fromJson(procedureVo.getExt(), P_EventWinnerInfoExtVo.class);
 
-        if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_성공, resultMap));
-        } else if(Status.이벤트관리_응모자당첨자정보조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_리스트없음));
-        } else if(Status.이벤트관리_응모자당첨자정보조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_이벤트번호없음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_실패));
+
+            LinkedHashMap resultMap = new LinkedHashMap();
+            resultMap.put("infoList", infoList);
+            resultMap.put("winnerInfoPrizeYn", winnerInfoPrizeYn);
+
+            if (Integer.parseInt(procedureVo.getRet()) > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_성공, resultMap));
+            } else if (Status.이벤트관리_응모자당첨자정보조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_리스트없음));
+            } else if (Status.이벤트관리_응모자당첨자정보조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자정보조회_실패));
+            }
+        } catch (Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
@@ -528,18 +580,22 @@ public class Con_EventService {
      */
     public String callEventWinnerApplicant(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerApplicantInputVo);
-        ArrayList<P_EventWinnerApplicantOutputVo> ApplicantList = con_EventDao.callEventWinnerApplicant(procedureVo);
-
         String result;
 
-        if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_성공, ApplicantList, new PagingVo(procedureVo.getRet())));
-        } else if(Status.이벤트관리_응모자당첨자리스트조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_리스트없음));
-        } else if(Status.이벤트관리_응모자당첨자리스트조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_이벤트번호없음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_실패));
+        try {
+            ArrayList<P_EventWinnerApplicantOutputVo> ApplicantList = con_EventDao.callEventWinnerApplicant(procedureVo);
+
+            if (Integer.parseInt(procedureVo.getRet()) > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_성공, ApplicantList, new PagingVo(procedureVo.getRet())));
+            } else if (Status.이벤트관리_응모자당첨자리스트조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_리스트없음));
+            } else if (Status.이벤트관리_응모자당첨자리스트조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_응모자당첨자리스트조회_실패));
+            }
+        } catch(Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
@@ -591,18 +647,22 @@ public class Con_EventService {
      */
     public String callEventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
-        ArrayList<P_EventWinnerListOutputVo> WinnerList = con_EventDao.callEventWinnerList(procedureVo);
-
         String result;
 
-        if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_성공, WinnerList, new PagingVo(procedureVo.getRet())));
-        } else if(Status.이벤트관리_당첨자리스트조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_리스트없음));
-        } else if(Status.이벤트관리_당첨자리스트조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_이벤트번호없음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_실패));
+        try {
+            ArrayList<P_EventWinnerListOutputVo> WinnerList = con_EventDao.callEventWinnerList(procedureVo);
+
+            if (Integer.parseInt(procedureVo.getRet()) > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_성공, WinnerList, new PagingVo(procedureVo.getRet())));
+            } else if (Status.이벤트관리_당첨자리스트조회_리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_리스트없음));
+            } else if (Status.이벤트관리_당첨자리스트조회_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_이벤트번호없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자리스트조회_실패));
+            }
+        } catch (Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
@@ -614,24 +674,30 @@ public class Con_EventService {
     public String callEventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) {
         pEventWinnerAddVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerAddVo);
-        con_EventDao.callEventWinnerAdd(procedureVo);
-
         String result;
-        if(Status.이벤트관리_당첨자추가_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_성공));
-        } else if(Status.이벤트관리_당첨자추가_실패.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_실패));
-        } else if(Status.이벤트관리_당첨자추가_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_이벤트번호없음));
-        } else if(Status.이벤트관리_당첨자추가_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_경품번호없음));
-        } else if(Status.이벤트관리_당첨자추가_당첨인원초과.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_당첨인원초과));
-        } else if (Status.이벤트관리_당첨자추가_응모자리스트없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_응모자리스트없음));
+
+        if(!DalbitUtil.isEmpty(pEventWinnerAddVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventWinnerAddVo.getPrizeIdx()) && !DalbitUtil.isEmpty(pEventWinnerAddVo.getMemNoList())) {
+            con_EventDao.callEventWinnerAdd(procedureVo);
+
+            if (Status.이벤트관리_당첨자추가_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_성공));
+            } else if (Status.이벤트관리_당첨자추가_실패.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_실패));
+            } else if (Status.이벤트관리_당첨자추가_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_이벤트번호없음));
+            } else if (Status.이벤트관리_당첨자추가_경품번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_경품번호없음));
+            } else if (Status.이벤트관리_당첨자추가_당첨인원초과.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_당첨인원초과));
+            } else if (Status.이벤트관리_당첨자추가_응모자리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_응모자리스트없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_당첨자선정완료후추가안됨));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자추가_당첨자선정완료후추가안됨));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
+
         return result;
     }
 
@@ -641,20 +707,26 @@ public class Con_EventService {
     public String callEventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) {
         pEventWinnerDeleteVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerDeleteVo);
-        con_EventDao.callEventWinnerDelete(procedureVo);
-
         String result;
-        if(Status.이벤트관리_당첨자취소_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_성공));
-        } else if(Status.이벤트관리_당첨자취소_실패.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_실패));
-        } else if(Status.이벤트관리_당첨자취소_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_이벤트번호없음));
-        } else if(Status.이벤트관리_당첨자취소_당첨자번호리스트없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자번호리스트없음));
+
+        if(!DalbitUtil.isEmpty(pEventWinnerDeleteVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventWinnerDeleteVo.getWinnerIdxList())) {
+            con_EventDao.callEventWinnerDelete(procedureVo);
+
+            if (Status.이벤트관리_당첨자취소_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_성공));
+            } else if (Status.이벤트관리_당첨자취소_실패.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_실패));
+            } else if (Status.이벤트관리_당첨자취소_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_이벤트번호없음));
+            } else if (Status.이벤트관리_당첨자취소_당첨자번호리스트없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자번호리스트없음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자선정완료후삭제안됨));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자취소_당첨자선정완료후삭제안됨));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
+
         return result;
     }
 
@@ -664,22 +736,26 @@ public class Con_EventService {
     public String callEventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) {
         pEventWinnerCompleteVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerCompleteVo);
-
-        con_EventDao.callEventWinnerComplete(procedureVo);
-
         String result;
 
-        if(Status.이벤트관리_당첨자선정완료_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_성공));
-        } else if(Status.이벤트관리_당첨자선정완료_재선정성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_재선정성공));
-        } else if(Status.이벤트관리_당첨자선정완료_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_이벤트번호없음));
-        } else if(Status.이벤트관리_당첨자선정완료_당첨인원안맞음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_당첨인원안맞음));
+        if(!DalbitUtil.isEmpty(pEventWinnerCompleteVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventWinnerCompleteVo.getCompleteSlct())) {
+            con_EventDao.callEventWinnerComplete(procedureVo);
+
+            if (Status.이벤트관리_당첨자선정완료_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_성공));
+            } else if (Status.이벤트관리_당첨자선정완료_재선정성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_재선정성공));
+            } else if (Status.이벤트관리_당첨자선정완료_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_이벤트번호없음));
+            } else if (Status.이벤트관리_당첨자선정완료_당첨인원안맞음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_당첨인원안맞음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자선정완료_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
+
         return result;
     }
 
@@ -688,7 +764,7 @@ public class Con_EventService {
      */
     public String callEventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) {
         String result;
-        if(!DalbitUtil.isEmpty(pEventWinnerUpdateVo.getEventIdx())) {
+        if(!DalbitUtil.isEmpty(pEventWinnerUpdateVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventWinnerUpdateVo.getUpdateSlct())) {
             int succ_cnt = 0;
             int fail_cnt = 0;
             String[] winnerIdxArr = pEventWinnerUpdateVo.getWinnerIdxs().split(",");
@@ -720,6 +796,7 @@ public class Con_EventService {
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자상태변경_변경구분값오류));
         }
+
         return result;
     }
 
@@ -729,26 +806,31 @@ public class Con_EventService {
     public String callEventAnnouncementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
         // winnerContents 부르기 위함
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
-        con_EventDao.callEventAnnouncementInfo(procedureVo);
-        P_EventAnnouncementInfoExtVo winnerContents = new Gson().fromJson(procedureVo.getExt(), P_EventAnnouncementInfoExtVo.class);
-
-        // 기본 경품 목록을 부르기 위함
-        ArrayList<P_EventAnnouncementInfoExtVo> defaultList = con_EventDao.selectEventAnnounceListDefault(pEventManagementEventIdxInputVo);
-
-        HashMap resultMap = new HashMap();
-
-        resultMap.put("winnerContents", winnerContents);
-        resultMap.put("defaultList", defaultList);
-
         String result;
-        if(Status.이벤트관리_당첨자발표가져오기_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_성공, resultMap));
-        } else if(Status.이벤트관리_당첨자발표가져오기_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_이벤트번호없음));
-        } else if(Status.이벤트관리_당첨자발표가져오기_선정완료안됨.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_선정완료안됨));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_실패));
+
+        try {
+            con_EventDao.callEventAnnouncementInfo(procedureVo);
+            P_EventAnnouncementInfoExtVo winnerContents = new Gson().fromJson(procedureVo.getExt(), P_EventAnnouncementInfoExtVo.class);
+
+            // 기본 경품 목록을 부르기 위함
+            ArrayList<P_EventAnnouncementInfoExtVo> defaultList = con_EventDao.selectEventAnnounceListDefault(pEventManagementEventIdxInputVo);
+
+            HashMap resultMap = new HashMap();
+
+            resultMap.put("winnerContents", winnerContents);
+            resultMap.put("defaultList", defaultList);
+
+            if (Status.이벤트관리_당첨자발표가져오기_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_성공, resultMap));
+            } else if (Status.이벤트관리_당첨자발표가져오기_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_이벤트번호없음));
+            } else if (Status.이벤트관리_당첨자발표가져오기_선정완료안됨.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_선정완료안됨));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표가져오기_실패));
+            }
+        } catch (Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
@@ -760,18 +842,22 @@ public class Con_EventService {
     public String callEventAnnouncementEdit(P_EventAnnouncementEditVo pEventAnnouncementEditVo) {
         pEventAnnouncementEditVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventAnnouncementEditVo);
-
-        con_EventDao.callEventAnnouncementEdit(procedureVo);
-
         String result;
-        if(Status.이벤트관리_당첨자발표리스트등록수정_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_성공));
-        } else if(Status.이벤트관리_당첨자발표리스트등록수정_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_이벤트번호없음));
-        } else if(Status.이벤트관리_당첨자발표리스트등록수정_선정완료안됨.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_선정완료안됨));
+
+        if(!DalbitUtil.isEmpty(pEventAnnouncementEditVo.getEventIdx())) {
+            con_EventDao.callEventAnnouncementEdit(procedureVo);
+
+            if (Status.이벤트관리_당첨자발표리스트등록수정_성공.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_성공));
+            } else if (Status.이벤트관리_당첨자발표리스트등록수정_이벤트번호없음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_이벤트번호없음));
+            } else if (Status.이벤트관리_당첨자발표리스트등록수정_선정완료안됨.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_선정완료안됨));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_실패));
+            }
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_당첨자발표리스트등록수정_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
 
         return result;

@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 public class P_EventPrizeAddVo extends BaseVo {
     private int eventIdx;
-    private int prizeRank;
+    private Integer prizeRank;
     private int prizeCnt;
     private String prizeName;
     private int prizeSlct;
