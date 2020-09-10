@@ -284,6 +284,13 @@
                 $("#monthNonOverTableBody tr:eq(32) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
                 $("#monthNonOverTableBody tr:eq(32) td:eq(" + (i + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
                 $("#monthNonOverTableBody tr:eq(32) td:eq(" + (i + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+
+
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i + 4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i + 5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
             }else if(i == 1 || i == 2){
                 $("#monthNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
                 $("#monthNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
@@ -295,6 +302,12 @@
                 $("#monthNonOverTableBody tr:eq(32) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
                 $("#monthNonOverTableBody tr:eq(32) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
                 $("#monthNonOverTableBody tr:eq(32) td:eq(" + (i * 6 + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i * 6 + 1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i * 6 + 2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+                $("#monthNonOverTableBody tr:eq(33) td:eq(" + (i * 6 + 5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
             }
 
             // 하단
@@ -309,6 +322,12 @@
                 $("#monthNonOverTableBody2 tr:eq(32) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
                 $("#monthNonOverTableBody2 tr:eq(32) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
                 $("#monthNonOverTableBody2 tr:eq(32) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
             }else if(i == 4 || i == 5){
                 $("#monthNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
                 $("#monthNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
@@ -320,6 +339,12 @@
                 $("#monthNonOverTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
                 $("#monthNonOverTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
                 $("#monthNonOverTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+                $("#monthNonOverTableBody2 tr:eq(33) td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
             }
         }
         // tableHeightSet();
@@ -349,6 +374,12 @@
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
+    <tr class="_tr_{{this}} font-bold"  style="background-color: #c55a11;color: white;">
+        <td>비중복</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+    </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyMonthNonOver2">
@@ -371,5 +402,11 @@
         <td></td><td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td></td><td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr class="_tr_{{this}} font-bold"  style="background-color: #c55a11;color: white;">
+        <td>비중복</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
 </script>
