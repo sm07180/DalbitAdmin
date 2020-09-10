@@ -31,9 +31,9 @@
         $('#announcementDate').val(dateTime);
     }
 
-    function initDetail(idx) {
+    function initDetail() {
         var data = {
-            eventIdx : idx
+            eventIdx : $("#eventidx").val()
         };
         util.getAjaxData("eventInfo", "/rest/content/event/management/info", data, function fn_eventInfo_success(dst_id, response) {
             var template = $('#tmp_eventInfoForm').html();
@@ -42,7 +42,7 @@
             var html = templateScript(context);
 
             $('#eventInfoForm').html(html);
-            $('#eventInfoForm #datail_eventIdx').val(idx);
+            $('#eventInfoForm #datail_eventIdx').val($("#eventidx").val());
 
             $('._calendar').datepicker('._calendar', new Date()).on('changeDate', function(dateText, inst) {
                 var selectDate = moment(dateText.date).format('YYYY.MM.DD');
@@ -54,6 +54,13 @@
                 // $('#eventStartDate').prop('disabled', true);
                 $('#eventEndDate').val("");
                 $('#eventEndDate').prop('disabled', true);
+            }
+
+            var prizeWinner = response.data.prizeWinner;
+            if(prizeWinner == 1) {
+                $('#tab_eventWinnerAnnounce').removeAttr('disabled');
+            } else if(prizeWinner == 0) {
+                $('#tab_eventWinnerAnnounce').attr('disabled', true);
             }
         });
     }
@@ -129,7 +136,7 @@
 
     function getUpdateParameter() {
         return data = {
-            eventIdx : $('#datail_eventIdx').val()
+            eventIdx : $('#eventidx').val()
             , title : $('#title').val()
             , alwaysYn : $('input[name="alwaysYnCheck"]').is(':checked') ? 1 : 0
             , startDate : $('#eventStartDate').val().replace(/\./g, '-')
@@ -160,7 +167,7 @@
     $(document).on('click', '#bt_deleteOneEvent', function() {
         if(confirm('해당 이벤트를 삭제하시겠습니까?')) {
             var data = {
-                eventIdx : $('#datail_eventIdx').val()
+                eventIdx : $('#eventidx').val()
             };
             util.getAjaxData("eventDeleteOne", "/rest/content/event/management/delete", data, function fn_eventDeleteOne_success(dst_id, response) {
                alert(response.message);

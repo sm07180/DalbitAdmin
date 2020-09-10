@@ -22,9 +22,9 @@
                 <%--<div class="col-md-6 no-padding mt10">--%>
                     <%--<span id="searchType_boardReply" onchange="fanBoardReply();"></span>--%>
                 <%--</div>--%>
-                <div class="col-md-6 no-padding mt10" >
+                <%--<div class="col-md-6 no-padding mt10" >
                     <span id="fanBoardReplyTable_summary"></span>
-                </div>
+                </div>--%>
                 <div class="dataTables_paginate paging_full_numbers" id="fanBoardReply_paginate_top"></div>
                 <div id="fanBoardReplyTable"></div>
                 <div class="dataTables_paginate paging_full_numbers" id="fanBoardReply_paginate"></div>
@@ -96,11 +96,6 @@
         // var html = templateScript(context);
         //
         // $('#fanBoardReplyTable_summary').html(html);
-    }
-
-    function handlebarsPaging(targetId, pagingInfo) {
-        fanBoardReplyPagingInfo = pagingInfo;
-        fanBoardReply();
     }
 
     $(document).on('click', '._deleteFanBoardReply', function() {

@@ -163,8 +163,8 @@ public class Con_EventRestController {
      * 이벤트 상세 정보
      */
     @PostMapping("/management/info")
-    public String eventManagementInfo(P_EventManagementInfoInputVo pEventManagementInfoInputVo) {
-        String result = con_EventService.callEventManagementInfo(pEventManagementInfoInputVo);
+    public String eventManagementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+        String result = con_EventService.callEventManagementInfo(pEventManagementEventIdxInputVo);
         return result;
     }
 
@@ -199,8 +199,8 @@ public class Con_EventRestController {
      * 경품 리스트 조회
      */
     @PostMapping("/management/prize/list")
-    public String eventPrizeList(P_EventPrizeListInputVo pEventPrizeListInputVo) {
-        String result = con_EventService.callEventPrizeList(pEventPrizeListInputVo);
+    public String eventPrizeList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+        String result = con_EventService.callEventPrizeList(pEventManagementEventIdxInputVo);
         return result;
     }
 
@@ -244,8 +244,8 @@ public class Con_EventRestController {
      * 응모자/당첨자 정보
      */
     @PostMapping("/management/winner/info")
-    public String eventWinnerInfo(P_EventWinnerInfoInputVo pEventWinnerInfoInputVo) {
-        String result = con_EventService.callEventWinnerInfo(pEventWinnerInfoInputVo);
+    public String eventWinnerInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+        String result = con_EventService.callEventWinnerInfo(pEventManagementEventIdxInputVo);
         return result;
     }
 
@@ -259,11 +259,23 @@ public class Con_EventRestController {
     }
 
     /**
+     * 응모자/당첨자 리스트 엑셀
+     */
+    @PostMapping("/management/winner/listExcel")
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo) throws GlobalException {
+
+        Model resultModel = con_EventService.getListExcel(pEventWinnerApplicantInputVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+    }
+
+    /**
      * 당첨자 리스트 조회
      */
     @PostMapping("/management/winner/list")
-    public String eventWinnerList(P_EventWinnerListInputVo pEventWinnerListInputVo) {
-        String result = con_EventService.callEventWinnerList(pEventWinnerListInputVo);
+    public String eventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+        String result = con_EventService.callEventWinnerList(pEventManagementEventIdxInputVo);
         return result;
     }
 
@@ -303,6 +315,23 @@ public class Con_EventRestController {
         return result;
     }
 
+    /**
+     * 당첨자 발표 가져오기
+     */
+    @PostMapping("/management/announcement/info")
+    public String eventAnnouncementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+        String result = con_EventService.callEventAnnouncementInfo(pEventManagementEventIdxInputVo);
+        return result;
+    }
+
+    /**
+     * 당첨자 발표 등록/수정
+     */
+    @PostMapping("/management/announcement/edit")
+    public String eventAnnouncementEdit(P_EventAnnouncementEditVo pEventAnnouncementEditVo) {
+        String result = con_EventService.callEventAnnouncementEdit(pEventAnnouncementEditVo);
+        return result;
+    }
 
     /*======================= 기존 이벤트 관리 ======================= */
 //    /**
