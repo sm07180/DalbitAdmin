@@ -89,14 +89,6 @@
         );
     }
 
-    function handlebarsPaging(targetId, pagingInfo) {
-        console.log('ddd');
-        console.log(targetId);
-        console.log(pagingInfo);
-        profilePagingInfo = pagingInfo;
-        profileMsgList();
-    }
-
     $(document).on('click', '._profileMsgDelBtn', function() {
         if(confirm("프로필 메시지를 삭제하시겠습니까?")) {
             var data = {

@@ -113,11 +113,6 @@
         }else return;
     });
 
-    function handlebarsPaging(targetId, pagingInfo) {
-        noticePagingInfo = pagingInfo;
-        noticeList(pagingInfo.pageNo);
-    }
-
     function noticeDel_success(dst_id, response){
         alert(response.message);
         noticeList();

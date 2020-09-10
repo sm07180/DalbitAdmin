@@ -135,21 +135,38 @@
     }
 
     function handlebarsPaging(targetId, pagingInfo) {
+
         if(targetId == "notice_paginate_top" || targetId == "notice_paginate") {
             noticePagingInfo = pagingInfo;
             noticeList(pagingInfo.pageNo);
+
         }else if(targetId == "story_paginate_top" || targetId == "story_paginate"){
             StoryPagingInfo = pagingInfo;
             storyList(pagingInfo.pageNo);
+
         } else if(targetId == "fanBoard_paginate_top" || targetId == "fanBoard_paginate") {
             fanBoardPagingInfo = pagingInfo;
             fanBoardList(pagingInfo.pageNo);
-        } else if(targetId == "fanBoard_paginate_top" || targetId == "fanBoard_paginate") {
-            fanBoardPagingInfo = pagingInfo;
-            fanBoardList(pagingInfo.pageNo);
+
+        }else if(targetId == "fanBoardReply_paginate_top" || targetId == "fanBoardReply_paginate") {
+            fanBoardReplyPagingInfo = pagingInfo;
+            fanBoardReply();
+
         } else if(targetId == "list_info_paginate_top" || targetId == "list_info_paginate") {
             shotListPagingInfo = pagingInfo;
             profileMsgList(pagingInfo.pageNo);
+
+        } else if(targetId == "broadNotice_paginate_top" || targetId == "broadNotice_paginate") {
+            sbroadNoticePagingInfo = pagingInfo;
+            broadNoticeList(pagingInfo.pageNo);
+
+        } else if(targetId == "clipReply_paginate_top" || targetId == "clipReply_paginate"){
+            clipPagingInfo = pagingInfo;
+            clipReplyList();
+
+        }else if(targetId == "profile_paginate_top" || targetId == "profile_paginate"){
+            profilePagingInfo = pagingInfo;
+            profileMsgList();
         }
     }
 </script>

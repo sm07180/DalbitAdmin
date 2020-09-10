@@ -38,4 +38,6 @@ public interface Con_CrewDao {
     int updateDelStateCrew(CrewUpdateDelStateVo crewUpdateDelStateVo);
 
     int deleteCrewMember(CrewMemberDeleteVo crewMemberDeleteVo);
+
+    int updateState(CrewListVo crewListVo);
 }

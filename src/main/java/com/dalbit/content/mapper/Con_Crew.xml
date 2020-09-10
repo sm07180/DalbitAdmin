@@ -23,23 +23,31 @@
           select *
               from (
                 select a.*
-                , @RNUM := @RNUM + 1 as rowNum
+                     , round(a.levelSum / a.crewCnt, 0) levelAvg
+                     , @RNUM := @RNUM + 1 as rowNum
                 from (
-                      select crew.idx as crewIdx
-                          , crew.crew_name as crewName
-                          , crew.crew_memo as crewMemo
-                          , ifnull(ifnull(bas.mem_nick, withdrawal.mem_nick), '-') as crewLeader
-                          , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
-                          , ifnull(lev.level,0) as `level`
-                        from rd_admin.tb_crew_basic crew
-                          left join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx and crewm.leader_yn = '1'
-                          left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
-                          left join rd_data.tb_member_withdrawal_bak withdrawal on crewm.mem_no = withdrawal.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
-                          left join rd_data.tb_member_level lev on bas.mem_no = lev.mem_no
-                        where crew.delete_yn = 0
-                        order by `level` desc
-                      ) as a
-                  , (select @RNUM := 0) r
+                    select crew.idx as crewIdx
+                         , crew.crew_name as crewName
+                         , crew.crew_memo as crewMemo
+                         , crew.state as state
+                         , ifnull(ifnull(bas.mem_nick, withdrawal.mem_nick), '-') as crewLeader
+                         , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
+                         , (select ifnull(sum(`level`),0) from rd_data.tb_member_level where mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) levelSum
+                         , (select count(*) from rd_data.tb_payment_succ where pay_yn = 'y' and pay_ok_date like concat(DATE_FORMAT(now(), '%Y-%m'), '%') and mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) payCnt
+                         , (select ifnull(sum(round(pay_amt,0)),0) from rd_data.tb_payment_succ where pay_yn = 'y' and pay_ok_date like concat(DATE_FORMAT(now(), '%Y-%m'), '%') and mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) payAmtSum
+                         , date_format(crew.reg_date, '%Y-%m-%d %H:%i:%s') regDate
+                    from rd_admin.tb_crew_basic crew
+                             left join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx and crewm.leader_yn = '1'
+                             left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
+                             left join rd_data.tb_member_withdrawal_bak withdrawal on crewm.mem_no = withdrawal.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
+                    where crew.delete_yn = 0
+                ) as a
+                   , (select @RNUM := 0) r
+               order by
+                    <if test="slct_type == 1">
+                        a.payCnt desc,
+                    </if>
+                    a.crewIdx desc
               ) as b
             where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -48,6 +56,7 @@
     /* Con_Crew.xml - selectCrewInfoCnt */
         select count(*)
           from rd_admin.tb_crew_basic
+          where delete_yn = 0
     </select>
 
     <insert id="insertCrewMember" parameterType="com.dalbit.content.vo.CrewMemberInsertVo">
@@ -102,34 +111,40 @@
     </select>
 
     <sql id="crewMemberCondition">
-            <if test='searchText != null and searchText != ""'>
-                <choose>
-                    <when test='searchType == 1'>
-                        and crew.mem_no like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == 2'>
-                        and bas.mem_userid like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == 3'>
-                        and bas.mem_nick like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == 4'>
-                        and crewbas.crew_name = #{searchText}
-                    </when>
-                    <when test='searchType == 5'>
-                        and crewbas.crew_memo = #{searchText}
-                    </when>
-                    <otherwise>
-                        and (
-                            crew.mem_no like concat ('%', #{searchText}, '%') or
-                            bas.mem_userid like concat ('%', #{searchText}, '%') or
-                            bas.mem_nick like concat ('%', #{searchText}, '%') or
-                            crewbas.crew_name = #{searchText} or
-                            crewbas.crew_memo = #{searchText}
-                        )
-                    </otherwise>
-                </choose>
-            </if>
+        <if test='searchText != null and searchText != ""'>
+            <choose>
+                <when test='searchType == 1'>
+                    and crewMember.mem_no like concat ('%', #{searchText}, '%')
+                </when>
+                <when test='searchType == 2'>
+                    and (member.mem_userid like concat ('%', #{searchText}, '%')
+                        or outMember.mem_userid like concat ('%', #{searchText}, '%')
+                    )
+                </when>
+                <when test='searchType == 3'>
+                    and (member.mem_nick like concat ('%', #{searchText}, '%')
+                        or outMember.mem_nick like concat ('%', #{searchText}, '%')
+                    )
+                </when>
+                <when test='searchType == 4'>
+                    and crewbas.crew_name = #{searchText}
+                </when>
+                <when test='searchType == 5'>
+                    and crewbas.crew_memo = #{searchText}
+                </when>
+                <otherwise>
+                    and (
+                        crewMember.mem_no like concat ('%', #{searchText}, '%') or
+                        member.mem_userid like concat ('%', #{searchText}, '%') or
+                        outMember.mem_userid like concat ('%', #{searchText}, '%') or
+                        member.mem_nick like concat ('%', #{searchText}, '%') or
+                        outMember.mem_nick like concat ('%', #{searchText}, '%') or
+                        crewbas.crew_name = #{searchText} or
+                        crewbas.crew_memo = #{searchText}
+                    )
+                </otherwise>
+            </choose>
+        </if>
     </sql>
 
     <select id="selectCrewMemberInfo" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="com.dalbit.content.vo.CrewMemberListVo">
@@ -137,31 +152,30 @@
         select *
         from (
             select
-              crew.idx as idx
-              , crewbas.crew_name as crewName
-              , crew.mem_no as mem_no
-              , crew.leader_yn as leader_yn
-              , crew.crew_idx as crewIdx
-              , (select mem_userid from rd_data.tb_member_basic where crew.mem_no = mem_no) as userId
-              , (select mem_nick from rd_data.tb_member_basic where crew.mem_no = mem_no) as memNick
-              , (select mem_sex from rd_data.tb_member_basic where crew.mem_no = mem_no) as memSex
-              , (select mem_birth_year from rd_data.tb_member_basic where crew.mem_no = mem_no) as birthYear
-              , (select start_date from rd_data.tb_broadcast_room where crew.mem_no = mem_no order by end_date desc limit 1) as broadDate
-              , (select count(mem_no) from rd_data.tb_broadcast_room where start_date between date_add(now(), interval-1 week) and now() and mem_no = crew.mem_no) as broadCnt
-              , (select sum(airtime) from rd_data.tb_broadcast_room where start_date between date_add(now(), interval-1 week) and now() and mem_no = crew.mem_no) as broadTime
-              , ifnull((select rank from rd_data.tb_ranking_dj_day where ranking_date between date_add(now(), interval-2 day) and now() and mem_no = crew.mem_no), 9999) as ranking
-              , (select count(*) from rd_data.tb_payment_succ where pay_yn = 'y' and mem_no = crew.mem_no) as payCnt
-              , (select sum(pay_amt) from rd_data.tb_payment_succ where pay_yn = 'y' and mem_no = crew.mem_no) as payAmount
-              , (select level from rd_data.tb_member_level where mem_no = crew.mem_no) as level
-              , @RNUM := @RNUM + 1 as rowNum
-              , bas.mem_userid
-              , bas.mem_nick
-            from rd_admin.tb_crew_member crew
-              inner join rd_admin.tb_crew_basic crewbas on crew.crew_idx = crewbas.idx
-              inner join rd_data.tb_member_basic bas on crew.mem_no = bas.mem_no
-              , (select @RNUM := 0) r
+                crewMember.idx as idx
+                , crewbas.crew_name as crewName
+                , crewMember.mem_no as mem_no
+                , crewMember.leader_yn as leader_yn
+                , crewMember.crew_idx as crewIdx
+                , ifnull(member.mem_nick, outMember.mem_nick) as memNick
+                , ifnull(member.mem_state, outMember.mem_state) as memState
+                , date_format((select last_upd_date from rd_data.tb_member_session session where crewMember.mem_no = session.mem_no order by session.last_upd_date desc limit 1), '%Y-%m-%d %H:%i:%s') as lastLoginDate
+                , (select count(*) from rd_data.tb_member_session_history where crewMember.mem_no = mem_no and last_upd_date between date_add(now(), interval-1 week) and now()) as weekLoginCnt
+                , date_format((select start_date from rd_data.tb_broadcast_room where crewMember.mem_no = mem_no order by idx desc limit 1), '%Y-%m-%d %H:%i:%s') as broadDate
+                , (SELECT ifnull(sum(ruby_old - ruby_new), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2, 3, 4) and (mem_no = crewMember.mem_no)) as present
+                , (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` = 5 AND (mem_no = crewMember.mem_no)) as receive
+                , ifnull((select rank from rd_data.tb_ranking_dj_day where ranking_date between date_add(now(), interval-2 day) and now() and mem_no = crewMember.mem_no), 9999) as ranking
+                , level.level
+                , date_format(ifnull(member.mem_join_date, outMember.mem_join_date), '%Y-%m-%d') mem_join_date
+                , @RNUM := @RNUM + 1 as rowNum
+            from rd_admin.tb_crew_member crewMember
+                inner join rd_admin.tb_crew_basic crewbas on crewMember.crew_idx = crewbas.idx
+                inner join rd_data.tb_member_level level on crewMember.mem_no = level.mem_no
+                left join rd_data.tb_member_basic member on crewMember.mem_no = member.mem_no
+                left join rd_data.tb_member_withdrawal_bak outMember on crewMember.mem_no = outMember.mem_no
+                , (select @RNUM := 0) r
             where crewbas.delete_yn = 0
-              <include refid="crewMemberCondition"/>
+                  <include refid="crewMemberCondition"/>
             order by leader_yn desc, ranking asc
         )as a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
@@ -170,9 +184,10 @@
     <select id="selectCrewMemberInfoCnt" parameterType="com.dalbit.content.vo.CrewMemberListVo" resultType="integer">
     /* Con_Crew.xml - selectCrewMemberInfoCnt */
       select count(*)
-        from rd_admin.tb_crew_member crew
-         inner join rd_admin.tb_crew_basic crewbas on crew.crew_idx = crewbas.idx
-         inner join rd_data.tb_member_basic bas on crew.mem_no = bas.mem_no
+        from rd_admin.tb_crew_member crewMember
+         inner join rd_admin.tb_crew_basic crewbas on crewMember.crew_idx = crewbas.idx
+         left join rd_data.tb_member_basic member on crewMember.mem_no = member.mem_no
+         left join rd_data.tb_member_withdrawal_bak outMember on crewMember.mem_no = outMember.mem_no
         where crewbas.delete_yn = 0
         <include refid="crewMemberCondition"/>
     </select>
@@ -211,4 +226,14 @@
       from rd_admin.tb_crew_member
       where idx = #{crewMemberIdx}
     </delete>
+
+    <update id="updateState" parameterType="com.dalbit.content.vo.CrewListVo">
+        /* Con_Crew.xml - updateState */
+        update rd_admin.tb_crew_basic
+        set
+            state = #{state}
+            , last_op_name = #{opName}
+            , last_upd_date = now()
+        where idx = #{crewIdx}
+    </update>
 </mapper>
