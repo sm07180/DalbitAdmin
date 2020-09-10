@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClipHistoryListenTotalVo extends PagingVo {
+public class ClipHistoryTotalVo extends PagingVo {
 
     /* input */
 
