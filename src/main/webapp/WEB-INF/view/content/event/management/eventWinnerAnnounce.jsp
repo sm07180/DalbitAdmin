@@ -66,7 +66,8 @@
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
             <div class="widget-content no-padding">
-                <div class="_editor" id="announcement_editor" name="announcement_editor">{{{replaceHtml winnerContents.winnerContents}}}
+                <div class="_editor" id="announcement_editor" name="announcement_editor">
+                    {{{replaceHtml winnerContents.winnerContents}}}
                     {{#equal winnerContents.winnerContents ''}}
                         {{#each ../this.defaultList as |data|}}
                         <div class="form-inline mt15">

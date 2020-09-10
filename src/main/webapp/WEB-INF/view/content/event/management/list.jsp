@@ -54,6 +54,7 @@
 </div>
 
 <input type="hidden" id="eventidx" value="0"/>
+<input type="hidden" id="prizeslct"/>
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
@@ -118,7 +119,6 @@
             var data = {
               eventIdx : eventIdxs
             };
-            console.log(data);
             util.getAjaxData("eventDelete", "/rest/content/event/management/delete", data, function fn_eventDelete_success(dst_id, response) {
                 alert(response.message) +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건';
                 location.reload();

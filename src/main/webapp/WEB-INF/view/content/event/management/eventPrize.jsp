@@ -114,14 +114,27 @@
         $('input[name="receiveDal"]').prop('disabled', true);
         $('input[name="receiveDal"]').val("");
     }
+
+    function prize_select() {
+        if($('#prizeSlct').val() == 1) {
+            $('#prizeRank').removeAttr('readonly');
+        } else if($('#prizeSlct').val() == 2) {
+            $('#prizeRank').val('0');
+            $('#prizeRank').attr('readonly', true);
+        }
+    }
+
     function disabledSetting(tmpNo) {
         if(tmpNo == 1) {
             val1();
+            prize_select();
         } else if(tmpNo == 2) {
             if($('#prize_receive').val() == 1) {
                 val1();
+                prize_select();
             } else if($('#prize_receive').val() == 2 || $('#prize_receive').val() == 3) {
                 val2_3();
+                prize_select();
             }
         }
 
@@ -168,9 +181,11 @@
     }
 
     function prizeFormValidation() {
-        if(common.isEmpty($('#prizeRank').val())) {
-            alert('등수를 입력해주세요.');
-            return false;
+        if($('#prizeSlct').val() == 1) {
+            if (common.isEmpty($('#prizeRank').val())) {
+                alert('등수를 입력해주세요.');
+                return false;
+            }
         }
 
         if(common.isEmpty($('#prizeCnt').val())) {
@@ -294,7 +309,7 @@
                              </tr>
                              <tr>
                                  <th>당첨 인원</th>
-                                 <td><input type="number" id="prizeCnt" name="prizeCnt" class="form-control" style="width: 100%;" value="{{prizeCnt}}"></td>
+                                 <td><input type="number" id="prizeCnt" name="prizeCnt" class="form-control" style="width: 100%;" value="{{prizeCnt}}"/></td>
                              </tr>
                              <tr>
                                  <th>경품명</th>

@@ -10,10 +10,12 @@
                 <thead></thead>
                 <tbody></tbody>
             </table>
+
             <span id="winner_sortSlct"></span>
             <span id="winner_winSlct"></span>
             <label for="winner_duplicate"><input type="checkbox" id="winner_duplicate" name="winner_duplicate"/> 중복응모 숨기기</label>
             <%-- 0: 다보임, 1: 숨김 --%>
+
             <table id="list_eventWinnerApplicant" class="table table-sorting table-hover table-bordered">
                 <thead></thead>
                 <tbody></tbody>
@@ -230,7 +232,6 @@
                 eventIdx : $('#eventidx').val()
                 , winnerIdxList : winnerIdxs
             };
-            console.log(data);
             util.getAjaxData("EventWinnerCancel", "/rest/content/event/management/winner/delete", data, function fn_eventWinnerDelete_success(dst_id, response) {
                alert(response.message);
                 initWinnerApplicant();
@@ -285,7 +286,6 @@
             Idxs += $(this).parent().parent().find('._getWinnerDetail').data('winneridx') + ",";
         });
 
-        // 여기서 winnerIdxs를 처리하고, 목록을 받아낸뒤,
         if($(this).prop('id') == 'bt_depositComplete') {
             alert(Idxs);
             if(confirm(checked.length + "건의 사항을 발송 완료 처리하시겠습니까?")) {
@@ -378,10 +378,14 @@
 <script id="tmp_winnerRegieterArea" type="text/x-handlebars-template">
     <select id="prizeRank" name="prizeRank" class="form-control searchType">
         {{#each this as |info|}}
+            {{#equal info.prizeRank '0'}}
+            <option data-prizeidx="{{info.prizeIdx}}">일괄지급</option>
+            {{else}}
             <option data-prizeidx="{{info.prizeIdx}}">{{info.prizeRank}}등</option>
+            {{/equal}}
         {{/each}}
     </select>
-    <input type="text" class="form-control" id="registerEventWinner" style="width:50%;" placeholder="여러 회원번호를 업로드할 경우 '|'로 구분해주세요.">
+    <input type="text" class="form-control _trim" id="registerEventWinner" style="width:50%;" placeholder="여러 회원번호를 업로드할 경우 '|'로 구분해주세요.">
     <button type="button" class="btn btn-default btn-sm mt15 mb15" id="bt_registerEventWinner">당첨자 추가</button>
 </script>
 
