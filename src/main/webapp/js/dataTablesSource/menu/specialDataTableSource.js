@@ -21,15 +21,15 @@ var specialDataTableSource = {
             , {'title': '누적<br />방송시간', 'data': 'airTime','render': function(data) {
                     return common.addComma(data)+' 분';
                 }}
-            , {'title': '1시간 이상<br />방송 횟수', 'data': 'broadcastCnt','render': function(data) {
+            , {'title': '90분 이상<br />방송 횟수', 'data': 'broadcastCnt','render': function(data) {
                     return common.addComma(data)+' 회';
                 }}
             , {'title': '좋아요', 'data': 'goodCnt', 'render': function(data) {
                     return common.addComma(data)+' 회';
                 }}
-            , {'title': '팬', 'data': 'fanCnt', 'render': function(data) {
+            /*, {'title': '팬', 'data': 'fanCnt', 'render': function(data) {
                     return common.addComma(data)+' 명';
-                }}
+                }}*/
             , {'title': '누적<br />청취자 수', 'data': 'allListenCnt', 'render': function(data, type, row) {
                     return common.addComma(data)+' 명';
                 }}
@@ -42,9 +42,9 @@ var specialDataTableSource = {
             , {'title': '받은 별', 'data': 'receiveStar', 'render': function(data, type, row) {
                     return common.addComma(data)+' 별';
                 }}
-            , {'title': '채팅<br />횟수', 'data': 'chatCnt', 'render': function(data, type, row) {
+            /*, {'title': '채팅<br />횟수', 'data': 'chatCnt', 'render': function(data, type, row) {
                     return common.addComma(data)+' 번';
-                }}
+                }}*/
             , {'title': '방송<br />횟수', 'data': 'broadCnt', 'render': function(data, type, row) {
                     return common.addComma(data)+' 번';
                 }}

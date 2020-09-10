@@ -8,7 +8,7 @@
     <!--</select>-->
 
     <sql id="storyCondition">
-        <if test="searchType == 1 or searchType == 0 or searchType == 3">
+        <if test="searchType == 1">
         select a.idx
                     , '1' as type
                     , b.mem_no
@@ -27,10 +27,8 @@
                     and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
                 </if>
         </if>
-        <if test="searchType == 0 or searchType == 3">
-             union
-        </if>
-        <if test="searchType == 2 or searchType == 0 or searchType == 3">
+
+        <if test="searchType == 2">
             select a.idx
                     , '2' as type
                     , b.mem_no
@@ -59,12 +57,7 @@
         FROM (
           <include refid="storyCondition"/>
         ) AS c, (select @rownum := #{pageNo} ) AS d
-        <if test="searchType == 0">
-          order by last_upd_date desc
-        </if>
-        <if test="searchType == 3">
-          order by last_upd_date asc
-        </if>
+        order by c.last_upd_date desc
         limit #{pageNo}, #{pageCnt}
     </select>
 

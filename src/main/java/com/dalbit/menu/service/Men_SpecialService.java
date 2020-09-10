@@ -94,13 +94,13 @@ public class Men_SpecialService {
         List<SpecialReqVo> list = menSpecialDao.getReqSpecialList(specialReqVo);
 
         String[] headers = {"No", "회원번호", "닉네임", "신청일", "이름"
-                , "연락처", "누적 방송시간", "1시간 이상 방송 횟수", "좋아요 수", "팬 수"
-                , "누적 청취자 수", "순수 청취자 수", "신고횟수", "받은 별", "채팅횟수"
+                , "연락처", "누적 방송시간", "90분 이상 방송 횟수", "좋아요 수"/*, "팬 수"*/
+                , "누적 청취자 수", "순수 청취자 수", "신고횟수", "받은 별"/*, "채팅횟수"*/
                 , "방송횟수", "30분 이상 청취자 수", "방송소개" , "내가 스페셜 DJ가 된다면", "상태"
                 , "처리자", "처리일시"};
         int[] headerWidths = {3000, 5000, 5000, 6000, 3000
-                , 5000, 3000, 3000, 3000, 3000
-                , 3000, 3000, 3000, 3000, 3000
+                , 5000, 3000, 3000, 3000/*, 3000*/
+                , 3000, 3000, 3000, 3000/*, 3000*/
                 , 3000, 4000, 5000, 6000, 3000
                 , 5000, 6000};
 
@@ -118,13 +118,13 @@ public class Men_SpecialService {
             hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAirTime());
             hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getBroadcastCnt());
             hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getGoodCnt());
-            hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getFanCnt());
+            /*hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getFanCnt());*/
             hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAllListenCnt());
             hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getListenCnt());
             hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReportCnt());
             hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReceiveStar());
 
-            hm.put("chatCnt", DalbitUtil.isEmpty(list.get(i).getChatCnt()) ? "" : list.get(i).getChatCnt());
+            /*hm.put("chatCnt", DalbitUtil.isEmpty(list.get(i).getChatCnt()) ? "" : list.get(i).getChatCnt());*/
             hm.put("broadCnt", DalbitUtil.isEmpty(list.get(i).getBroadCnt()) ? "" : list.get(i).getBroadCnt());
             hm.put("listenCnt30", DalbitUtil.isEmpty(list.get(i).getListenCnt30()) ? "" : list.get(i).getListenCnt30());
 
