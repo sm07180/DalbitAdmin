@@ -78,9 +78,9 @@
 
         $('#tb_clipList').html(html);
 
-        profilePagingInfo.totalCnt = response.pagingVo.totalCnt;
-        util.renderPagingNavigation('profile_paginate_top', profilePagingInfo);
-        util.renderPagingNavigation('profile_paginate', profilePagingInfo);
+        clipPagingInfo.totalCnt = response.pagingVo.totalCnt;
+        util.renderPagingNavigation('clipReply_paginate_top', clipPagingInfo);
+        util.renderPagingNavigation('clipReply_paginate', clipPagingInfo);
 
         util.getAjaxData("clipReplySummary", "/rest/content/boardAdm/clipReplyList/summary", param, fn_success_clipReplySummary);
     }
@@ -92,14 +92,6 @@
             '<span style="color: red;"> [여' + response.data.femaleCnt + " 건]</span>" + "," +
             '<span style="color: #555555;"> [알수없음' + response.data.noneCnt + " 건]</span>"
         );
-    }
-
-    function handlebarsPaging(targetId, pagingInfo) {
-        console.log('ddd');
-        console.log(targetId);
-        console.log(pagingInfo);
-        profilePagingInfo = pagingInfo;
-        clipReplyList();
     }
 
     $(document).on('click', '._clipReplyDelBtn', function() {

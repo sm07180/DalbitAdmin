@@ -13,5 +13,11 @@ public class CrewListVo extends PagingVo {
     private String crewName;
     private String crewMemo;
     private String crewLeader;
+    private int state;
     private int crewCnt;
+    private int levelAvg;
+    private int payCnt;
+    private int payAmtSum;
+    private String regDate;
+    private int slct_type;
 }

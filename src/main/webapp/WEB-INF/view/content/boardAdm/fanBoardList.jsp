@@ -98,11 +98,6 @@
             $('#fanBoard_paginate').show();
         }
 
-        function handlebarsPaging(targetId, pagingInfo) {
-            fanBoardPagingInfo = pagingInfo;
-            fanBoardList();
-        }
-
         util.getAjaxData("fanBoardListSummary", "/rest/content/boardAdm/fanBoardList/summary", param, fn_success_fanBoardSummary);
     }
     function fn_success_fanBoardSummary(dst_id, response) {
