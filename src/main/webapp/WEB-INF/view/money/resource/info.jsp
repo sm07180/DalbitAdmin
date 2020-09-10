@@ -62,7 +62,7 @@
             <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
-            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();" class="hide">회원Data</a></li>
+            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();">회원Data</a></li>
         </ul>
         <div class="tab-pane fade in active" id="resourceState" >
             <div class="tab-content no-padding">
