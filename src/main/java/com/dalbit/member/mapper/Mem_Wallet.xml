@@ -11,7 +11,7 @@
                     <when test='walletType == "1"'>
                         AND
                         (
-                          `type` IN (1, 5, 6, 9, 10, 11)
+                          `type` IN (1, 5, 6, 9, 10, 11, 15)
                         OR
                           (`type` IN (7, 8, 12, 13, 22, 23) AND (ruby_new - ruby_old) > 0)
                         )
@@ -39,7 +39,7 @@
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (7, 8, 9, 10, 11, 12, 13, 22, 23)  <include refid="condition_dal"/>) AS sum_event_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2,3,4) <include refid="condition_dal"/>) AS sum_output_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 6 <include refid="condition_dal"/>) AS sum_change_cnt
-        ,IFNULL((SELECT IFNULL(ruby_old, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1), IFNULL(ruby, 0)) AS start_cnt
+        ,IFNULL((SELECT IFNULL(ruby_new, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} and `type`=15),0) AS start_cnt
         ,IFNULL(ruby, 0) AS sum_own_cnt
         FROM
         rd_data.tb_member_wallet
@@ -126,7 +126,7 @@
                 rd_data.tb_member_wallet_ruby
             WHERE
                 mem_no =#{mem_no}
-                and type in (1, 7, 8, 9, 10, 11, 12, 13, 22, 23)
+                and type in (1, 7, 8, 9, 10, 11, 12, 13, 22, 23, 15)
         ) a
         LEFT JOIN
             rd_data.tbl_gift_item AS b
@@ -146,7 +146,7 @@
                     <when test='walletType == "1"'>
                         AND
                         (
-                        a.gubun IN (1, 5, 6, 9, 10, 11)
+                        a.gubun IN (1, 5, 6, 9, 10, 11, 15)
                         OR
                         (a.gubun IN (7, 8, 12, 13, 22, 23) AND a.ruby > 0)
                         )
@@ -266,7 +266,7 @@
                     rd_data.tb_member_wallet_ruby
                 WHERE
                     mem_no =#{mem_no}
-                    and type in (1,7,8, 9, 10, 11, 12, 13, 22, 23)
+                    and type in (1,7,8, 9, 10, 11, 12, 13, 22, 23,15)
             ) a
             LEFT JOIN
                 rd_data.tbl_gift_item AS b
@@ -286,7 +286,7 @@
                         <when test='walletType == "1"'>
                             AND
                             (
-                            a.gubun IN (1, 5, 6, 9, 10, 11)
+                            a.gubun IN (1, 5, 6, 9, 10, 11,15)
                             OR
                             (a.gubun IN (7, 8, 12, 13, 22, 23) AND a.ruby > 0)
                             )
