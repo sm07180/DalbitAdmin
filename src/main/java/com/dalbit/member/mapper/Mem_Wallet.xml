@@ -119,7 +119,7 @@
                 ,'' AS grade
                 ,last_upd_date AS giftDate
                 ,'' AS item_code
-                ,1 AS itemCnt
+                ,if(15 ='15',if(ruby_new !=0,1,0),1) AS itemCnt
                 ,0 AS secret
                 ,use_contents AS cont
             FROM
@@ -259,7 +259,7 @@
                     ,'' AS grade
                     ,last_upd_date AS giftDate
                     ,'' AS item_code
-                    ,1 AS itemCnt
+                    ,if(15 ='15',if(ruby_new !=0,1,0),1) AS itemCnt
                     ,0 AS secret
                     ,use_contents AS cont
                 FROM

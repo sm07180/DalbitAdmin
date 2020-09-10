@@ -53,6 +53,10 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '45px','render': function (data){
                     return common.timeStamp(data);
                 }},
+            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
+                    var tmp = common.addComma(data);
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '개</a>';
+                }},
             {'title': '방송랭킹<br/>점수', 'data': 'total','width' : '45px','render': function (data){
                     return common.addComma(data) + "점";
                 }},
@@ -88,10 +92,7 @@ var BroadcastDataTableSource = {
             //         var tmp = common.addComma(data);
             //         return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
             //     }},
-            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
-                    var tmp = common.addComma(data);
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '개</a>';
-                }},
+
             // {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
             //         var tmp = common.addComma(data);
             //         return tmp + "명";
