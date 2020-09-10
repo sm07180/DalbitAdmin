@@ -141,7 +141,8 @@
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
-        setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+        // setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+        setRangeDatepicker(moment(), moment())
 
         $("#tab_all").click();
 
@@ -262,7 +263,7 @@
                 $("#yearDatepicker").hide();
                 $("#rangeDatepicker").show();
 
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
                 setRangeDatepicker($("#startDate").val(), $("#endDate").val());

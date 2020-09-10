@@ -65,6 +65,15 @@ var clip_searchType = [
     , new COMMON_CODE('6', '6', '연락처')
 ];
 
+var clip_member_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '-1', '검색조건(전체)')
+    , new COMMON_CODE('1', '1', '회원번호')
+    , new COMMON_CODE('2', '2', 'UserID')
+    , new COMMON_CODE('3', '3', '닉네임')
+    , new COMMON_CODE('4', '4', '연락처')
+];
+
 var clip_listen_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '검색조건(전체)')
@@ -79,4 +88,19 @@ var clip_listen_searchType = [
     , new COMMON_CODE('9', '9', '등록자 UserID')
     , new COMMON_CODE('10', '10', '등록자 닉네임')
     , new COMMON_CODE('11', '11', '등록자 연락처')
+];
+
+var clip_gift_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '-1', '검색조건(전체)')
+    , new COMMON_CODE('1', '1', '클립번호')
+    , new COMMON_CODE('2', '2', '클립제목')
+    , new COMMON_CODE('3', '3', '보낸 회원번호')
+    , new COMMON_CODE('4', '4', '보낸 UserID')
+    , new COMMON_CODE('5', '5', '보낸 닉네임')
+    , new COMMON_CODE('6', '6', '보낸 연락처')
+    , new COMMON_CODE('7', '7', '받은 회원번호')
+    , new COMMON_CODE('8', '8', '받은 UserID')
+    , new COMMON_CODE('9', '9', '받은 닉네임')
+    , new COMMON_CODE('10', '10', '받은 연락처')
 ];

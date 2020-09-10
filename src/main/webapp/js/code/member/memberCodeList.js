@@ -219,6 +219,7 @@ var mem_wallet_dal_code = [
     , new COMMON_CODE('11', '11', '출석체크 보상')
     , new COMMON_CODE('12', '12', '소실금액복구')
     , new COMMON_CODE('13', '13', '테스트지급및회수')
+    , new COMMON_CODE('15', '15', '가입보상 달')
     , new COMMON_CODE('22', '22', '스페셜DJ혜택')
     , new COMMON_CODE('23', '23', '이벤트 지급(어드민)')
 ];

@@ -9,13 +9,14 @@ import lombok.Setter;
 public class ClipHistoryListenVo extends PagingVo {
 
     /* input */
-    private String searchType;
+    private int searchType;
     private String searchText;
-    private String search_testId;
+    private int search_testId;
     private String searchHistText;
-    private String orderByType;
-    private String slctType;
-    private String isChoiceDate;
+    private int orderByType;
+    private int slctType;
+    private int isChoiceDate;
+    private int pageNo;
 
     /* output */
     private String listenDate;
@@ -26,7 +27,7 @@ public class ClipHistoryListenVo extends PagingVo {
     private String listenMemIp;
     private String clipIdx;
     private String castNo;
-    private String subjectType;
+    private int subjectType;
     private String subjectName;
     private String title;
     private String typeEntry;
