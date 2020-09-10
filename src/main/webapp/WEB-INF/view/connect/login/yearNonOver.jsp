@@ -167,16 +167,16 @@
 
         for(var i=0 ; i<response.data.length;i++){
             var totalInfo = response.data[i].totalInfo;
-            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
-            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
-            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
-            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
-            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
-            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
-            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+            $("#yearNonOverTableBody tr:eq(0) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
+            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+            $("#yearNonOverTableBody tr:eq( " + (tmp+1) +  ") td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
         }
         ui.tableHeightSet();
     }
