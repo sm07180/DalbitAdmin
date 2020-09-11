@@ -274,6 +274,12 @@ var event_announceYn_radio = [
     , new COMMON_CODE('yes', '1', '노출')
 ];
 
+var event_winnerYn = [
+    new COMMON_CODE(null, 'winnerYn', '당첨자 발표 구분')
+    , new COMMON_CODE('no', '0', '미완료')
+    , new COMMON_CODE('yes', '1', '완료')
+];
+
 var event_addInfoSlct = [
     new COMMON_CODE(null, 'addInfoSlct', '추가 정보 구분')
     , new COMMON_CODE('no', '0', '없음')

@@ -20,12 +20,15 @@ var EventDataTableSource = {
             {'title': '노출 여부', 'data' : 'viewYn', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_viewYn);
                 }},
-            {'title': '응모자 수', 'data' : '', 'render' : function(data) {
-                if(data == null || data == 0) {
+            {'title': '응모자 수', 'data' : 'applyCnt', 'render' : function(data) {
+                if(data == null) {
                     return '-';
                 } else {
                     return common.addComma(data);
                 }
+                }},
+            {'title': '당첨자 선정', 'data' : 'winnerYn', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_winnerYn);
                 }},
             {'title': '당첨자 발표', 'data' : 'announceYn', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_announceYn);

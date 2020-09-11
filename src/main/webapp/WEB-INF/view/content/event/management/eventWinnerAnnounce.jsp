@@ -97,7 +97,7 @@
                     {{{replaceHtml winnerContents.winnerContents}}}
                     {{#equal winnerContents.winnerContents ''}}
                         {{#each ../this.defaultList as |data|}}
-                        <div class="form-inline mt15">
+                        <div class="form-inline">
                             < {{data.prizeRank}}등 ({{data.prizeCnt}}명) : {{data.prizeName}} > <br />
                             {{data.nickName}} <br />
                         </div>
