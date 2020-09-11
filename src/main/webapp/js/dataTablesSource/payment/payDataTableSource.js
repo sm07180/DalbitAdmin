@@ -98,6 +98,11 @@ var payDataTableSource = {
 
         ]
         , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).css('background-color','#dae3f3');
+            }
+        }
     },
 
     'memPayHistory': {
@@ -193,6 +198,11 @@ var payDataTableSource = {
 
         ]
         , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).css('background-color','#dae3f3');
+            }
+        }
     },
 
     'payHistory': {
@@ -265,6 +275,11 @@ var payDataTableSource = {
                 }}
         ]
         , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).css('background-color','#dae3f3');
+            }
+        }
     },
 
     'payHistory_cancel': {
@@ -349,5 +364,10 @@ var payDataTableSource = {
                 }}
         ]
         , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).css('background-color','#dae3f3');
+            }
+        }
     },
 }

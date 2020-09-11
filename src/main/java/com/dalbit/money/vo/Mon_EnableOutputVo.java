@@ -15,6 +15,7 @@ public class Mon_EnableOutputVo {
     private String mem_birth_year;
     private String mem_birth_month;
     private String mem_birth_day;
+    private int inner;
     private int mem_state;
     private String mem_sex;
     private int gold;

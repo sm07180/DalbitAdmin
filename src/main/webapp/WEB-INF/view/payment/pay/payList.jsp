@@ -24,6 +24,19 @@
             </div>
         </div>
 
+        <div class="col-md-12 no-padding pull-right">
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
         <table id="list_info" class="table table-sorting table-hover table-bordered">
             <thead></thead>
             <tbody></tbody>

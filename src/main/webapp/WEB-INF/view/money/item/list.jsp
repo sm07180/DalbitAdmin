@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <!-- serachBox -->
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+                <div class="row col-lg-12 form-inline no-padding">
                     <%--<input type="hidden" name="pageStart" id="pageStart">
                     <input type="hidden" name="pageCnt" id="pageCnt">--%>
                     <div class="widget widget-table searchBoxArea">

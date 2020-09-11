@@ -683,7 +683,6 @@
             </tr>
             </tbody>
         </table>
-
         <table class="table table-bordered table-summary pull-right">
 
             <colgroup>
@@ -741,6 +740,16 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_exchangeTable">
+    <div class="col-md-2 no-padding pull-right">
+        <table class="table table-sorting table-hover table-bordered">
+            <colgroup>
+                <col width="15%"/><col width="65%"/>
+            </colgroup>
+            <tr>
+                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+            </tr>
+        </table>
+    </div>
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="3%"/>
@@ -803,7 +812,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_exchangeList">
     {{#each this.exchangeList as |data|}}
-    <tr>
+    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
         <td>
             {{indexDesc ../exchangeCnt data.rowNum}}
         </td>
@@ -1158,6 +1167,16 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_enableTable">
+    <div class="col-md-2 no-padding pull-right">
+        <table class="table table-sorting table-hover table-bordered">
+            <colgroup>
+                <col width="15%"/><col width="65%"/>
+            </colgroup>
+            <tr>
+                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+            </tr>
+        </table>
+    </div>
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="5%"/>
@@ -1196,7 +1215,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_enableList">
     {{#each this.enableList as |data|}}
-    <tr>
+    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
         <td>
             {{indexDesc ../enableCnt data.rowNum}}
         </td>
@@ -1223,6 +1242,16 @@
 
 <!-- 불가목록 -->
 <script type="text/x-handlebars-template" id="tmp_rejectTable">
+    <div class="col-md-2 no-padding pull-right">
+        <table class="table table-sorting table-hover table-bordered">
+            <colgroup>
+                <col width="15%"/><col width="65%"/>
+            </colgroup>
+            <tr>
+                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+            </tr>
+        </table>
+    </div>
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="4%"/>
@@ -1280,7 +1309,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_rejectList">
     {{#each this.rejectList as |data|}}
-    <tr>
+    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
         <td>
             {{indexDesc ../rejectCnt data.rowNum}}
         </td>
