@@ -186,6 +186,18 @@
     </select>
 
 
+    <select id="callClipHistoryList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryVo">
+        call rd_admin.sp_admin_clip_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
+    <!-- 클립 이력(회원) 조회 -->
+    <select id="callClipHistoryMemberList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryMemberVo">
+        call rd_admin.sp_admin_clip_member_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
+    <!-- 클립 숨김 처리 -->
     <update id="updateHide" parameterType="com.dalbit.clip.vo.ClipHistoryVo">
     /* Cli_ClipHistory.xml - updateHide*/
         UPDATE rd_data.tb_cast_room
@@ -195,16 +207,18 @@
           cast_no = #{castNo}
     </update>
 
+    <!-- 클립 삭제 처리 -->
     <update id="deleteClip" parameterType="com.dalbit.clip.vo.ClipHistoryVo">
     /* Cli_ClipHistory.xml - clipRemove*/
         UPDATE rd_data.tb_cast_room
         SET
           end_date = NOW()
-          ,state = 4
+          ,state = 5
         WHERE
           cast_no = #{castNo}
     </update>
 
+    <!-- 클립 어드미 수정 이력등록 -->
     <insert id="insertClipEditHistory" parameterType="com.dalbit.clip.vo.ClipEditHistoryVo">
         /* Cli_ClipHistory.xml - insertClipEditHistory */
         INSERT INTO rd_admin.tb_clip_edit_history(
@@ -222,6 +236,7 @@
         )
     </insert>
 
+    <!-- 클립 댓글 리스트 조회 -->
     <select id="selectReplyList" parameterType="com.dalbit.clip.vo.ClipHistoryReplyVo" resultType="com.dalbit.clip.vo.ClipHistoryReplyVo">
         SELECT
             borad.idx	AS replyIdx
@@ -466,7 +481,7 @@
     </select>
 
 
-    <select id="selectClipHistoryListenTotalCnt" parameterType="com.dalbit.clip.vo.ClipHistoryListenVo" resultType="com.dalbit.clip.vo.ClipHistoryListenTotalVo">
+    <select id="selectClipHistoryListenTotalCnt" parameterType="com.dalbit.clip.vo.ClipHistoryListenVo" resultType="com.dalbit.clip.vo.ClipHistoryTotalVo">
         /* Cli_ClipHistory.xml - selectClipHistoryListenTotalCnt*/
         SELECT
             SUM(IF(listenInfo.mem_sex = 'm', 1, 0)) AS manTotalCnt
@@ -486,9 +501,19 @@
     </select>
 
 
+    <select id="callClipHistoryListenList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryListenVo">
+        call rd_admin.sp_admin_clip_listen_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 
-    <!-- 클립 삭제 이력 조회 -->
+
+    <!-- 클립 선물 이력 조회 -->
+    <select id="callClipHistoryGiftList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryGiftVo">
+        call rd_admin.sp_admin_clip_gift_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
+
 
     <sql id="clipHistoryRemoveCondition">
         <where>
@@ -662,175 +687,10 @@
         ) a
     </select>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <select id="selectBlockDetail" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
-      /* Cli_ClipHistory.xml - selectBlockDetail*/
-      <choose>
-          <when test='report_idx != null and report_idx != ""'>
-              select
-                op_msg
-                , idx as report_idx
-              from rd_data.tb_member_report
-              where idx = #{report_idx}
-          </when>
-          <otherwise>
-              select
-                memo as adminMemo
-              from rd_admin.tb_login_block
-              where idx = #{idx}
-          </otherwise>
-      </choose>
+    <select id="callClipHistoryRemoveList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryRemoveVo">
+        call rd_admin.sp_admin_clip_remove_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
-    <insert id="insertBlock" parameterType="com.dalbit.customer.vo.BlockAdmVo">
-      /* Cli_ClipHistory.xml - insertBlock*/
-      insert into rd_admin.tb_login_block (
-        block_type
-        , block_text
-        , block_day
-        , block_end_date
-        , last_upd_date
-        , op_name
-        , report_idx
-        , memo
-      ) values (
-        #{radioBlock}
-        , #{block_text}
-        , #{block_day}
-        <choose>
-            <when test="block_day == 99">
-                , '9999-12-31'
-            </when>
-            <otherwise>
-                , DATE_ADD(now(), interval #{block_day} day)
-            </otherwise>
-        </choose>
-         , now()
-         , #{op_name}
-         , null
-         , #{adminMemo}
-      )
-    </insert>
 
-    <insert id="insertBlockHistory" parameterType="com.dalbit.customer.vo.BlockAdmVo">
-      /* Cli_ClipHistory.xml - insertBlockHistory*/
-      insert into rd_admin.tb_login_block_history (
-        edit_contents
-        , edit_type
-        , last_upd_date
-        , op_name
-        , report_idx
-        , memo
-        ) values (
-          #{edit_contents}
-          , #{edit_type}
-          , now()
-          , #{op_name}
-          , null
-          , #{adminMemo}
-        )
-    </insert>
 
-    <delete id="deleteBlock" parameterType="com.dalbit.customer.vo.BlockAdmVo">
-        /* Cli_ClipHistory.xml - deleteBlock*/
-        delete from rd_admin.tb_login_block
-        where idx = #{idx}
-    </delete>
-
-    <insert id="insertDelBlockHistory" parameterType="com.dalbit.customer.vo.BlockAdmVo">
-        /* Cli_ClipHistory.xml - insertDelBlockHistory*/
-        insert into rd_admin.tb_login_block_history (
-          edit_contents
-          , edit_type
-          , last_upd_date
-          , op_name
-          , report_idx
-          , memo
-          ) values (
-            #{edit_contents}
-            , #{edit_type}
-            , now()
-            , #{op_name}
-            , #{report_idx}
-            , null
-          )
-    </insert>
-
-    <select id="selectBlockInfo" parameterType="String" resultType="com.dalbit.customer.vo.BlockAdmVo">
-        /* Cli_ClipHistory.xml - selectBlockInfo*/
-        select *
-            from rd_admin.tb_login_block
-            where idx = #{idx}
-    </select>
-
-    <sql id="blockHistCondition">
-            <where>
-                <if test='searchHistText != "" and searchHistText != null'>
-                    <choose>
-                        <when test='searchType == "1"'>
-                            edit_contents like concat ('%', #{searchHistText}, '%')
-                        </when>
-                        <when test='searchType == "2"'>
-                            and op_name like concat ('%', #{searchHistText}, '%')
-                        </when>
-                        <otherwise>
-                            and (
-                                edit_contents like concat ('%', #{searchHistText}, '%')
-                                or op_name like concat ('%', #{searchHistText}, '%')
-                            )
-                        </otherwise>
-                    </choose>
-                </if>
-            </where>
-    </sql>
-
-    <select id="selectBlockHistList" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
-        /* Cli_ClipHistory.xml - selectBlockHistList*/
-        select *
-          from (
-            select
-                edit_contents
-                , edit_type
-                , last_upd_date
-                , op_name
-                , report_idx
-                , memo
-                , @RNUM := @RNUM + 1 as rowNum
-            from rd_admin.tb_login_block_history
-                , (select @RNUM := 0) r
-            <include refid="blockHistCondition"/>
-            order by last_upd_date desc
-          ) a
-        limit #{pageStart}, #{pageCnt}
-    </select>
-
-    <select id="selectBlockHistListCnt" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="integer">
-        /* Cli_ClipHistory.xml - selectBlockHistListCnt*/
-        select count(*)
-            from rd_admin.tb_login_block_history
-            <include refid="blockHistCondition"/>
-    </select>
 </mapper>

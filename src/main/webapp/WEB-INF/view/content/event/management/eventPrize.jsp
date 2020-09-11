@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- DATA TABLE -->
 <div class="row col-lg-12 form-inline" id="prize_table">
@@ -291,7 +291,7 @@
 </script>
 
 <script id="tmp_eventPrizeDetail" type="text/x-handlebars-template">
-    <div class="modal-content" style="width:400px;">
+    <div class="modal-content" style="width:450px;">
         <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="bt_x();">&times;</button>
              <div id="htmlArea"/>
@@ -358,8 +358,8 @@
              </form>
          </div>
          <div class="modal-footer">
-             {{^prizeRank}}<button type="button" id="bt_eventPrizeRegister" class="btn btn-default _eventPrizeButton" data-dismiss="modal">등록</button>{{/prizeRank}}
-             {{#prizeRank}}<button type="button" id="bt_eventPrizeUpdate" class="btn btn-default _eventPrizeButton" data-dismiss="modal">수정</button>{{/prizeRank}}
+             {{^prizeRank}}<button type="button" id="bt_eventPrizeRegister" class="btn btn-success _eventPrizeButton" data-dismiss="modal">등록</button>{{/prizeRank}}
+             {{#prizeRank}}<button type="button" id="bt_eventPrizeUpdate" class="btn btn-success _eventPrizeButton" data-dismiss="modal">수정</button>{{/prizeRank}}
          </div>
     </div>
 </script>

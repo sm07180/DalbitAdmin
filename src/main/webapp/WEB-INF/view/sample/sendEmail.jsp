@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=euc-kr" pageEncoding="euc-kr" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div id="container-fluid">

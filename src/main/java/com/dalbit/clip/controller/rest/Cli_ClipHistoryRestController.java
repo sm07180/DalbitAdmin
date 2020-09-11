@@ -1,10 +1,7 @@
 package com.dalbit.clip.controller.rest;
 
 import com.dalbit.clip.service.Cli_ClipHistoryService;
-import com.dalbit.clip.vo.ClipHistoryListenVo;
-import com.dalbit.clip.vo.ClipHistoryRemoveVo;
-import com.dalbit.clip.vo.ClipHistoryReplyVo;
-import com.dalbit.clip.vo.ClipHistoryVo;
+import com.dalbit.clip.vo.*;
 import com.dalbit.customer.vo.BlockAdmVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +26,16 @@ public class Cli_ClipHistoryRestController {
      */
     @PostMapping("/list")
     public String selectClipHistoryList(ClipHistoryVo clipHistoryVo) {
-        return cliClipHistoryService.selectClipHistoryList(clipHistoryVo);
+//        return cliClipHistoryService.selectClipHistoryList(clipHistoryVo);
+        return cliClipHistoryService.callClipHistoryList(clipHistoryVo);
+    }
+
+    /**
+     * 클립 내역(회원) 조회
+     */
+    @PostMapping("/member/list")
+    public String selectClipHistoryMemberList(ClipHistoryMemberVo clipHistoryMemberVo) {
+        return cliClipHistoryService.callClipHistoryMemberList(clipHistoryMemberVo);
     }
 
     /**
@@ -53,7 +59,16 @@ public class Cli_ClipHistoryRestController {
      */
     @PostMapping("listen/list")
     public String selectClipHistoryListenList(ClipHistoryListenVo clipHistoryListenVo) {
-        return cliClipHistoryService.selectClipHistoryListenList(clipHistoryListenVo);
+//        return cliClipHistoryService.selectClipHistoryListenList(clipHistoryListenVo);
+        return cliClipHistoryService.callClipHistoryListenList(clipHistoryListenVo);
+    }
+
+    /**
+     * 클립 선물 내역 조회
+     */
+    @PostMapping("gift/list")
+    public String selectClipHistoryGiftList(ClipHistoryGiftVo clipHistoryGiftVo) {
+        return cliClipHistoryService.callClipHistoryGiftList(clipHistoryGiftVo);
     }
 
     /**
@@ -61,7 +76,8 @@ public class Cli_ClipHistoryRestController {
      */
     @PostMapping("remove/list")
     public String selectClipHistoryRemoveList(ClipHistoryRemoveVo clipHistoryRemoveVo) {
-        return cliClipHistoryService.selectClipHistoryRemoveList(clipHistoryRemoveVo);
+//        return cliClipHistoryService.selectClipHistoryRemoveList(clipHistoryRemoveVo);
+        return cliClipHistoryService.callClipHistoryRemoveList(clipHistoryRemoveVo);
     }
 
 
@@ -73,37 +89,4 @@ public class Cli_ClipHistoryRestController {
         return cliClipHistoryService.selectReplyList(clipHistoryReplyVo);
     }
 
-
-
-    /**
-     * 차단 내역 메시지 상세보기
-     */
-    @PostMapping("/detail")
-    public String selectBlockDetail(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.selectBlockDetail(blockAdmVo);
-    }
-
-    /**
-     * IP/Uuid 차단 (Modal)
-     */
-    @PostMapping("/insertBlock")
-    public String insertBlock(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.insertBlock(blockAdmVo);
-    }
-
-    /**
-     * 차단 내역 삭제 (차단 해지)
-     */
-    @PostMapping("/deleteBlock")
-    public String deleteBlock(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.deleteBlock(blockAdmVo);
-    }
-
-    /**
-     * 로그인 차단/해지 내역 조회
-     */
-    @PostMapping("/histList")
-    public String historyList(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.selectBlockHistList(blockAdmVo);
-    }
 }

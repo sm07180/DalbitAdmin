@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -13,7 +14,7 @@
                             <div>
                                 <span id="search_eventState"></span>
                                 <span id="search_eventWinner"></span>
-                                <label><input type="text" class="form-control" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                <label><input type="text" class="form-control" id="searchText" placeholder="검색할 정보를 입력하세요."></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
