@@ -58,6 +58,6 @@ $(document).on('click', 'img._imageFullPop', function(){
 });
 
 $(document).on('focusout', '._trim', function(){
-    var a = $(this).val().replace(/ /gi, '');
+    var a = $(this).val().replace(/(\s*)/gi, '');
     $(this).val(a);
 });

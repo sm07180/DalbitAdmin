@@ -16,4 +16,5 @@ public class P_EventAnnouncementInfoExtVo extends BaseVo {
     private int prizeRank;
     private int prizeCnt;
     private String prizeName;
+    private String nickName;
 }
