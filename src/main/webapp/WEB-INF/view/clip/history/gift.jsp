@@ -6,7 +6,7 @@
     <div class="widget-content mt10">
         <span class="_searchDate" style="display: none;"></span>
         <span class="pull-right">
-            <div class="pull-left" style="width:30px; height:30px; background-color: #fff0c7; border:1px solid #cccccc;"></div>
+            <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
             <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
         </span>
         <table id="clip_history_gift_list_info" class="table table-sorting table-hover table-bordered">

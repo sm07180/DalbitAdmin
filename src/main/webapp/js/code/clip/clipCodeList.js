@@ -1,7 +1,7 @@
 var clip_isChoiceDate = [
     new COMMON_CODE(null, 'isChoiceDate', '검색기간')
     , new COMMON_CODE('all', '-1', '전체', 'Y')
-    , new COMMON_CODE('choice', '0', '기간선택', 'Y')
+    , new COMMON_CODE('choice', '1', '기간선택', 'Y')
 ];
 
 var clip_slctType = [

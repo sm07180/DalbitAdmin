@@ -33,9 +33,31 @@ $(document).on('click', '._openPlayerPop', function(){
 });
 
 /*클립 플레이어 팝업*/
+var clipPlayer;
 $(document).on('click', '._openClipPlayerPop', function(){
+    if($(this).find("i").is(".fa-pause")){
+        console.log("[일시정지]");
+        clipPlayer.ClipPause();
+        clipPlayer.focus();
+        return;
+    }
+
+    if(!common.isEmpty(clipPlayer) && $(this).data('clipno') == clipPlayer.clipNo){
+        console.log("[재생]");
+        clipPlayer.ClipPlay();
+        clipPlayer.focus();
+        return;
+    }
+
     var url = "/clip/history/popup/clipPlayerPopup?clipPath="+encodeURIComponent($(this).data('clippath')) + "&clipNo="+encodeURIComponent($(this).data('clipno'));
     util.windowOpen(url, 340, 135, 'clipPlayer');
+});
+
+/*클립 리스트 팝업*/
+$(document).on('click', '._openClipListPop', function(){
+    var url = "/clip/history/popup/clipListPopup?memNo="+encodeURIComponent($(this).data('memno'));
+
+    util.windowOpen(url, 775, 560, 'smsSend');
 });
 
 /*문자 발송 팝업*/
