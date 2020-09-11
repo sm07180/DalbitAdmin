@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -142,7 +143,7 @@
                                          <th>최근 7일 접속</th>
                                          <th>최근 방송 일시</th>
                                          <th>보낸 달</th>
-                                         <th>보낸 별</th>
+                                         <th>받은 별</th>
                                          <th>일간 DJ 랭킹</th>
                                          <th>레벨</th>
                                          <th>회원가입일</th>
