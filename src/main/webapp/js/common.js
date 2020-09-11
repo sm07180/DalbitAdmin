@@ -383,7 +383,9 @@ common.getMemStateName = function(state){
 common.getListSum = function(value){
     var sumResult=0;
     for(var i=0;i<value.length;i++){
-        sumResult += value[i];
+        if(!common.isEmpty(value[i])) {
+            sumResult += value[i];
+        }
     }
     return sumResult;
 };

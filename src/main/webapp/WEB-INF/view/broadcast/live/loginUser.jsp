@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
@@ -7,7 +8,18 @@
         <div class="col-md-4 no-padding pull-right">
             <span id="login_summaryArea"></span>
         </div>
-
+        <div class="col-md-12 no-padding pull-right mt5">
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <table id="loginUser_tableList" class="table table-sorting table-hover table-bordered datatable">
             <thead id="tableTop_detail">
             </thead>
@@ -39,7 +51,7 @@
             data.slctType = slctType;
             data.pageCnt = 20;
             data.searchText = $("#txt_search").val();
-            data.inner = 0;
+            data.inner = -1;
             data.broad = 0;
         };
         dtList_info_loginUser = new DalbitDataTable($("#loginUser_tableList"), dtList_data, BroadcastDataTableSource.loginUser);

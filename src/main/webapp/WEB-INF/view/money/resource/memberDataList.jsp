@@ -15,7 +15,7 @@
                         <col width="15%"/><col width="65%"/>
                     </colgroup>
                     <tr>
-                        <td style="background-color: #fff2cc"></td><td>테스트 아이디</td>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
                     </tr>
                 </table>
             </div>
@@ -143,8 +143,7 @@
 
 <script id="tmp_memberDataTable" type="text/x-handlebars-template">
     {{#each this as |data|}}
-        <tr {{#dalbit_if inner '==' 1}} style="background-color : #fff2cc" {{/dalbit_if}}
-        >
+        <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
             <td>{{rowNum}}</td>
             <td>
                 {{{memNoLink mem_no mem_no}}}<br/>

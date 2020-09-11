@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
@@ -12,6 +13,18 @@
         </div>
         <div class="col-md-3 no-padding pull-right">
             <span id="liveListener_summaryArea"></span>
+        </div>
+        <div class="col-md-12 no-padding pull-right mt5">
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <table id="listenUser_tableList" class="table table-sorting table-hover table-bordered datatable">
             <thead id="tableTop_detail">

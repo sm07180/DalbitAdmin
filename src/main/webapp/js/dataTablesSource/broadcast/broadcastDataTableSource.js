@@ -92,10 +92,7 @@ var BroadcastDataTableSource = {
             //         var tmp = common.addComma(data);
             //         return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '건</a>';
             //     }},
-            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
-                    var tmp = common.addComma(data);
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '개</a>';
-                }},
+
             // {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
             //         var tmp = common.addComma(data);
             //         return tmp + "명";
@@ -122,6 +119,11 @@ var BroadcastDataTableSource = {
                     else return "Y";
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'endLiveList': {
@@ -226,6 +228,11 @@ var BroadcastDataTableSource = {
                     else return "Y";
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'broadcastList': {
@@ -557,6 +564,11 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
 
@@ -600,6 +612,11 @@ var BroadcastDataTableSource = {
                     return common.addComma(data) + " 달";
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
 }

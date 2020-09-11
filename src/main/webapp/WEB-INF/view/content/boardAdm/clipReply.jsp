@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
         <div class="col-md-12 no-padding mt10">
             <span id ="clipReplyListCnt"></span>
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="dataTables_paginate paging_full_numbers" id="clipReply_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
@@ -115,7 +126,7 @@
 
 <script id="tmp_clipReplyTable" type="text/x-handlebars-template">
     {{#each this.data as |data|}}
-        <tr>
+        <tr {{#dalbit_if writer_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td>
                 {{{memNoLink_sex cast_mem_no cast_mem_no cast_mem_sex}}}<br/>

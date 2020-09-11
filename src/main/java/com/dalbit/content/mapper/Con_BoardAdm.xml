@@ -59,6 +59,7 @@
                     , ifnull(writer_member.mem_state, writer_withdrawal_member.mem_state) as fan_mem_state
                     , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_mem_sex
                     , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_birth_year
+                    , ifnull(writer_member.inner, writer_withdrawal_member.inner) as fan_inner
                 </if>
                 <if test="boardType == 2">
                     , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = (select writer_no from rd_data.tb_member_fanboard where idx=fan.board_no)) as fan_image_profile
@@ -81,6 +82,7 @@
                     , ifnull(writer_member.mem_state, writer_withdrawal_member.mem_state) as fan_reply_mem_state
                     , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_reply_mem_sex
                     , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_reply_birth_year
+                    , ifnull(writer_member.inner, writer_withdrawal_member.inner) as fan_inner
                 </if>
                 , fan.last_upd_date
                 <if test="boardType == 1">
@@ -229,6 +231,7 @@
             sto.mem_userid as send_mem_userid,
             sto.mem_sex    as send_mem_sex,
             sto.writer_no as send_mem_no,
+            (select `inner` from rd_data.tb_member_basic where mem_no = sto.writer_no) as send_inner,
             (select bas.mem_birth_year
             from rd_data.tb_broadcast_room_story sto inner join rd_data.tb_member_basic bas on sto.writer_no = bas.mem_no
             where bas.mem_no = send_mem_no group by bas.mem_no) as send_birth_year,
@@ -303,6 +306,7 @@
                 , basic.mem_userid as mem_userid
                 , basic.mem_join_date as mem_join_date
                 , basic.mem_phone as mem_phone
+                , basic.inner
             from rd_data.tb_member_basic basic
                 inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
                 inner join (select mem_no, max(last_upd_date) last_upd_date
@@ -376,6 +380,7 @@
                 , b.writer_mem_no
                 , writerMem.mem_nick as writer_mem_nick
                 , writerMem.mem_sex as writer_mem_sex
+                , writerMem.inner as writer_inner
                 , b.contents
                 , b.write_date
                 , b.last_upd_date

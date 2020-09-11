@@ -1,16 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+
 <!-- DATA TABLE -->
-<div class="row col-lg-12 form-inline block ml0 pl0 pr0">
+<div class="row col-lg-12 form-inline block ml0 pl0 pr0 no-padding">
     <div>
-        <div class="row col-lg-12 pl0 pr0">
-            <div class="col-lg-12">
-                <div class="col-lg-4 pull-right">
+        <div class="row col-lg-12 pl0 pr0 no-padding">
+            <div class="col-lg-12 no-padding">
+                <div class="col-lg-4 pull-right no-padding">
                     <span id="change_summaryArea"></span>
                 </div>
             </div>
-            <div class="col-lg-12 mt15">
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-12 mt15 no-padding">
                 <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
                 <table id="list_info" class="table table-sorting table-hover table-bordered">
                     <thead id="tableTop">
@@ -123,7 +135,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_changeItemList">
     {{#each this.changeItemList as |data|}}
-    <tr>
+    <tr {{#dalbit_if data.inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
         <td>
             {{indexDesc ../changeItemCnt data.rowNum}}
         </td>

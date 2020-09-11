@@ -15,6 +15,7 @@
                     , b.mem_nick
                     , b.mem_sex
                     , b.mem_birth_year
+                    , b.inner
                     ,'-' as room_no
                     ,'-' as title
                     , a.last_upd_date
@@ -35,6 +36,7 @@
                     , b.mem_nick
                     , b.mem_sex
                     , b.mem_birth_year
+                    , b.inner
                     , a.room_no
                     , a.title
                     , a.last_upd_date

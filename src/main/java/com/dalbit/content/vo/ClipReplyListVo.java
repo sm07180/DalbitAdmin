@@ -30,6 +30,7 @@ public class ClipReplyListVo extends SearchVo {
     private String last_upd_date;
     private String status;
     private int castReplyIdx;
+    private int writer_inner;
 
     //summary
     private int maleCnt;

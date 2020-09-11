@@ -49,6 +49,7 @@ public class Pay_PayOutputVo extends PagingVo {
     private String mem_birth_day;
     private String birth;
     private String pay_info;
+    private int inner;
 
     //summary
     private int totalPayCnt;

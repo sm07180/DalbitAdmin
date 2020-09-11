@@ -8,6 +8,16 @@
             <div class="col-md-2 no-padding">
                 <span id="giftSort" onchange="giftSortChange();"></span>
             </div>
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
         <table class="table table-bordered">
