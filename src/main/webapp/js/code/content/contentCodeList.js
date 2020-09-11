@@ -270,8 +270,8 @@ var event_announceYn = [
 
 var event_announceYn_radio = [
     new COMMON_CODE(null, 'announceYn', '당첨자 발표 구분')
-    , new COMMON_CODE('no', '0', '비노출')
-    , new COMMON_CODE('yes', '1', '노출')
+    , new COMMON_CODE('no', '0', '미발표')
+    , new COMMON_CODE('yes', '1', '발표')
 ];
 
 var event_winnerYn = [

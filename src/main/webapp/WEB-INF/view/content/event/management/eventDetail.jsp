@@ -236,9 +236,9 @@
                 <col width="8%" />
                 <col width="8%" />
                 <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
                 <col width="10%" />
-                <col width="8%" />
-                <col width="8%" />
             </colgroup>
             <tbody>
             <tr class="align-middle">
@@ -296,6 +296,8 @@
                     {{{getCommonCodeSelect addInfoSlct 'event_addInfoSlct'}}}
                     <input type="text" style="width:80%;" id="etcUrl" name="etcUrl" class="form-control _trim" value="{{etcUrl}}" placeholder="기타 선택 시 추가 URL을 입력해주세요."/>
                 </td>
+                <th>경품 구분</th>
+                <td>{{{getCommonCodeSelect prizeSlct 'event_prizeSlct'}}}</td>
                 <th>당첨자 발표 날짜</th>
                 <td>
                     <div class="form-inline">
@@ -307,8 +309,6 @@
                         </div>
                     </div>
                 </td>
-                <th>경품 구분</th>
-                <td>{{{getCommonCodeSelect prizeSlct 'event_prizeSlct'}}}</td>
             </tr>
             <tr>
                 <th>이벤트 상세(PC)</th>

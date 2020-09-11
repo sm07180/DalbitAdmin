@@ -55,17 +55,33 @@ var EventDataTableSource = {
             {'title': '경품 구분', 'data' : 'prizeSlct', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_prizeReceive);
                 }},
-            {'title': '금액', 'data' : 'giveAmt', 'render' : function(data) {
-                return common.addComma(data);
+            {'title': '금액', 'data' : 'giveAmt', 'render' : function(data, type, row, meta) {
+                if(row.prizeSlct == 1) {
+                    return common.addComma(data);
+                } else {
+                    return '-';
+                }
                 }},
-            {'title': '제세공과금', 'data' : 'taxAmt', 'render' : function(data) {
-                return common.addComma(data);
+            {'title': '제세공과금', 'data' : 'taxAmt', 'render' : function(data, type, row, meta) {
+                    if(row.prizeSlct == 1) {
+                        return common.addComma(data);
+                    } else {
+                        return '-';
+                    }
                 }},
-            {'title': '달/별 수', 'data' : 'dalByeol', 'render' : function(data) {
-                return common.addComma(data);
+            {'title': '달/별 수', 'data' : 'dalByeol', 'render' : function(data, type, row, meta) {
+                    if(row.prizeSlct == 1) {
+                        return '-';
+                    } else {
+                        return common.addComma(data);
+                    }
                 }},
-            {'title': '달로 받기', 'data' : 'receiveDal', 'render' : function(data) {
-                return common.addComma(data);
+            {'title': '달로 받기', 'data' : 'receiveDal', 'render' : function(data, type, row, meta) {
+                    if(row.prizeSlct == 1) {
+                        return common.addComma(data);
+                    } else {
+                        return '-';
+                    }
                 }},
             {'title': '최종 수정일', 'data' : 'lastUpdDate', 'render' : function(data) {
                 return common.convertToDate(data);

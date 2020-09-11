@@ -14,7 +14,7 @@
                             <div>
                                 <span id="search_eventState"></span>
                                 <span id="search_eventWinner"></span>
-                                <label><input type="text" class="form-control" id="searchText" placeholder="검색할 이벤트 제목을 입력하세요."></label>
+                                <label><input type="text" class="form-control" id="searchText" placeholder="검색할 정보를 입력하세요."></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
