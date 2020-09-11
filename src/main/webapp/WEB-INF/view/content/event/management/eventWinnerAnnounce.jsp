@@ -58,6 +58,32 @@
         }
     });
 
+    $(document).on('click', '#bt_announcementList', function() {
+        if(confirm('기존 이벤트 당첨자 목록을 불러오시겠습니까?')) {
+            var data = {
+                eventIdx: $('#eventidx').val()
+                , winnerContents: null
+            };
+            util.getAjaxData("eventWinnerAnnouncementEdit", "/rest/content/event/management/announcement/edit", data, function fn_eventAnnouncementEdit_success(dst_id, response) {
+                console.log(response.message);
+            });
+
+            var data2 = {
+                eventIdx : $('#eventidx').val()
+            };
+            util.getAjaxData("eventWinnerAnnouncement", "/rest/content/event/management/announcement/info", data2, function fn_eventAnnouncementInfo_success(dst_id, response) {
+                var template = $('#tmp_eventAnnounceForm').html();
+                var templateScript = Handlebars.compile(template);
+                var context = response.data;
+                var html = templateScript(context);
+
+
+                $('#eventAnnounceForm').html(html);
+                util.editorInit("content-event");
+            });
+        }
+    });
+
 </script>
 
 <script id="tmp_eventAnnounceForm" type="text/x-handlebars-template">
@@ -72,7 +98,8 @@
                     {{#equal winnerContents.winnerContents ''}}
                         {{#each ../this.defaultList as |data|}}
                         <div class="form-inline mt15">
-                            < {{data.prizeRank}}등 ({{data.prizeCnt}}명) : {{data.prizeName}} >
+                            < {{data.prizeRank}}등 ({{data.prizeCnt}}명) : {{data.prizeName}} > <br />
+                            {{data.nickName}} <br />
                         </div>
                         {{/each}}
                     {{/equal}}
@@ -83,7 +110,7 @@
     <div class="row col-md-12" style="width: 1050px">
         <span class="pull-left">
             <button class="btn btn-danger" type="button" id="bt_deleteEditor">내용삭제</button>
-            <%--<button class="btn btn-default" type="button" id="bt_announcementList">불러오기</button>--%>
+            <button class="btn btn-default" type="button" id="bt_announcementList">불러오기</button>
         </span>
         <span class="pull-right">
             <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일 형태보기</button>

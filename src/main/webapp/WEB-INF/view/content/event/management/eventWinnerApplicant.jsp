@@ -265,7 +265,7 @@
                 , completeSlct : 0
             };
             util.getAjaxData("EventWinnerComplete", "/rest/content/event/management/winner/complete", data, function fn_eventWinnerComplete_success(dst_id, response) {
-                alert(response.message);
+                //alert(response.message);
                 // 당첨자 발표 탭으로 갈 수 없게 별도 처리
                 $('#tab_eventWinnerAnnounce').attr('disabled', true);
                 initWinnerApplicant();

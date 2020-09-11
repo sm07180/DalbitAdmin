@@ -823,12 +823,14 @@
     <select id="selectEventAnnounceListDefault" parameterType="com.dalbit.content.vo.procedure.P_EventManagementEventIdxInputVo" resultType="com.dalbit.content.vo.procedure.P_EventAnnouncementInfoExtVo">
         /* Con_Event.xml - selectEventAnnounceListDefault */
         select
-          prize_rank as prizeRank
-          , prize_count as prizeCnt
-          , prize_name as prizeName
-        from rd_admin.tb_event_prize_winner
-        where event_idx = #{eventIdx}
-        group by (prize_rank)
+          a.prize_rank as prizeRank
+          , a.prize_count as prizeCnt
+          , a.prize_name as prizeName
+          , b.mem_nick as nickName
+        from rd_admin.tb_event_prize_winner as a
+          inner join rd_data.tb_member_basic AS b ON a.winner_mem_no = b.mem_no
+        where a.event_idx = #{eventIdx}
+        order by a.prize_rank
     </select>
 
     <!--======================= 기존 이벤트 관리 ======================= -->
