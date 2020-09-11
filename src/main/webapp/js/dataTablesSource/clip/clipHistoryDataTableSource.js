@@ -28,11 +28,8 @@ var ClipHistoryDataTableSource = {
                     return '<a class="_openClipPlayerPop" id="' + "play_" + row.castNo + '" data-clipNo="' + row.castNo + '" data-clipPath="' + data + '" href="javascript:;" onclick="eventPlay(' + row.castNo + ')">[ <i class="fa fa-play"></i> 듣기]</a><br>' + row.filePlay;
                     // return '<audio class="clipPlayer" id="player_' + row.castNo + '" onended="playEnd(' + row.castNo + ')"><source src="'+ PHOTO_SERVER_URL + row.filePath +'"></audio><a id="' + "play_" + row.castNo + '" data-castNo="' + row.castNo + '" href="javascript:;" onclick="eventPlay($(this))">[ <i class="fa fa-play"></i> ]</a><br>' + row.filePlay;
                 }},
-			{'title': '회원번호', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a>'
-                }},
-			{'title': '닉네임', 'width':'130px', 'data': 'memNick', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '등록회원', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.memNick;
                 }},
 			{'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.memBirthYear);
@@ -59,7 +56,7 @@ var ClipHistoryDataTableSource = {
                     return data + ' <a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'">[댓글]</a>';
                 }},
 			{'title': '숨기기', 'width':'45px', 'data': 'hide', 'render': function (data, type, row, meta) {
-                    if(row.state == 4){
+                    if(row.state == 4 || row.state == 5){
                         return "-";
                     }
 
@@ -70,14 +67,14 @@ var ClipHistoryDataTableSource = {
                     }
                 }},
             {'title': '삭제', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {
-                    if(data == 4){
+                    if(data == 4 || row.state == 5){
                         return "-";
                     }else{
                         return '<a href="javascript:;" onclick="deleteClip(' + row.castNo + ')">[삭제]</a>';
                     }
                 }},
 			{'title': '상태', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {
-                    if(data != 4 && row.hide == 1){
+                    if(data != 4 && data != 5 && row.hide == 1){
                         return util.getCommonCodeLabel(data, clip_hide);
                     }
 
@@ -102,13 +99,13 @@ var ClipHistoryDataTableSource = {
             {'title': '청취일시', 'width':'70px', 'data': 'listenDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '청취자', 'width':'70px', 'data': 'listenMemNo', 'render': function (data, type, row, meta) {
+            {'title': '청취회원', 'width':'70px', 'data': 'listenMemNo', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.listenMemNick;
                 }},
             {'title': '성별(나이)', 'width':'70px', 'data': 'listenMemSex', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.listenMemBirthYear);
                 }},
-            {'title': '청취자IP', 'width':'70px', 'data': 'listenMemIp', 'render': function (data, type, row, meta) {
+            {'title': '청취회원IP', 'width':'70px', 'data': 'listenMemIp', 'render': function (data, type, row, meta) {
                     return data;
                 }},
             {'title': '', 'width':'2px', 'className': 'no-padding', 'data': '', 'render': function (data, type, row, meta) {
@@ -139,7 +136,7 @@ var ClipHistoryDataTableSource = {
                     return '<a class="_openClipPlayerPop" id="' + "play_" + row.castNo + '" data-clipNo="' + row.castNo + '" data-clipPath="' + data + '" href="javascript:;" onclick="eventPlay(' + row.castNo + ')">[ <i class="fa fa-play"></i> 듣기]</a><br>' + row.filePlay;
                     // return '<audio class="clipPlayer" id="player_' + row.castNo + '" onended="playEnd(' + row.castNo + ')"><source src="'+ PHOTO_SERVER_URL + row.filePath +'"></audio><a id="' + "play_" + row.castNo + '" data-castNo="' + row.castNo + '" href="javascript:;" onclick="eventPlay($(this))">[ <i class="fa fa-play"></i> ]</a><br>' + row.filePlay;
                 }},
-            {'title': '등록자', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
+            {'title': '등록회원', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.memNick;
                 }},
             {'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
@@ -260,11 +257,8 @@ var ClipHistoryDataTableSource = {
                     return '<a class="_openClipPlayerPop" id="' + "play_" + row.castNo + '" data-clipNo="' + row.castNo + '" data-clipPath="' + data + '" href="javascript:;" onclick="eventPlay(' + row.castNo + ')">[ <i class="fa fa-play"></i> 듣기]</a><br>' + row.filePlay;
                     // return '<audio class="clipPlayer" id="player_' + row.castNo + '" onended="playEnd(' + row.castNo + ')"><source src="'+ PHOTO_SERVER_URL + row.filePath +'"></audio><a id="' + "play_" + row.castNo + '" data-castNo="' + row.castNo + '" href="javascript:;" onclick="eventPlay($(this))">[ <i class="fa fa-play"></i> ]</a><br>' + row.filePlay;
                 }},
-            {'title': '회원번호', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a>'
-                }},
-            {'title': '닉네임', 'width':'130px', 'data': 'memNick', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '등록회원', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.memNick;
                 }},
             {'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.memBirthYear);
@@ -344,11 +338,8 @@ var ClipHistoryDataTableSource = {
                     return '<a class="_openClipPlayerPop" id="' + "play_" + row.castNo + '" data-clipNo="' + row.castNo + '" data-clipPath="' + data + '" href="javascript:;" onclick="eventPlay(' + row.castNo + ')">[ <i class="fa fa-play"></i> 듣기]</a><br>' + row.filePlay;
                     // return '<audio class="clipPlayer" id="player_' + row.castNo + '" onended="playEnd(' + row.castNo + ')"><source src="'+ PHOTO_SERVER_URL + row.filePath +'"></audio><a id="' + "play_" + row.castNo + '" data-castNo="' + row.castNo + '" href="javascript:;" onclick="eventPlay($(this))">[ <i class="fa fa-play"></i> ]</a><br>' + row.filePlay;
                 }},
-            {'title': '회원번호', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a>'
-                }},
-            {'title': '닉네임', 'width':'130px', 'data': 'memNick', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '등록회원', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.memNick;
                 }},
             {'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.memBirthYear);

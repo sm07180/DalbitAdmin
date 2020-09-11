@@ -44,6 +44,7 @@ var clip_stateType = [
     new COMMON_CODE(null, 'stateType', '공개여부')
     , new COMMON_CODE('1', '1', '정상')
     , new COMMON_CODE('4', '4', '삭제')
+    , new COMMON_CODE('5', '5', '삭제')
 ]
 
 var clip_platform = [

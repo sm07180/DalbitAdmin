@@ -8,12 +8,12 @@
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#all" role="tab" data-toggle="tab" id="tab_all">클립 관리(전체)</a></li>
-                    <li><a href="#all" role="tab" data-toggle="tab" id="tab_today">클립 관리(오늘)</a></li>
-                    <li><a href="#member" role="tab" data-toggle="tab" id="tab_member">클립 관리(회원별)</a></li>
-                    <li><a href="#listen" role="tab" data-toggle="tab" id="tab_listen">클립 청취</a></li>
-                    <li><a href="#gift" role="tab" data-toggle="tab" id="tab_gift">클립 선물</a></li>
-                    <li><a href="#remove" role="tab" data-toggle="tab" id="tab_remove">클립 삭제</a></li>
+                    <li class="active"><a href="#all" role="tab" data-toggle="tab" id="tab_all">전체 클립</a></li>
+                    <li><a href="#all" role="tab" data-toggle="tab" id="tab_today">일자별 클립</a></li>
+                    <li><a href="#member" role="tab" data-toggle="tab" id="tab_member">회원별 클립</a></li>
+                    <li><a href="#listen" role="tab" data-toggle="tab" id="tab_listen">클립 청취내역</a></li>
+                    <li><a href="#gift" role="tab" data-toggle="tab" id="tab_gift">클립 선물내역</a></li>
+                    <li><a href="#remove" role="tab" data-toggle="tab" id="tab_remove">클립 삭제내역</a></li>
 
                     <li class="pull-right" ><a id="headerInfo" style="border:1px solid #cccccc; background-color: #ffe699; height: 30px; margin-bottom: 2px; display: table;"></a></li>
                 </ul>
