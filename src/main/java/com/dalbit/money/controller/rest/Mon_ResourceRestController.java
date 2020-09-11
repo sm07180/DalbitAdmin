@@ -35,16 +35,22 @@ public class Mon_ResourceRestController {
 
     @Autowired
     GsonUtil gsonUtil;
+//
+//    @PostMapping("info")
+//    public String list(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+//        String result = mon_ResourceService.resourceInfo(pResourceInfoInPutVo);
+//        return result;
+//    }
+//
+//    @PostMapping("detail")
+//    public String detail(P_ResourceDetailInPutVo pResourceDetailInPutVo){
+//        String result = mon_ResourceService.resourceDetail(pResourceDetailInPutVo);
+//        return result;
+//    }
 
     @PostMapping("info")
     public String list(P_ResourceInfoInPutVo pResourceInfoInPutVo){
         String result = mon_ResourceService.resourceInfo(pResourceInfoInPutVo);
-        return result;
-    }
-
-    @PostMapping("detail")
-    public String detail(P_ResourceDetailInPutVo pResourceDetailInPutVo){
-        String result = mon_ResourceService.resourceDetail(pResourceDetailInPutVo);
         return result;
     }
 

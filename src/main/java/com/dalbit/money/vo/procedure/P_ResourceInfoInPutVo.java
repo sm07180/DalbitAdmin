@@ -11,6 +11,7 @@ import lombok.ToString;
 public class P_ResourceInfoInPutVo extends PagingVo {
 
     private int slctType;
+    private int slctResource;
     private String startDate;
     private String endDate;
     private String searchText;

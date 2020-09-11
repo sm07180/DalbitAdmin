@@ -9,32 +9,27 @@ import lombok.ToString;
 @ToString
 public class P_ResourceDetailDalOutVo {
 
-    private String date;
-    private String hour;
-    private String daily;
-    private String day;
-    private String monthly;
-    private long joinCnt;
-    private long levelupCnt;
-    private long chargeCnt;
-    private long cancelCnt;
-    private long itemgiftCnt;
-    private long changeCnt;
-    private long attendanceCnt;
-    private long eventCnt;
-    private long blockCnt;
-    private long withdrawalCnt;
-    private long memTotalCnt;
-    private long opChargeCnt;
-    private long opCancelCnt;
-    private long opGiftCnt;
-    private long opChangeCnt;
-    private long opAdminCnt;
-    private long opTestInCnt;
-    private long opTestOutCnt;
-    private long opAttendanceCnt;
-    private long opEventCnt;
-    private long opTotalCnt;
+
+    private String the_date;
+    private String the_hr;
+    private long charge_Cnt;
+    private long dalgiftget_Cnt;
+    private long change_Cnt;
+    private long join_Cnt;
+    private long levelup_Cnt;
+    private long ranking_Cnt;
+    private long attendance_Cnt;
+    private long recovery_Cnt;
+    private long eventauto_Cnt;
+    private long eventdirect_Cnt;
+    private long specialdj_Cnt;
+    private long testin_Cnt;
+    private long dalgiftsend_Cnt;
+    private long itemuse_Cnt;
+    private long cancel_Cnt;
+    private long block_Cnt;
+    private long withdrawal_Cnt;
+    private long testout_Cnt;
 
 
 

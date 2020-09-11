@@ -9,28 +9,18 @@ import lombok.ToString;
 @ToString
 public class P_ResourceDetailByeolOutVo {
 
-    private String date;
-    private String hour;
-    private String daily;
-    private String day;
-    private String monthly;
-    private long changeCnt;
-    private long giftCnt;
-    private long levelupCnt;
-    private long exchangeCnt;
-    private long cancelCnt;
-    private long eventCnt;
-    private long blockCnt;
-    private long withdrawalCnt;
-    private long memTotalCnt;
-    private long opChangeCnt;
-    private long opGiftCnt;
-    private long opExchangeCnt;
-    private long opCancelCnt;
-    private long opAdminCnt;
-    private long opTestInCnt;
-    private long opTestOutCnt;
-    private long opEventCnt;
-    private long opTotalCnt;
-
+    // 하단 통계
+    private String the_date;
+    private String the_hr;
+    private long byeolgift_Cnt;
+    private long levelup_Cnt;
+    private long eventdirect_Cnt;
+    private long cancel_Cnt;
+    private long recovery_Cnt;
+    private long testin_Cnt;
+    private long exchange_Cnt;
+    private long change_Cnt;
+    private long block_Cnt;
+    private long withdrawal_Cnt;
+    private long testout_Cnt;
 }
