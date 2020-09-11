@@ -186,11 +186,11 @@ var fnc_broadcastList = {};
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_broadcastSelectFrm" type="text/x-handlebars-template">
     {{#each this as |user|}}
-        <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px">
+        <div class="item col-md-2 col-sm-6" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
             <div>
                 <label>NO.{{indexDesc ../length user.rowNum}}</label>
             </div>
-            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
+            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
                 {{{getCommonCodeLabel user.state 'broadcast_state_icon'}}}
             <div class="thumbnail">
                 <img class="list-group-image thumbnailImg fullSize_background" style="width:100%; height:100%;" src="{{user.image_background.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" />
