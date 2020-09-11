@@ -84,7 +84,7 @@ var ClipHistoryDataTableSource = {
 
         'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#fff0c7');
+                $(row).css('background-color','#dae3f3');
             }
         }
     },
@@ -158,7 +158,7 @@ var ClipHistoryDataTableSource = {
 
         'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#fff0c7');
+                $(row).css('background-color','#dae3f3');
             }
         }
     },
@@ -219,7 +219,7 @@ var ClipHistoryDataTableSource = {
 
         'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#fff0c7');
+                $(row).css('background-color','#dae3f3');
             }
         }
     },
@@ -282,7 +282,7 @@ var ClipHistoryDataTableSource = {
 
         'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#fff0c7');
+                $(row).css('background-color','#dae3f3');
             }
         }
     },
@@ -363,7 +363,7 @@ var ClipHistoryDataTableSource = {
 
         'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#fff0c7');
+                $(row).css('background-color','#dae3f3');
             }
         }
     },
