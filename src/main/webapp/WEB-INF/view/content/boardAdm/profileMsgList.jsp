@@ -6,6 +6,16 @@
     <div class="widget-content">
         <div class="col-md-12 no-padding mt10">
             <span id ="profileMsgListCnt"></span>
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="dataTables_paginate paging_full_numbers" id="profile_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
@@ -109,7 +119,7 @@
 
 <script id="tmp_profileMsgTable" type="text/x-handlebars-template">
     {{#each this.data as |data|}}
-        <tr>
+        <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td><img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:68px; width:68px; margin: auto;' /></td>
             <td>

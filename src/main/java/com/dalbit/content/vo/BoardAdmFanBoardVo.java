@@ -35,6 +35,7 @@ public class BoardAdmFanBoardVo extends PagingVo {
     private int fan_mem_state;            // 보낸 회원 상태
     private String fan_mem_sex;           // 보낸 회원 성별
     private int fan_birth_year;           // 보낸 회원 생년
+    private int fan_inner;           // 보낸 회원 생년
 
     private String fan_reply_image_profile;     // 팬보드 리플 회원 프로필 이미지
     private String fan_reply_mem_no;            // 팬보드 리플 회원 번호

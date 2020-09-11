@@ -33,6 +33,7 @@ public class P_UserCurrentOutputVo extends SearchVo {
     private String byeol;
     private Date mem_join_date;
     private String memJoinDateFormat;
+    private int inner;
 
     private String ip;
     private String os_type;

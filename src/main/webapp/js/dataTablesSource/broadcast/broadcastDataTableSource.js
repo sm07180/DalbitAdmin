@@ -119,6 +119,11 @@ var BroadcastDataTableSource = {
                     else return "Y";
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'endLiveList': {
@@ -223,6 +228,11 @@ var BroadcastDataTableSource = {
                     else return "Y";
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'broadcastList': {
@@ -584,6 +594,11 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
 
@@ -627,6 +642,11 @@ var BroadcastDataTableSource = {
                     return common.addComma(data) + " 달";
                 }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
 }

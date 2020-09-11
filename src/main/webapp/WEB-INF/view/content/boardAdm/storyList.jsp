@@ -6,9 +6,16 @@
     <div class="tab-content no-padding">
         <div class="col-md-12 no-padding mt10 mb5">
             <span class="mb5" id="storyListCnt"></span>
-        </div>
-        <div class="col-md-12 no-padding">
-            <%--<span id="searchType_story" onchange="storyList();"></span>--%>
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="tab-pane fade in active" id="storyList">
             <div class="widget-content">
@@ -124,7 +131,7 @@
 
         <tbody>
         {{#each this.data as |data|}}
-        <tr>
+        <tr {{#dalbit_if send_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
             <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{#dalbit_if broState '!=' 4}}ON{{/dalbit_if}}

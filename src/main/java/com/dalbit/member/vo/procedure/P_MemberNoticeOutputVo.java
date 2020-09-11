@@ -24,6 +24,7 @@ public class P_MemberNoticeOutputVo extends SearchVo {
     private String mem_sex;
     private String mem_birth_year;
     private String title;
+    private int inner;
 
     private int maleCnt;      // 총합 남자
     private int femaleCnt;    // 총합 여자

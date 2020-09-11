@@ -16,8 +16,20 @@
         <div class="tab-pane fade in active">
             <div class="widget-content">
                 <div class="col-md-12 no-padding mt10">
-                    <span id="fanboardReplyListCnt"></span><br/>
-                    <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
+                    <div class="col-md-3 no-padding">
+                        <span id="fanboardReplyListCnt"></span><br/>
+                        <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
+                    </div>
+                    <div class="col-md-2 no-padding pull-right">
+                        <table class="table table-sorting table-hover table-bordered">
+                            <colgroup>
+                                <col width="15%"/><col width="65%"/>
+                            </colgroup>
+                            <tr>
+                                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <%--<div class="col-md-6 no-padding mt10">--%>
                     <%--<span id="searchType_boardReply" onchange="fanBoardReply();"></span>--%>
@@ -140,7 +152,7 @@
         </thead>
         <tbody>
         {{#each this.data as |data|}}
-            <tr>
+            <tr {{#dalbit_if fan_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
                 <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
                 <td>
                     {{{memNoLink_sex star_mem_no star_mem_no star_mem_sex}}}<br/>

@@ -100,7 +100,7 @@ var payDataTableSource = {
         , 'comments': ''
         , 'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#dae3f3');
+                $(row).addClass("bg-testMember");
             }
         }
     },
@@ -200,7 +200,7 @@ var payDataTableSource = {
         , 'comments': ''
         , 'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#dae3f3');
+                $(row).addClass("bg-testMember");
             }
         }
     },
@@ -277,7 +277,7 @@ var payDataTableSource = {
         , 'comments': ''
         , 'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#dae3f3');
+                $(row).addClass("bg-testMember");
             }
         }
     },
@@ -366,7 +366,7 @@ var payDataTableSource = {
         , 'comments': ''
         , 'createdRow' : function( row, data, dataIndex ) {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
-                $(row).css('background-color','#dae3f3');
+                $(row).addClass("bg-testMember");
             }
         }
     },

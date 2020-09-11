@@ -29,7 +29,7 @@ public class P_LiveListenerListOutputVo extends PagingVo {
     private int goodCnt;
     private int giftCnt;
     private int boosterCnt;
-    private String inner;
+    private int inner;
 
     /* summary */
     private int aosCnt;
