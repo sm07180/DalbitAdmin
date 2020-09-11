@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="main-header">
     <div id="page-wrapper">
@@ -184,7 +185,7 @@ var fnc_profileList = {};
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_profileSelectFrm" type="text/x-handlebars-template">
     {{#each this as |user|}}
-        <div class="item col-md-2 col-sm-6" style="padding-bottom: 25px;">
+        <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
             <div>
                 <label>NO.{{indexDesc ../length user.rowNum}}</label>
             </div>
