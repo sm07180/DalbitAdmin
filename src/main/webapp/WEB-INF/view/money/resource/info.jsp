@@ -64,27 +64,29 @@
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
             <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick();">회원Data</a></li>
         </ul>
-        <div class="tab-pane fade in active" id="resourceState" >
-            <div class="tab-content no-padding">
-                <div id="infoTable_dal"></div>
-                <div id="infoTable_byeol" style="display: none"></div>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="resourceState" >
+                <div class="tab-content no-padding">
+                    <div id="infoTable_dal"></div>
+                    <div id="infoTable_byeol" style="display: none"></div>
+                </div>
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li class="active" style="width: 60px;text-align: center;"><a href="#dal" role="tab" data-toggle="tab" onclick="itemTabClick(1);">달</a></li>
+                    <li style="width: 60px;text-align: center;"><a href="#byeol" role="tab" data-toggle="tab" onclick="itemTabClick(0);">별</a></li>
+                </ul>
+                <div class="tab-content no-padding">
+                    <div class="tab-pane fade in active" id="dal">
+                        <div id="dalListTable">
+                        </div>
+                    </div>              <!-- 달 -->
+                    <div class="tab-pane fade" id="byeol">
+                        <div id="byeolListTable"></div>
+                    </div>          <!-- 별 -->
+                </div>
             </div>
-            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active" style="width: 60px;text-align: center;"><a href="#dal" role="tab" data-toggle="tab" onclick="itemTabClick(1);">달</a></li>
-                <li style="width: 60px;text-align: center;"><a href="#byeol" role="tab" data-toggle="tab" onclick="itemTabClick(0);">별</a></li>
-            </ul>
-            <div class="tab-content no-padding">
-                <div class="tab-pane fade in active" id="dal">
-                    <div id="dalListTable">
-                    </div>
-                </div>              <!-- 달 -->
-                <div class="tab-pane fade" id="byeol">
-                    <div id="byeolListTable"></div>
-                </div>          <!-- 별 -->
-            </div>
+            <div class="tab-pane fade" id="memberDataList"><jsp:include page="memberDataList.jsp"/></div>
+            <%--<div class="tab-pane fade" id="resourceState" ></div>--%>
         </div>
-        <div class="tab-pane fade" id="memberDataList"><jsp:include page="memberDataList.jsp"/></div>
-        <%--<div class="tab-pane fade" id="resourceState" ></div>--%>
 
     </div>
     <!-- //tab -->
@@ -268,18 +270,21 @@
         getResourceInfo();
     }
 
-    function getResourceInfo(){
+    function getResourceInfo() {
         var data = {};
         data.slctType = _datePicker;
         data.startDate = $("#startDate").val();
         data.endDate = $("#endDate").val();
         data.slctResource = _itemClick;
-        util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_info_success);
-        // util.getAjaxData("statResourceDetail", "/rest/money/resource/detail", data, fn_detail_success);
 
-        // fn_info_success();
+        if (_datePicker == 1) {
+            util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_dal_success);
+        }else if (_datePicker == 0){
+            util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_byeol_success);
+
+        }
     }
-    function fn_info_success(dst_id, response) {
+    function fn_dal_success(dst_id, response) {
 
         // 증가합 --------------------------------------------------------------------------
         var dalInc_total_mCnt = [
@@ -407,24 +412,124 @@
         var html = templateScript(context);
         $("#infoTable_dal").html(html);
 
-        var template = $('#tmp_infoTable_byeol').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data.totalInfo;
-        var html = templateScript(context);
-        $("#infoTable_byeol").html(html);
-
-
         response.data.detailList.slctType = _datePicker;
 
         response.data.detailList.nowMonth = Number(moment().format("MM"));
         response.data.detailList.nowDay = Number(moment().format("DD"));
         response.data.detailList.nowHour = Number(moment().format("HH"));
 
+        var total_charge_Cnt = 0;
+        var total_dalgiftget_Cnt = 0;
+        var total_change_Cnt = 0;
+        var total_join_Cnt = 0;
+        var total_levelup_Cnt = 0;
+        var total_ranking_Cnt = 0;
+        var total_attendance_Cnt = 0;
+        var total_recovery_Cnt = 0;
+        var total_eventauto_Cnt = 0;
+        var total_eventdirect_Cnt = 0;
+        var total_specialdj_Cnt = 0;
+        var total_testin_Cnt = 0;
+        var total_dalgiftsend_Cnt = 0;
+        var total_itemuse_Cnt = 0;
+        var total_cancel_Cnt = 0;
+        var total_block_Cnt = 0;
+        var total_withdrawal_Cnt = 0;
+        var total_testout_Cnt = 0;
+        var total_incTotal_Cnt = 0;
+        var total_decTotal_Cnt = 0;
+        for(var i=0; i<response.data.detailList.length;i++){
+            var sub_incTotal_Cnt = [
+                response.data.detailList[i].charge_Cnt,
+                response.data.detailList[i].dalgiftget_Cnt,
+                response.data.detailList[i].change_Cnt,
+                response.data.detailList[i].join_Cnt,
+                response.data.detailList[i].levelup_Cnt,
+                response.data.detailList[i].ranking_Cnt,
+                response.data.detailList[i].attendance_Cnt,
+                response.data.detailList[i].recovery_Cnt,
+                response.data.detailList[i].eventauto_Cnt,
+                response.data.detailList[i].eventdirect_Cnt,
+                response.data.detailList[i].specialdj_Cnt,
+                response.data.detailList[i].testin_Cnt,
+            ];
+            response.data.detailList[i].sub_incTotal_Cnt = common.getListSum(sub_incTotal_Cnt);
+            var sub_decTotal_Cnt = [
+                response.data.detailList[i].dalgiftsend_Cnt,
+                response.data.detailList[i].itemuse_Cnt,
+                response.data.detailList[i].cancel_Cnt,
+                response.data.detailList[i].block_Cnt,
+                response.data.detailList[i].withdrawal_Cnt,
+                response.data.detailList[i].testout_Cnt,
+            ];
+            response.data.detailList[i].sub_decTotal_Cnt = common.getListSum(sub_decTotal_Cnt);
+
+            total_charge_Cnt = total_charge_Cnt + response.data.detailList[i].charge_Cnt;
+            total_dalgiftget_Cnt = total_dalgiftget_Cnt + response.data.detailList[i].dalgiftget_Cnt;
+            total_change_Cnt = total_change_Cnt + response.data.detailList[i].change_Cnt;
+            total_join_Cnt = total_join_Cnt + response.data.detailList[i].join_Cnt;
+            total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
+            total_ranking_Cnt = total_ranking_Cnt + response.data.detailList[i].ranking_Cnt;
+            total_attendance_Cnt = total_attendance_Cnt + response.data.detailList[i].attendance_Cnt;
+            total_recovery_Cnt = total_recovery_Cnt + response.data.detailList[i].recovery_Cnt;
+            total_eventauto_Cnt = total_eventauto_Cnt + response.data.detailList[i].eventauto_Cnt;
+            total_eventdirect_Cnt = total_eventdirect_Cnt + response.data.detailList[i].eventdirect_Cnt;
+            total_specialdj_Cnt = total_specialdj_Cnt + response.data.detailList[i].specialdj_Cnt;
+            total_testin_Cnt = total_testin_Cnt + response.data.detailList[i].testin_Cnt;
+            total_dalgiftsend_Cnt = total_dalgiftsend_Cnt + response.data.detailList[i].dalgiftsend_Cnt;
+            total_itemuse_Cnt = total_itemuse_Cnt + response.data.detailList[i].itemuse_Cnt;
+            total_cancel_Cnt = total_cancel_Cnt + response.data.detailList[i].cancel_Cnt;
+            total_block_Cnt = total_block_Cnt + response.data.detailList[i].block_Cnt;
+            total_withdrawal_Cnt = total_withdrawal_Cnt + response.data.detailList[i].withdrawal_Cnt;
+            total_testout_Cnt = total_testout_Cnt + response.data.detailList[i].testout_Cnt;
+            total_incTotal_Cnt = total_incTotal_Cnt + response.data.detailList[i].sub_incTotal_Cnt;
+            total_decTotal_Cnt = total_decTotal_Cnt + response.data.detailList[i].sub_decTotal_Cnt;
+        }
+        response.data.totalInfo.total_charge_Cnt = total_charge_Cnt;
+        response.data.totalInfo.total_dalgiftget_Cnt = total_dalgiftget_Cnt;
+        response.data.totalInfo.total_change_Cnt = total_change_Cnt;
+        response.data.totalInfo.total_join_Cnt = total_join_Cnt;
+        response.data.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
+        response.data.totalInfo.total_ranking_Cnt = total_ranking_Cnt;
+        response.data.totalInfo.total_attendance_Cnt = total_attendance_Cnt;
+        response.data.totalInfo.total_recovery_Cnt = total_recovery_Cnt;
+        response.data.totalInfo.total_eventauto_Cnt = total_eventauto_Cnt;
+        response.data.totalInfo.total_eventdirect_Cnt = total_eventdirect_Cnt;
+        response.data.totalInfo.total_specialdj_Cnt = total_specialdj_Cnt;
+        response.data.totalInfo.total_testin_Cnt = total_testin_Cnt;
+        response.data.totalInfo.total_dalgiftsend_Cnt = total_dalgiftsend_Cnt;
+        response.data.totalInfo.total_itemuse_Cnt = total_itemuse_Cnt;
+        response.data.totalInfo.total_cancel_Cnt = total_cancel_Cnt;
+        response.data.totalInfo.total_block_Cnt = total_block_Cnt;
+        response.data.totalInfo.total_withdrawal_Cnt = total_withdrawal_Cnt;
+        response.data.totalInfo.total_testout_Cnt = total_testout_Cnt;
+        response.data.totalInfo.total_incTotal_Cnt = total_incTotal_Cnt;
+        response.data.totalInfo.total_decTotal_Cnt = total_decTotal_Cnt;
+
+        console.log("--------------------------------------------");
+        console.log(response.data);
+
         var template = $('#tmp_dalListTable').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
         $("#dalListTable").html(html);
+
+        ui.paintColor();
+    }
+
+    function fn_byeol_success(dst_id, response) {
+        var template = $('#tmp_infoTable_byeol').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.totalInfo;
+        var html = templateScript(context);
+        $("#infoTable_byeol").html(html);
+
+        response.data.detailList.slctType = _datePicker;
+
+        response.data.detailList.nowMonth = Number(moment().format("MM"));
+        response.data.detailList.nowDay = Number(moment().format("DD"));
+        response.data.detailList.nowHour = Number(moment().format("HH"));
 
         var template = $('#tmp_byeolListTable').html();
         var templateScript = Handlebars.compile(template);
@@ -732,27 +837,27 @@
             <tbody>
                 <tr class="font-bold" style="background-color: #d9d9d9">
                     <td>총합</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
+                    <td>{{addComma totalInfo.total_charge_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_dalgiftget_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_change_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_join_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_levelup_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_ranking_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_attendance_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_recovery_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_eventauto_Cnt}} ({{addComma totalInfo.total_eventdirect_Cnt}})</td>
+                    <td>{{addComma totalInfo.total_specialdj_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_testin_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_incTotal_Cnt}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                     <td>총합</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
+                    <td>{{addComma totalInfo.total_dalgiftsend_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_itemuse_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_cancel_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_block_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_withdrawal_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_testout_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_decTotal_Cnt}}</td>
                 </tr>
                 {{#each detailList}}
                 <tr
@@ -776,7 +881,7 @@
                     <td>{{addComma eventauto_Cnt}} ({{addComma eventdirect_Cnt}})</td>
                     <td>{{addComma specialdj_Cnt}}</td>
                     <td>{{addComma testin_Cnt}}</td>
-                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma aa}}</td>
+                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incTotal_Cnt}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                     <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
                         {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
@@ -789,34 +894,34 @@
                     <td>{{addComma block_Cnt}}</td>
                     <td>{{addComma withdrawal_Cnt}}</td>
                     <td>{{addComma testout_Cnt}}</td>
-                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma aa}}</td>
+                    <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decTotal_Cnt}}</td>
                 </tr>
                 {{else}}
                 <td colspan="23" class="noData">{{isEmptyData}}<td>
                 {{/each}}
                 <tr class="font-bold" style="background-color: #d9d9d9">
                     <td>총합</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
+                    <td>{{addComma totalInfo.total_charge_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_dalgiftget_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_change_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_join_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_levelup_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_ranking_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_attendance_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_recovery_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_eventauto_Cnt}} ({{addComma totalInfo.total_eventdirect_Cnt}})</td>
+                    <td>{{addComma totalInfo.total_specialdj_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_testin_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_incTotal_Cnt}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                     <td>총합</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
-                    <td>{{addComma aa}}</td>
+                    <td>{{addComma totalInfo.total_dalgiftsend_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_itemuse_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_cancel_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_block_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_withdrawal_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_testout_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_decTotal_Cnt}}</td>
                 </tr>
             </tbody>
         </table>

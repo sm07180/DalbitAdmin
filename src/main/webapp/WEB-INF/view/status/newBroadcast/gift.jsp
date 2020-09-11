@@ -71,7 +71,6 @@
         data.orderType = $("select[name='giftSort']").val();
         data.pageNo = giftHistoryListPagingInfo.pageNo;
         data.pageCnt = giftHistoryListPagingInfo.pageCnt;
-        data.inner =
 
         console.log(data);
 
@@ -120,7 +119,7 @@
         <td>
             {{indexDesc ../totalCnt rowNum}}
         </td>
-        <td>{{convertToDate purchaseDate 'YYYY-MM-DD HH:MM:SS'}}</td>
+        <td>{{substr purchaseDate 0 19}}</td>
         <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>
         <td>{{mem_nick}}</td>
         <td><a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{title}}</a></td>
