@@ -19,37 +19,39 @@
     </update>
 
     <select id="selectCrewInfo" parameterType="com.dalbit.content.vo.CrewListVo" resultType="com.dalbit.content.vo.CrewListVo">
-    /* Con_Crew.xml - selectCrewInfo */
-          select *
-              from (
-                select a.*
-                     , round(a.levelSum / a.crewCnt, 0) levelAvg
-                     , @RNUM := @RNUM + 1 as rowNum
-                from (
-                    select crew.idx as crewIdx
-                         , crew.crew_name as crewName
-                         , crew.crew_memo as crewMemo
-                         , crew.state as state
-                         , ifnull(ifnull(bas.mem_nick, withdrawal.mem_nick), '-') as crewLeader
-                         , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
-                         , (select ifnull(sum(`level`),0) from rd_data.tb_member_level where mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) levelSum
-                         , (select count(*) from rd_data.tb_payment_succ where pay_yn = 'y' and pay_ok_date like concat(DATE_FORMAT(now(), '%Y-%m'), '%') and mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) payCnt
-                         , (select ifnull(sum(round(pay_amt,0)),0) from rd_data.tb_payment_succ where pay_yn = 'y' and pay_ok_date like concat(DATE_FORMAT(now(), '%Y-%m'), '%') and mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) payAmtSum
-                         , date_format(crew.reg_date, '%Y-%m-%d %H:%i:%s') regDate
-                    from rd_admin.tb_crew_basic crew
-                             left join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx and crewm.leader_yn = '1'
-                             left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
-                             left join rd_data.tb_member_withdrawal_bak withdrawal on crewm.mem_no = withdrawal.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
-                    where crew.delete_yn = 0
-                ) as a
-                   , (select @RNUM := 0) r
-               order by
-                    <if test="slct_type == 1">
-                        a.payCnt desc,
-                    </if>
-                    a.crewIdx desc
-              ) as b
-            where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+        /* Con_Crew.xml - selectCrewInfo */
+        select *
+        from(
+            select *
+                , @rownum := @rownum + 1 as rowNum
+                , round(a.levelSum / a.crewCnt, 0) levelAvg
+            from(
+                select
+                    crew.idx as crewIdx
+                    , crew.crew_name as crewName
+                    , crew.crew_memo as crewMemo
+                    , crew.state as state
+                    , ifnull(ifnull(bas.mem_nick, withdrawal.mem_nick), '-') as crewLeader
+                    , (select count(*) from rd_admin.tb_crew_member where crew_idx = crew.idx) as crewCnt
+                    , (select ifnull(sum(`level`),0) from rd_data.tb_member_level where mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) levelSum
+                    , (select count(*) from rd_data.tb_payment_succ where pay_yn = 'y' and pay_ok_date like concat(DATE_FORMAT(now(), '%Y-%m'), '%') and mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) payCnt
+                    , (select ifnull(sum(round(pay_amt,0)),0) from rd_data.tb_payment_succ where pay_yn = 'y' and pay_ok_date like concat(DATE_FORMAT(now(), '%Y-%m'), '%') and mem_no in (select mem_no from rd_admin.tb_crew_member where crew_idx = crew.idx)) payAmtSum
+                    , date_format(crew.reg_date, '%Y-%m-%d %H:%i:%s') regDate
+
+                from rd_admin.tb_crew_basic crew
+                    left join rd_admin.tb_crew_member crewm on crew.idx = crewm.crew_idx and crewm.leader_yn = '1'
+                    left join rd_data.tb_member_basic bas on crewm.mem_no = bas.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
+                    left join rd_data.tb_member_withdrawal_bak withdrawal on crewm.mem_no = withdrawal.mem_no and crewm.leader_yn = 1 and crew.idx = crewm.crew_idx
+                    , (SELECT @rownum := 0) AS R
+                where crew.delete_yn = 0
+            )a
+            order by
+            <if test="slct_type == 1">
+                a.payCnt desc,
+            </if>
+            a.crewIdx desc
+        ) b
+        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
     <select id="selectCrewInfoCnt" parameterType="com.dalbit.content.vo.CrewListVo" resultType="integer">
