@@ -71,7 +71,6 @@
         data.orderType = $("select[name='giftSort']").val();
         data.pageNo = giftHistoryListPagingInfo.pageNo;
         data.pageCnt = giftHistoryListPagingInfo.pageCnt;
-        data.inner =
 
         console.log(data);
 
