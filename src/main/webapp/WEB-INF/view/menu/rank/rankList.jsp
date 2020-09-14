@@ -453,7 +453,7 @@
     </thead>
     <tbody id="djRankListBody">
     {{#each this as |rank|}}
-        <tr>
+    <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
             <td>
                 {{djRank}}
             </td>
@@ -535,7 +535,7 @@
     </thead>
     <tbody id="fanRankListBody">
     {{#each this as |fan|}}
-        <tr>
+        <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
             <td>
                 {{fanRank}}
             </td>

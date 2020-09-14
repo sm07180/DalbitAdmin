@@ -122,6 +122,7 @@
             , basic.mem_birth_year
             , basic.mem_birth_month
             , basic.mem_birth_day
+            , basic.inner
             , @RNUM := @RNUM + 1 as rowNum
             , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 60, 0)
                         from rd_data.tb_broadcast_room room
@@ -332,6 +333,7 @@
         ,basic.mem_birth_year
         ,basic.mem_birth_month
         ,basic.mem_birth_day
+        ,basic.inner
         from rd_admin.tb_special_dj dj
         inner join rd_data.tb_member_basic basic on dj.mem_no = basic.mem_no
         inner join rd_data.tb_member_profile pro on dj.mem_no = pro.mem_no

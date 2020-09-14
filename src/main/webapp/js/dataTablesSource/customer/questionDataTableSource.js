@@ -84,6 +84,11 @@ var questionDataTableSource = {
             {'title': '처리자', 'data': 'op_name','width':'90px'},
         ]
         , 'comments': 'ㆍ1:1 문의 처리 및 상세정보 확인 후 해당 정보를 확인 및 답변, 수정할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'adminMemoList': {

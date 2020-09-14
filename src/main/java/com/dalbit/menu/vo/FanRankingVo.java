@@ -33,6 +33,7 @@ public class FanRankingVo extends PagingVo {
     private int airCount;
     private String start_date;
     private int airTime;
+    private int inner;
 
     private String mem_birth_year;
     private String mem_birth_month;
