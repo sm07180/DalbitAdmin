@@ -219,6 +219,15 @@
         $('#eventDetailFullSize').modal('show');
     }
 
+    $(document).on('click', '._pcLinkUrl', function() {
+        var tmp = $(this).data('pclink');
+        util.windowOpen(tmp, '800', '800', '이벤트 PC 상세 링크');
+    });
+
+    $(document).on('click', '._mobileLinkUrl', function() {
+        var tmp = $(this).data('mobilelink');
+        util.windowOpen(tmp, '800', '800', '이벤트 mobile 상세 링크');
+    });
 </script>
 
 <script id="tmp_eventInfoForm" type="text/x-handlebars-template">
@@ -308,34 +317,22 @@
             <tr>
                 <th>이벤트 상세(PC)</th>
                 <td colspan="7">
-                    <input type="text" class="form-control _trim pull-left" id="pcLinkUrl"  name="pcLinkUrl" placeholder="PC 상세 이미지 링크" style="width:70%" value="{{pcLinkUrl}}">
-                    <input type="button" value="미리보기" class="pull-right" onclick="getImg('pcLinkUrl')">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <!--미리보기-->
-                    <img id="pcLinkUrlViewer" class="thumbnail" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
+                    <input type="text" class="form-control _trim pull-left" id="pcLinkUrl" name="pcLinkUrl" placeholder="PC 상세 이미지 링크" style="width:70%" value="{{pcLinkUrl}}">
+                    <button type="button" class="_pcLinkUrl btn btn-default btn-sm pull-right" data-pclink="{{pcLinkUrl}}">미리보기</button>
                 </td>
             </tr>
             <tr>
                 <th>이벤트 상세(Mobile)</th>
                 <td colspan="7">
                     <input type="text" class="form-control _trim pull-left" id="mobileLinkUrl" name="mobileLinkUrl" placeholder="Mobile 상세 이미지 링크" style="width:70%" value="{{mobileLinkUrl}}">
-                    <input type="button" value="미리보기" class="pull-right" onclick="getImg('mobileLinkUrl')">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <!--미리보기-->
-                    <img id="mobileLinkUrlViewer" class="thumbnail" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
+                    <button type="button" class="_mobileLinkUrl btn btn-default btn-sm pull-right" data-mobilelink="{{mobileLinkUrl}}">미리보기</button>
                 </td>
             </tr>
             <tr>
                 <th>리스트 이미지</th>
                 <td colspan="7">
                     <input type="text" class="form-control _trim pull-left" id="listImgUrl" name="listImgUrl" placeholder="이벤트 목록에 보일 이미지 링크" style="width:70%" value="{{listImgUrl}}">
-                    <input type="button" value="미리보기" class="pull-right" onclick="getImg('listImgUrl')">
+                    <button type="button" class="btn btn-default btn-sm pull-right" onclick="getImg('listImgUrl')">미리보기</button>
                 </td>
             </tr>
             <tr>
