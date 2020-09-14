@@ -53,6 +53,11 @@ var specialDataTableSource = {
                 }}
         ]
         // , 'comments': ''
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'specialList': {

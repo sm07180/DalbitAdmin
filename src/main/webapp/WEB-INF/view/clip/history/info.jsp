@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -140,7 +141,8 @@
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
-        setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+        // setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+        setRangeDatepicker(moment(), moment())
 
         $("#tab_all").click();
 
@@ -261,7 +263,7 @@
                 $("#yearDatepicker").hide();
                 $("#rangeDatepicker").show();
 
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
                 setRangeDatepicker($("#startDate").val(), $("#endDate").val());

@@ -64,7 +64,7 @@
 
 <script type="text/javascript" src="/js/code/money/resourceCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-    var memberDataPagingInfo = new PAGING_INFO(0,1,40);
+    var memberDataPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
         $("#memberDataList_searchType").html(util.getCommonCodeSelect(-1, memberDataList_searchType));
