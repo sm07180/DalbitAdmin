@@ -380,6 +380,11 @@ var BroadcastDataTableSource = {
                 }},
         ]
         , 'comments': 'ㆍ방송 중 좋아요와 부스터 적용상태를 확인할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'giftDetail': {
@@ -418,6 +423,11 @@ var BroadcastDataTableSource = {
                 }},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'storyDetail': {
@@ -438,6 +448,11 @@ var BroadcastDataTableSource = {
                 }},
         ]
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'chatDetail': {
@@ -445,20 +460,25 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
             {'title': '채팅 내용', 'data': 'nickname','className': 'al','render': function (data, type, row, meta) {
-                    var tmp_auth;
-                    if(row.auth == "0"){             //일반
-                        tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
-                    }else if(row.auth == "1"){      //매니저
-                        tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
-                    }else if(row.auth == "2"){      //게스트
-                        tmp_auth = '<i class="fa fa-star" style="color: #0036ff"></i>';
-                    }else if(row.auth == "3"){      //dj
-                        tmp_auth = '<i class="fa fa-microphone" style="color: #8556F6"></i>';
-                    }
-                    var tmp = tmp_auth + '<a href="javascript://" onclick="targetChat(' + meta.row + ')">' + data + '</a>' + " :" +row.msg;
-                    return tmp;
-                }},
+                var tmp_auth;
+                if(row.auth == "0"){             //일반
+                    tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
+                }else if(row.auth == "1"){      //매니저
+                    tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
+                }else if(row.auth == "2"){      //게스트
+                    tmp_auth = '<i class="fa fa-star" style="color: #0036ff"></i>';
+                }else if(row.auth == "3"){      //dj
+                    tmp_auth = '<i class="fa fa-microphone" style="color: #8556F6"></i>';
+                }
+                var tmp = tmp_auth + '<a href="javascript://" onclick="targetChat(' + meta.row + ')">' + data + '</a>' + " :" +row.msg;
+                return tmp;
+            }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'targetchat': {
@@ -466,20 +486,25 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
             {'title': '채팅 내용', 'data': 'nickname','className': 'al','render': function (data, type, row, meta) {
-                    var tmp_auth;
-                    if(row.auth == "0"){             //일반
-                        tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
-                    }else if(row.auth == "1"){      //매니저
-                        tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
-                    }else if(row.auth == "2"){      //게스트
-                        tmp_auth = '<i class="fa fa-star" style="color: #0036ff"></i>';
-                    }else if(row.auth == "3"){      //dj
-                        tmp_auth = '<i class="fa fa-microphone" style="color: #8556F6"></i>';
-                    }
-                    var tmp = tmp_auth + util.memNoLink(data, row.mem_no) + " :" +row.msg;
-                    return tmp;
-                }},
+                var tmp_auth;
+                if(row.auth == "0"){             //일반
+                    tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
+                }else if(row.auth == "1"){      //매니저
+                    tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
+                }else if(row.auth == "2"){      //게스트
+                    tmp_auth = '<i class="fa fa-star" style="color: #0036ff"></i>';
+                }else if(row.auth == "3"){      //dj
+                    tmp_auth = '<i class="fa fa-microphone" style="color: #8556F6"></i>';
+                }
+                var tmp = tmp_auth + util.memNoLink(data, row.mem_no) + " :" +row.msg;
+                return tmp;
+            }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'editHistory': {

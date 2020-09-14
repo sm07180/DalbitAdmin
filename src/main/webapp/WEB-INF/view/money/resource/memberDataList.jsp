@@ -71,7 +71,8 @@
         // memberDataList();
     });
 
-    function memberDataListTabClick(){
+    function memberDataListTabClick(tmp){
+        _datePicker = tmp;
         $("#resourceState").hide();
         $("#oneDayDatePicker").hide();
         $("#monthDatepicker").hide();
@@ -143,7 +144,7 @@
 <script id="tmp_memberDataTable" type="text/x-handlebars-template">
     {{#each this as |data|}}
         <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
-            <td>{{rowNum}}</td>
+            <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{{memNoLink mem_no mem_no}}}<br/>
                 {{memNick}}

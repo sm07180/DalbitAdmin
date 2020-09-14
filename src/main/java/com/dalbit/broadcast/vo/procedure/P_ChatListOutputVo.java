@@ -23,6 +23,7 @@ public class P_ChatListOutputVo extends PagingVo {
     private String room_no;
     private ImageVo image_profile;
     private String mem_sex;
+    private int inner;
 
     /* summry */
     private int chatCnt;
