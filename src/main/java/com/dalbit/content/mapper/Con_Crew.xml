@@ -165,7 +165,7 @@
                 , (select count(*) from rd_data.tb_member_session_history where crewMember.mem_no = mem_no and last_upd_date between date_add(now(), interval-1 week) and now()) as weekLoginCnt
                 , date_format((select start_date from rd_data.tb_broadcast_room where crewMember.mem_no = mem_no order by idx desc limit 1), '%Y-%m-%d %H:%i:%s') as broadDate
                 , (SELECT ifnull(sum(ruby_old - ruby_new), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2, 3, 4) and (mem_no = crewMember.mem_no)) as present
-                , (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` = 5 AND (mem_no = crewMember.mem_no)) as receive
+                , (SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold WHERE `type` in (2, 3, 4) AND (mem_no = crewMember.mem_no)) as receive
                 , ifnull((select rank from rd_data.tb_ranking_dj_day where ranking_date between date_add(now(), interval-2 day) and now() and mem_no = crewMember.mem_no), 9999) as ranking
                 , level.level
                 , date_format(ifnull(member.mem_join_date, outMember.mem_join_date), '%Y-%m-%d') mem_join_date
