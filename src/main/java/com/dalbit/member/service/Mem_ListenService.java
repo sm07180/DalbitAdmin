@@ -55,6 +55,7 @@ public class Mem_ListenService {
                 listenList.get(i).setDj_birth_year(outVo.getMem_birth_year());
                 listenList.get(i).setDj_birth_month(outVo.getMem_birth_month());
                 listenList.get(i).setDj_birth_day(outVo.getMem_birth_day());
+                listenList.get(i).setInner(outVo.getInner());
             }
         }
 

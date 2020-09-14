@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+                <div class="row col-lg-12 form-inline no-padding">
                     <%--<input type="hidden" name="pageStart" id="pageStart">
                     <input type="hidden" name="pageCnt" id="pageCnt">--%>
                     <div class="widget widget-table searchBoxArea">

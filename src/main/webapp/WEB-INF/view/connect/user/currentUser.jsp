@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
@@ -7,7 +8,16 @@
         <div class="col-md-2 no-padding">
             <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
         </div>
-
+        <div class="col-md-2 no-padding pull-right mr10">
+            <table class="table table-sorting table-hover table-bordered">
+                <colgroup>
+                    <col width="15%"/><col width="65%"/>
+                </colgroup>
+                <tr>
+                    <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                </tr>
+            </table>
+        </div>
         <table id="tableList" class="table table-sorting table-hover table-bordered datatable">
             <thead id="tableTop_detail">
             </thead>

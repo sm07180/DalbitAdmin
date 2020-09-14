@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+
 <%
     String in_tabType = request.getParameter("tabType");
 %>
@@ -66,16 +68,64 @@
             <div class="tab-content no-padding">
                 <div class="tab-pane fade in active" id="memberList">       <!-- 회원 -->
                     <div class="widget-content">
-                        <span id="joinList_summaryArea"></span>
+                        <div class="col-md-12 no-padding">
+                            <div class="col-md-12 no-padding">
+                                <div class="col-md-6 no-padding">
+                                    <span>ㆍ최근 가입 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>
+                                          ㆍ회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요.
+                                    </span>
+                                </div>
+                                <div class="col-md-6 no-padding pull-right">
+                                    <span id="joinList_summaryArea"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 no-padding pull-right">
+                                <table class="table table-sorting table-hover table-bordered no-margin">
+                                    <colgroup>
+                                        <col width="15%"/><col width="65%"/>
+                                    </colgroup>
+                                    <tr>
+                                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                         <table id="tb_memberList" class="table table-sorting table-hover table-bordered">
                             <thead></thead>
                             <tbody></tbody>
                         </table>
                     </div>
                 </div>
+
+
+
+
                 <div class="tab-pane fade" id="withdrawalList">       <!-- 회원 -->
                     <div class="widget-content">
-                        <span id="withdrawalList_summaryArea"></span>
+                        <div class="col-md-12 no-padding">
+                            <div class="col-md-12 no-padding">
+                                <div class="col-md-6 no-padding">
+                                    <span> ㆍ 최근 탈퇴 회원 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>
+                                           ㆍ 탈퇴 회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요. <br/>
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단, 탈퇴 회원에 대한 정보 수정은 불가합니다.
+                                    </span>
+                                </div>
+                                <div class="col-md-6 no-padding pull-right">
+                                    <span id="withdrawalList_summaryArea"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 no-padding pull-right">
+                                <table class="table table-sorting table-hover table-bordered no-margin">
+                                    <colgroup>
+                                        <col width="15%"/><col width="65%"/>
+                                    </colgroup>
+                                    <tr>
+                                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
                         <table id="tb_withdrawalList" class="table table-sorting table-hover table-bordered">
                             <thead></thead>
                             <tbody></tbody>
@@ -248,16 +298,15 @@
             dtList_info.createDataTable(joinListSummary);
             // dtList_info.reload(joinListSummary);
 
-            var testid = '<br/><br/><span id="memJoinDateSort" onchange="joinSort();"></span>' +
+            var testid = '<span id="memJoinDateSort" onchange="joinSort();"></span>' +
                 '<span id="memNickSort" onchange="joinSort();"></span>' +
                 '<span id="memLoginIdSort" onchange="joinSort();"></span>' +
-                '<span id="memIpSort" onchange="joinSort();"></span></div>';
+                '<span id="memIpSort" onchange="joinSort();"></span>';
             $("#memberList").find(".top-left").append(testid);
             $("#memJoinDateSort").html(util.getCommonCodeSelect(-1, memJoinDateSort));
             $("#memNickSort").html(util.getCommonCodeSelect(-1, memNickSort));
             $("#memLoginIdSort").html(util.getCommonCodeSelect(-1, memLoginIdSort));
             $("#memIpSort").html(util.getCommonCodeSelect(-1, memIpSort));
-
 
             var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
             $("#memberList").find(".footer-right").append(excel);
@@ -283,10 +332,10 @@
             dtList_info2.createDataTable(withdrawalListSummary);
             // dtList_info2.reload(withdrawalListSummary);
 
-            var testid_withdrawal = '<br/><br/><span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
+            var testid_withdrawal = '<span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
                 '<span id="memNickSort_withdrawal" onchange="withdrawalSort();"></span>' +
                 '<span id="memLoginIdSort_withdrawal" onchange="withdrawalSort();"></span>' +
-                '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span></div>';
+                '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span>';
             $("#withdrawalList").find(".top-left").append(testid_withdrawal);
             $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
             $("#memJoinDateSort_withdrawal").html(util.getCommonCodeSelect(-1, memJoinDateSort));
@@ -421,7 +470,7 @@
 
 <!-- summary -->
 <script id="joinList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px; width: 30%">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px; width: 100%">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2" style="background-color: #8fabdd;color: white;">총 가입자 수</th>
@@ -449,7 +498,7 @@
 </script>
 
 <script id="withdrawalList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 30%">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 100%">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2" style="background-color: #8fabdd;color: white;">총 탈퇴자 수</th>

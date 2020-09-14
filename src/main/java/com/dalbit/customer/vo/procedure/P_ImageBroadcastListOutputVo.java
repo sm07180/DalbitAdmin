@@ -27,11 +27,9 @@ public class P_ImageBroadcastListOutputVo extends SearchVo {
     private String mem_birth_year;
     private String mem_birth_month;
     private String mem_birth_day;
-
+    private int inner;
     private Date start_date;
     private String start_dateFormat;
-
-
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;

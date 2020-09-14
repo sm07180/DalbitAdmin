@@ -38,6 +38,10 @@ public class P_DeclarationListOutputVo extends BaseVo {
     private String opDateFormat;
     private String regDateFormat;
 
+    private int inner;
+    private int reported_inner;
+
+
     private int totalReportedCnt;
     private int totalOpCnt;
 

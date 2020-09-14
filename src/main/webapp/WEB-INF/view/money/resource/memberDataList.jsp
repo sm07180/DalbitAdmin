@@ -116,8 +116,6 @@
 
         $('#tb_memberDataList').html(html);
 
-        console.log("----------------------------------------");
-        console.log(response.data.totalInfo.totalCnt);
         memberDataPagingInfo.totalCnt = response.data.totalInfo.totalCnt;
         util.renderPagingNavigation('memberData_paginate_top', memberDataPagingInfo);
         util.renderPagingNavigation('memberData_paginate', memberDataPagingInfo);
@@ -136,6 +134,7 @@
     }
 
     function memberDataList_searchType_click(){
+        memberDataPagingInfo.pageNo = 1;
         memberDataList();
     }
 

@@ -29,6 +29,7 @@ public class P_WalletByeolListOutVo extends SearchVo {
     private int itemCnt;
     private String item_thumbnail;
     private int secret;
+    private int inner;
 
     public void setGiftDate(java.sql.Date giftDate){
         this.giftDate = giftDate;
