@@ -39,6 +39,7 @@ public class SpecialVo extends PagingVo {
     private int likeCnt;
     private int broadcastCnt;
     private int reportCnt;
+    private int inner;
 
     private String title;
     private String contents;

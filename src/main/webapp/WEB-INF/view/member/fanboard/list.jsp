@@ -103,7 +103,11 @@
         $('#div_reply').empty();
         $('#div_fanboard').empty();
         for(var i=0 ; i<response.data.length; i++){
-            var tmp = '<div class="col-md-12 no-padding" style="margin-bottom: 10px;">';
+            if(response.data[i].inner == 1){
+                var tmp = '<div class="col-md-12 no-padding bg-testMember" style="margin-bottom: 10px;">';
+            }else{
+                var tmp = '<div class="col-md-12 no-padding" style="margin-bottom: 10px;">';
+            }
             tmp +=    '<div class="col-md-2">';
             tmp +=      '<form id="profileImg' + i + '" method="post" enctype="multipart/form-data">';
             tmp +=          '<img class="pull-right" id="image_section' + i + '" src="" alt="your image" style="width: 60px;height: 60px"/>';

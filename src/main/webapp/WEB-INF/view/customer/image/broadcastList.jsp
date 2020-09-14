@@ -186,35 +186,39 @@ var fnc_broadcastList = {};
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_broadcastSelectFrm" type="text/x-handlebars-template">
     {{#each this as |user|}}
-        <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px">
+        {{#dalbit_if inner '==' 1}}
+        <div class="item col-md-2 col-sm-6 bg-testMember" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
+        {{else}}
+        <div class="item col-md-2 col-sm-6" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
+        {{/dalbit_if}}
             <div>
                 <label>NO.{{indexDesc ../length user.rowNum}}</label>
             </div>
-            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
-                {{{getCommonCodeLabel user.state 'broadcast_state_icon'}}}
-            <div class="thumbnail">
-                <img class="list-group-image thumbnailImg fullSize_background" style="width:100%; height:100%;" src="{{user.image_background.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" />
-                <div class="caption">
-                    <div class="action-buttons">
-                        <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_broadcastList.updateData(this)" data-info="{{json user}}"><i class="fa fa-undo"></i> 초기화</a>
+            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
+                    {{{getCommonCodeLabel user.state 'broadcast_state_icon'}}}
+                <div class="thumbnail">
+                    <img class="list-group-image thumbnailImg fullSize_background" style="width:360px; height:225px" src="{{user.image_background.url}}" alt="" data-toggle="modal" data-target="#imgModal" />
+                    <div class="caption">
+                        <div class="action-buttons">
+                            <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_broadcastList.updateData(this)" data-info="{{json user}}"><i class="fa fa-undo"></i> 초기화</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <h3 class="inner list-group-item-heading broadcast_title">
-                    <a href="javascript://" class="_openBroadcastPop" data-roomno="{{user.room_no}}"><h5>{{user.title}}</h5></a>
-                </h3>
-                <ul class="list-unstyled">
-                    <li><strong>ID:</strong>
-                        <a href="javascript://" class="_openMemberPop" data-memno="{{user.mem_no}}">
-                            {{user.mem_no}}
-                        </a>
-                    </li>
-                    <li><strong>Nick:</strong> {{replaceHtml user.mem_nick}}</li>
-                    <li class="sexType"><strong>Sex:</strong> {{{sexIcon user.mem_sex user.mem_birth_year}}}</li>
-                    <li><strong>No:</strong> {{user.mem_no}}</li>
-                </ul>
-            </div>
+                <div>
+                    <h3 class="inner list-group-item-heading broadcast_title">
+                        <a href="javascript://" class="_openBroadcastPop" data-roomno="{{user.room_no}}"><h5>{{user.title}}</h5></a>
+                    </h3>
+                    <ul class="list-unstyled">
+                        <li><strong>ID:</strong>
+                            <a href="javascript://" class="_openMemberPop" data-memno="{{user.mem_no}}">
+                                {{user.mem_no}}
+                            </a>
+                        </li>
+                        <li><strong>Nick:</strong> {{replaceHtml user.mem_nick}}</li>
+                        <li class="sexType"><strong>Sex:</strong> {{{sexIcon user.mem_sex user.mem_birth_year}}}</li>
+                        <li><strong>No:</strong> {{user.mem_no}}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     {{else}}

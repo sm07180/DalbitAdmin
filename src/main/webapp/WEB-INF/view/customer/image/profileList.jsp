@@ -185,13 +185,17 @@ var fnc_profileList = {};
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_profileSelectFrm" type="text/x-handlebars-template">
     {{#each this as |user|}}
+        {{#dalbit_if inner '==' 1}}
+        <div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
+        {{else}}
         <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
+        {{/dalbit_if}}
             <div>
                 <label>NO.{{indexDesc ../length user.rowNum}}</label>
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
             <div class="thumbnail" src="{{user.image_profile.url}}?360x360">
-                <img class="list-group-image thumbnailImg fullSize_background" style="width:100%; height:100%;" src="{{user.image_profile.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" />
+                <img class="list-group-image thumbnailImg fullSize_background" style="width:360px; height:225px;" src="{{user.image_profile.url}}" alt="" data-toggle="modal" data-target="#imgModal" />
                 <div class="caption">
                     <div class="action-buttons">
                         <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_profileList.updateData(this)" data-info="{{json user}}"><i class="fa fa-undo"></i> 초기화</a>

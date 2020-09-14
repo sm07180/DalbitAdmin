@@ -34,6 +34,7 @@ public class DjRankingVo extends PagingVo {
     private int airCount;
     private String start_date;
     private int airTime;
+    private int inner;
 
     private String reward_rank;              // 랭킹
     private String rewardStartDate;          // 배찌 유지기간 start

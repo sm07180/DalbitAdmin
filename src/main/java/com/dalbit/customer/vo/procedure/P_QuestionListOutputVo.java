@@ -36,6 +36,7 @@ public class P_QuestionListOutputVo extends BaseVo {
     private String email;
     private String answer;
     private int state;
+    private int inner;
     private String platform;
     private String browser;
     private String ip;
