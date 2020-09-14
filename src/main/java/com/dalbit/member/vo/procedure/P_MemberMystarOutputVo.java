@@ -27,6 +27,7 @@ public class P_MemberMystarOutputVo extends SearchVo {
     private String mem_birth_year;
     private String mem_birth_month;
     private String mem_birth_day;
+    private int inner;
 
     public void setReg_date(Date reg_date){
         this.reg_date = reg_date;

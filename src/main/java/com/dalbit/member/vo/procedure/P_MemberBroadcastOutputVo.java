@@ -27,6 +27,7 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
     private int goodCnt;
     private int boosterCnt;
     private int os_type;
+    private int inner;
 
     //summary
     private int totalListenerCnt;

@@ -14,6 +14,7 @@ public class RecommendVo extends PagingVo {
     private String mem_birth_month;
     private String mem_birth_day;
     private String mem_sex;
+    private int inner;
     private String image_profile;
     private String level;
     private String grade;

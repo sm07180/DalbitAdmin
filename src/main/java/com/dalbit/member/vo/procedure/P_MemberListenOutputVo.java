@@ -31,6 +31,7 @@ public class P_MemberListenOutputVo extends SearchVo {
     private int giftByeol;
     private int goodCnt;
     private int boosterCnt;
+    private int inner;
 
     private String mem_nick;
 

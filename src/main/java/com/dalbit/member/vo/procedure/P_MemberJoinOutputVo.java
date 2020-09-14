@@ -35,6 +35,7 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private int listenCnt;
     private int listenCnt2;
     private int payCnt;
+    private int inner;
 
     //summary
     private int allCnt;

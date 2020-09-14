@@ -33,6 +33,11 @@ var RestrictionsDataTableSource = {
                     return common.convertToDate(data);
                 }}
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     }
 
     ,'forcedList': {
@@ -63,5 +68,13 @@ var RestrictionsDataTableSource = {
             ,{'title': 'DJ 닉네임', 'data': 'dj_mem_nick', 'width':'140px'}
             // ,{'title': '회원디바이스', 'data': 'device_token'}
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+            if (data.dj_inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     }
 }
