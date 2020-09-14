@@ -65,15 +65,6 @@
         $(".main-content").show();
     }
 
-    // tab 숨기기
-    function hideTab() {
-        $('#div_eventTabList').each(function() {
-            $(this).find('#contentTab').find('.active').removeClass("active");
-            $(this).find('.tab-content').find('.active').removeClass("in").removeClass("active");
-        });
-        $('.main-content').hide();
-    }
-
     function tabClick() {
         $('#tablist_con li a').on('click', function() {
             var tab = $(this).prop('id').split("_")[1];

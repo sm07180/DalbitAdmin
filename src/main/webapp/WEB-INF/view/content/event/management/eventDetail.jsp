@@ -19,7 +19,7 @@
         var templateScript = Handlebars.compile(template);
         $("#eventInfoForm").html(templateScript);
 
-        setTimeDate(dateTime);
+        // setTimeDate(dateTime);
 
         $('._calendar').datepicker('._calendar', new Date()).on('changeDate', function(dateText, inst) {
             var selectDate = moment(dateText.date).format('YYYY.MM.DD');
@@ -27,11 +27,11 @@
         });
     }
 
-    function setTimeDate(dateTime) {
-        $('#eventStartDate').val(dateTime);
-        $('#eventEndDate').val(dateTime);
-        $('#announcementDate').val(dateTime);
-    }
+    // function setTimeDate(dateTime) {
+    //     $('#eventStartDate').val(dateTime);
+    //     $('#eventEndDate').val(dateTime);
+    //     $('#announcementDate').val(dateTime);
+    // }
 
     function initDetail() {
         var data = {
@@ -54,8 +54,7 @@
             });
 
             if(response.data.alwaysYn == 1) {
-                // $('#eventStartDate').val("");
-                // $('#eventStartDate').prop('disabled', true);
+
                 $('#eventEndDate').val("");
                 $('#eventEndDate').prop('disabled', true);
 
@@ -76,15 +75,11 @@
         });
     }
 
-    $(document).on('click', '._alwaysYnCheck', function() {
+    $(document).on('click', '#alwaysYnCheck', function() {
         if($(this).prop('checked')) {
-            // $('#eventStartDate').val("");
-            // $('#eventStartDate').prop('disabled', true);
             $('#eventEndDate').val("");
             $('#eventEndDate').prop('disabled', true);
         } else {
-            // $('#eventStartDate').prop('disabled', false);
-            // $('#eventStartDate').val(dateTime);
             $('#eventEndDate').prop('disabled', false);
             $('#eventEndDate').val(dateTime);
         }
@@ -265,7 +260,7 @@
                             <input type="text" class="form-control _calendar" id="eventEndDate" name="eventEndDate" value="{{convertToDate endDate 'YYYY.MM.DD'}}">
                         </div>
                     </div>
-                    <input type="checkbox" class="_alwaysYnCheck" id="alwaysYnCheck" name="alwaysYnCheck"/> <label for="alwaysYnCheck">상시 이벤트</label>
+                    <input type="checkbox" id="alwaysYnCheck" name="alwaysYnCheck"/> <label for="alwaysYnCheck">상시 이벤트</label>
                 </td>
                 <th>노출여부</th>
                 <td>
