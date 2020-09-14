@@ -552,85 +552,85 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <div class="col-lg-4">
-                            <div class="mb10">법정대리인 (보호자) 동의 정보</div>
-                            <table id="parentTable" class="table table-sorting table-hover table-bordered">
-                                <tbody>
-                                <tr>
-                                    <th>
-                                        보호자 이름
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        성별
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        생년월일
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        통신사
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        휴대폰번호
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        내/외국인
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>철회 여부</th>
-                                    <td>
-                                        <label style="font-weight: bold">No</label>
-                                        <label style="color: red; font-weight: bold">Yes</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        가족관계<br />증명서류
-                                    </th>
-                                    <td>
-                                        <img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
-                                        가족관계 증명서류가 없습니다.
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                </div>
+                        <%--<div class="col-lg-4">--%>
+                            <%--<div class="mb10">법정대리인 (보호자) 동의 정보</div>--%>
+                            <%--<table id="parentTable" class="table table-sorting table-hover table-bordered">--%>
+                                <%--<tbody>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--보호자 이름--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--성별--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--생년월일--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--통신사--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--휴대폰번호--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--내/외국인--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>철회 여부</th>--%>
+                                    <%--<td>--%>
+                                        <%--<label style="font-weight: bold">No</label>--%>
+                                        <%--<label style="color: red; font-weight: bold">Yes</label>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr>--%>
+                                    <%--<th>--%>
+                                        <%--가족관계<br />증명서류--%>
+                                    <%--</th>--%>
+                                    <%--<td>--%>
+                                        <%--<img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />--%>
+                                        <%--가족관계 증명서류가 없습니다.--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--</tbody>--%>
+                            <%--</table>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
 
-                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
-                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
-                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
-                    <span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>
+                    <%--<button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>--%>
+                    <%--<button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>--%>
+                    <%--<button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>--%>
+                    <%--<span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>--%>
 
-                    <span class="exchange_complete_txt">완료되었습니다.</span>
+                    <%--<span class="exchange_complete_txt">완료되었습니다.</span>--%>
 
-                    <span class="exchange_reject_txt">불가처리 되었습니다.</span>
+                    <%--<span class="exchange_reject_txt">불가처리 되었습니다.</span>--%>
 
                 </div>
             </div>
