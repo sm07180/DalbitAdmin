@@ -50,6 +50,7 @@ public class Bro_LikeService {
                 outVo.setMem_no(likeList.get(i).getMem_no());
                 outVo.setMem_userid(likeList.get(i).getMem_userid());
                 outVo.setMem_nick(likeList.get(i).getMem_nick());
+                outVo.setInner(likeList.get(i).getInner());
                 outVo.setLevel(likeList.get(i).getLevel());
                 outVo.setGrade(likeList.get(i).getGrade());
                 outVo.setGoodDate(likeList.get(i).getGoodDate());

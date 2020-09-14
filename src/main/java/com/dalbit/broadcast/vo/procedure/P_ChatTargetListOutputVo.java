@@ -18,6 +18,7 @@ public class P_ChatTargetListOutputVo extends PagingVo {
     private String auth;
     private String nickname;
     private String msg;
+    private int inner;
 
     public void setWriteDate(Date writeDate){
         this.writeDate = writeDate;
