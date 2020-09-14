@@ -110,6 +110,8 @@
 
     function fn_success_memberDataList(dst_id, response, param) {
 
+        response.data.detailList.totalCnt = response.data.totalInfo.totalCnt;
+
         var template = $('#tmp_memberDataTable').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.detailList;
@@ -144,7 +146,7 @@
 <script id="tmp_memberDataTable" type="text/x-handlebars-template">
     {{#each this as |data|}}
         <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
-            <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
+            <td>{{indexDesc ../totalCnt rowNum}}</td>
             <td>
                 {{{memNoLink mem_no mem_no}}}<br/>
                 {{memNick}}
