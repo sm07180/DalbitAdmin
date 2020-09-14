@@ -71,7 +71,8 @@
         // memberDataList();
     });
 
-    function memberDataListTabClick(){
+    function memberDataListTabClick(tmp){
+        _datePicker = tmp;
         $("#resourceState").hide();
         $("#oneDayDatePicker").hide();
         $("#monthDatepicker").hide();
@@ -109,6 +110,8 @@
 
     function fn_success_memberDataList(dst_id, response, param) {
 
+        response.data.detailList.totalCnt = response.data.totalInfo.totalCnt;
+
         var template = $('#tmp_memberDataTable').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.detailList;
@@ -142,42 +145,42 @@
 
 <script id="tmp_memberDataTable" type="text/x-handlebars-template">
     {{#each this as |data|}}
-        <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
-            <td>{{rowNum}}</td>
-            <td>
-                {{{memNoLink mem_no mem_no}}}<br/>
-                {{memNick}}
-            </td>
-            <td {{#dalbit_if memSex '==' 'm'}} style="color:blue" {{/dalbit_if}}
-                {{#dalbit_if memSex '==' 'f'}} style="color:red" {{/dalbit_if}}
-            >
-                {{{sexIcon memSex}}}({{memAge}})
-            </td>
-            <td>{{getMemStateName memState}}</td>
-            <td>{{timeStampDay airtime}}</td>
-            <td>{{timeStampDay listentime}}</td>
-            <td>
-                {{#dalbit_if castcount '!=' 0}}
-                    {{addComma castcount}}
-                {{/dalbit_if}}
-            </td>
-            <td>{{addComma payAmt}}원</td>
-            <td>{{addComma cancelAmt}}원</td>
-            <td style="background-color: #dae3f3">{{addComma totalDal}}개</td>
-            <td>{{addComma freeDal}}개</td>
-            <td>{{addComma useDal}}개</td>
-            <td style="background-color: #dae3f3">{{addComma nowDal}}개</td>
-            <td style="background-color: #fbe5d6">{{addComma totalByeol}}개</td>
-            <td>{{addComma freeByeol}}개</td>
-            <td>{{addComma changeByeol}}개</td>
-            <td>{{addComma exchangeByeol}}개</td>
-            <td>{{addComma exchangeAmt}}원</td>
-            <td style="background-color: #fbe5d6">{{addComma nowByeol}}개</td>
-            <td>{{memJoinDateFormat}}</td>
-        </tr>
+    <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
+    <td>{{indexDesc ../totalCnt rowNum}}</td>
+    <td>
+        {{{memNoLink mem_no mem_no}}}<br/>
+        {{memNick}}
+    </td>
+    <td {{#dalbit_if memSex '==' 'm'}} style="color:blue" {{/dalbit_if}}
+    {{#dalbit_if memSex '==' 'f'}} style="color:red" {{/dalbit_if}}
+    >
+    {{{sexIcon memSex}}}({{memAge}})
+    </td>
+    <td>{{getMemStateName memState}}</td>
+    <td>{{timeStampDay airtime}}</td>
+    <td>{{timeStampDay listentime}}</td>
+    <td>
+        {{#dalbit_if castcount '!=' 0}}
+        {{addComma castcount}}
+        {{/dalbit_if}}
+    </td>
+    <td>{{addComma payAmt}}원</td>
+    <td>{{addComma cancelAmt}}원</td>
+    <td style="background-color: #dae3f3">{{addComma totalDal}}개</td>
+    <td>{{addComma freeDal}}개</td>
+    <td>{{addComma useDal}}개</td>
+    <td style="background-color: #dae3f3">{{addComma nowDal}}개</td>
+    <td style="background-color: #fbe5d6">{{addComma totalByeol}}개</td>
+    <td>{{addComma freeByeol}}개</td>
+    <td>{{addComma changeByeol}}개</td>
+    <td>{{addComma exchangeByeol}}개</td>
+    <td>{{addComma exchangeAmt}}원</td>
+    <td style="background-color: #fbe5d6">{{addComma nowByeol}}개</td>
+    <td>{{memJoinDateFormat}}</td>
+    </tr>
     {{else}}
-        <tr>
-            <td colspan="20">{{isEmptyData}}</td>
-        </tr>
+    <tr>
+        <td colspan="20">{{isEmptyData}}</td>
+    </tr>
     {{/each}}
 </script>
