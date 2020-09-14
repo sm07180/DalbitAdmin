@@ -90,7 +90,7 @@
                         , (select count(distinct DATE_FORMAT(start_date, '%Y%m%d')) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt2
                         , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_withdrawal_bak a
-                  where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
+                  where DATE_FORMAT(last_upd_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(last_upd_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
                    <if test="testid != -1">
                        and a.inner = 0
                    </if>
