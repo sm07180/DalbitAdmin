@@ -887,7 +887,7 @@
         </tr>
         <tr>
             <th>회원레벨</th>
-            <td style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
+            <td style="text-align: left">{{level}} 레벨</td>
             <th>레벨등급</th>
             <td colspan="2" style="text-align: left">{{grade}}</td>
             <th>경험치</th>
