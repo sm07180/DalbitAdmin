@@ -185,7 +185,11 @@ var fnc_profileList = {};
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_profileSelectFrm" type="text/x-handlebars-template">
     {{#each this as |user|}}
+        {{#dalbit_if inner '==' 1}}
+        <div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
+        {{else}}
         <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
+        {{/dalbit_if}}
             <div>
                 <label>NO.{{indexDesc ../length user.rowNum}}</label>
             </div>

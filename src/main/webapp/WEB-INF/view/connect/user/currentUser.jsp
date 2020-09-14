@@ -8,7 +8,16 @@
         <div class="col-md-2 no-padding">
             <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
         </div>
-
+        <div class="col-md-2 no-padding pull-right mr10">
+            <table class="table table-sorting table-hover table-bordered">
+                <colgroup>
+                    <col width="15%"/><col width="65%"/>
+                </colgroup>
+                <tr>
+                    <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                </tr>
+            </table>
+        </div>
         <table id="tableList" class="table table-sorting table-hover table-bordered datatable">
             <thead id="tableTop_detail">
             </thead>

@@ -30,5 +30,10 @@ var connectDataTableSource = {
                 }},
             {'title': '가입일시', 'data': 'memJoinDateFormat'},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 }

@@ -82,7 +82,7 @@ public class MemberVo{
     private String os_type;
     private String location;
     private String ip;
-    private String inner;
+    private int inner;
     private String last_upd_date;
 
     private String room_no;

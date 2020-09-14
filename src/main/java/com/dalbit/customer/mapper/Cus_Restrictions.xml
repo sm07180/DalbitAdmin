@@ -104,6 +104,7 @@
         , basic.mem_sex
         , basic.mem_name
         , basic.mem_userid
+        , basic.inner
         , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = report.reported_mem_no) AS ip
         , basic.mem_birth_year
         , basic.mem_birth_month
@@ -328,6 +329,7 @@
         ,IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_year
         ,IFNULL(basic.mem_birth_month, (SELECT mem_birth_month FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_month
         ,IFNULL(basic.mem_birth_day, (SELECT mem_birth_day FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_day
+        ,IFNULL(basic.inner, (SELECT `inner` FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS `inner`
         ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
         , (SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)	 AS device_uuid
         ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
@@ -341,6 +343,7 @@
         ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_sex
         ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
         ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
+        ,IFNULL(dj.inner, (SELECT `inner` FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_inner
         ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
         ,(SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
         FROM
