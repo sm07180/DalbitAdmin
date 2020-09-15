@@ -60,6 +60,7 @@ public class Bro_GiftService {
                 outVo.setGiftDateFormat(GiftList.get(i).getGiftDateFormat());
                 outVo.setItemImage(GiftList.get(i).getItemImage());
                 outVo.setItemName(GiftList.get(i).getItemName());
+                outVo.setInner(GiftList.get(i).getInner());
                 outVo.setItem_thumbnail(GiftList.get(i).getItem_thumbnail());
                 outVo.setAccumCnt(GiftList.get(i).getAccumCnt());
                 outVo.setItem_thumbnail(GiftList_thumbnail.get(i).getItem_thumbnail());

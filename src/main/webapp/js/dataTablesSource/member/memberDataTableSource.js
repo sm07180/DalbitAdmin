@@ -44,8 +44,11 @@ var MemberDataTableSource = {
                     return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
                 }},
         ]
-        , 'comments': 'ㆍ최근 가입 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>' +
-                      'ㆍ회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'withdrawalList': {
@@ -88,9 +91,11 @@ var MemberDataTableSource = {
                     return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
                 }},
         ]
-        , 'comments': 'ㆍ 최근 탈퇴 회원 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>' +
-                      'ㆍ 탈퇴 회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요. <br/>' +
-                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단, 탈퇴 회원에 대한 정보 수정은 불가합니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
 
@@ -168,6 +173,11 @@ var MemberDataTableSource = {
                 }},
         ]
         ,'comments': 'ㆍ회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
     'listenDetail': {
         'url': '/rest/member/listen/list'
@@ -207,6 +217,11 @@ var MemberDataTableSource = {
                 }},
         ]
         ,'comments': 'ㆍ회원이 청취한 방송기록을 확인할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'payDetail': {
@@ -361,6 +376,11 @@ var MemberDataTableSource = {
                 }},
             {'title': 'Mystar등록일', 'data': 'regDateFormat'},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'myfan': {
@@ -381,6 +401,11 @@ var MemberDataTableSource = {
                 }},
             {'title': 'Fan 등록일', 'data': 'regDateFormat'},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'noticeDetail': {
@@ -434,6 +459,11 @@ var MemberDataTableSource = {
                 }},
         ]
         , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'declarationDetail': {
@@ -465,6 +495,14 @@ var MemberDataTableSource = {
             ,{'title': '처리자', 'data': 'opName', 'defaultContent':'-'}
         ]
         , 'comments' : ' • 최신 신고자를 기준으로 상위 구성하고, 확인하고자 하는 회원 정보 내 선택을 클릭하면 상세정보 및 회원 신고조치를 처리할 수 있습니다.'
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+            if (data.reported_inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'banwordDetail': {
@@ -646,10 +684,12 @@ var MemberDataTableSource = {
                 return '<button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx=' + row.idx + '>보기</button>';
             }},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
-
-
-
 
     'walletDalDetail': {
         'url': '/rest/member/wallet/dal/list'
@@ -681,6 +721,11 @@ var MemberDataTableSource = {
                 }},
             {'title': '선물 일시', 'data': 'giftDateFormat'},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
     'walletByeolDetail': {
@@ -713,6 +758,11 @@ var MemberDataTableSource = {
                 }},
             {'title': '선물 일시', 'data': 'giftDateFormat'},
         ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
     },
 
 

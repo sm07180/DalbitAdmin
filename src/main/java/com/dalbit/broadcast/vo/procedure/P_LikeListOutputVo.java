@@ -28,6 +28,7 @@ public class P_LikeListOutputVo extends PagingVo {
     private int rank;
     private int goodCnt;
     private int boosterCnt;
+    private int inner;
 
 //    public void setGoodDate(Date goodDate){
 //        this.goodDate = goodDate;

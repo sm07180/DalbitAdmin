@@ -32,6 +32,7 @@ public class P_GiftListOutputVo extends PagingVo {
     private int accumByeolCnt;
     private int secret;
     private String mem_no;
+    private int inner;
 
     /* summry */
     private int giftCnt;

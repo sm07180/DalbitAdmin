@@ -12,6 +12,7 @@
                       , basic.mem_birth_year
                       , basic.mem_birth_month
                       , basic.mem_birth_day
+                      , basic.inner
                       , profile.image_profile
                       , concat(level.level, ' / ', level.grade) as                         level
                       , level.grade

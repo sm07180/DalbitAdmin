@@ -63,6 +63,7 @@ public class Bro_ListenerService {
                 outVo.setMem_no(broadList.get(i).getMem_no());
                 outVo.setUserID(broadList.get(i).getUserID());
                 outVo.setNickName(broadList.get(i).getNickName());
+                outVo.setInner(broadList.get(i).getInner());
                 outVo.setLevel(broadList.get(i).getLevel());
                 outVo.setGrade(broadList.get(i).getGrade());
                 outVo.setStartDateFormat(broadList.get(i).getStartDateFormat());

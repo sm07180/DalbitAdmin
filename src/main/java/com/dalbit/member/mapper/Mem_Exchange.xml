@@ -15,6 +15,7 @@
                         IFNULL(basic.mem_state, withdrawal.mem_state)                          mem_state,
                         IFNULL(basic.mem_phone, withdrawal.mem_phone)                          mem_phone,
                         IFNULL(basic.mem_userid, withdrawal.mem_userid)                        mem_userid,
+                        IFNULL(basic.inner, withdrawal.inner)                        `inner`,
                         profile.image_profile,
                         exchange.idx,
                         exchange.byeol,

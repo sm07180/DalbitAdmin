@@ -25,6 +25,7 @@
           a.`STATUS` AS `STATUS`,
           a.last_upd_date AS writeDate,
           a.view_yn
+          , b.inner
         from
           ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1) AS a JOIN rd_data.tb_member_basic AS b
             ON a.writer_no = b.mem_no
@@ -46,6 +47,7 @@
           a.`STATUS` AS `STATUS`,
           a.last_upd_date AS writeDate,
           a.view_yn
+          , b.inner
         from
           ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
             ON a.writer_no = b.mem_no
@@ -80,6 +82,7 @@
             a.last_upd_date AS writeDate,
             a.view_yn,
             depth
+            , b.inner
         from
             ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth,view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no}) AS a JOIN rd_data.tb_member_basic AS b
         ON a.writer_no = b.mem_no
@@ -102,6 +105,7 @@
             a.last_upd_date AS writeDate,
             depth,
             a.view_yn
+            , b.inner
         from
             ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth, view_yn from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no}) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
         ON a.writer_no = b.mem_no

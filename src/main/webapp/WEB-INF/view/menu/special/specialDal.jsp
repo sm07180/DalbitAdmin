@@ -309,7 +309,7 @@
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
     {{#each this as |data|}}
-    <tr class="_noTr" id="row_{{order}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+    <tr {{#dalbit_if inner '==' 1}} class="_noTr bg-testMember" {{else}} class="_noTr" {{/dalbit_if}} id="row_{{order}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
         <td class=" dt-body-center"><input type="checkbox"/></td>
         <td class="_noTd">
             <input type="hidden" name="sortNo" value="{{sortNo}}"/>

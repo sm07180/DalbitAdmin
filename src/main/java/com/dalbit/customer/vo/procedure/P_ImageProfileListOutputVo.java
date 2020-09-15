@@ -22,7 +22,7 @@ public class P_ImageProfileListOutputVo extends SearchVo {
     private String mem_birth_year;
     private String mem_birth_month;
     private String mem_birth_da;
-
+    private int inner;
     private ImageVo image_profile;
 
     private Date joinDate;

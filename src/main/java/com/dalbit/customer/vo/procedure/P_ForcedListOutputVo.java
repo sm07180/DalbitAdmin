@@ -27,5 +27,7 @@ public class P_ForcedListOutputVo extends SearchVo {
     private String dj_mem_nick; 	// 방송방 DJ mem_nick
     private String dj_mem_sex; 		// 방송방 DJ mem_sex
     private String exit_cnt; 		// 방송방 퇴장 횟수
-    
+    private int inner;
+    private int dj_inner;
+
 }
