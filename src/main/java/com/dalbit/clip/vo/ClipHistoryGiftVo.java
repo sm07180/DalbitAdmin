@@ -17,6 +17,7 @@ public class ClipHistoryGiftVo extends PagingVo {
     private int slctType;
     private int isChoiceDate;
     private int pageNo;
+    private String targetClipNo;
 
     /* output */
     private String memNo;

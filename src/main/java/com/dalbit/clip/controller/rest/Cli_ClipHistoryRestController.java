@@ -2,7 +2,8 @@ package com.dalbit.clip.controller.rest;
 
 import com.dalbit.clip.service.Cli_ClipHistoryService;
 import com.dalbit.clip.vo.*;
-import com.dalbit.customer.vo.BlockAdmVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,15 @@ public class Cli_ClipHistoryRestController {
         return cliClipHistoryService.callClipHistoryListenList(clipHistoryListenVo);
     }
 
+
+    /**
+     * 클립 좋아요 내역 조회
+     */
+    @PostMapping("good/list")
+    public String selectClipHistoryGoodList(ClipHistoryListenVo clipHistoryListenVo) {
+        return cliClipHistoryService.callClipHistoryGoodList(clipHistoryListenVo);
+    }
+
     /**
      * 클립 선물 내역 조회
      */
@@ -88,5 +98,39 @@ public class Cli_ClipHistoryRestController {
     public String selectReplyList(ClipHistoryReplyVo clipHistoryReplyVo) {
         return cliClipHistoryService.selectReplyList(clipHistoryReplyVo);
     }
+
+    /**
+     * 클립 댓글 내역 조회
+     */
+    @PostMapping("reply/detail/list")
+    public String selectReplyListDetail(ClipHistoryReplyVo clipHistoryReplyVo) {
+        return cliClipHistoryService.selectReplyListDetail(clipHistoryReplyVo);
+    }
+
+
+    /**
+     * 클립 상세정보 조회
+     */
+    @PostMapping("/info")
+    public String selectClipHistoryDetailInfo(P_ClipHistoryDetailInfoInputVo pClipHistoryDetailInfoInputVo) {
+        return cliClipHistoryService.callAdminClipInfoDetail(pClipHistoryDetailInfoInputVo);
+    }
+
+    /**
+     * 클립 상세정보 수정
+     */
+    @PostMapping("/info/edit")
+    public String selectClipHistoryDetailInfoEdit(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
+        return cliClipHistoryService.callAdminClipInfoDetailEdit(pClipHistoryDetailInfoEditVo);
+    }
+
+
+    @PostMapping("/info/addmemo")
+    public String selectClipHistoryDetailInfoAddMemo(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
+        return cliClipHistoryService.callAdminClipInfoDetailAddMemo(pClipHistoryDetailInfoEditVo);
+    }
+
+
+
 
 }

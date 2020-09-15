@@ -25,6 +25,12 @@ public class P_NoticeOutDetailVo extends SearchVo {
     private int set_6_n;
     private int set_7_y;
     private int set_7_n;
+    private int set_8_y;
+    private int set_8_n;
+    private int set_9_y;
+    private int set_9_n;
+    private int set_10_y;
+    private int set_10_n;
     private int alim_n;
     private int alim_s;
     private int alim_v;
