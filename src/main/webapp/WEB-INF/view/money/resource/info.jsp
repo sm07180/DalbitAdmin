@@ -1187,7 +1187,7 @@
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th> 
                 <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
