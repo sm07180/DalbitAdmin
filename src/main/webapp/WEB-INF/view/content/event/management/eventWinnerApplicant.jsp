@@ -289,7 +289,7 @@
 
         if($(this).prop('id') == 'bt_depositComplete') {
             alert(Idxs);
-            if(confirm(checked.length + "건의 사항을 발송 완료 처리하시겠습니까?")) {
+            if(confirm(checked.length + "건의 사항을 입금 확인 처리하시겠습니까?")) {
                var data = {
                    eventIdx : $('#eventidx').val()
                    , winnerIdxs : Idxs
@@ -330,15 +330,20 @@
 
 
     $(document).on('click', '._getWinnerAddInfoDetail', function() {
+        var data = {
+            eventIdx : $('#eventidx').val()
+            , winner_mem_no : $(this).data('memno')
+        };
+        util.getAjaxData("getWinnerAddInfoDetail", "/rest/content/event/management/winner/winnerAddInfoDetail", data, function fn_winnerAddInfoDetail_success(dst_id, response) {
+            var template = $('#tmp_winnerAddInfoDetail').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data;
+            var html = templateScript(context);
 
-        var template = $('#tmp_winnerAddInfoDetail').html();
-        var templateScript = Handlebars.compile(template);
-        // var context = response.data;
-        // var html = templateScript(context);
+            $('#winnerAddInfoDetail').html(html);
 
-        $('#winnerAddInfoDetail').html(templateScript);
-
-        $('#modal_select_winnerAddInfo').modal('show');
+            $('#modal_select_winnerAddInfo').modal('show');
+        });
     });
 
     // /*=---------- 엑셀 ----------*/
@@ -428,198 +433,69 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 form-inline block _modalLayer">
-                        <div class="{{#if parentInfo.parents_name}}col-lg-8{{/if}}{{^if parentInfo.parents_name}}col-lg-12{{/if}}">
                             <%--<div class="col-lg-12">--%>
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <tbody id="detail_tableBody">
                                 <tr>
-                                    <th>신청금액</th>
-                                    <td colspan="3" style="font-weight:bold; color: #ff5600">
-                                    </td>
+                                    <th>실명</th>
+                                    <td colspan="3" style="font-weight:bold; color: #ff5600">{{}}</td>
                                 </tr>
                                 <tr>
-                                    <th>은행명</th>
-                                    <td>
-                                    </td>
-
-                                    <th>계좌번호</th>
-                                    <td>
-                                        <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>예금주</th>
-                                    <td>
-                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="" />
-                                        <br />
-                                    </td>
                                     <th>주민번호</th>
                                     <td>
                                         <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="" />
                                         <br />
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <th>가입시<br />생년월일</th>
-                                    <td>
-                                    </td>
-                                    <th>미성년자<br />여부</th>
-                                    <td>
-                                        <br />
-                                        <span style="font-weight:bold;">법정대리인 보호자 동의 정보가 없습니다.</span>
+                                    <th>휴대폰 번호</th>
+                                    <td colspan="3">
+                                        <input type="hidden" name="phone_no" value="" />
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <th>주소</th>
+                                    <th>이메일</th>
+                                    <td>
+                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="" />
+                                        <br />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th>상품수령 주소</th>
                                     <td colspan="3">
                                         <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="" />
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th>상세주소</th>
                                     <td colspan="3">
                                         <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="" />
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <th>전화번호</th>
+                                    <th>신분증 사본</th>
                                     <td colspan="3">
-                                        <input type="hidden" name="phone_no" value="" />
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>접수서류</th>
-                                    <td colspan="3">
-                                        <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
                                                 <img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
                                             </a>
                                             <input id="files1" type="file" onchange="photoSubmit()">
                                             <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="" />
-                                        </div>
-                                        <div class="col-lg-6" style="border:solid 1px black">
-                                            <a href="javascript://">
-                                                <img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
-                                            </a>
-                                            <input id="files2" type="file" onchange="photoSubmit($(this))"/>
-                                            <input type="hidden" class="_hidden_filename" name="add_file2" id="add_file2" value="" />
-                                        </div>
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <th>신청일자</th>
-                                    <td>
-                                    </td>
-
-                                    <th>완료일자</th>
-                                    <td>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>
-                                        미처리 사유
-                                    </th>
+                                    <th>가족관계 증명서</th>
                                     <td colspan="3">
-                                        <input type="hidden" id="send_title" name="send_title">
-                                        <label id="label_send_title"></label>
-                                        <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 불가 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
-                                    </td>
-                                </tr>
-
-
-                                <tr id="tr_send_cont">
-                                    <th>
-                                        미처리 사유<br>내용
-                                    </th>
-                                    <td colspan="3">
-                                        <textarea class="form-control" name="send_cont" id="send_cont" oninput="util.textareaResize(this)" placeholder="" style="width:100%; height:90px; resize: none"></textarea>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>메모</th>
-                                    <td colspan="3">
-                                        <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg" maxlength="1000" value="" />
+                                        <a href="javascript://">
+                                            <img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                        </a>
+                                        <input id="files2" type="file" onchange="photoSubmit()">
+                                        <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file2" value="" />
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
                     </div>
-                        <%--<div class="col-lg-4">--%>
-                            <%--<div class="mb10">법정대리인 (보호자) 동의 정보</div>--%>
-                            <%--<table id="parentTable" class="table table-sorting table-hover table-bordered">--%>
-                                <%--<tbody>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--보호자 이름--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--성별--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--생년월일--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--통신사--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--휴대폰번호--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--내/외국인--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>철회 여부</th>--%>
-                                    <%--<td>--%>
-                                        <%--<label style="font-weight: bold">No</label>--%>
-                                        <%--<label style="color: red; font-weight: bold">Yes</label>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<th>--%>
-                                        <%--가족관계<br />증명서류--%>
-                                    <%--</th>--%>
-                                    <%--<td>--%>
-                                        <%--<img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />--%>
-                                        <%--가족관계 증명서류가 없습니다.--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--</tbody>--%>
-                            <%--</table>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
 
