@@ -124,7 +124,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'170px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -187,7 +187,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '선물받은회원', 'width':'70px', 'data': 'giftedMemNo', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.giftedMemNick;
@@ -248,7 +248,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -329,7 +329,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
