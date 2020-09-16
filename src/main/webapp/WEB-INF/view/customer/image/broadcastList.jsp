@@ -197,7 +197,7 @@ var fnc_broadcastList = {};
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
                     {{{getCommonCodeLabel user.state 'broadcast_state_icon'}}}
                 <div class="thumbnail">
-                    <img class="list-group-image thumbnailImg fullSize_background" style="width:100%; height:100%;" src="{{user.image_background.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" />
+                    <img class="list-group-image thumbnailImg fullSize_background" style="width:360px; height:225px" src="{{user.image_background.url}}" alt="" data-toggle="modal" data-target="#imgModal" />
                     <div class="caption">
                         <div class="action-buttons">
                             <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_broadcastList.updateData(this)" data-info="{{json user}}"><i class="fa fa-undo"></i> 초기화</a>
