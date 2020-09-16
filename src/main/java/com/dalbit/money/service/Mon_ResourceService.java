@@ -65,5 +65,29 @@ public class Mon_ResourceService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
+    public String buyDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
+        ArrayList<P_BuyDalListOutVo> listOutVo = mon_ResourceDao.callBuyDalList(procedureVo);
+        P_BuyDalListOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BuyDalListOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    public String useDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
+        ArrayList<P_UseDalListOutVo> listOutVo = mon_ResourceDao.callUseDalList(procedureVo);
+        P_UseDalListOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_UseDalListOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
 
 }

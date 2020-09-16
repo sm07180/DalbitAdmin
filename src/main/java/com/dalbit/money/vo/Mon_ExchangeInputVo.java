@@ -14,6 +14,7 @@ public class Mon_ExchangeInputVo extends PagingVo {
     private String search_month;
     private String search_day;
     private String search_type;
+    private String exchange_sort;
     private int slctType;
     private String search_value;
     private String search_state;
