@@ -109,6 +109,9 @@ var MemberDataTableSource = {
                 }},
              {'title': 'UserID', 'data': 'mem_userid', 'width':'100px'},
              {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},
+             {'title': '본인인증여부', 'data': 'is_certification', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return data == 1 ? '<span style="color: red; font-weight: bold">Yes</span>' : 'No';
+                }},
              {'title': '성별', 'data': 'mem_sex', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.mem_birth_year);
                 }},
