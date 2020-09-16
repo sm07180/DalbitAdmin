@@ -9,6 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class P_EventWinnerApplicantInputVo extends PagingVo {
+    private int pageNo;
     private int eventIdx;
     private int sortSlct;
     private int winSlct;

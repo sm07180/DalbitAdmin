@@ -167,7 +167,7 @@ var EventDataTableSource = {
                 return util.getCommonCodeLabel(data, event_depositYn);
                 }},
             {'title': '상세 정보', 'data' : 'addIdx', 'render': function(data, type, row, meta) {
-                return '<a href="javascript://" class="_getWinnerAddInfoDetail" data-addidx="' + data + '" data-winneridx="' + row.winnerIdx + '" data-memno="' + row.mem_no + '">상세 정보</a>';
+                return '<a href="javascript://" class="_getWinnerAddInfoDetail" data-addidx="' + data + '" data-prizeidx="' + row.prizeIdx + '" data-memno="' + row.mem_no + '">상세 정보</a>';
                 }},
         ]
     },

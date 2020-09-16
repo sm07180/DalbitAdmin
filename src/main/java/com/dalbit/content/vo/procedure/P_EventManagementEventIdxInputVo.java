@@ -9,5 +9,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class P_EventManagementEventIdxInputVo extends PagingVo {
+    private int pageNo;
     private int eventIdx;
 }
