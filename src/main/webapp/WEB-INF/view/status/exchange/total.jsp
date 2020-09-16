@@ -289,12 +289,12 @@
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSpecialdj_succ_byeol_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSucc_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_byeol_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
     </tr>
     {{/each}}
 </script>
