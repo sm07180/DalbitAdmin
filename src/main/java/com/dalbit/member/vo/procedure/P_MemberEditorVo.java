@@ -34,6 +34,7 @@ public class P_MemberEditorVo extends BaseVo {
     private String  beforNickName;
     private int type;
     private String memState;
+    private String profileMsg;
 
     // 방송방 숨김상태
     private String room_no;
