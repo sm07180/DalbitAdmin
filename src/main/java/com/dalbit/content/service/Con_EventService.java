@@ -669,6 +669,16 @@ public class Con_EventService {
     }
 
     /**
+     * 당첨자 추가 입력 정보 조회
+     */
+    public String selectEventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo) {
+        EventWinnerAddInfoDetailVo winnerInfo = con_EventDao.selectEventWinnerAddInfoDetail(eventWinnerAddInfoDetailVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, winnerInfo));
+
+        return result;
+    }
+
+    /**
      * 당첨자 추가
      */
     public String callEventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) {
