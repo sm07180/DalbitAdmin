@@ -6,10 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.menu.dao.Men_RankDao;
-import com.dalbit.menu.vo.DjRankingVo;
-import com.dalbit.menu.vo.FanRankingVo;
-import com.dalbit.menu.vo.MainDjRankingOutVo;
-import com.dalbit.menu.vo.MainFanRankingOutVo;
+import com.dalbit.menu.vo.*;
 import com.dalbit.menu.vo.procedure.P_MainDjRankingVo;
 import com.dalbit.menu.vo.procedure.P_MainFanRankingVo;
 import com.dalbit.util.DalbitUtil;
@@ -131,6 +128,32 @@ public class Men_RankService {
         List<FanRankingVo> fanRankingList = menRankDao.getMainFanRankingList(fanRankingVo);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.메인_팬랭킹조회_성공, fanRankingList, new PagingVo(fanRankingVo.getTotalCnt(), fanRankingVo.getPageStart(), fanRankingVo.getPageCnt())));
+
+        return result;
+    }
+
+    /**
+     * 랭킹 어드민 가산점 추가 목록
+     */
+    public String getAddDjPointList(AddDjPointVo addDjPointVo) {
+
+        addDjPointVo.setPageStart(addDjPointVo.getPageStart() -1);
+        addDjPointVo.setPageStart(addDjPointVo.getPageStart() * addDjPointVo.getPageCnt());
+
+        AddDjPointVo outVo = menRankDao.getAddDjLiveCheck(addDjPointVo);
+        addDjPointVo.setLiveCnt(outVo.getLiveCnt());
+        addDjPointVo.setLiveDate(outVo.getLiveDate());
+
+        int getAddDjPointListCnt = menRankDao.getAddDjPointListCnt(addDjPointVo);
+        addDjPointVo.setTotalCnt(getAddDjPointListCnt);
+        List<AddDjPointVo> addDjPointList = menRankDao.getAddDjPointList(addDjPointVo);
+
+        String result;
+        if(addDjPointList.size() > 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.DJ가산점조회_성공, addDjPointList, new PagingVo(addDjPointVo.getTotalCnt(), addDjPointVo.getPageStart(), addDjPointVo.getPageCnt())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.DJ가산점조회_실패));
+        }
 
         return result;
     }

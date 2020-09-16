@@ -1,10 +1,7 @@
 package com.dalbit.menu.controller.rest;
 
 import com.dalbit.menu.service.Men_RankService;
-import com.dalbit.menu.vo.DjRankingVo;
-import com.dalbit.menu.vo.FanRankingVo;
-import com.dalbit.menu.vo.MainDjRankingVo;
-import com.dalbit.menu.vo.MainFanRankingVo;
+import com.dalbit.menu.vo.*;
 import com.dalbit.menu.vo.procedure.P_MainDjRankingVo;
 import com.dalbit.menu.vo.procedure.P_MainFanRankingVo;
 import com.dalbit.util.GsonUtil;
@@ -56,5 +53,10 @@ public class Men_RankRestController {
     @RequestMapping("fanRankList")
     public String fanRankList(FanRankingVo fanRankingVo) {
         return menRankService.getMainFanRankingList(fanRankingVo);
+    }
+
+    @RequestMapping("addDjPoint")
+    public String addDjPoint(AddDjPointVo addDjPointVo) {
+        return menRankService.getAddDjPointList(addDjPointVo);
     }
 }

@@ -685,6 +685,10 @@ public enum Status {
     메인_팬랭킹조회_요청회원_회원아님("-1", "main.fan.ranking.member.number.error", "요청회원번호가 회원 아닐 시"),
     메인_팬랭킹조회_실패("C006", "main.fan.ranking.select.fail", "팬 랭킹 조회 실패 시"),
 
+    //DJ 가산점 조회
+    DJ가산점조회_성공("C001", "add.dj.point.list.success", "DJ가산점 조회 성공 시"),
+    DJ가산점조회_실패("C006", "add.dj.point.list.fail", "DJ가산점 조회 실패 시"),
+
 
     // 통계 ------------------------------------------------------------------------------------
     //방송통계 현황

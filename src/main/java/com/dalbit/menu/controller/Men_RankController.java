@@ -18,4 +18,9 @@ public class Men_RankController {
     public String fanRankList(){
         return "menu/rank/fanRankList";
     }
+
+    @RequestMapping("addDjPoint")
+    public String addDjPoint(){
+        return "menu/rank/addDjPoint";
+    }
 }

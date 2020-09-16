@@ -468,4 +468,124 @@
           count(*)
         <include refid="fanCondition"/>
     </select>
+
+
+
+
+    <select id="getAddDjLiveCheck" parameterType="com.dalbit.menu.vo.AddDjPointVo" resultType="com.dalbit.menu.vo.AddDjPointVo">
+        /* Men_Rank.xml - AddDjPointVo */
+        select count(*) as liveCnt, max(upd_date) as liveDate
+          from rd_data.tb_ranking_dj_live_data_month
+         where date_format(upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+           and date_format(upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+    </select>
+
+    <sql id="addDjPointCondition">
+        from
+        <if test='liveCnt != 0'>
+            rd_data.tb_ranking_dj_live_data_month dj
+        </if>
+        <if test='liveCnt == 0'>
+            rd_data.tb_ranking_dj_month dj
+        </if>
+        inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
+        inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
+        left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
+        left join rd_admin.tb_admin_test_account test on prof.mem_no = test.mem_no
+        <if test='liveCnt != 0'>
+            where date_format(dj.upd_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate} and date_format(dj.upd_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+        </if>
+        <if test='liveCnt == 0'>
+            where date_format(dj.ranking_date,'%Y.%m.%d') = #{sDate}
+        </if>
+        AND (test.is_admin IS NULL OR test.is_admin = 0)
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='selectGubun =="1"'>
+                    and mem.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='selectGubun =="2"'>
+                    and mem_id like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='selectGubun =="3"'>
+                    and mem_nick like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='selectGubun =="4"'>
+                    and mem.mem_phone like concat('%', #{txt_search}, '%')
+                </when>
+                <otherwise>
+                    and (mem.mem_no like concat('%', #{txt_search}, '%')
+                    or mem_id like concat('%', #{txt_search}, '%')
+                    or mem_nick like concat('%', #{txt_search}, '%')
+                    or mem.mem_phone like concat('%', #{txt_search}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <select id="getAddDjPointList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.AddDjPointVo">
+        /* Men_Rank.xml - getAddDjPointList */
+        select addPoint1 + addPoint2 + addPoint3 as addPointTotal
+               ,b.*
+          from (
+                select *
+                <if test='liveCnt != 0'>
+                    , @RNUM := @RNUM + 1 as djRank
+                </if>
+                <if test='liveCnt == 0'>
+                    , @RNUM := @RNUM + 1 as rowNum
+                </if>
+                ,addPointRank1 * 2 as addPoint1
+                ,addPointRank2 * 1 as addPoint2
+                ,addPointRank3 * 0.5 as addPoint3
+                from (
+                      select
+                        <if test='liveCnt != 0'>
+                            1 as rowNum
+                        </if>
+                        <if test='liveCnt == 0'>
+                            dj.rank as djRank
+                        </if>
+                        , dj.mem_no as memNo
+                        , prof.image_profile as image_profile
+                        , mem.mem_id as mem_id
+                        , lev.`level` as `level`
+                        , lev.grade as grade
+                        , mem.mem_nick as mem_nick
+                        , mem.mem_sex as mem_sex
+                        , mem.mem_birth_year
+                        , mem.inner
+                        , CAST(dj.dj_point AS INT) AS rankPoint
+                        , (select count(*)
+                             from rd_data.tb_ranking_dj_day
+                            where mem_no = dj.mem_no
+                              and `rank`=1
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank1
+                        , (select count(*)
+                             from rd_data.tb_ranking_dj_day
+                            where mem_no = dj.mem_no
+                              and `rank`=2
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank2
+                        , (select count(*)
+                             from rd_data.tb_ranking_dj_day
+                            where mem_no = dj.mem_no
+                              and `rank`=3
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank3
+                        <include refid="addDjPointCondition"/>
+                  ) a , (select @RNUM := 0) r
+            order by rankPoint desc
+        ) b
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="getAddDjPointListCnt" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="integer">
+        /* Men_Rank.xml - getAddDjPointListCnt */
+        select
+        count(*)
+        <include refid="addDjPointCondition"/>
+    </select>
+
 </mapper>
