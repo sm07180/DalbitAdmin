@@ -14,10 +14,12 @@ public class P_NewBroadcastTimeOutVo {
     private int create_mCnt;
     private int create_fCnt;
     private int create_nCnt;
+    private int create_totalCnt;
     private int create_max_Cnt;
     private int listener_mCnt;
     private int listener_fCnt;
     private int listener_nCnt;
+    private int listener_totalCnt;
     private int listener_max_Cnt;
     private int airtime;
     private int gift_Cnt;
@@ -27,10 +29,12 @@ public class P_NewBroadcastTimeOutVo {
     private int total_create_mCnt;
     private int total_create_fCnt;
     private int total_create_nCnt;
+    private int total_create_totalCnt;
     private int total_create_max_Cnt;
     private int total_listener_mCnt;
     private int total_listener_fCnt;
     private int total_listener_nCnt;
+    private int total_listener_totalCnt;
     private int total_listener_max_Cnt;
     private int total_airtime;
     private int total_gift_Cnt;

@@ -71,8 +71,8 @@
         // memberDataList();
     });
 
-    function memberDataListTabClick(tmp){
-        _datePicker = tmp;
+    function memberDataListTabClick(){
+        _datePicker = 3;
         $("#resourceState").hide();
         $("#oneDayDatePicker").hide();
         $("#monthDatepicker").hide();

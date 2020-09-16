@@ -225,8 +225,11 @@
             bt_click(this.id);
         });
 
+        $("#bt_profileMsg_del").click(function() {        // 이름 변경
+            bt_click(this.id);
+        });
+
         // 버튼 끝
-        console.log("--------------------------1");
         var data = {
             mem_no : memNo,
         };
@@ -417,6 +420,17 @@
                 if(confirm("이름을 변경 하시겠습니까?")) {
                     obj.name = $("#txt_userName").val();                   //0
                     sendNoti = 0;
+                }else return;
+            }else if(tmp == "bt_profileMsg_del"){       // 프로필 메시지 변경
+                if(common.isEmpty(memberInfo_responseDate.profileMsg)){
+                    alert("프로필 메시지가 없습니다");
+                    return;
+                }
+                if(confirm("프로필 메시지를 삭제 하시겠습니까?")) {
+                    sendNoti = 1;
+                    obj.profileMsg = "";
+                    obj.notiContents = memberMessage.profileMsgReset;
+                    obj.notiMemo = memberMessage.profileMsgReset;
                 }else return;
             }
             obj.beforProfileImage = memberInfo_responseDate.profileImage;
@@ -944,10 +958,9 @@
         <tr>
             <th>프로필<br>메시지</th>
             <td colspan="3" style="text-align: left" id="memberProfileMsg">
-                <div>
-                    <div style="display:inline-block;width:85%">{{profileMsg}}</div>
-                    <button type="button" id="bt_profileMsg_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
-                </div>
+                <span style="display:inline-block;width:65%" id="profileMsg">{{profileMsg}}</span>
+                <button type="button" id="bt_profileMsg_editHistory" class="btn btn-default btn-sm pull-right ml5">상세</button>
+                <button type="button" id="bt_profileMsg_del" class="btn btn-default btn-sm pull-right " style="background-color: #46B0CF; border-color: #46B0CF">삭제</button>
             </td>
             <th>방송상태</th>
             <td colspan="4" style="text-align: left">

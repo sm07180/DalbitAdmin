@@ -27,6 +27,7 @@ public class P_MemberListOutputVo extends SearchVo {
     private int block_type;
     private String connectState;
     private String liveBroad;
+    private int is_certification;
 
     private Date joinDate;
     private String joinDateFormat;

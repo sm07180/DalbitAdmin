@@ -66,6 +66,7 @@ public class Bro_ListenerService {
                 outVo.setInner(broadList.get(i).getInner());
                 outVo.setLevel(broadList.get(i).getLevel());
                 outVo.setGrade(broadList.get(i).getGrade());
+                outVo.setJoinCnt(broadList.get(i).getJoinCnt());
                 outVo.setStartDateFormat(broadList.get(i).getStartDateFormat());
                 outVo.setEndDateFormat(broadList.get(i).getEndDateFormat());
                 outVo.setListenTime(broadList.get(i).getListenTime());

@@ -35,18 +35,6 @@ public class Mon_ResourceRestController {
 
     @Autowired
     GsonUtil gsonUtil;
-//
-//    @PostMapping("info")
-//    public String list(P_ResourceInfoInPutVo pResourceInfoInPutVo){
-//        String result = mon_ResourceService.resourceInfo(pResourceInfoInPutVo);
-//        return result;
-//    }
-//
-//    @PostMapping("detail")
-//    public String detail(P_ResourceDetailInPutVo pResourceDetailInPutVo){
-//        String result = mon_ResourceService.resourceDetail(pResourceDetailInPutVo);
-//        return result;
-//    }
 
     @PostMapping("info")
     public String list(P_ResourceInfoInPutVo pResourceInfoInPutVo){
@@ -57,6 +45,18 @@ public class Mon_ResourceRestController {
     @PostMapping("memberDataList")
     public String memberDataList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
         String result = mon_ResourceService.memberDataList(pResourceInfoInPutVo);
+        return result;
+    }
+
+    @PostMapping("buyDalList")
+    public String buyDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.buyDalList(pResourceInfoInPutVo);
+        return result;
+    }
+
+    @PostMapping("useDalList")
+    public String useDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.useDalList(pResourceInfoInPutVo);
         return result;
     }
 }
