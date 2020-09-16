@@ -330,11 +330,18 @@
 
 
     $(document).on('click', '._getWinnerAddInfoDetail', function() {
+
         var data = {
             eventIdx : $('#eventidx').val()
+            , prizeIdx : $(this).data('prizeidx')
             , winner_mem_no : $(this).data('memno')
         };
-        util.getAjaxData("getWinnerAddInfoDetail", "/rest/content/event/management/winner/winnerAddInfoDetail", data, function fn_winnerAddInfoDetail_success(dst_id, response) {
+        console.log(data);
+        util.getAjaxData("getWinnerAddInfoDetail", "/rest/content/event/management/winner/winnerAddInfoDetail", data,  function fn_winnerAddInfoDetail_success(dst_id, response) {
+            if(common.isEmpty(response.data)){
+                alert('당첨자가 추가 정보를 입력하지 않았습니다.');
+                return false;
+            }
             var template = $('#tmp_winnerAddInfoDetail').html();
             var templateScript = Handlebars.compile(template);
             var context = response.data;
@@ -345,6 +352,8 @@
             $('#modal_select_winnerAddInfo').modal('show');
         });
     });
+
+
 
     // /*=---------- 엑셀 ----------*/
     $('#excelDownBtn').on('click', function() {
@@ -359,6 +368,64 @@
        });
     });
     /*----------- 엑셀 ---------=*/
+
+    function photoSubmit(me) {
+        var formData = new FormData();
+        formData.append('uploadType', 'eventWinner');
+
+        var files = $('#' + $(me).attr('id'))[0].files;
+        for(var i=0; i<files.length; i++) {
+            console.log(files[i]);
+            formData.append('file', files[i]);
+        }
+        $.ajax({
+            url: PHOTO_SERVER_URL + "/upload",
+            method: 'POST',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                console.log(JSON.parse(response));
+                response = JSON.parse(response);
+                alert(response.message);
+                if (response.result == "success") {
+                    me.parent().find('img.thumbnail').attr('src', response.data.url);
+                    me.parent().find('input._hidden_filename').val(response.data.path);
+                    pathChange();
+                }
+            },
+            error: function (e) {
+                console.log(e);
+                alert("error : " + e);
+            }
+        });
+    }
+
+    function pathChange() {
+        // winnerAddFile1 upload -> done
+        if($('#winnerAddFile1').val().indexOf('_1/') >= 0) {
+            var data = {
+                'tempFileURI' : $('#winnerAddFile1').val()
+            };
+            util.getAjaxData("winnerAddFile1", PHOTO_SERVER_URL + "/done", data, fn_pathChange_success);
+        }
+
+        // winnerAddFile2 upload -> done
+        if($('#winnerAddFile2').val().indexOf('_1/') >= 0) {
+            var data = {
+                'tempFileURI' : $('#winnerAddFile2').val()
+            };
+            util.getAjaxData("winnerAddFile2", PHOTO_SERVER_URL + "/done", data, fn_pathChange_success);
+        }
+    }
+
+    function fn_pathChange_success(dst_id, response) {
+        console.log(response.data);
+        $("#"+dst_id).val(response.data.path);
+        $("#"+dst_id).parent().find('img.thumbnail').attr('src', response.data.url);
+    }
+
 
 </script>
 
@@ -423,91 +490,89 @@
 
 
 <script id="tmp_winnerAddInfoDetail" type="text/x-handlebars-template">
-    <form id="exchangeForm">
-        <input type="hidden" name="idx" value="{{detail.idx}}" />
-        <div class="modal-dialog" style="{{#if parentInfo.parents_name}}{{/if}}width:900px{{^if parentInfo.parents_name}}width:600px{{/if}}">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
                     <h4 class="modal-title" id="_layerTitle">상세보기</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="col-lg-12 form-inline block _modalLayer">
-                            <%--<div class="col-lg-12">--%>
-                            <table id="list_info" class="table table-sorting table-hover table-bordered">
-                                <tbody id="detail_tableBody">
-                                <tr>
-                                    <th>실명</th>
-                                    <td colspan="3" style="font-weight:bold; color: #ff5600">{{}}</td>
-                                </tr>
-                                <tr>
-                                    <th>주민번호</th>
-                                    <td>
-                                        <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="" />
-                                        <br />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>휴대폰 번호</th>
-                                    <td colspan="3">
-                                        <input type="hidden" name="phone_no" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>이메일</th>
-                                    <td>
-                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="" />
-                                        <br />
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th>상품수령 주소</th>
-                                    <td colspan="3">
-                                        <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>상세주소</th>
-                                    <td colspan="3">
-                                        <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>신분증 사본</th>
-                                    <td colspan="3">
-                                            <a href="javascript://">
-                                                <img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
-                                            </a>
-                                            <input id="files1" type="file" onchange="photoSubmit()">
-                                            <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>가족관계 증명서</th>
-                                    <td colspan="3">
-                                        <a href="javascript://">
-                                            <img src="" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
-                                        </a>
-                                        <input id="files2" type="file" onchange="photoSubmit()">
-                                        <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file2" value="" />
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                    </div>
+                <div class="modal-body" style="height: 600px; width: 400px;">
+                    <form id="winnerDetailForm">
+                        <div class="row col-lg-12 form-inline">
+                            <div class="widget-content">
+                                <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                    <tbody id="detail_tableBody">
+                                    <tr>
+                                        <th>실명</th>
+                                        <td>{{winnerName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주민번호</th>
+                                        <td>
+                                            <input type="text" class="form-control" style="width:100%;" maxlength="13" value="{{winnerSocialNo}}"/>
+                                            <br/>
+                                            [{{winnerSocialNo}}]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>휴대폰 번호</th>
+                                        <td>
+                                            {{winnerPhone}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>이메일</th>
+                                        <td>
+                                            <input type="text" class="form-control" style="width:100%;" value="{{winnerEmail}}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>미성년자 여부</th>
+                                        <td>
+                                        {{#equal minorYn '1'}}
+                                        <span style="color:red">미성년자</span>
+                                        {{else}}
+                                        -
+                                        {{/equal}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>상품수령 주소</th>
+                                        <td>
+                                            <input type="text" class="form-control" style="width:100%;" value="{{winnerPostCode}}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>상세주소</th>
+                                        <td>
+                                            <input type="text" class="form-control" style="width:100%;" value="{{winnerAddress1}}"/>
+                                            <br/>
+                                            <input type="text" class="form-control" style="width:100%;" value="{{winnerAddress2}}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>신분증 사본</th>
+                                        <td>
+                                            <img src="{{renderImage winnerAddFile1}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                            <%--<input id="file1" type="file" onchange="photoSubmit($(this))">--%>
+                                            <%--<input type="hidden" class="_hidden_filename" name="winnerAddFile1" id="winnerAddFile1" value="" />--%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>가족관계 증명서</th>
+                                        <td>
+                                            <img src="{{renderImage winnerAddFile2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                            <%--<input id="file2" type="file" onchange="photoSubmit($(this))">--%>
+                                            <%--<input type="hidden" class="_hidden_filename" name="winnerAddFile2" id="winnerAddFile2" value="" />--%>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
-
-                    <%--<button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>--%>
-                    <%--<button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>--%>
-                    <%--<button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>--%>
-                    <%--<span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>--%>
-
-                    <%--<span class="exchange_complete_txt">완료되었습니다.</span>--%>
-
-                    <%--<span class="exchange_reject_txt">불가처리 되었습니다.</span>--%>
-
                 </div>
             </div>
         </div>
