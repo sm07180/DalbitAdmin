@@ -9,7 +9,9 @@ import lombok.ToString;
 @ToString
 public class P_NewBroadcastTypeOutVo {
 
+    private String hour;
     private String daily;
+    private String monthly;
     private int totalCreateCnt;
     private int create00Cnt;
     private int create01Cnt;

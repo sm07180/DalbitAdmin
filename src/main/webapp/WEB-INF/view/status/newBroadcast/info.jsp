@@ -34,8 +34,11 @@
                                     <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
                                 </div>
 
-                                <input type="hidden" name="startDate" id="startDate">
-                                <input type="hidden" name="endDate" id="endDate" />
+                                <%--<input type="hidden" name="startDate" id="startDate">--%>
+                                <%--<input type="hidden" name="endDate" id="endDate" />--%>
+
+                                <input name="startDate" id="startDate">
+                                <input name="endDate" id="endDate" />
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
@@ -141,34 +144,19 @@
 
     $(document).on('click', '._todaySearch', function(){
 
-        if(tabId == 'tab_time' || tabId == 'tab_gift' || tabId == 'tab_platform'){
+        if(tabId == 'tab_time' || tabId == 'tab_gift'){
             slctType = "0";
             me = 0;
-        }else if(tabId == 'tab_day' || tabId == 'tab_type') {
+        }else if(tabId == 'tab_day') {
             slctType = "1";
             me = 1;
         }else if(tabId == 'tab_year') {
             slctType = "2";
             me = 2;
         }
-
         radioChange();
 
-        // if(tabId == 'tab_time'){
-        //     getTimeList();
-        // }else if(tabId == 'tab_day'){
-        //     getDayList();
-        // }else if(tabId == 'tab_year'){
-        //     getYearList();
-        // }else if(tabId == 'tab_platform'){
-        //     getPlatformList();
-        // }else if(tabId == 'tab_year'){
-        //     getTypeList();
-        // }else if(tabId == 'tab_gift'){
-        //     getGiftHistoryList();
-        // }
-
-        setTimeDate(dateTime);
+        // setTimeDate(dateTime);
         $("#bt_search").click();
     });
 
@@ -178,8 +166,7 @@
             $("#oneDayDatePicker").show();
             $("#monthDatepicker").hide();
             $("#yearDatepicker").hide();
-            $("#startDate").val($("#onedayDate").val());
-            $("#endDate").val($("#onedayDate").val());
+            setTimeDate(dateTime);
         }else{
             if(me == 1){
                 // 일별 -----------------------------------
@@ -187,16 +174,12 @@
                 $("#monthDatepicker").show();
                 $("#yearDatepicker").hide();
 
-                var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
-                $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
-                $("#endDate").val($("#onedayDate").val().substr(0,8) + (monthLastDate.getDate() + 1));
-                $("#monthDate").val($("#onedayDate").val().substr(0,7));
 
-                var rangeDate = $("#monthDate").val().split(' - ');
-                if(-1 < rangeDate.indexOf(' - ')){
-                    $("#startDate").val(rangeDate[0]);
-                    $("#endDate").val(rangeDate[1]);
-                };
+                $("#startDate").val(moment(dateTime).format("YYYY.MM.01"));
+                var monthLastDate = new Date($("#startDate").val().substr(0,4),$("#startDate").val().substr(5,7),-1);
+                $("#endDate").val($("#startDate").val().substr(0,8) +(monthLastDate.getDate() + 1));
+                $("#monthDate").val(monthLastDate.getFullYear() + "." + common.lpad(monthLastDate.getMonth(),0,"2"));
+
             }else{
                 // 월별 ----------------------------------
                 $("#oneDayDatePicker").hide();
@@ -226,27 +209,19 @@
             var monthLastDate = new Date($("#startDate").val().substr(0,4),$("#startDate").val().substr(5,7),-1);
             $("#endDate").val($("#startDate").val().substr(0,8) +(monthLastDate.getDate() + 1));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+
         }else if(slctType == 2){
             $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
             $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+            $("#yearDate").html(moment($("#startDate").val()).format('YYYY년'));
         }
         $("#bt_search").click();
     }
 
     function dataSet(){
-        var startDate;
-        var endDate;
-
-        // if(!common.isEmpty(isPrev)){
-        //     var addDate = isPrev ? -1 : 1;
-        //     startDate = moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD');
-        //     var monthLastDate = new Date(startDate.substr(0,4),startDate.substr(5,7),-1);
-        //     endDate = startDate.substr(0,8) +(monthLastDate.getDate() + 1);
-        // }else{
-            startDate = $("#startDate").val();
-            endDate = $("#endDate").val();
-        // }
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
 
         var data = {
             slctType : slctType,
