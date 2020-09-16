@@ -109,11 +109,11 @@ var MemberDataTableSource = {
                 }},
              {'title': 'UserID', 'data': 'mem_userid', 'width':'100px'},
              {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},
-             {'title': '본인인증여부', 'data': 'is_certification', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return data == 1 ? '<span style="color: red; font-weight: bold">Yes</span>' : 'No';
-                }},
              {'title': '성별', 'data': 'mem_sex', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.mem_birth_year);
+                }},
+             {'title': '본인인증여부', 'data': 'is_certification', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return data == 1 ? '<span style="color: red; font-weight: bold">Yes</span>' : 'No';
                 }},
              {'title': '연락처', 'data': 'mem_phone', 'width':'80px'},
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
@@ -763,6 +763,153 @@ var MemberDataTableSource = {
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+
+    'clipList': {
+        'url': '/rest/clip/history/list'
+
+        , 'columns': [
+            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '플랫폼', 'width':'60px', 'data': 'osType', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_platformType);
+                }},
+            {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '제목', 'width':'200px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        return "";
+                    }
+                    return '<img class="thumbnail fullSize_background" src="'+ PHOTO_SERVER_URL + data +'" width="50px" max-height="50px" />';
+
+                    // return data;
+                }},
+            {'title': '[듣기]<br>녹음시간', 'width':'50px', 'data': 'filePath', 'render': function (data, type, row, meta) {
+
+                    return '<a class="_openClipPlayerPop" id="' + "play_" + row.castNo + '" data-clipNo="' + row.castNo + '" data-clipPath="' + data + '" href="javascript:;" >[ <i class="fa fa-play"></i> 듣기]</a><br>' + row.filePlay;
+                    // return '<audio class="clipPlayer" id="player_' + row.castNo + '" onended="playEnd(' + row.castNo + ')"><source src="'+ PHOTO_SERVER_URL + row.filePath +'"></audio><a id="' + "play_" + row.castNo + '" data-castNo="' + row.castNo + '" href="javascript:;" onclick="eventPlay($(this))">[ <i class="fa fa-play"></i> ]</a><br>' + row.filePlay;
+                }},
+            {'title': '등록일시', 'width':'70px', 'data': 'startDate', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '공개<br>여부', 'width':'40px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_typeOpen);
+                }},
+            {'title': '청취수', 'width':'60px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '좋아요 수', 'width':'60px', 'data': 'countGood', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '받은선물<br>건수', 'width':'60px', 'data': 'countGift', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '받은선물<br>별 수', 'width':'60px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '댓글', 'width':'50px', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
+                    return data + ' <a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'">[댓글]</a>';
+                }},
+            {'title': '숨기기', 'width':'50px', 'data': 'hide', 'render': function (data, type, row, meta) {
+                    if(row.state == 4 || row.state == 5){
+                        return "-";
+                    }
+
+                    if(data == 0){
+                        return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', 1)">[숨기기]</a>';
+                    }else{
+                        return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', 0)">[해제]</a>';
+                    }
+                }},
+            {'title': '삭제', 'width':'50px', 'data': 'state', 'render': function (data, type, row, meta) {
+                    if(data == 4 || row.state == 5){
+                        return "-";
+                    }else{
+                        return '<a href="javascript:;" onclick="deleteClip(' + row.castNo + ')">[삭제]</a>';
+                    }
+                }},
+            {'title': '상태', 'width':'50px', 'data': 'state', 'render': function (data, type, row, meta) {
+                    if(data != 4 && data != 5 && row.hide == 1){
+                        return util.getCommonCodeLabel(data, clip_hide);
+                    }
+
+                    return util.getCommonCodeLabel(data, clip_stateType);
+                }},
+        ],
+
+        'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+
+
+
+    'clipListenList': {
+        'url': '/rest/clip/history/listen/list'
+
+        , 'columns': [
+            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '청취일시', 'width':'70px', 'data': 'listenDate', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '등록회원', 'width':'70px', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.memNick;
+                }},
+            {'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data,row.memBirthYear);
+                }},
+            {'title': '플랫폼', 'width':'60px', 'data': 'osType', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_platformType);
+                }},
+            {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '제목', 'width':'200px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        return "";
+                    }
+                    return '<img class="thumbnail fullSize_background" src="'+ PHOTO_SERVER_URL + data +'" width="50px" max-height="50px" />';
+
+                    // return data;
+                }},
+            {'title': '[듣기]<br>녹음시간', 'width':'50px', 'data': 'filePath', 'render': function (data, type, row, meta) {
+
+                    return '<a class="_openClipPlayerPop" id="' + "play_" + row.castNo + '" data-clipNo="' + row.castNo + '" data-clipPath="' + data + '" href="javascript:;" >[ <i class="fa fa-play"></i> 듣기]</a><br>' + row.filePlay;
+                    // return '<audio class="clipPlayer" id="player_' + row.castNo + '" onended="playEnd(' + row.castNo + ')"><source src="'+ PHOTO_SERVER_URL + row.filePath +'"></audio><a id="' + "play_" + row.castNo + '" data-castNo="' + row.castNo + '" href="javascript:;" onclick="eventPlay($(this))">[ <i class="fa fa-play"></i> ]</a><br>' + row.filePlay;
+                }},
+            {'title': '등록일시', 'width':'70px', 'data': 'startDate', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '청취 수', 'width':'60px', 'data': 'listenPlayCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '보낸<br>달 수', 'width':'60px', 'data': 'listenGiftDalCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '보낸<br>좋아요 수', 'width':'60px', 'data': 'listenGoodCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }}
+        ],
+
+        'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
                 $(row).addClass("bg-testMember");
             }
         }
