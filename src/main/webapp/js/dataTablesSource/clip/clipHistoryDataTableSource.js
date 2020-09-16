@@ -40,6 +40,9 @@ var ClipHistoryDataTableSource = {
 			{'title': '공개<br>여부', 'width':'25px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_typeOpen);
                 }},
+            {'title': '인증<br>여부', 'width':'35px', 'data': 'clipConfirm', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_confirmType_yn) + '<br>' + '<a href="javascript:;" onclick="editClipConfirm('+ row.castNo + ',' + data + ')">[' + util.getCommonCodeLabel(data, clip_confirmType_update) + ']</a>';
+                }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
@@ -234,6 +237,9 @@ var ClipHistoryDataTableSource = {
                 }},
             {'title': '공개<br>여부', 'width':'25px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_typeOpen);
+                }},
+            {'title': '인증<br>여부', 'width':'25px', 'data': 'clipConfirm', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_confirmType_yn);
                 }},
             {'title': '플랫폼', 'width':'45px', 'data': 'osType', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_platformType);

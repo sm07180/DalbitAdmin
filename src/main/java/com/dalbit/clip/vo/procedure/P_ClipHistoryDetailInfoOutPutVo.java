@@ -39,5 +39,8 @@ public class P_ClipHistoryDetailInfoOutPutVo extends BaseVo {
     private String opMemoCnt;			// 운영자메모개수
     private String lastOpDate;			// 최근수정일자
     private String lastOpName;			// 최근수정이름
+    private int isWithdrawal;           // 탈퇴여부 (0: 정상 1: 탈퇴)
+    private String cast_deviceUuid;
+    private String cast_ip;
 
 }

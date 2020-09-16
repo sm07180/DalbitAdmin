@@ -2,6 +2,7 @@ package com.dalbit.clip.controller.rest;
 
 import com.dalbit.clip.service.Cli_ClipHistoryService;
 import com.dalbit.clip.vo.*;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditHistoryVo;
 import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditVo;
 import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoInputVo;
 import com.dalbit.util.GsonUtil;
@@ -125,12 +126,29 @@ public class Cli_ClipHistoryRestController {
     }
 
 
+    /**
+     * 클립 상세 운영자 메모 등록
+     */
     @PostMapping("/info/addmemo")
     public String selectClipHistoryDetailInfoAddMemo(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
         return cliClipHistoryService.callAdminClipInfoDetailAddMemo(pClipHistoryDetailInfoEditVo);
     }
 
+    /**
+     * 방송방 정보수정 내역 보기
+     */
+    @PostMapping("/info/editHist")
+    public String editHist(P_ClipHistoryDetailInfoEditHistoryVo pClipHistoryDetailInfoEditHistoryVo) {
+        return cliClipHistoryService.callAdminClipEditHistory(pClipHistoryDetailInfoEditHistoryVo);
+    }
 
+    /**
+     * 클립 댓글 삭제
+     */
+    @PostMapping("/info/delete/reply")
+    public String deleteClipReply(ClipHistoryReplyVo clipHistoryReplyVo){
+        return cliClipHistoryService.deleteClipReply(clipHistoryReplyVo);
+    }
 
 
 }

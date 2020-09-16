@@ -246,7 +246,7 @@
 
     <sql id="clipHistoryReplyCondition">
         <where>
-            cast_no = #{targetClipNo}
+            borad.cast_no = #{targetClipNo}
 
             <if test="isChoiceDate != null and isChoiceDate != '' and isChoiceDate != '-1' ">
                 AND borad.write_date
@@ -311,7 +311,7 @@
                     , IFNULL( basic.mem_sex, basicWd.mem_sex) AS memSex
                     , IFNULL( basic.mem_birth_year, basicWd.mem_birth_year) AS memBirthYear
                     , profile.image_profile AS profileImage
-                    , (SELECT COUNT(*) FROM rd_data.tb_cast_room_board WHERE cast_no = #{castNo} AND writer_mem_no = borad.writer_mem_no) AS replyWriteCnt
+                    , (SELECT COUNT(*) FROM rd_data.tb_cast_room_board WHERE cast_no = borad.cast_no AND writer_mem_no = borad.writer_mem_no AND idx <![CDATA[<=]]> borad.idx) AS replyWriteCnt
                     , basic.`inner` AS `inner`
                 FROM
                     rd_data.tb_cast_room_board borad
@@ -330,7 +330,7 @@
                 <include refid="clipHistoryReplyCondition"></include>
             ) a
             ORDER BY
-                a.writeDate DESC
+                a.writeDate DESC, a.replyIdx DESC
             limit #{pageStart}, #{pageCnt}
           ) a
         , (select @rownum := #{pageStart}) r
@@ -681,76 +681,80 @@
     <select id="callClipHistoryGoodList" parameterType="com.dalbit.clip.vo.ClipHistoryListenVo" resultType="com.dalbit.clip.vo.ClipHistoryListenVo">
         /* Cli_ClipHistory.xml - callClipHistoryGoodList*/
         select
-        @rownum := @rownum + 1 as rowNum,
-        a.*
+            @rownum := @rownum + 1 as rowNum,
+            a.*
         from (
-        SELECT
-        a.*
-        FROM
-        (
-        SELECT
-        listen.last_upd_date AS listenDate
-        , listen.good_date AS listenGoodDate
-        , listen.mem_no AS listenMemNo
-        , listenInfo.mem_nick AS listenMemNick
-        , listenInfo.mem_sex AS listenMemSex
-        , listenInfo.mem_birth_year AS listenMemBirthYear
-        , listenInfo.ip AS listenMemIp
-        , clip.idx AS clipIdx
-        , clip.cast_no AS castNo
-        , clip.subject_type AS subjectType
-        , code.code AS subjectName
-        , clip.title AS title
-        , clip.type_entry AS typeEntry
-        , clip.image_background AS imageBackground
-        , clip.file_name AS fileName
-        , clip.file_path AS filePath
-        , clip.file_play AS filePlay
-        , clip.mem_no AS memNo
-        , clipInfo.mem_sex AS memSex
-        , clipInfo.mem_birth_year AS memBirthYear
-        , clipInfo.mem_nick AS memNick
-        , clip.type_open AS typeOpen
-        , clip.state AS state
-        , clip.hide AS hide
-        , clip.code_link AS codeLink
-        , clip.count_play AS countPlay
-        , clip.count_good AS countGood
-        , clip.count_gift AS countGift
-        , clip.count_byeol AS countByeol
-        , clip.start_date AS startDate
-        , clip.end_date AS endDate
-        , clip.badge_newdj AS badgeNewdj
-        , clip.os_type AS osType
-        , clip.last_upd_date AS lastUpdDate
-        , clipInfo.`inner` AS 'inner'
-        , wallet.ruby AS dal
-        FROM
-        rd_data.tb_cast_room_member listen
-        LEFT JOIN
-        rd_data.tb_cast_room clip
-        ON
-        listen.cast_no = clip.cast_no
-        LEFT JOIN
-        rd_data.tb_member_basic listenInfo
-        ON
-        listen.mem_no = listenInfo.mem_no
-        LEFT JOIN
-        rd_data.tb_member_basic clipInfo
-        ON
-        listen.cast_mem_no = clipInfo.mem_no
-        LEFT JOIN
-        rd_data.tbl_code_define code
-        ON
-        code.type = 'clip_type' AND clip.subject_type = code.value
-        LEFT JOIN
-        rd_data.tb_member_wallet wallet
-        ON
-        listen.cast_mem_no = wallet.mem_no
-        <include refid="clipHistoryGoodCondition"/>
-        ) a
-        order by a.listenDate desc
-        limit #{pageStart}, #{pageCnt}
+            SELECT
+                a.*
+            FROM
+            (
+                SELECT
+                    listen.last_upd_date AS listenDate
+                    , listen.good_date AS listenGoodDate
+                    , listen.gift_cnt AS listenGiftCnt
+                    , listen.gift_dal AS listenGiftDalCnt
+                    , listen.good AS listenGoodCnt
+                    , listen.play_cnt AS listenPlayCnt
+                    , listen.mem_no AS listenMemNo
+                    , listenInfo.mem_nick AS listenMemNick
+                    , listenInfo.mem_sex AS listenMemSex
+                    , listenInfo.mem_birth_year AS listenMemBirthYear
+                    , listenInfo.ip AS listenMemIp
+                    , clip.idx AS clipIdx
+                    , clip.cast_no AS castNo
+                    , clip.subject_type AS subjectType
+                    , code.code AS subjectName
+                    , clip.title AS title
+                    , clip.type_entry AS typeEntry
+                    , clip.image_background AS imageBackground
+                    , clip.file_name AS fileName
+                    , clip.file_path AS filePath
+                    , clip.file_play AS filePlay
+                    , clip.mem_no AS memNo
+                    , clipInfo.mem_sex AS memSex
+                    , clipInfo.mem_birth_year AS memBirthYear
+                    , clipInfo.mem_nick AS memNick
+                    , clip.type_open AS typeOpen
+                    , clip.state AS state
+                    , clip.hide AS hide
+                    , clip.code_link AS codeLink
+                    , clip.count_play AS countPlay
+                    , clip.count_good AS countGood
+                    , clip.count_gift AS countGift
+                    , clip.count_byeol AS countByeol
+                    , clip.start_date AS startDate
+                    , clip.end_date AS endDate
+                    , clip.badge_newdj AS badgeNewdj
+                    , clip.os_type AS osType
+                    , clip.last_upd_date AS lastUpdDate
+                    , clipInfo.`inner` AS 'inner'
+                    , wallet.ruby AS dal
+                FROM
+                    rd_data.tb_cast_room_member listen
+                LEFT JOIN
+                    rd_data.tb_cast_room clip
+                ON
+                    listen.cast_no = clip.cast_no
+                LEFT JOIN
+                    rd_data.tb_member_basic listenInfo
+                ON
+                    listen.mem_no = listenInfo.mem_no
+                LEFT JOIN
+                    rd_data.tb_member_basic clipInfo
+                ON
+                    listen.cast_mem_no = clipInfo.mem_no
+                LEFT JOIN
+                    rd_data.tbl_code_define code
+                ON
+                    code.type = 'clip_type' AND clip.subject_type = code.value
+                LEFT JOIN
+                    rd_data.tb_member_wallet wallet
+                ON
+                    listen.cast_mem_no = wallet.mem_no
+                <include refid="clipHistoryGoodCondition"/>
+            ) a
+            order by a.listenDate desc
+            limit #{pageStart}, #{pageCnt}
         ) a
         , (select @rownum := #{pageStart}) r
     </select>
@@ -1027,7 +1031,6 @@
 
 
 
-
     <!-- 클립 상세정보 조회 -->
     <select id="callAdminClipInfoDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         call rd_admin.sp_admin_clip_info_detail	(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
@@ -1036,6 +1039,22 @@
     <!-- 클립 상세정보 수정 -->
     <update id="callAdminClipInfoDetailEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo">
         call rd_admin.sp_admin_clip_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </update>
+
+    <!-- 클립 상세정보 수정 이력 -->
+    <select id="callAdminClipEditHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditHistoryVo">
+        call rd_admin.sp_admin_clip_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <!-- 클립 댓글 삭제 처리 -->
+    <update id="deleteClipReply" parameterType="com.dalbit.clip.vo.ClipHistoryReplyVo">
+    /* Cli_ClipHistory.xml - clipRemove*/
+        UPDATE rd_data.tb_cast_room_board
+        SET
+          status = 2
+        WHERE
+          cast_no = #{castNo}
+          AND idx = #{replyIdx}
     </update>
 
 </mapper>
