@@ -8,6 +8,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class P_EventManagementInfoInputVo extends PagingVo {
+public class P_EventManagementEventIdxInputVo extends PagingVo {
     private int eventIdx;
 }

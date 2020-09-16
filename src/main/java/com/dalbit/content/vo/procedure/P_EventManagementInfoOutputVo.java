@@ -27,4 +27,6 @@ public class P_EventManagementInfoOutputVo extends BaseVo {
     private String pcLinkUrl;
     private String mobileLinkUrl;
     private String listImgUrl;
+
+    private int prizeWinner;
 }

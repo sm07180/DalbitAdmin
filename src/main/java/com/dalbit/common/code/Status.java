@@ -586,7 +586,6 @@ public enum Status {
     이벤트관리_이벤트삭제_성공("0", "event.management.delete.success", "이벤트 삭제 성공 시"),
 //    이벤트관리_이벤트삭제_이벤트번호없음("-1", "event.management.delete.no.eventIdx", "이벤트 번호가 없어 삭제 실패 시"),
     이벤트관리_이벤트삭제_실패("C006", "event.management.delete.fail", "이벤트 삭제 실패 시"),
-    이벤트관리_이벤트삭제_파라미터오류("C006", "param.error", "이벤트 삭제 실패 시 파라미터 오류일 때"),
 
     // 경품관리
     이벤트관리_경품리스트조회_성공("C001", "event.prize.list.success", "이벤트 경품 리스트 조회 성공 시"),
@@ -656,6 +655,16 @@ public enum Status {
 //    이벤트관리_당첨자상태변경_발송대기중아님("-2", "event.winner.update.no.send.wait", "발송 대기 중이 아닐 시"),
     이벤트관리_당첨자상태변경_변경구분값오류("-2", "param.error", "변경 구분값 오류로 당첨자 상태 변경 실패 시"),
     이벤트관리_당첨자상태변경_실패("C006", "server.error", "이벤트 당첨자 상태 변경 실패 시"),
+
+    이벤트관리_당첨자발표가져오기_성공("0", "event.announcement.info.success", "이벤트 당첨자 발표 가져오기 성공 시"),
+    이벤트관리_당첨자발표가져오기_이벤트번호없음("-1", "event.announcement.info.no.eventIdx", "이벤트 번호가 없어 당첨자 발표 가져오기 실패 시"),
+    이벤트관리_당첨자발표가져오기_선정완료안됨("-2", "event.announcement.info.complete.not.yet", "당첨자 선정이 완료되지 않아 당첨자 발표 가져오기 실패 시"),
+    이벤트관리_당첨자발표가져오기_실패("C006", "server.error", "이벤트 당첨자 발표 가져오기 실패 시"),
+
+    이벤트관리_당첨자발표리스트등록수정_성공("0", "event.announcement.edit.success", "이벤트 당첨자 발표리스트 등록/수정 성공 시"),
+    이벤트관리_당첨자발표리스트등록수정_이벤트번호없음("-1", "event.announcement.edit.no.eventIdx", "이벤트 번호가 없어 발표리스트 등록/수정 실패 시"),
+    이벤트관리_당첨자발표리스트등록수정_선정완료안됨("-2", "event.announcement.edit.complete.not.yet", "당첨자 선정이 완료되지 않아 발표리스트 등록/수정 실패 시"),
+    이벤트관리_당첨자발표리스트등록수정_실패("C006", "server.error", "이벤트 당첨자 발표리스트 등록/수정 실패 시"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
