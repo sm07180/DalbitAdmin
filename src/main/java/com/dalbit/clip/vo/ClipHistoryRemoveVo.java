@@ -9,18 +9,18 @@ import lombok.Setter;
 public class ClipHistoryRemoveVo extends PagingVo {
 
     /* input */
-    private String searchType;
+    private int searchType;
     private String searchText;
-    private String search_testId;
+    private int search_testId;
     private String searchHistText;
-    private String orderByType;
-    private String slctType;
-    private String isChoiceDate;
-
+    private int orderByType;
+    private int slctType;
+    private int isChoiceDate;
+    private int pageNo;
     /* output */
     private String clipIdx;
     private String castNo;
-    private String subjectType;
+    private int subjectType;
     private String subjectName;
     private String title;
     private String typeEntry;
@@ -47,6 +47,7 @@ public class ClipHistoryRemoveVo extends PagingVo {
     private String lastUpdDate;
     private String inner;
     private String dal;
+    private int clipConfirm;
 
 
 }

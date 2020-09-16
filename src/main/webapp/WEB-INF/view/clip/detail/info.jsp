@@ -1,70 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+<%
+    String in_clipNo = request.getParameter("clipNo");
+%>
+
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid col-lg-12 no-padding">
-            <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
-                            <div>
-                                <span id="slctTypeArea"></span>
-                                <div class="input-group date" id="oneDayDatePicker">
-                                    <label for="onedayDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
-                                    </label>
-                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
-                                </div>
-
-                                <div class="input-group date" id="monthDatepicker" style="display:none;">
-                                    <label for="monthDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="monthDate" type="text" class="form-control"/>
-                                </div>
-
-                                <div class="input-group date" id="yearDatepicker" style="display:none;">
-                                    <label for="yearDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="yearDate" type="text" class="form-control"/>
-                                </div>
-
-                                <div class="input-group date" id="rangeDatepicker" style="display:none;">
-                                    <label for="rangeDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="rangeDate" type="text" class="form-control"/>
-                                </div>
-
-                                <input type="hidden" name="startDate" id="startDate">
-                                <input type="hidden" name="endDate" id="endDate" />
-
-                                <%--<input name="startDate" id="startDate">--%>
-                                <%--<input name="endDate" id="endDate" />--%>
-
-                                <div id="div_searchArea" style="display: none;">
-                                    <span id="search_platform_aria"></span>
-                                    <span id="search_sendType_aria"></span>
-                                    <span id="search_push_slct_aria"></span>
-                                    <span id="search_searchType_aria"></span>
-
-                                    <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
-                                </div>
-
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                <a href="javascript://" class="_nextSearch">[다음]</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
         <!-- tab -->
         <div class="no-padding" id="infoTab">
             <jsp:include page="infoTab.jsp"/>
@@ -76,10 +19,13 @@
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
-<script type="text/javascript" src="/js/dataTablesSource/status/pushDataTableSource.js?${dummyData}"></script>
-<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/dataTablesSource/clip/clipDetailDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/clip/clipCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/util/memberUtil.js?${dummyData}"></script>
 
 <script type="text/javascript">
+    var clipNo = "<%=in_clipNo%>";
+
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     var week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -87,13 +33,12 @@
     setTimeDate(dateTime);
 
     $(function(){
-        $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
-        $("#slctTypeArea").find("input:radio[name='slctType'][value='3']").parent().attr('style', 'display:none !important');
+        $("#isChoiceDateArea").append(util.getCommonCodeRadio(-1, clip_isChoiceDate));
+        $("#slctTypeArea").append(util.getCommonCodeRadio(-1, clip_slctType));
+        // $("#slctTypeArea").find("input:radio[name='slctType'][value='3']").parent().attr('style', 'display:none !important');
 
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, content_platform5));
-        $("#search_sendType_aria").html(util.getCommonCodeSelect(-1, push_sendType));
-        $("#search_push_slct_aria").html(util.getCommonCodeSelect(-1, push_push_slct));
-        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, push_searchType));
+        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, clip_platform));
+        $("#search_aria").html(util.getCommonCodeSelect(-1, clip_searchType_clipDetail));
 
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
@@ -137,8 +82,10 @@
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
-        setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+        // setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+        setRangeDatepicker(moment(), moment())
 
+        $("#tab_clipInfo").click();
 
     });
 
@@ -173,6 +120,24 @@
         $("#bt_search").click();
     });
 
+    $(document).on('change', 'input[name="isChoiceDate"]', function(){
+        var type = $(this).val();
+
+        if(type == -1){ // 전체
+            $(".date").hide();
+        }else{
+            radioChange();
+        }
+
+        $("#bt_search").click();
+    });
+
+    $(document).on('click', '#search_testId', function(){
+        $("#bt_search").click();
+    });
+
+
+
     $(document).on('click', '._prevSearch', function(){
         searchDate('prev');
     });
@@ -197,6 +162,16 @@
     });
 
     function radioChange(){
+        if($('input[name="isChoiceDate"]:checked').val() == -1){
+            $("#oneDayDatePicker").hide();
+            $("#monthDatepicker").hide();
+            $("#yearDatepicker").hide();
+            $("#rangeDatepicker").hide();
+            $("#startDate").val($("#onedayDate").val());
+            $("#endDate").val($("#onedayDate").val());
+            return;
+        }
+
         if($('input[name="slctType"]:checked').val() == 0){
             $("#oneDayDatePicker").show();
             $("#monthDatepicker").hide();
@@ -229,7 +204,7 @@
                 $("#yearDatepicker").hide();
                 $("#rangeDatepicker").show();
 
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
                 setRangeDatepicker($("#startDate").val(), $("#endDate").val());

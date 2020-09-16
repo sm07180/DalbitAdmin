@@ -25,6 +25,9 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/dataTablesSource/clip/clipHistoryDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/clip/clipCodeList.js?${dummyData}"></script>
+
 
 <script type="text/javascript">
     var beforeOrderByType = 0;
@@ -47,26 +50,32 @@
         $("#clipSubjectType").val("-1");
     }
 
-    function getHistory(){
-        $("#select_clipOrderByType").html(util.getCommonCodeSelect(beforeOrderByType, clip_orderByType));
+    function getHistory_clipList(tmp){
+        $("#select_clipOrderByType").html(util.getCommonCodeSelect(beforeOrderByType, clip_orderByType_memberDetail));
         getClipSubjectTypeCodeDefine();
-
-        initDataTable_clipHistory();
+        initDataTable_clipHistory(tmp);
     }
 
-    var dtList_info;
-    function initDataTable_clipHistory() {
+    function initDataTable_clipHistory(tmp) {
+        if(common.isEmpty(memNo)){
+            return;
+        }
+
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        var source = MemberDataTableSource[tmp];
+
         //=---------- Main DataTable ----------
-        var dtList_info_data = function (data) {
+        var dtList_info_detail_data = function (data) {
             data.orderByType = Number($("#clipOrderByType").val());
             data.subjectType = Number(common.isEmpty($("#clipSubjectType").val()) ? "-1" : $("#clipSubjectType").val());
+            data.targetMemNo = memNo;
         };
 
-        dtList_info = new DalbitDataTable($("#clip_history_list_info"), dtList_info_data, ClipHistoryDataTableSource.list, $("#searchForm"));
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        dtList_info.setPageLength(50);
-        dtList_info.createDataTable(selectCallback_clipHistoty);
+        dtList_info_detail = new DalbitDataTable($("#clip_history_list_info"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(50);
+        dtList_info_detail.createDataTable(selectCallback_clipHistoty);
 
         //---------- Main DataTable ----------=
     };
@@ -89,6 +98,7 @@
         data.order = "asc";
         data.is_ues = "1";
         util.getAjaxData("codeList", "/common/codeList", data, fn_ClipSubjectTypeCode_success);
+
     }
     function fn_ClipSubjectTypeCode_success(dst_id, response){
         var allData = {
@@ -125,7 +135,7 @@
 
     function fn_ClipUpdateHide_success(dst_id, response){
         alert(response.message);
-        $("#bt_search").click();
+        dtList_info.reload(selectCallback_clipHistoty);
     }
     function fn_fail(dst_id, response){
         alert(data.message);
@@ -144,7 +154,7 @@
 
     function fn_ClipDelete_success(dst_id, response){
         alert(response.message);
-        $("#bt_search").click();
+        dtList_info.reload(selectCallback_clipHistoty);
     }
 
 
@@ -155,7 +165,7 @@
             alert('해당 클립에는 등록된 댓글이 없습니다.');
         } else if($(this).data('reply') > 0) {
             var data = {
-                'targetClipNo' : $(this).data('cast_no')
+                'castNo' : $(this).data('cast_no')
             };
             util.getAjaxData("selectReply", "/rest/clip/history/reply/list", data, fn_success_selectReply);
         }
@@ -193,26 +203,6 @@
             $('#clipReplyModal').modal("show");
         }
 
-    }
-
-
-    //클립 운영자 인증 요청
-    function editClipConfirm(clipNo, confirmData){
-        if(confirm("운영자 관리 여부를 수정 하시겠습니까?")) {
-            var data = Object();
-            data.cast_no = clipNo;
-            data.editSlct = 8;
-            data.confirm = confirmData === 1 ? 0 : 1;
-            data.sendNoti = 0;
-
-            util.getAjaxData("clipDetailInfoEdit", "/rest/clip/history/info/edit", data, fn_detailInfo_Edit_success);
-        }
-    }
-
-    function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
-        console.log(response);
-        $("#bt_search").click();
-        alert(response.message);
     }
 
 </script>

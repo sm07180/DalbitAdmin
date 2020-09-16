@@ -25,6 +25,7 @@
     });
 
     window.onbeforeunload = playEnd;
+    opener.clipPlayer = this;
 
     function init(){
         $(".clipPlayer").find("source").prop("src", PHOTO_SERVER_URL + clipPath);
@@ -36,6 +37,7 @@
         var obj = $(opener.document).find("#play_" + clipNo);
         obj.find("i").removeClass("fa-play");
         obj.find("i").addClass("fa-pause");
+        document.getElementById("clipPlayer").play();
     }
 
     function ClipPause(){
@@ -43,6 +45,7 @@
         var obj = $(opener.document).find("#play_" + clipNo);
         obj.find("i").removeClass("fa-pause");
         obj.find("i").addClass("fa-play");
+        document.getElementById("clipPlayer").pause();
     }
 
     function playEnd(){

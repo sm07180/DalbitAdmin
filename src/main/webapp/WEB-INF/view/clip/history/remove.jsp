@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 회원가입 > 총계 -->
+<!-- 클립관리 > 클립내역관리 > 클립삭제 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate" style="display: none;"></span>
@@ -52,7 +52,12 @@
 
     function selectCallback_clipHistotyRemove(data){
         // 탭 우측 총 건수 추가
-        var text = "<span style='color: black;'>클립 삭제 수 :</span><span style='color: red; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>";
+        var text = "<span style='color: black;'>클립 삭제 수 :</span>" +
+            "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
+            "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
+            "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건, </span>" +
+            "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건, </span>" +
+            "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건</span>";
 
         $("#headerInfo").html(text);
         $("#headerInfo").show();

@@ -6,11 +6,12 @@
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">모달창오픈</button>
 <div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
 
-<div class="row col-lg-12 form-inline hide mt5" style="padding-bottom: 0px;" id="tabList_top">
+<div class="row col-lg-12 form-inline hide mt5 pb0 pr0" style="padding-bottom: 0px;" id="tabList_top">
     <div class="widget-content" >
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
             <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
             <li><a href="#broadcast" role="tab" data-toggle="tab" id="tab_broadcast" onclick="tab_click(this.id);">방송관리</a></li>
+            <li><a href="#clip" role="tab" data-toggle="tab" id="tab_clip" onclick="tab_click(this.id);">클립관리</a></li>
             <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="tab_click(this.id);">결제/취소내역</a></li>
             <li><a href="#walletDetail" role="tab" data-toggle="tab" id="tab_walletDetail" onclick="tab_click(this.id);">내지갑</a></li>       <%-- 2020.07.02 김자운 주임 요청으로 인한 내지갑 UI및 기능 변경 %>
             <%--<li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="tab_click(this.id);">선물내역</a></li>--%>
@@ -34,6 +35,16 @@
                 <div class="tab-content">
                     <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>       <!-- 방송 -->
                     <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
+                </div>
+            </div>
+            <div class="tab-pane fade" id="clip"><!-- 클립관리 -->
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li><a href="#clipList" role="tab" data-toggle="tab" id="tab_clipList" onclick="tab_click(this.id);">등록 내역</a></li>
+                    <li><a href="#clipListenList" role="tab" data-toggle="tab" id="tab_clipListenList" onclick="tab_click(this.id);">청취 내역</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="clipList"><jsp:include page="../clip/clipList.jsp"/></div>       <!-- 방송 -->
+                    <div class="tab-pane fade" id="clipListenList"><jsp:include page="../clip/clipListenList.jsp"/></div>         <!-- 청취 -->
                 </div>
             </div>
             <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>               <!-- 결제 -->
@@ -107,6 +118,12 @@
             getHistory_broadDetail(tmp);
         }else if(tmp == "tab_listenDetail"){
             getHistory_listenDetail(tmp);
+        }else if(tmp == "tab_clip"){
+            $("#tab_clipList").click();
+        }else if(tmp == "tab_clipList"){
+            getHistory_clipList(tmp);
+        }else if(tmp == "tab_clipListenList"){
+            getHistory_clipListenList(tmp);
         }else if(tmp == "tab_payDetail"){
             getHistory_payDetail(tmp);
         }else if(tmp == "tab_walletDetail"){

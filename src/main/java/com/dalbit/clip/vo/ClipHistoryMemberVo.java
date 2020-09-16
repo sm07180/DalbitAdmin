@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClipHistoryListenVo extends PagingVo {
+public class ClipHistoryMemberVo extends PagingVo {
 
     /* input */
     private int searchType;
@@ -17,16 +17,13 @@ public class ClipHistoryListenVo extends PagingVo {
     private int slctType;
     private int isChoiceDate;
     private int pageNo;
-    private String targetMemNo;
-    private String targetClipNo;
 
     /* output */
-    private String listenDate;
-    private String listenMemNo;
-    private String listenMemNick;
-    private String listenMemSex;
-    private String listenMemBirthYear;
-    private String listenMemIp;
+    private int insertCnt;
+    private int viewCnt;
+    private int hideCnt;
+    private int deleteCnt;
+
     private String clipIdx;
     private String castNo;
     private int subjectType;
@@ -56,11 +53,6 @@ public class ClipHistoryListenVo extends PagingVo {
     private String lastUpdDate;
     private String inner;
     private String dal;
-    private String listenPlayCnt;
-    private String listenGiftCnt;
-    private String listenGiftDalCnt;
-    private String listenGoodCnt;
-    private String listenGoodDate;
     private int clipConfirm;
 
 

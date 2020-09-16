@@ -1,19 +1,19 @@
 package com.dalbit.clip.vo;
 
-import com.dalbit.common.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ClipHistoryListenTotalVo extends PagingVo {
+public class ClipHistoryListenTotalVo extends ClipHistoryTotalVo {
 
     /* input */
 
     /* output */
-    private int manTotalCnt;
-    private int femaleTotalCnt;
-    private int unknownTotalCnt;
+    private int listenTotalCnt;                   // 선물 건수
+    private int listenManTotalCnt;
+    private int listenFemaleTotalCnt;
+    private int listenUnknownTotalCnt;
 
 
 }

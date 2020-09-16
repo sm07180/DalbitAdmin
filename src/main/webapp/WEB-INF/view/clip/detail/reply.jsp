@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 클립관리 > 클립내역관리 > 클립청취 -->
+<!-- 클립상세 > 댓글내역 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate" style="display: none;"></span>
-        <span class="pull-right">
+        <span class="pull-left">
             <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
             <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
         </span>
-        <table id="clip_history_listen_list_info" class="table table-sorting table-hover table-bordered">
+        <span class="pull-right">
+            <p name="headerInfo" style="padding:5px; border:1px solid #cccccc; background-color: #ffe699; height: 30px; margin-bottom: 2px; display: table;"></p>
+        </span>
+        <table id="clip_history_reply_list_info" class="table table-sorting table-hover table-bordered">
             <thead>
             </thead>
             <tbody>
@@ -29,19 +32,18 @@
 
     });
 
-    function getHistoryListen(){
-        getClipSubjectTypeCodeDefine();
-
-        initDataTable_clipHistoryListen();
+    function getClipDetailReply(){
+        initDataTable_clipHistoryReply();
     }
 
     var dtList_info;
-    function initDataTable_clipHistoryListen() {
+    function initDataTable_clipHistoryReply() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
+            data.targetClipNo = clipNo;
         };
 
-        dtList_info = new DalbitDataTable($("#clip_history_listen_list_info"), dtList_info_data, ClipHistoryDataTableSource.listenList, $("#searchForm"));
+        dtList_info = new DalbitDataTable($("#clip_history_reply_list_info"), dtList_info_data, ClipDetailDataTableSource.replyList, $("#searchForm"));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
@@ -49,6 +51,7 @@
 
         //---------- Main DataTable ----------=
     };
+
 
     function selectCallback_clipHistotyListen(data){
         // 탭 우측 총 건수 추가
@@ -59,8 +62,26 @@
             "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건, </span>" +
             "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건</span>";
 
-        $("#headerInfo").html(text);
-        $("#headerInfo").show();
+        $("p[name=headerInfo]").html(text);
+        $("p[name=headerInfo]").show();
+    }
+
+
+    //클립 댓글 삭제
+    function deleteClipReply(replyIdx){
+        if(confirm("댓글을 삭제 하시겠습니까?")){
+            var data = new Object();
+            data.castNo = clipNo;
+            data.replyIdx = replyIdx;
+
+            util.getAjaxData("deleteClipReply", "/rest/clip/history/info/delete/reply", data, fn_clipReply_delete_success);
+        }
+    }
+
+    function fn_clipReply_delete_success(dst_id, response, dst_params) {
+        console.log(response);
+        getClipDetailReply();
+        alert(response.message);
     }
 
 </script>

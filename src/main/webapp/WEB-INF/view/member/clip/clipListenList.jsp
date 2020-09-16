@@ -23,29 +23,39 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/dataTablesSource/clip/clipHistoryDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/clip/clipCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
     $(function(){
 
     });
 
-    function getHistoryListen(){
+    function getHistory_clipListenList(tmp){
         getClipSubjectTypeCodeDefine();
 
-        initDataTable_clipHistoryListen();
+        initDataTable_clipHistoryListen(tmp);
     }
 
     var dtList_info;
-    function initDataTable_clipHistoryListen() {
+    function initDataTable_clipHistoryListen(tmp) {
+        if(common.isEmpty(memNo)){
+            return;
+        }
+
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        var source = MemberDataTableSource[tmp];
+
         //=---------- Main DataTable ----------
-        var dtList_info_data = function (data) {
+        var dtList_info_detail_data = function (data) {
+            data.targetMemNo = memNo;
         };
 
-        dtList_info = new DalbitDataTable($("#clip_history_listen_list_info"), dtList_info_data, ClipHistoryDataTableSource.listenList, $("#searchForm"));
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        dtList_info.setPageLength(50);
-        dtList_info.createDataTable(selectCallback_clipHistotyListen);
+        dtList_info_detail = new DalbitDataTable($("#clip_history_listen_list_info"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(50);
+        dtList_info_detail.createDataTable(selectCallback_clipHistotyListen);
 
         //---------- Main DataTable ----------=
     };

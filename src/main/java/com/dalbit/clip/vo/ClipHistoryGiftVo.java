@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClipHistoryListenVo extends PagingVo {
+public class ClipHistoryGiftVo extends PagingVo {
 
     /* input */
     private int searchType;
@@ -17,16 +17,25 @@ public class ClipHistoryListenVo extends PagingVo {
     private int slctType;
     private int isChoiceDate;
     private int pageNo;
-    private String targetMemNo;
     private String targetClipNo;
 
     /* output */
-    private String listenDate;
-    private String listenMemNo;
-    private String listenMemNick;
-    private String listenMemSex;
-    private String listenMemBirthYear;
-    private String listenMemIp;
+    private String memNo;
+    private String memNick;
+    private String memSex;
+    private String memBirthYear;
+    private String giftDate;
+    private String giftedMemNo;
+    private String giftedMemNick;
+    private String giftedMemSex;
+    private String giftedMemBirthYear;
+    private String itemThumbnail;
+    private String itemName;
+    private int itemCnt;
+    private int gold;
+    private int itemTotalCnt;
+    private int goldTotalCnt;
+
     private String clipIdx;
     private String castNo;
     private int subjectType;
@@ -37,10 +46,6 @@ public class ClipHistoryListenVo extends PagingVo {
     private String fileName;
     private String filePath;
     private String filePlay;
-    private String memNo;
-    private String memSex;
-    private String memBirthYear;
-    private String memNick;
     private String typeOpen;
     private String state;
     private String hide;
@@ -53,15 +58,9 @@ public class ClipHistoryListenVo extends PagingVo {
     private String endDate;
     private String badgeNewdj;
     private String osType;
-    private String lastUpdDate;
     private String inner;
     private String dal;
-    private String listenPlayCnt;
-    private String listenGiftCnt;
-    private String listenGiftDalCnt;
-    private String listenGoodCnt;
-    private String listenGoodDate;
+    private String lastUpdDate;
     private int clipConfirm;
-
 
 }

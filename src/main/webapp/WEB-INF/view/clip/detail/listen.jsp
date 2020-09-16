@@ -5,9 +5,12 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate" style="display: none;"></span>
-        <span class="pull-right">
+        <span class="pull-left">
             <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
             <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
+        </span>
+        <span class="pull-right">
+            <p name="headerInfo" style="padding:5px; border:1px solid #cccccc; background-color: #ffe699; height: 30px; margin-bottom: 2px; display: table;"></p>
         </span>
         <table id="clip_history_listen_list_info" class="table table-sorting table-hover table-bordered">
             <thead>
@@ -29,9 +32,7 @@
 
     });
 
-    function getHistoryListen(){
-        getClipSubjectTypeCodeDefine();
-
+    function getClipDetailListen(){
         initDataTable_clipHistoryListen();
     }
 
@@ -39,9 +40,10 @@
     function initDataTable_clipHistoryListen() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
+            data.targetClipNo = clipNo;
         };
 
-        dtList_info = new DalbitDataTable($("#clip_history_listen_list_info"), dtList_info_data, ClipHistoryDataTableSource.listenList, $("#searchForm"));
+        dtList_info = new DalbitDataTable($("#clip_history_listen_list_info"), dtList_info_data, ClipDetailDataTableSource.listenList, $("#searchForm"));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
@@ -59,8 +61,8 @@
             "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건, </span>" +
             "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건</span>";
 
-        $("#headerInfo").html(text);
-        $("#headerInfo").show();
+        $("p[name=headerInfo]").html(text);
+        $("p[name=headerInfo]").show();
     }
 
 </script>

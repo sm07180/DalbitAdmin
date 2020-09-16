@@ -1,11 +1,10 @@
 package com.dalbit.clip.controller.rest;
 
 import com.dalbit.clip.service.Cli_ClipHistoryService;
-import com.dalbit.clip.vo.ClipHistoryListenVo;
-import com.dalbit.clip.vo.ClipHistoryRemoveVo;
-import com.dalbit.clip.vo.ClipHistoryReplyVo;
-import com.dalbit.clip.vo.ClipHistoryVo;
-import com.dalbit.customer.vo.BlockAdmVo;
+import com.dalbit.clip.vo.*;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditHistoryVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,16 @@ public class Cli_ClipHistoryRestController {
      */
     @PostMapping("/list")
     public String selectClipHistoryList(ClipHistoryVo clipHistoryVo) {
-        return cliClipHistoryService.selectClipHistoryList(clipHistoryVo);
+//        return cliClipHistoryService.selectClipHistoryList(clipHistoryVo);
+        return cliClipHistoryService.callClipHistoryList(clipHistoryVo);
+    }
+
+    /**
+     * 클립 내역(회원) 조회
+     */
+    @PostMapping("/member/list")
+    public String selectClipHistoryMemberList(ClipHistoryMemberVo clipHistoryMemberVo) {
+        return cliClipHistoryService.callClipHistoryMemberList(clipHistoryMemberVo);
     }
 
     /**
@@ -53,7 +61,25 @@ public class Cli_ClipHistoryRestController {
      */
     @PostMapping("listen/list")
     public String selectClipHistoryListenList(ClipHistoryListenVo clipHistoryListenVo) {
-        return cliClipHistoryService.selectClipHistoryListenList(clipHistoryListenVo);
+//        return cliClipHistoryService.selectClipHistoryListenList(clipHistoryListenVo);
+        return cliClipHistoryService.callClipHistoryListenList(clipHistoryListenVo);
+    }
+
+
+    /**
+     * 클립 좋아요 내역 조회
+     */
+    @PostMapping("good/list")
+    public String selectClipHistoryGoodList(ClipHistoryListenVo clipHistoryListenVo) {
+        return cliClipHistoryService.callClipHistoryGoodList(clipHistoryListenVo);
+    }
+
+    /**
+     * 클립 선물 내역 조회
+     */
+    @PostMapping("gift/list")
+    public String selectClipHistoryGiftList(ClipHistoryGiftVo clipHistoryGiftVo) {
+        return cliClipHistoryService.callClipHistoryGiftList(clipHistoryGiftVo);
     }
 
     /**
@@ -61,7 +87,8 @@ public class Cli_ClipHistoryRestController {
      */
     @PostMapping("remove/list")
     public String selectClipHistoryRemoveList(ClipHistoryRemoveVo clipHistoryRemoveVo) {
-        return cliClipHistoryService.selectClipHistoryRemoveList(clipHistoryRemoveVo);
+//        return cliClipHistoryService.selectClipHistoryRemoveList(clipHistoryRemoveVo);
+        return cliClipHistoryService.callClipHistoryRemoveList(clipHistoryRemoveVo);
     }
 
 
@@ -73,37 +100,55 @@ public class Cli_ClipHistoryRestController {
         return cliClipHistoryService.selectReplyList(clipHistoryReplyVo);
     }
 
+    /**
+     * 클립 댓글 내역 조회
+     */
+    @PostMapping("reply/detail/list")
+    public String selectReplyListDetail(ClipHistoryReplyVo clipHistoryReplyVo) {
+        return cliClipHistoryService.selectReplyListDetail(clipHistoryReplyVo);
+    }
 
 
     /**
-     * 차단 내역 메시지 상세보기
+     * 클립 상세정보 조회
      */
-    @PostMapping("/detail")
-    public String selectBlockDetail(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.selectBlockDetail(blockAdmVo);
+    @PostMapping("/info")
+    public String selectClipHistoryDetailInfo(P_ClipHistoryDetailInfoInputVo pClipHistoryDetailInfoInputVo) {
+        return cliClipHistoryService.callAdminClipInfoDetail(pClipHistoryDetailInfoInputVo);
     }
 
     /**
-     * IP/Uuid 차단 (Modal)
+     * 클립 상세정보 수정
      */
-    @PostMapping("/insertBlock")
-    public String insertBlock(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.insertBlock(blockAdmVo);
+    @PostMapping("/info/edit")
+    public String selectClipHistoryDetailInfoEdit(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
+        return cliClipHistoryService.callAdminClipInfoDetailEdit(pClipHistoryDetailInfoEditVo);
+    }
+
+
+    /**
+     * 클립 상세 운영자 메모 등록
+     */
+    @PostMapping("/info/addmemo")
+    public String selectClipHistoryDetailInfoAddMemo(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
+        return cliClipHistoryService.callAdminClipInfoDetailAddMemo(pClipHistoryDetailInfoEditVo);
     }
 
     /**
-     * 차단 내역 삭제 (차단 해지)
+     * 방송방 정보수정 내역 보기
      */
-    @PostMapping("/deleteBlock")
-    public String deleteBlock(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.deleteBlock(blockAdmVo);
+    @PostMapping("/info/editHist")
+    public String editHist(P_ClipHistoryDetailInfoEditHistoryVo pClipHistoryDetailInfoEditHistoryVo) {
+        return cliClipHistoryService.callAdminClipEditHistory(pClipHistoryDetailInfoEditHistoryVo);
     }
 
     /**
-     * 로그인 차단/해지 내역 조회
+     * 클립 댓글 삭제
      */
-    @PostMapping("/histList")
-    public String historyList(BlockAdmVo blockAdmVo) {
-        return cliClipHistoryService.selectBlockHistList(blockAdmVo);
+    @PostMapping("/info/delete/reply")
+    public String deleteClipReply(ClipHistoryReplyVo clipHistoryReplyVo){
+        return cliClipHistoryService.deleteClipReply(clipHistoryReplyVo);
     }
+
+
 }
