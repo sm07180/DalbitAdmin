@@ -68,7 +68,7 @@
         console.log($('input[name="testId"]:checked').val());
         var dtList_data = function (data) {
             data.slctType = slctType;
-            data.pageCnt = 20;
+            data.pageCnt = 100;
             data.searchText = $("#txt_search").val();
             data.inner = $('input[name="search_testId"]').is(":checked") ? "0" : "-1";
         };

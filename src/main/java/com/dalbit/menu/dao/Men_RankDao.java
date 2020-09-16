@@ -1,6 +1,7 @@
 package com.dalbit.menu.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.menu.vo.AddDjPointVo;
 import com.dalbit.menu.vo.DjRankingVo;
 import com.dalbit.menu.vo.FanRankingVo;
 import com.dalbit.menu.vo.procedure.P_MainDjRankingVo;
@@ -35,4 +36,16 @@ public interface Men_RankDao {
     List<FanRankingVo> getMainFanRankingList(FanRankingVo fanRankingVo);
     @Transactional(readOnly = true)
     int getMainFanRankingListCnt(FanRankingVo fanRankingVo);
+
+
+    /* DJ 랭킹 라이브 여부 체크*/
+    @Transactional(readOnly = true)
+    AddDjPointVo getAddDjLiveCheck(AddDjPointVo addDjPointVo);
+
+    @Transactional(readOnly = true)
+    int getAddDjPointListCnt(AddDjPointVo addDjPointVo);
+
+    @Transactional(readOnly = true)
+    List<AddDjPointVo> getAddDjPointList(AddDjPointVo addDjPointVo);
+
 }

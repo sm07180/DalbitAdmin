@@ -1031,9 +1031,9 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="14" class="_bgColor" data-bgcolor="#8faadc">달증가</th>
+                <th colspan="14" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">운영자</th>
+                <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
             </tr>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -1051,7 +1051,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물(비밀선물)</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물<br/>(비밀선물)</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">아이템 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
@@ -1187,7 +1187,7 @@
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th> 
                 <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
