@@ -20,12 +20,15 @@ var EventDataTableSource = {
             {'title': '노출 여부', 'data' : 'viewYn', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_viewYn);
                 }},
-            {'title': '응모자 수', 'data' : '', 'render' : function(data) {
-                if(data == null || data == 0) {
+            {'title': '응모자 수', 'data' : 'applyCnt', 'render' : function(data) {
+                if(data == null) {
                     return '-';
                 } else {
                     return common.addComma(data);
                 }
+                }},
+            {'title': '당첨자 선정', 'data' : 'winnerYn', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, event_winnerYn);
                 }},
             {'title': '당첨자 발표', 'data' : 'announceYn', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_announceYn);
@@ -52,20 +55,36 @@ var EventDataTableSource = {
             {'title': '경품 구분', 'data' : 'prizeSlct', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_prizeReceive);
                 }},
-            {'title': '금액', 'data' : 'giveAmt', 'render' : function(data) {
+            {'title': '금액', 'data' : 'giveAmt', 'render' : function(data, type, row, meta) {
+                if(row.prizeSlct == 1) {
                     return common.addComma(data);
+                } else {
+                    return '-';
+                }
                 }},
-            {'title': '제세공과금', 'data' : 'taxAmt', 'render' : function(data) {
-                    return common.addComma(data);
+            {'title': '제세공과금', 'data' : 'taxAmt', 'render' : function(data, type, row, meta) {
+                    if(row.prizeSlct == 1) {
+                        return common.addComma(data);
+                    } else {
+                        return '-';
+                    }
                 }},
-            {'title': '달/별 수', 'data' : 'dalByeol', 'render' : function(data) {
-                    return common.addComma(data);
+            {'title': '달/별 수', 'data' : 'dalByeol', 'render' : function(data, type, row, meta) {
+                    if(row.prizeSlct == 1) {
+                        return '-';
+                    } else {
+                        return common.addComma(data);
+                    }
                 }},
-            {'title': '달로 받기', 'data' : 'receiveDal', 'render' : function(data) {
-                    return common.addComma(data);
+            {'title': '달로 받기', 'data' : 'receiveDal', 'render' : function(data, type, row, meta) {
+                    if(row.prizeSlct == 1) {
+                        return common.addComma(data);
+                    } else {
+                        return '-';
+                    }
                 }},
             {'title': '최종 수정일', 'data' : 'lastUpdDate', 'render' : function(data) {
-                    return common.convertToDate(data);
+                return common.convertToDate(data);
                 }},
             {'title': '최종 수정자', 'data' : 'lastOpName'},
         ]
@@ -78,39 +97,41 @@ var EventDataTableSource = {
                 return util.memNoLink(data, row.mem_no);
             }},
             {'title': '닉네임', 'data' : 'nickName'},
-            {'title': '응모 횟수', 'data' : 'applyCnt'},
+            {'title': '응모 횟수', 'data' : 'applyCnt', 'render' : function(data) {
+                return common.addComma(data);
+                }},
             {'title': '결제 금액', 'data' : 'payAmt', 'render' : function(data) {
                 return common.addComma(data);
                 }},
             {'title': '방송 시간', 'data' : 'airTime', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '좋아요', 'data' : 'goodCnt', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '경험치', 'data' : 'expCnt', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '받은 선물', 'data' : 'giftedCnt', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '보낸 선물', 'data' : 'giftCnt', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '팬 수', 'data' : 'fanCnt', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '당첨 여부', 'data' : 'prizeWin', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_winnerWinSlct);
                 }},
             {'title': '등수', 'data' : 'prizeRank', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '응모일시', 'data' : 'applyDate', 'render' : function(data) {
-                    return common.convertToDate(data);
+                return common.convertToDate(data);
                 }},
             {'title': '상세 정보', 'data' : 'add_idx', 'render': function(data, type, row, meta) {
-                return '<button>상세보기</button>';
+                return '<a href="javascript://" class="_getAddInfoDetail" data-addidx="' + data + '" data-applyidx="' + row.applyIdx + '" data-memno="' + row.mem_no + '">상세 정보</a>';
                 }},
         ]
     },
@@ -119,10 +140,10 @@ var EventDataTableSource = {
         'url' : '/rest/content/event/management/winner/list'
         , 'columns': [
             {'title': '등수', 'data' : 'prizeRank', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '당첨 인원', 'data' : 'prizeCnt', 'render' : function(data) {
-                    return common.addComma(data);
+                return common.addComma(data);
                 }},
             {'title': '경품명', 'data' : 'prizeName'},
             {'title': '회원번호', 'data' : 'mem_no', 'render': function(data, type, row, meta) {
@@ -131,22 +152,22 @@ var EventDataTableSource = {
                 }},
             {'title': '닉네임', 'data' : 'nickName'},
             {'title': '본인인증 여부', 'data' : 'certificationYn', 'render' : function(data) {
-                    return util.getCommonCodeLabel(data, event_winnerCertificationYn);
+                return util.getCommonCodeLabel(data, event_winnerCertificationYn);
                 }},
             {'title': '미성년자 여부', 'data' : 'minorYn', 'render' : function(data) {
-                    return util.getCommonCodeLabel(data, event_minorYn);
+                return util.getCommonCodeLabel(data, event_minorYn);
                 }},
             {'title': '수령방법', 'data' : 'receiveWay', 'render' : function(data) {
-                    return util.getCommonCodeLabel(data, event_receiveWay);
+                return util.getCommonCodeLabel(data, event_receiveWay);
                 }},
             {'title': '추가 정보', 'data' : 'addInfo', 'render' : function(data) {
-                    return util.getCommonCodeLabel(data, event_addInfoYn);
+                return util.getCommonCodeLabel(data, event_addInfoYn);
                 }},
             {'title': '입금 확인', 'data' : 'depositConfirm', 'render' : function(data) {
-                    return util.getCommonCodeLabel(data, event_depositYn);
+                return util.getCommonCodeLabel(data, event_depositYn);
                 }},
             {'title': '상세 정보', 'data' : 'addIdx', 'render': function(data, type, row, meta) {
-                    return '<button>상세보기</button>';
+                return '<a href="javascript://" class="_getWinnerAddInfoDetail" data-addidx="' + data + '" data-winneridx="' + row.winnerIdx + '" data-memno="' + row.mem_no + '">상세 정보</a>';
                 }},
         ]
     },
