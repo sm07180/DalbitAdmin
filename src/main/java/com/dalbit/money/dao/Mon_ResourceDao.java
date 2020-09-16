@@ -19,4 +19,10 @@ public interface Mon_ResourceDao {
     @Transactional(readOnly = true)
     ArrayList<P_memberDataListOutVo> callMemberDataList(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_BuyDalListOutVo> callBuyDalList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_UseDalListOutVo> callUseDalList(ProcedureVo procedureVo);
+
 }

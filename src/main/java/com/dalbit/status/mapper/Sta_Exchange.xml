@@ -7,4 +7,19 @@
         call rd_admin.sp_admin_stat_member_exchange_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callExchangeMonth" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_ExchangeTotalOutDetailVo">
+        /* Sta_Exchange.xml - callExchangeMonth */
+        call rd_admin.sp_admin_stat_resource_member_exchange(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callExchangeGender" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_ExchangeGenderOutDetailVo">
+        /* Sta_Exchange.xml - callExchangeGender */
+        call rd_admin.sp_admin_stat_resource_member_exchange(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callExchangeWeek" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_ExchangeWeekOutDetailVo">
+        /* Sta_Exchange.xml - callExchangeWeek */
+        call rd_admin.sp_admin_stat_resource_member_exchange(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
 </mapper>

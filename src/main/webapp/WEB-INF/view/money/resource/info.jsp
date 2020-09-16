@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
+
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-12 no-padding">
         <div class="container-fluid">
@@ -32,6 +36,12 @@
                                     <input id="yearDate" type="text" class="form-control"/>
                                 </div>
 
+                                <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                                    <label for="displayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                </div>
 
                                 <input type="hidden" name="startDate" id="startDate">
                                 <input type="hidden" name="endDate" id="endDate" />
@@ -58,11 +68,15 @@
     </div>
     <!-- tab -->
     <div class="widget-content">
-        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="topTab">
             <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
             <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick(3);">회원Data</a></li>
+            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" onclick="buyDalDataListTabClick(4);">달 구매내역</a></li>
+            <li><a href="#useDalDataList" role="tab" data-toggle="tab" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>
+            <li><a href="/money/item/list" id="tab_changeList" title="교환페이지로 이동합니다.">교환내역</a></li>
+            <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active" id="resourceState" >
@@ -85,14 +99,17 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="memberDataList"><jsp:include page="memberDataList.jsp"/></div>
+            <div class="tab-pane fade" id="buyDalDataList"><jsp:include page="buyDalDataList.jsp"/></div>
+            <div class="tab-pane fade" id="useDalDataList"><jsp:include page="useDalDataList.jsp"/></div>
             <%--<div class="tab-pane fade" id="resourceState" ></div>--%>
         </div>
-
     </div>
     <!-- //tab -->
 </div>
 
 <script type="text/javascript">
+
+    var tabType = <%=in_tabType%>;
 
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
@@ -101,6 +118,7 @@
     setTimeDate(dateTime);
 
     var _datePicker = 0;
+    var _itemClick = 1;
 
     $(function(){
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText) {
@@ -138,8 +156,14 @@
             $("#endDate").val($("#yearDate").val() + ".12.31");
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
-
-        getResourceInfo();
+        if(!common.isEmpty(tabType)){
+            $('#topTab li:eq(' + tabType + ') a').tab('show');
+            _datePicker = tabType;
+            _itemClick = 1;
+            changeDatepicker();
+        }else{
+            getResourceInfo();
+        }
     });
 
     $("#bt_search").on('click', function(){
@@ -147,7 +171,17 @@
             getResourceInfo();
         }else if (_datePicker == 3){
             memberDataListTabClick();
+        }else if (_datePicker == 4){
+            buyDalDataListTabClick();
+        }else if (_datePicker == 5){
+            useDalDataListTabClick();
         }
+    });
+
+    $('input[id="txt_search"]').keydown(function() {
+        if (event.keyCode === 13) {
+            $("#bt_search").click();
+        };
     });
 
     function setTimeDate(dateTime){
@@ -174,25 +208,29 @@
     });
 
     function changeDatepicker(){
-        if(_datePicker == 0){
+        if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){
             $("#oneDayDatePicker").show();
             $("#monthDatepicker").hide();
             $("#yearDatepicker").hide();
+            $("#rangeDatepicker").hide();
         }else if(_datePicker == 1) {
             $("#oneDayDatePicker").hide();
             $("#monthDatepicker").show();
             $("#yearDatepicker").hide();
+            $("#rangeDatepicker").hide();
         }else if(_datePicker == 2) {
             $("#oneDayDatePicker").hide();
             $("#monthDatepicker").hide();
             $("#yearDatepicker").show();
+            $("#rangeDatepicker").hide();
         }
         searchDate();
     }
 
     function searchDate(dateType){
-        if(_datePicker == 0){ //시간별 , 일간
+        if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){ //시간별 , 일간    (시간대별/달 구매 내역)
             if(common.isEmpty(dateType)){
+                console.log("-------------------------   3");
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
@@ -226,7 +264,7 @@
                 setYear(1);
             }
         }
-        getResourceInfo();
+        $("#bt_search").click();
     }
 
     function setDay(days){
@@ -251,7 +289,6 @@
         $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
     }
 
-    getResourceInfo();
     function infoTabClick(tmp){
         _datePicker = tmp;
         $("#resourceState").show();
@@ -262,7 +299,6 @@
         $("#checkTestid").hide();
         changeDatepicker();
     }
-    var _itemClick = 1;
     function itemTabClick(tmp){
         _itemClick = tmp;
         if(tmp == 1){
@@ -272,7 +308,7 @@
             $("#infoTable_dal").hide();
             $("#infoTable_byeol").show();
         }
-        getResourceInfo();
+        $("#bt_search").click();
     }
 
     function getResourceInfo() {
@@ -281,9 +317,6 @@
         data.startDate = $("#startDate").val();
         data.endDate = $("#endDate").val();
         data.slctResource = _itemClick;
-
-        console.log("_itemClick -----------------------");
-        console.log(_itemClick);
 
         if (_itemClick == 1) {
             util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_dal_success);
@@ -525,9 +558,6 @@
 
     function fn_byeol_success(dst_id, response) {
 
-        console.log("--------------------------------------------");
-        console.log(response.data);
-
         var byeolInc_total_mCnt = [
             response.data.totalInfo.byeolgift_mcnt,
             response.data.totalInfo.levelup_mcnt,
@@ -607,14 +637,14 @@
 
 
         response.data.totalInfo["byeolInc_total_Cnt"] = response.data.totalInfo.byeolInc_total_mCnt +
-                                                        response.data.totalInfo.byeolInc_total_fCnt +
-                                                        response.data.totalInfo.byeolInc_total_nCnt +
-                                                        response.data.totalInfo.byeolInc_total_tCnt ;
+            response.data.totalInfo.byeolInc_total_fCnt +
+            response.data.totalInfo.byeolInc_total_nCnt +
+            response.data.totalInfo.byeolInc_total_tCnt ;
 
         response.data.totalInfo["byeolDec_total_Cnt"] = response.data.totalInfo.byeolDec_total_mCnt +
-                                                        response.data.totalInfo.byeolDec_total_fCnt +
-                                                        response.data.totalInfo.byeolDec_total_nCnt +
-                                                        response.data.totalInfo.byeolDec_total_tCnt ;
+            response.data.totalInfo.byeolDec_total_fCnt +
+            response.data.totalInfo.byeolDec_total_nCnt +
+            response.data.totalInfo.byeolDec_total_tCnt ;
 
         response.data.totalInfo["byeol_total_Cnt"] = response.data.totalInfo.byeolInc_total_Cnt + response.data.totalInfo.byeolDec_total_Cnt;
 
@@ -664,9 +694,6 @@
             ];
             response.data.detailList[i].sub_decByeolTotal_Cnt = common.getListSum(sub_decByeolTotal_Cnt);
 
-            console.log("total_byeolgift_Cnt --------------------------------");
-            console.log(total_byeolgift_Cnt);
-
             total_byeolgift_Cnt = total_byeolgift_Cnt + response.data.detailList[i].byeolgift_Cnt;
             total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
             total_eventdirect_Cnt = total_eventdirect_Cnt + response.data.detailList[i].eventdirect_Cnt;
@@ -693,8 +720,6 @@
 
         response.data.totalInfo.total_incbyeol_Cnt = total_byeolgift_Cnt + total_levelup_Cnt + total_eventdirect_Cnt + total_cancel_Cnt + total_recovery_Cnt + total_testin_Cnt;
         response.data.totalInfo.total_decbyeol_Cnt = total_exchange_Cnt + total_change_Cnt + total_block_Cnt + total_withdrawal_Cnt + total_testout_Cnt;
-
-
 
         var template = $('#tmp_byeolListTable').html();
         var templateScript = Handlebars.compile(template);

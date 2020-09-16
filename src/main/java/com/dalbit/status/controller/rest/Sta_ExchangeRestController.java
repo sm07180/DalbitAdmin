@@ -26,19 +26,53 @@ public class Sta_ExchangeRestController {
     Sta_ExchangeService sta_ExchangeService;
 
     /**
-     * 1:1문의 총계
+     * 환전 통합 현황 월간
      * @param pStatVo
      * @return
      */
-    @PostMapping("total")
-    public String total(P_StatVo pStatVo){
+    @PostMapping("/month")
+    public String month(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
         }
         if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
             pStatVo.setEndDate(null);
         }
-        String result = sta_ExchangeService.callExchangeTotal(pStatVo);
+        String result = sta_ExchangeService.callExchangeMonth(pStatVo);
+        return result;
+    }
+
+    /**
+     * 환전 통합 현황 성별
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("/gender")
+    public String gender(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = sta_ExchangeService.callExchangeGender(pStatVo);
+        return result;
+    }
+
+    /**
+     * 환전 통합 현황 주별
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("/week")
+    public String week(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = sta_ExchangeService.callExchangeWeek(pStatVo);
         return result;
     }
 }

@@ -4,8 +4,10 @@ package com.dalbit.status.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.connect.vo.procedure.P_LoginBrowserOutDetailVo;
 import com.dalbit.status.dao.Sta_ExchangeDao;
 import com.dalbit.status.vo.procedure.*;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -14,8 +16,10 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -29,15 +33,133 @@ public class Sta_ExchangeService {
     Sta_ExchangeDao sta_ExchangeDao;
 
     /**
-     * 1:1문의 총계
+     * 환전 통합현황 월간
      */
-    public String callExchangeTotal(P_StatVo pStatVo){
+    public String callExchangeMonth(P_StatVo pStatVo){
         ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-        ArrayList<P_ExchangeTotalOutDetailVo> detailList = sta_ExchangeDao.callExchangeTotal(procedureVo);
-        P_ExchangeTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ExchangeTotalOutVo.class);
+        ArrayList<P_ExchangeTotalOutDetailVo> detailList_n = sta_ExchangeDao.callExchangeMonth(procedureVo);
+        P_ExchangeTotalOutVo totalInfo_n = new Gson().fromJson(procedureVo.getExt(), P_ExchangeTotalOutVo.class);
         if(Integer.parseInt(procedureVo.getRet()) <= 0){
             return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
         }
+
+        pStatVo.setStartDate(pStatVo.getBeforStartDate());
+        pStatVo.setEndDate(pStatVo.getBeforEndDate());
+        ProcedureVo procedureVo2 = new ProcedureVo(pStatVo);
+        ArrayList<P_ExchangeTotalOutDetailVo> detailList_b = sta_ExchangeDao.callExchangeMonth(procedureVo2);
+        P_ExchangeTotalOutVo totalInfo_b = new Gson().fromJson(procedureVo2.getExt(), P_ExchangeTotalOutVo.class);
+        if(Integer.parseInt(procedureVo2.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        P_ExchangeTotalOutVo totalOutVo = new P_ExchangeTotalOutVo();
+        totalOutVo.setTot_specialdj_succ_Cnt(totalInfo_b.getTot_specialdj_succ_Cnt());
+        totalOutVo.setTot_specialdj_succ_Amt(totalInfo_b.getTot_specialdj_succ_Amt());
+        totalOutVo.setTot_specialdj_succ_byeol_Cnt(totalInfo_b.getTot_specialdj_succ_byeol_Cnt());
+        totalOutVo.setTot_succ_Cnt(totalInfo_b.getTot_succ_Cnt());
+        totalOutVo.setTot_succ_Amt(totalInfo_b.getTot_succ_Amt());
+        totalOutVo.setTot_succ_byeol_Cnt(totalInfo_b.getTot_succ_byeol_Cnt());
+        totalOutVo.setNTot_specialdj_succ_Cnt(totalInfo_n.getTot_specialdj_succ_Cnt());
+        totalOutVo.setNTot_specialdj_succ_Amt(totalInfo_n.getTot_specialdj_succ_Amt());
+        totalOutVo.setNTot_specialdj_succ_byeol_Cnt(totalInfo_n.getTot_specialdj_succ_byeol_Cnt());
+        totalOutVo.setNTot_succ_Cnt(totalInfo_n.getTot_succ_Cnt());
+        totalOutVo.setNTot_succ_Amt(totalInfo_n.getTot_succ_Amt());
+        totalOutVo.setNTot_succ_byeol_Cnt(totalInfo_n.getTot_succ_byeol_Cnt());
+
+        List list = new ArrayList();
+        for (int i=30; -1 < i; i --){
+            P_ExchangeTotalOutDetailVo outVo = new P_ExchangeTotalOutDetailVo();
+            outVo.setDay(Integer.toString(i+1));
+
+            if(detailList_n.size() >= i+1) {
+                if (detailList_n.get(i).getThe_date().substring(8).equals(DalbitUtil.lpad(Integer.toString(i+1),2,"0"))) {
+                    outVo.setNSpecialdj_succ_Cnt(detailList_n.get(i).getSpecialdj_succ_Cnt());
+                    outVo.setNSpecialdj_succ_Amt(detailList_n.get(i).getSpecialdj_succ_Amt());
+                    outVo.setNSpecialdj_succ_byeol_Cnt(detailList_n.get(i).getSpecialdj_succ_byeol_Cnt());
+                    outVo.setNSucc_Cnt(detailList_n.get(i).getSucc_Cnt());
+                    outVo.setNSucc_Amt(detailList_n.get(i).getSucc_Amt());
+                    outVo.setNSucc_byeol_Cnt(detailList_n.get(i).getSucc_byeol_Cnt());
+                }else{
+                    outVo.setNSpecialdj_succ_Cnt(0);
+                    outVo.setNSpecialdj_succ_Amt(0);
+                    outVo.setNSpecialdj_succ_byeol_Cnt(0);
+                    outVo.setNSucc_Cnt(0);
+                    outVo.setNSucc_Amt(0);
+                    outVo.setNSucc_byeol_Cnt(0);
+                }
+            }else{
+                outVo.setNSpecialdj_succ_Cnt(0);
+                outVo.setNSpecialdj_succ_Amt(0);
+                outVo.setNSpecialdj_succ_byeol_Cnt(0);
+                outVo.setNSucc_Cnt(0);
+                outVo.setNSucc_Amt(0);
+                outVo.setNSucc_byeol_Cnt(0);
+            }
+
+            if(detailList_b.size() >= i+1) {
+                if (detailList_b.get(i).getThe_date().substring(8).equals(DalbitUtil.lpad(Integer.toString(i+1),2,"0"))) {
+                    outVo.setSpecialdj_succ_Cnt(detailList_b.get(i).getSpecialdj_succ_Cnt());
+                    outVo.setSpecialdj_succ_Amt(detailList_b.get(i).getSpecialdj_succ_Amt());
+                    outVo.setSpecialdj_succ_byeol_Cnt(detailList_b.get(i).getSpecialdj_succ_byeol_Cnt());
+                    outVo.setSucc_Cnt(detailList_b.get(i).getSucc_Cnt());
+                    outVo.setSucc_Amt(detailList_b.get(i).getSucc_Amt());
+                    outVo.setSucc_byeol_Cnt(detailList_b.get(i).getSucc_byeol_Cnt());
+                }else{
+                    outVo.setSpecialdj_succ_Cnt(0);
+                    outVo.setSpecialdj_succ_Amt(0);
+                    outVo.setSpecialdj_succ_byeol_Cnt(0);
+                    outVo.setSucc_Cnt(0);
+                    outVo.setSucc_Amt(0);
+                    outVo.setSucc_byeol_Cnt(0);
+                }
+            }else{
+                outVo.setSpecialdj_succ_Cnt(0);
+                outVo.setSpecialdj_succ_Amt(0);
+                outVo.setSpecialdj_succ_byeol_Cnt(0);
+                outVo.setSucc_Cnt(0);
+                outVo.setSucc_Amt(0);
+                outVo.setSucc_byeol_Cnt(0);
+            }
+            list.add(outVo);
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalOutVo);
+        result.put("detailList", list);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+
+    /**
+     * 환전 통합현황 성별
+     */
+    public String callExchangeGender(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_ExchangeGenderOutDetailVo> detailList = sta_ExchangeDao.callExchangeGender(procedureVo);
+        P_ExchangeGenderOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ExchangeGenderOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 환전 통합현황 주별
+     */
+    public String callExchangeWeek(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_ExchangeWeekOutDetailVo> detailList = sta_ExchangeDao.callExchangeWeek(procedureVo);
+        P_ExchangeWeekOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ExchangeWeekOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);
         result.put("detailList", detailList);

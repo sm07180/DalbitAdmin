@@ -40,12 +40,31 @@ public class Mon_ItemOutputVo {
 
 
     // summary
-    private int sumTotalByeol;
-    private int sumTotalDal;
     private int changeMale;
     private int changeFemale;
     private int modByeol;
     private int modDal;
+    private int totalCnt;
+    private int sumTotalByeol;
+    private int sumTotalDal;
+    private int maleCnt;
+    private int maleByeolCnt;
+    private int maleDalCnt;
+    private int femaleCnt;
+    private int femaleByeolCnt;
+    private int femaleDalCnt;
+    private int noneCnt;
+    private int noneByeolCnt;
+    private int noneDalCnt;
+    private int testCnt;
+    private int testByeolCnt;
+    private int testDalCnt;
+
+    private int totalExchangeAmt;
+    private int maleExchangeAmt;
+    private int femaleExchangeAmt;
+    private int noneExchangeAmt;
+    private int testExchangeAmt;
 
 
 }

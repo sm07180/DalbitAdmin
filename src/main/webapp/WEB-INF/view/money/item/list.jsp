@@ -48,8 +48,23 @@
                 </div>
             </form>
             <!-- //serachBox -->
-            <div>
-                <jsp:include page="changeList.jsp"/>
+
+            <div class="row widget-content">
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li><a href="/money/resource/info?tabType=0">시간대별</a></li>
+                    <li><a href="/money/resource/info?tabType=1">월간별</a></li>
+                    <li><a href="/money/resource/info?tabType=2">연간별</a></li>
+                    <li><a href="/money/resource/info?tabType=3">회원Data</a></li>
+                    <li><a href="/money/resource/info?tabType=4">달 구매내역</a></li>
+                    <li><a href="/money/resource/info?tabType=5">달 사용내역</a></li>
+                    <li class="active"><a href="#change" id="tab_changeList" title="교환페이지로 이동합니다.">교환내역</a></li>
+                    <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="change" >
+                    <jsp:include page="changeList.jsp"/>
+                </div>
             </div>
         </div>
     </div>
@@ -73,6 +88,7 @@
     var sDate;
     var eDate;
     var _searchFormRadio ="";
+    var orderType=0;
     $(function(){
         $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
 
@@ -168,12 +184,14 @@
             , search_testId : $('input[name="search_testId"]').prop('checked') ? 1 : 0
             , sDate : $("#startDate").val()
             , eDate : $("#endDate").val()
+            , orderType : orderType
             , pageStart : itemPagingInfo.pageNo
             , pageCnt : itemPagingInfo.pageCnt
         };
     }
 
     function getList(){
+        console.log(getParameter());
         util.getAjaxData("select", "/rest/money/item/list", getParameter(), fn_succ_list);
     }
 
