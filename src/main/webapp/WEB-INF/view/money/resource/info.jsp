@@ -480,6 +480,20 @@
         var total_incTotal_Cnt = 0;
         var total_decTotal_Cnt = 0;
         for(var i=0; i<response.data.detailList.length;i++){
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else{
+                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+            }
+            response.data.detailList[i].date = toDay;
+
             var sub_incTotal_Cnt = [
                 response.data.detailList[i].charge_Cnt,
                 response.data.detailList[i].dalgiftget_Cnt,
@@ -675,6 +689,20 @@
         var total_testout_Cnt = 0;
 
         for(var i=0; i<response.data.detailList.length;i++){
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else{
+                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+            }
+            response.data.detailList[i].date = toDay;
+
             var sub_incByeolTotal_Cnt = [
                 response.data.detailList[i].byeolgift_Cnt,
                 response.data.detailList[i].levelup_Cnt,
@@ -758,69 +786,69 @@
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'm'}}}</th>
-                <td>{{addComma charge_mCnt}}</td>
-                <td>{{addComma dalgiftget_mCnt}}</td>
-                <td>{{addComma change_mCnt}}</td>
-                <td>{{addComma join_mCnt}}</td>
-                <td>{{addComma levelup_mCnt}}</td>
-                <td>{{addComma ranking_mCnt}}</td>
-                <td>{{addComma attendance_mCnt}}</td>
-                <td>{{addComma recovery_mCnt}}</td>
-                <td>{{addComma eventauto_mCnt}}</td>
-                <td>{{addComma eventdirect_mCnt}}</td>
-                <td>{{addComma specialdj_mCnt}}</td>
-                <td>{{addComma testin_mCnt}}</td>
-                <td>{{addComma dalInc_total_mCnt}}</td>
-                <td rowspan="4">{{addComma dalInc_total_cnt}}</td>
-                <td rowspan="9">{{addComma dal_total_cnt}}</td>
+                <td>{{addComma charge_mCnt 'Y'}}</td>
+                <td>{{addComma dalgiftget_mCnt 'Y'}}</td>
+                <td>{{addComma change_mCnt 'Y'}}</td>
+                <td>{{addComma join_mCnt 'Y'}}</td>
+                <td>{{addComma levelup_mCnt 'Y'}}</td>
+                <td>{{addComma ranking_mCnt 'Y'}}</td>
+                <td>{{addComma attendance_mCnt 'Y'}}</td>
+                <td>{{addComma recovery_mCnt 'Y'}}</td>
+                <td>{{addComma eventauto_mCnt 'Y'}}</td>
+                <td>{{addComma eventdirect_mCnt 'Y'}}</td>
+                <td>{{addComma specialdj_mCnt 'Y'}}</td>
+                <td>{{addComma testin_mCnt 'Y'}}</td>
+                <td>{{addComma dalInc_total_mCnt 'Y'}}</td>
+                <td rowspan="4">{{addComma dalInc_total_Cnt 'Y'}}</td>
+                <td rowspan="9">{{addComma dal_total_Cnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
-                <td>{{addComma charge_fCnt}}</td>
-                <td>{{addComma dalgiftget_fCnt}}</td>
-                <td>{{addComma change_fCnt}}</td>
-                <td>{{addComma join_fCnt}}</td>
-                <td>{{addComma levelup_fCnt}}</td>
-                <td>{{addComma ranking_fCnt}}</td>
-                <td>{{addComma attendance_fCnt}}</td>
-                <td>{{addComma recovery_fCnt}}</td>
-                <td>{{addComma eventauto_fCnt}}</td>
-                <td>{{addComma eventdirect_fCnt}}</td>
-                <td>{{addComma specialdj_fCnt}}</td>
-                <td>{{addComma testin_fCnt}}</td>
-                <td>{{addComma dalInc_total_fCnt}}</td>
+                <td>{{addComma charge_fCnt 'Y'}}</td>
+                <td>{{addComma dalgiftget_fCnt 'Y'}}</td>
+                <td>{{addComma change_fCnt 'Y'}}</td>
+                <td>{{addComma join_fCnt 'Y'}}</td>
+                <td>{{addComma levelup_fCnt 'Y'}}</td>
+                <td>{{addComma ranking_fCnt 'Y'}}</td>
+                <td>{{addComma attendance_fCnt 'Y'}}</td>
+                <td>{{addComma recovery_fCnt 'Y'}}</td>
+                <td>{{addComma eventauto_fCnt 'Y'}}</td>
+                <td>{{addComma eventdirect_fCnt 'Y'}}</td>
+                <td>{{addComma specialdj_fCnt 'Y'}}</td>
+                <td>{{addComma testin_fCnt 'Y'}}</td>
+                <td>{{addComma dalInc_total_fCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'n'}}}</th>
-                <td>{{addComma charge_nCnt}}</td>
-                <td>{{addComma dalgiftget_nCnt}}</td>
-                <td>{{addComma change_nCnt}}</td>
-                <td>{{addComma join_nCnt}}</td>
-                <td>{{addComma levelup_nCnt}}</td>
-                <td>{{addComma ranking_nCnt}}</td>
-                <td>{{addComma attendance_nCnt}}</td>
-                <td>{{addComma recovery_nCnt}}</td>
-                <td>{{addComma eventauto_nCnt}}</td>
-                <td>{{addComma eventdirect_nCnt}}</td>
-                <td>{{addComma specialdj_nCnt}}</td>
-                <td>{{addComma testin_nCnt}}</td>
-                <td>{{addComma dalInc_total_nCnt}}</td>
+                <td>{{addComma charge_nCnt 'Y'}}</td>
+                <td>{{addComma dalgiftget_nCnt 'Y'}}</td>
+                <td>{{addComma change_nCnt 'Y'}}</td>
+                <td>{{addComma join_nCnt 'Y'}}</td>
+                <td>{{addComma levelup_nCnt 'Y'}}</td>
+                <td>{{addComma ranking_nCnt 'Y'}}</td>
+                <td>{{addComma attendance_nCnt 'Y'}}</td>
+                <td>{{addComma recovery_nCnt 'Y'}}</td>
+                <td>{{addComma eventauto_nCnt 'Y'}}</td>
+                <td>{{addComma eventdirect_nCnt 'Y'}}</td>
+                <td>{{addComma specialdj_nCnt 'Y'}}</td>
+                <td>{{addComma testin_nCnt 'Y'}}</td>
+                <td>{{addComma dalInc_total_nCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">테스트</th>
-                <td>{{addComma charge_tCnt}}</td>
-                <td>{{addComma dalgiftget_tCnt}}</td>
-                <td>{{addComma change_tCnt}}</td>
-                <td>{{addComma join_tCnt}}</td>
-                <td>{{addComma levelup_tCnt}}</td>
-                <td>{{addComma ranking_tCnt}}</td>
-                <td>{{addComma attendance_tCnt}}</td>
-                <td>{{addComma recovery_tCnt}}</td>
-                <td>{{addComma eventauto_tCnt}}</td>
-                <td>{{addComma eventdirect_tCnt}}</td>
-                <td>{{addComma specialdj_tCnt}}</td>
-                <td>{{addComma testin_tCnt}}</td>
-                <td>{{addComma dalInc_total_tCnt}}</td>
+                <td>{{addComma charge_tCnt 'Y'}}</td>
+                <td>{{addComma dalgiftget_tCnt 'Y'}}</td>
+                <td>{{addComma change_tCnt 'Y'}}</td>
+                <td>{{addComma join_tCnt 'Y'}}</td>
+                <td>{{addComma levelup_tCnt 'Y'}}</td>
+                <td>{{addComma ranking_tCnt 'Y'}}</td>
+                <td>{{addComma attendance_tCnt 'Y'}}</td>
+                <td>{{addComma recovery_tCnt 'Y'}}</td>
+                <td>{{addComma eventauto_tCnt 'Y'}}</td>
+                <td>{{addComma eventdirect_tCnt 'Y'}}</td>
+                <td>{{addComma specialdj_tCnt 'Y'}}</td>
+                <td>{{addComma testin_tCnt 'Y'}}</td>
+                <td>{{addComma dalInc_total_tCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th rowspan="5" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
@@ -837,44 +865,44 @@
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
-                <td>{{addComma dalgiftsend_mCnt}}</td>
-                <td>{{addComma itemuse_mCnt}}</td>
-                <td>{{addComma cancel_mCnt}}</td>
-                <td>{{addComma block_mCnt}}</td>
-                <td>{{addComma withdrawal_mCnt}}</td>
-                <td>{{addComma testout_mCnt}}</td>
-                <td>{{addComma dalDec_total_mCnt}}</td>
-                <td rowspan="4">{{addComma dalDec_total_cnt}}</td>
+                <td>{{addComma dalgiftsend_mCnt 'Y'}}</td>
+                <td>{{addComma itemuse_mCnt 'Y'}}</td>
+                <td>{{addComma cancel_mCnt 'Y'}}</td>
+                <td>{{addComma block_mCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_mCnt 'Y'}}</td>
+                <td>{{addComma testout_mCnt 'Y'}}</td>
+                <td>{{addComma dalDec_total_mCnt 'Y'}}</td>
+                <td rowspan="4">{{addComma dalDec_total_Cnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'f'}}}</th>
-                <td>{{addComma dalgiftsend_fCnt}}</td>
-                <td>{{addComma itemuse_fCnt}}</td>
-                <td>{{addComma cancel_fCnt}}</td>
-                <td>{{addComma block_fCnt}}</td>
-                <td>{{addComma withdrawal_fCnt}}</td>
-                <td>{{addComma testout_fCnt}}</td>
-                <td>{{addComma dalDec_total_fCnt}}</td>
+                <td>{{addComma dalgiftsend_fCnt 'Y'}}</td>
+                <td>{{addComma itemuse_fCnt 'Y'}}</td>
+                <td>{{addComma cancel_fCnt 'Y'}}</td>
+                <td>{{addComma block_fCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_fCnt 'Y'}}</td>
+                <td>{{addComma testout_fCnt 'Y'}}</td>
+                <td>{{addComma dalDec_total_fCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'n'}}}</th>
-                <td>{{addComma dalgiftsend_nCnt}}</td>
-                <td>{{addComma itemuse_nCnt}}</td>
-                <td>{{addComma cancel_nCnt}}</td>
-                <td>{{addComma block_nCnt}}</td>
-                <td>{{addComma withdrawal_nCnt}}</td>
-                <td>{{addComma testout_nCnt}}</td>
-                <td>{{addComma dalDec_total_nCnt}}</td>
+                <td>{{addComma dalgiftsend_nCnt 'Y'}}</td>
+                <td>{{addComma itemuse_nCnt 'Y'}}</td>
+                <td>{{addComma cancel_nCnt 'Y'}}</td>
+                <td>{{addComma block_nCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_nCnt 'Y'}}</td>
+                <td>{{addComma testout_nCnt 'Y'}}</td>
+                <td>{{addComma dalDec_total_nCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">테스트</th>
-                <td>{{addComma dalgiftsend_tCnt}}</td>
-                <td>{{addComma itemuse_tCnt}}</td>
-                <td>{{addComma cancel_tCnt}}</td>
-                <td>{{addComma block_tCnt}}</td>
-                <td>{{addComma withdrawal_tCnt}}</td>
-                <td>{{addComma testout_tCnt}}</td>
-                <td>{{addComma dalDec_total_tCnt}}</td>
+                <td>{{addComma dalgiftsend_tCnt 'Y'}}</td>
+                <td>{{addComma itemuse_tCnt 'Y'}}</td>
+                <td>{{addComma cancel_tCnt 'Y'}}</td>
+                <td>{{addComma block_tCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_tCnt 'Y'}}</td>
+                <td>{{addComma testout_tCnt 'Y'}}</td>
+                <td>{{addComma dalDec_total_tCnt 'Y'}}</td>
             </tr>
         </table>
     </div>
@@ -898,45 +926,45 @@
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'm'}}}</th>
-                <td>{{addComma byeolgift_mcnt}}</td>
-                <td>{{addComma levelup_mcnt}}</td>
-                <td>{{addComma event_direct_mcnt}}</td>
-                <td>{{addComma cancel_mcnt}}</td>
-                <td>{{addComma recovery_mcnt}}</td>
-                <td>{{addComma test_in_mcnt}}</td>
-                <td>{{addComma byeolInc_total_mCnt}}</td>
-                <td rowspan="4">{{addComma byeolInc_total_Cnt}}</td>
-                <td rowspan="9">{{addComma byeol_total_Cnt}}</td>
+                <td>{{addComma byeolgift_mCnt 'Y'}}</td>
+                <td>{{addComma levelup_mCnt 'Y'}}</td>
+                <td>{{addComma event_direct_mCnt 'Y'}}</td>
+                <td>{{addComma cancel_mCnt 'Y'}}</td>
+                <td>{{addComma recovery_mCnt 'Y'}}</td>
+                <td>{{addComma test_in_mCnt 'Y'}}</td>
+                <td>{{addComma byeolInc_total_mCnt 'Y'}}</td>
+                <td rowspan="4">{{addComma byeolInc_total_Cnt 'Y'}}</td>
+                <td rowspan="9">{{addComma byeol_total_Cnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
-                <td>{{addComma byeolgift_fcnt}}</td>
-                <td>{{addComma levelup_fcnt}}</td>
-                <td>{{addComma event_direct_fcnt}}</td>
-                <td>{{addComma cancel_fcnt}}</td>
-                <td>{{addComma recovery_fcnt}}</td>
-                <td>{{addComma test_in_fcnt}}</td>
-                <td>{{addComma byeolInc_total_fCnt}}</td>
+                <td>{{addComma byeolgift_fCnt 'Y'}}</td>
+                <td>{{addComma levelup_fCnt 'Y'}}</td>
+                <td>{{addComma event_direct_fCnt 'Y'}}</td>
+                <td>{{addComma cancel_fCnt 'Y'}}</td>
+                <td>{{addComma recovery_fCnt 'Y'}}</td>
+                <td>{{addComma test_in_fCnt 'Y'}}</td>
+                <td>{{addComma byeolInc_total_fCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'n'}}}</th>
-                <td>{{addComma byeolgift_ncnt}}</td>
-                <td>{{addComma levelup_ncnt}}</td>
-                <td>{{addComma event_direct_ncnt}}</td>
-                <td>{{addComma cancel_ncnt}}</td>
-                <td>{{addComma recovery_ncnt}}</td>
-                <td>{{addComma test_in_ncnt}}</td>
-                <td>{{addComma byeolInc_total_nCnt}}</td>
+                <td>{{addComma byeolgift_nCnt 'Y'}}</td>
+                <td>{{addComma levelup_nCnt 'Y'}}</td>
+                <td>{{addComma event_direct_nCnt 'Y'}}</td>
+                <td>{{addComma cancel_nCnt 'Y'}}</td>
+                <td>{{addComma recovery_nCnt 'Y'}}</td>
+                <td>{{addComma test_in_nCnt 'Y'}}</td>
+                <td>{{addComma byeolInc_total_nCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">테스트</th>
-                <td>{{addComma byeolgift_tcnt}}</td>
-                <td>{{addComma levelup_tcnt}}</td>
-                <td>{{addComma event_direct_tcnt}}</td>
-                <td>{{addComma cancel_tcnt}}</td>
-                <td>{{addComma recovery_tcnt}}</td>
-                <td>{{addComma test_in_tcnt}}</td>
-                <td>{{addComma byeolInc_total_tCnt}}</td>
+                <td>{{addComma byeolgift_tCnt 'Y'}}</td>
+                <td>{{addComma levelup_tCnt 'Y'}}</td>
+                <td>{{addComma event_direct_tCnt 'Y'}}</td>
+                <td>{{addComma cancel_tCnt 'Y'}}</td>
+                <td>{{addComma recovery_tCnt 'Y'}}</td>
+                <td>{{addComma test_in_tCnt 'Y'}}</td>
+                <td>{{addComma byeolInc_total_tCnt 'Y'}}</td>
             </tr>
 
             <tr>
@@ -953,40 +981,40 @@
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
-                <td>{{addComma exchange_mcnt}}</td>
-                <td>{{addComma change_mcnt}}</td>
-                <td>{{addComma block_mcnt}}</td>
-                <td>{{addComma withdrawal_mcnt}}</td>
-                <td>{{addComma test_out_mcnt}}</td>
-                <td>{{addComma byeolDec_total_mCnt}}</td>
-                <td rowspan="4">{{addComma byeolDec_total_Cnt}}</td>
+                <td>{{addComma exchange_mCnt 'Y'}}</td>
+                <td>{{addComma change_mCnt 'Y'}}</td>
+                <td>{{addComma block_mCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_mCnt 'Y'}}</td>
+                <td>{{addComma test_out_mCnt 'Y'}}</td>
+                <td>{{addComma byeolDec_total_mCnt 'Y'}}</td>
+                <td rowspan="4">{{addComma byeolDec_total_Cnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'f'}}}</th>
-                <td>{{addComma exchange_fcnt}}</td>
-                <td>{{addComma change_fcnt}}</td>
-                <td>{{addComma block_fcnt}}</td>
-                <td>{{addComma withdrawal_fcnt}}</td>
-                <td>{{addComma test_out_fcnt}}</td>
-                <td>{{addComma byeolDec_total_fCnt}}</td>
+                <td>{{addComma exchange_fCnt 'Y'}}</td>
+                <td>{{addComma change_fCnt 'Y'}}</td>
+                <td>{{addComma block_fCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_fCnt 'Y'}}</td>
+                <td>{{addComma test_out_fCnt 'Y'}}</td>
+                <td>{{addComma byeolDec_total_fCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'n'}}}</th>
-                <td>{{addComma exchange_ncnt}}</td>
-                <td>{{addComma change_ncnt}}</td>
-                <td>{{addComma block_ncnt}}</td>
-                <td>{{addComma withdrawal_ncnt}}</td>
-                <td>{{addComma test_out_ncnt}}</td>
-                <td>{{addComma byeolDec_total_nCnt}}</td>
+                <td>{{addComma exchange_nCnt 'Y'}}</td>
+                <td>{{addComma change_nCnt 'Y'}}</td>
+                <td>{{addComma block_nCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_nCnt 'Y'}}</td>
+                <td>{{addComma test_out_nCnt 'Y'}}</td>
+                <td>{{addComma byeolDec_total_nCnt 'Y'}}</td>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">테스트</th>
-                <td>{{addComma exchange_tcnt}}</td>
-                <td>{{addComma change_tcnt}}</td>
-                <td>{{addComma block_tcnt}}</td>
-                <td>{{addComma withdrawal_tcnt}}</td>
-                <td>{{addComma test_out_tcnt}}</td>
-                <td>{{addComma byeolDec_total_tCnt}}</td>
+                <td>{{addComma exchange_tCnt 'Y'}}</td>
+                <td>{{addComma change_tCnt 'Y'}}</td>
+                <td>{{addComma block_tCnt 'Y'}}</td>
+                <td>{{addComma withdrawal_tCnt 'Y'}}</td>
+                <td>{{addComma test_out_tCnt 'Y'}}</td>
+                <td>{{addComma byeolDec_total_tCnt 'Y'}}</td>
             </tr>
         </table>
     </div>
@@ -1039,94 +1067,94 @@
             <tbody>
             <tr class="font-bold" style="background-color: #d9d9d9">
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_charge_Cnt}}</td>
-                <td>{{addComma totalInfo.total_dalgiftget_Cnt}}</td>
-                <td>{{addComma totalInfo.total_change_Cnt}}</td>
-                <td>{{addComma totalInfo.total_join_Cnt}}</td>
-                <td>{{addComma totalInfo.total_levelup_Cnt}}</td>
-                <td>{{addComma totalInfo.total_ranking_Cnt}}</td>
-                <td>{{addComma totalInfo.total_attendance_Cnt}}</td>
-                <td>{{addComma totalInfo.total_recovery_Cnt}}</td>
-                <td>{{addComma totalInfo.total_eventauto_Cnt}}</td>
-                <td>{{addComma totalInfo.total_eventdirect_Cnt}}</td>
-                <td>{{addComma totalInfo.total_specialdj_Cnt}}</td>
-                <td>{{addComma totalInfo.total_testin_Cnt}}</td>
-                <td>{{addComma totalInfo.total_incTotal_Cnt}}</td>
+                <td>{{addComma totalInfo.total_charge_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_dalgiftget_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_join_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_ranking_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_attendance_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_dalgiftsend_Cnt}}</td>
-                <td>{{addComma totalInfo.total_itemuse_Cnt}}</td>
-                <td>{{addComma totalInfo.total_cancel_Cnt}}</td>
-                <td>{{addComma totalInfo.total_block_Cnt}}</td>
-                <td>{{addComma totalInfo.total_withdrawal_Cnt}}</td>
-                <td>{{addComma totalInfo.total_testout_Cnt}}</td>
-                <td>{{addComma totalInfo.total_decTotal_Cnt}}</td>
+                <td>{{addComma totalInfo.total_dalgiftsend_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_itemuse_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_decTotal_Cnt 'Y'}}</td>
             </tr>
             {{#each detailList}}
             <tr
-                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' the_hr}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-            {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' the_date}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-            {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' the_date}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' the_hr}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
             >
             <td class="font-bold _bgColor" data-bgcolor="#dae3f3">
                 {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{the_date}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
                 {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
             </td>
-            <td>{{addComma charge_Cnt}}</td>
-            <td>{{addComma dalgiftget_Cnt}}</td>
-            <td>{{addComma change_Cnt}}</td>
-            <td>{{addComma join_Cnt}}</td>
-            <td>{{addComma levelup_Cnt}}</td>
-            <td>{{addComma ranking_Cnt}}</td>
-            <td>{{addComma attendance_Cnt}}</td>
-            <td>{{addComma recovery_Cnt}}</td>
-            <td>{{addComma eventauto_Cnt}}</td>
-            <td>{{addComma eventdirect_Cnt}}</td>
-            <td>{{addComma specialdj_Cnt}}</td>
-            <td>{{addComma testin_Cnt}}</td>
-            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incTotal_Cnt}}</td>
+            <td>{{addComma charge_Cnt 'Y'}}</td>
+            <td>{{addComma dalgiftget_Cnt 'Y'}}</td>
+            <td>{{addComma change_Cnt 'Y'}}</td>
+            <td>{{addComma join_Cnt 'Y'}}</td>
+            <td>{{addComma levelup_Cnt 'Y'}}</td>
+            <td>{{addComma ranking_Cnt 'Y'}}</td>
+            <td>{{addComma attendance_Cnt 'Y'}}</td>
+            <td>{{addComma recovery_Cnt 'Y'}}</td>
+            <td>{{addComma eventauto_Cnt 'Y'}}</td>
+            <td>{{addComma eventdirect_Cnt 'Y'}}</td>
+            <td>{{addComma specialdj_Cnt 'Y'}}</td>
+            <td>{{addComma testin_Cnt 'Y'}}</td>
+            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incTotal_Cnt 'Y'}}</td>
             <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
             <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
                 {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{the_date}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
                 {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
             </td>
-            <td>{{addComma dalgiftsend_Cnt}}</td>
-            <td>{{addComma itemuse_Cnt}}</td>
-            <td>{{addComma cancel_Cnt}}</td>
-            <td>{{addComma block_Cnt}}</td>
-            <td>{{addComma withdrawal_Cnt}}</td>
-            <td>{{addComma testout_Cnt}}</td>
-            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decTotal_Cnt}}</td>
+            <td>{{addComma dalgiftsend_Cnt 'Y'}}</td>
+            <td>{{addComma itemuse_Cnt 'Y'}}</td>
+            <td>{{addComma cancel_Cnt 'Y'}}</td>
+            <td>{{addComma block_Cnt 'Y'}}</td>
+            <td>{{addComma withdrawal_Cnt 'Y'}}</td>
+            <td>{{addComma testout_Cnt 'Y'}}</td>
+            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decTotal_Cnt 'Y'}}</td>
             </tr>
             {{else}}
             <td colspan="23" class="noData">{{isEmptyData}}<td>
                 {{/each}}
                 <tr class="font-bold" style="background-color: #d9d9d9">
                     <td>총합</td>
-                    <td>{{addComma totalInfo.total_charge_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_dalgiftget_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_change_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_join_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_levelup_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_ranking_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_attendance_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_recovery_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_eventauto_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_eventdirect_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_specialdj_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_testin_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_incTotal_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_charge_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_dalgiftget_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_join_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_ranking_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_attendance_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                     <td>총합</td>
-                    <td>{{addComma totalInfo.total_dalgiftsend_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_itemuse_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_cancel_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_block_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_withdrawal_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_testout_Cnt}}</td>
-                    <td>{{addComma totalInfo.total_decTotal_Cnt}}</td>
+                    <td>{{addComma totalInfo.total_dalgiftsend_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_itemuse_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_decTotal_Cnt 'Y'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -1169,71 +1197,71 @@
             <tbody>
             <tr class="font-bold" style="background-color: #d9d9d9">
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_byeolgift_Cnt}}</td>
-                <td>{{addComma totalInfo.total_levelup_Cnt}}</td>
-                <td>{{addComma totalInfo.total_eventdirect_Cnt}}</td>
-                <td>{{addComma totalInfo.total_cancel_Cnt}}</td>
-                <td>{{addComma totalInfo.total_recovery_Cnt}}</td>
-                <td>{{addComma totalInfo.total_testin_Cnt}}</td>
-                <td>{{addComma totalInfo.total_incbyeol_Cnt}}</td>
+                <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_incbyeol_Cnt 'Y'}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_exchange_Cnt}}</td>
-                <td>{{addComma totalInfo.total_change_Cnt}}</td>
-                <td>{{addComma totalInfo.total_block_Cnt}}</td>
-                <td>{{addComma totalInfo.total_withdrawal_Cnt}}</td>
-                <td>{{addComma totalInfo.total_testout_Cnt}}</td>
-                <td>{{addComma totalInfo.total_decbyeol_Cnt}}</td>
+                <td>{{addComma totalInfo.total_exchange_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_decbyeol_Cnt 'Y'}}</td>
             </tr>
             {{#each detailList}}
             <tr
-                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' the_hr}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-            {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' the_date}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-            {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' the_date}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' the_hr}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
             >
-            <td class="font-bold _bgColor" data-bgcolor="#b4c7e7">
+            <td class="font-bold _bgColor" data-bgcolor="#dae3f3">
                 {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{the_date}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
                 {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
             </td>
-            <td>{{addComma byeolgift_Cnt}}</td>
-            <td>{{addComma levelup_Cnt}}</td>
-            <td>{{addComma eventdirect_Cnt}}</td>
-            <td>{{addComma cancel_Cnt}}</td>
-            <td>{{addComma recovery_Cnt}}</td>
-            <td>{{addComma testin_Cnt}}</td>
-            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incByeolTotal_Cnt}}</td>
+            <td>{{addComma byeolgift_Cnt 'Y'}}</td>
+            <td>{{addComma levelup_Cnt 'Y'}}</td>
+            <td>{{addComma eventdirect_Cnt 'Y'}}</td>
+            <td>{{addComma cancel_Cnt 'Y'}}</td>
+            <td>{{addComma recovery_Cnt 'Y'}}</td>
+            <td>{{addComma testin_Cnt 'Y'}}</td>
+            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incByeolTotal_Cnt 'Y'}}</td>
             <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-            <td class="font-bold _bgColor" data-bgcolor="#f8cbad">
+            <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
                 {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{the_date}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
                 {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
             </td>
-            <td>{{addComma exchange_Cnt}}</td>
-            <td>{{addComma change_Cnt}}</td>
-            <td>{{addComma block_Cnt}}</td>
-            <td>{{addComma withdrawal_Cnt}}</td>
-            <td>{{addComma testout_Cnt}}</td>
-            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decByeolTotal_Cnt}}</td>
+            <td>{{addComma exchange_Cnt 'Y'}}</td>
+            <td>{{addComma change_Cnt 'Y'}}</td>
+            <td>{{addComma block_Cnt 'Y'}}</td>
+            <td>{{addComma withdrawal_Cnt 'Y'}}</td>
+            <td>{{addComma testout_Cnt 'Y'}}</td>
+            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decByeolTotal_Cnt 'Y'}}</td>
             </tr>
             {{/each}}
             <tr class="font-bold" style="background-color: #d9d9d9">
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_byeolgift_Cnt}}</td>
-                <td>{{addComma totalInfo.total_levelup_Cnt}}</td>
-                <td>{{addComma totalInfo.total_eventdirect_Cnt}}</td>
-                <td>{{addComma totalInfo.total_cancel_Cnt}}</td>
-                <td>{{addComma totalInfo.total_recovery_Cnt}}</td>
-                <td>{{addComma totalInfo.total_testin_Cnt}}</td>
-                <td>{{addComma totalInfo.total_incbyeol_Cnt}}</td>
+                <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_incbyeol_Cnt 'Y'}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_exchange_Cnt}}</td>
-                <td>{{addComma totalInfo.total_change_Cnt}}</td>
-                <td>{{addComma totalInfo.total_block_Cnt}}</td>
-                <td>{{addComma totalInfo.total_withdrawal_Cnt}}</td>
-                <td>{{addComma totalInfo.total_testout_Cnt}}</td>
-                <td>{{addComma totalInfo.total_decbyeol_Cnt}}</td>
+                <td>{{addComma totalInfo.total_exchange_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_decbyeol_Cnt 'Y'}}</td>
             </tr>
             </tbody>
         </table>
