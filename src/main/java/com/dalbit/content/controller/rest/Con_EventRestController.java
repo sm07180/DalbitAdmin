@@ -280,6 +280,15 @@ public class Con_EventRestController {
     }
 
     /**
+     * 당첨자 추가 입력 정보 조회
+     */
+    @PostMapping("/management/winner/winnerAddInfoDetail")
+    public String eventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo) {
+        String result = con_EventService.selectEventWinnerAddInfoDetail(eventWinnerAddInfoDetailVo);
+        return result;
+    }
+
+    /**
      * 당첨자 추가
      */
     @PostMapping("/management/winner/add")

@@ -112,6 +112,9 @@ var MemberDataTableSource = {
              {'title': '성별', 'data': 'mem_sex', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.mem_birth_year);
                 }},
+             {'title': '본인인증여부', 'data': 'is_certification', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return data == 1 ? '<span style="color: red; font-weight: bold">Yes</span>' : 'No';
+                }},
              {'title': '연락처', 'data': 'mem_phone', 'width':'80px'},
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
                     return util.renderSlct(data,"30");

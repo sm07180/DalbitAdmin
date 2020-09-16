@@ -9,7 +9,7 @@
 
     <select id="callNewBroadcastType" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_NewBroadcastTypeOutVo">
         /* Sta_NewBroadcastDao.xml - callNewBroadcastType */
-        call rd_admin.sp_admin_stat_broadcast_subject_create_new(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_admin.sp_admin_stat_broadcast_subject_create(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callNewBroadcastGift" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_NewBroadcastGiftOutputVo">

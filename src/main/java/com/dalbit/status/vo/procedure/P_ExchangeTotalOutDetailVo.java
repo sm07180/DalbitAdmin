@@ -14,6 +14,7 @@ public class P_ExchangeTotalOutDetailVo extends SearchVo {
     private String hour;
     private String daily;
     private String monthly;
+    private String day;
     private int tryCnt;
     private int tryAmt;
     private int succCnt;
@@ -23,6 +24,21 @@ public class P_ExchangeTotalOutDetailVo extends SearchVo {
 
     private int inc_succCnt;
     private int inc_succAmt;
+
+    private String the_date;
+    private int specialdj_succ_Cnt;
+    private int specialdj_succ_Amt;
+    private int specialdj_succ_byeol_Cnt;
+    private int succ_Cnt;
+    private int succ_Amt;
+    private int succ_byeol_Cnt;
+
+    private int nSpecialdj_succ_Cnt;
+    private int nSpecialdj_succ_Amt;
+    private int nSpecialdj_succ_byeol_Cnt;
+    private int nSucc_Cnt;
+    private int nSucc_Amt;
+    private int nSucc_byeol_Cnt;
 
 }
 

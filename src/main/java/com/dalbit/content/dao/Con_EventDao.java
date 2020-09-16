@@ -130,6 +130,9 @@ public interface Con_EventDao {
     @Transactional(readOnly = true)
     ArrayList<P_EventAnnouncementInfoExtVo> selectEventAnnounceListDefault(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo);
 
+    @Transactional(readOnly = true)
+    EventWinnerAddInfoDetailVo selectEventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo);
+
     /*======================= 기존 이벤트 관리 ======================= */
 //    @Transactional(readOnly = true)
 //    ArrayList<P_EventListOutputVo> callEventList(P_EventListInputVo P_EventListInputVo);

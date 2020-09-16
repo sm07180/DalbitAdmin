@@ -833,6 +833,11 @@
         order by a.prize_rank
     </select>
 
+    <select id="selectEventWinnerAddInfoDetail" parameterType="com.dalbit.content.vo.EventWinnerAddInfoDetailVo" resultType="com.dalbit.content.vo.EventWinnerAddInfoDetailVo">
+        /* Con_Event.xml - selectEventWinnerAddInfoDetail */
+
+    </select>
+
     <!--======================= 기존 이벤트 관리 ======================= -->
     <!--<select id="callEventList" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">-->
     <!--select @rownum := @rownum + 1 as rowNum, a.*-->

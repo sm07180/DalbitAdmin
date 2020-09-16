@@ -14,4 +14,8 @@ public class P_StatVo {
     private String endDate;
     private int pageNo;
     private int pageCnt;
+
+    private String beforStartDate;
+    private String beforEndDate;
+
 }
