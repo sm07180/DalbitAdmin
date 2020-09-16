@@ -251,7 +251,7 @@
     }
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
-    dtList_info.setPageLength(50);
+    dtList_info.setPageLength(100);
     dtList_info.createDataTable(summary_table);
 
 

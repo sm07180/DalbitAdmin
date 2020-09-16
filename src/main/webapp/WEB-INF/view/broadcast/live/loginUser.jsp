@@ -49,7 +49,7 @@
     function getLoginUserList(tmp){
         var dtList_data = function (data) {
             data.slctType = slctType;
-            data.pageCnt = 20;
+            data.pageCnt = 100;
             data.searchText = $("#txt_search").val();
             data.inner = -1;
             data.broad = 0;

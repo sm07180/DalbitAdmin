@@ -54,7 +54,7 @@
     var dtList_info_lisetnUser;
     function getListenUserList(){
         var dtList_data = function (data) {
-            data.pageCnt = 50;
+            data.pageCnt = 100;
             data.searchText = $("#txt_search").val();
             data.sortState = $("select[name='liveListenSort']").val();
             data.inner = 0;
