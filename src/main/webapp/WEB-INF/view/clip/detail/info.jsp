@@ -21,6 +21,7 @@
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/dataTablesSource/clip/clipDetailDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/clip/clipCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/util/memberUtil.js?${dummyData}"></script>
 
 <script type="text/javascript">
     var clipNo = "<%=in_clipNo%>";

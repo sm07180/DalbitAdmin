@@ -52,6 +52,7 @@
         //---------- Main DataTable ----------=
     };
 
+
     function selectCallback_clipHistotyListen(data){
         // 탭 우측 총 건수 추가
         var text = "<span style='color: black;'>클립 청취 수 :</span>" +
@@ -63,6 +64,24 @@
 
         $("p[name=headerInfo]").html(text);
         $("p[name=headerInfo]").show();
+    }
+
+
+    //클립 댓글 삭제
+    function deleteClipReply(replyIdx){
+        if(confirm("댓글을 삭제 하시겠습니까?")){
+            var data = new Object();
+            data.castNo = clipNo;
+            data.replyIdx = replyIdx;
+
+            util.getAjaxData("deleteClipReply", "/rest/clip/history/info/delete/reply", data, fn_clipReply_delete_success);
+        }
+    }
+
+    function fn_clipReply_delete_success(dst_id, response, dst_params) {
+        console.log(response);
+        getClipDetailReply();
+        alert(response.message);
     }
 
 </script>

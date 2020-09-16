@@ -1,7 +1,7 @@
 package com.dalbit.clip.dao;
 
 import com.dalbit.clip.vo.*;
-import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoOutPutVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditHistoryVo;
 import com.dalbit.common.vo.ProcedureVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +39,7 @@ public interface Cli_ClipHistoryDao {
     @Transactional(readOnly = true)
     ArrayList<ClipHistoryListenVo> selectClipHistoryListenList(ClipHistoryListenVo clipHistoryListenVo);
     @Transactional(readOnly = true)
-    ClipHistoryTotalVo selectClipHistoryListenTotalCnt(ClipHistoryListenVo clipHistoryListenVo);
+    ClipHistoryListenTotalVo selectClipHistoryListenTotalCnt(ClipHistoryListenVo clipHistoryListenVo);
 
     @Transactional(readOnly = true)
     int callClipHistoryGoodListCnt(ClipHistoryListenVo clipHistoryListenVo);
@@ -66,4 +66,9 @@ public interface Cli_ClipHistoryDao {
     ProcedureVo callAdminClipInfoDetail(ProcedureVo procedureVo);
 
     int callAdminClipInfoDetailEdit(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ClipHistoryDetailInfoEditHistoryVo> callAdminClipEditHistory(ProcedureVo procedureVo);
+
+    int deleteClipReply(ClipHistoryReplyVo clipHistoryReplyVo);
 }

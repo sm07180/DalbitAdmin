@@ -61,6 +61,7 @@ public class ClipHistoryListenVo extends PagingVo {
     private String listenGiftDalCnt;
     private String listenGoodCnt;
     private String listenGoodDate;
+    private int clipConfirm;
 
 
 }

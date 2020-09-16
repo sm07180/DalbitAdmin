@@ -39,15 +39,32 @@
         $("#memberInfoFrm").html(html);
 
         getClipSubjectTypeCodeDefine();
+
+        initWithdrawalUI();
     }
 
+    // 탈퇴회원 UI 초기화
+    function initWithdrawalUI(){
+        if(clipInfoData.isWithdrawal == 0){
+            return;
+        }
 
+        // 탈퇴회원 버튼 숨기기
+        $("#memberInfoFrm").find("button").each(function(){
+            if($(this).prop("id").startsWith("bt_edit")){
+                $(this).hide();
+            }
+        })
+
+    }
+
+// ============================================================== 버튼 이벤트
     // 버튼 이벤트 처리
     $("#memberInfoFrm").on("click", "button", function(){
         var eventId = $(this).prop("id");
         // alert(eventId)
 
-        if(eventId == "bt_reset_nick"){ // 닉네임 초기화
+        if(eventId == "bt_edit_nick"){ // 닉네임 초기화
             if(confirm("닉네임을 초기화 하시겠습니까?")){
                 var data = Object();
                 data.cast_no = clipNo;
@@ -60,12 +77,12 @@
         }
 
         // 클립 이미지 초기화
-        if(eventId == "bt_reset_clipImg"){
+        if(eventId == "bt_edit_clipImg"){
             if(confirm("클립 이미지를 초기화 하시겠습니까?")){
                 var data = Object();
                 data.cast_no = clipNo;
                 data.editSlct = 1;
-                data.backgroundImage = "/clip-bg_3/clipbg_200910_0.jpg";
+                data.backgroundImage = "/clip_3/clipbg_200910_0.jpg";
                 data.sendNoti = 0;
 
                 editClipDetailData(data);
@@ -73,12 +90,43 @@
         }
 
         // 클립 제목 초기화
-        if(eventId == "bt_reset_title"){
+        if(eventId == "bt_edit_title"){
             if(confirm("클립 제목을 초기화 하시겠습니까?")){
+                var nick = clipInfoData.cast_nickName;
+
                 var data = Object();
                 data.cast_no = clipNo;
                 data.editSlct = 6;
-                data.title = clipInfoData.cast_nickName + "님의 클립입니다.";
+                data.title = nick.length > 11 ? nick.substr(0, 8) + "..." : nick + "님의 클립입니다.";
+                data.sendNoti = 0;
+
+                editClipDetailData(data);
+            }
+        }
+
+        // 클립 경고/정지 처리
+        if(eventId == "bt_edit_report"){
+            var report = "/member/member/popup/reportPopup?"
+                + "memNo=" + encodeURIComponent(clipInfoData.cast_mem_no)
+                + "&memId=" + encodeURIComponent(clipInfoData.cast_userId)
+                + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
+                + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
+                + "&deviceUuid=" + clipInfoData.cast_deviceUuid
+                + "&ip=" + clipInfoData.cast_ip;
+
+            console.log(report);
+            util.windowOpen(report,"750","910","경고/정지");
+        }
+
+        // 클립 숨기기 처리
+        if(eventId == "bt_edit_hide"){
+            var hideType = $(this).data("hide") == 0 ? 1 : 0;
+
+            if(confirm("클립 " + ((hideType === 1) ? "숨기기" : "숨기기 해제") + "를 진행 하시겠습니까?")){
+                var data = Object();
+                data.cast_no = clipNo;
+                data.editSlct = 5;
+                data.hide = hideType;
                 data.sendNoti = 0;
 
                 editClipDetailData(data);
@@ -86,7 +134,7 @@
         }
 
         // 클립 삭제 처리
-        if(eventId == "bt_update_state"){
+        if(eventId == "bt_edit_state"){
             if(confirm("클립 삭제 하시겠습니까?")){
                 var data = Object();
                 data.cast_no = clipNo;
@@ -99,7 +147,7 @@
         }
 
         //공개 비공개 여부 수정
-        if(eventId == "bt_update_view"){
+        if(eventId == "bt_edit_view"){
             if(confirm("공개 여부를 수정 하시겠습니까?")){
                 var openType = $(this).data("opentype");
 
@@ -114,7 +162,7 @@
         }
 
         //클립 주제 변경
-        if(eventId == "bt_update_subject"){
+        if(eventId == "bt_edit_subject"){
             if($("#clipSubjectType").val() == clipInfoData.subjectType){
                 alert("동일한 클립 주제입니다.");
                 return false;
@@ -132,7 +180,7 @@
         }
 
         //운영자 인증 여부
-        if(eventId == "bt_update_opCheck"){
+        if(eventId == "bt_edit_opCheck"){
             if(confirm("운영자 관리 여부를 수정 하시겠습니까?")){
                 var confirmData = $(this).data("confirm");
 
@@ -159,6 +207,10 @@
             addMemo(data);
         }
 
+        if(eventId == "bt_detail_opName"){      // 수정 내역
+            getAdminMemoList("bt_editHistory", "정보수정내역");
+        }
+
         if(eventId == "bt_detail_memo"){      // 운영자 메모 디테일
             getAdminMemoList("bt_adminMemoList", "운영자메모");
         }
@@ -166,6 +218,8 @@
 
     });
 
+
+// ==============================================================
 
     //클립 수정
     function editClipDetailData(data){
@@ -185,7 +239,7 @@
 
     function fn_detailInfo_addMemo_success(dst_id, response, dst_params) {
         console.log(response);
-        getClipDetailInfo();
+        getAdminMemoList("bt_adminMemoList", "운영자메모");
         alert(response.message);
 
     }
@@ -205,6 +259,7 @@
         $("#bt_search").click();
     }
 
+    // 운영자 메모
     function getAdminMemoList(tmp,tmp1) {     // 상세보기
         var template = $('#tmp_member_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -214,9 +269,13 @@
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
 
-        var source = MemberDataTableSource[tmp];
+        var source = ClipDetailDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.mem_no = clipNo;
+            if(tmp == "editHistory"){
+                data.cast_no = clipNo;
+            }else{
+                data.mem_no = clipNo;
+            }
         };
         dtMemoList = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtMemoList.useCheckBox(true);
@@ -231,6 +290,31 @@
         adminMemoDelInit();
     }
 
+    function adminMemoDelInit(){
+        $("#btn_adminMemoDel").on("click", function () { //운영자 메모 삭제
+            adminMemoDel();
+        });
+    }
+
+    function adminMemoDel(){
+        if(dtMemoList.getCheckedData().length <= 0){
+            alert("삭제할 메모를 선택해 주세요.");
+            return;
+        }
+        var data = {};
+        data.mem_no = clipNo;
+        data.delList =  dtMemoList.getCheckedData();
+        console.log(data);
+        util.getAjaxData("adminMemoDel", "/rest/member/member/admin/memoDel",data, adminMemoDel_success);
+    }
+
+    function adminMemoDel_success(dst_id, response) {
+        getAdminMemoList("bt_adminMemoList", "운영자메모");
+        alert(response.message);
+    }
+
+
+    // 주제 공통 코드 조회
     function getClipSubjectTypeCodeDefine(){
         var data = {};
         data.type="clip_type";
@@ -258,6 +342,10 @@
         $("#clipSubjectType").val(clipInfoData.subjectType);
     }
 
+    function getMemNo_info_reload(memNo){
+        getClipDetailInfo();
+    }
+
 </script>
 
 
@@ -281,7 +369,7 @@
         <tr>
             <th rowspan="4" colspan="1">
                 클립 이미지
-                <br><button type="button" id="bt_reset_clipImg" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                <br><button type="button" id="bt_edit_clipImg" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
             </th>
             <td rowspan="4" colspan="4" style="text-align: -webkit-center">
                 <img id="image_section" class="thumbnail fullSize_background no-padding no-margin" src="{{viewImage backgroundImage}}" alt="your image" style="width: 150px;height: 150px" />
@@ -289,19 +377,17 @@
         </tr>
         <tr>
             <th colspan="1">클립 상태</th>
-            <td colspan="2" style="text-align: left; border-right-color:white;border-right-width:0px;">{{{getCommonCodeLabel state 'clip_stateType'}}}</td>
+            <td colspan="2" style="text-align: left; border-right-color:white;border-right-width:0px;">
+                {{{getCommonCodeLabel state 'clip_stateType'}}}<br>
+                {{#dalbit_if hide '==' 1}} 숨기기 중 ({{hideOpName}}) {{/dalbit_if}}
+            </td>
             <td colspan="2">
                 {{#dalbit_if state '==' 1}}
-                    <button type="button" id="bt_update_state" class="btn btn-danger btn-sm pull-right">삭제</button>
-                    <%--<button type="button" class="btn btn-default btn-sm pull-left bt_report">경고/정지</button>--%>
+                    <button type="button" id="bt_edit_report" class="btn btn-default btn-sm pull-right">경고/정지</button>
+                    <button type="button" id="bt_edit_state" class="btn btn-danger btn-sm pull-right mr15">삭제</button>
+                    {{#dalbit_if hide '==' 1}}<button type="button" id="bt_edit_hide" class="btn btn-info btn-sm pull-right mr5" data-hide="{{hide}}">숨기기해제</button>{{/dalbit_if}}
+                    {{#dalbit_if hide '==' 0}}<button type="button" id="bt_edit_hide" class="btn btn-danger btn-sm pull-right mr5" data-hide="{{hide}}">숨기기</button>{{/dalbit_if}}
                 {{/dalbit_if}}
-
-
-            <%--{{#equal memWithdrawal '0'}}--%>
-                <%--<button type="button" class="btn btn-default btn-sm pull-left bt_report">경고/정지</button>--%>
-                <%--{{/equal}}--%>
-                <%--<button type="button" class="btn btn-info btn-sm pull-left ml5" id="bt_state">정상변경</button>--%>
-                <%--<button type="button" class="btn btn-default btn-sm pull-right" id="bt_reportDetail">상세</button>--%>
             </td>
         </tr>
         <tr>
@@ -310,7 +396,7 @@
                 {{title}}
             </td>
             <td colspan="1">
-                <button type="button" id="bt_reset_title" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                <button type="button" id="bt_edit_title" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
             </td>
         </tr>
         <tr>
@@ -319,12 +405,14 @@
                 <select id="clipSubjectType" name="clipSubjectType" class="form-control pull-left"></select>
             </td>
             <td colspan="1">
-                <button type="button" id="bt_update_subject" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                <button type="button" id="bt_edit_subject" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
             </td>
         </tr>
         <tr>
             <th colspan="1">회원번호</th>
-            <td colspan="4" style="text-align: left">{{cast_mem_no}}</td>
+            <td colspan="4" style="text-align: left">
+                <a href="javascript://" class="_openMemberPop" data-memno="{{cast_mem_no}}">{{cast_mem_no}}</a>
+            </td>
             <th colspan="1">클립 등록일</th>
             <td colspan="4" style="text-align: left">{{startDate}}</td>
         </tr>
@@ -334,7 +422,7 @@
                 {{cast_nickName}}
             </td>
             <td colspan="1">
-                <button type="button" id="bt_reset_nick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
+                <button type="button" id="bt_edit_nick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
             </td>
             <th colspan="1">클립 파일명</th>
             <td colspan="2" style="text-align: left; word-break:break-all">
@@ -357,7 +445,7 @@
             <th colspan="1" rowspan="2">공개여부</th>
             <td colspan="4" rowspan="2" style="text-align: left;border-left-color:white;border-left-width:0px;">
                 {{{getCommonCodeLabel openType 'clip_typeOpen_clipDetail'}}}
-                <button type="button" id="bt_update_view" class="btn btn-default btn-sm pull-right" data-openType="{{openType}}">
+                <button type="button" id="bt_edit_view" class="btn btn-default btn-sm pull-right" data-openType="{{openType}}">
                     {{#dalbit_if openType '==' 0}} 공개 {{/dalbit_if}}
                     {{#dalbit_if openType '==' 1}} 비공개 {{/dalbit_if}}
                 </button>
@@ -384,7 +472,7 @@
             <th colspan="1">운영자 관리 여부</th>
             <td colspan="2" style="text-align: left">
                 {{{getCommonCodeLabel confirm 'clip_confirmType'}}}
-                <button type="button" id="bt_update_opCheck" class="btn btn-default btn-sm pull-right" data-confirm="{{confirm}}">
+                <button type="button" id="bt_edit_opCheck" class="btn btn-default btn-sm pull-right" data-confirm="{{confirm}}">
                     {{#dalbit_if confirm '==' 0}} 인증 {{/dalbit_if}}
                     {{#dalbit_if confirm '==' 1}} 미인증 {{/dalbit_if}}
                 </button>
@@ -400,7 +488,7 @@
                 {{lastOpName}}
             </td>
             <td colspan="1">
-                <%--<button type="button" id="bt_detail_opName" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">자세히</button>--%>
+                <button type="button" id="bt_detail_opName" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">자세히</button>
             </td>
         </tr>
         <tr>
@@ -409,7 +497,7 @@
                 운영자 메모<br>
                 (등록: {{opMemoCnt}} 건)
                 </span>
-                <button type="button" id="bt_detail_memo" class="btn btn-default btn-sm pull-right" onclick="memoTest()">상세</button>
+                <button type="button" id="bt_detail_memo" class="btn btn-default btn-sm pull-right">상세</button>
             </th>
             <td colspan="8" rowspan="2" style="text-align: left;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>

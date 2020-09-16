@@ -40,6 +40,9 @@ var ClipHistoryDataTableSource = {
 			{'title': '공개<br>여부', 'width':'25px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_typeOpen);
                 }},
+            {'title': '인증<br>여부', 'width':'35px', 'data': 'clipConfirm', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_confirmType_yn) + '<br>' + '<a href="javascript:;" onclick="editClipConfirm('+ row.castNo + ',' + data + ')">[' + util.getCommonCodeLabel(data, clip_confirmType_update) + ']</a>';
+                }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
@@ -121,7 +124,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'170px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -184,7 +187,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '선물받은회원', 'width':'70px', 'data': 'giftedMemNo', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.giftedMemNick;
@@ -235,6 +238,9 @@ var ClipHistoryDataTableSource = {
             {'title': '공개<br>여부', 'width':'25px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_typeOpen);
                 }},
+            {'title': '인증<br>여부', 'width':'25px', 'data': 'clipConfirm', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, clip_confirmType_yn);
+                }},
             {'title': '플랫폼', 'width':'45px', 'data': 'osType', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_platformType);
                 }},
@@ -242,7 +248,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -323,7 +329,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
             {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){

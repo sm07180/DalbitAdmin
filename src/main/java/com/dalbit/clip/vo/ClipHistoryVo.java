@@ -50,6 +50,6 @@ public class ClipHistoryVo extends PagingVo {
     private String memInsertCnt;
     private String inner;
     private String replyCnt;
-
+    private int clipConfirm;
 
 }
