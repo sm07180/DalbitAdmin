@@ -393,7 +393,7 @@
         <tr>
             <th colspan="1">클립 제목</th>
             <td colspan="3" style="text-align: left; border-right-color:white;border-right-width:0px;">
-                {{title}}
+                {{replaceHtml title}}
             </td>
             <td colspan="1">
                 <button type="button" id="bt_edit_title" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
