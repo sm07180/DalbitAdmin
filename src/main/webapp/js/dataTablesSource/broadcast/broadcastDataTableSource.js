@@ -328,13 +328,14 @@ var BroadcastDataTableSource = {
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
-            {'title': '청취 시작 일시', 'data': 'startDateFormat', 'width':'120px'},
+            {'title': '최근 청취 시작 일시', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '청취 종료시간', 'data': 'endDateFormat', 'width':'120px'},
             {'title': '권한 시작 일시', 'data': 'authStartDateFormat', 'width':'120px'},
             {'title': '권한 종료 일시', 'data': 'authEndDateFormat', 'width':'120px'},
-            {'title': '청취진행시간', 'data': 'listenTime', 'width':'120px','render' : function (data){
+            {'title': '누적 청취시간', 'data': 'listenTime', 'width':'120px','render' : function (data){
                     return common.timeStamp(data);
                 }},
+            {'title': '입장수', 'data': 'joinCnt', 'width':'60px'},
             {'title': '좋아요', 'data': 'goodCnt', 'width':'60px'},
             {'title': '부스터', 'data': 'boosterCnt', 'width':'60px', 'render': function (data) {
                     return data + " 개"
