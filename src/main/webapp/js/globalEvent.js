@@ -10,7 +10,12 @@ $(document).on('click', '._openPop', function(){
 
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
-    var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent($(this).data('memno'));
+    var moveTabId = '';
+    if(!common.isEmpty($(this).data('tabid'))){
+        moveTabId = '&moveTabId=' + encodeURIComponent($(this).data('tabid') +'');
+    }
+
+    var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent($(this).data('memno')) + moveTabId;
     util.windowOpen(url, 1460, 825, 'memberInfo' + $(this).data('memno'));
 });
 
@@ -53,11 +58,11 @@ $(document).on('click', '._openClipPlayerPop', function(){
     util.windowOpen(url, 340, 135, 'clipPlayer');
 });
 
-/*클립 리스트 팝업*/
-$(document).on('click', '._openClipListPop', function(){
-    var url = "/clip/history/popup/clipListPopup?memNo="+encodeURIComponent($(this).data('memno'));
+/*클립 상세 팝업*/
+$(document).on('click', '._openClipInfoPop', function(){
+    var url = "/clip/history/popup/clipInfoPopup?clipNo="+encodeURIComponent($(this).data('clipno'));
 
-    util.windowOpen(url, 775, 560, 'smsSend');
+    util.windowOpen(url, 1050, 730, 'clipInfo');
 });
 
 /*문자 발송 팝업*/

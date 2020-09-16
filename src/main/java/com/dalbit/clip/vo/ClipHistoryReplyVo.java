@@ -8,6 +8,20 @@ import lombok.Setter;
 @Setter
 public class ClipHistoryReplyVo extends PagingVo {
 
+    /* input */
+    private int searchType;
+    private String searchText;
+    private int search_testId;
+    private String searchHistText;
+    private int orderByType;
+    private int slctType;
+    private int isChoiceDate;
+    private int pageNo;
+    private String targetMemNo;
+    private String targetClipNo;
+    private String startDate;
+    private String endDate;
+
     /* output */
     private String replyIdx;
     private String castNo;
@@ -21,5 +35,8 @@ public class ClipHistoryReplyVo extends PagingVo {
     private String memBirthYear;
     private String memNick;
     private String profileImage;
+    private String inner;
+
+    private int replyWriteCnt;
 
 }

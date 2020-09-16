@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String in_memNo = request.getParameter("memNo");
+    String in_moveTabId = request.getParameter("moveTabId");
 %>
 
 <div class="col-md-12 no-padding">
@@ -18,8 +19,14 @@
         $('#tabList_top').addClass("show");
 
         var data = new Object();
-        data.mem_no = <%=in_memNo%>;
+        data.mem_no = "<%=in_memNo%>";
         util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
+
+        var moveTabId = "<%=in_moveTabId%>";
+        if(!common.isEmpty(moveTabId)){
+            $("#" + moveTabId).click();
+        }
+
     });
 
     var popup = "../";

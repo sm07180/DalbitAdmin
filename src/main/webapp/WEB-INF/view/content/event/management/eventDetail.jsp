@@ -27,12 +27,6 @@
         });
     }
 
-    // function setTimeDate(dateTime) {
-    //     $('#eventStartDate').val(dateTime);
-    //     $('#eventEndDate').val(dateTime);
-    //     $('#announcementDate').val(dateTime);
-    // }
-
     function initDetail() {
         var data = {
             eventIdx : $("#eventidx").val()
@@ -121,6 +115,21 @@
                 alert('추가 정보를 입력해주세요.');
                 return false;
             }
+        }
+
+        if(common.isEmpty($('#pcLinkUrl').val())) {
+            alert('PC 링크를 입력해주세요.');
+            return false;
+        }
+
+        if(common.isEmpty($('#mobileLinkUrl').val())) {
+            alert('Mobile 링크를 입력해주세요.');
+            return false;
+        }
+
+        if(common.isEmpty($('#listImgUrl').val())) {
+            alert('목록에 보일 이벤트 이미지 url을 입력해주세요.');
+            return false;
         }
 
         return true;
@@ -219,15 +228,16 @@
         $('#eventDetailFullSize').modal('show');
     }
 
-    $(document).on('click', '._pcLinkUrl', function() {
-        var tmp = $(this).data('pclink');
-        util.windowOpen(tmp, '800', '800', '이벤트 PC 상세 링크');
-    });
+    function getWindowOpen(targetName) {
+        var url = $('input[name="' + targetName +'"]').val();
+        if(url.length == 0) {
+            alert('url 주소를 확인하여 주시기 바랍니다.');
+            return false;
+        }
+        util.windowOpen(url, '800', '800', '이벤트 상세 링크');
+    }
 
-    $(document).on('click', '._mobileLinkUrl', function() {
-        var tmp = $(this).data('mobilelink');
-        util.windowOpen(tmp, '800', '800', '이벤트 mobile 상세 링크');
-    });
+
 </script>
 
 <script id="tmp_eventInfoForm" type="text/x-handlebars-template">
@@ -317,15 +327,15 @@
             <tr>
                 <th>이벤트 상세(PC)</th>
                 <td colspan="7">
-                    <input type="text" class="form-control _trim pull-left" id="pcLinkUrl" name="pcLinkUrl" placeholder="PC 상세 이미지 링크" style="width:70%" value="{{pcLinkUrl}}">
-                    <button type="button" class="_pcLinkUrl btn btn-default btn-sm pull-right" data-pclink="{{pcLinkUrl}}">미리보기</button>
+                    <input type="text" class="form-control _trim pull-left" id="pcLinkUrl" name="pcLinkUrl" placeholder="PC 링크" style="width:70%" value="{{pcLinkUrl}}">
+                    <button type="button" class="_pcLinkUrl btn btn-default btn-sm pull-right" onclick="getWindowOpen('pcLinkUrl')">미리보기</button>
                 </td>
             </tr>
             <tr>
                 <th>이벤트 상세(Mobile)</th>
                 <td colspan="7">
-                    <input type="text" class="form-control _trim pull-left" id="mobileLinkUrl" name="mobileLinkUrl" placeholder="Mobile 상세 이미지 링크" style="width:70%" value="{{mobileLinkUrl}}">
-                    <button type="button" class="_mobileLinkUrl btn btn-default btn-sm pull-right" data-mobilelink="{{mobileLinkUrl}}">미리보기</button>
+                    <input type="text" class="form-control _trim pull-left" id="mobileLinkUrl" name="mobileLinkUrl" placeholder="Mobile 링크" style="width:70%" value="{{mobileLinkUrl}}">
+                    <button type="button" class="_mobileLinkUrl btn btn-default btn-sm pull-right" onclick="getWindowOpen('mobileLinkUrl')">미리보기</button>
                 </td>
             </tr>
             <tr>

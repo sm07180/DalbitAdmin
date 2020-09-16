@@ -19,4 +19,9 @@ public class Cli_ClipHistoryController {
     public String clipPlayerPopup() {
         return "clip/popup/clipPlayerPopup";
     }
+
+    @GetMapping("/popup/clipInfoPopup")
+    public String clipInfoPopup() {
+        return "clip/detail/info";
+    }
 }

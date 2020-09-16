@@ -13,7 +13,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
 			{'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
 			{'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -46,10 +46,10 @@ var ClipHistoryDataTableSource = {
 			{'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-			{'title': '받은<br>선물 수', 'width':'50px', 'data': 'countGift', 'render': function (data, type, row, meta) {
+			{'title': '받은선물<br>건수', 'width':'50px', 'data': 'countGift', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-			{'title': '받은<br>선물 별', 'width':'55px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
+			{'title': '받은선물<br>별 수', 'width':'55px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
 			{'title': '댓글', 'width':'45px', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
@@ -120,7 +120,7 @@ var ClipHistoryDataTableSource = {
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
+            {'title': '제목', 'width':'170px', 'data': 'title', 'render': function (data, type, row, meta) {
                     return data;
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
@@ -203,13 +203,13 @@ var ClipHistoryDataTableSource = {
             {'title': '선물명', 'width':'70px', 'data': 'itemName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '받은선물<br>수', 'width':'50px', 'data': 'itemCnt', 'render': function (data, type, row, meta) {
+            {'title': '받은선물<br>개수', 'width':'50px', 'data': 'itemCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
             {'title': '받은선물<br>별 수', 'width':'50px', 'data': 'gold', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '누적<br>받은선물<br>수', 'width':'50px', 'data': 'itemTotalCnt', 'render': function (data, type, row, meta) {
+            {'title': '누적<br>받은선물<br>개수', 'width':'50px', 'data': 'itemTotalCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
             {'title': '누적<br>받은선물<br>별 수', 'width':'50px', 'data': 'goldTotalCnt', 'render': function (data, type, row, meta) {
@@ -357,7 +357,7 @@ var ClipHistoryDataTableSource = {
                     return common.addComma(data);
                 }},
             {'title': '클립목록', 'width':'55px', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="" data-memno="' + data + '"> [목록확인] </a>'
+                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '" data-tabid="tab_clip">[목록확인]</a>';
                 }},
         ],
 

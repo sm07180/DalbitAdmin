@@ -2,11 +2,16 @@ package com.dalbit.clip.service;
 
 import com.dalbit.clip.dao.Cli_ClipHistoryDao;
 import com.dalbit.clip.vo.*;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoInputVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoOutPutVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberAdminMemoAddVo;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +30,8 @@ public class Cli_ClipHistoryService {
 
     @Autowired
     Cli_ClipHistoryDao cliClipHistoryDao;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      * 클립 리스트 조회
@@ -154,6 +161,25 @@ public class Cli_ClipHistoryService {
         }
     }
 
+
+    /**
+     * 클립 좋아요 리스트 조회
+     */
+    public String callClipHistoryGoodList(ClipHistoryListenVo clipHistoryListenVo) {
+        int count = cliClipHistoryDao.callClipHistoryGoodListCnt(clipHistoryListenVo);
+        clipHistoryListenVo.setTotalCnt(count);
+        ArrayList<ClipHistoryListenVo> list = cliClipHistoryDao.callClipHistoryGoodList(clipHistoryListenVo);
+        ClipHistoryTotalVo total = cliClipHistoryDao.callClipHistoryGoodTotal(clipHistoryListenVo);
+
+        if(list.size() > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(clipHistoryListenVo.getTotalCnt()), total));
+        }else if(list.size() == 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(clipHistoryListenVo.getTotalCnt()), total));
+        }else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+
     /**
      * 클립 선물 리스트 조회
      */
@@ -206,9 +232,76 @@ public class Cli_ClipHistoryService {
      * 클립 댓글 리스트 조회
      */
     public String selectReplyList(ClipHistoryReplyVo clipHistoryReplyVo) {
+        clipHistoryReplyVo.setPageCnt(Integer.MAX_VALUE);
         ArrayList<ClipHistoryReplyVo> list = cliClipHistoryDao.selectReplyList(clipHistoryReplyVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }
 
+
+    /**
+     * 클립 댓글 리스트 조회 - 상세페이지
+     */
+    public String selectReplyListDetail(ClipHistoryReplyVo clipHistoryReplyVo) {
+        ClipHistoryTotalVo summary = cliClipHistoryDao.selectReplySummary(clipHistoryReplyVo);
+        clipHistoryReplyVo.setTotalCnt(summary.getTotalCnt());
+        ArrayList<ClipHistoryReplyVo> list = cliClipHistoryDao.selectReplyList(clipHistoryReplyVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(clipHistoryReplyVo.getTotalCnt()), summary));
+    }
+
+    /**
+     * 클립 상세정보 조회
+     */
+    public String callAdminClipInfoDetail(P_ClipHistoryDetailInfoInputVo pClipHistoryDetailInfoInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pClipHistoryDetailInfoInputVo);
+        cliClipHistoryDao.callAdminClipInfoDetail(procedureVo);
+        P_ClipHistoryDetailInfoOutPutVo info = new Gson().fromJson(procedureVo.getExt(), P_ClipHistoryDetailInfoOutPutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) == 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, info));
+        }else if(Integer.parseInt(procedureVo.getRet()) == -1){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, info));
+        }else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
+    }
+
+    /**
+     * 클립 상세정보 수정
+     */
+    public String callAdminClipInfoDetailEdit(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
+        pClipHistoryDetailInfoEditVo.setOpName(MemberVo.getMyMemNo());
+        ProcedureVo procedureVo = new ProcedureVo(pClipHistoryDetailInfoEditVo);
+        cliClipHistoryDao.callAdminClipInfoDetailEdit(procedureVo);
+
+        //"0: 성공
+        // -1: 클립번호 없음
+        // -2: 수정변화 없음
+        // -3: 잘못된수정구분값
+        // -4: 이미 삭제됨
+        // -5: 이미 확인됨
+        // -6: 닉네임중복됨"
+        if(Integer.parseInt(procedureVo.getRet()) == 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        }else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+
+    public String callAdminClipInfoDetailAddMemo(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
+        P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
+        pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
+        pMemberAdminMemoAddVo.setMem_no(pClipHistoryDetailInfoEditVo.getCast_no());
+        pMemberAdminMemoAddVo.setMemo(pClipHistoryDetailInfoEditVo.getNotiMemo());
+        ProcedureVo procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
+        mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+
+        if(Integer.parseInt(procedureVo.getRet()) >= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+        }else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
 }

@@ -17,6 +17,8 @@ public class ClipHistoryListenVo extends PagingVo {
     private int slctType;
     private int isChoiceDate;
     private int pageNo;
+    private String targetMemNo;
+    private String targetClipNo;
 
     /* output */
     private String listenDate;
@@ -54,6 +56,11 @@ public class ClipHistoryListenVo extends PagingVo {
     private String lastUpdDate;
     private String inner;
     private String dal;
+    private String listenPlayCnt;
+    private String listenGiftCnt;
+    private String listenGiftDalCnt;
+    private String listenGoodCnt;
+    private String listenGoodDate;
 
 
 }

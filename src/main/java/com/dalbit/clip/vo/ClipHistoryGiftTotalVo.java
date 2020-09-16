@@ -11,11 +11,17 @@ public class ClipHistoryGiftTotalVo extends PagingVo {
     /* input */
 
     /* output */
-    private int giftTotalCnt;
+    private int giftTotalCnt;                   // 선물 건수
     private int giftManTotalCnt;
     private int giftFemaleTotalCnt;
     private int giftUnknownTotalCnt;
-    private int byeolTotalCnt;
+
+    private int giftItemTotalCnt;                   // 선물 개수
+    private int giftItemManTotalCnt;
+    private int giftItemFemaleTotalCnt;
+    private int giftItemUnknownTotalCnt;
+
+    private int byeolTotalCnt;                 // 받은 별수
     private int byeolManTotalCnt;
     private int byeolFemaleTotalCnt;
     private int byeolUnknownTotalCnt;
