@@ -34,11 +34,11 @@
                                     <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
                                 </div>
 
-                                <%--<input type="hidden" name="startDate" id="startDate">--%>
-                                <%--<input type="hidden" name="endDate" id="endDate" />--%>
+                                <input type="hidden" name="startDate" id="startDate">
+                                <input type="hidden" name="endDate" id="endDate" />
 
-                                <input name="startDate" id="startDate">
-                                <input name="endDate" id="endDate" />
+                                <%--<input name="startDate" id="startDate">--%>
+                                <%--<input name="endDate" id="endDate" />--%>
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
