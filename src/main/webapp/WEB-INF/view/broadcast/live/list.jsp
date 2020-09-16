@@ -251,7 +251,7 @@
     }
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
-    dtList_info.setPageLength(50);
+    dtList_info.setPageLength(100);
     dtList_info.createDataTable(summary_table);
 
 
@@ -275,7 +275,11 @@
         }
         dtList_info_lisetnUser.reload(liveNextFunc);
         dtList_info_loginUser.reload(loginNextFunc);
-        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
+        if(liveState != 1){
+            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
+        }else{
+            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
+        }
 
 
         // getSearch();

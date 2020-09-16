@@ -79,19 +79,19 @@ var ClipDetailDataTableSource = {
 
                     // return data;
                 }},
-            {'title': '선물명', 'width':'70px', 'data': 'itemName', 'render': function (data, type, row, meta) {
+            {'title': '선물명', 'width':'100px', 'data': 'itemName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '받은선물 개수', 'width':'50px', 'data': 'itemCnt', 'render': function (data, type, row, meta) {
+            {'title': '받은 선물', 'width':'60px', 'data': 'itemCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '받은선물 별 수', 'width':'50px', 'data': 'gold', 'render': function (data, type, row, meta) {
+            {'title': '받은 선물 별', 'width':'80px', 'data': 'gold', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '누적<br>받은선물 개수', 'width':'50px', 'data': 'itemTotalCnt', 'render': function (data, type, row, meta) {
+            {'title': '누적 받은 선물', 'width':'70px', 'data': 'itemTotalCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '누적<br>받은선물 별 수', 'width':'50px', 'data': 'goldTotalCnt', 'render': function (data, type, row, meta) {
+            {'title': '누적 받은 선물 별', 'width':'80px', 'data': 'goldTotalCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }}
         ],
@@ -142,5 +142,28 @@ var ClipDetailDataTableSource = {
         }
     },
 
+
+    'adminMemoList': {
+        'url': '/rest/member/member/adminMemolist'
+        , 'columns': [
+            {'title': '등록 일시', 'data': 'regDate','width':'180px'},
+            {'title': '등록 관리자', 'data': 'opName','width':'100px'},
+            {'title': '운영자 메모 내용', 'data': 'memo','render': function (data) {
+                    return common.replaceTag(data);
+                }},
+        ]
+    },
+
+    'editHistory': {
+        'url': '/rest/clip/history/info/editHist'
+            , 'columns': [
+            {'title': '수정일자', 'data': 'editDate','width':'120px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px','className':'al','render' : function(data){
+                    return memberUtil.convertEditHistory(data);
+                }},
+            {'title': '처리자명', 'data': 'opName','width':'100px'},
+        ]
+            , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+    },
 
 }

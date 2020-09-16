@@ -53,6 +53,7 @@ public class ClipHistoryMemberVo extends PagingVo {
     private String lastUpdDate;
     private String inner;
     private String dal;
+    private int clipConfirm;
 
 
 }

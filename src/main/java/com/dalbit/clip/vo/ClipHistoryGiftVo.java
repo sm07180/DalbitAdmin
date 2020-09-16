@@ -61,6 +61,6 @@ public class ClipHistoryGiftVo extends PagingVo {
     private String inner;
     private String dal;
     private String lastUpdDate;
-
+    private int clipConfirm;
 
 }

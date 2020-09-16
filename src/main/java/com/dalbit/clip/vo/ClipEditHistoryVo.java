@@ -15,5 +15,6 @@ public class ClipEditHistoryVo extends PagingVo {
     private String op_name;				//수정자
     private String memo;				//메모
     private String castNo;				//수정 ClipNo
+    private String replyIdx;				//수정 replyIdx
 
 }

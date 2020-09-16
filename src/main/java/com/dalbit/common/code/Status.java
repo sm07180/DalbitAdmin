@@ -685,6 +685,10 @@ public enum Status {
     메인_팬랭킹조회_요청회원_회원아님("-1", "main.fan.ranking.member.number.error", "요청회원번호가 회원 아닐 시"),
     메인_팬랭킹조회_실패("C006", "main.fan.ranking.select.fail", "팬 랭킹 조회 실패 시"),
 
+    //DJ 가산점 조회
+    DJ가산점조회_성공("C001", "add.dj.point.list.success", "DJ가산점 조회 성공 시"),
+    DJ가산점조회_실패("C006", "add.dj.point.list.fail", "DJ가산점 조회 실패 시"),
+
 
     // 통계 ------------------------------------------------------------------------------------
     //방송통계 현황
@@ -746,11 +750,20 @@ public enum Status {
     클립삭제_성공("0", "delete.success", "클립삭제 성공 시"),
     클립삭제_에러("C006", "server.error", "클립삭제에서 에러 발생 시"),
 
-    클립댓글조회_성공("0", "clip.select.success", "클립댓글 조회 성공 시"),
-    클립댓글조회_실패("C006", "clip.select.fail", "클립댓글 조회 에러 발생 시"),
+    클립댓글조회_성공("0", "select.success", "클립댓글 조회 성공 시"),
+    클립댓글조회_실패("C006", "server.error", "클립댓글 조회 에러 발생 시"),
 
-    클립댓글삭제_성공("0","clip.del.success", "클립댓글 삭제 성공 시"),
-    클립댓글삭제_실패("C006","clip.del.fail", "클립댓글 삭제 실패 시"),
+    클립댓글삭제_성공("0","delete.success", "클립댓글 삭제 성공 시"),
+    클립댓글삭제_실패("C006","server.error", "클립댓글 삭제 실패 시"),
+
+    클립상세수정_성공("0", "update.success", "클립상세 수정 성공 시"),
+    클립상세수정_클립번호없음("-1", "clip.detail.edit.not.found.clipno", "클립상세 클립번호 미존재"),
+    클립상세수정_수정변화없음("-2", "clip.detail.edit.same.data", "클립상세 수정변화 없을때"),
+    클립상세수정_잘못된값("-3", "clip.detail.edit.param.error", "클립상세 수정값이 잘못된 값일 경우"),
+    클립상세수정_이미삭제("-4", "clip.detail.edit.already.deleted", "클립상세 이미 삭제된 상태"),
+    클립상세수정_이미처리("-5", "clip.detail.edit.already.processed", "클립상세 이미 처리된 상태"),
+    클립상세수정_닉네임중복("-6", "clip.detail.edit.overlap.nickname", "클립상세 닉네임 중복"),
+
     ;
 
 

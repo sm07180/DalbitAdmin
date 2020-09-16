@@ -4,7 +4,7 @@
 <!-- 회원가입 > 총계 -->
 <div class="widget widget-table mb10">
     <div class="widget-content col-md-12">
-        <span class="_searchDate"></span>
+        <span class="_searchDate font-bold"></span><br/>
         <span class="font-bold">◈ 월간별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
@@ -289,12 +289,12 @@
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSpecialdj_succ_byeol_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSucc_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #ffe699" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_byeol_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
     </tr>
     {{/each}}
 </script>

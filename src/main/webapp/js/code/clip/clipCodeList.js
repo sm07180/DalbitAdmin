@@ -60,6 +60,18 @@ var clip_confirmType = [
     , new COMMON_CODE('1', '1', '인증')
 ]
 
+var clip_confirmType_update = [
+    new COMMON_CODE(null, 'confirm', '인증여부')
+    , new COMMON_CODE('0', '0', '인증')
+    , new COMMON_CODE('1', '1', '해제')
+]
+
+var clip_confirmType_yn = [
+    new COMMON_CODE(null, 'confirm', '인증여부')
+    , new COMMON_CODE('0', '0', 'N')
+    , new COMMON_CODE('1', '1', 'Y')
+]
+
 var clip_hide = [
     new COMMON_CODE(null, 'hide', '숨김여부')
     , new COMMON_CODE('0', '0', '')

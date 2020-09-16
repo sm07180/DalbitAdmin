@@ -195,6 +195,26 @@
 
     }
 
+
+    //클립 운영자 인증 요청
+    function editClipConfirm(clipNo, confirmData){
+        if(confirm("운영자 관리 여부를 수정 하시겠습니까?")) {
+            var data = Object();
+            data.cast_no = clipNo;
+            data.editSlct = 8;
+            data.confirm = confirmData === 1 ? 0 : 1;
+            data.sendNoti = 0;
+
+            util.getAjaxData("clipDetailInfoEdit", "/rest/clip/history/info/edit", data, fn_detailInfo_Edit_success);
+        }
+    }
+
+    function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
+        console.log(response);
+        $("#bt_search").click();
+        alert(response.message);
+    }
+
 </script>
 
 
