@@ -825,9 +825,9 @@ var MemberDataTableSource = {
                     }
 
                     if(data == 0){
-                        return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', 1)">[숨기기]</a>';
+                        return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', '+ data +')">[숨기기]</a>';
                     }else{
-                        return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', 0)">[해제]</a>';
+                        return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', '+ data +')">[해제]</a>';
                     }
                 }},
             {'title': '삭제', 'width':'50px', 'data': 'state', 'render': function (data, type, row, meta) {
