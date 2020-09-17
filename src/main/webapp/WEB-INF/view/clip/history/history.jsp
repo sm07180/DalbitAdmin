@@ -33,7 +33,7 @@
     $(document).on('change', "#clipSubjectType, #clipOrderByType", function(){
         beforeOrderByType = $("#clipOrderByType").val();
         beforeClipSubjectType = $("#clipSubjectType").val();
-        dtList_info.reload(selectCallback_clipHistoty);
+        dtList_info.reload(selectCallback_clipHistoty, false);
     });
 
     $(function(){
@@ -211,7 +211,7 @@
 
     function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
         console.log(response);
-        $("#bt_search").click();
+        dtList_info.reload(selectCallback_clipHistoty, false);
         alert(response.message);
     }
 
