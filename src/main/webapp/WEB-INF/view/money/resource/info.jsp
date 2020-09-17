@@ -793,10 +793,10 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입 보상</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">레벨 보상</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">랭킹 보상</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">출석이멘트</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">출석이벤트</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
                 <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>
+                <%--<th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>--%>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">증가 합</th>
@@ -818,7 +818,7 @@
                 <td>{{addComma recovery_mCnt 'Y'}}</td>
                 <td>{{addComma eventauto_mCnt 'Y'}}</td>
                 <td>{{addComma eventdirect_mCnt 'Y'}}</td>
-                <td>{{addComma specialdj_mCnt 'Y'}}</td>
+                <%--<td>{{addComma specialdj_mCnt 'Y'}}</td>--%>
                 <td>{{addComma testin_mCnt 'Y'}}</td>
                 <td>{{addComma dalInc_total_mCnt 'Y'}}</td>
                 <td rowspan="4">{{addComma dalInc_total_Cnt 'Y'}}</td>
@@ -836,7 +836,7 @@
                 <td>{{addComma recovery_fCnt 'Y'}}</td>
                 <td>{{addComma eventauto_fCnt 'Y'}}</td>
                 <td>{{addComma eventdirect_fCnt 'Y'}}</td>
-                <td>{{addComma specialdj_fCnt 'Y'}}</td>
+                <%--<td>{{addComma specialdj_fCnt 'Y'}}</td>--%>
                 <td>{{addComma testin_fCnt 'Y'}}</td>
                 <td>{{addComma dalInc_total_fCnt 'Y'}}</td>
             </tr>
@@ -852,7 +852,7 @@
                 <td>{{addComma recovery_nCnt 'Y'}}</td>
                 <td>{{addComma eventauto_nCnt 'Y'}}</td>
                 <td>{{addComma eventdirect_nCnt 'Y'}}</td>
-                <td>{{addComma specialdj_nCnt 'Y'}}</td>
+                <%--<td>{{addComma specialdj_nCnt 'Y'}}</td>--%>
                 <td>{{addComma testin_nCnt 'Y'}}</td>
                 <td>{{addComma dalInc_total_nCnt 'Y'}}</td>
             </tr>
@@ -868,7 +868,7 @@
                 <td>{{addComma recovery_tCnt 'Y'}}</td>
                 <td>{{addComma eventauto_tCnt 'Y'}}</td>
                 <td>{{addComma eventdirect_tCnt 'Y'}}</td>
-                <td>{{addComma specialdj_tCnt 'Y'}}</td>
+                <%--<td>{{addComma specialdj_tCnt 'Y'}}</td>--%>
                 <td>{{addComma testin_tCnt 'Y'}}</td>
                 <td>{{addComma dalInc_total_tCnt 'Y'}}</td>
             </tr>
@@ -880,7 +880,7 @@
                 <th class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
-                <td colspan="6" rowspan="5"></td>
+                <td colspan="5" rowspan="5"></td>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
                 <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th class="_bgColor" data-bgcolor="#d9d9d9">감소 합</th>
@@ -1053,7 +1053,7 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="14" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
+                <th colspan="13" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
             </tr>
@@ -1068,7 +1068,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">출석이벤트</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
                 <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>
+                <%--<th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>--%>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
@@ -1099,7 +1099,7 @@
                 <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
-                <td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>
+                <%--<td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>--%>
                 <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
@@ -1133,7 +1133,7 @@
             <td>{{addComma recovery_Cnt 'Y'}}</td>
             <td>{{addComma eventauto_Cnt 'Y'}}</td>
             <td>{{addComma eventdirect_Cnt 'Y'}}</td>
-            <td>{{addComma specialdj_Cnt 'Y'}}</td>
+            <%--<td>{{addComma specialdj_Cnt 'Y'}}</td>--%>
             <td>{{addComma testin_Cnt 'Y'}}</td>
             <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incTotal_Cnt 'Y'}}</td>
             <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
@@ -1165,7 +1165,7 @@
                     <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>
+                    <%--<td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>--%>
                     <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
                     <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
