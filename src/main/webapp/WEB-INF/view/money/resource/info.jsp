@@ -76,7 +76,7 @@
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
             <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick(3);">회원Data</a></li>
-            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" onclick="buyDalDataListTabClick(4);">달 구매내역</a></li>
+            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" onclick="buyDalDataListTabClick(4);">달 결제내역</a></li>
             <li><a href="#useDalDataList" role="tab" data-toggle="tab" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>
             <li><a href="/money/item/list" id="tab_changeList" title="교환페이지로 이동합니다.">교환내역</a></li>
             <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
@@ -231,7 +231,7 @@
     }
 
     function searchDate(dateType){
-        if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){ //시간별 , 일간    (시간대별/달 구매 내역)
+        if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){ //시간별 , 일간    (시간대별/달 결제 내역)
             if(common.isEmpty(dateType)){
                 console.log("-------------------------   3");
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
@@ -787,7 +787,7 @@
             <tr>
                 <th rowspan="6" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 구매</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 결제</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입 보상</th>
@@ -1059,7 +1059,7 @@
             </tr>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 구매</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 결제</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입보상</th>
