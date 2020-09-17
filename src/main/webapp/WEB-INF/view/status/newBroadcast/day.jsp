@@ -6,6 +6,7 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <div class="col-md-11 no-padding">
+            <span class="font-bold">◈DJ/청취자 성별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
                     <col width="4.2%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
