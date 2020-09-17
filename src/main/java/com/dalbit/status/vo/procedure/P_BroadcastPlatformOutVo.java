@@ -16,4 +16,5 @@ public class P_BroadcastPlatformOutVo {
     private int sum_androidTime;
     private int sum_iosTime;
     private int sum_pcTime;
+    private int sum_unique_dj_Cnt;
 }

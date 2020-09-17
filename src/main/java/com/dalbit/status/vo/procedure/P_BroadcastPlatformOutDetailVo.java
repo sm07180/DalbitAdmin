@@ -20,7 +20,5 @@ public class P_BroadcastPlatformOutDetailVo {
     private int androidTime;
     private int iosTime;
     private int pcTime;
+    private int unique_dj_Cnt;
 }
-
-
-
