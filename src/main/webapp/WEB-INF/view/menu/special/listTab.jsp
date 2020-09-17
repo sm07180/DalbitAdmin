@@ -10,11 +10,13 @@
                <li class="active"><a href="#dal" role="tab" data-toggle="tab" class="_tab">스페셜 DJ</a></li>
                <li><a href="#reqDal" role="tab" data-toggle="tab" class="_tab">스페셜 DJ 신청</a></li>
                <li><a href="#reqManage" role="tab" data-toggle="tab" class="_tab">스페셜 DJ 신청관리</a></li>
+               <li><a href="#reqAble" role="tab" data-toggle="tab" class="_tab">스페셜 DJ 신청 가능 회원</a></li>
            </ul>
            <div class="tab-content no-padding">
                <div class="tab-pane fade in active" id="dal"><jsp:include page="specialDal.jsp"/></div>           <!-- 스페셜 DJ -->
                <div class="tab-pane fade" id="reqDal"><jsp:include page="reqSpecialDal.jsp"/></div>               <!-- 스페셜 DJ 신청 -->
                <div class="tab-pane fade" id="reqManage"><jsp:include page="reqManageList.jsp"/></div>               <!-- 스페셜 DJ 신청관리 -->
+               <div class="tab-pane fade" id="reqAble"><jsp:include page="reqAbleSpecialDal.jsp"/></div>               <!-- 스페셜 DJ 신청관리 -->
            </div>
        </div>
     </div>
@@ -60,6 +62,8 @@
         } else if(tabIndex == 2) {
             $("#reqManageDetail").empty();
             initManage();
+        } else if(tabIndex == 3){
+            initReqAble();
         }
     });
 </script>

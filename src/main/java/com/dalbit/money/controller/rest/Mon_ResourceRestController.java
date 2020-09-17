@@ -59,4 +59,10 @@ public class Mon_ResourceRestController {
         String result = mon_ResourceService.useDalList(pResourceInfoInPutVo);
         return result;
     }
+
+    @PostMapping("live")
+    public String live(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.resourceLive(pResourceInfoInPutVo);
+        return result;
+    }
 }
