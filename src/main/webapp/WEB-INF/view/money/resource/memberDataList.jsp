@@ -83,6 +83,7 @@
 
         $("#txt_search").show();
         $("#checkTestid").show();
+        $("#liveResourceData").hide();
         memberDataList();
     }
 

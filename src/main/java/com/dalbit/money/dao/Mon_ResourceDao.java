@@ -25,4 +25,7 @@ public interface Mon_ResourceDao {
     @Transactional(readOnly = true)
     ArrayList<P_UseDalListOutVo> callUseDalList(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_LiveResourceDataOutVo> callResourceLive(ProcedureVo procedureVo);
+
 }

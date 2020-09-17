@@ -8,7 +8,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-12 no-padding">
-        <div class="container-fluid">
+        <div class="container-fluid col-lg-9 no-padding" style="margin-left: 15px">
             <form id="searchForm">
                 <div class="row form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -64,6 +64,9 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="col-md-2 no-padding pull-right" style="margin-left: 5px">
+            <div id="liveResourceData"></div>
         </div>
     </div>
     <!-- tab -->
@@ -298,6 +301,8 @@
         $("#txt_search").hide();
         $("#checkTestid").hide();
         changeDatepicker();
+        $("#liveResourceData").show();
+
     }
     function itemTabClick(tmp){
         _itemClick = tmp;
@@ -568,6 +573,9 @@
         $("#dalListTable").html(html);
 
         ui.paintColor();
+        ui.tableHeightSet();
+
+        liveResourceData();
     }
 
     function fn_byeol_success(dst_id, response) {
@@ -756,12 +764,26 @@
         $("#byeolListTable").html(html);
 
         ui.paintColor();
+        ui.tableHeightSet();
+        liveResourceData();
+    }
+    function liveResourceData(){
+        util.getAjaxData("liveResourceData", "/rest/money/resource/live", "", fn_liveResourceData_success);
+    }
+    function fn_liveResourceData_success(dat_id, response){
+        var template = $('#tmp_liveResourceData').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.totalInfo;
+        var html = templateScript(context);
+        $("#liveResourceData").html(html);
+        ui.paintColor();
+        ui.tableHeightSet();
     }
 
 </script>
 <script type="text/x-handlebars-template" id="tmp_infoTable_dal">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered mb10 mt5">
+        <table class="table table-bordered mb10 mt5 _tableHeight" data-height="23px">
             <tr>
                 <th rowspan="6" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -910,7 +932,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_infoTable_byeol">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered mb10 mt5">
+        <table class="table table-bordered mb10 mt5 _tableHeight" data-height="23px">
             <tr>
                 <th rowspan="5" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -1023,7 +1045,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_dalListTable">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <%--<colgroup>--%>
             <%--<col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/>--%>
             <%--<col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/>--%>
@@ -1163,7 +1185,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_byeolListTable">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <%--<colgroup>--%>
             <%--<col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>--%>
             <%--<col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>--%>
@@ -1262,6 +1284,30 @@
                 <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_decbyeol_Cnt 'Y'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_liveResourceData">
+    <div class="col-md-12 no-padding">
+        <table class="table table-bordered _tableHeight" data-height="23px">
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">현재 총 보유</th>
+            </tr>
+            <tr>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">달</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">별</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{addComma total_Dal 'Y'}}</td>
+                <td>{{addComma havecount_Dal 'Y'}}</td>
+                <td>{{addComma total_Byeol 'Y'}}</td>
+                <td>{{addComma havecount_Byeol 'Y'}}</td>
             </tr>
             </tbody>
         </table>
