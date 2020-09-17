@@ -85,10 +85,22 @@
                         <div>
                             <div class="row col-lg-12 no-padding" style="margin-left: 0px">
                                 <div id="summaryTable"></div>
+                                <div class="col-md-2 no-padding pull-right">
+                                    <table class="table table-sorting table-hover table-bordered mt5" style="margin-bottom: 0px">
+                                        <colgroup>
+                                            <col width="15%"/><col width="65%"/>
+                                        </colgroup>
+                                        <tr>
+                                            <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                                        </tr>
+                                    </table>
+                                </div>
 
-                                <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
-                                <div class="col-lg-12 no-padding" id="listTable"></div>
-                                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                                <div class="col-md-12 no-padding">
+                                    <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
+                                    <div class="col-lg-12 no-padding" id="listTable"></div>
+                                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -777,18 +789,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 no-padding pull-right">
-            <div class="col-md-4 no-padding pull-right">
-                <table class="table table-sorting table-hover table-bordered">
-                    <colgroup>
-                        <col width="15%"/><col width="65%"/>
-                    </colgroup>
-                    <tr>
-                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
         <div class="col-md-6 no-padding">
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
@@ -1184,46 +1184,28 @@
 
 <!-- 환전신청 가능회원 -->
 <script type="text/x-handlebars-template" id="tmp_enableSummary">
-    <div class="pt10 col-lg-6 no-padding">
+    <div class="col-lg-12 no-padding">
         <label>ㆍ570별 이상을 보유하고 있는 환전신청이 가능한 회원 리스트입니다.</label>
-    </div>
-    <div class="col-lg-6 no-padding">
-        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 300px">
-            <colgroup>
-                <col width="50%"/><col width="50%"/>
-            </colgroup>
-            <tr>
-                <th colspan="2">총 환전 가능금액</th>
-            </tr>
-            <tr style="background-color: white">
-                <td>{{addComma content.enableCnt}} 명</td>
-                <td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>
-            </tr>
-            <tr>
-                <th colspan="2">
-                    <label class="font-bold" style="padding-top: 9px">(환전가능 금액/부가세 제외)<br/>
-                        총 예상 순 매출
-                    </label>
-                </th>
-            </tr>
-            <tr style="background-color: white">
-                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}원</td>
-            </tr>
-        </table>
+        <div class="col-lg-6 no-padding pull-right">
+            <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 450px">
+                <colgroup>
+                    <col width="25%"/><col width="25%"/><col width="50%"/>
+                </colgroup>
+                <tr>
+                    <th colspan="2">총 환전 가능금액</th>
+                    <th><label class="font-bold" style="padding-top: 9px;width: 170px;">(환전가능 금액/부가세 제외)<br/>총 예상 순 매출</label></th>
+                </tr>
+                <tr style="background-color: white">
+                    <td>{{addComma content.enableCnt}} 명</td>
+                    <td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>
+                    <td class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}원</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_enableTable">
-    <div class="col-md-2 no-padding pull-right">
-        <table class="table table-sorting table-hover table-bordered">
-            <colgroup>
-                <col width="15%"/><col width="65%"/>
-            </colgroup>
-            <tr>
-                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
-            </tr>
-        </table>
-    </div>
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="5%"/>
@@ -1289,16 +1271,6 @@
 
 <!-- 불가목록 -->
 <script type="text/x-handlebars-template" id="tmp_rejectTable">
-    <div class="col-md-2 no-padding pull-right">
-        <table class="table table-sorting table-hover table-bordered">
-            <colgroup>
-                <col width="15%"/><col width="65%"/>
-            </colgroup>
-            <tr>
-                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
-            </tr>
-        </table>
-    </div>
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="4%"/>
