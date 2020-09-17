@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+<%
+    String in_tabType = request.getParameter("tabType");
+%>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -33,11 +36,12 @@
                         <a href="#djRankList" role="tab" data-toggle="tab" data-rank="djRankList"><i class="fa fa-home"></i> DJ랭킹</a>
                     </li>
                     <li>
-                        <a href="#fanRankList" role="tab" data-toggle="tab" data-rank="fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
+                        <a href="#djRankList" role="tab" data-toggle="tab" data-rank="fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
                     </li>
+                    <li><a href="/menu/rank/addDjPoint" id="tab_addDjPoint">DJ가산점</a></li>
                 </ul>
-                <div>
-                    <div>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active " id="djRankList">
                         <div class="row col-lg-12 form-inline">
                             <div class="col-md-7 no-padding mt10">
                                 <span id="tab_title">DJ 랭킹 점수는 받은 별(부스터 제외) 1점, 누적 청취자 2점, 받은 좋아요 1점, 부스터 횟수 20점으로 반영됩니다.</span>
@@ -100,6 +104,7 @@
                         </table>
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
+                </div>     <!-- 상세 -->
 
 
                     <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate">--%>
@@ -140,9 +145,23 @@
      dateTime = moment(dateTime).format("YYYY.MM.DD");
      setTimeDate(dateTime);
 
+     var tabType = <%=in_tabType%>;
+
     $(function(){
         $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
-        init();
+
+        if(!common.isEmpty(tabType)){
+            $('#rankTab li:eq(' + tabType + ') a').tab('show');
+            if(tabType == 0){
+                var tmp = "djRankList";
+            }else if(tabType == 1){
+                var tmp = "fanRankList";
+            }
+            init(tmp);
+        }else{
+            init();
+        }
+
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");

@@ -10,16 +10,16 @@
                 <li class="active"><a href="#time" role="tab" data-toggle="tab" id="tab_time">시간대별</a></li>
                 <li><a href="#day" role="tab" data-toggle="tab" id="tab_day">월간별</a></li>
                 <li><a href="#year" role="tab" data-toggle="tab" id="tab_year">연간별</a></li>
-                <li><a href="#platform" role="tab" data-toggle="tab" id="tab_platform">플랫폼</a></li>
-                <li><a href="#type" role="tab" data-toggle="tab" id="tab_type">방송주제별</a></li>
+                <%--<li><a href="#platform" role="tab" data-toggle="tab" id="tab_platform">플랫폼</a></li>--%>
+                <%--<li><a href="#type" role="tab" data-toggle="tab" id="tab_type">방송주제별</a></li>--%>
                 <li><a href="#gift" role="tab" data-toggle="tab" id="tab_gift">방송 선물내역</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="time"><jsp:include page="time.jsp"/></div>
                 <div class="tab-pane fade" id="day"><jsp:include page="day.jsp"/></div>
                 <div class="tab-pane fade" id="year"><jsp:include page="year.jsp"/></div>
-                <div class="tab-pane fade" id="platform"><jsp:include page="platform.jsp"/></div>               <!-- 플랫폼 -->
-                <div class="tab-pane fade" id="type"><jsp:include page="type.jsp"/></div>
+                <%--<div class="tab-pane fade" id="platform"><jsp:include page="platform.jsp"/></div>               <!-- 플랫폼 -->--%>
+                <%--<div class="tab-pane fade" id="type"><jsp:include page="type.jsp"/></div>--%>
                 <div class="tab-pane fade" id="gift"><jsp:include page="gift.jsp"/></div>
             </div>
         </div>

@@ -199,7 +199,7 @@ common.timeStampMinutes = function(time){
     }
 }
 
-common.timeStampDay = function(time, s){
+common.timeStampDay = function(time){
     if(!common.isEmpty(time) && time != 0){
         time = parseInt(time);
         var day = Math.floor(time / 60 / 60 / 24);
@@ -209,32 +209,18 @@ common.timeStampDay = function(time, s){
         var minutes_s = time - (day_s + (hours * 60 * 60));
         var minutes = Math.floor(minutes_s / 60);
         var seconds = time - ((day * 60 * 60 * 24) + (hours * 60 * 60) + (minutes * 60) );
-        if(!common.isEmpty(s)){
-            if(day != 0){
-                var time = day + "일 " + hours  + "시" + minutes + "분" + seconds + "초";
-            }else{
-                if(hours != 0){
-                    var time = hours  + "시" + minutes + "분" + seconds + "초";
-                }else{
-                    if(minutes != 0){
-                        var time = minutes + "분" + seconds + "초";
-                    }else{
-                        var time = seconds + "초";
-                    }
-                }
-            }
+
+        var timeData;
+        if(day != 0){
+            timeData = day + "일 " + hours  + "시";
         }else{
-            if(day != 0){
-                var time = day + "일 " + hours  + "시";
+            if(hours != 0){
+                timeData = hours  + "시" + minutes + "분";
             }else{
-                if(hours != 0){
-                    var time = hours  + "시" + minutes + "분";
-                }else{
-                    var time = minutes + "분";
-                }
+                timeData = minutes + "분";
             }
         }
-        return time ;
+        return timeData ;
     }else{
         return "";
     }
