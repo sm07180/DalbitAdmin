@@ -65,7 +65,7 @@ public class Cli_ClipHistoryService {
 
 
     /**
-     * 클립 리스트 조회
+     * 클립 회원 리스트 조회
      */
     public String callClipHistoryMemberList(ClipHistoryMemberVo clipHistoryMemberVo) {
         ProcedureVo procedureVo = new ProcedureVo(clipHistoryMemberVo);

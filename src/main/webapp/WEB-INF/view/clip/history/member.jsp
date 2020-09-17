@@ -52,7 +52,7 @@
 
     function selectCallback_clipHistotyMember(data){
         // 탭 우측 총 건수 추가
-        var text = "<span style='color: black;'>클립 삭제 수 :</span>" +
+        var text = "<span style='color: black;'>클립 등록 수 :</span>" +
             "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
             "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
             "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건, </span>" +
