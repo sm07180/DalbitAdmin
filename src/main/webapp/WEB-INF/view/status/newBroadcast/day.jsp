@@ -2,10 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 방송현황 > 시간대별 -->
+<span class="_searchDate font-bold"></span>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <div class="col-md-12 no-padding">
-            <span class="_searchDate font-bold"></span><br/>
+        <div class="col-md-11 no-padding">
+            <span class="font-bold">◈DJ/청취자 성별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
                     <col width="4.2%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
@@ -41,7 +42,7 @@
             </table>
         </div>
 
-        <div class="col-md-12 no-padding">
+        <div class="col-md-8 no-padding">
             <span class="font-bold">◈선물 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
@@ -64,7 +65,7 @@
             </table>
         </div>
 
-        <div class="col-md-12 no-padding">
+        <div class="col-md-8 no-padding">
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
@@ -93,7 +94,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-12 no-padding">
+        <div class="col-md-8 no-padding">
             <span class="font-bold">◈방송 주제 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
