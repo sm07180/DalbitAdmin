@@ -183,8 +183,19 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null, "width": "20px"},
             {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-", 'render' : function(data, type, row, meta, a, b){
                     var totalCnt = common.isEmpty(meta.settings.json.pagingVo.totalCnt) ? 0 : meta.settings.json.pagingVo.totalCnt;
-                    row.rowNum = totalCnt - data + 1;
-                    return totalCnt - data + 1;
+                    if(0 < data){
+                        row.rowNum = totalCnt - data + 1;
+                        return totalCnt - data + 1;
+                    }else{
+                        //속도 이슈로 쿼리에서 rownum을 제외한 경우
+                        console.log(data, type, row, meta)
+                        try{
+                            var start = meta.settings._iDisplayStart;
+                            var row = meta.row;
+                            return totalCnt - start - row;
+                        }catch (exception){}
+                    }
+
                 }
             },
         ],
