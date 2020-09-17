@@ -397,7 +397,7 @@
         ];
         response.data.totalInfo["dalInc_total_tCnt"] = common.getListSum(dalInc_total_tCnt);
 
-        response.data.totalInfo.dalInc_total_cnt = response.data.totalInfo.dalInc_total_mCnt +
+        response.data.totalInfo.dalInc_total_Cnt = response.data.totalInfo.dalInc_total_mCnt +
             response.data.totalInfo.dalInc_total_fCnt +
             response.data.totalInfo.dalInc_total_nCnt +
             response.data.totalInfo.dalInc_total_tCnt;
@@ -444,12 +444,12 @@
         ];
         response.data.totalInfo["dalDec_total_tCnt"] = common.getListSum(dalDec_total_tCnt);
 
-        response.data.totalInfo.dalDec_total_cnt = response.data.totalInfo.dalDec_total_mCnt +
+        response.data.totalInfo.dalDec_total_Cnt = response.data.totalInfo.dalDec_total_mCnt +
             response.data.totalInfo.dalDec_total_fCnt +
             response.data.totalInfo.dalDec_total_nCnt +
             response.data.totalInfo.dalDec_total_tCnt;
 
-        response.data.totalInfo.dal_total_cnt = response.data.totalInfo.dalInc_total_cnt + response.data.totalInfo.dalDec_total_cnt;
+        response.data.totalInfo.dal_total_Cnt = response.data.totalInfo.dalInc_total_Cnt + response.data.totalInfo.dalDec_total_Cnt;
         // 감소합 --------------------------------------------------------------------------
 
         var template = $('#tmp_infoTable_dal').html();
