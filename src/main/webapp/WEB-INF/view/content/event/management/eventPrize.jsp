@@ -286,6 +286,17 @@
         }
     });
 
+    // 제세공과금, 달로 받기 자동 계산
+    $(document).on('focusout', '#giveAmt', function() {
+       var giveAmt = $('#giveAmt').val();
+       if(giveAmt >= 50000) {
+           $('#taxAmt').val(giveAmt * 0.22);
+       } else if(giveAmt < 50000) {
+           $('#taxAmt').val('0');
+       }
+       $('#receiveDal').val(giveAmt * 0.01);
+    });
+
     function bt_x(){
     };
 </script>
