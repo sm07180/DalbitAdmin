@@ -72,14 +72,6 @@ public class Men_SpecialService {
         int getReqSpecialListCnt = menSpecialDao.getReqSpecialListCnt(specialReqVo);
         specialReqVo.setTotalCnt(getReqSpecialListCnt);
 
-
-        for(int i=0;i<list.size();i++) {
-            MemberVo outVo = mem_MemberDao.getMemberInfo(list.get(i).getMem_no());
-            if(!DalbitUtil.isEmpty(outVo)) {
-                list.get(i).setMem_sex(outVo.getMem_sex());
-            }
-        }
-
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialReqVo.getTotalCnt(), specialReqVo.getPageStart(), specialReqVo.getPageCnt())));
 
         return result;
@@ -115,14 +107,14 @@ public class Men_SpecialService {
             hm.put("mem_name", DalbitUtil.isEmpty(list.get(i).getMem_name()) ? "" : list.get(i).getMem_name());
             hm.put("mem_phone", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getMem_phone());
 
-            hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAirTime());
-            hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getBroadcastCnt());
-            hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getGoodCnt());
-            /*hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getFanCnt());*/
-            hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAllListenCnt());
-            hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getListenCnt());
-            hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReportCnt());
-            hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReceiveStar());
+            hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
+            hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getBroadcastCnt()) ? "" : list.get(i).getBroadcastCnt());
+            hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
+            /*hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getFanCnt()) ? "" : list.get(i).getFanCnt());*/
+            hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getAllListenCnt()) ? "" : list.get(i).getAllListenCnt());
+            hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getListenCnt()) ? "" : list.get(i).getListenCnt());
+            hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getReportCnt()) ? "" : list.get(i).getReportCnt());
+            hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getReceiveStar()) ? "" : list.get(i).getReceiveStar());
 
             /*hm.put("chatCnt", DalbitUtil.isEmpty(list.get(i).getChatCnt()) ? "" : list.get(i).getChatCnt());*/
             hm.put("broadCnt", DalbitUtil.isEmpty(list.get(i).getBroadCnt()) ? "" : list.get(i).getBroadCnt());
@@ -149,6 +141,51 @@ public class Men_SpecialService {
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
         model.addAttribute("workbookName", "스페셜DJ 신청 목록");
+
+        return model;
+    }
+
+    /**
+     * 스페셜 달D 신청 가능 목록 엑셀
+     */
+    public Model reqAbleListExcel(SpecialReqVo specialReqVo, Model model) {
+        specialReqVo.setPageCnt(1000000);
+
+        List<SpecialReqVo> list = menSpecialDao.reqAbleSpecialDjList(specialReqVo);
+
+        String[] headers = {"No", "회원번호", "닉네임" , "누적 방송시간", "90분 이상 방송 횟수"
+                , "좋아요 수", "누적 청취자 수", "순수 청취자 수", "신고횟수", "받은 별"
+                , "방송횟수", "30분 이상 청취자 수"};
+        int[] headerWidths = {3000, 5000, 5000, 3000, 3000
+                , 3000, 3000, 3000, 3000, 3000
+                , 3000, 4000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", list.size()-i);
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
+            hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
+            hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getBroadcastCnt()) ? "" : list.get(i).getBroadcastCnt());
+
+            hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
+            hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getAllListenCnt()) ? "" : list.get(i).getAllListenCnt());
+            hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getListenCnt()) ? "" : list.get(i).getListenCnt());
+            hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getReportCnt()) ? "" : list.get(i).getReportCnt());
+            hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getReceiveStar()) ? "" : list.get(i).getReceiveStar());
+
+            hm.put("broadCnt", DalbitUtil.isEmpty(list.get(i).getBroadCnt()) ? "" : list.get(i).getBroadCnt());
+            hm.put("listenCnt30", DalbitUtil.isEmpty(list.get(i).getListenCnt30()) ? "" : list.get(i).getListenCnt30());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("스페셜DJ 신청 가능 목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "스페셜DJ 신청 가능 목록");
 
         return model;
     }
@@ -442,5 +479,15 @@ public class Men_SpecialService {
         }catch (Exception e){
             return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
+    }
+
+    public String selectReqAbleSpecialDjList(SpecialReqVo specialReqVo) {
+        specialReqVo.setOp_name(MemberVo.getMyMemNo());
+        List<SpecialReqVo> list = menSpecialDao.reqAbleSpecialDjList(specialReqVo);
+        int listCnt = menSpecialDao.reqAbleSpecialDjCnt(specialReqVo);
+        specialReqVo.setTotalCnt(listCnt);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialReqVo.getTotalCnt(), specialReqVo.getPageStart(), specialReqVo.getPageCnt())));
+        return result;
     }
 }

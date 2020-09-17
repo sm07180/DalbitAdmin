@@ -57,4 +57,10 @@ public interface Men_SpecialDao {
 
     List<SpecialDjManageVo> selectManageList(SpecialDjManageVo specialDjManageVo);
 
+    @Transactional(readOnly = true)
+    List<SpecialReqVo> reqAbleSpecialDjList(SpecialReqVo specialReqVo);
+
+    @Transactional(readOnly = true)
+    int reqAbleSpecialDjCnt(SpecialReqVo specialReqVo);
+
 }
