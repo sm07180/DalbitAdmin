@@ -17,6 +17,7 @@ public class BannerStatVo extends PagingVo {
     private int ios_cnt;
     private int mainTop_cnt;
     private int mainCenter_cnt;
+    private int clipCenter_cnt;
     private int gnb_cnt;
     private int start_cnt;
     private int end_cnt;

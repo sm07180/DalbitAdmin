@@ -29,7 +29,7 @@
                         <th class="_bgColor" data-bgcolor="#d8d8d8">구분</th>
                         <th colspan="2" class="_bgColor" data-bgcolor="#d8d8d8">게시</th>
                         <th colspan="3" class="_bgColor" data-bgcolor="#d8d8d8">플랫폼 게시</th>
-                        <th colspan="7" class="_bgColor" data-bgcolor="#d8d8d8">배너위치별 게시</th>
+                        <th colspan="8" class="_bgColor" data-bgcolor="#d8d8d8">배너위치별 게시</th>
                     </tr>
                     <tr>
                         <th class="_bgColor _noBorder" data-bgcolor="#FFF"></th>
@@ -41,6 +41,7 @@
                         <th>IOS</th>
                         <th>Main<br />Top</th>
                         <th>Main<br />Center</th>
+                        <th>클립<br />Center</th>
                         <th>GNB<br />(PC)</th>
                         <th>시작<br />팝업</th>
                         <th>종료<br />팝업</th>
@@ -59,6 +60,7 @@
                         <td id="stat_ios" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_mainTop" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_mainCenter" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_clipCenter" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_gnb" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_start" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_end" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
@@ -70,7 +72,7 @@
                         <td class="_bgColor font-bold" data-bgcolor="#ffe699">총 합</td>
                         <td id="stat_sum_onOff" colspan="2" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
                         <td id="stat_sum_platform" colspan="3" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
-                        <td id="stat_sum_position" colspan="7" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
+                        <td id="stat_sum_position" colspan="8" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
                     </tr>
                 </tbody>
             </table>
@@ -253,6 +255,7 @@ var fnc_bannerList = {};
             $("#stat_ios").html(common.addComma(data.ios_cnt));
             $("#stat_mainTop").html(common.addComma(data.mainTop_cnt));
             $("#stat_mainCenter").html(common.addComma(data.mainCenter_cnt));
+            $("#stat_clipCenter").html(common.addComma(data.clipCenter_cnt));
             $("#stat_gnb").html(common.addComma(data.gnb_cnt));
             $("#stat_start").html(common.addComma(data.start_cnt));
             $("#stat_end").html(common.addComma(data.end_cnt));
@@ -264,6 +267,7 @@ var fnc_bannerList = {};
 
             var sum_position = data.mainTop_cnt;
             sum_position += data.mainCenter_cnt;
+            sum_position += data.clipCenter_cnt;
             sum_position += data.gnb_cnt;
             sum_position += data.start_cnt;
             sum_position += data.end_cnt;
