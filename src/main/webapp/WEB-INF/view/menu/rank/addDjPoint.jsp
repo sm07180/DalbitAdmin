@@ -116,7 +116,7 @@
 
     function init(tabName){
         var data = {
-            pageStart : djRankListPagingInfo.pageNo
+             pageStart : djRankListPagingInfo.pageNo
             , pageCnt : djRankListPagingInfo.pageCnt
             , selectGubun : $('#searchArea').val()
             , txt_search : $("#txt_search").val()
@@ -188,47 +188,47 @@
 
 <script type="text/x-handlebars-template" id="tmp_addDjPoint">
     <thead>
-    <tr>
-        <th>순위</th>
-        <th>프로필<br/>이미지</th>
-        <th>회원번호</th>
-        <th>닉네임</th>
-        <th>성별</th>
-        <th style="color: red">가산점<br/>총합</th>
-        <th>1위 횟수<br/>(가산점)</th>
-        <th>2위 횟수<br/>(가산점)</th>
-        <th>3위 횟수<br/>(가산점)</th>
-        <th>랭킹 점수</th>
-    </tr>
+        <tr>
+            <th>순위</th>
+            <th>프로필<br/>이미지</th>
+            <th>회원번호</th>
+            <th>닉네임</th>
+            <th>성별</th>
+            <th style="color: red">가산점<br/>총합</th>
+            <th>1위 횟수<br/>(가산점)</th>
+            <th>2위 횟수<br/>(가산점)</th>
+            <th>3위 횟수<br/>(가산점)</th>
+            <th>랭킹 점수</th>
+        </tr>
     </thead>
     <tbody id="djRankListBody">
     {{#each this as |rank|}}
-    <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
-    <td>
-        {{djRank}}
-    </td>
-    <td style="width: 50px">
-        <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
-    </td>
-    <td>
-        <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
-        <br /> <br />
-        레벨 : {{level}} <br />
-        등급 : {{grade}}
-    </td>
-    <td>
-        {{#equal mem_nick ''}}
-        {{{fontColor '탈퇴회원 입니다.' 0 'red'}}}
-        {{else}}
-        {{rank.mem_nick}}
-        {{/equal}}
-    </td>
-    <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-    <td style="color: red;">{{addPointTotal}}점</td>
-    <td>{{addPointRank1}}회<br/>({{addPoint1}}점)</td>
-    <td>{{addPointRank2}}회<br/>({{addPoint2}}점)</td>
-    <td>{{addPointRank3}}회<br/>({{addPoint3}}점)</td>
-    <td>{{addComma rankPoint}}점</td>
+        <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
+        <td>
+            {{djRank}}
+        </td>
+        <td style="width: 50px">
+            <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
+        </td>
+        <td>
+            <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
+            <br /> <br />
+            레벨 : {{level}} <br />
+            등급 : {{grade}}
+        </td>
+        <td>
+            {{#equal mem_nick ''}}
+            {{{fontColor '탈퇴회원 입니다.' 0 'red'}}}
+            {{else}}
+            {{rank.mem_nick}}
+            {{/equal}}
+        </td>
+        <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+        <td style="color: red;">{{addPointTotal}}점</td>
+        <td>{{addPointRank1}}회<br/>({{addPoint1}}점)</td>
+        <td>{{addPointRank2}}회<br/>({{addPoint2}}점)</td>
+        <td>{{addPointRank3}}회<br/>({{addPoint3}}점)</td>
+        <td>{{addComma rankPoint}}점</td>
     </tr>
     {{else}}
     <tr>

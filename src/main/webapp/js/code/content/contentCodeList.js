@@ -337,7 +337,7 @@ var event_receiveWay = [
     new COMMON_CODE(null, 'receiveWay', '경품 수령 방법')
     , new COMMON_CODE('not yet', '0', '선택 전')
     , new COMMON_CODE('prize', '1', '배송 수령')
-    , new COMMON_CODE('dal', '1', '달로 받기')
+    , new COMMON_CODE('dal', '2', '달로 받기')
 ];
 
 var event_addInfoYn = [

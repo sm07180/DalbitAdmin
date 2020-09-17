@@ -8,6 +8,7 @@ import lombok.Setter;
 public class EventWinnerAddInfoDetailVo {
     /* input */
     private String winner_mem_no;
+    private int prizeIdx;
     private int eventIdx;
 
     /* output */
@@ -20,4 +21,5 @@ public class EventWinnerAddInfoDetailVo {
     private String winnerAddress2;
     private String winnerAddFile1;
     private String winnerAddFile2;
+    private int minorYn;
 }
