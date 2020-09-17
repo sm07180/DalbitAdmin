@@ -45,6 +45,7 @@ public class P_NewBroadcastTypeOutVo {
     private int create29Cnt;
     private int create30Cnt;
     private int create99Cnt;
+    private int unique_dj_Cnt;
 
     private int sum_totalCreateCnt;
     private int sum_create00Cnt;
@@ -79,6 +80,7 @@ public class P_NewBroadcastTypeOutVo {
     private int sum_create29Cnt;
     private int sum_create30Cnt;
     private int sum_create99Cnt;
+    private int sum_unique_dj_Cnt;
 }
 
 

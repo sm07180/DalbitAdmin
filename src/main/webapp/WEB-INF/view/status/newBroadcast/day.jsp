@@ -46,7 +46,7 @@
             <span class="font-bold">◈선물 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="4.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
+                    <col width="8.7%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
                     <col width="14.2%"/><col width="14.2%"/>
                 </colgroup>
                 <thead>
@@ -69,7 +69,7 @@
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="7.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+                    <col width="9.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
                     <col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
                 </colgroup>
                 <thead>
@@ -98,7 +98,7 @@
             <span class="font-bold">◈방송 주제 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="4%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+                    <col width="8%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
                     <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
                     <col width="8.3%"/><col width="8.3%"/>
                 </colgroup>
@@ -403,13 +403,13 @@
         <td class="_fontColor" data-fontColor="blue">{{addComma total_create_mCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_create_fCnt}}</td>
         <td>{{addComma total_create_nCnt}}</td>
-        <td>{{addComma total_create_totalCnt}}</td>
+        <td>{{addComma total_create_totalCnt}} ({{addComma total_unique_dj_Cnt}})</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_create_totalCnt}}</td>
         <td>{{addComma total_create_max_Cnt}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma total_listener_mCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}}</td>
         <td>{{addComma total_listener_nCnt}}</td>
-        <td>{{addComma total_listener_totalCnt}}</td>
+        <td>{{addComma total_listener_totalCnt}} ({{addComma total_unique_listener_Cnt}})</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>
         <td>{{addComma total_listener_max_Cnt}}</td>
         <td style="text-align: right">{{timeStampDay total_airtime}}</td>
@@ -427,13 +427,13 @@
         <td class="_fontColor" data-fontColor="blue">{{addComma create_mCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma create_fCnt 'Y'}}</td>
         <td>{{addComma create_nCnt 'Y'}}</td>
-        <td>{{addComma create_totalCnt 'Y'}}</td>
+        <td>{{#dalbit_if create_totalCnt '!=' 0}}{{addComma create_totalCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma create_accuTotalCnt 'Y'}}</td>
         <td>{{addComma create_max_Cnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma listener_mCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma listener_fCnt 'Y'}}</td>
         <td>{{addComma listener_nCnt 'Y'}}</td>
-        <td>{{addComma listener_totalCnt 'Y'}}</td>
+        <td>{{#dalbit_if listener_totalCnt '!=' 0}}{{addComma listener_totalCnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_accuTotalCnt 'Y'}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
         <td style="text-align: right">{{timeStampDay airtime}}</td>
@@ -488,7 +488,7 @@
         <td>{{addComma sum_pcCnt}}</td>
         <td>{{addComma sum_androidCnt}}</td>
         <td>{{addComma sum_iosCnt}}</td>
-        <td>{{addComma sum_totalCreateCnt}}</td>
+        <td>{{addComma sum_totalCreateCnt}} ({{addComma sum_unique_dj_Cnt}})</td>
         <td style="text-align: right">{{timeStampDay sum_pcTime}}</td>
         <td style="text-align: right">{{timeStampDay sum_androidTime}}</td>
         <td style="text-align: right">{{timeStampDay sum_iosTime}}</td>
@@ -506,7 +506,7 @@
         <td>{{addComma pcCnt 'Y'}}</td>
         <td>{{addComma androidCnt 'Y'}}</td>
         <td>{{addComma iosCnt 'Y'}}</td>
-        <td>{{addComma totalCreateCnt 'Y'}}</td>
+        <td>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td style="text-align: right">{{timeStampDay pcTime}}</td>
         <td style="text-align: right">{{timeStampDay androidTime}}</td>
         <td style="text-align: right">{{timeStampDay iosTime}}</td>
@@ -528,7 +528,7 @@
         <td>{{addComma sum_create06Cnt}}</td>
         <td>{{addComma sum_create09Cnt}}</td>
         <td>{{addComma sum_create13Cnt}}</td>
-        <td>{{addComma sum_totalCreateCnt}}</td>
+        <td>{{addComma sum_totalCreateCnt}} ({{addComma sum_unique_dj_Cnt}})</td>
     </tr>
 </script>
 
@@ -548,7 +548,7 @@
         <td>{{addComma create06Cnt 'Y'}}</td>
         <td>{{addComma create09Cnt 'Y'}}</td>
         <td>{{addComma create13Cnt 'Y'}}</td>
-        <td>{{addComma totalCreateCnt 'Y'}}</td>
+        <td>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
     </tr>
     {{else}}
     <tr>

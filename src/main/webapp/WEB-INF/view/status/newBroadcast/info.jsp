@@ -155,8 +155,6 @@
             me = 2;
         }
         radioChange();
-
-        // setTimeDate(dateTime);
         $("#bt_search").click();
     });
 
