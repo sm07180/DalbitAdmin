@@ -7,7 +7,7 @@
 %>
 
 <div id="wrapper">
-    <div id="page-wrapper" class="col-lg-12 no-padding">
+    <div id="page-wrapper" class="col-lg-12 no-padding" style="height: 57px;">
         <div class="container-fluid col-lg-9 no-padding" style="margin-left: 15px">
             <form id="searchForm">
                 <div class="row form-inline">
@@ -65,7 +65,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-2 no-padding pull-right" style="margin-left: 5px">
+        <div class="col-md-3 no-padding pull-right" style="margin-left: 5px;width: 350px">
             <div id="liveResourceData"></div>
         </div>
     </div>
@@ -1304,10 +1304,10 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{addComma total_Dal 'Y'}}</td>
-                <td>{{addComma havecount_Dal 'Y'}}</td>
-                <td>{{addComma total_Byeol 'Y'}}</td>
-                <td>{{addComma havecount_Byeol 'Y'}}</td>
+                <td>{{addComma total_Dal 'Y'}} 개</td>
+                <td>{{addComma havecount_Dal 'Y'}} 명</td>
+                <td>{{addComma total_Byeol 'Y'}} 개</td>
+                <td>{{addComma havecount_Byeol 'Y'}} 명</td>
             </tr>
             </tbody>
         </table>
