@@ -29,6 +29,7 @@ public class SpecialReqVo extends PagingVo {
     private String op_name;
     private String last_upd_date;
     private int specialdj_badge;
+    private String image_background;
     private String image_profile;
     private String mem_nick;
     private String mem_sex;

@@ -69,12 +69,34 @@ public class Men_SpecialRestController {
     }
 
     /**
+     * 스페셜 달D 신청 가능 목록 조회
+     */
+    @PostMapping("reqAbleList")
+    public String reqAbleList(SpecialReqVo specialReqVo){
+        String result = menSpecialService.selectReqAbleSpecialDjList(specialReqVo);
+        return result;
+    }
+
+    /**
      * 스페셜 달D 신청 목록 엑셀
      */
     @PostMapping("reqDalListExcel")
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, SpecialReqVo specialReqVo) throws GlobalException {
 
         Model resultModel = menSpecialService.getListExcel(specialReqVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+
+    }
+
+    /**
+     * 스페셜 달D 신청 목록 엑셀
+     */
+    @PostMapping("reqAbleDalListExcel")
+    public String reqAbleListExcel(HttpServletRequest request, HttpServletResponse response, Model model, SpecialReqVo specialReqVo) throws GlobalException {
+
+        Model resultModel = menSpecialService.reqAbleListExcel(specialReqVo, model);
 
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
