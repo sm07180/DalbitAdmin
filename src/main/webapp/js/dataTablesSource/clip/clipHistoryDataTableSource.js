@@ -43,6 +43,9 @@ var ClipHistoryDataTableSource = {
             {'title': '인증<br>여부', 'width':'35px', 'data': 'clipConfirm', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_confirmType_yn) + '<br>' + '<a href="javascript:;" onclick="editClipConfirm('+ row.castNo + ',' + data + ')">[' + util.getCommonCodeLabel(data, clip_confirmType_update) + ']</a>';
                 }},
+            {'title': '운영자<br>메모', 'width':'40px', 'data': 'opMemoCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},

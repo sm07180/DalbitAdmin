@@ -393,7 +393,7 @@
         <tr>
             <th colspan="1">클립 제목</th>
             <td colspan="3" style="text-align: left; border-right-color:white;border-right-width:0px;">
-                {{title}}
+                {{replaceHtml title}}
             </td>
             <td colspan="1">
                 <button type="button" id="bt_edit_title" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
@@ -401,11 +401,15 @@
         </tr>
         <tr>
             <th colspan="1">클립 주제</th>
-            <td colspan="3" style="text-align: left; border-right-color:white;border-right-width:0px; ">
+            <td colspan="1" style="text-align: left; border-right-color:white;border-right-width:0px; ">
                 <select id="clipSubjectType" name="clipSubjectType" class="form-control pull-left"></select>
             </td>
             <td colspan="1">
                 <button type="button" id="bt_edit_subject" class="btn btn-default btn-sm no-margin pull-right" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+            </td>
+            <th colspan="1">청취 제한</th>
+            <td colspan="1" style="text-align: left; border-right-color:white;border-right-width:0px;">
+                {{{getCommonCodeLabel entryType 'clip_entryType'}}}
             </td>
         </tr>
         <tr>

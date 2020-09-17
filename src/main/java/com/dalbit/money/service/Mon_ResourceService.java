@@ -30,37 +30,19 @@ public class Mon_ResourceService {
     GsonUtil gsonUtil;
 
     public String resourceInfo(P_ResourceInfoInPutVo pResourceInfoInPutVo){
-
+        var result = new HashMap<String, Object>();
         ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
-        if(pResourceInfoInPutVo.getType() == 0){
-            mon_ResourceDao.callResourceInfo_dal(procedureVo);
-        }else{
-            mon_ResourceDao.callResourceInfo_byeol(procedureVo);
-        }
-        P_ResourceInfoOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ResourceInfoOutVo.class);
-        var result = new HashMap<String, Object>();
-        result.put("totalInfo", totalInfo);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
-//        return "0";
-    }
-
-    public String resourceDetail(P_ResourceDetailInPutVo pResourceDetailInPutVo){
-        ProcedureVo procedureVo = new ProcedureVo(pResourceDetailInPutVo);
-
-
-        var result = new HashMap<String, Object>();
-        if(pResourceDetailInPutVo.getType() == 0) {     // 달
-            ArrayList<P_ResourceDetailDalOutVo> detailList = mon_ResourceDao.callResourceDetail_dal(procedureVo);
-            P_ResourceTotalDalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ResourceTotalDalOutVo.class);
+        if(pResourceInfoInPutVo.getSlctResource() == 0){
+            ArrayList<P_ResourceDetailByeolOutVo> detailList = mon_ResourceDao.callResourceDetail_byeol(procedureVo);
+            P_ResourceTotalByeolOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ResourceTotalByeolOutVo.class);
             if(Integer.parseInt(procedureVo.getRet()) <= 0){
                 return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
             }
             result.put("totalInfo", totalInfo);
             result.put("detailList", detailList);
-        }else{                                           // 별
-            ArrayList<P_ResourceDetailByeolOutVo> detailList = mon_ResourceDao.callResourceDetail_byeol(procedureVo);
-            P_ResourceTotalByeolOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ResourceTotalByeolOutVo.class);
+        }else{
+            ArrayList<P_ResourceDetailDalOutVo> detailList = mon_ResourceDao.callResourceDetail_dal(procedureVo);
+            P_ResourceTotalDalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ResourceTotalDalOutVo.class);
             if(Integer.parseInt(procedureVo.getRet()) <= 0){
                 return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
             }
@@ -75,6 +57,42 @@ public class Mon_ResourceService {
         ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
         ArrayList<P_memberDataListOutVo> listOutVo = mon_ResourceDao.callMemberDataList(procedureVo);
         P_memberDataListOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_memberDataListOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    public String buyDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
+        ArrayList<P_BuyDalListOutVo> listOutVo = mon_ResourceDao.callBuyDalList(procedureVo);
+        P_BuyDalListOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BuyDalListOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    public String useDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
+        ArrayList<P_UseDalListOutVo> listOutVo = mon_ResourceDao.callUseDalList(procedureVo);
+        P_UseDalListOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_UseDalListOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    public String resourceLive(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        ProcedureVo procedureVo = new ProcedureVo(pResourceInfoInPutVo);
+        ArrayList<P_LiveResourceDataOutVo> listOutVo = mon_ResourceDao.callResourceLive(procedureVo);
+        P_LiveResourceDataOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LiveResourceDataOutVo.class);
 
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);

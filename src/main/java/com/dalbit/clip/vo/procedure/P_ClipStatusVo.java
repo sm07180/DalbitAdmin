@@ -1,4 +1,4 @@
-package com.dalbit.status.vo.procedure;
+package com.dalbit.clip.vo.procedure;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class P_StatVo {
+public class P_ClipStatusVo {
     private int slctType;
     private int orderType;
     private String startDate;
@@ -17,5 +17,4 @@ public class P_StatVo {
 
     private String beforStartDate;
     private String beforEndDate;
-
 }
