@@ -3,74 +3,7 @@
 <mapper namespace="com.dalbit.payment.dao.Pay_PayDao" >
 
     <sql id="payCondition">
-      SELECT payAll.*
-          , ifnull(concat(b.mem_birth_year, '-', LPAD(b.mem_birth_month,2,'0'), '-', LPAD(b.mem_birth_day,2,'0'))
-                    , concat(c.mem_birth_year, '-', LPAD(c.mem_birth_month,2,'0'), '-', LPAD(c.mem_birth_day,2,'0'))) as birth
-          , ifnull(b.inner,c.inner) as chrgr_yn
-          , ifnull(b.mem_nick,c.mem_nick) as mem_nick
-          , ifnull(b.mem_userid,c.mem_userid) as mem_userid
-          , ifnull(b.mem_id,c.mem_id) as mem_id
-          , ifnull(b.mem_phone,c.mem_phone) as mem_phone
-          , ifnull(b.mem_sex,c.mem_sex) as mem_sex
-          , ifnull(b.mem_birth_year,c.mem_birth_year) as mem_birth_year
-          , ifnull(b.mem_birth_month,c.mem_birth_month) as mem_birth_month
-          , ifnull(b.mem_birth_day,c.mem_birth_day) as mem_birth_day
-          , ifnull(b.inner,c.inner) as `inner`
-        FROM ( SELECT pay.order_id,
-                     pay.mem_no,
-                     pay.pay_way,
-                     pay.pay_dt_comein,
-                     pay.pay_yn,
-                     pay.pay_ok_date,
-                     pay.pay_ok_time,
-                     pay.pay_slct,
-                     floor(pay.pay_amt) as pay_amt,
-                     pay.pay_code,
-                     pay.app_ver,
-                     pay.first_pay_yn,
-                     pay.card_no,
-                     pay.card_nm,
-                     pay.phone_no,
-                     pay.bank_code,
-                     pay.account_no,
-                     pay.rcpt_dt,
-                     pay.rcpt_nm,
-                     pay.store_id,
-                     pay.cancel_dt,
-                     pay.cancel_state,
-                     pay.fail_msg,
-                     pay.op_name,
-                     pay.bill_id,
-                     pay.os,
-                     pay.dal_cnt,
-                     pay.pay_info,
-                     CASE WHEN pay.pay_way = 'CN' THEN pay.card_no
-                          WHEN pay.pay_way = 'MC' THEN pay.phone_no WHEN pay.pay_way = 'VA'
-                          THEN pay.account_no WHEN pay.pay_way = 'InApp'
-                          THEN pay.bill_id END   AS pay_info_no,
-                     CASE WHEN pay.pay_way = 'CN' THEN pay.card_nm WHEN pay.pay_way = 'VA' THEN pay.bank_code END AS pay_info_nm,
-                     summary.memCnt           as count,
-                     summary.paySum           as amount,
-                     @RNUM := @RNUM + 1       as rowNum,
-                     ruby                     as tot_dal_cnt
-               FROM rd_data.tb_payment_succ pay LEFT JOIN (select mem_no, count(mem_no) memCnt, sum(pay_amt)  paySum FROM rd_data.tb_payment_succ WHERE pay_yn = 'Y' group by mem_no) summary ON pay.mem_no = summary.mem_no
-                 LEFT JOIN (select mem_no, ruby FROM rd_data.tb_member_wallet) wallet ON pay.mem_no = wallet.mem_no
-                 , (select @rownum := #{pageStart}) r ) payAll
-           left join rd_data.tb_member_basic b on b.mem_no = payAll.mem_no
-           left join rd_data.tb_member_withdrawal_bak c on c.mem_no = payAll.mem_no
-
         <where>
-            <if test='searchText != null and searchText != ""'>
-                   and (((b.mem_nick like concat('%', #{searchText}, '%')
-                      or b.mem_no like concat('%', #{searchText}, '%')
-                      or b.mem_id like concat('%', #{searchText}, '%')
-                      or b.mem_phone like concat('%', #{searchText}, '%'))
-                   or (c.mem_nick like concat('%', #{searchText}, '%')
-                     or c.mem_no like concat('%', #{searchText}, '%')
-                     or c.mem_id like concat('%', #{searchText}, '%')
-                     or c.mem_phone like concat('%', #{searchText}, '%'))
-                    or (payAll.order_id like concat('%', #{searchText}, '%'))))
-            </if>
             <if test='sDate != null and sDate != ""'>
                 <choose>
                     <when test='success == "Y"'>
@@ -130,41 +63,213 @@
                     and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -60 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -70 year), '%Y')
                 </if>
             </if>
+            <if test='searchText != null and searchText != ""'>
+                and (((b.mem_nick like concat('%', #{searchText}, '%')
+                or b.mem_no like concat('%', #{searchText}, '%')
+                or b.mem_id like concat('%', #{searchText}, '%')
+                or b.mem_phone like concat('%', #{searchText}, '%'))
+                or (c.mem_nick like concat('%', #{searchText}, '%')
+                or c.mem_no like concat('%', #{searchText}, '%')
+                or c.mem_id like concat('%', #{searchText}, '%')
+                or c.mem_phone like concat('%', #{searchText}, '%'))
+                or (payAll.order_id like concat('%', #{searchText}, '%'))))
+            </if>
         </where>
     </sql>
 
     <select id="getPayList" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="com.dalbit.payment.vo.Pay_PayOutputVo">
         /* Pay_Pay.xml - getPayList */
-        select @rownum := @rownum + 1 as rowNum,a.*
-        from (
+       SELECT
+            @rownum := @rownum + 1 as rowNum, a.*
+        FROM(
+            SELECT payAll.*,
+                 ifnull(concat(b.mem_birth_year, '-', LPAD(b.mem_birth_month, 2, '0'), '-', LPAD(b.mem_birth_day, 2, '0')),
+                        concat(c.mem_birth_year, '-', LPAD(c.mem_birth_month, 2, '0'), '-',
+                               LPAD(c.mem_birth_day, 2, '0'))) as birth,
+                 ifnull(b.inner, c.inner)                      as chrgr_yn,
+                 ifnull(b.mem_nick, c.mem_nick)                as mem_nick,
+                 ifnull(b.mem_userid, c.mem_userid)            as mem_userid,
+                 ifnull(b.mem_id, c.mem_id)                    as mem_id,
+                 ifnull(b.mem_phone, c.mem_phone)              as mem_phone,
+                 ifnull(b.mem_sex, c.mem_sex)                  as mem_sex,
+                 ifnull(b.mem_birth_year, c.mem_birth_year)    as mem_birth_year,
+                 ifnull(b.mem_birth_month, c.mem_birth_month)  as mem_birth_month,
+                 ifnull(b.mem_birth_day, c.mem_birth_day)      as mem_birth_day,
+                 ifnull(b.inner, c.inner)                      as `inner`
+          FROM (SELECT pay.order_id,
+                       pay.mem_no,
+                       pay.pay_way,
+                       pay.pay_dt_comein,
+                       pay.pay_yn,
+                       pay.pay_ok_date,
+                       pay.pay_ok_time,
+                       pay.pay_slct,
+                       floor(pay.pay_amt)   as pay_amt,
+                       pay.pay_code,
+                       pay.app_ver,
+                       pay.first_pay_yn,
+                       pay.card_no,
+                       pay.card_nm,
+                       pay.phone_no,
+                       pay.bank_code,
+                       pay.account_no,
+                       pay.rcpt_dt,
+                       pay.rcpt_nm,
+                       pay.store_id,
+                       pay.cancel_dt,
+                       pay.cancel_state,
+                       pay.fail_msg,
+                       pay.op_name,
+                       pay.bill_id,
+                       pay.os,
+                       pay.dal_cnt,
+                       pay.pay_info,
+                       CASE
+                           WHEN pay.pay_way = 'CN' THEN pay.card_no
+                           WHEN pay.pay_way = 'MC' THEN pay.phone_no
+                           WHEN pay.pay_way = 'VA' THEN pay.account_no
+                           WHEN pay.pay_way = 'InApp'
+                               THEN pay.bill_id END AS pay_info_no,
+                       CASE
+                           WHEN pay.pay_way = 'CN' THEN pay.card_nm
+                           WHEN pay.pay_way = 'VA'
+                               THEN pay.bank_code END AS pay_info_nm,
+                            (SELECT count(mem_no)
+                             FROM rd_data.tb_payment_succ
+                             WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS 'count',
+                            (SELECT sum(pay_amt) paySum
+                             FROM rd_data.tb_payment_succ
+                             WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS amount,
+                       ruby	as tot_dal_cnt
+                FROM rd_data.tb_payment_succ pay
+                      LEFT JOIN  rd_data.tb_member_wallet wallet ON pay.mem_no = wallet.mem_no
+                        ) payAll
+                   left join rd_data.tb_member_basic b on b.mem_no = payAll.mem_no
+                   left join rd_data.tb_member_withdrawal_bak c on c.mem_no = payAll.mem_no
         <include refid="payCondition"/>
-        ) a
-
+        ) a, (select @rownum := #{pageStart}) r
         order by pay_dt_comein desc
         limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="getPayListCnt" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="integer">
         /* Pay_Pay.xml - getPayListCnt */
-        select
-          count(*)
-        from (
+        SELECT
+			COUNT(*)
+        FROM (SELECT pay.order_id,
+                   pay.mem_no,
+                   pay.pay_way,
+                   pay.pay_dt_comein,
+                   pay.pay_yn,
+                   pay.pay_ok_date,
+                   pay.pay_ok_time,
+                   pay.pay_slct,
+                   floor(pay.pay_amt) as pay_amt,
+                   pay.pay_code,
+                   pay.app_ver,
+                   pay.first_pay_yn,
+                   pay.card_no,
+                   pay.card_nm,
+                   pay.phone_no,
+                   pay.bank_code,
+                   pay.account_no,
+                   pay.rcpt_dt,
+                   pay.rcpt_nm,
+                   pay.store_id,
+                   pay.cancel_dt,
+                   pay.cancel_state,
+                   pay.fail_msg,
+                   pay.op_name,
+                   pay.bill_id,
+                   pay.os,
+                   pay.dal_cnt,
+                   pay.pay_info,
+                   CASE
+                       WHEN pay.pay_way = 'CN' THEN pay.card_no
+                       WHEN pay.pay_way = 'MC' THEN pay.phone_no
+                       WHEN pay.pay_way = 'VA' THEN pay.account_no
+                       WHEN pay.pay_way = 'InApp'
+                           THEN pay.bill_id END AS pay_info_no,
+                   CASE
+                       WHEN pay.pay_way = 'CN' THEN pay.card_nm
+                       WHEN pay.pay_way = 'VA'
+                           THEN pay.bank_code END AS pay_info_nm,
+						(SELECT count(mem_no)
+						 FROM rd_data.tb_payment_succ
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS 'count',
+						(SELECT sum(pay_amt) paySum
+						 FROM rd_data.tb_payment_succ
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS amount,
+                   ruby	as tot_dal_cnt
+            FROM rd_data.tb_payment_succ pay
+                  LEFT JOIN  rd_data.tb_member_wallet wallet ON pay.mem_no = wallet.mem_no
+					) payAll
+               left join rd_data.tb_member_basic b on b.mem_no = payAll.mem_no
+               left join rd_data.tb_member_withdrawal_bak c on c.mem_no = payAll.mem_no
         <include refid="payCondition"/>
-        ) a
     </select>
 
 
     <select id="getPaySummary" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="com.dalbit.payment.vo.Pay_PayOutputVo">
         /* Pay_Pay.xml - getPaySummary */
-        select count(case when pay_yn = 'Y' then 1 end) as totalPayCnt
-                ,sum(case when pay_yn = 'Y' then pay_amt end) as totalPayAmt
-                ,count(case when cancel_state = 'Y' then 1 end) as totalPayCancelCnt
-                ,sum(case when cancel_state = 'Y' then pay_amt end) as totalPayCancelAmt
-                ,count(case when cancel_state = 'F' then 1 end) as totalPayCancelCannotCnt
-                ,sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt
-        from (
+        SELECT
+			count(case when pay_yn = 'Y' then 1 end) as totalPayCnt
+            ,sum(case when pay_yn = 'Y' then pay_amt end) as totalPayAmt
+            ,count(case when cancel_state = 'Y' then 1 end) as totalPayCancelCnt
+            ,sum(case when cancel_state = 'Y' then pay_amt end) as totalPayCancelAmt
+            ,count(case when cancel_state = 'F' then 1 end) as totalPayCancelCannotCnt
+            ,sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt
+        FROM (SELECT pay.order_id,
+                   pay.mem_no,
+                   pay.pay_way,
+                   pay.pay_dt_comein,
+                   pay.pay_yn,
+                   pay.pay_ok_date,
+                   pay.pay_ok_time,
+                   pay.pay_slct,
+                   floor(pay.pay_amt) as pay_amt,
+                   pay.pay_code,
+                   pay.app_ver,
+                   pay.first_pay_yn,
+                   pay.card_no,
+                   pay.card_nm,
+                   pay.phone_no,
+                   pay.bank_code,
+                   pay.account_no,
+                   pay.rcpt_dt,
+                   pay.rcpt_nm,
+                   pay.store_id,
+                   pay.cancel_dt,
+                   pay.cancel_state,
+                   pay.fail_msg,
+                   pay.op_name,
+                   pay.bill_id,
+                   pay.os,
+                   pay.dal_cnt,
+                   pay.pay_info,
+                   CASE
+                       WHEN pay.pay_way = 'CN' THEN pay.card_no
+                       WHEN pay.pay_way = 'MC' THEN pay.phone_no
+                       WHEN pay.pay_way = 'VA' THEN pay.account_no
+                       WHEN pay.pay_way = 'InApp'
+                           THEN pay.bill_id END AS pay_info_no,
+                   CASE
+                       WHEN pay.pay_way = 'CN' THEN pay.card_nm
+                       WHEN pay.pay_way = 'VA'
+                           THEN pay.bank_code END AS pay_info_nm,
+						(SELECT count(mem_no)
+						 FROM rd_data.tb_payment_succ
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS 'count',
+						(SELECT sum(pay_amt) paySum
+						 FROM rd_data.tb_payment_succ
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS amount,
+                   ruby	as tot_dal_cnt
+            FROM rd_data.tb_payment_succ pay
+                  LEFT JOIN  rd_data.tb_member_wallet wallet ON pay.mem_no = wallet.mem_no
+					) payAll
+               left join rd_data.tb_member_basic b on b.mem_no = payAll.mem_no
+               left join rd_data.tb_member_withdrawal_bak c on c.mem_no = payAll.mem_no
         <include refid="payCondition"/>
-        ) a
     </select>
 
     <select id="getTotalPaySum" parameterType="com.dalbit.enter.vo.procedure.P_StatVo" resultType="com.dalbit.payment.vo.Pay_PaySumOutputVo">
