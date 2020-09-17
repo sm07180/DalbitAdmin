@@ -43,7 +43,7 @@ var ClipHistoryDataTableSource = {
             {'title': '인증<br>여부', 'width':'35px', 'data': 'clipConfirm', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_confirmType_yn) + '<br>' + '<a href="javascript:;" onclick="editClipConfirm('+ row.castNo + ',' + data + ')">[' + util.getCommonCodeLabel(data, clip_confirmType_update) + ']</a>';
                 }},
-            {'title': '메모<br>건수', 'width':'25px', 'data': 'opMemoCnt', 'render': function (data, type, row, meta) {
+            {'title': '운영자<br>메모', 'width':'40px', 'data': 'opMemoCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
@@ -180,7 +180,7 @@ var ClipHistoryDataTableSource = {
             {'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.memBirthYear);
                 }},
-            {'title': '선물받은일시', 'width':'70px', 'data': 'lastUpdDate', 'render': function (data, type, row, meta) {
+            {'title': '선물받은일시', 'width':'70px', 'data': 'giftDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
             {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
