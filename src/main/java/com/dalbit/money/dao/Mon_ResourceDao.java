@@ -11,12 +11,6 @@ import java.util.ArrayList;
 public interface Mon_ResourceDao {
 
     @Transactional(readOnly = true)
-    P_ResourceInfoOutVo callResourceInfo_dal(ProcedureVo procedureVo);
-
-    @Transactional(readOnly = true)
-    P_ResourceInfoOutVo callResourceInfo_byeol(ProcedureVo procedureVo);
-
-    @Transactional(readOnly = true)
     ArrayList<P_ResourceDetailDalOutVo> callResourceDetail_dal(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
@@ -24,5 +18,14 @@ public interface Mon_ResourceDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_memberDataListOutVo> callMemberDataList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_BuyDalListOutVo> callBuyDalList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_UseDalListOutVo> callUseDalList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_LiveResourceDataOutVo> callResourceLive(ProcedureVo procedureVo);
 
 }

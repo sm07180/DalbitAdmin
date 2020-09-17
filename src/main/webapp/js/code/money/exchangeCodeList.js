@@ -38,6 +38,14 @@ var search_exchange_state = [
     , new COMMON_CODE('reject', '2', '불가')
 ]
 
+var exchange_sort = [
+    new COMMON_CODE(null, 'exchange_sort', '환전내역정렬')
+    , new COMMON_CODE('0', '0', '최근 환전 신청 순으로')
+    , new COMMON_CODE('1', '1', '신청 별 수 많은 순으로')
+    , new COMMON_CODE('2', '2', '보유 별 수 많은 순으로')
+    , new COMMON_CODE('3', '3', '최근 처리일 순으로')
+]
+
 var inforex_bank_code = [
     new COMMON_CODE(null, 'bank_code', '은행코드')
     , new COMMON_CODE('39', '39', '경남은행')
@@ -104,4 +112,15 @@ var exchange_cancel_type = [
     , new COMMON_CODE('2', '2', '미비한 증빙서류 ')
     , new COMMON_CODE('3', '3', '입력정보 불일치')
     , new COMMON_CODE('4', '4', '기타 직접작성')
+]
+
+var changeList_searchType = [
+    new COMMON_CODE(null, 'changeList', '교환 내역 sort')
+    , new COMMON_CODE('0', '0', '최근 교환 순으로')
+    , new COMMON_CODE('1', '1', '교환 별 수 많은 순으로')
+    , new COMMON_CODE('2', '2', '교환 달 수 많은 순으로')
+    , new COMMON_CODE('3', '3', '교환 횟 수 많은 순으로')
+    , new COMMON_CODE('4', '4', '남은 별 수 많은 순으로')
+    , new COMMON_CODE('5', '5', '남은 달 수 많은 순으로')
+    , new COMMON_CODE('6', '6', '교환 오래된 순으로')
 ]

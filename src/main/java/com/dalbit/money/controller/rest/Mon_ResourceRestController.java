@@ -42,15 +42,27 @@ public class Mon_ResourceRestController {
         return result;
     }
 
-    @PostMapping("detail")
-    public String detail(P_ResourceDetailInPutVo pResourceDetailInPutVo){
-        String result = mon_ResourceService.resourceDetail(pResourceDetailInPutVo);
-        return result;
-    }
-
     @PostMapping("memberDataList")
     public String memberDataList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
         String result = mon_ResourceService.memberDataList(pResourceInfoInPutVo);
+        return result;
+    }
+
+    @PostMapping("buyDalList")
+    public String buyDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.buyDalList(pResourceInfoInPutVo);
+        return result;
+    }
+
+    @PostMapping("useDalList")
+    public String useDalList(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.useDalList(pResourceInfoInPutVo);
+        return result;
+    }
+
+    @PostMapping("live")
+    public String live(P_ResourceInfoInPutVo pResourceInfoInPutVo){
+        String result = mon_ResourceService.resourceLive(pResourceInfoInPutVo);
         return result;
     }
 }
