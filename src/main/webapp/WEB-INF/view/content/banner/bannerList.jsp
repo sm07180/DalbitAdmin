@@ -173,6 +173,9 @@ var fnc_bannerList = {};
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
+        $('.comments').before(delBtn);
+        fnc_bannerList.divDataTable.find(".top-right").append(addBtn);
+
         fnc_bannerList.divDataTable.find(".footer-left").append(delBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(addBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(excelBtn);
