@@ -46,8 +46,8 @@
             <span class="font-bold">◈선물 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="7.2%"/><col width="11.6%"/><col width="11.6%"/><col width="11.6%"/><col width="11.6%"/>
-                    <col width="11.6%"/><col width="11.6%"/><col width="11.6%"/>
+                    <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
+                    <col width="11%"/><col width="11%"/><col width="11%"/>
                 </colgroup>
                 <thead>
                 <tr>
