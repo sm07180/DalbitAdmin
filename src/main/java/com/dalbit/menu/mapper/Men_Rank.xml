@@ -526,9 +526,9 @@
     <select id="getAddDjPointList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.AddDjPointVo">
         /* Men_Rank.xml - getAddDjPointList */
         select *
+              ,@RNUM := @RNUM + 1 as rowNum
           from (
                 select *
-                    ,@RNUM := @RNUM + 1 as rowNum
                 ,addPointRank1 * 2 as addPoint1
                 ,addPointRank2 * 1 as addPoint2
                 ,addPointRank3 * 0.5 as addPoint3
@@ -563,7 +563,7 @@
                               and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
                               and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank3
                         <include refid="addDjPointCondition"/>
-                  ) a , (select @RNUM := 0) r
+                  ) a , (select @RNUM := #{pageStart}) r
             order by addPointTotal desc, rankPoint desc
         ) b
         limit #{pageStart}, #{pageCnt}
