@@ -875,7 +875,7 @@
             <tr>
                 <th rowspan="5" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
                 <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물<br/>(비밀 선물)</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">아이템 사용</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
@@ -1073,7 +1073,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물<br/>(비밀선물)</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">아이템 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
@@ -1200,7 +1200,7 @@
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물(비밀 선물)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀 선물)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급(운영자 직접지급)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">환전 불가</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구(운영자 직접지급)</th>
