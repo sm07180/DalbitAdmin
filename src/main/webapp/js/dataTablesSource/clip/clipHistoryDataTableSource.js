@@ -180,7 +180,7 @@ var ClipHistoryDataTableSource = {
             {'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.memBirthYear);
                 }},
-            {'title': '선물받은일시', 'width':'70px', 'data': 'lastUpdDate', 'render': function (data, type, row, meta) {
+            {'title': '선물받은일시', 'width':'70px', 'data': 'giftDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
             {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
