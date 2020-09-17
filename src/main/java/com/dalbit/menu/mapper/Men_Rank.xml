@@ -525,28 +525,16 @@
 
     <select id="getAddDjPointList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.AddDjPointVo">
         /* Men_Rank.xml - getAddDjPointList */
-        select addPoint1 + addPoint2 + addPoint3 as addPointTotal
-               ,b.*
+        select *
+              ,@RNUM := @RNUM + 1 as rowNum
           from (
                 select *
-                <if test='liveCnt != 0'>
-                    , @RNUM := @RNUM + 1 as djRank
-                </if>
-                <if test='liveCnt == 0'>
-                    , @RNUM := @RNUM + 1 as rowNum
-                </if>
                 ,addPointRank1 * 2 as addPoint1
                 ,addPointRank2 * 1 as addPoint2
                 ,addPointRank3 * 0.5 as addPoint3
+                ,(addPointRank1 * 2) + (addPointRank2 * 1) + (addPointRank3 * 0.5) as addPointTotal
                 from (
-                      select
-                        <if test='liveCnt != 0'>
-                            1 as rowNum
-                        </if>
-                        <if test='liveCnt == 0'>
-                            dj.rank as djRank
-                        </if>
-                        , dj.mem_no as memNo
+                      select dj.mem_no as memNo
                         , prof.image_profile as image_profile
                         , mem.mem_id as mem_id
                         , lev.`level` as `level`
@@ -575,8 +563,8 @@
                               and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
                               and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank3
                         <include refid="addDjPointCondition"/>
-                  ) a , (select @RNUM := 0) r
-            order by rankPoint desc
+                  ) a , (select @RNUM := #{pageStart}) r
+            order by addPointTotal desc, rankPoint desc
         ) b
         limit #{pageStart}, #{pageCnt}
     </select>

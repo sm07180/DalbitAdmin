@@ -835,7 +835,27 @@
 
     <select id="selectEventWinnerAddInfoDetail" parameterType="com.dalbit.content.vo.EventWinnerAddInfoDetailVo" resultType="com.dalbit.content.vo.EventWinnerAddInfoDetailVo">
         /* Con_Event.xml - selectEventWinnerAddInfoDetail */
-
+        select
+        winfo.event_idx as eventIdx
+        , winfo.prize_idx as prizeIdx
+        , winfo.winner_name as winnerName
+        , winfo.winner_social_no as winnerSocialNo
+        , winfo.winner_phone as winnerPhone
+        , winfo.winner_email as winnerEmail
+        , winfo.winner_post_code as winnerPostCode
+        , winfo.winner_address_1 as winnerAddress1
+        , winfo.winner_address_2 as winnerAddress2
+        , winfo.winner_add_file_1 as winnerAddFile1
+        , winfo.winner_add_file_2 as winnerAddFile2
+        , win.minor_yn as minorYn
+          from rd_admin.tb_event_prize_winner_info winfo
+          , rd_admin.tb_event_prize_winner win
+        where win.event_idx = #{eventIdx}
+          and win.prize_idx = #{prizeIdx}
+          and win.winner_mem_no= #{winner_mem_no}
+          and winfo.event_idx = #{eventIdx}
+          and winfo.prize_idx = #{prizeIdx}
+          and winfo.winner_mem_no= #{winner_mem_no}
     </select>
 
     <!--======================= 기존 이벤트 관리 ======================= -->

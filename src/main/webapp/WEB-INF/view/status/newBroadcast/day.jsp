@@ -2,10 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 방송현황 > 시간대별 -->
+<span class="_searchDate font-bold"></span>
+<span class="" style="font-size: 11px;color: red;">* 총 수치(비중복 수치)로 표기된 현황입니다.</span>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <div class="col-md-12 no-padding">
-            <span class="_searchDate font-bold"></span><br/>
+        <div class="col-md-11 no-padding">
+            <span class="font-bold">◈DJ/청취자 성별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
                     <col width="4.2%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
@@ -41,11 +43,34 @@
             </table>
         </div>
 
-        <div class="col-md-12 no-padding">
+        <div class="col-md-8 no-padding">
+            <span class="font-bold">◈선물 별</span>
+            <table class="table table-bordered _tableHeight" data-height="23px">
+                <colgroup>
+                    <col width="8.7%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
+                    <col width="14.2%"/><col width="14.2%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">구분</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 달수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 달수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 달수</th>
+                </tr>
+                </thead>
+                <tbody  id="giftDayListBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-8 no-padding">
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="7.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+                    <col width="9.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
                     <col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
                 </colgroup>
                 <thead>
@@ -70,11 +95,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-12 no-padding">
+        <div class="col-md-8 no-padding">
             <span class="font-bold">◈방송 주제 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="4%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+                    <col width="8%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
                     <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
                     <col width="8.3%"/><col width="8.3%"/>
                 </colgroup>
@@ -115,6 +140,8 @@
         var data = dataSet();
         data.slctType = 1;
         util.getAjaxData("time", "/rest/status/newBroadcast/info/time", data, fn_day_success);
+
+        util.getAjaxData("broadcastGift", "/rest/status/broadcast/broadcastGift/list", data, fn_broadcastGiftDay_success);
 
         util.getAjaxData("memberList", "/rest/status/broadcast/info/platform", data, fn_platformDayList_success);
 
@@ -217,6 +244,54 @@
             $("#dayTableBody td:last").remove();
         }else{
             tableBody.append(totalHtml);
+        }
+
+        ui.tableHeightSet();
+        ui.paintColor();
+    }
+
+    function fn_broadcastGiftDay_success(dst_id, response) {
+        dalbitLog(response);
+        var isDataEmpty = response.data.detailList == null;
+        $("#giftDayListBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_giftDay').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#giftDayListBody").append(totalHtml);
+
+            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
+        }
+
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+            response.data.detailList[i].day = response.data.detailList[i].daily.substr(8,2);
+
+            toDay = week[moment(response.data.detailList[i].daily.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else{
+                toDay = response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")";
+            }
+            response.data.detailList[i].date = toDay;
+        }
+
+        var template = $('#tmp_giftDayDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#giftDayListBody").append(html);
+
+        if(isDataEmpty){
+            $("#giftDayListBody td:last").remove();
+        }else{
+            $("#giftDayListBody").append(totalHtml);
         }
 
         ui.tableHeightSet();
@@ -329,13 +404,13 @@
         <td class="_fontColor" data-fontColor="blue">{{addComma total_create_mCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_create_fCnt}}</td>
         <td>{{addComma total_create_nCnt}}</td>
-        <td>{{addComma total_create_totalCnt}}</td>
+        <td>{{addComma total_create_totalCnt}} ({{addComma total_unique_dj_Cnt}})</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_create_totalCnt}}</td>
         <td>{{addComma total_create_max_Cnt}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma total_listener_mCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}}</td>
         <td>{{addComma total_listener_nCnt}}</td>
-        <td>{{addComma total_listener_totalCnt}}</td>
+        <td>{{addComma total_listener_totalCnt}} ({{addComma total_unique_listener_Cnt}})</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>
         <td>{{addComma total_listener_max_Cnt}}</td>
         <td style="text-align: right">{{timeStampDay total_airtime}}</td>
@@ -353,13 +428,13 @@
         <td class="_fontColor" data-fontColor="blue">{{addComma create_mCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma create_fCnt 'Y'}}</td>
         <td>{{addComma create_nCnt 'Y'}}</td>
-        <td>{{addComma create_totalCnt 'Y'}}</td>
+        <td>{{#dalbit_if create_totalCnt '!=' 0}}{{addComma create_totalCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma create_accuTotalCnt 'Y'}}</td>
         <td>{{addComma create_max_Cnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma listener_mCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma listener_fCnt 'Y'}}</td>
         <td>{{addComma listener_nCnt 'Y'}}</td>
-        <td>{{addComma listener_totalCnt 'Y'}}</td>
+        <td>{{#dalbit_if listener_totalCnt '!=' 0}}{{addComma listener_totalCnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_accuTotalCnt 'Y'}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
         <td style="text-align: right">{{timeStampDay airtime}}</td>
@@ -374,13 +449,47 @@
 </script>
 
 
+<script type="text/x-handlebars-template" id="tmp_giftDay">
+    <tr class="font-bold _bgColor" data-bgColor="#d0cece">
+        <td>총합</td>
+        <td>{{addComma sum_totalGiftCnt}}</td>
+        <td>{{addComma sum_totalGiftAmount}}</td>
+        <td>{{addComma sum_normalGiftCnt}}</td>
+        <td>{{addComma sum_normalGiftAmount}}</td>
+        <td>{{addComma sum_secretGiftCnt}}</td>
+        <td>{{addComma sum_secretGiftAmount}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_giftDayDetailList">
+    {{#each this as |data|}}
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+        {{{data.date}}}
+        </td>
+        <td>{{addComma totalGiftCnt 'Y'}}</td>
+        <td>{{addComma totalGiftAmount 'Y'}}</td>
+        <td>{{addComma normalGiftCnt 'Y'}}</td>
+        <td>{{addComma normalGiftAmount 'Y'}}</td>
+        <td>{{addComma secretGiftCnt 'Y'}}</td>
+        <td>{{addComma secretGiftAmount 'Y'}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="22" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
+</script>
+
+
 <script type="text/x-handlebars-template" id="tmp_platformDay">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
         <td>{{addComma sum_pcCnt}}</td>
         <td>{{addComma sum_androidCnt}}</td>
         <td>{{addComma sum_iosCnt}}</td>
-        <td>{{addComma sum_totalCreateCnt}}</td>
+        <td>{{addComma sum_totalCreateCnt}} ({{addComma sum_unique_dj_Cnt}})</td>
         <td style="text-align: right">{{timeStampDay sum_pcTime}}</td>
         <td style="text-align: right">{{timeStampDay sum_androidTime}}</td>
         <td style="text-align: right">{{timeStampDay sum_iosTime}}</td>
@@ -398,7 +507,7 @@
         <td>{{addComma pcCnt 'Y'}}</td>
         <td>{{addComma androidCnt 'Y'}}</td>
         <td>{{addComma iosCnt 'Y'}}</td>
-        <td>{{addComma totalCreateCnt 'Y'}}</td>
+        <td>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td style="text-align: right">{{timeStampDay pcTime}}</td>
         <td style="text-align: right">{{timeStampDay androidTime}}</td>
         <td style="text-align: right">{{timeStampDay iosTime}}</td>
@@ -420,7 +529,7 @@
         <td>{{addComma sum_create06Cnt}}</td>
         <td>{{addComma sum_create09Cnt}}</td>
         <td>{{addComma sum_create13Cnt}}</td>
-        <td>{{addComma sum_totalCreateCnt}}</td>
+        <td>{{addComma sum_totalCreateCnt}} ({{addComma sum_unique_dj_Cnt}})</td>
     </tr>
 </script>
 
@@ -440,7 +549,7 @@
         <td>{{addComma create06Cnt 'Y'}}</td>
         <td>{{addComma create09Cnt 'Y'}}</td>
         <td>{{addComma create13Cnt 'Y'}}</td>
-        <td>{{addComma totalCreateCnt 'Y'}}</td>
+        <td>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
     </tr>
     {{else}}
     <tr>

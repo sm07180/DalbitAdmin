@@ -189,7 +189,7 @@
 <script type="text/x-handlebars-template" id="tmp_addDjPoint">
     <thead>
         <tr>
-            <th>순위</th>
+            <th>가산점 순위</th>
             <th>프로필<br/>이미지</th>
             <th>회원번호</th>
             <th>닉네임</th>
@@ -205,7 +205,7 @@
     {{#each this as |rank|}}
         <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
         <td>
-            {{djRank}}
+            {{rowNum}}
         </td>
         <td style="width: 50px">
             <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
@@ -224,7 +224,7 @@
             {{/equal}}
         </td>
         <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-        <td style="color: red;">{{addPointTotal}}점</td>
+        <td style="color: red;">{{#dalbit_if addPointTotal '!=' 0.0}}{{addPointTotal}}점{{/dalbit_if}}</td>
         <td>{{addPointRank1}}회<br/>({{addPoint1}}점)</td>
         <td>{{addPointRank2}}회<br/>({{addPoint2}}점)</td>
         <td>{{addPointRank3}}회<br/>({{addPoint3}}점)</td>

@@ -85,6 +85,13 @@ var clip_stateType = [
     , new COMMON_CODE('5', '5', '삭제')
 ]
 
+var clip_entryType = [
+    new COMMON_CODE(null, 'entryType', '입장제한')
+    , new COMMON_CODE('0', '0', '전체')
+    , new COMMON_CODE('1', '1', '팬만')
+    , new COMMON_CODE('2', '2', '20세이상')
+]
+
 var clip_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
     , new COMMON_CODE('all', '-1', '플랫폼(전체)')
