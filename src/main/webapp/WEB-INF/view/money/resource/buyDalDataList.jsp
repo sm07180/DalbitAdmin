@@ -41,8 +41,8 @@
                     <th class="_bgColor" data-bgColor="##bfbfbf">결제 일자</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">(누적)달 결제 횟수</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">(누적)달 결제 금액</th>
-                    <th class="_bgColor" data-bgColor="##bfbfbf">이전 구매일자</th>
-                    <th class="_bgColor" data-bgColor="##bfbfbf">재 구매기간</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">이전 결제일자</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">재 결제기간</th>
                 </tr>
                 </thead>
                 <tbody id="tb_buyDalList">
@@ -75,6 +75,7 @@
 
         $("#txt_search").show();
         $("#checkTestid").show();
+        $("#liveResourceData").hide();
         buyDalList();
     }
 

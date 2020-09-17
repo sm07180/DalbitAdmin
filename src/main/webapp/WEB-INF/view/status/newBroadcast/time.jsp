@@ -3,6 +3,7 @@
 
 <!-- 방송현황 > 시간대별 -->
 <span class="_searchDate font-bold"></span>
+<span class="" style="font-size: 11px;color: red;">* 총 수치(비중복 수치)로 표기된 현황입니다.</span>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <div class="col-md-11 no-padding">

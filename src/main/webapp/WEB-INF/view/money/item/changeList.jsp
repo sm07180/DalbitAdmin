@@ -184,7 +184,7 @@
             <td>회원 수</td>
             <td>별 수</td>
             <td>교환 달 수</td>
-            <td>환전 가지 금액</td>
+            <td>환전 가치 금액</td>
         </tr>
         <tr style="color: blue;">
             <td>{{{sexIcon 'm'}}}</td>

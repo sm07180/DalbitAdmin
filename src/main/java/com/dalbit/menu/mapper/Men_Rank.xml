@@ -526,27 +526,15 @@
     <select id="getAddDjPointList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.AddDjPointVo">
         /* Men_Rank.xml - getAddDjPointList */
         select *
+              ,@RNUM := @RNUM + 1 as rowNum
           from (
                 select *
-                <if test='liveCnt != 0'>
-                    , @RNUM := @RNUM + 1 as djRank
-                </if>
-                <if test='liveCnt == 0'>
-                    , @RNUM := @RNUM + 1 as rowNum
-                </if>
                 ,addPointRank1 * 2 as addPoint1
                 ,addPointRank2 * 1 as addPoint2
                 ,addPointRank3 * 0.5 as addPoint3
                 ,(addPointRank1 * 2) + (addPointRank2 * 1) + (addPointRank3 * 0.5) as addPointTotal
                 from (
-                      select
-                        <if test='liveCnt != 0'>
-                            1 as rowNum
-                        </if>
-                        <if test='liveCnt == 0'>
-                            dj.rank as djRank
-                        </if>
-                        , dj.mem_no as memNo
+                      select dj.mem_no as memNo
                         , prof.image_profile as image_profile
                         , mem.mem_id as mem_id
                         , lev.`level` as `level`
@@ -575,7 +563,9 @@
                               and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
                               and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank3
                         <include refid="addDjPointCondition"/>
-                  ) a , (select @RNUM := 0) r
+
+                  ) a , (select @RNUM := #{pageStart}) r
+             where addPointRank1 > 0 or addPointRank2 > 0 or addPointRank3 > 0
             order by addPointTotal desc, rankPoint desc
         ) b
         limit #{pageStart}, #{pageCnt}
@@ -583,9 +573,48 @@
 
     <select id="getAddDjPointListCnt" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="integer">
         /* Men_Rank.xml - getAddDjPointListCnt */
-        select
-        count(*)
-        <include refid="addDjPointCondition"/>
+        select count(*)
+          from (
+                select *
+                ,addPointRank1 * 2 as addPoint1
+                ,addPointRank2 * 1 as addPoint2
+                ,addPointRank3 * 0.5 as addPoint3
+                ,(addPointRank1 * 2) + (addPointRank2 * 1) + (addPointRank3 * 0.5) as addPointTotal
+                from (
+                      select dj.mem_no as memNo
+                        , prof.image_profile as image_profile
+                        , mem.mem_id as mem_id
+                        , lev.`level` as `level`
+                        , lev.grade as grade
+                        , mem.mem_nick as mem_nick
+                        , mem.mem_sex as mem_sex
+                        , mem.mem_birth_year
+                        , mem.inner
+                        , CAST(dj.dj_point AS INT) AS rankPoint
+                        , (select count(*)
+                             from rd_data.tb_ranking_dj_day
+                            where mem_no = dj.mem_no
+                              and `rank`=1
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank1
+                        , (select count(*)
+                             from rd_data.tb_ranking_dj_day
+                            where mem_no = dj.mem_no
+                              and `rank`=2
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank2
+                        , (select count(*)
+                             from rd_data.tb_ranking_dj_day
+                            where mem_no = dj.mem_no
+                              and `rank`=3
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ >= ]]> #{sDate}
+                              and date_format(ranking_date,'%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as addPointRank3
+                        <include refid="addDjPointCondition"/>
+
+                  ) a , (select @RNUM := #{pageStart}) r
+             where addPointRank1 > 0 or addPointRank2 > 0 or addPointRank3 > 0
+            order by addPointTotal desc, rankPoint desc
+        ) b
     </select>
 
 </mapper>

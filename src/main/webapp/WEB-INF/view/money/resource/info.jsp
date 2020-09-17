@@ -7,8 +7,8 @@
 %>
 
 <div id="wrapper">
-    <div id="page-wrapper" class="col-lg-12 no-padding">
-        <div class="container-fluid">
+    <div id="page-wrapper" class="col-lg-12 no-padding" style="height: 57px;">
+        <div class="container-fluid col-lg-9 no-padding" style="margin-left: 15px">
             <form id="searchForm">
                 <div class="row form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -65,6 +65,9 @@
                 </div>
             </form>
         </div>
+        <div class="col-md-3 no-padding pull-right" style="margin-left: 5px;width: 350px">
+            <div id="liveResourceData"></div>
+        </div>
     </div>
     <!-- tab -->
     <div class="widget-content">
@@ -73,7 +76,7 @@
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
             <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick(3);">회원Data</a></li>
-            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" onclick="buyDalDataListTabClick(4);">달 구매내역</a></li>
+            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" onclick="buyDalDataListTabClick(4);">달 결제내역</a></li>
             <li><a href="#useDalDataList" role="tab" data-toggle="tab" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>
             <li><a href="/money/item/list" id="tab_changeList" title="교환페이지로 이동합니다.">교환내역</a></li>
             <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
@@ -228,7 +231,7 @@
     }
 
     function searchDate(dateType){
-        if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){ //시간별 , 일간    (시간대별/달 구매 내역)
+        if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){ //시간별 , 일간    (시간대별/달 결제 내역)
             if(common.isEmpty(dateType)){
                 console.log("-------------------------   3");
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
@@ -298,6 +301,8 @@
         $("#txt_search").hide();
         $("#checkTestid").hide();
         changeDatepicker();
+        $("#liveResourceData").show();
+
     }
     function itemTabClick(tmp){
         _itemClick = tmp;
@@ -392,7 +397,7 @@
         ];
         response.data.totalInfo["dalInc_total_tCnt"] = common.getListSum(dalInc_total_tCnt);
 
-        response.data.totalInfo.dalInc_total_cnt = response.data.totalInfo.dalInc_total_mCnt +
+        response.data.totalInfo.dalInc_total_Cnt = response.data.totalInfo.dalInc_total_mCnt +
             response.data.totalInfo.dalInc_total_fCnt +
             response.data.totalInfo.dalInc_total_nCnt +
             response.data.totalInfo.dalInc_total_tCnt;
@@ -439,12 +444,12 @@
         ];
         response.data.totalInfo["dalDec_total_tCnt"] = common.getListSum(dalDec_total_tCnt);
 
-        response.data.totalInfo.dalDec_total_cnt = response.data.totalInfo.dalDec_total_mCnt +
+        response.data.totalInfo.dalDec_total_Cnt = response.data.totalInfo.dalDec_total_mCnt +
             response.data.totalInfo.dalDec_total_fCnt +
             response.data.totalInfo.dalDec_total_nCnt +
             response.data.totalInfo.dalDec_total_tCnt;
 
-        response.data.totalInfo.dal_total_cnt = response.data.totalInfo.dalInc_total_cnt + response.data.totalInfo.dalDec_total_cnt;
+        response.data.totalInfo.dal_total_Cnt = response.data.totalInfo.dalInc_total_Cnt + response.data.totalInfo.dalDec_total_Cnt;
         // 감소합 --------------------------------------------------------------------------
 
         var template = $('#tmp_infoTable_dal').html();
@@ -568,6 +573,9 @@
         $("#dalListTable").html(html);
 
         ui.paintColor();
+        ui.tableHeightSet();
+
+        liveResourceData();
     }
 
     function fn_byeol_success(dst_id, response) {
@@ -756,16 +764,30 @@
         $("#byeolListTable").html(html);
 
         ui.paintColor();
+        ui.tableHeightSet();
+        liveResourceData();
+    }
+    function liveResourceData(){
+        util.getAjaxData("liveResourceData", "/rest/money/resource/live", "", fn_liveResourceData_success);
+    }
+    function fn_liveResourceData_success(dat_id, response){
+        var template = $('#tmp_liveResourceData').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.totalInfo;
+        var html = templateScript(context);
+        $("#liveResourceData").html(html);
+        ui.paintColor();
+        ui.tableHeightSet();
     }
 
 </script>
 <script type="text/x-handlebars-template" id="tmp_infoTable_dal">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered mb10 mt5">
+        <table class="table table-bordered mb10 mt5 _tableHeight" data-height="23px">
             <tr>
                 <th rowspan="6" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 구매</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 결제</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입 보상</th>
@@ -853,7 +875,7 @@
             <tr>
                 <th rowspan="5" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
                 <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물<br/>(비밀 선물)</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">아이템 사용</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
@@ -910,7 +932,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_infoTable_byeol">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered mb10 mt5">
+        <table class="table table-bordered mb10 mt5 _tableHeight" data-height="23px">
             <tr>
                 <th rowspan="5" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -1023,7 +1045,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_dalListTable">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <%--<colgroup>--%>
             <%--<col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/>--%>
             <%--<col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/>--%>
@@ -1037,7 +1059,7 @@
             </tr>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 구매</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 결제</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입보상</th>
@@ -1051,7 +1073,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물<br/>(비밀선물)</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">아이템 선물</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
@@ -1163,7 +1185,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_byeolListTable">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <%--<colgroup>--%>
             <%--<col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>--%>
             <%--<col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>--%>
@@ -1178,10 +1200,10 @@
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물(비밀 선물)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀 선물)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 직접지급)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">환전 불가</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
                 <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
@@ -1262,6 +1284,30 @@
                 <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_decbyeol_Cnt 'Y'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_liveResourceData">
+    <div class="col-md-12 no-padding">
+        <table class="table table-bordered _tableHeight" data-height="23px">
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">현재 총 보유</th>
+            </tr>
+            <tr>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">달</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">별</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{addComma total_Dal 'Y'}} 개</td>
+                <td>{{addComma havecount_Dal 'Y'}} 명</td>
+                <td>{{addComma total_Byeol 'Y'}} 개</td>
+                <td>{{addComma havecount_Byeol 'Y'}} 명</td>
             </tr>
             </tbody>
         </table>

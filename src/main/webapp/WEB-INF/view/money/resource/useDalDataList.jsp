@@ -79,6 +79,7 @@
 
         $("#txt_search").show();
         $("#checkTestid").show();
+        $("#liveResourceData").hide();
         useDalList();
     }
 
@@ -165,7 +166,7 @@
         <td>{{lastUpdDateFormat}}</td>
     {{else}}
     <tr>
-        <td colspan="16">{{isEmptyData}}</td>
+        <td colspan="15">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
