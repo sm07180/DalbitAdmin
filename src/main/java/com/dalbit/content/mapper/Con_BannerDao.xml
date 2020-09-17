@@ -214,6 +214,7 @@
             , (select count(*) ios_cnt from rd_admin.tb_admin_banner where is_view = 1 and platform like '%1') as ios_cnt
             , (select count(*) mainTop_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 1) as mainTop_cnt
             , (select count(*) mainCenter_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 9) as mainCenter_cnt
+            , (select count(*) clipCenter_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 10) as clipCenter_cnt
             , (select count(*) gnb_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 0) as gnb_cnt
             , (select count(*) start_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 7) as start_cnt
             , (select count(*) end_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 8) as end_cnt

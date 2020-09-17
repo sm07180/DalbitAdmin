@@ -199,11 +199,6 @@
         }
 
         if($('#eventPrizeForm #prize_receive').val() == 1) {
-            // 현물일 시
-            if(common.isEmpty($('input[name="prizeUrl"]').val())) {
-                alert('경품 URL을 입력해주세요.');
-                return false;
-            }
 
             if(common.isEmpty($('input[name="giveCnt"]').val())) {
                 alert('지급 수량을 입력해주세요.');
@@ -284,6 +279,17 @@
                 initPrize();
             });
         }
+    });
+
+    // 제세공과금, 달로 받기 자동 계산
+    $(document).on('focusout', '#giveAmt', function() {
+       var giveAmt = $('#giveAmt').val();
+       if(giveAmt >= 50000) {
+           $('#taxAmt').val(giveAmt * 0.22);
+       } else if(giveAmt < 50000) {
+           $('#taxAmt').val('0');
+       }
+       $('#receiveDal').val(giveAmt * 0.01);
     });
 
     function bt_x(){

@@ -71,6 +71,7 @@
 
     $(document).on('click', '#alwaysYnCheck', function() {
         if($(this).prop('checked')) {
+            $('#eventStartDate').val(dateTime);
             $('#eventEndDate').val("");
             $('#eventEndDate').prop('disabled', true);
         } else {

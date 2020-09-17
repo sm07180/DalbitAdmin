@@ -586,7 +586,7 @@
                 <td colspan="5">{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
 
                 <th>배너위치</th>
-                <td colspan="5">{{{getCommonCodeRadio position 'banner_bannerType' 'Y' 'position'}}}</td>
+                <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
             </tr>
             <tr>
 

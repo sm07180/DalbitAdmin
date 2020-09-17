@@ -29,7 +29,7 @@
                         <th class="_bgColor" data-bgcolor="#d8d8d8">구분</th>
                         <th colspan="2" class="_bgColor" data-bgcolor="#d8d8d8">게시</th>
                         <th colspan="3" class="_bgColor" data-bgcolor="#d8d8d8">플랫폼 게시</th>
-                        <th colspan="7" class="_bgColor" data-bgcolor="#d8d8d8">배너위치별 게시</th>
+                        <th colspan="8" class="_bgColor" data-bgcolor="#d8d8d8">배너위치별 게시</th>
                     </tr>
                     <tr>
                         <th class="_bgColor _noBorder" data-bgcolor="#FFF"></th>
@@ -41,6 +41,7 @@
                         <th>IOS</th>
                         <th>Main<br />Top</th>
                         <th>Main<br />Center</th>
+                        <th>클립<br />Center</th>
                         <th>GNB<br />(PC)</th>
                         <th>시작<br />팝업</th>
                         <th>종료<br />팝업</th>
@@ -59,6 +60,7 @@
                         <td id="stat_ios" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_mainTop" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_mainCenter" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_clipCenter" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_gnb" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_start" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
                         <td id="stat_end" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
@@ -70,7 +72,7 @@
                         <td class="_bgColor font-bold" data-bgcolor="#ffe699">총 합</td>
                         <td id="stat_sum_onOff" colspan="2" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
                         <td id="stat_sum_platform" colspan="3" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
-                        <td id="stat_sum_position" colspan="7" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
+                        <td id="stat_sum_position" colspan="8" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
                     </tr>
                 </tbody>
             </table>
@@ -173,6 +175,12 @@ var fnc_bannerList = {};
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
+        var delBtn_2 = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete2" style="margin-right: 3px;"/>'
+        var addBtn_2 = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert2" style="margin-left: 3px;"/>'
+
+        $('.comments').before(delBtn_2);
+        fnc_bannerList.divDataTable.find(".top-right").append(addBtn_2);
+
         fnc_bannerList.divDataTable.find(".footer-left").append(delBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(addBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(excelBtn);
@@ -210,11 +218,11 @@ var fnc_bannerList = {};
     })
 
     fnc_bannerList.initEvent= function(){
-        fnc_bannerList.target.find("#btn_insert").on("click", function () { //등록
+        fnc_bannerList.target.find("#btn_insert, #btn_insert2").on("click", function () { //등록
             fnc_bannerList.insertEvent();
         })
 
-        fnc_bannerList.target.find("#btn_delete").on("click", function () { //삭제
+        fnc_bannerList.target.find("#btn_delete, #btn_delete2").on("click", function () { //삭제
             fnc_bannerList.deleteEvent();
         })
 
@@ -247,6 +255,7 @@ var fnc_bannerList = {};
             $("#stat_ios").html(common.addComma(data.ios_cnt));
             $("#stat_mainTop").html(common.addComma(data.mainTop_cnt));
             $("#stat_mainCenter").html(common.addComma(data.mainCenter_cnt));
+            $("#stat_clipCenter").html(common.addComma(data.clipCenter_cnt));
             $("#stat_gnb").html(common.addComma(data.gnb_cnt));
             $("#stat_start").html(common.addComma(data.start_cnt));
             $("#stat_end").html(common.addComma(data.end_cnt));
@@ -258,6 +267,7 @@ var fnc_bannerList = {};
 
             var sum_position = data.mainTop_cnt;
             sum_position += data.mainCenter_cnt;
+            sum_position += data.clipCenter_cnt;
             sum_position += data.gnb_cnt;
             sum_position += data.start_cnt;
             sum_position += data.end_cnt;
