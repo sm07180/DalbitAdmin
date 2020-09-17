@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
@@ -5,18 +6,23 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
-            <div class="widget-content">
-                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">Push발송현황</a></li>
-                    <li><a href="#history" role="tab" data-toggle="tab" id="tab_history">Push발송내역</a></li>
-                    <li><a href="#notice" role="tab" data-toggle="tab" id="tab_notice">알림설정현황</a></li>
-                </ul>
-                <div class="tab-content">
-                    <%--<div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- Push발송현황 -->--%>
-                    <%--<div class="tab-pane fade" id="history"><jsp:include page="history.jsp"/></div>    <!-- Push발송내역 -->--%>
-                    <%--<div class="tab-pane fade" id="notice"><jsp:include page="notice.jsp"/></div>    <!-- 알림설정현황 -->--%>
-                </div>
+        <div class="widget-content">
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
+                <li class="active"><a href="#timeOver" role="tab" data-toggle="tab" id="tab_timeOver">시간대별</a></li>
+                <li><a href="#calendar" role="tab" data-toggle="tab" id="tab_calendar">일자별</a></li>
+                <li><a href="#monthNonOver" role="tab" data-toggle="tab" id="tab_monthNonOver">월간별</a></li>
+                <li><a href="#age" role="tab" data-toggle="tab" id="tab_loAgeDetail">연령대별</a></li>
+                <li><a href="#loginHistory" role="tab" data-toggle="tab" id="tab_loginHistory">주제별 청취현황</a></li>
+            </ul>
+            <div class="tab-content  col-md-10">
+                <div class="tab-pane fade in active" id="timeOver"><jsp:include page="history.jsp"/></div>      <!-- 시간대별 중복 -->
+                <%--<div class="tab-pane fade in active" id="timeNonOver"><jsp:include page="timeNonOver.jsp"/></div>      <!-- 시간대별 비중복 -->--%>
+                <%--<div class="tab-pane fade" id="calendar"><jsp:include page="calendar.jsp"/></div>      <!-- 일자별 -->--%>
+                <%--<div class="tab-pane fade" id="monthNonOver"><jsp:include page="monthNonOver.jsp"/></div>      <!-- 월간별 비중복 -->--%>
+                <%--<div class="tab-pane fade" id="yearNonOver"><jsp:include page="yearNonOver.jsp"/></div>      <!-- 연간별 비중복 -->--%>
+                <%--<div class="tab-pane fade" id="age"><jsp:include page="age.jsp"/></div>             <!-- 연령대별 -->--%>
+                <%--<div class="tab-pane fade" id="browserType"><jsp:include page="browser.jsp"/></div>         <!-- 브라우저별 -->--%>
+                <%--<div class="tab-pane fade" id="loginHistory"><jsp:include page="loginHistory.jsp"/></div>         <!-- 브라우저별 -->--%>
             </div>
         </div>
     </div>
@@ -25,37 +31,71 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
-    var tabId = 'tab_total';
+
+    var tabId = "tab_timeOver";
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
-        if(tabId == 'tab_total'){
-            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
-            $("#slctTypeArea").show();
-            $("#div_searchArea").hide();
-        }else if(tabId == 'tab_history'){
-            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
-            $("#slctTypeArea").hide();
-            $("#div_searchArea").css('display', 'inline');
-        }else if(tabId == 'tab_notice'){
-            $("input:radio[name='slctType']:radio[value='1']").prop('checked', true);
-            $("#slctTypeArea").hide();
-            $("#div_searchArea").hide();
+        if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory' || tabId == 'tab_timeOver'){
+            slctType = "0";
+            me = 0;
+            $(".searchDate").html($("#onedayDate").val() + " (" + toDay + ")");
+        }else if(tabId == 'tab_monthNonOver' || tabId == 'tab_loAgeDetail' || tabId == 'tab_loBrowserDetail') {
+            slctType = "1";
+            me = 1;
+        }else if(tabId == 'tab_yearNonOver'){
+            slctType = "2";
+            me = 2;
         }
         radioChange();
-        $(".searchDate").html($("#onedayDate").val());
-        $("#bt_search").click();
+
+        if(tabId != 'tab_loginHistory') {
+            $("#searchText").addClass('hide');
+        }else{
+            $("#searchText").removeClass('hide');
+        }
+
+        $("#searchForm").show();
+        console.log("---------------");
+        console.log(tabId);
+        if(tabId == 'tab_timeOver'){
+            getTimeOver();
+        }else if(tabId == 'tab_timeNonOver') {
+            getTimeNonOver();
+        }else if(tabId == 'tab_monthNonOver') {
+            getMonthNonOver();
+        }else if(tabId == 'tab_yearNonOver') {
+            getYearNonOver();
+        }else if(tabId == 'tab_loAgeDetail') {
+            getAgeNonOver();
+        }else if(tabId == 'tab_loBrowserDetail') {
+            getBrowserList();
+        }else if(tabId == 'tab_loginHistory') {
+            getLoginHistoryList();
+        }else if(tabId == 'tab_calendar'){
+            $("#searchForm").hide();
+            getCalendarInfo();
+        }
+
     });
 
     $("#bt_search").on('click', function(){
-        if($('input[name="slctType"]:first').prop('checked')){
-            $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
-        }
-        if(tabId == 'tab_total'){
-            getTotal();
-        }else if(tabId == 'tab_history'){
-            getHistory();
-        }else if(tabId == 'tab_notice'){
-            getNotice();
+        searchClick = true;
+        if(tabId == 'tab_timeOver'){
+            getTimeOver();
+        }else if(tabId == 'tab_timeNonOver'){
+            getTimeNonOver();
+        }else if(tabId == 'tab_monthNonOver') {
+            getMonthNonOver();
+        }else if(tabId == 'tab_timeNonOver') {
+            getCalendar();
+        }else if(tabId == 'tab_yearNonOver') {
+            getYearNonOver();
+        }else if(tabId == 'tab_loAgeDetail') {
+            getAgeNonOver();
+        }else if(tabId == 'tab_loBrowserDetail') {
+            getBrowserList();
+        }else if(tabId == 'tab_loginHistory') {
+            getLoginHistoryList();
         }
     });
 </script>
