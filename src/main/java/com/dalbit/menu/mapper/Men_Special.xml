@@ -655,7 +655,7 @@
         select
             a.*
         from (
-            select list.*, @RNUM := @RNUM + 1 as rowNum
+            select list.*
             from(
                 select
                     basic.mem_no
@@ -732,8 +732,8 @@
                     and manage.select_year = #{select_year}
                     and manage.select_month = #{select_month}
                     and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where DATE_FORMAT(reg_date, '%Y%m') = concat(#{select_year},#{select_month}))
-                order by level desc
-            ) list , (select @RNUM := 0) r
+                /*order by level desc*/
+            ) list
             where
                 <include refid="reqAbleCondition" />
         ) a
