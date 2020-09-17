@@ -4,10 +4,10 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div id="container-fluid" class="col-lg-8 no-padding">
+        <div id="container-fluid" class="col-lg-12 no-padding">
             <!-- searchBox -->
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+                <div class="col-lg-12 form-inline no-padding">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
@@ -265,6 +265,29 @@
         }
         $("#bt_search").click();
     }
+
+
+    $(document).on('change', 'input[name="slctType"]', function(){
+        slctType = $('input[name="slctType"]:checked').val();
+        me = $('input[name="slctType"]:checked').val();
+
+        radioChange();
+        $("#bt_search").click();
+    });
+
+    function dataSet(){
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+
+        var data = {
+            slctType : slctType,
+            startDate : startDate,
+            endDate : endDate
+        };
+
+        return data;
+    }
+
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_loginLive">
