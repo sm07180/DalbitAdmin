@@ -43,6 +43,29 @@
         </div>
 
         <div class="col-md-12 no-padding">
+            <span class="font-bold">◈선물 별</span>
+            <table class="table table-bordered _tableHeight" data-height="23px">
+                <colgroup>
+                    <col width="4.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
+                    <col width="14.2%"/><col width="14.2%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">구분</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 달수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 달수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 달수</th>
+                </tr>
+                </thead>
+                <tbody  id="giftYearListBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12 no-padding">
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
@@ -116,6 +139,8 @@
         var data = dataSet();
         data.slctType = 2;
         util.getAjaxData("time", "/rest/status/newBroadcast/info/time", data, fn_year_success);
+
+        util.getAjaxData("broadcastGift", "/rest/status/broadcast/broadcastGift/list", data, fn_broadcastgiftYear_success);
 
         util.getAjaxData("memberList", "/rest/status/broadcast/info/platform", data, fn_platformYearList_success);
 
@@ -213,6 +238,44 @@
         ui.paintColor();
     }
 
+    function fn_broadcastgiftYear_success(dst_id, response) {
+        dalbitLog(response);
+        var isDataEmpty = response.data.detailList == null;
+        $("#giftYearListBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_giftYear').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#giftYearListBody").append(totalHtml);
+
+            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
+        }
+
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+            response.data.detailList[i].month = response.data.detailList[i].monthly;
+            response.data.detailList[i].the_date = Number(moment().format("YYYY")) + "-" + common.lpad(response.data.detailList[i].monthly,2,"0");
+        }
+
+        var template = $('#tmp_giftYearDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#giftYearListBody").append(html);
+
+        if(isDataEmpty){
+            $("#giftYearListBody td:last").remove();
+        }else{
+            $("#giftYearListBody").append(totalHtml);
+        }
+        ui.tableHeightSet();
+        ui.paintColor();
+    }
+
     function fn_platformYearList_success(dst_id, response) {
         dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
@@ -232,7 +295,7 @@
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"),2,"0"));
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
-            response.data.detailList[i].month = common.lpad(response.data.detailList[i].monthly,2,"0");
+            response.data.detailList[i].month = response.data.detailList[i].monthly;
             response.data.detailList[i].the_date = Number(moment().format("YYYY")) + "-" + common.lpad(response.data.detailList[i].monthly,2,"0");
         }
 
@@ -267,12 +330,12 @@
 
 
         for(var i=0;i<response.data.detailList.length;i++){
-            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowMonth = moment().format("MM");
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
-            response.data.detailList[i].month = common.lpad(response.data.detailList[i].monthly,2,"0");
-            response.data.detailList[i].the_date = Number(moment().format("YYYY")) + "-" + common.lpad(response.data.detailList[i].monthly,2,"0");
+            response.data.detailList[i].month = response.data.detailList[i].monthly.substr(5,2);
+            response.data.detailList[i].the_date = Number(moment().format("YYYY")) + "-" + response.data.detailList[i].monthly.substr(5,2);
         }
 
         var template = $('#tmp_typeYearDetailList').html();
@@ -340,6 +403,39 @@
     {{else}}
     <tr>
         <td colspan="20" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_giftYear">
+    <tr class="font-bold _bgColor" data-bgColor="#d0cece">
+        <td>총합</td>
+        <td>{{addComma sum_totalGiftCnt}}</td>
+        <td>{{addComma sum_totalGiftAmount}}</td>
+        <td>{{addComma sum_normalGiftCnt}}</td>
+        <td>{{addComma sum_normalGiftAmount}}</td>
+        <td>{{addComma sum_secretGiftCnt}}</td>
+        <td>{{addComma sum_secretGiftAmount}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_giftYearDetailList">
+    {{#each this as |data|}}
+    <tr {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+    <td {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+    {{#dalbit_if nowMonth '!=' month}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+    {{{the_date}}}
+    </td>
+    <td>{{addComma totalGiftCnt 'Y'}}</td>
+    <td>{{addComma totalGiftAmount 'Y'}}</td>
+    <td>{{addComma normalGiftCnt 'Y'}}</td>
+    <td>{{addComma normalGiftAmount 'Y'}}</td>
+    <td>{{addComma secretGiftCnt 'Y'}}</td>
+    <td>{{addComma secretGiftAmount 'Y'}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="22" class="noData">{{isEmptyData}}<td>
     </tr>
     {{/each}}
 </script>

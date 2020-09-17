@@ -41,6 +41,30 @@
                 <tbody id="timeTableBody"></tbody>
             </table>
         </div>
+
+        <div class="col-md-12 no-padding">
+            <span class="font-bold">◈선물 별</span>
+            <table class="table table-bordered _tableHeight" data-height="23px">
+                <colgroup>
+                    <col width="4.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
+                    <col width="14.2%"/><col width="14.2%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">구분</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 달수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 달수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 건수</th>
+                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 달수</th>
+                </tr>
+                </thead>
+                <tbody  id="giftListBody">
+                </tbody>
+            </table>
+        </div>
+
         <div class="col-md-12 no-padding">
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
@@ -119,6 +143,8 @@
         $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월 DD일') + "(" + timeDay + ")");
 
         util.getAjaxData("time", "/rest/status/newBroadcast/info/time", data, fn_time_success);
+
+        util.getAjaxData("broadcastGift", "/rest/status/broadcast/broadcastGift/list", data, fn_broadcastGift_success);
 
         util.getAjaxData("memberList", "/rest/status/broadcast/info/platform", data, fn_platformTimeList_success);
 
@@ -208,6 +234,55 @@
             $("#timeTableBody td:last").remove();
         }else{
             tableBody.append(totalHtml);
+        }
+
+        ui.tableHeightSet();
+        ui.paintColor();
+    }
+
+    function fn_broadcastGift_success(dst_id, response) {
+        dalbitLog(response);
+        var isDataEmpty = response.data.detailList == null;
+        $("#giftListBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_giftTotal').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#giftListBody").append(totalHtml);
+
+            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
+        }
+
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+            response.data.detailList[i].day = response.data.detailList[i].daily.substr(8,2);
+
+            toDay = week[moment(response.data.detailList[i].daily.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else{
+                toDay = response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")";
+            }
+
+            response.data.detailList[i].date = toDay;
+        }
+
+        var template = $('#tmp_giftDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#giftListBody").append(html);
+
+        if(isDataEmpty){
+            $("#giftListBody td:last").remove();
+        }else{
+            $("#giftListBody").append(totalHtml);
         }
 
         ui.tableHeightSet();
@@ -353,6 +428,38 @@
     {{/each}}
 </script>
 
+<script type="text/x-handlebars-template" id="tmp_giftTotal">
+    <tr class="font-bold _bgColor" data-bgColor="#d0cece">
+        <td>총합</td>
+        <td>{{addComma sum_totalGiftCnt}}</td>
+        <td>{{addComma sum_totalGiftAmount}}</td>
+        <td>{{addComma sum_normalGiftCnt}}</td>
+        <td>{{addComma sum_normalGiftAmount}}</td>
+        <td>{{addComma sum_secretGiftCnt}}</td>
+        <td>{{addComma sum_secretGiftAmount}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_giftDetailList">
+    {{#each this as |data|}}
+    <tr {{#dalbit_if nowHour '==' hour}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowHour '==' hour}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowHour '!=' hour}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+        {{data.hour}}시
+        </td>
+        <td>{{addComma totalGiftCnt 'Y'}}</td>
+        <td>{{addComma totalGiftAmount 'Y'}}</td>
+        <td>{{addComma normalGiftCnt 'Y'}}</td>
+        <td>{{addComma normalGiftAmount 'Y'}}</td>
+        <td>{{addComma secretGiftCnt 'Y'}}</td>
+        <td>{{addComma secretGiftAmount 'Y'}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="22" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
+</script>
 
 <script type="text/x-handlebars-template" id="tmp_platformTime">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
