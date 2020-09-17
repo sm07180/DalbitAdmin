@@ -735,7 +735,7 @@
                     and basic.mem_no = level.mem_no
                     and manage.select_year = #{select_year}
                     and manage.select_month = #{select_month}
-                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where select_year = #{select_year} and select_month = #{select_month})
+                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where DATE_FORMAT(reg_date, '%Y%m') = concat(#{select_year},#{select_month}))
                 order by level desc
             ) list , (select @RNUM := 0) r
             where
@@ -823,7 +823,7 @@
                     and basic.mem_no = level.mem_no
                     and manage.select_year = #{select_year}
                     and manage.select_month = #{select_month}
-                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where select_year = #{select_year} and select_month = #{select_month})
+                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where DATE_FORMAT(reg_date, '%Y%m') = concat(#{select_year},#{select_month}))
             ) list
             , (select @RNUM := 0) r
             where
