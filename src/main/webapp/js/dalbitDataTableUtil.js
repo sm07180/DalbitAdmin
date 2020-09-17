@@ -188,7 +188,6 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                         return totalCnt - data + 1;
                     }else{
                         //속도 이슈로 쿼리에서 rownum을 제외한 경우
-                        console.log(data, type, row, meta)
                         try{
                             var start = meta.settings._iDisplayStart;
                             var row = meta.row;
