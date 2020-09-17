@@ -1201,9 +1201,9 @@
                 <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀 선물)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 직접지급)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">환전 불가</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구(운영자 직접지급)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 직접지급)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
                 <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
