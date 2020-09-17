@@ -212,10 +212,10 @@ common.timeStampDay = function(time){
 
         var timeData;
         if(day != 0){
-            timeData = day + "일 " + hours  + "시";
+            timeData = day + "일 " + hours  + "시간";
         }else{
             if(hours != 0){
-                timeData = hours  + "시" + minutes + "분";
+                timeData = hours  + "시간 " + minutes + "분";
             }else{
                 timeData = minutes + "분";
             }

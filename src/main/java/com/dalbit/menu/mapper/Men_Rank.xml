@@ -528,25 +528,13 @@
         select *
           from (
                 select *
-                <if test='liveCnt != 0'>
-                    , @RNUM := @RNUM + 1 as djRank
-                </if>
-                <if test='liveCnt == 0'>
-                    , @RNUM := @RNUM + 1 as rowNum
-                </if>
+                    ,@RNUM := @RNUM + 1 as rowNum
                 ,addPointRank1 * 2 as addPoint1
                 ,addPointRank2 * 1 as addPoint2
                 ,addPointRank3 * 0.5 as addPoint3
                 ,(addPointRank1 * 2) + (addPointRank2 * 1) + (addPointRank3 * 0.5) as addPointTotal
                 from (
-                      select
-                        <if test='liveCnt != 0'>
-                            1 as rowNum
-                        </if>
-                        <if test='liveCnt == 0'>
-                            dj.rank as djRank
-                        </if>
-                        , dj.mem_no as memNo
+                      select dj.mem_no as memNo
                         , prof.image_profile as image_profile
                         , mem.mem_id as mem_id
                         , lev.`level` as `level`
