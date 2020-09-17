@@ -52,20 +52,20 @@
                 <thead>
                 <tr>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
-                    <th colspan="2" class="_bgColor" data-bgColor="#b4c7e7">소계</th>
                     <th colspan="2" class="_bgColor _sex_male" data-bgColor="#b4c7e7"></th>
                     <th colspan="2" class="_bgColor _sex_female" data-bgColor="#b4c7e7"></th>
                     <th colspan="2" class="_bgColor _sex_none" data-bgColor="#b4c7e7"></th>
+                    <th colspan="2" class="_bgColor" data-bgColor="#b4c7e7">소계</th>
                 </tr>
                 <tr>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">달수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">달수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">달수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">달수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">건수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">달수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">건수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">달수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">건수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">달수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">건수</th>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">달수</th>
                 </tr>
                 </thead>
                 <tbody  id="giftListBody">
@@ -440,14 +440,14 @@
 <script type="text/x-handlebars-template" id="tmp_giftTotal">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td>{{addComma sum_totalGiftCnt}}</td>
-        <td>{{addComma sum_totalGiftAmount}}</td>
         <td>{{addComma sum_maleGiftCnt}}</td>
         <td>{{addComma sum_maleGiftAmount}}</td>
         <td>{{addComma sum_femaleGiftCnt}}</td>
-        <td>{{addComma sum_famaleGiftAmount}}</td>
+        <td>{{addComma sum_femaleGiftAmount}}</td>
         <td>{{addComma sum_noneGiftCnt}}</td>
         <td>{{addComma sum_noneGiftAmount}}</td>
+        <td>{{addComma sum_totalGiftCnt}}</td>
+        <td>{{addComma sum_totalGiftAmount}}</td>
     </tr>
 </script>
 
@@ -458,14 +458,14 @@
         {{#dalbit_if nowHour '!=' hour}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{data.hour}}시
         </td>
-        <td>{{addComma totalGiftCnt 'Y'}}</td>
-        <td>{{addComma totalGiftAmount 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma maleGiftCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma maleGiftAmount 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma femaleGiftCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma femaleGiftAmount 'Y'}}</td>
         <td>{{addComma noneGiftCnt 'Y'}}</td>
         <td>{{addComma noneGiftAmount 'Y'}}</td>
+        <td>{{addComma totalGiftCnt 'Y'}}</td>
+        <td>{{addComma totalGiftAmount 'Y'}}</td>
     </tr>
     {{else}}
     <tr>

@@ -148,10 +148,10 @@
     <td>{{{getCommonCodeLabel osType 'os_type'}}}</td>
     <td>{{addComma dalCnt}}</td>
     <td>{{addComma payAmt}}</td>
-    <td>{{payDateFormat}}</td>
+    <td>{{payDate}}</td>
     <td>{{addComma total_payCnt}}</td>
     <td>{{addComma total_payAmt}}</td>
-    <td>{{prev_payDateFormat}}</td>
+    <td>{{prev_payDate}}</td>
     <td>{{addComma re_payDate}} 일</td>
     {{else}}
     <tr>
