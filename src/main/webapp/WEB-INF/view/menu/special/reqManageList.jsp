@@ -160,20 +160,6 @@
             return false;
         }
 
-        /*var pc_image_url = $("#pc_image_url");
-        if(common.isEmpty(pc_image_url.val())){
-            alert('pc 이미지를 입력해주세요.');
-            pc_image_url.focus();
-            return false;
-        }
-
-        var mobile_image_url = $("#mobile_image_url");
-        if(common.isEmpty(mobile_image_url.val())){
-            alert('모바일 이미지를 입력해주세요.');
-            mobile_image_url.focus();
-            return false;
-        }*/
-
         var platform = $('input:radio[name="platform"]:checked').val();
         var is_pc = (platform == 0 || platform == 1) ? true : false;
         var is_mobile = (platform == 0 || platform == 2) ? true : false;

@@ -187,6 +187,7 @@ var banner_bannerType = [
     , new COMMON_CODE('startPopup', '7', '시작팝업')
     , new COMMON_CODE('endPopup', '8', '종료팝업')
     , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
+    , new COMMON_CODE('clip', '10', '클립')
 ];
 
 var banner_loginType = [
