@@ -15,5 +15,10 @@ public class ClipHistoryTotalVo extends PagingVo {
     private int femaleTotalCnt;
     private int unknownTotalCnt;
 
+    private int delTotalCnt;
+    private int delManTotalCnt;
+    private int delFemaleTotalCnt;
+    private int delUnknownTotalCnt;
+
 
 }

@@ -136,10 +136,10 @@
                                THEN pay.bank_code END AS pay_info_nm,
                             (SELECT count(mem_no)
                              FROM rd_data.tb_payment_succ
-                             WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS 'count',
+                             WHERE pay_yn = 'Y' AND mem_no = pay.mem_no) AS 'count',
                             (SELECT sum(pay_amt) paySum
                              FROM rd_data.tb_payment_succ
-                             WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS amount,
+                             WHERE pay_yn = 'Y' AND mem_no = pay.mem_no) AS amount,
                        ruby	as tot_dal_cnt
                 FROM rd_data.tb_payment_succ pay
                       LEFT JOIN  rd_data.tb_member_wallet wallet ON pay.mem_no = wallet.mem_no
@@ -196,10 +196,10 @@
                            THEN pay.bank_code END AS pay_info_nm,
 						(SELECT count(mem_no)
 						 FROM rd_data.tb_payment_succ
-						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS 'count',
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no) AS 'count',
 						(SELECT sum(pay_amt) paySum
 						 FROM rd_data.tb_payment_succ
-						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS amount,
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no) AS amount,
                    ruby	as tot_dal_cnt
             FROM rd_data.tb_payment_succ pay
                   LEFT JOIN  rd_data.tb_member_wallet wallet ON pay.mem_no = wallet.mem_no
@@ -259,10 +259,10 @@
                            THEN pay.bank_code END AS pay_info_nm,
 						(SELECT count(mem_no)
 						 FROM rd_data.tb_payment_succ
-						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS 'count',
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no) AS 'count',
 						(SELECT sum(pay_amt) paySum
 						 FROM rd_data.tb_payment_succ
-						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no group by mem_no) AS amount,
+						 WHERE pay_yn = 'Y' AND mem_no = pay.mem_no) AS amount,
                    ruby	as tot_dal_cnt
             FROM rd_data.tb_payment_succ pay
                   LEFT JOIN  rd_data.tb_member_wallet wallet ON pay.mem_no = wallet.mem_no
