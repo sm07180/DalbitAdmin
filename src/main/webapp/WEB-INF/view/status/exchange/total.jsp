@@ -158,7 +158,25 @@
     function fn_month_success(data, response){
         var isDataEmpty = response.data.detailList == null;
         $("#monthTableBody").empty();
+
+        var total_succ_cnt = response.data.totalInfo.tot_specialdj_succ_Cnt + response.data.totalInfo.tot_succ_Cnt;         // 총건
+        var total_succ_amt = response.data.totalInfo.tot_specialdj_succ_Amt + response.data.totalInfo.tot_succ_Amt;         // 총 금액
+        var total_succ_byeol = response.data.totalInfo.tot_specialdj_succ_byeol_Cnt + response.data.totalInfo.tot_succ_byeol_Cnt;   // 총 요청별
+
+        var nTotal_succ_cnt = response.data.totalInfo.nTot_specialdj_succ_Cnt + response.data.totalInfo.nTot_succ_Cnt;
+        var nTotal_succ_amt = response.data.totalInfo.nTot_specialdj_succ_Amt + response.data.totalInfo.nTot_succ_Amt;
+        var nTotal_succ_byeol = response.data.totalInfo.nTot_specialdj_succ_byeol_Cnt + response.data.totalInfo.nTot_succ_byeol_Cnt;
+
+        response.data.totalInfo.total_succ = "환전금액 총 : " + total_succ_cnt + "건 / 금액 : " +  total_succ_amt + " / " + total_succ_byeol + " 개";
+        response.data.totalInfo.nTotal_succ = "환전금액 총 : " + nTotal_succ_cnt + "건 / 금액 : " +  nTotal_succ_amt + " / " + nTotal_succ_byeol + " 개";
+
         if(!isDataEmpty){
+            var template = $('#tmp_month_total').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#monthTableBody").append(totalHtml);
+
             var template = $('#tmp_month').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -184,6 +202,7 @@
             $("#monthTableBody td:last").remove();
         }else{
             $("#monthTableBody").append(totalHtml);
+
         }
 
         ui.paintColor();
@@ -193,7 +212,25 @@
     function fn_gender_success(data, response){
         var isDataEmpty = response.data.detailList == null;
         $("#genderTableBody").empty();
+
+        var total_succ_spCnt =  response.data.totalInfo.tot_specialdj_succ_mCnt + response.data.totalInfo.tot_specialdj_succ_fcnt + response.data.totalInfo.tot_specialdj_succ_nCnt;
+        var total_succ_spAmt = response.data.totalInfo.tot_specialdj_succ_mAmt + response.data.totalInfo.tot_specialdj_succ_fAmt + response.data.totalInfo.tot_specialdj_succ_nAmt;
+        var total_succ_spByeol = response.data.totalInfo.tot_specialdj_succ_byeol_mCnt + response.data.totalInfo.tot_specialdj_succ_byeol_fCnt + response.data.totalInfo.tot_specialdj_succ_byeol_nCnt;
+
+        var total_succ_noCnt = response.data.totalInfo.tot_succ_mCnt + response.data.totalInfo.tot_succ_fCnt + response.data.totalInfo.tot_succ_nCnt;
+        var total_succ_noAmt = response.data.totalInfo.tot_succ_mAmt + response.data.totalInfo.tot_succ_fAmt + response.data.totalInfo.tot_succ_nAmt;
+        var total_succ_noByeol = response.data.totalInfo.tot_succ_byeol_mCnt + response.data.totalInfo.tot_succ_byeol_fCnt + response.data.totalInfo.tot_succ_byeol_nCnt;
+
+        response.data.totalInfo.total_succ_sp = "환전금액 총 : " + total_succ_spCnt + "건 / 금액 : " +  total_succ_spAmt + " / " + total_succ_spByeol + " 개";
+        response.data.totalInfo.total_succ_no = "환전금액 총 : " + total_succ_noCnt + "건 / 금액 : " +  total_succ_noAmt + " / " + total_succ_noByeol + " 개";
+
         if(!isDataEmpty){
+            var template = $('#tmp_gender_total').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#genderTableBody").append(totalHtml);
+
             var template = $('#tmp_gender').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -230,7 +267,20 @@
     function fn_week_success(data, response){
         var isDataEmpty = response.data.detailList == null;
         $("#weekTableBody").empty();
+
+        var total_succ_Cnt =  response.data.totalInfo.tot_specialdj_succ_Cnt + response.data.totalInfo.tot_succ_Cnt;
+        var total_succ_Amt = response.data.totalInfo.tot_specialdj_succ_Amt + response.data.totalInfo.tot_succ_Amt;
+        var total_succ_Byeol = response.data.totalInfo.tot_specialdj_succ_byeol_Cnt + response.data.totalInfo.tot_succ_byeol_Cnt;
+
+        response.data.totalInfo.total_succ = "환전금액 총 : " + total_succ_Cnt + "건 / 금액 : " +  total_succ_Amt + " / " + total_succ_Byeol + " 개";
+
         if(!isDataEmpty){
+            var template = $('#tmp_week_total').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#weekTableBody").append(totalHtml);
+
             var template = $('#tmp_week').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -255,6 +305,15 @@
         ui.paintColor();
         ui.tableHeightSet();
     }
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_month_total">
+    <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
+        <td>총계</td>
+        <td colspan="6">{{addComma total_succ}}</td>
+        <td class="_noBorder"></td>
+        <td colspan="6">{{addComma nTotal_succ}}</td>
+    </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_month">
@@ -297,6 +356,15 @@
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
     </tr>
     {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_gender_total">
+    <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
+        <td>총계</td>
+        <td colspan="9">{{addComma total_succ_sp}}</td>
+        <td class="_noBorder"></td>
+        <td colspan="9">{{addComma total_succ_no}}</td>
+    </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_gender">
@@ -353,6 +421,12 @@
     {{/each}}
 </script>
 
+<script type="text/x-handlebars-template" id="tmp_week_total">
+    <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
+        <td>총계</td>
+        <td colspan="6">{{addComma total_succ}}</td>
+    </tr>
+</script>
 
 <script type="text/x-handlebars-template" id="tmp_week">
     <tr class="font-bold" style="background-color: #f2f2f2;color: #fb782d;">
