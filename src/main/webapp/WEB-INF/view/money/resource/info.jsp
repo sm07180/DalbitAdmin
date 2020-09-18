@@ -872,7 +872,7 @@
                     <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">{{{sexIcon 'm'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalInc_total_mCnt 'Y'}}</td>
                     <td rowspan="5" style="border:solid 2px black"><span class="font-bold" style="font-size: 15px">{{addComma dalInc_total_Cnt 'Y'}}</span></td>
-                    <td rowspan="11" class="{{upAndDownClass dal_total_Cnt}}" style="border:solid 2px black">
+                    <td rowspan="12" class="{{upAndDownClass dal_total_Cnt}}" style="border:solid 2px black">
                         <i class="fa {{upAndDownIcon dal_total_Cnt}}" style="font-size: 20px"></i>
                         <span style="font-size: 20px">{{addComma dal_total_Cnt}}</span>
                     </td>
@@ -944,19 +944,20 @@
                     <td colspan="2" style="border:solid 2px black"></td>
                 </tr>
                 <tr>
-                    <th rowspan="6" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
-                    <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">아이템 사용</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
-                    <td colspan="5" rowspan="6"></td>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
-                    <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">구분</th>
-                    <th class="_bgColor" data-bgcolor="#d9d9d9" style="border:solid 2px black">소계</th>
-                    <th class="_bgColor" data-bgcolor="#d9d9d9" style="border:solid 2px black">감소 합</th>
+                    <th rowspan="7" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">아이템 사용</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                    <td colspan="5" rowspan="7"></td>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">구분</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">소계</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">감소 합</th>
                 </tr>
+                <tr></tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
                     <td>{{addComma dalgiftsend_mCnt 'Y'}}</td>
@@ -1021,9 +1022,9 @@
     <div class="col-md-12 no-padding">
         <table class="table table-bordered mb10 mt5 _tableHeight" data-height="23px">
             <colgroup>
-                <col width="4%"/><col width="4%"/><col width="6%"/><col width="6%"/><col width="6%"/>
-                <col width="6%"/><col width="6%"/><col width="6%"/><col width="9%"/><col width="9%"/>
-                <col width="9%"/>
+                <col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
+                <col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
+                <col width="8%"/><col width="8%"/>
             </colgroup>
             <tbody>
                 <tr>
@@ -1051,7 +1052,7 @@
                     <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">{{{sexIcon 'm'}}}</th>
                     <td style="border:solid 2px black">{{addComma byeolInc_total_mCnt 'Y'}}</td>
                     <td rowspan="5" style="border:solid 2px black"><span class="font-bold" style="font-size: 15px">{{addComma byeolInc_total_Cnt 'Y'}}</span></td>
-                    <td rowspan="11" class="{{upAndDownClass byeol_total_Cnt}}" style="border:solid 2px black">
+                    <td rowspan="12" class="{{upAndDownClass byeol_total_Cnt}}" style="border:solid 2px black">
                         <i class="fa {{upAndDownIcon byeol_total_Cnt}}" style="font-size: 20px"></i>
                         <span style="font-size: 20px">{{addComma byeol_total_Cnt}}</span>
                     </td>
@@ -1101,17 +1102,20 @@
                 </tr>
 
                 <tr>
-                    <th rowspan="6" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
-                    <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
-                    <td rowspan="6"></td>
-                    <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
-                    <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">구분</th>
-                    <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">소계</th>
-                    <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">감소 합</th>
+                    <th rowspan="7" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                    <td rowspan="7"></td>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">구분</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">소계</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">감소 합</th>
+                </tr>
+                <tr>
+
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
