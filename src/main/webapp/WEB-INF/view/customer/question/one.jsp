@@ -68,6 +68,7 @@
     var qnaContent;
     var fileName;
     function quest_detail_success(data, response, params){
+
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
         qnaIdx = params.qnaIdx;
@@ -153,6 +154,8 @@
         if(noticeType == 1 || noticeType == 3) {
             mobileBtnClick();
         }
+
+        tmpStorage();
 
         var scrollPosition = $("#div_questionTab").offset();
         util.scrollPostion(scrollPosition.top);
@@ -341,7 +344,6 @@
     }
     function fn_getqnaCatch_success(dst_id, response) {
         dalbitLog(response);
-
         var obj ={};
         obj.qnaIdx = qnaIdx;
         obj.answer = answer;
@@ -369,6 +371,30 @@
         obj.rowNum = rowNum;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
+
+    function tmpStorage(){
+        console.log("tmpStorage start -------------------------" );
+        storageTimer = setInterval(function() {
+            var data = {};
+            data["qnaIdx"] = qnaIdx;
+            if(noticeType == 2 || noticeType == 0){
+                data["answer"] = $("#editor").summernote('code');
+            }else{
+                data["answer"] = $("#smsSend-msg_body").val();
+            }
+            util.getAjaxData("tmpStorage", "/rest/customer/question/tmpStorage", data, quest_tmpStorage_success,quest_tmpStorage_false,"",false);
+
+        }, 1000 * 60);
+
+
+    }
+    function quest_tmpStorage_success(data, response, params){
+
+    }
+    function quest_tmpStorage_false(data, response, params){
+
+    }
+
 
 
 </script>

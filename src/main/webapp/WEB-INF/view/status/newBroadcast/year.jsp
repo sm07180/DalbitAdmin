@@ -6,7 +6,7 @@
 <span class="" style="font-size: 11px;color: red;">* 총 수치(비중복 수치)로 표기된 현황입니다.</span>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <div class="col-md-11 no-padding">
+        <div class="col-md-12 no-padding">
             <span class="font-bold">◈DJ/청취자 성별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
