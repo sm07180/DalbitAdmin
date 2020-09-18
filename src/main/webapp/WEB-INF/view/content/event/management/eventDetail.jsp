@@ -19,7 +19,7 @@
         var templateScript = Handlebars.compile(template);
         $("#eventInfoForm").html(templateScript);
 
-        // setTimeDate(dateTime);
+        $('#etcUrl').attr('readonly', true);
 
         $('._calendar').datepicker('._calendar', new Date()).on('changeDate', function(dateText, inst) {
             var selectDate = moment(dateText.date).format('YYYY.MM.DD');
@@ -156,12 +156,14 @@
     }
 
     $(document).on('click', '#bt_registerEvent', function() {
-        if(inputValidation()) {
-            if(confirm('등록하시겠습니까?')) {
-                util.getAjaxData("eventAdd", "/rest/content/event/management/add", getAddParameter(), function fn_eventAdd_success(dst_id, response) {
-                    alert(response.message);
-                    location.reload();
-                });
+        if(checkDate()) {
+            if (inputValidation()) {
+                if (confirm('등록하시겠습니까?')) {
+                    util.getAjaxData("eventAdd", "/rest/content/event/management/add", getAddParameter(), function fn_eventAdd_success(dst_id, response) {
+                        alert(response.message);
+                        location.reload();
+                    });
+                }
             }
         }
     });
@@ -186,12 +188,14 @@
     }
 
     $(document).on('click', '#bt_updateEvent', function() {
-        if(inputValidation()) {
-            if(confirm('수정하시겠습니까?')) {
-                util.getAjaxData("eventUpdate", "/rest/content/event/management/edit", getUpdateParameter(), function fn_eventUpdate_success(dst_id, response) {
-                    alert(response.message);
-                    location.reload();
-                });
+        if(checkDate()) {
+            if (inputValidation()) {
+                if (confirm('수정하시겠습니까?')) {
+                    util.getAjaxData("eventUpdate", "/rest/content/event/management/edit", getUpdateParameter(), function fn_eventUpdate_success(dst_id, response) {
+                        alert(response.message);
+                        location.reload();
+                    });
+                }
             }
         }
     });
@@ -207,6 +211,28 @@
             });
         }
     });
+
+    function checkDate() {
+        var alwaysCheck = $('input[name="alwaysYnCheck"]').is(':checked') ? 1 : 0;
+        alert(alwaysCheck);
+        if(alwaysCheck == 0) {
+            if ($('#eventStartDate').val() != '-' && $('#eventEndDate').val() != '-') {
+                var startDate = $('#eventStartDate').val().replace(/\./gi, '');
+                var endDate = $('#eventEndDate').val().replace(/\./gi, '');
+
+                if (startDate > endDate) {
+                    alert('이벤트 기간 날짜를 확인해주세요.');
+                    return false;
+                }
+            } else if($('#eventStartDate').val() == '-' || $('#eventEndDate').val() == '-') {
+                alert('이벤트 기간 날짜를 확인해주세요.');
+                return false;
+            }
+        }
+        if(alwaysCheck == 1) {
+            return true;
+        }
+    }
 
     function getImg(targetName) {
         var imgUrl = $('input[name="'+targetName+'"]').val();
