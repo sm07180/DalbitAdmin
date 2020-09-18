@@ -69,6 +69,8 @@
     var fileName;
     function quest_detail_success(data, response, params){
 
+        clearInterval(storageTimer);
+
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
         qnaIdx = params.qnaIdx;
