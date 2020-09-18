@@ -58,6 +58,9 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private int op_code_5_cnt;   // 7일 정지
     private int op_code_6_cnt;   // 영구 정지
 
+    private int clipListenCnt;      //청취 클립 건수 (비중복)
+    private int clipPlayCnt;         // 클립 재생 횟수
+    private int clipCnt;         // 클립 등록건수
 
     private String certification;
     private String comm_company;

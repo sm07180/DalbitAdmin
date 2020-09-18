@@ -199,6 +199,11 @@
         }
 
         if($('#eventPrizeForm #prize_receive').val() == 1) {
+            // 현물일 시
+            if(common.isEmpty($('input[name="prizeUrl"]').val())) {
+                alert('경품 URL을 입력해주세요.');
+                return false;
+            }
 
             if(common.isEmpty($('input[name="giveCnt"]').val())) {
                 alert('지급 수량을 입력해주세요.');
