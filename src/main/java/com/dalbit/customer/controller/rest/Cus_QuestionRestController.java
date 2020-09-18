@@ -172,4 +172,13 @@ public class Cus_QuestionRestController {
     public String fileDel(P_QuestionOperateVo pQuestionOperateVo){
         return cus_questionService.callQustionFileDel(pQuestionOperateVo);
     }
+
+
+    /**
+     *  1:1 문의임시 저장
+     */
+    @PostMapping("tmpStorage")
+    public String tmpStorage(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException, UnsupportedEncodingException {
+        return cus_questionService.callServiceCenterQnaTmpStorage(pQuestionOperateVo);
+    }
 }
