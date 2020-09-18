@@ -248,6 +248,8 @@
             }
         }
 
+        $("input:radio[name='position'][value='"+detailData.position+"']").prop("checked", true);
+
         if(detailData.term_type == "1"){
             fnc_bannerDetail.target.find("#banner-div-exposure").show();
 
