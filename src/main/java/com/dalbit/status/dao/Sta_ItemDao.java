@@ -24,4 +24,7 @@ public interface Sta_ItemDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_ItemBroadOutDetailVo> callItemBroad(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ItemClipOutDetailVo> callItemClip(ProcedureVo procedureVo);
 }

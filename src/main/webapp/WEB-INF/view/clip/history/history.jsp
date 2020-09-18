@@ -5,7 +5,10 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate" style="display: none;"></span>
-        <select id="clipSubjectType" name="clipSubjectType" class="form-control pull-left"></select>
+        <span id="select_clipTypeOpen" name="select_clipTypeOpen" class="pull-left ml5"></span>
+        <span id="select_clipConfirmType" name="select_clipConfirmType" class="pull-left ml5"></span>
+        <span id="select_clipStateType" name="select_clipStateType" class="pull-left ml5"></span>
+        <select id="clipSubjectType" name="clipSubjectType" class="form-control pull-left ml5"></select>
         <span id="select_clipOrderByType" name="select_clipOrderByType" class="pull-left ml5"></span>
         <span class="pull-right">
             <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
@@ -27,10 +30,16 @@
 
 
 <script type="text/javascript">
+    var beforeClipTypeOpen = 0;
+    var beforeClipConfirmType = 0;
+    var beforeClipStateType = 0;
     var beforeOrderByType = 0;
     var beforeClipSubjectType = -1;
 
-    $(document).on('change', "#clipSubjectType, #clipOrderByType", function(){
+    $(document).on('change', "#clipSubjectType, #clipOrderByType, #searchTypeOpen, #searchConfirm, #searchState", function(){
+        beforeClipTypeOpen = $("#searchTypeOpen").val();
+        beforeClipConfirmType = $("#searchConfirm").val();
+        beforeClipStateType = $("#searchState").val();
         beforeOrderByType = $("#clipOrderByType").val();
         beforeClipSubjectType = $("#clipSubjectType").val();
         dtList_info.reload(selectCallback_clipHistoty, false);
@@ -41,13 +50,22 @@
     });
 
     function initClipHistory(){
+        beforeClipTypeOpen = -1;
+        beforeClipConfirmType = -1;
+        beforeClipStateType = -1;
         beforeOrderByType = 0;
         beforeClipSubjectType = -1;
+        $("#searchTypeOpen").val("-1");
+        $("#searchConfirm").val("-1");
+        $("#searchState").val("-1");
         $("#clipOrderByType").val("0");
         $("#clipSubjectType").val("-1");
     }
 
     function getHistory(){
+        $("#select_clipTypeOpen").html(util.getCommonCodeSelect(beforeClipTypeOpen, clip_typeOpen_select));
+        $("#select_clipConfirmType").html(util.getCommonCodeSelect(beforeClipConfirmType, clip_confirmType_select));
+        $("#select_clipStateType").html(util.getCommonCodeSelect(beforeClipStateType, clip_stateType_select));
         $("#select_clipOrderByType").html(util.getCommonCodeSelect(beforeOrderByType, clip_orderByType));
         getClipSubjectTypeCodeDefine();
 
@@ -58,6 +76,9 @@
     function initDataTable_clipHistory() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
+            data.searchTypeOpen = Number($("#searchTypeOpen").val());
+            data.searchConfirm = Number($("#searchConfirm").val());
+            data.searchState = Number($("#searchState").val());
             data.orderByType = Number($("#clipOrderByType").val());
             data.subjectType = Number(common.isEmpty($("#clipSubjectType").val()) ? "-1" : $("#clipSubjectType").val());
         };
@@ -66,6 +87,7 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
+        dtList_info.usePageLenght(50);
         dtList_info.createDataTable(selectCallback_clipHistoty);
 
         //---------- Main DataTable ----------=
@@ -73,14 +95,17 @@
 
     function selectCallback_clipHistoty(data){
         // 탭 우측 총 건수 추가
-        var text = "<span style='color: black;'>클립 누적등록 수 (삭제 수) :</span>" +
-            "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건 (" + common.addComma(data.summary.delTotalCnt) + "건)</span>" +
-            "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
-            "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건 (" + common.addComma(data.summary.delManTotalCnt) + "건), </span>" +
-            "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건 (" + common.addComma(data.summary.delFemaleTotalCnt) + "건), </span>" +
-            "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건 (" + common.addComma(data.summary.delUnknownTotalCnt) + "건)</span>";
-        $("#headerInfo").html(text);
+        var template = $("#tmp_headerInfo_clipHistory").html();
+        var templateScript = Handlebars.compile(template);
+        var context = data;
+        var html = templateScript(context);
+
+        $("#headerInfo").html(html);
         $("#headerInfo").show();
+        ui.paintColor();
+
+        $(".top-right").css("padding", "0px");
+        $("#clip_history_list_info_length").css("margin", "0px");
     }
 
     function getClipSubjectTypeCodeDefine(){
@@ -273,4 +298,41 @@
         <option value="{{sub.value}}">{{sub.code}}</option>
         {{/each}}
     </select>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_headerInfo_clipHistory">
+        <table class="table table-bordered _tableHeight" data-height="23px">
+            <colgroup>
+                <col width="16%"/><col width="16%"/><col width="16%"/>
+                <col width="16%"/><col width="16%"/><col width="16%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th colspan="6" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">전체 클립 등록/삭제 수 : {{addComma pagingVo.totalCnt 'N'}} 건 ( {{addComma summary.delTotalCnt 'N'}} 건 )</th>
+            </tr>
+            <tr>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">남성</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">여성</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#FFF2CC">알수없음</th>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">삭제</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">삭제</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{addComma summary.manTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.delManTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.femaleTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.delFemaleTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.unknownTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.delUnknownTotalCnt 'N'}} 건</td>
+            </tr>
+            </tbody>
+        </table>
 </script>
