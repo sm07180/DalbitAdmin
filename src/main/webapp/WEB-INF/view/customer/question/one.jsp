@@ -373,8 +373,8 @@
     }
 
     function tmpStorage(){
-        console.log("tmpStorage start -------------------------" );
         storageTimer = setInterval(function() {
+            console.log("tmpStorage start -------------------------" );
             var data = {};
             data["qnaIdx"] = qnaIdx;
             if(noticeType == 2 || noticeType == 0){
