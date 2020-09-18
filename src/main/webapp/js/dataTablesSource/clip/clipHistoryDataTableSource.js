@@ -72,11 +72,11 @@ var ClipHistoryDataTableSource = {
                         return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', '+ data +')">[해제]</a>';
                     }
                 }},
-            {'title': '삭제', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {
+            {'title': '삭제', 'width':'50px', 'data': 'state', 'render': function (data, type, row, meta) {
                     if(data == 4 || row.state == 5){
                         return "-";
                     }else{
-                        return '<a href="javascript:;" onclick="deleteClip(' + row.castNo + ')">[삭제]</a>';
+                        return '<p class="mb5"><a href="javascript:;" onclick="reportDeleteClip(\' + row.castNo + \')">[경고/삭제]</a></p><a href="javascript:;" onclick="deleteClip(' + row.castNo + ')">[삭제]</a>';
                     }
                 }},
 			{'title': '상태', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {
