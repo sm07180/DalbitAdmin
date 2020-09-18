@@ -12,6 +12,7 @@ public enum Status {
     삭제("C004", "delete.success", "삭제"),
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
+    벨리데이션체크("C007", "validation.error", "벨리데이션체크 오류 시"),
     로그인필요("C007", "login.need", "로그인 세션이 없어 로그인 해야 할 때"),
     데이터없음("0", "no.data", "데이터가 없을 시"),
     처리완료("C008", "operate.success", "처리완료 시"),
@@ -174,6 +175,9 @@ public enum Status {
     문의목록조회_실패("C006", "question.list.view.fail", "1:1문의보기 실패 시"),
     문의첨부문서삭제_성공("0", "question.file.del.success", "1:1문의 첨부문서 삭제 성공 시"),
     문의첨부문서삭제_실패("C006", "question.file.del.fail", "1:1문의 첨부문서 삭제 실패 시"),
+
+    문의임시저장_성공("0", "question.tmp.storage.add.success", "1:1문의임시저장 성공 시"),
+    문의임시저장_실패("C006", "question.tmp.storage.fali.success", "1:1문의임시저장 실패 시"),
 
 
     //회원접속기록
@@ -763,6 +767,10 @@ public enum Status {
     클립상세수정_이미삭제("-4", "clip.detail.edit.already.deleted", "클립상세 이미 삭제된 상태"),
     클립상세수정_이미처리("-5", "clip.detail.edit.already.processed", "클립상세 이미 처리된 상태"),
     클립상세수정_닉네임중복("-6", "clip.detail.edit.overlap.nickname", "클립상세 닉네임 중복"),
+
+    //에러 로그 저장
+    에러로그저장_성공("0", "error.log.save.success", "에러 로그 저장 성공 시"),
+    에러로그저장_실패("C006", "error.log.save.fail", "에러 로그 저장 실패 시"),
 
     ;
 
