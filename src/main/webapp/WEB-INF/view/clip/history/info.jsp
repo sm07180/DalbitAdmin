@@ -3,8 +3,8 @@
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
-    <div id="page-wrapper">
-        <div class="container-fluid col-lg-12 no-padding">
+    <div id="page-wrapper" class="col-lg-12 no-padding" style="height: 85px;">
+        <div class="container-fluid col-lg-9 no-padding">
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -70,12 +70,15 @@
                 </div>
             </form>
         </div>
-        <!-- tab -->
-        <div class="no-padding" id="infoTab">
-            <jsp:include page="infoTab.jsp"/>
+        <div class="col-md-3 no-padding pull-right">
+            <div id="headerInfo"></div>
         </div>
-        <!-- //tab -->
     </div>
+    <!-- tab -->
+    <div class="no-padding" id="infoTab">
+        <jsp:include page="infoTab.jsp"/>
+    </div>
+    <!-- //tab -->
 </div>
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
