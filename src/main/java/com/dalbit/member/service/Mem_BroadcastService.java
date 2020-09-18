@@ -78,20 +78,20 @@ public class Mem_BroadcastService {
     public String forcedEnd(MemberVo MemberVo) {
         ArrayList<P_MemberBroadcastOutputVo> list = mem_BroadcastDao.callbroadCastList(MemberVo);
 
-        P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
-        pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
-        pMemberAdminMemoAddVo.setMem_no(MemberVo.getMem_no());
-        pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 방송 강제 종료 시도");
-        ProcedureVo procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
-        mem_MemberDao.callMemAdminMemoAdd(procedureVo);
-
-        if(!DalbitUtil.isEmpty(MemberVo.getRoom_no())) {
-            pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
-            pMemberAdminMemoAddVo.setMem_no(MemberVo.getRoom_no());
-            pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 방송 강제 종료 시도");
-            procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
-            mem_MemberDao.callMemAdminMemoAdd(procedureVo);
-        }
+//        P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
+//        pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
+//        pMemberAdminMemoAddVo.setMem_no(MemberVo.getMem_no());
+//        pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 방송 강제 종료 시도");
+//        ProcedureVo procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
+//        mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+//
+//        if(!DalbitUtil.isEmpty(MemberVo.getRoom_no())) {
+//            pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
+//            pMemberAdminMemoAddVo.setMem_no(MemberVo.getRoom_no());
+//            pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 방송 강제 종료 시도");
+//            procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
+//            mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+//        }
 
         String room_no;
         String forceExitResult ="";
