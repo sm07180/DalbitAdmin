@@ -19,6 +19,10 @@ public class ClipHistoryVo extends PagingVo {
     private int pageNo;
     private String targetMemNo;
 
+    private int searchTypeOpen = -1;
+    private int searchConfirm = -1;
+    private int searchState = -1;
+
     /* output */
     private String clipIdx;
     private String castNo;
@@ -52,5 +56,7 @@ public class ClipHistoryVo extends PagingVo {
     private String replyCnt;
     private int clipConfirm;
     private int opMemoCnt;
+    private String delName;
+    private String hideName;
 
 }

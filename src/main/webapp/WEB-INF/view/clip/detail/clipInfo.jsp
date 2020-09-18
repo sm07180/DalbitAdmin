@@ -384,13 +384,17 @@
         </colgroup>
         <tbody>
         <tr>
-            <th rowspan="4" colspan="1">
+            <th rowspan="5" colspan="1">
                 클립 이미지
                 <br><button type="button" id="bt_edit_clipImg" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
             </th>
-            <td rowspan="4" colspan="4" style="text-align: -webkit-center">
+            <td rowspan="5" colspan="4" style="text-align: -webkit-center">
                 <img id="image_section" class="thumbnail fullSize_background no-padding no-margin" src="{{viewImage backgroundImage}}" alt="your image" style="width: 150px;height: 150px" />
             </td>
+        </tr>
+        <tr>
+            <th colspan="1">클립 번호</th>
+            <td colspan="4">{{castNo}}</td>
         </tr>
         <tr>
             <th colspan="1">클립 상태</th>

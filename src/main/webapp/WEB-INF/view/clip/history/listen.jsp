@@ -52,15 +52,14 @@
 
     function selectCallback_clipHistotyListen(data){
         // 탭 우측 총 건수 추가
-        var text = "<span style='color: black;'>클립 청취 수 :</span>" +
-            "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
-            "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
-            "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건, </span>" +
-            "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건, </span>" +
-            "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건</span>";
+        var template = $("#tmp_headerInfo_clipHistoryListen").html();
+        var templateScript = Handlebars.compile(template);
+        var context = data;
+        var html = templateScript(context);
 
-        $("#headerInfo").html(text);
+        $("#headerInfo").html(html);
         $("#headerInfo").show();
+        ui.paintColor();
     }
 
 </script>
@@ -72,4 +71,29 @@
         <option value="{{sub.value}}">{{sub.code}}</option>
         {{/each}}
     </select>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_headerInfo_clipHistoryListen">
+    <table class="table table-bordered _tableHeight" data-height="23px">
+        <colgroup>
+            <col width="33%"/><col width="33%"/><col width="33%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th colspan="3" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총 청취 수 : {{addComma pagingVo.totalCnt 'N'}} 건</th>
+        </tr>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#dae3f3">남성</th>
+            <th class="_bgColor" data-bgcolor="#fbe5d6">여성</th>
+            <th class="_bgColor" data-bgcolor="#FFF2CC">알수없음</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td >{{addComma summary.manTotalCnt 'N'}} 건</td>
+            <td >{{addComma summary.femaleTotalCnt 'N'}} 건</td>
+            <td >{{addComma summary.unknownTotalCnt 'N'}} 건</td>
+        </tr>
+        </tbody>
+    </table>
 </script>

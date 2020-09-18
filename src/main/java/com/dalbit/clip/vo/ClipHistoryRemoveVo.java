@@ -48,6 +48,7 @@ public class ClipHistoryRemoveVo extends PagingVo {
     private String inner;
     private String dal;
     private int clipConfirm;
+    private String delName;
 
 
 }
