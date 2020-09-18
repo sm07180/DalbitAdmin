@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dalbit.common.code.Status;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -41,7 +43,7 @@ public class CommonErrorController {
      *  false : 로그 적재 안함
      *  true : 로그 적재
      */
-    public boolean isSaveLog(GlobalException globalException, HttpServletRequest request) {
+    public boolean isSaveLog(GlobalException globalException, HttpServletRequest request, HttpServletResponse response) {
         if(globalException.getStatus() == Status.벨리데이션체크) return false;
         if(request.getRequestURL().toString().endsWith("/error/log")) return true;
         if(globalException.getClass().getSimpleName().toLowerCase().equals("clientabortexception")) return false;
@@ -50,9 +52,10 @@ public class CommonErrorController {
     }
 
     @ExceptionHandler(GlobalException.class)
-    public String exceptionHandle(GlobalException globalException, HttpServletRequest request) {
+    public String exceptionHandle(GlobalException globalException, HttpServletRequest request, HttpServletResponse response) {
+        DalbitUtil.setHeader(request, response);
         try {
-            if(isSaveLog(globalException, request)) {
+            if(isSaveLog(globalException, request, response)) {
                 P_ErrorLogVo errorLogVo = new P_ErrorLogVo();
                 errorLogVo.setOs("admin");
                 errorLogVo.setDtype(globalException.getMethodName());
@@ -71,9 +74,10 @@ public class CommonErrorController {
                     desc += "GlobalException : \n" + sw.toString();
                 }
                 errorLogVo.setDesc(desc);
-                commonService.saveErrorLog(errorLogVo);
+                commonService.saveErrorLog(errorLogVo, request);
             }
         } catch (Exception e) {}
+
         if (globalException.getErrorStatus() != null) {
             return gsonUtil.toJson(new JsonOutputVo(globalException.getErrorStatus(), globalException.getData(), globalException.getValidationMessageDetail(), globalException.getMethodName()));
         } else {
@@ -99,7 +103,8 @@ public class CommonErrorController {
     }
 
     @ExceptionHandler(Exception.class)
-    public String exceptionHandle(Exception exception, HttpServletRequest request){
+    public String exceptionHandle(Exception exception, HttpServletRequest request, HttpServletResponse response){
+        DalbitUtil.setHeader(request, response);
         try {
             P_ErrorLogVo errorLogVo = new P_ErrorLogVo();
             errorLogVo.setOs("admin");
@@ -116,12 +121,11 @@ public class CommonErrorController {
                 desc += "Exception : \n" + sw.toString();
             }
             errorLogVo.setDesc(desc);
-            commonService.saveErrorLog(errorLogVo);
+            commonService.saveErrorLog(errorLogVo, request);
         }catch (Exception e){}
 
         HashMap map = new HashMap();
         map.put("message", exception.getMessage());
-//        return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류, map, null, request.getMethod() + ""));
-        return "";
+        return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류, map, (ArrayList) null, request.getMethod() + ""));
     }
 }

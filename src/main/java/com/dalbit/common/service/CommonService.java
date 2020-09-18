@@ -143,7 +143,7 @@ public class CommonService {
     /**
      * 에러 로그 저장
      */
-    public String saveErrorLog(P_ErrorLogVo pErrorLogVo) {
+    public String saveErrorLog(P_ErrorLogVo pErrorLogVo, HttpServletRequest request) {
         ProcedureVo procedureVo = new ProcedureVo(pErrorLogVo);
         commonDao.saveErrorLog(procedureVo);
 
