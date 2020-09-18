@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -1008,5 +1009,18 @@ public class DalbitUtil {
         }else{     // 기타
             return setting.getAll_ok() == 0;
         }
+    }
+
+    public static String escapeCharDecode(String data){
+        if(isEmpty(data)){
+            return "";
+        }
+        data = StringUtils.replace(data, "\\\\n", "\\n");
+        data = StringUtils.replace(data, "\\\\r", "\\r");
+        data = StringUtils.replace(data, "\\\\t", "\\t");
+        data = StringUtils.replace(data, "\\\\/", "\\/");
+        data = StringUtils.replace(data, "\\\\'", "\\'");
+        //data = StringUtils.replace(data, "\\\\\"", "\\\"");
+        return data;
     }
 }

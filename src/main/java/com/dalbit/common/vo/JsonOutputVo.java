@@ -64,6 +64,16 @@ public class JsonOutputVo {
         setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
     }
 
+    private String methodName;
+
+    public JsonOutputVo(ErrorStatus errorStatus, Object data, ArrayList validationMessageDetail, String methodName){
+        setErrorStatus(errorStatus);
+        setData(data);
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
+        setValidationMessageDetail(validationMessageDetail);
+        setMethodName(methodName);
+    }
+
     private String result;
 
     private String code;
@@ -76,6 +86,13 @@ public class JsonOutputVo {
     private Object summary;
 
     private String timestamp;
+    public JsonOutputVo(Status status, Object data, ArrayList validationMessageDetail, String methodName){
+        setStatus(status);
+        setData(data);
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
+        setValidationMessageDetail(validationMessageDetail);
+        setMethodName(methodName);
+    }
 
     private ArrayList validationMessageDetail = new ArrayList<String>();
 

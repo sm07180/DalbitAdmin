@@ -1,5 +1,6 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.EventCode;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
@@ -274,8 +275,13 @@ public class Con_EventRestController {
      * 당첨자 리스트 조회
      */
     @PostMapping("/management/winner/list")
-    public String eventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
-        String result = con_EventService.callEventWinnerList(pEventManagementEventIdxInputVo);
+    public String eventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException {
+        String result;
+        try {
+            result = con_EventService.callEventWinnerList(pEventManagementEventIdxInputVo);
+        } catch (Exception e) {
+            throw new GlobalException(ErrorStatus.잘못된파람);
+        }
         return result;
     }
 

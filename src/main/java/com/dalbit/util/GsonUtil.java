@@ -45,6 +45,24 @@ public class GsonUtil {
         return DalbitUtil.getSpclStrCnvr(getGsonBuilder().create().toJson(messageUtil.setJsonOutputVo(jsonOutputVo)));
     }
 
+    public static GsonBuilder getGsonBuilderAdm(){
+        return new GsonBuilder()
+                .registerTypeAdapter(String.class, new StringAdapter())
+                .registerTypeAdapter(Integer.class, new IntegerAdapter())
+                .registerTypeAdapter(Float.class, new FloatAdapter())
+                .registerTypeAdapter(Double.class, new DoubleAdapter())
+                .registerTypeAdapter(Boolean.class, new BooleanAdapter())
+                .registerTypeAdapter(Date.class, new DateAdapter());
+    }
+
+    public String toJsonCustomMessage(JsonOutputVo jsonOutputVo){
+        return DalbitUtil.escapeCharDecode(convertJsonAdm(jsonOutputVo));
+    }
+
+    public String convertJsonAdm(Object object){
+        return getGsonBuilderAdm().create().toJson(object);
+    }
+
     /**
      * response를 JsonOutputVo gson으로 응답한다.
      * @param response
