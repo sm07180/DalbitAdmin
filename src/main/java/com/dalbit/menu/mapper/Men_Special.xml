@@ -655,12 +655,10 @@
         select
             a.*
         from (
-            select list.*, @RNUM := @RNUM + 1 as rowNum
+            select list.*
             from(
                 select
-                    profile.specialdj_badge
-                    , profile.image_background
-                    , basic.mem_no
+                    basic.mem_no
                     , basic.mem_id
                     , basic.mem_sex
                     , basic.mem_nick
@@ -728,16 +726,14 @@
                                 and listen.start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')
                                 and 1800 <![CDATA[<=]]> listen.listentime), 0) listenCnt30
                 from rd_data.tb_member_basic basic
-                    , rd_data.tb_member_profile profile
                     , rd_data.tb_member_level level
                     , rd_admin.tb_req_special_dj_manage manage
-                where basic.mem_no = profile.mem_no
-                    and basic.mem_no = level.mem_no
+                where basic.mem_no = level.mem_no
                     and manage.select_year = #{select_year}
                     and manage.select_month = #{select_month}
-                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where select_year = #{select_year} and select_month = #{select_month})
-                order by level desc
-            ) list , (select @RNUM := 0) r
+                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where DATE_FORMAT(reg_date, '%Y%m') = concat(#{select_year},#{select_month}))
+                /*order by level desc*/
+            ) list
             where
                 <include refid="reqAbleCondition" />
         ) a
@@ -816,14 +812,12 @@
                                 and listen.start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')
                                 and 1800 <![CDATA[<=]]> listen.listentime), 0) listenCnt30
                 from rd_data.tb_member_basic basic
-                    , rd_data.tb_member_profile profile
                     , rd_data.tb_member_level level
                     , rd_admin.tb_req_special_dj_manage manage
-                where basic.mem_no = profile.mem_no
-                    and basic.mem_no = level.mem_no
+                where basic.mem_no = level.mem_no
                     and manage.select_year = #{select_year}
                     and manage.select_month = #{select_month}
-                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where select_year = #{select_year} and select_month = #{select_month})
+                    and basic.mem_no not in (select mem_no from rd_admin.tb_req_special_dj where DATE_FORMAT(reg_date, '%Y%m') = concat(#{select_year},#{select_month}))
             ) list
             , (select @RNUM := 0) r
             where

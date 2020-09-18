@@ -26,7 +26,7 @@ public class P_StoryListOutputVo extends PagingVo {
     private String writeDateFormat;
     private String contents;
     private int inner;
-    
+
     /* summry */
     private int storyCnt;
     private int male;

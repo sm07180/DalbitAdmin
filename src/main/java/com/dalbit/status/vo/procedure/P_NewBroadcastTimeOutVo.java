@@ -27,6 +27,12 @@ public class P_NewBroadcastTimeOutVo {
     private int gift_Cnt;
     private int gift_Amt;
 
+    private int unique_dj_mCnt;
+    private int unique_dj_fCnt;
+    private int unique_dj_nCnt;
+    private int unique_listener_mCnt;
+    private int unique_listener_fCnt;
+    private int unique_listener_nCnt;
 
     private int total_create_mCnt;
     private int total_create_fCnt;
@@ -43,6 +49,14 @@ public class P_NewBroadcastTimeOutVo {
     private int total_airtime;
     private int total_gift_Cnt;
     private int total_gift_Amt;
+
+    private int total_unique_dj_mCnt;
+    private int total_unique_dj_fCnt;
+    private int total_unique_dj_nCnt;
+    private int total_unique_listener_mCnt;
+    private int total_unique_listener_fCnt;
+    private int total_unique_listener_nCnt;
+
 }
 
 

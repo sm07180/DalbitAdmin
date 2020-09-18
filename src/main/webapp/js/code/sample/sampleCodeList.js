@@ -9,6 +9,7 @@ var search_osType = [
     , new COMMON_CODE('server', 'server', 'SERVER')
     , new COMMON_CODE('photo', '7', 'Photo')
     , new COMMON_CODE('pay', 'Pay', 'Pay')
+    , new COMMON_CODE('admin', 'admin', 'Admin')
 ];
 
 var search_searchType = [

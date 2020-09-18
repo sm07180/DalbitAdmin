@@ -59,9 +59,10 @@
     }
 
 // ============================================================== 버튼 이벤트
+    var eventId = "";
     // 버튼 이벤트 처리
     $("#memberInfoFrm").on("click", "button", function(){
-        var eventId = $(this).prop("id");
+        eventId = $(this).prop("id");
         // alert(eventId)
 
         if(eventId == "bt_edit_nick"){ // 닉네임 초기화
@@ -106,23 +107,14 @@
 
         // 클립 경고/정지 처리
         if(eventId == "bt_edit_report"){
-            var report = "/member/member/popup/reportPopup?"
-                + "memNo=" + encodeURIComponent(clipInfoData.cast_mem_no)
-                + "&memId=" + encodeURIComponent(clipInfoData.cast_userId)
-                + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
-                + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
-                + "&deviceUuid=" + clipInfoData.cast_deviceUuid
-                + "&ip=" + clipInfoData.cast_ip;
-
-            console.log(report);
-            util.windowOpen(report,"750","910","경고/정지");
+            openClipReportPopup();
         }
 
         // 클립 숨기기 처리
         if(eventId == "bt_edit_hide"){
             var hideType = $(this).data("hide") == 0 ? 1 : 0;
 
-            if(confirm("클립 " + ((hideType === 1) ? "숨기기" : "숨기기 해제") + "를 진행 하시겠습니까?")){
+            if(confirm("클립 숨기기를 하는 경우 어드민에서 확인되지만 리스트에서는 본인외 타인에게 확인되지 않습니다. \n\n해당 클립을 "+ ((hideType === 1) ? "숨기기" : "숨기기 해제") +" 하시겠습니까?")){
                 var data = Object();
                 data.cast_no = clipNo;
                 data.editSlct = 5;
@@ -136,13 +128,7 @@
         // 클립 삭제 처리
         if(eventId == "bt_edit_state"){
             if(confirm("클립 삭제 하시겠습니까?")){
-                var data = Object();
-                data.cast_no = clipNo;
-                data.editSlct = 4;
-                data.state = 5;
-                data.sendNoti = 0;
-
-                editClipDetailData(data);
+                openClipReportPopup();
             }
         }
 
@@ -229,6 +215,11 @@
     function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
         console.log(response);
         getClipDetailInfo();
+
+        if(eventId == "bt_edit_state"){
+            return;
+        }
+
         alert(response.message);
     }
 
@@ -342,7 +333,33 @@
         $("#clipSubjectType").val(clipInfoData.subjectType);
     }
 
+
+    //클립 신고 팝업 오픈
+    function openClipReportPopup(){
+        var report = "/member/member/popup/reportPopup?"
+            + "memNo=" + encodeURIComponent(clipInfoData.cast_mem_no)
+            + "&memId=" + encodeURIComponent(clipInfoData.cast_userId)
+            + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
+            + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
+            + "&deviceUuid=" + clipInfoData.cast_deviceUuid
+            + "&ip=" + clipInfoData.cast_ip;
+
+        util.windowOpen(report,"750","910","clipReport");
+    }
+
+
+    // 클립 신고 팝업 완료 콜백 함수
     function getMemNo_info_reload(memNo){
+        if(eventId == "bt_edit_state"){ // 클립 삭제처리
+            var data = Object();
+            data.cast_no = clipNo;
+            data.editSlct = 4;
+            data.state = 5;
+            data.sendNoti = 0;
+
+            editClipDetailData(data);
+        }
+
         getClipDetailInfo();
     }
 

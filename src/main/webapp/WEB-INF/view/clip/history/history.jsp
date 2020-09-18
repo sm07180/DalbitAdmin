@@ -73,12 +73,12 @@
 
     function selectCallback_clipHistoty(data){
         // 탭 우측 총 건수 추가
-        var text = "<span style='color: black;'>클립 누적등록 수 :</span>" +
-            "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
+        var text = "<span style='color: black;'>클립 누적등록 수 (삭제 수) :</span>" +
+            "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건 (" + common.addComma(data.summary.delTotalCnt) + "건)</span>" +
             "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
-            "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건, </span>" +
-            "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건, </span>" +
-            "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건</span>";
+            "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건 (" + common.addComma(data.summary.delManTotalCnt) + "건), </span>" +
+            "<span style='color: red; font-weight: bold; '>여성 : " +  common.addComma(data.summary.femaleTotalCnt) + " 건 (" + common.addComma(data.summary.delFemaleTotalCnt) + "건), </span>" +
+            "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건 (" + common.addComma(data.summary.delUnknownTotalCnt) + "건)</span>";
         $("#headerInfo").html(text);
         $("#headerInfo").show();
     }
@@ -114,12 +114,15 @@
 
     //숨기기 기능 이베트
     function updateClipHide(clipNo, hide) {
-        if(confirm("클립 숨기기를 하는 경우 어드민에서 확인되지만 리스트에서는 본인외 타인에게 확인되지 않습니다. \n\n해당 클립을 숨기기 하시겠습니까?")){
-            var data = {
-                "castNo" : clipNo
-                , "hide" : hide
-            }
-            util.getAjaxData("isHide", "/rest/clip/history/updateHide", data , fn_ClipUpdateHide_success, fn_fail)
+        var hideType = hide == 0 ? 1 : 0;
+        if(confirm("클립 숨기기를 하는 경우 어드민에서 확인되지만 리스트에서는 본인외 타인에게 확인되지 않습니다. \n\n해당 클립을 "+ ((hideType === 1) ? "숨기기" : "숨기기 해제") +" 하시겠습니까?")){
+            var data = Object();
+            data.cast_no = clipNo;
+            data.editSlct = 5;
+            data.hide = hideType;
+            data.sendNoti = 0;
+
+            editClipDetailData(data);
         }
     }
 
@@ -134,12 +137,20 @@
 
     //클립 삭제 기능 이베트
     function deleteClip(clipNo) {
+        console.log(clipNo)
         if(confirm("해당 클립을 삭제 하시겠습니까?")){
-            var data = {
-                "castNo" : clipNo
-            }
-            util.getAjaxData("isHide", "/rest/clip/history/deleteClip", data , fn_ClipDelete_success, fn_fail)
+            var data = new Object();
+            data.cast_no = clipNo;
+
+            util.getAjaxData("clipDetailInfo", "/rest/clip/history/info", data, fn_detailInfo_select_success);
         }
+    }
+
+    var clipInfoData = "";
+    function fn_detailInfo_select_success(dst_id, response, dst_params) {
+        dalbitLog(response);
+        clipInfoData = response.data;
+        openClipReportPopup();
     }
 
     function fn_ClipDelete_success(dst_id, response){
@@ -205,14 +216,52 @@
             data.confirm = confirmData === 1 ? 0 : 1;
             data.sendNoti = 0;
 
-            util.getAjaxData("clipDetailInfoEdit", "/rest/clip/history/info/edit", data, fn_detailInfo_Edit_success);
+            editClipDetailData(data);
         }
+    }
+
+    //클립 수정
+    var isAlertShow = true;
+    function editClipDetailData(data, isAlert){
+        isAlertShow = true;
+        if(!common.isEmpty(isAlert)){
+            isAlertShow = isAlert
+        }
+
+        util.getAjaxData("clipDetailInfoEdit", "/rest/clip/history/info/edit", data, fn_detailInfo_Edit_success);
     }
 
     function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
         console.log(response);
         dtList_info.reload(selectCallback_clipHistoty, false);
-        alert(response.message);
+        if(isAlertShow){alert(response.message)};
+    }
+
+    //클립 신고 팝업 오픈
+    function openClipReportPopup(){
+        var report = "/member/member/popup/reportPopup?"
+            + "memNo=" + encodeURIComponent(clipInfoData.cast_mem_no)
+            + "&memId=" + encodeURIComponent(clipInfoData.cast_userId)
+            + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
+            + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
+            + "&deviceUuid=" + clipInfoData.cast_deviceUuid
+            + "&ip=" + clipInfoData.cast_ip;
+
+        util.windowOpen(report,"750","910","clipReport");
+    }
+
+    // 클립 신고 팝업 완료 콜백 함수
+    function getMemNo_info_reload(memNo){
+        if(!common.isEmpty(clipInfoData)){
+            var data = Object();
+            data.cast_no = clipInfoData.castNo;
+            data.editSlct = 4;
+            data.state = 5;
+            data.sendNoti = 0;
+
+            editClipDetailData(data, false);
+        }
+        dtList_info.reload(selectCallback_clipHistoty, false);
     }
 
 </script>
