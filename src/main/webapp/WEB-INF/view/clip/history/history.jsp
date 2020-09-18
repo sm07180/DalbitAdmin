@@ -160,14 +160,30 @@
         console.log(data, textStatus, jqXHR);
     };
 
-    //클립 삭제 기능 이베트
-    function deleteClip(clipNo) {
+
+    // 클립 신고 삭제 이벤트
+    function reportDeleteClip(clipNo){
         console.log(clipNo)
-        if(confirm("해당 클립을 삭제 하시겠습니까?")){
+        // if(confirm("해당 클립을 삭제 하시겠습니까?")){
             var data = new Object();
             data.cast_no = clipNo;
 
             util.getAjaxData("clipDetailInfo", "/rest/clip/history/info", data, fn_detailInfo_select_success);
+        // }
+    }
+
+
+    //클립 삭제 이벤트
+    function deleteClip(clipNo) {
+        console.log(clipNo)
+        if(confirm("해당 클립을 삭제 하시겠습니까?")){
+            var data = Object();
+            data.cast_no = clipInfoData.castNo;
+            data.editSlct = 4;
+            data.state = 5;
+            data.sendNoti = 0;
+
+            editClipDetailData(data);
         }
     }
 
