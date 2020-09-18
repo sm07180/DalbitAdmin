@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 회원가입 > 총계 -->
+<span class="_searchDate font-bold"></span>
 <div class="widget widget-table mb10">
     <div class="widget-content col-md-12">
-        <span class="_searchDate font-bold"></span><br/>
         <span class="font-bold">◈ 월간별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>

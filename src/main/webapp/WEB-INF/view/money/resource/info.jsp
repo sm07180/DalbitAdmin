@@ -449,7 +449,12 @@
             response.data.totalInfo.dalDec_total_nCnt +
             response.data.totalInfo.dalDec_total_tCnt;
 
-        response.data.totalInfo.dal_total_Cnt = response.data.totalInfo.dalInc_total_Cnt + response.data.totalInfo.dalDec_total_Cnt;
+        if(response.data.totalInfo.dalInc_total_Cnt < response.data.totalInfo.dalDec_total_Cnt){
+            response.data.totalInfo.dal_total_Cnt_inc = "1";
+        }else{
+            response.data.totalInfo.dal_total_Cnt_inc = "0";
+        }
+        response.data.totalInfo.dal_total_Cnt = response.data.totalInfo.dalInc_total_Cnt - response.data.totalInfo.dalDec_total_Cnt;
         // 감소합 --------------------------------------------------------------------------
 
         var template = $('#tmp_infoTable_dal').html();
@@ -822,7 +827,11 @@
                 <td>{{addComma testin_mCnt 'Y'}}</td>
                 <td>{{addComma dalInc_total_mCnt 'Y'}}</td>
                 <td rowspan="4">{{addComma dalInc_total_Cnt 'Y'}}</td>
-                <td rowspan="9">{{addComma dal_total_Cnt 'Y'}}</td>
+                {{#dalbit_if dal_total_Cnt_inc '==' "0"}}
+                    <td rowspan="9" class="font-bold" style="color: blue">{{addComma dal_total_Cnt 'Y'}}</td>
+                {{else}}
+                    <td rowspan="9" class="font-bold" style="color: red">{{addComma dal_total_Cnt 'Y'}}</td>
+                {{/dalbit_if}}
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
