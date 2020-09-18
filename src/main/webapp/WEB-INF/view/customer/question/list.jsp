@@ -87,13 +87,13 @@
 
 <script>
     var tabType = <%=in_tabType%>;
-
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     var week = ['일', '월', '화', '수', '목', '금', '토'];
     var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
 
+    var storageTimer;
     $(document).ready(function() {
 
         $("#displayDate").statsDaterangepicker(
@@ -254,6 +254,10 @@
         }
         var html = templateScript(data);
         $("#question_summaryArea2").html(html);
+
+        console.log("tmpStorage stop -------------------------" );
+        clearInterval(storageTimer);
+
     }
 
     function initDataTableTop_select_question(){
