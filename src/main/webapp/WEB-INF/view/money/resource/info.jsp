@@ -75,9 +75,9 @@
             <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
             <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
-            <li><a href="#memberDataList" role="tab" data-toggle="tab" onclick="memberDataListTabClick(3);">회원Data</a></li>
-            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" onclick="buyDalDataListTabClick(4);">달 결제내역</a></li>
-            <li><a href="#useDalDataList" role="tab" data-toggle="tab" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>
+            <li><a href="#memberDataList" role="tab" data-toggle="tab" id="tab_memberDataList" onclick="memberDataListTabClick(3);">회원Data</a></li>
+            <li><a href="#buyDalDataList" role="tab" data-toggle="tab" id="tab_buyDalDataList" onclick="buyDalDataListTabClick(4);">달 결제내역</a></li>
+            <li><a href="#useDalDataList" role="tab" data-toggle="tab" id="tab_useDalDataList" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>
             <li><a href="/money/item/list" id="tab_changeList" title="교환페이지로 이동합니다.">교환내역</a></li>
             <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
         </ul>
@@ -820,6 +820,20 @@
         ui.paintColor();
         ui.tableHeightSet();
     }
+
+    function handlebarsPaging(targetId, pagingInfo) {
+        if(targetId == "memberData_paginate_top" || targetId == "memberData_paginate"){
+            memberDataPagingInfo = pagingInfo;
+            memberDataList(pagingInfo.pageNo);
+        }else if(targetId == "buyDal_paginate_top" || targetId == "buyDal_paginate"){
+            buyDalPagingInfo = pagingInfo;
+            buyDalList(pagingInfo.pageNo);
+        }else if(targetId == "useDal_paginate_top" || targetId == "useDal_paginate"){
+            useDalPagingInfo = pagingInfo;
+            useDalList(pagingInfo.pageNo);
+        }
+    }
+
 
 </script>
 <script type="text/x-handlebars-template" id="tmp_infoTable_dal">

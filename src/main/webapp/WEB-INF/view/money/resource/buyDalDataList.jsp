@@ -123,10 +123,6 @@
             $("buyDalList").find('#buyDal_paginate').show();
         }
     }
-    function handlebarsPaging(targetId, pagingInfo) {
-        buyDalPagingInfo = pagingInfo;
-        buyDalList(pagingInfo.pageNo);
-    }
 
     function buyDalList_searchType_click(){
         buyDalPagingInfo.pageNo = 1;
