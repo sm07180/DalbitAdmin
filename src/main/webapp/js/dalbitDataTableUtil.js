@@ -431,6 +431,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         }
     }
 
+    // Page Length 조절 화면 노출
+    DalbitDataTable.prototype.usePageLenght = function(page){
+        this.dataTableSource.dom = '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div" l>><"dataTable-top-page col-md-12" p>rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>';
+    }
+
     // 데이터 테이블 성공 후 Callback 호출 여부 : default - TRUE( 초기화)
     DalbitDataTable.prototype.useInitResetCallback = function(isInitResetCallback){
         this.isInitResetCallback = isInitResetCallback;
