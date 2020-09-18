@@ -88,6 +88,7 @@
     }
 
     function memberDataList(pagingInfo) {
+        console.log("----------------------------------------  ");
         if(!common.isEmpty(pagingInfo)){
             memberDataPagingInfo.pageNo = pagingInfo;
         }else{
@@ -131,10 +132,6 @@
             $("memberDataList").find("#memberData_paginate_top").show();
             $("memberDataList").find('#memberData_paginate').show();
         }
-    }
-    function handlebarsPaging(targetId, pagingInfo) {
-        memberDataPagingInfo = pagingInfo;
-        memberDataList(pagingInfo.pageNo);
     }
 
     function memberDataList_searchType_click(){

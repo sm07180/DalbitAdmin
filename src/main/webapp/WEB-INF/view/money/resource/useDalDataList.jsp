@@ -128,10 +128,6 @@
             $("useDalList").find('#useDal_paginate').show();
         }
     }
-    function handlebarsPaging(targetId, pagingInfo) {
-        useDalPagingInfo = pagingInfo;
-        useDalList(pagingInfo.pageNo);
-    }
 
     function useDalList_searchType_click(){
         useDalPagingInfo.pageNo = 1;
