@@ -214,7 +214,6 @@
 
     function checkDate() {
         var alwaysCheck = $('input[name="alwaysYnCheck"]').is(':checked') ? 1 : 0;
-        alert(alwaysCheck);
         if(alwaysCheck == 0) {
             if ($('#eventStartDate').val() != '-' && $('#eventEndDate').val() != '-') {
                 var startDate = $('#eventStartDate').val().replace(/\./gi, '');
