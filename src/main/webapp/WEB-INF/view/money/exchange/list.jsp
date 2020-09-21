@@ -322,7 +322,11 @@
     });
 
     function fn_succ_list(dst_id, response) {
-        if(getParameter().isSpecial == 0){
+        /*
+            2020.09.21 양효진과장 요청
+            환전 정책 변경으로 일반도 스페셜DJ와 같이 다음날부터 환전가능
+        */
+        /*if(getParameter().isSpecial == 0){
             var curDay = moment().day();
             var prevDay = 0;
             if(curDay == 0){
@@ -333,9 +337,9 @@
                 prevDay = -1
             }
             limitDay = moment(new Date()).add('days', prevDay).format('YYYYMMDD');
-        }else{
+        }else{*/
             limitDay = moment(new Date()).format('YYYYMMDD');
-        }
+        /*}*/
 
         response.data.limitDay = limitDay;
 
