@@ -6,10 +6,12 @@ import com.dalbit.common.vo.JsonOutputVo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Slf4j
 @ToString
 @Setter
 @Getter
@@ -23,6 +25,8 @@ public class GlobalException extends Exception {
     private ErrorStatus errorStatus;
     private Status status;
     private Object data;
+    private String methodName;
+    private boolean isCustomMessage = false;
 
     private ArrayList validationMessageDetail;
 
@@ -55,6 +59,14 @@ public class GlobalException extends Exception {
         setStatus(status);
         setData(data);
         setValidationMessageDetail(validationMessageDetail);
+    }
+
+    public GlobalException(ErrorStatus errorStatus, Object data, ArrayList validationMessageDetail, String methodName){
+        log.error(super.getMessage());
+        setErrorStatus(errorStatus);
+        setData(data);
+        setValidationMessageDetail(validationMessageDetail);
+        setMethodName(methodName);
     }
 
     public static JsonOutputVo throwException(ErrorStatus errorStatus){

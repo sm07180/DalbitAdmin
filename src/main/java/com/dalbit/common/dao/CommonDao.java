@@ -22,4 +22,6 @@ public interface CommonDao {
 
     @Transactional(readOnly = true)
     ArrayList<CodeListVo> getCodeList(CodeListVo codeListVo);
+
+    ProcedureVo saveErrorLog(ProcedureVo procedureVo);
 }

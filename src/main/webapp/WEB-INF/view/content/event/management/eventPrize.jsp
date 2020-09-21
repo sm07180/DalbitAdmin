@@ -199,7 +199,6 @@
         }
 
         if($('#eventPrizeForm #prize_receive').val() == 1) {
-
             if(common.isEmpty($('input[name="giveCnt"]').val())) {
                 alert('지급 수량을 입력해주세요.');
                 return false;
