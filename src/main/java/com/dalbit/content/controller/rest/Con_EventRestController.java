@@ -154,7 +154,7 @@ public class Con_EventRestController {
      * 이벤트 리스트 조회
      */
     @PostMapping("/management/list")
-    public String eventManagementList(P_EventManagementListInputVo pEventManagementListInputVo) {
+    public String eventManagementList(P_EventManagementListInputVo pEventManagementListInputVo) throws GlobalException{
         String result = con_EventService.callEventManagementList(pEventManagementListInputVo);
         return result;
     }
@@ -163,7 +163,7 @@ public class Con_EventRestController {
      * 이벤트 상세 정보
      */
     @PostMapping("/management/info")
-    public String eventManagementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String eventManagementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         String result = con_EventService.callEventManagementInfo(pEventManagementEventIdxInputVo);
         return result;
     }
@@ -172,7 +172,7 @@ public class Con_EventRestController {
      * 이벤트 등록
      */
     @PostMapping("/management/add")
-    public String eventManagementAdd(P_EventManagementAddVo pEventManagementAddVo) {
+    public String eventManagementAdd(P_EventManagementAddVo pEventManagementAddVo) throws GlobalException{
         String result = con_EventService.callEventManagementAdd(pEventManagementAddVo);
         return result;
     }
@@ -181,7 +181,7 @@ public class Con_EventRestController {
      * 이벤트 수정
      */
     @PostMapping("/management/edit")
-    public String eventManagementEdit(P_EventManagementEditVo pEventManagementEditVo) {
+    public String eventManagementEdit(P_EventManagementEditVo pEventManagementEditVo) throws GlobalException{
         String result = con_EventService.callEventManagementEdit(pEventManagementEditVo);
         return result;
     }
@@ -190,7 +190,7 @@ public class Con_EventRestController {
      * 이벤트 삭제
      */
     @PostMapping("/management/delete")
-    public String eventManagementDelete(P_EventManagementDeleteVo pEventManagementDeleteVo) {
+    public String eventManagementDelete(P_EventManagementDeleteVo pEventManagementDeleteVo) throws GlobalException{
         String result = con_EventService.callEventManagementDelete(pEventManagementDeleteVo);
         return result;
     }
@@ -199,7 +199,7 @@ public class Con_EventRestController {
      * 경품 리스트 조회
      */
     @PostMapping("/management/prize/list")
-    public String eventPrizeList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String eventPrizeList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         String result = con_EventService.callEventPrizeList(pEventManagementEventIdxInputVo);
         return result;
     }
@@ -208,7 +208,7 @@ public class Con_EventRestController {
      * 경품 등록
      */
     @PostMapping("/management/prize/add")
-    public String eventPrizeAdd(P_EventPrizeAddVo pEventPrizeAddVo) {
+    public String eventPrizeAdd(P_EventPrizeAddVo pEventPrizeAddVo) throws GlobalException{
         String result = con_EventService.callEventPrizeAdd(pEventPrizeAddVo);
         return result;
     }
@@ -217,7 +217,7 @@ public class Con_EventRestController {
      * 경품 상세 조회
      */
     @PostMapping("/management/prize/detail")
-    public String eventPrizeDetail(P_EventPrizeDetailInputVo pEventPrizeDetailInputVo) {
+    public String eventPrizeDetail(P_EventPrizeDetailInputVo pEventPrizeDetailInputVo) throws GlobalException{
         String result = con_EventService.callEventPrizeDetail(pEventPrizeDetailInputVo);
         return result;
     }
@@ -226,7 +226,7 @@ public class Con_EventRestController {
      * 경품 수정
      */
     @PostMapping("/management/prize/edit")
-    public String eventPrizeEdit(P_EventPrizeEditVo pEventPrizeEditVo) {
+    public String eventPrizeEdit(P_EventPrizeEditVo pEventPrizeEditVo) throws GlobalException{
         String result = con_EventService.callEventPrizeEdit(pEventPrizeEditVo);
         return result;
     }
@@ -235,7 +235,7 @@ public class Con_EventRestController {
      * 경품 삭제
      */
     @PostMapping("/management/prize/delete")
-    public String eventPrizeDelete(P_EventPrizeDeleteVo pEventPrizeDeleteVo) {
+    public String eventPrizeDelete(P_EventPrizeDeleteVo pEventPrizeDeleteVo) throws GlobalException{
         String result = con_EventService.callEventPrizeDelete(pEventPrizeDeleteVo);
         return result;
     }
@@ -244,7 +244,7 @@ public class Con_EventRestController {
      * 응모자/당첨자 정보
      */
     @PostMapping("/management/winner/info")
-    public String eventWinnerInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String eventWinnerInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         String result = con_EventService.callEventWinnerInfo(pEventManagementEventIdxInputVo);
         return result;
     }
@@ -253,7 +253,7 @@ public class Con_EventRestController {
      * 응모자/당첨자 리스트 조회
      */
     @PostMapping("/management/winner/applicant")
-    public String eventWinnerApplicant(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo) {
+    public String eventWinnerApplicant(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo) throws GlobalException{
         String result = con_EventService.callEventWinnerApplicant(pEventWinnerApplicantInputVo);
         return result;
     }
@@ -274,7 +274,7 @@ public class Con_EventRestController {
      * 당첨자 리스트 조회
      */
     @PostMapping("/management/winner/list")
-    public String eventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String eventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         String result = con_EventService.callEventWinnerList(pEventManagementEventIdxInputVo);
         return result;
     }
@@ -283,7 +283,7 @@ public class Con_EventRestController {
      * 당첨자 추가 입력 정보 조회
      */
     @PostMapping("/management/winner/winnerAddInfoDetail")
-    public String eventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo) {
+    public String eventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo) throws GlobalException{
         String result = con_EventService.selectEventWinnerAddInfoDetail(eventWinnerAddInfoDetailVo);
         return result;
     }
@@ -292,7 +292,7 @@ public class Con_EventRestController {
      * 당첨자 추가
      */
     @PostMapping("/management/winner/add")
-    public String eventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) {
+    public String eventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) throws GlobalException{
         String result = con_EventService.callEventWinnerAdd(pEventWinnerAddVo);
         return result;
     }
@@ -301,7 +301,7 @@ public class Con_EventRestController {
      * 당첨자 취소
      */
     @PostMapping("/management/winner/delete")
-    public String eventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) {
+    public String eventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) throws GlobalException{
         String result = con_EventService.callEventWinnerDelete(pEventWinnerDeleteVo);
         return result;
     }
@@ -310,7 +310,7 @@ public class Con_EventRestController {
      * 당첨자 선정 완료 / 재선정
      */
     @PostMapping("/management/winner/complete")
-    public String eventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) {
+    public String eventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) throws GlobalException{
         String result = con_EventService.callEventWinnerComplete(pEventWinnerCompleteVo);
         return result;
     }
@@ -319,7 +319,7 @@ public class Con_EventRestController {
      * 당첨자 상태 변경
      */
     @PostMapping("/management/winner/update")
-    public String eventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) {
+    public String eventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) throws GlobalException{
         String result = con_EventService.callEventWinnerUpdate(pEventWinnerUpdateVo);
         return result;
     }
@@ -328,7 +328,7 @@ public class Con_EventRestController {
      * 당첨자 발표 가져오기
      */
     @PostMapping("/management/announcement/info")
-    public String eventAnnouncementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String eventAnnouncementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         String result = con_EventService.callEventAnnouncementInfo(pEventManagementEventIdxInputVo);
         return result;
     }
@@ -337,7 +337,7 @@ public class Con_EventRestController {
      * 당첨자 발표 등록/수정
      */
     @PostMapping("/management/announcement/edit")
-    public String eventAnnouncementEdit(P_EventAnnouncementEditVo pEventAnnouncementEditVo) {
+    public String eventAnnouncementEdit(P_EventAnnouncementEditVo pEventAnnouncementEditVo) throws GlobalException{
         String result = con_EventService.callEventAnnouncementEdit(pEventAnnouncementEditVo);
         return result;
     }
