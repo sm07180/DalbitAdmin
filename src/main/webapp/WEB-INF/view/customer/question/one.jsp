@@ -67,6 +67,7 @@
     var qnaTitle;
     var qnaContent;
     var fileName;
+    var state;
     function quest_detail_success(data, response, params){
 
         clearInterval(storageTimer);
@@ -74,12 +75,13 @@
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
         qnaIdx = params.qnaIdx;
-        answer = params.answer;
+        answer = response.data.answer;
         memNo = response.data.mem_no;
         memId = response.data.mem_userid;
         phone = response.data.phone;
         email = response.data.email;
         qnaTitle = response.data.question_title;
+        state = response.data.state;
 
         if(!common.isEmpty(response.data.file_name1)){
             fileName = response.data.file_name1;
@@ -120,10 +122,10 @@
             response.data["editAuth"] = "N";
         }
         if(noticeType == 2 || noticeType == 0){
-            response.data["answer"] = params.answer;
+            response.data["answer"] = answer;
         }else{
-            if(!common.isEmpty(params.answer)){
-                response.data["msg_body"] = common.replaceHtml(params.answer).replace(/<br>/gi, '\n');
+            if(!common.isEmpty(answer)){
+                response.data["msg_body"] = common.replaceHtml(answer).replace(/<br>/gi, '\n');
             }else{
                 response.data["msg_body"] = "[달빛라이브]\n";
             }
@@ -376,16 +378,18 @@
 
     function tmpStorage(){
         storageTimer = setInterval(function() {
-            console.log("tmpStorage start -------------------------" );
-            var data = {};
-            data["qnaIdx"] = qnaIdx;
-            if(noticeType == 2 || noticeType == 0){
-                data["answer"] = $("#editor").summernote('code');
-            }else{
-                data["answer"] = $("#smsSend-msg_body").val();
+            console.log("처리상태가 진행중이면 임시 저장 시작 ---------------   " + state);
+            if(state == "2"){
+                console.log("처리상태 진행중 저장 ---------------");
+                var data = {};
+                data["qnaIdx"] = qnaIdx;
+                if(noticeType == 2 || noticeType == 0){
+                    data["answer"] = $("#editor").summernote('code');
+                }else{
+                    data["answer"] = $("#smsSend-msg_body").val();
+                }
+                util.getAjaxData("tmpStorage", "/rest/customer/question/tmpStorage", data, quest_tmpStorage_success,quest_tmpStorage_false,"",false);
             }
-            util.getAjaxData("tmpStorage", "/rest/customer/question/tmpStorage", data, quest_tmpStorage_success,quest_tmpStorage_false,"",false);
-
         }, 1000 * 60);
 
 

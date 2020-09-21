@@ -455,7 +455,7 @@ public class Cus_QuestionService {
     /**
      *  1:1 문의하기 임시저장
      */
-    public String callServiceCenterQnaTmpStorage(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException, UnsupportedEncodingException {
+    public String callServiceCenterQnaTmpStorage(P_QuestionOperateVo pQuestionOperateVo) {
         P_QuestionDetailOutputVo outVo = cus_questionDao.callServiceCenterQnaState(pQuestionOperateVo);
         String result = "";
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
