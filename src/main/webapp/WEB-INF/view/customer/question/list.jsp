@@ -148,8 +148,8 @@
         tmp_slctMember = tabType;
     }
 
-    var dtList_info;
-    var dtList_info_data = function ( data ) {
+    var dtList_info_detail;
+    var dtList_info_detail_data = function ( data ) {
         data.searchText = $('#txt_search').val();
         data.searchType = tmp_searchType;
         data.slctState = tmp_slctState;
@@ -160,10 +160,10 @@
         data.slctDateType = $("#slctDateType").find("select").val();
     };
 
-    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
-    dtList_info.useCheckBox(true);
-    dtList_info.useIndex(true);
-    dtList_info.createDataTable(question_summary_table);
+    dtList_info_detail = new DalbitDataTable($("#list_info"), dtList_info_detail_data, questionDataTableSource.questList);
+    dtList_info_detail.useCheckBox(true);
+    dtList_info_detail.useIndex(true);
+    dtList_info_detail.createDataTable(question_summary_table);
 
     var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
     $("#main_table").find(".footer-left").append(questionDelBtn);
@@ -228,7 +228,7 @@
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
-        dtList_info.reload(question_summary_table);
+        dtList_info_detail.reload(question_summary_table);
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
@@ -273,7 +273,7 @@
         // tmp_slctMember = $("#question_mem_state").find("#question_mem_state option:selected").val();
         tmp_slctState = $("#question_status").find("#question_status option:selected").val();
         tmp_slctPlatform = $('#platform').val();
-        dtList_info.reload(question_summary_table);
+        dtList_info_detail.reload(question_summary_table);
     }
 
     $("#question_searchType").find("select").change( function() {
@@ -291,7 +291,7 @@
     var rowNum;
     function getQuestDetail(index){
         $("#tab_qna").removeClass("hide");
-        var data = dtList_info.getDataRow(index);
+        var data = dtList_info_detail.getDataRow(index);
         var obj ={};
         obj.qnaIdx = data.qnaIdx;
         obj.answer = data.answer;
@@ -339,7 +339,7 @@
         });
     }
     function questionDelData(){
-        var checkDatas = dtList_info.getCheckedData();
+        var checkDatas = dtList_info_detail.getCheckedData();
         if(checkDatas.length <= 0){
             alert("삭제할 사연을 선택해 주십시오");
             return;
@@ -368,7 +368,7 @@
     }
 
     function questionDel_success(dst_id, response) {
-        dtList_info.reload();
+        dtList_info_detail.reload();
 
         $("#tab_qna").addClass("hide");
     }
@@ -382,7 +382,7 @@
             $("#question_summaryArea").hide();
             $("#question_summaryArea2").show();
         }
-        dtList_info.reload();
+        dtList_info_detail.reload();
         $("#tab_qna").addClass("hide");
     }
 

@@ -82,6 +82,7 @@
         email = response.data.email;
         qnaTitle = response.data.question_title;
         state = response.data.state;
+        op_name = response.data.op_name;
 
         if(!common.isEmpty(response.data.file_name1)){
             fileName = response.data.file_name1;
@@ -222,7 +223,7 @@
         }else{
             alert(response.message);
         }
-        dtList_info.reload();
+        dtList_info_detail.reload();
         $('#tab_customerQuestion').removeClass("show");
     }
 
@@ -236,7 +237,7 @@
     // }
     // function fn_update_success(data, response, params){
     //     alert(response.message);
-    //     dtList_info.reload();
+    //     dtList_info_detail.reload();
     //
     //     $("#question_detailFrm").empty();
     // }
@@ -289,7 +290,7 @@
     });
     function fn_chatchRelease_success(data, response, params) {
         dalbitLog(response);
-        dtList_info.reload(question_summary_table);
+        dtList_info_detail.reload(question_summary_table);
         $('#tab_customerQuestion').removeClass("show");
     }
 
@@ -332,10 +333,10 @@
     function adminMemoList(){
         $('#adminMemoModal').modal('show');
         var dtMemo_List_info;
-        var dtList_info_data = function ( data ) {
+        var dtList_info_detail_data = function ( data ) {
             data.qnaIdx = qnaIdx;
         };
-        dtMemo_List_info = new DalbitDataTable($("#memo_list"), dtList_info_data, questionDataTableSource.adminMemoList);
+        dtMemo_List_info = new DalbitDataTable($("#memo_list"), dtList_info_detail_data, questionDataTableSource.adminMemoList);
         dtMemo_List_info.useCheckBox(false);
         dtMemo_List_info.useIndex(true);
         dtMemo_List_info.createDataTable();
@@ -378,8 +379,8 @@
 
     function tmpStorage(){
         storageTimer = setInterval(function() {
-            console.log("처리상태가 진행중이면 임시 저장 시작 ---------------   " + state);
-            if(state == "2"){
+            console.log("처리상태가 진행중이면 임시 저장 시작 ---------------   상태: " + state + " / 수정자: " + op_name + " / 로그인: " + LOGIN_USER_NAME);
+            if(state == "2" && op_name == LOGIN_USER_NAME){
                 console.log("처리상태 진행중 저장 ---------------");
                 var data = {};
                 data["qnaIdx"] = qnaIdx;
