@@ -41,6 +41,11 @@
         getClipSubjectTypeCodeDefine();
 
         initWithdrawalUI();
+
+        // bt click 이동
+        if(!common.isEmpty(moveTabId) && moveTabId.startsWith("bt_")){
+            $("#" + moveTabId).click();
+        }
     }
 
     // 탈퇴회원 UI 초기화
