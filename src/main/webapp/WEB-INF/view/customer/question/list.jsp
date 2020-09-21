@@ -255,7 +255,7 @@
         var html = templateScript(data);
         $("#question_summaryArea2").html(html);
 
-        console.log("tmpStorage stop -------------------------" );
+        console.log("임시저장 stop -------------------------" );
         clearInterval(storageTimer);
 
     }
