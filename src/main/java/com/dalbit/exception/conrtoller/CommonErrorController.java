@@ -44,9 +44,9 @@ public class CommonErrorController {
      *  true : 로그 적재
      */
     public boolean isSaveLog(GlobalException globalException, HttpServletRequest request, HttpServletResponse response) {
-        if(globalException.getStatus() == Status.벨리데이션체크) return false;
-        if(request.getRequestURL().toString().endsWith("/error/log")) return true;
-        if(globalException.getClass().getSimpleName().toLowerCase().equals("clientabortexception")) return false;
+//        if(globalException.getStatus() == Status.벨리데이션체크) return false;
+//        if(request.getRequestURL().toString().endsWith("/error/log")) return false;
+//        if(globalException.getClass().getSimpleName().toLowerCase().equals("clientabortexception")) return false;
 
         return true;
     }
@@ -61,6 +61,8 @@ public class CommonErrorController {
                 errorLogVo.setDtype(globalException.getMethodName());
                 errorLogVo.setMem_no(MemberVo.getMyMemNo());
                 errorLogVo.setCtype(request.getRequestURL().toString());
+                errorLogVo.setBuild("");
+                errorLogVo.setVersion("");
                 String desc = "";
                 if(!DalbitUtil.isEmpty(globalException.getData())) {
                     desc = "Data : \n" + globalException.getData().toString() + "\n";
