@@ -3,6 +3,7 @@
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 <%
     String in_clipNo = request.getParameter("clipNo");
+    String in_moveTabId = request.getParameter("moveTabId") == null ? "" : request.getParameter("moveTabId");
 %>
 
 
@@ -25,6 +26,7 @@
 
 <script type="text/javascript">
     var clipNo = "<%=in_clipNo%>";
+    var moveTabId = "<%=in_moveTabId%>";
 
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
@@ -85,7 +87,13 @@
         // setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
         setRangeDatepicker(moment(), moment())
 
-        $("#tab_clipInfo").click();
+
+        // tab_id 이동
+        if(!common.isEmpty(moveTabId) && moveTabId.startsWith("tab_")){
+            $("#" + moveTabId).click();
+        }else{
+            $("#tab_clipInfo").click();
+        }
 
     });
 

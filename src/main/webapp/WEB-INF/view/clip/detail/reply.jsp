@@ -47,15 +47,15 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
-        dtList_info.createDataTable(selectCallback_clipHistotyListen);
+        dtList_info.createDataTable(selectCallback_clipHistotyReply);
 
         //---------- Main DataTable ----------=
     };
 
 
-    function selectCallback_clipHistotyListen(data){
+    function selectCallback_clipHistotyReply(data){
         // 탭 우측 총 건수 추가
-        var text = "<span style='color: black;'>클립 청취 수 :</span>" +
+        var text = "<span style='color: black;'>클립 댓글 수 :</span>" +
             "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
             "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
             "<span style='color: blue; font-weight: bold; '>남성 : " +  common.addComma(data.summary.manTotalCnt) + " 건, </span>" +

@@ -20,5 +20,17 @@ public class ClipHistoryTotalVo extends PagingVo {
     private int delFemaleTotalCnt;
     private int delUnknownTotalCnt;
 
+    private String manCnt;
+    private String femaleCnt;
+    private String unknownCnt;
+    private String delMyselfTotalCnt;
+    private String delAdminTotalCnt;
+    private String delMyselfManTotalCnt;
+    private String delAdminManTotalCnt;
+    private String delMyselfFemaleTotalCnt;
+    private String delAdminFemaleTotalCnt;
+    private String delMyselfUnknownTotalCnt;
+    private String delAdminUnknownTotalCnt;
+
 
 }

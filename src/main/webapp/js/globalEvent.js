@@ -60,7 +60,12 @@ $(document).on('click', '._openClipPlayerPop', function(){
 
 /*클립 상세 팝업*/
 $(document).on('click', '._openClipInfoPop', function(){
-    var url = "/clip/history/popup/clipInfoPopup?clipNo="+encodeURIComponent($(this).data('clipno'));
+    var moveTabId = '';
+    if(!common.isEmpty($(this).data('tabid'))){
+        moveTabId = '&moveTabId=' + encodeURIComponent($(this).data('tabid') +'');
+    }
+
+    var url = "/clip/history/popup/clipInfoPopup?clipNo="+encodeURIComponent($(this).data('clipno')) + moveTabId;
 
     util.windowOpen(url, 1050, 730, 'clipInfo');
 });

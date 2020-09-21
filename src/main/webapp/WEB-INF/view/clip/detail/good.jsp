@@ -47,12 +47,12 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
-        dtList_info.createDataTable(selectCallback_clipHistotyListen);
+        dtList_info.createDataTable(selectCallback_clipHistotyGood);
 
         //---------- Main DataTable ----------=
     };
 
-    function selectCallback_clipHistotyListen(data){
+    function selectCallback_clipHistotyGood(data){
         // 탭 우측 총 건수 추가
         var text = "<span style='color: black;'>클립 좋아요 수 :</span>" +
             "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
