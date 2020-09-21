@@ -47,7 +47,11 @@ var BroadcastDataTableSource = {
                     return common.addComma(data);
                 }},
             {'title': '상태', 'data': 'state', 'width':'35px', 'render': function (data, type, row, meta) {
-                    return util.getCommonCodeLabel(data,room_state);
+                    if(row.freezeMsg == 1){
+                        return "채팅 얼리기";
+                    }else{
+                        return util.getCommonCodeLabel(data,room_state);
+                    }
                 }},
             {'title': '시작일시', 'data': 'start_date','width' : '50px'},
             {'title': '진행시간', 'data': 'airTime','width' : '45px','render': function (data){
@@ -173,8 +177,13 @@ var BroadcastDataTableSource = {
             {'title': '방송 개설', 'data': 'broadCastCnt','width' : '70px', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
+
             {'title': '상태', 'data': 'state', 'width':'50px', 'render': function (data, type, row, meta) {
-                    return util.getCommonCodeLabel(data,room_state);
+                    if(row.freezeMsg == 1){
+                        return util.getCommonCodeLabel(data,room_state) + " (채팅 얼리기)";
+                    }else{
+                        return util.getCommonCodeLabel(data,room_state);
+                    }
                 }},
             {'title': '시작일시', 'data': 'start_date','width' : '60px'},
             {'title': '종료일시', 'data': 'end_date','width' : '60px'},
