@@ -24,7 +24,7 @@
 
 
             $('#eventAnnounceForm').html(html);
-            util.editorInit("content-event");
+            util.editorInit("event");
         });
     }
 
@@ -79,7 +79,7 @@
 
 
                 $('#eventAnnounceForm').html(html);
-                util.editorInit("content-event");
+                util.editorInit("event");
             });
         }
     });

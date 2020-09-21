@@ -10,6 +10,7 @@ import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
@@ -243,7 +244,7 @@ public class Con_EventService {
     /**
      * 이벤트 리스트 조회
      */
-    public String callEventManagementList(P_EventManagementListInputVo pEventManagementListInputVo) {
+    public String callEventManagementList(P_EventManagementListInputVo pEventManagementListInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementListInputVo);
         String result;
 
@@ -257,17 +258,18 @@ public class Con_EventService {
             } else {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트관리_리스트조회_실패));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
 
         return result;
+
     }
 
     /**
      * 이벤트 상세 정보
      */
-    public String callEventManagementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String callEventManagementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
 
         String result;
@@ -299,7 +301,7 @@ public class Con_EventService {
     /**
      * 이벤트 등록
      */
-    public String callEventManagementAdd(P_EventManagementAddVo pEventManagementAddVo) {
+    public String callEventManagementAdd(P_EventManagementAddVo pEventManagementAddVo) throws GlobalException{
         pEventManagementAddVo.setOpName(MemberVo.getMyMemNo());
         String result;
 
@@ -307,6 +309,11 @@ public class Con_EventService {
             if (pEventManagementAddVo.getAlwaysYn() == 1) {
                 pEventManagementAddVo.setEndDate("0000-00-00 00:00:00");
             }
+
+            if (DalbitUtil.isEmpty(pEventManagementAddVo.getAnnouncementDate())) {
+                pEventManagementAddVo.setAnnouncementDate("0000-00-00 00:00:00");
+            }
+
             ProcedureVo procedureVo = new ProcedureVo(pEventManagementAddVo);
 
             con_EventDao.callEventManagementAdd(procedureVo);
@@ -326,7 +333,7 @@ public class Con_EventService {
     /**
      * 이벤트 수정
      */
-    public String callEventManagementEdit(P_EventManagementEditVo pEventManagementEditVo) {
+    public String callEventManagementEdit(P_EventManagementEditVo pEventManagementEditVo) throws GlobalException{
         pEventManagementEditVo.setOpName(MemberVo.getMyMemNo());
 
         String result="";
@@ -358,7 +365,7 @@ public class Con_EventService {
     /**
      * 이벤트 삭제
      */
-    public String callEventManagementDelete(P_EventManagementDeleteVo pEventManagementDeleteVo) {
+    public String callEventManagementDelete(P_EventManagementDeleteVo pEventManagementDeleteVo) throws GlobalException{
 
         String result = "";
 
@@ -400,7 +407,7 @@ public class Con_EventService {
     /**
      * 경품 리스트 조회
      */
-    public String callEventPrizeList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String callEventPrizeList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
         String result;
 
@@ -426,7 +433,7 @@ public class Con_EventService {
     /**
      * 경품 등록
      */
-    public String callEventPrizeAdd(P_EventPrizeAddVo pEventPrizeAddVo) {
+    public String callEventPrizeAdd(P_EventPrizeAddVo pEventPrizeAddVo) throws GlobalException{
         pEventPrizeAddVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventPrizeAddVo);
         String result;
@@ -451,7 +458,7 @@ public class Con_EventService {
     /**
      * 경품 상세 조회
      */
-    public String callEventPrizeDetail(P_EventPrizeDetailInputVo pEventPrizeDetailInputVo) {
+    public String callEventPrizeDetail(P_EventPrizeDetailInputVo pEventPrizeDetailInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventPrizeDetailInputVo);
         String result;
 
@@ -479,7 +486,7 @@ public class Con_EventService {
     /**
      * 경품 수정
      */
-    public String callEventPrizeEdit(P_EventPrizeEditVo pEventPrizeEditVo) {
+    public String callEventPrizeEdit(P_EventPrizeEditVo pEventPrizeEditVo) throws GlobalException{
         pEventPrizeEditVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventPrizeEditVo);
         String result;
@@ -506,7 +513,7 @@ public class Con_EventService {
     /**
      * 경품 삭제
      */
-    public String callEventPrizeDelete(P_EventPrizeDeleteVo pEventPrizeDeleteVo) {
+    public String callEventPrizeDelete(P_EventPrizeDeleteVo pEventPrizeDeleteVo) throws GlobalException{
         int sucCnt = 0;
         int failCnt = 0;
 
@@ -546,7 +553,7 @@ public class Con_EventService {
     /**
      * 응모자/당첨자 정보
      */
-    public String callEventWinnerInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String callEventWinnerInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
         String result;
 
@@ -578,7 +585,7 @@ public class Con_EventService {
     /**
      * 응모자/당첨자 리스트 조회
      */
-    public String callEventWinnerApplicant(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo) {
+    public String callEventWinnerApplicant(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerApplicantInputVo);
         String result;
 
@@ -604,7 +611,7 @@ public class Con_EventService {
     /**
      * 응모자/당첨자 리스트 엑셀
      */
-    public Model getListExcel(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo, Model model) {
+    public Model getListExcel(P_EventWinnerApplicantInputVo pEventWinnerApplicantInputVo, Model model) throws GlobalException{
         pEventWinnerApplicantInputVo.setPageCnt(100000);
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerApplicantInputVo);
         ArrayList<P_EventWinnerApplicantOutputVo> list = con_EventDao.callEventWinnerApplicant(procedureVo);
@@ -645,7 +652,7 @@ public class Con_EventService {
     /**
      * 당첨자 리스트 조회
      */
-    public String callEventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String callEventWinnerList(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
         String result;
 
@@ -671,7 +678,7 @@ public class Con_EventService {
     /**
      * 당첨자 추가 입력 정보 조회
      */
-    public String selectEventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo) {
+    public String selectEventWinnerAddInfoDetail(EventWinnerAddInfoDetailVo eventWinnerAddInfoDetailVo) throws GlobalException{
         EventWinnerAddInfoDetailVo winnerInfo = con_EventDao.selectEventWinnerAddInfoDetail(eventWinnerAddInfoDetailVo);
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, winnerInfo));
 
@@ -681,7 +688,7 @@ public class Con_EventService {
     /**
      * 당첨자 추가
      */
-    public String callEventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) {
+    public String callEventWinnerAdd(P_EventWinnerAddVo pEventWinnerAddVo) throws GlobalException{
         pEventWinnerAddVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerAddVo);
         String result;
@@ -714,7 +721,7 @@ public class Con_EventService {
     /**
      * 당첨자 취소
      */
-    public String callEventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) {
+    public String callEventWinnerDelete(P_EventWinnerDeleteVo pEventWinnerDeleteVo) throws GlobalException{
         pEventWinnerDeleteVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerDeleteVo);
         String result;
@@ -743,7 +750,7 @@ public class Con_EventService {
     /**
      * 당첨자 선정 완료 / 재선정
      */
-    public String callEventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) {
+    public String callEventWinnerComplete(P_EventWinnerCompleteVo pEventWinnerCompleteVo) throws GlobalException{
         pEventWinnerCompleteVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventWinnerCompleteVo);
         String result;
@@ -772,7 +779,7 @@ public class Con_EventService {
     /**
      * 당첨자 상태 변경
      */
-    public String callEventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) {
+    public String callEventWinnerUpdate(P_EventWinnerUpdateVo pEventWinnerUpdateVo) throws GlobalException{
         String result;
         if(!DalbitUtil.isEmpty(pEventWinnerUpdateVo.getEventIdx()) && !DalbitUtil.isEmpty(pEventWinnerUpdateVo.getUpdateSlct())) {
             int succ_cnt = 0;
@@ -813,7 +820,7 @@ public class Con_EventService {
     /**
      * 당첨자 발표 가져오기
      */
-    public String callEventAnnouncementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) {
+    public String callEventAnnouncementInfo(P_EventManagementEventIdxInputVo pEventManagementEventIdxInputVo) throws GlobalException{
         // winnerContents 부르기 위함
         ProcedureVo procedureVo = new ProcedureVo(pEventManagementEventIdxInputVo);
         String result;
@@ -849,7 +856,7 @@ public class Con_EventService {
     /**
      * 당첨자 발표 등록/수정
      */
-    public String callEventAnnouncementEdit(P_EventAnnouncementEditVo pEventAnnouncementEditVo) {
+    public String callEventAnnouncementEdit(P_EventAnnouncementEditVo pEventAnnouncementEditVo) throws GlobalException{
         pEventAnnouncementEditVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pEventAnnouncementEditVo);
         String result;
