@@ -45,7 +45,7 @@
                     <th class="_bgColor" data-bgColor="##bfbfbf">아이템 명</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">비밀선물 여부</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">사용 달 수</th>
-                    <th class="_bgColor" data-bgColor="##bfbfbf">달 금액</th>
+                    <%--<th class="_bgColor" data-bgColor="##bfbfbf">달 금액</th>--%>
                     <th class="_bgColor" data-bgColor="##bfbfbf">사용일자</th>
                 </tr>
                 </thead>
@@ -157,8 +157,8 @@
         <td><img class="_webpImage" src="{{item_thumbnail}}" width="50" height="50" data-webpImage="{{webp_image}}"/></td>
         <td>{{item_name}}</td>
         <td>{{#dalbit_if secret '==' 1}}비밀선물{{/dalbit_if}}</td>
-        <td>{{addComma item_cnt}}</td>
-        <td>{{addComma item_price}}원</td>
+        <%--<td>{{addComma item_cnt}}</td>--%>
+        <td>{{addComma item_price}} 개</td>
         <td>{{lastUpdDateFormat}}</td>
     {{else}}
     <tr>
