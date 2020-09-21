@@ -15,6 +15,8 @@ public class P_ErrorLogVo {
     private String dtype;
     private String ctype;
     private String desc;
+    private String version;
+    private String build;
     public P_ErrorLogVo(){}
     public P_ErrorLogVo(ErrorLogVo errorLogVo, HttpServletRequest request){
         setMem_no(MemberVo.getMyMemNo());
