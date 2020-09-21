@@ -3,17 +3,14 @@ var ClipHistoryDataTableSource = {
         'url': '/rest/clip/history/list'
 
         , 'columns': [
-            {'title': '클립번호', 'width':'80px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
 			{'title': '플랫폼', 'width':'40px', 'data': 'osType', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_platformType);
                 }},
 			{'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-			{'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
+			{'title': '클립', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
 			{'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -44,19 +41,22 @@ var ClipHistoryDataTableSource = {
                     return util.getCommonCodeLabel(data, clip_confirmType_yn) + '<br>' + '<a href="javascript:;" onclick="editClipConfirm('+ row.castNo + ',' + data + ')">[' + util.getCommonCodeLabel(data, clip_confirmType_update) + ']</a>';
                 }},
             {'title': '운영자<br>메모', 'width':'40px', 'data': 'opMemoCnt', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="bt_detail_memo">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
+                }},
+			{'title': '최다<br>청취수', 'width':'50px', 'data': 'countMaxPlay', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_good">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '받은선물<br>건수', 'width':'50px', 'data': 'countGift', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_gift">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '받은선물<br>별 수', 'width':'55px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_gift">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '댓글', 'width':'45px', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
                     return data + ' <a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'">[댓글]</a>';
@@ -121,17 +121,14 @@ var ClipHistoryDataTableSource = {
             {'title': '', 'width':'2px', 'className': 'no-padding', 'data': '', 'render': function (data, type, row, meta) {
                     return "";
                 }},
-            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
             {'title': '플랫폼', 'width':'45px', 'data': 'osType', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_platformType);
                 }},
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'170px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
+            {'title': '클립', 'width':'170px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -159,10 +156,10 @@ var ClipHistoryDataTableSource = {
                     return common.addComma(data);
                 }},
             {'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
             {'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_good">' + common.addComma(data) + '</a>';
                 }},
         ],
 
@@ -187,14 +184,11 @@ var ClipHistoryDataTableSource = {
             {'title': '선물받은일시', 'width':'70px', 'data': 'giftDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
+            {'title': '클립', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
             {'title': '선물받은회원', 'width':'70px', 'data': 'giftedMemNo', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.giftedMemNick;
@@ -239,9 +233,6 @@ var ClipHistoryDataTableSource = {
         'url': '/rest/clip/history/remove/list'
 
         , 'columns': [
-            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
             {'title': '공개<br>여부', 'width':'25px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_typeOpen);
                 }},
@@ -254,8 +245,8 @@ var ClipHistoryDataTableSource = {
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
+            {'title': '클립', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -283,10 +274,10 @@ var ClipHistoryDataTableSource = {
                     return common.addComma(data);
                 }},
             {'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
             {'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_good">' + common.addComma(data) + '</a>';
                 }},
             {'title': '삭제구분', 'width':'50px', 'data': 'delName', 'render': function (data, type, row, meta) {
                     return common.isEmpty(data) ? "" : data;
@@ -323,9 +314,6 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }
             },
-            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
             {'title': '공개<br>여부', 'width':'25px', 'data': 'typeOpen', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_typeOpen);
                 }},
@@ -335,8 +323,8 @@ var ClipHistoryDataTableSource = {
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
+            {'title': '클립', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -364,10 +352,10 @@ var ClipHistoryDataTableSource = {
                     return common.addComma(data);
                 }},
             {'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
             {'title': '좋아요수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_good">' + common.addComma(data) + '</a>';
                 }},
             {'title': '클립목록', 'width':'55px', 'data': 'memNo', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '" data-tabid="tab_clip">[목록확인]</a>';

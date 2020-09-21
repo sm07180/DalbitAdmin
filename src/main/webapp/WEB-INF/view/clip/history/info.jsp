@@ -4,7 +4,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-12 no-padding" style="height: 85px;">
-        <div class="container-fluid col-lg-9 no-padding">
+        <div class="container-fluid col-lg-9 no-padding" id="searchContainer">
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -70,7 +70,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-3 no-padding pull-right">
+        <div class="col-md-3 no-padding pull-right" id="totalContainer">
             <div id="headerInfo"></div>
         </div>
     </div>

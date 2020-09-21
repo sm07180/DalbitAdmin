@@ -58,5 +58,6 @@ public class ClipHistoryVo extends PagingVo {
     private int opMemoCnt;
     private String delName;
     private String hideName;
+    private int countMaxPlay;
 
 }
