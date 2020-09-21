@@ -26,6 +26,7 @@
 
     var tmp_slctPlatform = null;
     var tmp_slctState = -1;
+    var storageTimer;
     function getHistory_questionDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var dtList_info_detail_data = function (data) {
@@ -73,6 +74,9 @@
         }
         var html = templateScript(data);
         $("#question_summaryArea").html(html);
+
+        console.log("임시저장 stop -------------------------" );
+        clearInterval(storageTimer);
     }
 
     var qnaIdx;
