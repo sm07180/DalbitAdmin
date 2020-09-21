@@ -178,7 +178,7 @@
         console.log(clipNo)
         if(confirm("해당 클립을 삭제 하시겠습니까?")){
             var data = Object();
-            data.cast_no = clipInfoData.castNo;
+            data.cast_no = clipNo;
             data.editSlct = 4;
             data.state = 5;
             data.sendNoti = 0;
