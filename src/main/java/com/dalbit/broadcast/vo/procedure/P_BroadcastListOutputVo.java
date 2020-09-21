@@ -59,6 +59,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int notMemTotalListener;
     private int liveBoostCnt;
     private int inner;
+    private int freezeMsg;
 
 
     /* summary */
