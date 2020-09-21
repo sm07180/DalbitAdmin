@@ -118,4 +118,23 @@ public class Sta_ItemService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
+
+    /**
+     * 클립별 총계
+     */
+    public String callItemClip(P_ItemClipInputVo pItemClipInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pItemClipInputVo);
+        ArrayList<P_ItemClipOutDetailVo> detailList = sta_ItemDao.callItemClip(procedureVo);
+        P_ItemBroadOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ItemBroadOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
 }

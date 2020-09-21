@@ -451,4 +451,25 @@ public class Cus_QuestionService {
 
         return result;
     }
+
+    /**
+     *  1:1 문의하기 임시저장
+     */
+    public String callServiceCenterQnaTmpStorage(P_QuestionOperateVo pQuestionOperateVo) throws GlobalException, InterruptedException, UnsupportedEncodingException {
+        P_QuestionDetailOutputVo outVo = cus_questionDao.callServiceCenterQnaState(pQuestionOperateVo);
+        String result = "";
+        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\\'","\'"));
+        pQuestionOperateVo.setAnswer(pQuestionOperateVo.getAnswer().replaceAll("\n","<br>"));
+        if(outVo.getState() == 2){
+            int updateResult = cus_questionDao.callServiceCenterQnaUpdate(pQuestionOperateVo);
+
+            if(updateResult != 0){
+                result = gsonUtil.toJson(new JsonOutputVo(Status.문의임시저장_성공));
+            }else{
+                result = gsonUtil.toJson(new JsonOutputVo(Status.문의임시저장_실패));
+            }
+        }
+        return result;
+    }
 }

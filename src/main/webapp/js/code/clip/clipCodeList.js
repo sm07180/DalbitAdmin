@@ -13,6 +13,13 @@ var clip_slctType = [
     , new COMMON_CODE('choice', '3', '선택', 'Y')
 ];
 
+var clip_confirmType_select = [
+    new COMMON_CODE(null, 'searchConfirm', '인증여부')
+    , new COMMON_CODE('-1', '-1', '인증여부(전체)')
+    , new COMMON_CODE('1', '1', '인증')
+    , new COMMON_CODE('0', '0', '미인증')
+];
+
 var clip_orderByType = [
     new COMMON_CODE(null, 'clipOrderByType', '정렬')
     , new COMMON_CODE('0', '0', '최근 등록 순으로')
@@ -40,6 +47,13 @@ var clip_typeOpen = [
     new COMMON_CODE(null, 'typeOpen', '공개여부')
     , new COMMON_CODE('0', '0', 'N')
     , new COMMON_CODE('1', '1', 'Y')
+]
+
+var clip_typeOpen_select = [
+    new COMMON_CODE(null, 'searchTypeOpen', '공개여부')
+    , new COMMON_CODE('-1', '-1', '공개여부(전체)')
+    , new COMMON_CODE('1', '1', '공개')
+    , new COMMON_CODE('0', '0', '비공개')
 ]
 
 var clip_typeOpen_clipDetail = [
@@ -83,6 +97,14 @@ var clip_stateType = [
     , new COMMON_CODE('1', '1', '정상')
     , new COMMON_CODE('4', '4', '삭제')
     , new COMMON_CODE('5', '5', '삭제')
+]
+
+var clip_stateType_select = [
+    new COMMON_CODE(null, 'searchState', '공개여부')
+    , new COMMON_CODE('-1', '-1', '클립상태(전체)')
+    , new COMMON_CODE('1', '1', '정상')
+    , new COMMON_CODE('4', '4', '삭제')
+    , new COMMON_CODE('9', '9', '숨기기')
 ]
 
 var clip_entryType = [

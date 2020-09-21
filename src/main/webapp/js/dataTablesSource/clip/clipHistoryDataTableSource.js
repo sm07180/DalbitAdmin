@@ -72,16 +72,20 @@ var ClipHistoryDataTableSource = {
                         return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', '+ data +')">[해제]</a>';
                     }
                 }},
-            {'title': '삭제', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {
+            {'title': '삭제', 'width':'50px', 'data': 'state', 'render': function (data, type, row, meta) {
                     if(data == 4 || row.state == 5){
                         return "-";
                     }else{
-                        return '<a href="javascript:;" onclick="deleteClip(' + row.castNo + ')">[삭제]</a>';
+                        return '<p class="mb5"><a href="javascript:;" onclick="reportDeleteClip(\' + row.castNo + \')">[경고/삭제]</a></p><a href="javascript:;" onclick="deleteClip(' + row.castNo + ')">[삭제]</a>';
                     }
                 }},
 			{'title': '상태', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {
-                    if(data != 4 && data != 5 && row.hide == 1){
-                        return util.getCommonCodeLabel(data, clip_hide);
+                    if(data == 4 || data == 5){
+                        return '<span style="color:red;font-weight:bold">삭제</span>' + (common.isEmpty(row.delName) ? '' : '<br>(' + row.delName + ')');
+                    }
+
+                    if(row.hide == 1){
+                        return util.getCommonCodeLabel(data, clip_hide) + (common.isEmpty(row.hideName) ? '' : '<br>(' + row.hideName + ')');
                     }
 
                     return util.getCommonCodeLabel(data, clip_stateType);
@@ -284,8 +288,8 @@ var ClipHistoryDataTableSource = {
             {'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '삭제구분', 'width':'50px', 'data': 'opName', 'render': function (data, type, row, meta) {
-                    return common.isEmpty(data) ? "본인" : data;
+            {'title': '삭제구분', 'width':'50px', 'data': 'delName', 'render': function (data, type, row, meta) {
+                    return common.isEmpty(data) ? "" : data;
                 }},
         ],
 

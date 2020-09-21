@@ -5,7 +5,8 @@ $.extend( true, $.fn.dataTable.defaults, {
 		"t"+
 		"<'row'<'col-xs-6'i><'col-xs-6'p>>",
 	"oLanguage": {
-		"sLengthMenu": "_MENU_ 페이지당 갯수"
+		// "sLengthMenu": "_MENU_ 페이지당 갯수"
+		"sLengthMenu": "_MENU_ "
 	}
 } );
 

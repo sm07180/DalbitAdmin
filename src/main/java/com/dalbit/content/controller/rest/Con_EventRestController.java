@@ -1,5 +1,6 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.EventCode;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;

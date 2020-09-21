@@ -3,6 +3,7 @@ package com.dalbit.status.controller.rest;
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.status.service.Sta_ItemService;
 import com.dalbit.status.vo.procedure.P_ItemBroadInputVo;
+import com.dalbit.status.vo.procedure.P_ItemClipInputVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -97,6 +98,20 @@ public class Sta_ItemRestController {
             pItemBroadInputVo.setStartDate(null);
         }
         String result = sta_ItemService.callItemBroad(pItemBroadInputVo);
+        return result;
+    }
+
+    /**
+     * 아이템 클립별
+     * @param pItemClipInputVo
+     * @return
+     */
+    @PostMapping("/clip/list")
+    public String itemClip(P_ItemClipInputVo pItemClipInputVo){
+        if(DalbitUtil.isEmpty(pItemClipInputVo.getStartDate())){
+            pItemClipInputVo.setStartDate(null);
+        }
+        String result = sta_ItemService.callItemClip(pItemClipInputVo);
         return result;
     }
 }

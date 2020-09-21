@@ -4,6 +4,7 @@ import com.dalbit.common.annotation.NoLogging;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.dao.CommonDao;
 import com.dalbit.common.vo.*;
+import com.dalbit.common.vo.procedure.P_ErrorLogVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -139,4 +140,19 @@ public class CommonService {
         return commonDao.getMenuInfo(menuVo);
     }
 
+    /**
+     * 에러 로그 저장
+     */
+    public String saveErrorLog(P_ErrorLogVo pErrorLogVo, HttpServletRequest request) {
+        ProcedureVo procedureVo = new ProcedureVo(pErrorLogVo);
+        commonDao.saveErrorLog(procedureVo);
+
+        String result;
+        if(procedureVo.getRet().equals(Status.에러로그저장_성공.getMessageCode())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.에러로그저장_성공));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.에러로그저장_실패));
+        }
+        return result;
+    }
 }

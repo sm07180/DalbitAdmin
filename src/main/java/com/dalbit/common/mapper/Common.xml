@@ -55,4 +55,8 @@
         </if>
 
     </select>
+
+    <select id="saveErrorLog" statementType="CALLABLE" parameterType="ProcedureVo" resultType="ProcedureVo">
+      call sp_log_error_data(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

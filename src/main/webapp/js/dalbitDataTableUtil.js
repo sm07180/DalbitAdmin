@@ -49,7 +49,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
         bLengthChange: true,                                                        //  페이지 표시 건수 변동 기능 사용 여부
-        lengthMenu : [ [ 5, 10, 20, 30, 40 ], [ 5, 10, 20, 30, 40 ] ],                  // "bLengthChange" 리스트 항목을 구성할 옵션
+        lengthMenu : [ [ 50, 30, 100 ], [ '50 건', '30 건', '100 건' ] ],                  // "bLengthChange" 리스트 항목을 구성할 옵션
         bAutoWidth: false,                                                            // 자동 Width 계산 여부
         processing: false,                                                              // Process 바 출력 여부
         ordering: false,                                                                 // 정렬 사용 여부
@@ -429,6 +429,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         }else{
             this.dataTableSource.dom = '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">><"dataTable-top-page col-md-12">rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>';
         }
+    }
+
+    // Page Length 조절 화면 노출
+    DalbitDataTable.prototype.usePageLenght = function(page){
+        this.dataTableSource.dom = '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div" l>><"dataTable-top-page col-md-12" p>rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>';
     }
 
     // 데이터 테이블 성공 후 Callback 호출 여부 : default - TRUE( 초기화)
