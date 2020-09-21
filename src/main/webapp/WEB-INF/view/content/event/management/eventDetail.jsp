@@ -47,6 +47,7 @@
                 $(this).val(selectDate);
             });
 
+            // 상시 이벤트 disabled 설정
             if(response.data.alwaysYn == 1) {
 
                 $('#eventEndDate').val("");
@@ -55,16 +56,23 @@
                 $('#alwaysYnCheck').attr('checked', true);
             }
 
+            // 추가 정보 readonly 속성 설정
             if(response.data.addInfoSlct != 9) {
                 $('#etcUrl').attr('readonly', true);
             }
 
+            // 당첨자 선정 완료 구분값 받아서 당첨자 발표 탭 disabled
             var prizeWinner = response.data.prizeWinner;
             $('#prizewinner').val(prizeWinner);
             if(prizeWinner == 1) {
                 $('#tab_eventWinnerAnnounce').removeAttr('disabled');
             } else if(prizeWinner == 0) {
                 $('#tab_eventWinnerAnnounce').attr('disabled', true);
+            }
+
+            // 당첨자 발표 날짜가 빈 값일 시 처리
+            if(response.data.announcementDate == '0000-00-00 00:00:00') {
+                $('#announcementDate').val('-');
             }
         });
     }
@@ -151,7 +159,7 @@
             , pcLinkUrl : $('#pcLinkUrl').val()
             , mobileLinkUrl : $('#mobileLinkUrl').val()
             , listImgUrl : $('#listImgUrl').val()
-            , announcementDate : $('#announcementDate').val().replace(/\./g, '-')
+            , announcementDate : $('#announcementDate').val() == '-' ? '' : $('#announcementDate').val().replace(/\./g, '-')
         };
     }
 
@@ -183,7 +191,7 @@
             , pcLinkUrl : $('#pcLinkUrl').val()
             , mobileLinkUrl : $('#mobileLinkUrl').val()
             , listImgUrl : $('#listImgUrl').val()
-            , announcementDate : $('#announcementDate').val().replace(/\./g, '-')
+            , announcementDate : $('#announcementDate').val() == '-' ? '' : $('#announcementDate').val().replace(/\./g, '-')
         };
     }
 
@@ -214,7 +222,7 @@
 
     function checkDate() {
         var alwaysCheck = $('input[name="alwaysYnCheck"]').is(':checked') ? 1 : 0;
-        if(alwaysCheck == 0) {
+        if (alwaysCheck == 0) {
             if ($('#eventStartDate').val() != '-' && $('#eventEndDate').val() != '-') {
                 var startDate = $('#eventStartDate').val().replace(/\./gi, '');
                 var endDate = $('#eventEndDate').val().replace(/\./gi, '');
@@ -222,13 +230,15 @@
                 if (startDate > endDate) {
                     alert('이벤트 기간 날짜를 확인해주세요.');
                     return false;
+                } else if (startDate <= endDate) {
+                    return true;
                 }
-            } else if($('#eventStartDate').val() == '-' || $('#eventEndDate').val() == '-') {
+            } else if ($('#eventStartDate').val() == '-' || $('#eventEndDate').val() == '-') {
                 alert('이벤트 기간 날짜를 확인해주세요.');
                 return false;
             }
         }
-        if(alwaysCheck == 1) {
+        if (alwaysCheck == 1) {
             return true;
         }
     }
