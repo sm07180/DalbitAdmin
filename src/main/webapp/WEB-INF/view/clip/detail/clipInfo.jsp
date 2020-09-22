@@ -244,16 +244,6 @@
 
     }
 
-    //클립 삭제 기능 이베트
-    function deleteClip(clipNo) {
-        if(confirm("해당 클립을 삭제 하시겠습니까?")){
-            var data = {
-                "castNo" : clipNo
-            }
-            util.getAjaxData("isHide", "/rest/clip/history/deleteClip", data , fn_ClipDelete_success, fn_fail)
-        }
-    }
-
     function fn_ClipDelete_success(dst_id, response){
         alert(response.message);
         $("#bt_search").click();
