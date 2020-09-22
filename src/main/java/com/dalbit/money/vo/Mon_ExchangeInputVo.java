@@ -34,4 +34,7 @@ public class Mon_ExchangeInputVo extends PagingVo {
     private String[] idxArr;
     private int state;
 
+    private String startDate;
+    private String endDate;
+
 }
