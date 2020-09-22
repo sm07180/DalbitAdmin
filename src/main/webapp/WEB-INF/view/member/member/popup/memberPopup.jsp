@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String in_memNo = request.getParameter("memNo");
-    String in_moveTabId = request.getParameter("moveTabId");
+    String in_moveTabId = request.getParameter("moveTabId") == null ? "" : request.getParameter("moveTabId");
 %>
 
 <div class="col-md-12 no-padding">

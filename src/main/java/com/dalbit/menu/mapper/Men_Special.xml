@@ -593,7 +593,7 @@
     <sql id="reqAbleCondition">
 
         CASE
-            WHEN list.condition_code1 = 1 THEN list.condition_data1 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code1 = 1 THEN list.condition_data1 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code1 = 2 THEN list.condition_data1 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code1 = 3 THEN list.condition_data1 <![CDATA[<=]]> list.goodCnt
             WHEN list.condition_code1 = 4 THEN list.condition_data1 <![CDATA[<=]]> list.level
@@ -604,7 +604,7 @@
         AND
 
         CASE
-            WHEN list.condition_code2 = 1 THEN list.condition_data2 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code2 = 1 THEN list.condition_data2 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code2 = 2 THEN list.condition_data2 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code2 = 3 THEN list.condition_data2 <![CDATA[<=]]> list.goodCnt
             WHEN list.condition_code2 = 4 THEN list.condition_data2 <![CDATA[<=]]> list.level
@@ -615,7 +615,7 @@
         AND
 
         CASE
-            WHEN list.condition_code3 = 1 THEN list.condition_data3 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code3 = 1 THEN list.condition_data3 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code3 = 2 THEN list.condition_data3 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code3 = 3 THEN list.condition_data3 <![CDATA[<=]]> list.goodCnt
             WHEN list.condition_code3 = 4 THEN list.condition_data3 <![CDATA[<=]]> list.level

@@ -7,7 +7,7 @@
     <div id="page-wrapper">
         <div class="col-lg-12 form-inline no-padding" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
-                <div class="row col-lg-9">
+                <div class="row col-lg-9" id="tabContainer">
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                         <li class="active"><a href="#all" role="tab" data-toggle="tab" id="tab_all">전체 클립</a></li>
                         <li><a href="#all" role="tab" data-toggle="tab" id="tab_today">일자별 클립</a></li>
@@ -59,6 +59,14 @@
         $("#txt_search").val("");
         $("#headerInfo").html("");
         $("#headerInfo").hide();
+        $("#page-wrapper").css("height", "85px");
+        $("#searchContainer").removeClass("col-lg-7");
+        $("#totalContainer").removeClass("col-lg-5");
+        $("#tabContainer").removeClass("col-lg-7");
+        $("#searchContainer").addClass("col-lg-9");
+        $("#totalContainer").addClass("col-md-3");
+        $("#tabContainer").addClass("col-lg-9");
+
 
         if(tabId == 'tab_all'){         //클립 관리 (전체)
             $("input:radio[name='slctType']:radio[value='-1']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))

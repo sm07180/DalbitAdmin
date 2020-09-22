@@ -76,23 +76,35 @@
 <script type="text/x-handlebars-template" id="tmp_headerInfo_clipHistoryListen">
     <table class="table table-bordered _tableHeight" data-height="23px">
         <colgroup>
-            <col width="33%"/><col width="33%"/><col width="33%"/>
+            <col width="16%"/><col width="16%"/><col width="16%"/>
+            <col width="16%"/><col width="16%"/><col width="16%"/>
         </colgroup>
         <thead>
         <tr>
-            <th colspan="3" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총 청취 수 : {{addComma pagingVo.totalCnt 'N'}} 건</th>
+            <th colspan="6" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총 누적 청취 수 (비중복 청취 수): {{addComma summary.listenTotalCnt 'N'}} 건 ({{addComma pagingVo.totalCnt 'N'}} 건)</th>
         </tr>
         <tr>
-            <th class="_bgColor" data-bgcolor="#dae3f3">남성</th>
-            <th class="_bgColor" data-bgcolor="#fbe5d6">여성</th>
-            <th class="_bgColor" data-bgcolor="#FFF2CC">알수없음</th>
+            <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">남성</th>
+            <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">여성</th>
+            <th colspan="2" class="_bgColor" data-bgcolor="#FFF2CC">알수없음</th>
+        </tr>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#f2f2f2">누적</th>
+            <th class="_bgColor" data-bgcolor="#f2f2f2">비중복</th>
+            <th class="_bgColor" data-bgcolor="#f2f2f2">누적</th>
+            <th class="_bgColor" data-bgcolor="#f2f2f2">비중복</th>
+            <th class="_bgColor" data-bgcolor="#f2f2f2">누적</th>
+            <th class="_bgColor" data-bgcolor="#f2f2f2">비중복</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td >{{addComma summary.manTotalCnt 'N'}} 건</td>
-            <td >{{addComma summary.femaleTotalCnt 'N'}} 건</td>
-            <td >{{addComma summary.unknownTotalCnt 'N'}} 건</td>
+            <td>{{addComma summary.listenManTotalCnt 'N'}} 건</td>
+            <td>{{addComma summary.manTotalCnt 'N'}} 건</td>
+            <td>{{addComma summary.listenFemaleTotalCnt 'N'}} 건</td>
+            <td>{{addComma summary.femaleTotalCnt 'N'}} 건</td>
+            <td>{{addComma summary.listenUnknownTotalCnt 'N'}} 건</td>
+            <td>{{addComma summary.unknownTotalCnt 'N'}} 건</td>
         </tr>
         </tbody>
     </table>
