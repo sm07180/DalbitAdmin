@@ -71,7 +71,12 @@ $(document).on('click', '._openClipInfoPop', function(){
         moveTabId = '&moveTabId=' + encodeURIComponent($(this).data('tabid') +'');
     }
 
-    var url = "/clip/history/popup/clipInfoPopup?clipNo="+encodeURIComponent($(this).data('clipno')) + moveTabId;
+    var orderByType = '';
+    if(!common.isEmpty($(this).data('orderby'))){
+        orderByType = '&orderByType=' + encodeURIComponent($(this).data('orderby') +'');
+    }
+
+    var url = "/clip/history/popup/clipInfoPopup?clipNo="+encodeURIComponent($(this).data('clipno')) + moveTabId + orderByType;
 
     util.windowOpen(url, 1050, 730, 'clipInfo');
 });

@@ -272,6 +272,23 @@ public class Mem_MemberService {
 
     }
 
+    /**
+     * 회원 클립수정 내역 보기
+     */
+    public String callMemberClipEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo){
+        int totalCnt = mem_MemberDao.callMemberClipEditHistoryCnt(pMemberEditHistInputVo);
+        pMemberEditHistInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_BroadcastEditHistOutputVo> editList = mem_MemberDao.callMemberClipEditHistory(pMemberEditHistInputVo);
+        String result;
+        if (editList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_성공, editList, new PagingVo(pMemberEditHistInputVo.getTotalCnt())));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_실패));
+        }
+        return result;
+
+    }
+
 
     /**
      * 회원 달/별 내역 보기

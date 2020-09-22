@@ -32,5 +32,7 @@ public class ClipHistoryTotalVo extends PagingVo {
     private String delMyselfUnknownTotalCnt;
     private String delAdminUnknownTotalCnt;
 
+    private float avgMemberOfDay;
+
 
 }

@@ -198,6 +198,10 @@
             addMemo(data);
         }
 
+        if(eventId == "bt_detail_clipImg"){      // 클립 이미지 상세
+            getAdminMemoList("bt_editHistory", "정보수정내역");
+        }
+
         if(eventId == "bt_detail_opName"){      // 수정 내역
             getAdminMemoList("bt_editHistory", "정보수정내역");
         }
@@ -238,16 +242,6 @@
         getAdminMemoList("bt_adminMemoList", "운영자메모");
         alert(response.message);
 
-    }
-
-    //클립 삭제 기능 이베트
-    function deleteClip(clipNo) {
-        if(confirm("해당 클립을 삭제 하시겠습니까?")){
-            var data = {
-                "castNo" : clipNo
-            }
-            util.getAjaxData("isHide", "/rest/clip/history/deleteClip", data , fn_ClipDelete_success, fn_fail)
-        }
     }
 
     function fn_ClipDelete_success(dst_id, response){
@@ -392,6 +386,7 @@
             <th rowspan="5" colspan="1">
                 클립 이미지
                 <br><button type="button" id="bt_edit_clipImg" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                <br><button type="button" id="bt_detail_clipImg" class="btn btn-default btn-sm mt5" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">상세</button>
             </th>
             <td rowspan="5" colspan="4" style="text-align: -webkit-center">
                 <img id="image_section" class="thumbnail fullSize_background no-padding no-margin" src="{{viewImage backgroundImage}}" alt="your image" style="width: 150px;height: 150px" />

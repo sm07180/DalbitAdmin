@@ -157,7 +157,7 @@
     });
 
     function radioChange(){
-        if(tabId != 'tab_broadcastDetail') {
+        if(tabId != 'tab_broadcastDetail' && tabId != 'tab_clipDetail') {
             if ($('input[name="slctType"]:checked').val() == 0) {
                 $("#oneDayDatePicker").show();
                 $("#rangeDatepicker").hide();
@@ -185,7 +185,7 @@
     }
 
     function searchDate(dateType){
-        if(tabId != "tab_broadcastDetail"){
+        if(tabId != "tab_broadcastDetail" && tabId != 'tab_clipDetail'){
             var slctType = $('input[name="slctType"]:checked').val();
             //시간별
             if(slctType == 0){
