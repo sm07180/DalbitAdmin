@@ -47,7 +47,7 @@ var ClipHistoryDataTableSource = {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '최다<br>청취수', 'width':'50px', 'data': 'countMaxPlay', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen" data-orderby="3">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_good">' + common.addComma(data) + '</a>';

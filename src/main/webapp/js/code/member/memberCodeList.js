@@ -176,6 +176,13 @@ var searchRadioMember = [
     , new COMMON_CODE('6', '6', '모바일ID')
 ];
 
+var searchMemoSlct = [
+    new COMMON_CODE('','memoSlct','운영자메모구분')
+    // ,new COMMON_CODE('-1','-1','메모구분(전체)')
+    ,new COMMON_CODE('1','1','회원')
+    ,new COMMON_CODE('2','2','방송방')
+    ,new COMMON_CODE('3','3','클립')
+];
 
 // ------------------------- table -----------------------------
 var mem_gift_summary = [
