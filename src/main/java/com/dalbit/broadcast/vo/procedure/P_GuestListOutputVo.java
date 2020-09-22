@@ -13,7 +13,9 @@ public class P_GuestListOutputVo extends PagingVo {
 
     /* return result */
     private int auth;
-    private int state;
+    private String room_no;
+    private int proState;
+    private int guestState;
     private String mem_no;
     private String mem_nick;
     private String mem_sex;
@@ -22,9 +24,19 @@ public class P_GuestListOutputVo extends PagingVo {
     private String grade;
     private int giftCnt;
     private int giftGold;
+    private String proDate;
     private String start_date;
     private String end_date;
     private int air_time;
+
+    private int guestCnt;
+    private int proCnt;
+    private int proCancelCnt;
+    private int inviteCnt;
+    private int inviteCancelCnt;
+    private int inviteOkCnt;
+    private int inviteNoCnt;
+
 
     /* summary */
     private String totalAirTime;

@@ -255,7 +255,6 @@
         var html = templateScript(data);
         $("#question_summaryArea2").html(html);
 
-        console.log("임시저장 stop -------------------------" );
         clearInterval(storageTimer);
 
     }
@@ -290,6 +289,8 @@
     var answer;
     var rowNum;
     function getQuestDetail(index){
+        clearInterval(storageTimer);
+
         $("#tab_qna").removeClass("hide");
         var data = dtList_info_detail.getDataRow(index);
         var obj ={};
@@ -306,9 +307,6 @@
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
-        console.log("---------------------------------------");
-        console.log(document.querySelector("form"));
-
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("slctState", -1);

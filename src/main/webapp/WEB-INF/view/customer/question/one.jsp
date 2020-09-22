@@ -69,13 +69,15 @@
     var fileName;
     var state;
     function quest_detail_success(data, response, params){
-
-        clearInterval(storageTimer);
-
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
+
         qnaIdx = params.qnaIdx;
-        answer = response.data.answer;
+        if(qnaIdx == localStorage.qnaIdx){
+            answer = localStorage.answer;
+        }else{
+            answer = response.data.answer;
+        }
         memNo = response.data.mem_no;
         memId = response.data.mem_userid;
         phone = response.data.phone;
@@ -379,30 +381,18 @@
 
     function tmpStorage(){
         storageTimer = setInterval(function() {
-            console.log("처리상태가 진행중이면 임시 저장 시작 ---------------   상태: " + state + " / 수정자: " + op_name + " / 로그인: " + LOGIN_USER_NAME);
-            if(state == "2" && op_name == LOGIN_USER_NAME){
-                console.log("처리상태 진행중 저장 ---------------");
-                var data = {};
-                data["qnaIdx"] = qnaIdx;
+            if(state == "0"){
+                localStorage.qnaIdx = "";
+                localStorage.answer = "";
+                localStorage.qnaIdx = qnaIdx;
                 if(noticeType == 2 || noticeType == 0){
-                    data["answer"] = $("#editor").summernote('code');
+                    localStorage.answer = $("#editor").summernote('code');
                 }else{
-                    data["answer"] = $("#smsSend-msg_body").val();
+                    localStorage.answer = $("#smsSend-msg_body").val();
                 }
-                util.getAjaxData("tmpStorage", "/rest/customer/question/tmpStorage", data, quest_tmpStorage_success,quest_tmpStorage_false,"",false);
             }
-        }, 1000 * 60);
-
-
+        }, 1000 * 10);
     }
-    function quest_tmpStorage_success(data, response, params){
-
-    }
-    function quest_tmpStorage_false(data, response, params){
-
-    }
-
-
 
 </script>
 

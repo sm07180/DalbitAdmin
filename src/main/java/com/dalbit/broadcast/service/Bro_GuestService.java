@@ -3,6 +3,7 @@ package com.dalbit.broadcast.service;
 import com.dalbit.broadcast.dao.Bro_GuestDao;
 import com.dalbit.broadcast.vo.procedure.P_GuestListInputVo;
 import com.dalbit.broadcast.vo.procedure.P_GuestListOutputVo;
+import com.dalbit.broadcast.vo.procedure.P_ProposeListOutputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
@@ -44,6 +45,25 @@ public class Bro_GuestService {
         ArrayList<P_GuestListOutputVo> list = broGuestDao.callGuestList(procedureVo);
 
         P_GuestListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_GuestListOutputVo.class);
+
+        String result;
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(procedureVo.getRet()),summary));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+        return result;
+    }
+
+
+    /**
+     * 게스트 신청 이력
+     */
+    public String getProposeList(P_GuestListInputVo pGuestListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pGuestListInputVo);
+        ArrayList<P_ProposeListOutputVo> list = broGuestDao.callProposeList(procedureVo);
+
+        P_ProposeListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_ProposeListOutputVo.class);
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {

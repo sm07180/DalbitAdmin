@@ -3,8 +3,13 @@
 <mapper namespace="com.dalbit.broadcast.dao.Bro_GuestDao" >
 
     <select id="callGuestList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_GuestListOutputVo">
-        /* B_Listener.xml - callGuestList */
+        /* Bro_Guest.xml - callGuestList */
         call rd_admin.sp_admin_broadcast_room_guest(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callProposeList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_ProposeListOutputVo">
+        /* Bro_Guest.xml - callProposeList */
+        call rd_admin.sp_admin_broadcast_room_guest_propose(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
 </mapper>

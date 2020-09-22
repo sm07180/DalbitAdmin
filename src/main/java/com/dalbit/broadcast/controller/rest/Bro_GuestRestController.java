@@ -33,8 +33,8 @@ public class Bro_GuestRestController {
         return broGuestService.getGuestList(p_guestListInputVo);
     }
 
-    /*@PostMapping("forceLeave")
-    public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
-        return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
-    }*/
+    @PostMapping("pro/list")
+    public String getProposeList(P_GuestListInputVo p_guestListInputVo){
+        return broGuestService.getProposeList(p_guestListInputVo);
+    }
 }
