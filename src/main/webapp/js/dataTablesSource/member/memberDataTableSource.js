@@ -521,6 +521,10 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 구분', 'data': 'memoSlct','width':'180px','render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        return ""
+                    }
+
                     var sufText = "";
                     if(data == 2) { // 방송방
                         sufText = ' - <a href="javascript://" class="_openBroadcastPop" data-roomNo="' + row.memNo + '">' + row.memNo + '</a>';

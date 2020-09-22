@@ -568,6 +568,7 @@
 
     var dtMemoList;
 
+    var inputSearchMemoSlct = 1;
     function getAdminMemoList(tmp,tmp1) {     // 상세보기
         var template = $('#tmp_member_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -580,12 +581,12 @@
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
-            data.memoSlct = common.isEmpty($("#memoSlct").val()) ? 1 : $("#memoSlct").val();
+            data.memoSlct = inputSearchMemoSlct;
         };
         dtMemoList = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtMemoList.useCheckBox(true);
         dtMemoList.useIndex(true);
-        dtMemoList.createDataTable(initMemoCreate);
+        dtMemoList.createDataTable();
 
         var scrollPosition = $("#tab_infoDetail").offset();
         util.scrollPostion(scrollPosition.top);
@@ -600,16 +601,12 @@
         });
     }
 
-    function initMemoCreate(){
-        var table_memoSlctArea = '<span id="memoSlctArea"></span>';
+    function adminMemoSubTabClick(memoSlct){
+        inputSearchMemoSlct = memoSlct;
+        dtMemoList.reload();
 
-        $("#info_detail_wrapper").find(".top-left").append(table_memoSlctArea);
-        $("#memoSlctArea").append(util.getCommonCodeSelect(-1, searchMemoSlct));
-
-        $("#memoSlct").on("change", function(){
-            dtMemoList.reload();
-        })
-
+        var scrollPosition = $("#tab_infoDetail").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function adminMemoDel(){
@@ -618,6 +615,7 @@
             return;
         }
         var data = {};
+        console.log(dtMemoList.getCheckedData()[0].memNo);
         data.mem_no = memNo;
         data.delList =  dtMemoList.getCheckedData();
         console.log(data);
@@ -626,8 +624,9 @@
 
     function adminMemoDel_success(dst_id, response) {
         // alert(response.message);
-        tmp_bt = "bt_adminMemoList";
-        getMemNo_info_reload(memNo);
+        // tmp_bt = "bt_adminMemoList";
+        // getMemNo_info_reload(memNo);
+        dtMemoList.reload();
     }
 
     function stateEdit() {
@@ -1027,7 +1026,7 @@
             <th>클립 등록</th>
             <td colspan="3"><a href="javascript: $('#tab_clipList').click();">{{addComma clipCnt}} 건</a></td>
             <th>클립 청취</th>
-            <td colspan="3"><a href="javascript: $('#tab_clipListenList').click();">{{addComma clipListenCnt}} 건 ( {{addComma clipPlayCnt}} 건)</a></td>
+            <td colspan="3"><a href="javascript: $('#tab_clipListenList').click();">{{addComma clipPlayCnt}} 건 ( {{addComma clipListenCnt}} 건)</a></td>
         </tr>
         <tr>
             <th>닉네임</th>
@@ -1231,17 +1230,27 @@
         </ul>
         <div class="tab-content" style="padding-top: 0px;">
             <div class="tab-pane fade in active" id="memberInfoDetail">
-                <div class="widget widget-table">
-                    <div class="widget-content">
-                        <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
-                            <thead id="tableTop_detail">
-                            </thead>
-                            <tbody id="tableBody_detail">
-                            </tbody>
-                        </table>
+                <div class="widget-content mt5">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                        <li class="active"><a href="#memoContent" role="tab" data-toggle="tab" id="tab_memoMember" onclick="adminMemoSubTabClick(1)">회원</a></li>
+                        <li><a href="#memoContent" role="tab" data-toggle="tab" id="tab_memoBroadcast" onclick="adminMemoSubTabClick(2)">방송방</a></li>
+                        <li><a href="#memoContent" role="tab" data-toggle="tab" id="tab_memoCast" onclick="adminMemoSubTabClick(3)">클립</a></li>
+                    </ul>
+                    <div class="tab-pane fade in active" id="memoContent">
+                        <div class="widget widget-table">
+                            <div class="widget-content">
+                                <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                    <thead id="tableTop_detail">
+                                    </thead>
+                                    <tbody id="tableBody_detail">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
             <div class="tab-pane fade" id="memberInfoDetail2">
                 <div class="widget widget-table">
                     <div class="widget-content">

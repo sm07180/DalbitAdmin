@@ -386,11 +386,11 @@
         /* M_Member.xml - callMemAdminMemoDel */
         delete
           from rd_admin.tb_admin_op_memo
-         where mem_no=#{mem_no}
-           and idx in
-        <foreach collection="delList" item="item" separator="," open="(" close=")">
-            #{item.idx}
-        </foreach>
+         <where>
+            <foreach collection="delList" item="item" separator=" OR ">
+                (mem_no=#{item.memNo} AND idx = #{item.idx})
+            </foreach>
+         </where>
 
     </delete>
 
