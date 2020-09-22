@@ -36,7 +36,7 @@
     $(document).on('change', "#clipSubjectType, #clipOrderByType", function(){
         beforeOrderByType = $("#clipOrderByType").val();
         beforeClipSubjectType = $("#clipSubjectType").val();
-        dtList_info.reload(selectCallback_clipHistoty);
+        dtList_info_detail.reload(selectCallback_clipHistoty);
     });
 
     $(function(){
@@ -62,7 +62,7 @@
         }
 
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        var source = MemberDataTableSource[tmp];
+        var source = ClipHistoryDataTableSource.list;
 
         //=---------- Main DataTable ----------
         var dtList_info_detail_data = function (data) {
@@ -135,26 +135,93 @@
 
     function fn_ClipUpdateHide_success(dst_id, response){
         alert(response.message);
-        dtList_info.reload(selectCallback_clipHistoty);
+        dtList_info_detail.reload(selectCallback_clipHistoty);
     }
     function fn_fail(dst_id, response){
         alert(data.message);
         console.log(data, textStatus, jqXHR);
     };
 
-    //클립 삭제 기능 이베트
+    // 클립 신고 삭제 이벤트
+    function reportDeleteClip(clipNo){
+        console.log(clipNo)
+        // if(confirm("해당 클립을 삭제 하시겠습니까?")){
+        var data = new Object();
+        data.cast_no = clipNo;
+
+        util.getAjaxData("clipDetailInfo", "/rest/clip/history/info", data, fn_detailInfo_select_success);
+        // }
+    }
+
+    var clipInfoData = "";
+    function fn_detailInfo_select_success(dst_id, response, dst_params) {
+        dalbitLog(response);
+        clipInfoData = response.data;
+        openClipReportPopup();
+    }
+
+    //클립 신고 팝업 오픈
+    function openClipReportPopup(){
+        var report = "/member/member/popup/reportPopup?"
+            + "memNo=" + encodeURIComponent(clipInfoData.cast_mem_no)
+            + "&memId=" + encodeURIComponent(clipInfoData.cast_userId)
+            + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
+            + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
+            + "&deviceUuid=" + clipInfoData.cast_deviceUuid
+            + "&ip=" + clipInfoData.cast_ip;
+
+        util.windowOpen(report,"750","910","clipReport");
+    }
+
+    // 클립 신고 팝업 완료 콜백 함수
+    function getMemNo_info_reload(memNo){
+        if(!common.isEmpty(clipInfoData)){
+            var data = Object();
+            data.cast_no = clipInfoData.castNo;
+            data.editSlct = 4;
+            data.state = 5;
+            data.sendNoti = 0;
+
+            editClipDetailData(data, false);
+        }
+        dtList_info_detail.reload(selectCallback_clipHistoty, false);
+    }
+
+    //클립 삭제 이벤트
     function deleteClip(clipNo) {
+        console.log(clipNo)
         if(confirm("해당 클립을 삭제 하시겠습니까?")){
-            var data = {
-                "castNo" : clipNo
-            }
-            util.getAjaxData("isHide", "/rest/clip/history/deleteClip", data , fn_ClipDelete_success, fn_fail)
+            var data = Object();
+            data.cast_no = clipNo;
+            data.editSlct = 4;
+            data.state = 5;
+            data.sendNoti = 0;
+
+            editClipDetailData(data);
         }
     }
 
+    //클립 수정
+    var isAlertShow = true;
+    function editClipDetailData(data, isAlert){
+        isAlertShow = true;
+        if(!common.isEmpty(isAlert)){
+            isAlertShow = isAlert
+        }
+
+        util.getAjaxData("clipDetailInfoEdit", "/rest/clip/history/info/edit", data, fn_detailInfo_Edit_success);
+    }
+
+    function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
+        console.log(response);
+        dtList_info_detail.reload(selectCallback_clipHistoty, false);
+        if(isAlertShow){alert(response.message)};
+    }
+
+
     function fn_ClipDelete_success(dst_id, response){
         alert(response.message);
-        dtList_info.reload(selectCallback_clipHistoty);
+        dtList_info_detail.reload(selectCallback_clipHistoty);
     }
 
 
