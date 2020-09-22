@@ -122,8 +122,9 @@
             getHistory_listenDetail(tmp);
         }else if(tmp == "tab_clip"){
             if($("#tab_clip").parent("li").hasClass("active")){
-                getHistory_clipList(tmp);
+                $("#tab_clipList").click();
             }
+            getHistory_clipList(tmp);
         }else if(tmp == "tab_clipList"){
             if(!$("#tab_clip").parent("li").hasClass("active")){
                 $("#tab_clip").click();
