@@ -15,4 +15,9 @@ public class PushController {
     public String list() {
         return "content/push/list";
     }
+
+    @GetMapping("/popup")
+    public String popup() {
+        return "content/push/pushPopup";
+    }
 }
