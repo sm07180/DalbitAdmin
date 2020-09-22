@@ -79,4 +79,33 @@ public class Mon_ExchangeController {
         mv = new ModelAndView(new ExcelExportView());
         return mv;
     }
+
+
+    @RequestMapping("completeListExcel")
+    public ModelAndView completeListExcel(Map map, ModelAndView mv, HttpServletRequest request, HttpServletResponse response, Mon_ExchangeInputVo monExchangeInputVo, Model model) throws GlobalException {
+
+        monExchangeInputVo.setExcelYn("Y");
+        //monExchangeInputVo.setLast_reject(1);
+        List<Object[]> body = monExchangeService.getCompleteExcelData(monExchangeInputVo, model);
+
+        if(body.size() == 0){
+            mv.setView(new MessageView("완료된 목록이 없습니다.","window.close()",""));
+            return mv;
+        }
+
+        String[] colums = new String[]{"No", "예금주", "금액",
+                "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
+                "실지급액", "주민번호", "연락처", "은행명", "계좌번호",
+                "주소"};
+        String fileName = "스페셜DJ 완료내역";
+
+        map.put("fileName", fileName);
+        map.put("sheetNames", "equipment");
+        map.put("columns", colums);
+        map.put("values", body);
+
+        mv = new ModelAndView(new ExcelExportView());
+        return mv;
+    }
+
 }

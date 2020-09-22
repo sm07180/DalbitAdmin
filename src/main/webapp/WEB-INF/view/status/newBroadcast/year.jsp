@@ -18,8 +18,8 @@
                 <thead>
                 <tr>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
-                    <th colspan="6" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
-                    <th colspan="6" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
+                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
+                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 건 수</th>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 달 수</th>
@@ -29,13 +29,13 @@
                     <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <th class="_bgColor" data-bgColor="#e9ebf5">누적 방송 총계</th>
+                    <%--<th class="_bgColor" data-bgColor="#e9ebf5">누적 방송 총계</th>--%>
                     <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
                     <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <th class="_bgColor" data-bgColor="#e9ebf5">누적 청취 총계</th>
+                    <%--<th class="_bgColor" data-bgColor="#e9ebf5">누적 청취 총계</th>--%>
                     <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
                 </tr>
                 </thead>
@@ -364,13 +364,13 @@
         <td class="_fontColor" data-fontColor="red">{{addComma total_create_fCnt}} ({{addComma total_unique_dj_fCnt}})</td>
         <td>{{addComma total_create_nCnt}} ({{addComma total_unique_dj_nCnt}})</td>
         <td>{{addComma total_create_totalCnt}} ({{addComma total_unique_dj_Cnt}})</td>
-        <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_create_totalCnt}}</td>
+        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma total_create_totalCnt}}</td>--%>
         <td>{{addComma total_create_max_Cnt}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma total_listener_mCnt}} ({{addComma total_unique_listener_mCnt}})</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}} ({{addComma total_unique_listener_fCnt}})</td>
         <td>{{addComma total_listener_nCnt}} ({{addComma total_unique_listener_nCnt}})</td>
         <td>{{addComma total_listener_totalCnt}} ({{addComma total_unique_listener_Cnt}})</td>
-        <td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>
+        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>--%>
         <td>{{addComma total_listener_max_Cnt}}</td>
         <td style="text-align: right">{{timeStampDay total_airtime}}</td>
         <td>{{addComma total_gift_Cnt}}</td>
@@ -388,14 +388,14 @@
         <td class="_fontColor" data-fontColor="blue">{{#dalbit_if create_mCnt '!=' 0}}{{addComma create_mCnt 'Y'}} ({{addComma unique_dj_mCnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="red">{{#dalbit_if create_fCnt '!=' 0}}{{addComma create_fCnt 'Y'}} ({{addComma unique_dj_fCnt}}){{/dalbit_if}}</td>
         <td>{{#dalbit_if create_nCnt '!=' 0}}{{addComma create_nCnt 'Y'}} ({{addComma unique_dj_nCnt}}){{/dalbit_if}}</td>
-        <td>{{#dalbit_if create_totalCnt '!=' 0}}{{addComma create_totalCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
-        <td class="_fontColor" data-fontColor="#ff3300">{{addComma create_accuTotalCnt 'Y'}}</td>
+        <td {{#dalbit_if nowMonth '!=' month}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if create_totalCnt '!=' 0}}{{addComma create_totalCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
+        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma create_accuTotalCnt 'Y'}}</td>--%>
         <td>{{addComma create_max_Cnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{#dalbit_if listener_mCnt '!=' 0}}{{addComma listener_mCnt 'Y'}} ({{addComma unique_listener_mCnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="red">{{#dalbit_if listener_fCnt '!=' 0}}{{addComma listener_fCnt 'Y'}} ({{addComma unique_listener_fCnt}}){{/dalbit_if}}</td>
         <td>{{#dalbit_if listener_nCnt '!=' 0}}{{addComma listener_nCnt 'Y'}} ({{addComma unique_listener_nCnt}}){{/dalbit_if}}</td>
-        <td>{{#dalbit_if listener_totalCnt '!=' 0}}{{addComma listener_totalCnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
-        <td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_accuTotalCnt 'Y'}}</td>
+        <td {{#dalbit_if nowMonth '!=' month}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if listener_totalCnt '!=' 0}}{{addComma listener_totalCnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
+        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_accuTotalCnt 'Y'}}</td>--%>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
         <td style="text-align: right">{{timeStampDay airtime}}</td>
         <td>{{addComma gift_Cnt 'Y'}}</td>
@@ -465,11 +465,11 @@
         <td>{{addComma pcCnt 'Y'}}</td>
         <td>{{addComma androidCnt 'Y'}}</td>
         <td>{{addComma iosCnt 'Y'}}</td>
-        <td>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
+        <td {{#dalbit_if nowMonth '!=' month}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td style="text-align: right">{{timeStampDay pcTime}}</td>
         <td style="text-align: right">{{timeStampDay androidTime}}</td>
         <td style="text-align: right">{{timeStampDay iosTime}}</td>
-        <td style="text-align: right">{{timeStampDay totalBroadcastingTime}}</td>
+        <td style="text-align: right" {{#dalbit_if nowMonth '!=' month}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{timeStampDay totalBroadcastingTime}}</td>
     </tr>
     {{/each}}
 </script>
@@ -507,7 +507,7 @@
         <td>{{addComma create06Cnt 'Y'}}</td>
         <td>{{addComma create09Cnt 'Y'}}</td>
         <td>{{addComma create13Cnt 'Y'}}</td>
-        <td>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
+        <td {{#dalbit_if nowMonth '!=' month}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if totalCreateCnt '!=' 0}}{{addComma totalCreateCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
     </tr>
     {{else}}
     <tr>
