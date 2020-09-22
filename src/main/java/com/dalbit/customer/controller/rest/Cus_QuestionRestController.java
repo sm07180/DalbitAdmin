@@ -173,12 +173,4 @@ public class Cus_QuestionRestController {
         return cus_questionService.callQustionFileDel(pQuestionOperateVo);
     }
 
-
-    /**
-     *  1:1 문의임시 저장
-     */
-    @PostMapping("tmpStorage")
-    public String tmpStorage(P_QuestionOperateVo pQuestionOperateVo){
-        return cus_questionService.callServiceCenterQnaTmpStorage(pQuestionOperateVo);
-    }
 }

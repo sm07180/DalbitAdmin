@@ -75,7 +75,6 @@
         var html = templateScript(data);
         $("#question_summaryArea").html(html);
 
-        console.log("임시저장 stop -------------------------" );
         clearInterval(storageTimer);
     }
 
