@@ -580,11 +580,12 @@
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
+            data.memoSlct = common.isEmpty($("#memoSlct").val()) ? 1 : $("#memoSlct").val();
         };
         dtMemoList = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtMemoList.useCheckBox(true);
         dtMemoList.useIndex(true);
-        dtMemoList.createDataTable();
+        dtMemoList.createDataTable(initMemoCreate);
 
         var scrollPosition = $("#tab_infoDetail").offset();
         util.scrollPostion(scrollPosition.top);
@@ -597,6 +598,18 @@
         $("#btn_adminMemoDel").on("click", function () { //운영자 메모 삭제
             adminMemoDel();
         });
+    }
+
+    function initMemoCreate(){
+        var table_memoSlctArea = '<span id="memoSlctArea"></span>';
+
+        $("#info_detail_wrapper").find(".top-left").append(table_memoSlctArea);
+        $("#memoSlctArea").append(util.getCommonCodeSelect(-1, searchMemoSlct));
+
+        $("#memoSlct").on("change", function(){
+            dtMemoList.reload();
+        })
+
     }
 
     function adminMemoDel(){
@@ -956,8 +969,8 @@
             <td colspan="2" style="text-align: left">{{lastBroadcastDate}}</td>
         </tr>
         <tr>
-            <th>프로필<br>메시지</th>
-            <td colspan="3" style="text-align: left" id="memberProfileMsg">
+            <th rowspan="2">프로필<br>메시지</th>
+            <td rowspan="2" colspan="3" style="text-align: left" id="memberProfileMsg">
                 <span style="display:inline-block;width:65%" id="profileMsg">{{profileMsg}}</span>
                 <button type="button" id="bt_profileMsg_editHistory" class="btn btn-default btn-sm pull-right ml5">상세</button>
                 <button type="button" id="bt_profileMsg_del" class="btn btn-default btn-sm pull-right " style="background-color: #46B0CF; border-color: #46B0CF">삭제</button>
@@ -990,15 +1003,6 @@
             </td>
         </tr>
         <tr>
-            <th>회원No</th>
-            <td style="text-align: left" id="memberNo">{{mem_no}}</td>
-            <th>UserID</th>
-            <td style="text-align: left" id="td_userid" data-userid="{{userId}}">
-                {{userId}}<br>
-                {{^equal dj_badge ''}}
-                <label class="pull-left pt5"> DJ타입 | {{{../dj_badge}}} </label>
-                {{/equal}}
-            </td>
             <th>청취상태</th>
             <td colspan="6" style="text-align: left;border-right-color:white;border-right-width:0px;">
                 {{{icon_listeningState}}}
@@ -1009,6 +1013,21 @@
             <td>
                 <button type="button" id="bt_forcedExit" class="btn btn-danger btn-sm pull-right" onclick="forcedListenExit();">청취강제종료</button>
             </td>
+        </tr>
+        <tr>
+            <th>회원No</th>
+            <td style="text-align: left" id="memberNo">{{mem_no}}</td>
+            <th>UserID</th>
+            <td style="text-align: left" id="td_userid" data-userid="{{userId}}">
+                {{userId}}<br>
+                {{^equal dj_badge ''}}
+                <label class="pull-left pt5"> DJ타입 | {{{../dj_badge}}} </label>
+                {{/equal}}
+            </td>
+            <th>클립 등록</th>
+            <td colspan="3"><a href="javascript: $('#tab_clipList').click();">{{addComma clipCnt}} 건</a></td>
+            <th>클립 청취</th>
+            <td colspan="3"><a href="javascript: $('#tab_clipListenList').click();">{{addComma clipListenCnt}} 건 ( {{addComma clipPlayCnt}} 건)</a></td>
         </tr>
         <tr>
             <th>닉네임</th>

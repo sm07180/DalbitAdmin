@@ -8,6 +8,7 @@
         <span class="pull-left">
             <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
             <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
+            <span id="select_clipOrderByType" name="select_clipOrderByType" class="pull-left ml5"></span>
         </span>
         <span class="pull-right">
             <p name="headerInfo" style="padding:5px; border:1px solid #cccccc; background-color: #ffe699; height: 30px; margin-bottom: 2px; display: table;"></p>
@@ -33,14 +34,21 @@
     });
 
     function getClipDetailListen(){
+        $("#select_clipOrderByType").html(util.getCommonCodeSelect(common.isEmpty(orderByType) ? 0 : orderByType, clip_orderByType_listen_clipDetail));
+
         initDataTable_clipHistoryListen();
     }
+
+    $(document).on('change', "#clipOrderByType", function(){
+        dtList_info.reload(selectCallback_clipHistotyListen, false);
+    });
 
     var dtList_info;
     function initDataTable_clipHistoryListen() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
             data.targetClipNo = clipNo;
+            data.orderByType = Number($("#clipOrderByType").val());
         };
 
         dtList_info = new DalbitDataTable($("#clip_history_listen_list_info"), dtList_info_data, ClipDetailDataTableSource.listenList, $("#searchForm"));

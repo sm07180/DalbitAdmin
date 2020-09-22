@@ -9,4 +9,5 @@ import lombok.Setter;
 public class P_MemberAdminMemoListInputVo extends SearchVo {
     private String mem_no;
     private int pageNo;
+    private int memoSlct;
 }

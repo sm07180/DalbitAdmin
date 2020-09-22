@@ -58,6 +58,11 @@ public interface Mem_MemberDao {
     ArrayList<P_BroadcastEditHistOutputVo> callMemberRoomEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo);
 
     @Transactional(readOnly = true)
+    int callMemberClipEditHistoryCnt(P_MemberEditHistInputVo pMemberEditHistInputVo);
+    @Transactional(readOnly = true)
+    ArrayList<P_BroadcastEditHistOutputVo> callMemberClipEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo);
+
+    @Transactional(readOnly = true)
     ArrayList<P_MemberEditHistOutputVo> callMemberPointHistory(P_MemberEditHistInputVo pMemberEditHistInputVo);
 
     @Transactional(readOnly = true)

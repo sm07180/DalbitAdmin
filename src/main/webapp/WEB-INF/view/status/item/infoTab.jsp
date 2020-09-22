@@ -12,7 +12,7 @@
                     <li><a href="#gender" role="tab" data-toggle="tab" id="tab_genderDetail">성별</a></li>
                     <li><a href="#age" role="tab" data-toggle="tab" id="tab_ageDetail">연령별</a></li>
                     <li><a href="#broadcast" role="tab" data-toggle="tab" id="tab_broadcastDetail">방송</a></li>
-                    <%--<li><a href="#cast" role="tab" data-toggle="tab" id="tab_castDetail">캐스트</a></li>--%>
+                    <li><a href="#clip" role="tab" data-toggle="tab" id="tab_clipDetail">클립</a></li>
                     <%--<li><a href="#storeEtc" role="tab" data-toggle="tab" id="tab_storeEtcDetail">스토어/기타</a></li>--%>
                     <%--<li><a href="#item" role="tab" data-toggle="tab" id="tab_itemDetail">아이템 전체</a></li>--%>
                     <%--<li><a href="#buyHistory" role="tab" data-toggle="tab" id="tab_buyHistoryDetail">구매 내역</a></li>--%>
@@ -22,7 +22,7 @@
                     <div class="tab-pane fade" id="gender"><jsp:include page="gender.jsp"/></div>    <!-- 성별 -->
                     <div class="tab-pane fade" id="age"><jsp:include page="age.jsp"/></div>    <!-- 연령별 -->
                     <div class="tab-pane fade" id="broadcast"><jsp:include page="broadcast.jsp"/></div>    <!-- 방송 -->
-                    <div class="tab-pane fade" id="cast"><jsp:include page="cast.jsp"/></div>    <!-- 캐스트 -->
+                    <div class="tab-pane fade" id="clip"><jsp:include page="clip.jsp"/></div>    <!-- 클립 -->
                     <div class="tab-pane fade" id="storeEtc"><jsp:include page="storeEtc.jsp"/></div>    <!-- 스토어/기타 -->
                     <div class="tab-pane fade" id="item"><jsp:include page="item.jsp"/></div>    <!-- 아이템 전체 -->
                     <div class="tab-pane fade" id="buyHistory"><jsp:include page="buyHistory.jsp"/></div>    <!-- 구매 내역 -->
@@ -50,6 +50,10 @@
             $("#slctTypeArea").hide();
             $("#slctTypeArea2").show();
             getBroadList();
+        }else if(tabId == 'tab_clipDetail'){
+            $("#slctTypeArea").hide();
+            $("#slctTypeArea2").show();
+            getClipList();
         }else if(tabId == 'tab_castDetail'){
         }else if(tabId == 'tab_storeEtcDetail') {
         }else if(tabId == 'tab_itemDetail') {
@@ -61,7 +65,7 @@
 
     $("#bt_search").on('click', function(){
 
-        if(tabId == 'tab_broadcastDetail') {
+        if(tabId == 'tab_broadcastDetail' || tabId == 'tab_clipDetail') {
             if ($('input[name="slctType2"]:first').prop('checked')) {
                 $("._searchDate2").html($("#startDate").val() + " (" + toDay + ")");
             }

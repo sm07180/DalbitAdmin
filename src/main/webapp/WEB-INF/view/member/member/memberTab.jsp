@@ -88,10 +88,12 @@
                     <li><a href="#roomEditHistory" role="tab" data-toggle="tab" id="tab_roomEditHistory_bgImg" onclick="getHistory_roomEditHistory(this.id, 1);">방송배경이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileMsg" onclick="getHistory_editHistory(this.id, 3);">프로필메시지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>
+                    <li><a href="#clipEditHistory" role="tab" data-toggle="tab" id="tab_clipEditHistory_all" onclick="getHistory_editHistory(this.id, 5);">클립</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade" id="editHistory"><jsp:include page="../edit/list.jsp"/></div>     <!-- 수정내역 -->
                     <div class="tab-pane fade" id="roomEditHistory"><jsp:include page="../edit/broadcastList.jsp"/></div>     <!-- 방송방수정내역 -->
+                    <div class="tab-pane fade" id="clipEditHistory"><jsp:include page="../edit/clipList.jsp"/></div>     <!-- 클립수정내역 -->
                 </div>
             </div>
             <div class="tab-pane fade" id="levelDetail"><jsp:include page="../level/list.jsp"/></div>     <!-- 레벨 -->
@@ -119,10 +121,20 @@
         }else if(tmp == "tab_listenDetail"){
             getHistory_listenDetail(tmp);
         }else if(tmp == "tab_clip"){
-            $("#tab_clipList").click();
+            if($("#tab_clip").parent("li").hasClass("active")){
+                getHistory_clipList(tmp);
+            }
         }else if(tmp == "tab_clipList"){
+            if(!$("#tab_clip").parent("li").hasClass("active")){
+                $("#tab_clip").click();
+            }
+
             getHistory_clipList(tmp);
         }else if(tmp == "tab_clipListenList"){
+            if(!$("#tab_clip").parent("li").hasClass("active")){
+                $("#tab_clip").click();
+            }
+
             getHistory_clipListenList(tmp);
         }else if(tmp == "tab_payDetail"){
             getHistory_payDetail(tmp);

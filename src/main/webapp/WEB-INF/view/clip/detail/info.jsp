@@ -4,6 +4,7 @@
 <%
     String in_clipNo = request.getParameter("clipNo");
     String in_moveTabId = request.getParameter("moveTabId") == null ? "" : request.getParameter("moveTabId");
+    String in_orderByType = request.getParameter("orderByType") == null ? "" : request.getParameter("orderByType");
 %>
 
 
@@ -27,6 +28,7 @@
 <script type="text/javascript">
     var clipNo = "<%=in_clipNo%>";
     var moveTabId = "<%=in_moveTabId%>";
+    var orderByType = "<%=in_orderByType%>";
 
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");

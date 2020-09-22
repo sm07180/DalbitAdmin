@@ -118,10 +118,55 @@
                         AND edit_contents NOT REGEXP #{searchText}
                     </when>
                 </choose>
+            ORDER BY last_upd_date DESC
+            LIMIT #{pageStart}, #{pageCnt}
         ) AS a
         , (SELECT @rownum := #{pageStart} ) AS b
-        ORDER BY a.editDate DESC
-        LIMIT #{pageNo}, #{pageCnt}
+
+    </select>
+
+    <select id="callMemberClipEditHistoryCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM rd_data.tb_cast_room_edit_history
+        WHERE
+        cast_no IN ( SELECT cast_no FROM rd_data.tb_cast_room WHERE mem_no = #{mem_no})
+           <choose>
+               <when test="searchType == 1">
+                   AND edit_contents LIKE concat('%',#{searchText},'%')
+               </when>
+               <when test="searchType == 2">
+                   AND edit_contents NOT REGEXP #{searchText}
+               </when>
+           </choose>
+    </select>
+
+    <select id="callMemberClipEditHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo">
+        SELECT
+            @rownum := @rownum + 1 as rowNum,
+            a.*
+        FROM
+        (
+            SELECT
+                last_upd_date AS editDate
+                , edit_contents AS editContents
+                , op_name AS opName
+             FROM rd_data.tb_cast_room_edit_history
+             WHERE
+                cast_no IN ( SELECT cast_no FROM rd_data.tb_cast_room WHERE mem_no = #{mem_no})
+                <choose>
+                    <when test="searchType == 1">
+                        AND edit_contents LIKE concat('%',#{searchText},'%')
+                    </when>
+                    <when test="searchType == 2">
+                        AND edit_contents NOT REGEXP #{searchText}
+                    </when>
+                </choose>
+            ORDER BY last_upd_date DESC
+            LIMIT #{pageStart}, #{pageCnt}
+        ) AS a
+        , (SELECT @rownum := #{pageStart} ) AS b
+
     </select>
 
     <select id="callMemberPointHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
@@ -334,7 +379,7 @@
     </select>
     <select id="callMemAdminMemoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberAdminMemoListOutputVo">
         /* M_Member.xml - callMemAdminMemoList */
-        call rd_admin.sp_admin_op_memo_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_admin.sp_admin_op_memo_all_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
     <!-- 운영자 메모 삭제하기 -->
     <delete id="callMemAdminMemoDel" parameterType="com.dalbit.member.vo.procedure.P_MemberAdminMemoDelVo">

@@ -520,8 +520,18 @@ var MemberDataTableSource = {
         'url': '/rest/member/member/adminMemolist'
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
+            {'title': '등록 구분', 'data': 'memoSlct','width':'180px','render': function (data, type, row, meta) {
+                    var sufText = "";
+                    if(data == 2) { // 방송방
+                        sufText = ' - <a href="javascript://" class="_openBroadcastPop" data-roomNo="' + row.memNo + '">' + row.memNo + '</a>';
+                    }else if(data == 3){ //클립
+                        sufText = ' - <a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.memNo + '">' + row.memNo + '</a>'
+                    }
+
+                    return util.getCommonCodeLabel(data, searchMemoSlct) + sufText;
+                }},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo','render': function (data) {
+            {'title': '운영자 메모 내용', 'data': 'memo','width':'850px','render': function (data) {
                 return common.replaceTag(data);
             }},
         ]
@@ -613,6 +623,18 @@ var MemberDataTableSource = {
 
     'roomEditHistory': {
         'url': '/rest/member/member/roomEditHist'
+        , 'columns': [
+            {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px','className':'al' ,'render' : function(data){
+                    return memberUtil.convertEditHistory(data);
+                }},
+            {'title': '처리자명', 'data': 'opName','width':'100px'},
+        ]
+        , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+    },
+
+    'clipEditHistory': {
+        'url': '/rest/member/member/clipEditHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
             {'title': '수정 내용', 'data': 'editContents','width':'900px','className':'al' ,'render' : function(data){
@@ -773,17 +795,14 @@ var MemberDataTableSource = {
         'url': '/rest/clip/history/list'
 
         , 'columns': [
-            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
             {'title': '플랫폼', 'width':'60px', 'data': 'osType', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, clip_platformType);
                 }},
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'200px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '클립', 'width':'270px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -860,9 +879,6 @@ var MemberDataTableSource = {
         'url': '/rest/clip/history/listen/list'
 
         , 'columns': [
-            {'title': '클립번호', 'width':'70px', 'data': 'castNo', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
             {'title': '청취일시', 'width':'70px', 'data': 'listenDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
@@ -878,8 +894,8 @@ var MemberDataTableSource = {
             {'title': '주제', 'width':'60px', 'data': 'subjectName', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '제목', 'width':'200px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '클립', 'width':'250px', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
                 }},
             {'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
