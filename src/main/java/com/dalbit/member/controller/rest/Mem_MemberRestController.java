@@ -80,6 +80,14 @@ public class Mem_MemberRestController {
     }
 
     /**
+     * 회원 클립 정보수정 내역 보기
+     */
+    @PostMapping("clipEditHist")
+    public String clipEditHist(P_MemberEditHistInputVo pMemberEditHistInputVo) {
+        return mem_MemberService.callMemberClipEditHistory(pMemberEditHistInputVo);
+    }
+
+    /**
      * 회원 정보수정 내역 보기
      */
     @PostMapping("pointHist")

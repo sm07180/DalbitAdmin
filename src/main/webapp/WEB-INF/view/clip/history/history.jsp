@@ -62,7 +62,7 @@
         $("#clipSubjectType").val("-1");
 
 
-        $("#page-wrapper").css("height", "120px");
+        $("#page-wrapper").css("height", "140px");
         $("#searchContainer").removeClass("col-lg-9");
         $("#totalContainer").removeClass("col-md-3");
         $("#tabContainer").removeClass("col-lg-9");
@@ -108,6 +108,7 @@
         var templateScript = Handlebars.compile(template);
 
         data.summary.viewCnt = (data.pagingVo.totalCnt - data.summary.delTotalCnt);
+        data.summary.memberTotalCnt = (Number(data.summary.manCnt) + Number(data.summary.femaleCnt) + Number(data.summary.unknownCnt));
 
         var context = data;
         var html = templateScript(context);
@@ -378,6 +379,9 @@
                 <td>
                     {{addComma summary.delUnknownTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfUnknownTotalCnt 'N'}} / {{addComma summary.delAdminUnknownTotalCnt 'N'}} )
                 </td>
+            </tr>
+            <tr>
+                <td colspan="9" class="_bgColor" data-bgcolor="#f2f2f2">총 등록자 수 : {{addComma summary.memberTotalCnt}} 명</td>
             </tr>
             </tbody>
         </table>

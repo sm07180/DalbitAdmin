@@ -37,18 +37,6 @@ public class Cli_ClipHistoryService {
     /**
      * 클립 리스트 조회
      */
-    public String selectClipHistoryList(ClipHistoryVo clipHistoryVo) {
-        int count = cliClipHistoryDao.selectClipHistoryListCnt(clipHistoryVo);
-        clipHistoryVo.setTotalCnt(count);
-        ArrayList<ClipHistoryVo> list = cliClipHistoryDao.selectClipHistoryList(clipHistoryVo);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(clipHistoryVo.getTotalCnt())));
-    }
-
-
-    /**
-     * 클립 리스트 조회
-     */
     public String callClipHistoryList(ClipHistoryVo clipHistoryVo) {
         ProcedureVo procedureVo = new ProcedureVo(clipHistoryVo);
         ArrayList<ClipHistoryVo> list = cliClipHistoryDao.callClipHistoryList(procedureVo);
@@ -132,19 +120,6 @@ public class Cli_ClipHistoryService {
 
     }
 
-
-    /**
-     * 클립 청취자 리스트 조회
-     */
-    public String selectClipHistoryListenList(ClipHistoryListenVo clipHistoryListenVo) {
-        int count = cliClipHistoryDao.selectClipHistoryListenListCnt(clipHistoryListenVo);
-        clipHistoryListenVo.setTotalCnt(count);
-        ArrayList<ClipHistoryListenVo> list = cliClipHistoryDao.selectClipHistoryListenList(clipHistoryListenVo);
-        ClipHistoryListenTotalVo total = cliClipHistoryDao.selectClipHistoryListenTotalCnt(clipHistoryListenVo);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(clipHistoryListenVo.getTotalCnt()), total));
-    }
-
     /**
      * 클립 청취자 리스트 조회
      */
@@ -196,18 +171,6 @@ public class Cli_ClipHistoryService {
         }else {
             return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
-    }
-
-
-    /**
-     * 클립 삭제 리스트 조회
-     */
-    public String selectClipHistoryRemoveList(ClipHistoryRemoveVo clipHistoryRemoveVo) {
-        int count = cliClipHistoryDao.selectClipHistoryRemoveListCnt(clipHistoryRemoveVo);
-        clipHistoryRemoveVo.setTotalCnt(count);
-        ArrayList<ClipHistoryRemoveVo> list = cliClipHistoryDao.selectClipHistoryRemoveList(clipHistoryRemoveVo);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(clipHistoryRemoveVo.getTotalCnt())));
     }
 
 

@@ -103,6 +103,11 @@
             <td >{{addComma summary.femaleTotalCnt 'N'}} 명</td>
             <td >{{addComma summary.unknownTotalCnt 'N'}} 명</td>
         </tr>
+        <tr>
+            <td colspan="3" class="_bgColor" data-bgcolor="#f2f2f2">
+                일평균 등록자 수 : {{addComma summary.avgMemberOfDay 'N'}} 명
+            </td>
+        </tr>
         </tbody>
     </table>
 </script>
