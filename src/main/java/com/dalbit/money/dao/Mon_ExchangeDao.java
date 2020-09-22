@@ -27,6 +27,9 @@ public interface Mon_ExchangeDao {
     ArrayList<Mon_ExchangeOutputVo> selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo);
 
     @Transactional(readOnly = true)
+    ArrayList<Mon_ExchangeOutputVo> selectCompleteExchangeList(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
     Mon_EnableOutputVo selectEnableCnt(Mon_ExchangeInputVo monExchangeInputVo);
     @Transactional(readOnly = true)
     Mon_EnableOutputVo totalExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);

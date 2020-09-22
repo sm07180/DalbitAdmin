@@ -184,6 +184,28 @@
         ) a
     </select>
 
+    <select id="selectCompleteExchangeList" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        /* Mon_Exchange.xml - selectCompleteExchangeList */
+        SELECT reg_date
+            , account_name
+            , cash_basic
+            , benefit
+            , income_tax
+            , resident_tax
+            , transfer_fee
+            , cash_real
+            , social_no
+            , phone_no
+            , bank_code
+            , (select code from rd_data.tbl_code_define where `type` = 'exchange_bank_code' and `value` = bank_code) bank_name
+            , account_no
+            , address_1
+            , address_2
+        FROM rd_data.tb_member_exchange EXCHANGE
+        WHERE #{startDate} <![CDATA[<=]]> op_date AND op_date <![CDATA[<=]]> #{endDate}
+            and state = 1
+    </select>
+
     <select id="selectExchangeDetail" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
         /* Mon_Exchange.xml - selectExchangeDetail */
         select *
