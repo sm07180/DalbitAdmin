@@ -81,6 +81,10 @@
     };
 
     function selectCallback_clipHistoty(data){
+        if(data.result == "fail"){
+            return;
+        }
+
         // 탭 우측 총 건수 추가
         var text = "<span style='color: black;'>클립 누적등록 수 :</span>" +
             "<span style='color: darkblue; font-weight: bold; '> " +  common.addComma(data.pagingVo.totalCnt) + " 건</span>" +
@@ -168,13 +172,14 @@
             + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
             + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
             + "&deviceUuid=" + clipInfoData.cast_deviceUuid
-            + "&ip=" + clipInfoData.cast_ip;
+            + "&ip=" + clipInfoData.cast_ip
+            + "&fnCallBack=getMemNo_info_reload_clipList";
 
         util.windowOpen(report,"750","910","clipReport");
     }
 
     // 클립 신고 팝업 완료 콜백 함수
-    function getMemNo_info_reload(memNo){
+    function getMemNo_info_reload_clipList(memNo){
         if(!common.isEmpty(clipInfoData)){
             var data = Object();
             data.cast_no = clipInfoData.castNo;
@@ -184,6 +189,8 @@
 
             editClipDetailData(data, false);
         }
+        getMemNo_info_reload(memNo);
+
         dtList_info_detail.reload(selectCallback_clipHistoty, false);
     }
 

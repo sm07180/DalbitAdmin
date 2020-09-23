@@ -9,6 +9,8 @@
     String in_memSex = request.getParameter("memSex");
     String in_deviceUuid = request.getParameter("deviceUuid");
     String in_ip = request.getParameter("ip");
+
+    String in_fnCallBack = request.getParameter("fnCallBack") == null ? "" : request.getParameter("fnCallBack");
 %>
 
 <div class="col-md-12 no-padding" id="report_detail">
@@ -97,6 +99,7 @@
     var memSex =  '<%=in_memSex%>';
     var deviceUuid =  '<%=in_deviceUuid%>';
     var ip =  '<%=in_ip%>';
+    var fnCallBack =  '<%=in_fnCallBack%>';
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
     $("#blockScope_area").html(util.getCommonCodeCheck(-1, block_scope,"Y"));
@@ -208,7 +211,11 @@
     }
 
     function update_success(dst_id, response) {
-        window.opener.getMemNo_info_reload(memNo);
+        if(!common.isEmpty(fnCallBack)){
+            eval("window.opener." + fnCallBack + "(memNo)");
+        }else{
+            window.opener.getMemNo_info_reload(memNo);
+        }
         alert(response.message);
         window.close();
     }

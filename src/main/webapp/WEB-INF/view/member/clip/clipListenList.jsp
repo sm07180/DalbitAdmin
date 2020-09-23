@@ -44,7 +44,7 @@
         }
 
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        var source = ClipHistoryDataTableSource.listenList;
+        var source = MemberDataTableSource[tmp];
 
         //=---------- Main DataTable ----------
         var dtList_info_detail_data = function (data) {
