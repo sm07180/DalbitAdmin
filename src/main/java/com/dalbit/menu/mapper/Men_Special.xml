@@ -144,11 +144,11 @@
             /*, ifnull((select count(*)
                         from rd_data.tb_member_fanstar
                         where mem_no_star = basic.mem_no), 0) fanCnt*/
-            , ifnull((select count(*)
-                        from rd_data.tb_member_broadcast_listening
-                        where dj_mem_no = basic.mem_no
-                        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
-                        and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
+            , ifnull((select sum(listener)
+                        from rd_data.tb_member_broadcast_broadcasting
+                        where mem_no = basic.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
+                            and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
             , ifnull((select count(distinct listen.mem_no)
                         from rd_data.tb_member_broadcast_listening listen
                         where dj_mem_no = basic.mem_no
@@ -693,16 +693,16 @@
                     , ifnull((select count(*)
                                 from rd_data.tb_member_fanstar
                                 where mem_no_star = basic.mem_no), 0) fanCnt
-                    , ifnull((select count(*)
-                                from rd_data.tb_member_broadcast_listening
-                                where dj_mem_no = basic.mem_no
-                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
-                                and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
+                    , ifnull((select sum(listener)
+                                from rd_data.tb_member_broadcast_broadcasting
+                                where mem_no = basic.mem_no
+                                    and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
+                                    and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
                     , ifnull((select count(distinct listen.mem_no)
                                 from rd_data.tb_member_broadcast_listening listen
                                 where dj_mem_no = basic.mem_no
-                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
-                                and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) listenCnt
+                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> start_date
+                                and start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) listenCnt
                     , ifnull((select count(*)
                                 from rd_data.tb_member_report report
                                 where reported_mem_no = basic.mem_no
@@ -779,16 +779,16 @@
                     , ifnull((select count(*)
                                 from rd_data.tb_member_fanstar
                                 where mem_no_star = basic.mem_no), 0) fanCnt
-                    , ifnull((select count(*)
-                                from rd_data.tb_member_broadcast_listening
-                                where dj_mem_no = basic.mem_no
-                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
-                                and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
+                    , ifnull((select sum(listener)
+                                from rd_data.tb_member_broadcast_broadcasting
+                                where mem_no = basic.mem_no
+                                    and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
+                                    and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
                     , ifnull((select count(distinct listen.mem_no)
                                 from rd_data.tb_member_broadcast_listening listen
                                 where dj_mem_no = basic.mem_no
-                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
-                                and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) listenCnt
+                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> start_date
+                                and start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) listenCnt
                     , ifnull((select count(*)
                                 from rd_data.tb_member_report report
                                 where reported_mem_no = basic.mem_no
