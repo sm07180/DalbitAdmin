@@ -84,6 +84,11 @@
 
         // 클립 이미지 초기화
         if(eventId == "bt_edit_clipImg"){
+            if(clipInfoData.backgroundImage.startsWith("/clip_3")){
+                alert("이미 기본 이미지 입니다.");
+                return false;
+            }
+
             if(confirm("클립 이미지를 초기화 하시겠습니까?")){
                 var data = Object();
                 data.cast_no = clipNo;
@@ -239,9 +244,9 @@
 
     function fn_detailInfo_addMemo_success(dst_id, response, dst_params) {
         console.log(response);
-        getAdminMemoList("bt_adminMemoList", "운영자메모");
+        getClipDetailInfo();
         alert(response.message);
-
+        getAdminMemoList("bt_adminMemoList", "운영자메모");
     }
 
     function fn_ClipDelete_success(dst_id, response){

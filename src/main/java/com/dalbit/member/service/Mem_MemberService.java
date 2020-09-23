@@ -215,10 +215,10 @@ public class Mem_MemberService {
         
         //ip정보 및 device 정보
         //recentLoginInfo
-        ArrayList<LoginHistoryVo> loginHostory = mem_MemberDao.memberLoginHistory(pMemberInfoInputVo.getMem_no());
+        LoginHistoryVo loginHostory = mem_MemberDao.memberLoginHistory(pMemberInfoInputVo.getMem_no());
         if(!DalbitUtil.isEmpty(loginHostory)){
-            memberInfo.setIp(loginHostory.get(0).getIp());
-            memberInfo.setDeviceUuid(loginHostory.get(0).getDevice_uuid());
+            memberInfo.setIp(loginHostory.getIp());
+            memberInfo.setDeviceUuid(loginHostory.getDevice_uuid());
         }
 
         String result;
@@ -526,15 +526,17 @@ public class Mem_MemberService {
             for(int i = 0; i < blockScopes.length; i++){
                 if(blockScopes[i].equals("true") && !DalbitUtil.isEmpty(blockScopeTexts[i])){
 
-                    mem_MemberDao.insertLoginBlock(new LoginBlockVo(i+1, blockScopeTexts[i], blockDay, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));
-
                     int block_type = i+1;
+
+                    mem_MemberDao.insertLoginBlock(new LoginBlockVo(block_type, blockScopeTexts[i], blockDay, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));
 
                     String edit_contents = "";
                     if(block_type == 1){
                         edit_contents = "deviceUuid 차단 등록 : " +  blockScopeTexts[i];
-                    }else{
+                    }else if(block_type == 2){
                         edit_contents = "ip 차단 등록 : " +  blockScopeTexts[i];
+                    }else if(block_type == 3){
+                        edit_contents = "회원번호 차단 등록 : " +  blockScopeTexts[i];
                     }
 
                     mem_MemberDao.insertLoginBlockHistory(new LoginBlockHistVo(edit_contents, 0, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));

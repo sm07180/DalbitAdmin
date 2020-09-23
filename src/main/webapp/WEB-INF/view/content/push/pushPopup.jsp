@@ -897,10 +897,10 @@
                     memNoList : memNoList
                 };
                 util.getAjaxData("sendPushPopUp", "/rest/content/push/choice", data, function fn_choicePushMem_success(dst_id, response) {
-                    var htmlForm = '<br />';
+                    var htmlForm = '';
                     for(var i=0; i<response.data.length; i++) {
                         var html = new Array();
-                        html[i] = '<p id="' + response.data[i].memNo + '">' + response.data[i].memNick + '(' + response.data[i].memUserId + ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p> <br />';
+                        html[i] = '<p id="' + response.data[i].memNo + '">' + response.data[i].memNick + '(' + response.data[i].memUserId + ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>';
                         htmlForm += html[i];
                         fnc_pushDetail.target.find("#input_targetLink").val(response.data[i].memNo);
                         fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", response.data[i].memNo);

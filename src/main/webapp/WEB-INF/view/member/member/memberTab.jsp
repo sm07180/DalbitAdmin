@@ -123,6 +123,7 @@
         }else if(tmp == "tab_clip"){
             if($("#tab_clip").parent("li").hasClass("active")){
                 $("#tab_clipList").click();
+                return;
             }
             getHistory_clipList(tmp);
         }else if(tmp == "tab_clipList"){

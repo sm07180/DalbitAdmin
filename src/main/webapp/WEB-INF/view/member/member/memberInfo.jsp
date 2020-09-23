@@ -106,7 +106,7 @@
             $("#txt_phon").css("display", "");
         }
 
-        if (tmp_bt != "bt_adminMemoList") {
+        if (tmp_bt != "bt_adminMemoList" && tmp_bt != "bt_adminMemo") {
             $("#member_detailFrm").html("");
             $("#tablist_con").find('.active').find('a').click();
 

@@ -72,7 +72,7 @@ var ClipHistoryDataTableSource = {
                         return '<a href="javascript:;" onclick="updateClipHide(' + row.castNo + ', '+ data +')">[해제]</a>';
                     }
                 }},
-            {'title': '삭제', 'width':'50px', 'data': 'state', 'render': function (data, type, row, meta) {
+            {'title': '삭제', 'width':'70px', 'data': 'state', 'render': function (data, type, row, meta) {
                     if(data == 4 || row.state == 5){
                         return "-";
                     }else{

@@ -356,6 +356,13 @@
 
         $('#crewMemberList').html(html);
 
+        $('input:checkbox[class="_chk_crewMem"]').each(function() {
+            var memState = $(this).parent().parent().find('._memState').data('mem_state');
+            if(memState != 1 && memState != 2){
+                $(this).attr('disabled', true);
+            }
+        });
+
         crewMemberPagingInfo.totalCnt = response.pagingVo.totalCnt;
         /*util.renderPagingNavigation('crew_paginate_top', crewPagingInfo);*/
         /*util.renderPagingNavigation('crew_paginate', crewMemberPagingInfo);*/
@@ -534,7 +541,7 @@
                     {{user.crewName}}
                 {{/equal}}
             </td>
-            <td>{{{getMemStateName user.memState}}}</td>
+            <td class="_memState" data-mem_state="{{user.memState}}">{{{getMemStateName user.memState}}}</td>
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.memNick}}</a>
             </td>
