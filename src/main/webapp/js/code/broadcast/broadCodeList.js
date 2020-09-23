@@ -137,12 +137,19 @@ var liveListenSort = [
 var listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')
     // ,new COMMON_CODE('','noMemCnt','비회원 참여 수')
-    ,new COMMON_CODE('','guest','게스트ID')
+    ,new COMMON_CODE('','totalGuestCnt','게스트 수')
     ,new COMMON_CODE('','managerCnt','매니저 수')
     ,new COMMON_CODE('','forcedCnt','강제퇴장 수')
     ,new COMMON_CODE('','totalGoodCnt','좋아요 수')
     ,new COMMON_CODE('','totalBoosterCnt','부스터 수')
     ,new COMMON_CODE('','totalGiftCnt','선물 수')
+];
+
+var guest_summary = [
+    new COMMON_CODE('','totalCnt','연결횟수')
+    ,new COMMON_CODE('','totalSexM','연결인원')
+    ,new COMMON_CODE('','totalAirTime','게스트 방송시간')
+    ,new COMMON_CODE('','totalGiftCnt','받은 선물')
 ];
 
 var like_summary = [
@@ -216,4 +223,15 @@ var forceExit_Message = [
     ,new COMMON_CODE('msg15', '15', '연령제한으로 인한 한시적 제재조치')
     ,new COMMON_CODE('msg99', '99', '서비스 자체 기준 위반')
 ];
+
+var guestProposeState = [
+    new COMMON_CODE(null, 'guestProposeState', '게스트 신청 상태')
+    ,new COMMON_CODE('0', '0', '게스트 신청 취소')
+    ,new COMMON_CODE('1', '1', '게스트 신청')
+    ,new COMMON_CODE('2', '2', '게스트 초대')
+    ,new COMMON_CODE('3', '3', '게스트 초대 취소')
+    ,new COMMON_CODE('4', '4', '게스트 지정')
+    ,new COMMON_CODE('5', '5', '게스트 지정 취소')
+];
+
 
