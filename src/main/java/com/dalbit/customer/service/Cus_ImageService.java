@@ -2,6 +2,7 @@ package com.dalbit.customer.service;
 
 import com.dalbit.broadcast.service.Bro_BroadcastService;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
+import com.dalbit.clip.vo.ClipHistoryVo;
 import com.dalbit.common.code.Code;
 import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
@@ -181,5 +182,28 @@ public class Cus_ImageService {
             e.printStackTrace();
             throw new GlobalException(ErrorStatus.서버처리중오류);
         }
+    }
+
+    /**
+     * clip image 리스트 조회
+     */
+    public String callClipList(ClipHistoryVo clipHistoryVo) {
+        ProcedureVo procedureVo = new ProcedureVo(clipHistoryVo);
+        String result;
+        try {
+            ArrayList<ClipHistoryVo> clipList = cusImageDao.callClipList(procedureVo);
+
+            if(clipList != null && clipList.size() > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.조회, clipList, new PagingVo(procedureVo.getRet())));
+            }else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
+        return result;
     }
 }
