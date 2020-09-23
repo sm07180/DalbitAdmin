@@ -202,7 +202,8 @@
             , address_1
             , address_2
         FROM rd_data.tb_member_exchange EXCHANGE
-        WHERE #{startDate} <![CDATA[<=]]> op_date AND op_date <![CDATA[<=]]> #{endDate}
+        WHERE DATE_FORMAT(#{startDate},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> op_date
+            AND op_date <![CDATA[<=]]> DATE_FORMAT(#{endDate},'%Y-%m-%d 23:59:59')
             and state = 1
     </select>
 
