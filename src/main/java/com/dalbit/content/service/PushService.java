@@ -529,7 +529,9 @@ public class PushService {
         ArrayList<PushChoiceMemVo> list = new ArrayList();
         for(int i=0; i<memNos.length; i++) {
             PushChoiceMemVo choiceMem = pushDao.selectChoiceMember(memNos[i]);
-            list.add(choiceMem);
+            if(!DalbitUtil.isEmpty(choiceMem)) {
+                list.add(choiceMem);
+            }
         }
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }
