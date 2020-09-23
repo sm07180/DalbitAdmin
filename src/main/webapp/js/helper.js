@@ -264,6 +264,10 @@ Handlebars.registerHelper("sexIcon", function(sex, birthYear) {
     return common.sexIcon(sex, birthYear);
 });
 
+Handlebars.registerHelper("sexIconBr", function(sex, birthYear, isBr) {
+    return common.sexIcon(sex, birthYear, isBr);
+});
+
 Handlebars.registerHelper("koreaAge", function(birthDate) {
     return common.koreaAge(birthDate);
 });

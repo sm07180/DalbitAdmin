@@ -224,3 +224,14 @@ var forceExit_Message = [
     ,new COMMON_CODE('msg99', '99', '서비스 자체 기준 위반')
 ];
 
+var guestProposeState = [
+    new COMMON_CODE(null, 'guestProposeState', '게스트 신청 상태')
+    ,new COMMON_CODE('0', '0', '게스트 신청 취소')
+    ,new COMMON_CODE('1', '1', '게스트 신청')
+    ,new COMMON_CODE('2', '2', '게스트 초대')
+    ,new COMMON_CODE('3', '3', '게스트 초대 취소')
+    ,new COMMON_CODE('4', '4', '게스트 지정')
+    ,new COMMON_CODE('5', '5', '게스트 지정 취소')
+];
+
+

@@ -17,7 +17,7 @@
                     , b.mem_birth_year
                     , b.inner
                     ,'-' as room_no
-                    ,'-' as title
+                    , a.title
                     , a.last_upd_date
                     , a.contents
               From rd_data.tb_member_broadcast_notice a

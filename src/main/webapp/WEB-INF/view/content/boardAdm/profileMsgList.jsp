@@ -23,7 +23,8 @@
             <colgroup>
                 <col width="5%"/>
                 <col width="10%"/>
-                <col width="15%"/>
+                <col width="10%"/>
+                <col width="5%"/>
                 <col width="55%"/>
                 <col width="10%"/>
                 <col width="5%"/>
@@ -33,6 +34,7 @@
                     <th>No</th>
                     <th>프로필이미지</th>
                     <th>등록자</th>
+                    <th>성별</th>
                     <th>프로필 메시지 내용</th>
                     <th>최근접속일시</th>
                     <th>삭제</th>
@@ -124,8 +126,11 @@
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td><img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:68px; width:68px; margin: auto;' /></td>
             <td>
-                {{{memNoLink_sex mem_no mem_no mem_sex}}}<br/>
-                {{{memNoLink_sex mem_nick mem_no mem_sex}}}
+                {{{memNoLink mem_no mem_no}}}
+                {{mem_nick}}
+            </td>
+            <td>
+                {{{sexIcon mem_sex mem_birth_year}}}
             </td>
             <td>{{{replaceEnter msg_profile}}}</td>
             <td>{{last_upd_date}}</td>

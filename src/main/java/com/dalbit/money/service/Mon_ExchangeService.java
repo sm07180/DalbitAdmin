@@ -523,7 +523,7 @@ public class Mon_ExchangeService {
             HashMap hm = new LinkedHashMap();
 
             hm.put("no", i+1);
-            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
+            //hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
             //hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
 
@@ -563,8 +563,7 @@ public class Mon_ExchangeService {
         if(0 < exchangeList.size()){
             HashMap totalMap = new LinkedHashMap();
             totalMap.put("no", "");
-            totalMap.put("id", "합계");
-            totalMap.put("accountName", "");
+            totalMap.put("accountName", "합계");
             totalMap.put("cashBasic", cashBasicTotal);
 
             totalMap.put("benefit", benefitTotal);

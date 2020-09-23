@@ -10,6 +10,7 @@ public class P_GuestListInputVo extends PagingVo {
 
     /*  intput  */
     private String room_no;
+    private String mem_no;
     private int sortAuth;
     private int sortState;
     private int pageNo;
