@@ -63,5 +63,58 @@
             var totalHtml = templateScript(totalContext);
             $("#clipTableBody").append(totalHtml);
 
-</body>
-</html>
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
+        }
+
+        var template = $('#tmp_clipDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#clipTableBody").append(html);
+
+        if(response.data != ''){
+            var pagingInfo = response.data.totalInfo;
+            giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
+            util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
+
+            detailContext.totalCnt = pagingInfo.totalCnt;
+        }
+
+        if(isDataEmpty){
+            $("#clipTableBody td:last").remove();
+        }else{
+            $("#clipTableBody").append(totalHtml);
+        }
+    }
+</script>
+<script type="text/x-handlebars-template" id="tmp_clipTotal">
+    <tr class="success font-bold">
+        <td>소계</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{addComma sum_itemCnt}}</td>
+        <td>{{addComma sum_itemAmt}}</td>
+        <td>{{addComma sum_totalItemCnt}}</td>
+        <!--<td>{{addComma sum_totalItemAmt}}</td>-->
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_clipDetailList">
+    {{#each this as |data|}}
+    <tr>
+        <td class="font-bold">{{rowNum}}</td>
+        <td><img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{webp_image}}"/></td>
+        <td>{{item_name}}</td>
+        <td>{{sale_price}}</td>
+        <td>{{addComma itemCnt}}</td>
+        <td>{{addComma itemAmt}}</td>
+        <td>{{addComma totalItemCnt}}</td>
+        <!--<td>{{addComma totalItemAmt}}</td>-->
+    </tr>
+    {{else}}
+    <%--<tr>--%>
+    <td colspan="11" class="noData">{{isEmptyData}}<td>
+        <%--</tr>--%>
+        {{/each}}
+</script>
