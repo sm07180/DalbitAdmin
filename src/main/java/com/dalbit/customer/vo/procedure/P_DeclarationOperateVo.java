@@ -12,4 +12,7 @@ public class P_DeclarationOperateVo extends BaseVo{
     private int sendNoti;
     private String notiContents;
     private String notiMemo;
+
+    private String blockScope;
+    private String reported_mem_no;
 }

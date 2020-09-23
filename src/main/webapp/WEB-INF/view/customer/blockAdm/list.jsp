@@ -27,7 +27,7 @@
             <!-- //serachBox -->
 
             <div class="row col-lg-12">
-                <button type="button" class="btn btn-primary pull-right mb15 mr15" id="bt_block"><i class="fa fa-search"></i>IP / 디바이스 차단</button>
+                <button type="button" class="btn btn-primary pull-right mb15 mr15" id="bt_block"><i class="fa fa-search"></i>차단 등록</button>
             </div>
 
             <!-- DATA TABLE -->
@@ -200,7 +200,7 @@
     }
 
     $('#bt_block').on('click', function() {
-       showPopMemberList();
+        showBlockPop();
     });
 
     $(document).on('click', '#ipUuidBlockBtn', function() {

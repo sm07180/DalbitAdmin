@@ -14,12 +14,14 @@ var block_blockType = [
   , new COMMON_CODE('all', '-1', '차단 유형(전체)')
   , new COMMON_CODE('deviceUuid', '1', 'deviceUuid')
   , new COMMON_CODE('ip', '2', 'IP')
+  , new COMMON_CODE('memNo', '3', '회원번호')
 ];
 
 var block_blockRadio = [
     new COMMON_CODE(null, 'radioBlock', '검색 조건')
     , new COMMON_CODE('deviceUuid', 1, 'deviceUuid')
     , new COMMON_CODE('ip', 2, 'IP')
+    , new COMMON_CODE('memNo', 3, '회원번호')
 ];
 
 var block_blockDay = [
