@@ -21,14 +21,15 @@
         <div class="dataTables_paginate paging_full_numbers" id="broadNotice_paginate_top"></div>
         <table id="broadNoticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
-                <col width="4%"/><col width="10%"/><col width="55%"/><col width="10%"/>
+                <col width="4%"/><col width="10%"/><col width="5%"/><col width="50%"/><col width="10%"/>
                 <col width="10%"/>
             </colgroup>
             <thead>
             <tr>
                 <th>No</th>
-                <th>공지 주인</th>
-                <th>방송공지 내용</th>
+                <th>등록 DJ</th>
+                <th>성별</th>
+                <th>방송방 공지 내용</th>
                 <th>등록일자</th>
                 <th>관리</th>
             </tr>
@@ -104,7 +105,7 @@
     }
 
     function fn_success_broadNoticeSummary(dst_id, response) {
-        $("#tab_broadNoticeList").text("방송공지" + "(" + response.data.totalCnt +")");
+        $("#tab_broadNoticeList").text("방송방공지" + "(" + response.data.totalCnt +")");
         $("#broadNoticeListCnt").html(
             '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
             '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
@@ -137,8 +138,11 @@
         <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td>
-                {{{memNoLink_sex mem_no mem_no mem_sex}}}<br/>
-                {{{memNoLink_sex mem_nick mem_no mem_sex}}}
+                {{{memNoLink mem_no mem_no}}}<br/>
+                {{mem_nick}}
+            </td>
+            <td>
+                {{{sexIcon mem_sex mem_birth_year}}}
             </td>
             <td class="word-break" style="width: 400px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
             <td>{{lastUpdDateFormat}}</td>

@@ -207,14 +207,16 @@
 <script id="tmp_fanBoardTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardList" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="8%"/><col width="8%"/><col width="5%"/><col width="56%"/>
-            <col width="8%"/><col width="4%"/><col width="4%"/>
+            <col width="2%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+            <col width="5%"/><col width="38%"/><col width="8%"/><col width="4%"/><col width="4%"/>
         </colgroup>
         <thead>
         <tr>
             <th>No</th>
             <th>팬보드주인</th>
+            <th>성별</th>
             <th>팬보드글등록자</th>
+            <th>성별</th>
             <th>비밀 글 여부</th>
             <th>팬보드등록글</th>
             <th>등록일시</th>
@@ -228,12 +230,18 @@
             <tr {{#dalbit_if fan_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
                 <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
                 <td>
-                    {{{memNoLink_sex star_mem_no star_mem_no star_mem_sex}}}<br/>
-                    {{{memNoLink_sex star_mem_nick star_mem_no star_mem_sex}}}
+                    {{{memNoLink star_mem_no star_mem_no}}}<br/>
+                    {{star_mem_nick}}
                 </td>
                 <td>
-                    {{{memNoLink_sex fan_mem_no fan_mem_no fan_mem_sex}}}<br/>
-                    {{{memNoLink_sex fan_mem_nick fan_mem_no fan_mem_sex}}}
+                    {{{sexIcon star_mem_sex star_birth_year}}}
+                </td>
+                <td>
+                    {{{memNoLink fan_mem_no fan_mem_no}}}<br/>
+                    {{fan_mem_nick}}
+                </td>
+                <td>
+                    {{{sexIcon fan_mem_sex fan_birth_year}}}
                 </td>
                 <td>
                     {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}

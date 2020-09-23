@@ -365,8 +365,12 @@ var BroadcastDataTableSource = {
     'guestDetail': {
         'url': '/rest/broadcast/guest/list'
         , 'columns': [
-            {'title': '상태', 'data': 'guestState', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '상태', 'data': 'state', 'width':'80px', 'render': function (data, type, row, meta) {
+                    if(data == 0){
+                        return "게스트 연결종료";
+                    }else{
+                        return "게스트 연결 중";
+                    }
                 }},
             {'title': '회원번호', 'data': 'mem_no', 'width':'110px', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
@@ -378,31 +382,42 @@ var BroadcastDataTableSource = {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '게스트 연결일시', 'data': 'start_date', 'width':'120px'},
-            {'title': '게스트 종료일시', 'data': 'end_date', 'width':'120px'},
+            {'title': '게스트 종료일시', 'data': 'end_date', 'width':'120px','render' : function(data, type, row, meta){
+                    if(row.state == 1){
+                        tmp = '<button type="button" class="btn btn-danger btn-xs" onclick="guestOut( ' + meta.row + ' );" style="width: 75px;margin-bottom: 1px" >게스트 종료</button>';
+                        return tmp;
+                    }else{
+                        return data;
+                    }
+                }},
             {'title': '게스트 연결시간', 'data': 'air_time', 'width':'120px','render' : function (data){
                     return common.timeStamp(data);
                 }},
             {'title': '받은 선물', 'data': 'giftCnt', 'width':'80px', 'render': function (data, type, row) {
                     return common.addComma(data) + " 개<br />" + common.addComma(row.giftGold) +" 별";
                 }},
-            {'title': '게스트 신청', 'data': 'proCnt', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
+            // {'title': '게스트 신청', 'data': 'proCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            // {'title': '게스트 신청 취소', 'data': 'proCancelCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            // {'title': '초대 수', 'data': 'inviteCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            // {'title': '초대 취소', 'data': 'inviteCancelCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            // {'title': '게스트 수락', 'data': 'inviteOkCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            // {'title': '게스트 거절', 'data': 'inviteNoCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            {'title': '상세내역', 'data': 'inviteNoCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" onclick="guestDetail(' + meta.row + ')">' + "상세내역 보기" + '</a>';
                 }},
-            {'title': '게스트 신청 취소', 'data': 'proCancelCnt', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
-            {'title': '초대 수', 'data': 'inviteCnt', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
-            {'title': '초대 취소', 'data': 'inviteCancelCnt', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
-            {'title': '게스트 수락', 'data': 'inviteOkCnt', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
-            {'title': '게스트 거절', 'data': 'inviteNoCnt', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
+
         ]
         , 'comments' : 'ㆍ방송 중 게스트 신청 및 연결내역을 확인할 수 있습니다.'
     },

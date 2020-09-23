@@ -19,20 +19,18 @@
 </div>
 
 <!-- 강제퇴장 Modal -->
-<div class="modal fade" id="forcedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 600px;display: table;">
         <div class="modal-content">
             <div class="modal-header">
-                <lable>운영자에 의한 변경 사유를 선택하여 주세요</lable>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <span id="declaration_Message"></span>
-                <input type="text" id="forced_message" class="form-control" style="width: 500px"/>
+                <%--<div class="col-md-12 no-padding">--%>
+                    <span id="guestProposeList"></span>
+                <%--</div>--%>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="bt_modalForced"><i class="fa fa-times-circle"></i> 확인</button>
-                <button type="button" class="btn btn-custom-primary" id="bt_modalForcedNotice"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
             </div>
         </div>
     </div>
@@ -44,15 +42,8 @@
 
 <script>
     $(document).ready(function() {
-        $("#bt_modalForced").on("click", function () {          //강제퇴장 팝업 알림X
-            forced(this.id);
-        });
-        $("#bt_modalForcedNotice").on("click", function () {    //강제퇴장 팝업 알림O
-            forced(this.id);
-        });
     });
     var tmp_sortAuth = -1;
-    var tmp_forced = "";
     function getBroadHistory_guest(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = BroadcastDataTableSource[tmp];
@@ -70,25 +61,13 @@
         dtList_info_detail.setPageLength(50);
         dtList_info_detail.createDataTable(guest_summary_table);
 
-        var table_sel = '<span name="state" id="state" onchange="force_sel_change()"></span>';
-        var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>';
-        var exitBtn = '<input type="button" value="퇴장" class="btn btn-success btn-sm" id="btn_exit" style="margin-right: 3px;"/>';
-
-        $("#" + tmp).find("#main_table").find(".top-left").addClass("no-padding").append(table_sel);
-        $("#" + tmp).find("#main_table").find(".footer-left").append(forcedBtn);
-        $("#" + tmp).find("#main_table").find(".footer-left").append(exitBtn);
         $("#state").html(util.getCommonCodeSelect(-1, state));
-        forcedEventInit();
 
         if(!common.isEmpty(type) == 1){
             $("select[name='state']").val(0);
         }
     }
 
-    function force_sel_change(type){
-        tmp_sortAuth = $("select[name='state']").val();
-        dtList_info_detail.reload(guest_summary_table);
-    }
     function guest_summary_table(json){
 
         console.log(json);
@@ -102,107 +81,30 @@
         var html = templateScript(data);
         $("#guest_summaryArea").html(html);
     }
-    function forcedEventInit(){
-        $("#btn_forced").on("click", function () { //강제퇴장
-            forcedData("forced");
-        });
-        $("#btn_exit").on("click", function () { //강제퇴장
-            forcedData("exit");
-        });
+
+    function guestOut(index){
+        var data = dtList_info_detail.getDataRow(index);
+        console.log(data);
+        util.getAjaxData("type", "/rest/broadcast/guest/out", data, guest_out_success);
     }
-    function forcedData(tmp){
-        tmp_forced = tmp;
-        if(dtList_info_detail.getCheckedData().length <= 0){
-            if(tmp_forced == "forced") {
-                alert("강제퇴장자를 선택해 주십시오");
-            }else if(tmp_forced == "exit") {
-                alert("퇴장자를 선택해 주십시오");
-            }
-            return;
-        }
-        if(tmp_forced == "forced") {
-            $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
-        }else if(tmp_forced == "exit") {
-            $("#bt_modalForcedNotice").hide();
-        }
-        $('#forcedModal').modal('show');
+    function guest_out_success(dst_id, response, param){
+        alert(response.message);
     }
-    function forced(tmp){
-        var sendNoti;
-        if(tmp == "bt_modalForced") {    // 강제퇴장 알림X
-            sendNoti = 0;
-        }else if(tmp == "bt_modalForcedNotice"){      // 강제퇴장 알림O
-            sendNoti = 1;
-        }
+    function guestDetail(index){
+        var data = dtList_info_detail.getDataRow(index);
+        $('#guestModal').modal('show');
 
-        var forceMessage="";
-        $('input:checkbox[name="declaration_Message"]').each(function() {
-            if(this.checked){           //checked 처리된 항목의 값
-                if(this.id == "declaration_Message99" ){
-                    forceMessage = forceMessage + " - " + this.value + " : " + $("#forced_message").val() + "\n";
-                }else {
-                    forceMessage = forceMessage + " - " + this.value + "\n";
-                }
-            }
-        });
-        if($("#declaration_Message99").prop('checked')){
-            if($("#forced_message").val().length < 1){
-                alert("기타 사유를 입력해주세요");
-                return false;
-            }
-        }
-        if(tmp_forced == "exit") {
-            forceMessage = $("#forced_message").val();
-        }
-        if(forceMessage == ""){
-            alert("강제 퇴장 사유를 선택해주세요.");
-            return;
-        }
+        util.getAjaxData("type", "/rest/broadcast/guest/pro/list", data, guest_propose_list_success);
 
-        if (confirm('강제 퇴장 하겠습니까?')) {
-            var date = new Date();
-            var timestamp = date.getFullYear() + "-" +
-                            common.lpad(date.getMonth() + 1,2,"0") + "-" +
-                            common.lpad(date.getDate(),2,"0") + " " +
-                            common.lpad(date.getHours(),2,"0") + "." +
-                            common.lpad(date.getMinutes(),2,"0") + "." +
-                            common.lpad(date.getSeconds(),2,"0");
-
-            var checkDatas = dtList_info_detail.getCheckedData();
-            for(var i=0;i<checkDatas.length;i++){
-                var memo = broadCastMessage.forceLeaveTitle;
-                var memoDetail = broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
-                                                          .replace("{{nickName}}",checkDatas[i].nickName)
-                                                          .replace("{{message}}",forceMessage)
-                                                          .replace("{{timestamp}}",timestamp);
-
-                var data = new Object();
-                data.room_no = room_no;
-                data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
-                data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
-                data.sendNoti = sendNoti;
-                data.notiContents = memo;
-                if(tmp_forced == "forced") {
-                    data.notiMemo = memoDetail;
-                }else if(tmp_forced == "exit") {
-                    console.log(forceMessage);
-                    data.notiMemo = forceMessage;
-                }
-                data.dj_mem_no = mem_no;
-                data.dj_nickname = dj_nickname;
-                data.forced = tmp_forced;
-
-                util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
-            }
-        }else{
-            return false;
-        }
     }
-    function forceLeave_success(dst_id, response){
-        dalbitLog(response);
-        $('#forcedModal').modal('hide');
-        $('#forced_message').val("");
-        dtList_info_detail.reload(guest_summary_table);
+
+    function guest_propose_list_success(dst_id, response, param){
+
+        response.data.totalCnt = response.pagingVo.totalCnt;
+        var template = $("#guestProposeDetailList_tmp").html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript(response.data);
+        $("#guestProposeList").html(html);
     }
 </script>
 
@@ -227,6 +129,26 @@
                 {{addComma content.totalGiftCnt}}건<br />
                 {{addComma content.totalGiftCnt}}별
             </td>
+        </tbody>
+    </table>
+</script>
+
+
+<script id="guestProposeDetailList_tmp" type="text/x-handlebars-template">
+    <table class="table table-bordered">
+        <thead>
+            <th>No.</th>
+            <th>상태</th>
+            <th>시각</th>
+        </thead>
+        <tbody>
+            {{#each this as |data|}}
+            <tr>
+                <td>{{indexDesc ../totalCnt rowNum}}</td>
+                <td>{{{getCommonCodeLabel state 'guestProposeState'}}}</td>
+                <td>{{lastUpdDate}}</td>
+            </tr>
+            {{/each}}
         </tbody>
     </table>
 </script>

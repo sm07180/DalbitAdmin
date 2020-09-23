@@ -3,6 +3,7 @@ package com.dalbit.util;
 import com.dalbit.administrate.dao.Adm_MenuDao;
 import com.dalbit.administrate.service.Adm_AuthorityService;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
+import com.dalbit.broadcast.vo.procedure.P_GuestListInputVo;
 import com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
@@ -968,6 +969,36 @@ public class DalbitUtil {
         try{
             String url = SERVER_API_URL + "/admin/forcedOut";
 //            String url = "https://devm-bgko.dalbitlive.com:4431/admin/forcedOut";
+            Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
+            inforexLoginResult = response.body().string();
+            log.debug(inforexLoginResult);
+            return inforexLoginResult;
+        }catch (IOException | GlobalException e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    /*
+     * 게스트 종료
+     */
+    public static String guestOut(P_GuestListInputVo pGuestListInputVo){
+
+        String authMemNo = adm_MenuDao.getMobileAuth(pGuestListInputVo.getOpName());
+        if(DalbitUtil.isEmpty(authMemNo)){
+            return "noAuth";
+        }
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        RequestBody formBody = new FormBody.Builder()
+                .add("roomNo", pGuestListInputVo.getRoom_no())
+                .add("memNo", pGuestListInputVo.getMem_no())
+                .add("mode", "6")
+                .build();
+
+        String inforexLoginResult;
+        try{
+            String url = SERVER_API_URL + "/admin/guestOut";
+//            String url = "https://devm-hwlee.dalbitlive.com:4431/admin/guestOut";
             Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
             inforexLoginResult = response.body().string();
             log.debug(inforexLoginResult);
