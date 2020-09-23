@@ -231,4 +231,12 @@
        ) AS e
     </insert>
 
+    <select id="selectChoiceMember" parameterType="string" resultType="com.dalbit.content.vo.PushChoiceMemVo">
+        select
+          mem_no as memNo
+          ,mem_nick as memNick
+          , mem_userid as memUserId
+          from rd_data.tb_member_basic
+        where mem_no = #{memNo}
+    </select>
 </mapper>

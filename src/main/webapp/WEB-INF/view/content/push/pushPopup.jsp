@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
+<%
+    String in_memNo = request.getParameter("memNoList");
+%>
 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
     <li class="active">
         <a href="#pushDetail" role="tab" data-toggle="tab" id="tab_pushDetail" onclick="onClickContentTab(this.id)" aria-expanded="true">
@@ -191,6 +194,12 @@
             fnc_pushDetail.formId= "pushDetailForm";
 
             fnc_pushDetail.init= function() {
+                var memNo = "<%=in_memNo%>";
+                if(memNo.substr(memNo.length-1, 1) == ",") {
+                    memNo = memNo.slice(0,-1);
+                }
+                fnc_pushDetail.choiceTargetMember(memNo);
+
                 fnc_pushDetail.target = $("#"+fnc_pushDetail.targetId);
                 fnc_pushDetail.target.find("#targetForm").attr("id", fnc_pushDetail.targetId + "Form");
                 this.formId = fnc_pushDetail.targetId + "Form";
@@ -881,6 +890,23 @@
 
                 fnc_pushDetail.target.find("#input_targetLink").val(data.mem_no);
                 fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.mem_no);
+            };
+
+            fnc_pushDetail.choiceTargetMember = function(memNoList) {
+                var data = {
+                    memNoList : memNoList
+                };
+                util.getAjaxData("sendPushPopUp", "/rest/content/push/choice", data, function fn_choicePushMem_success(dst_id, response) {
+                    var htmlForm = '<br />';
+                    for(var i=0; i<response.data.length; i++) {
+                        var html = new Array();
+                        html[i] = '<p id="' + response.data[i].memNo + '">' + response.data[i].memNick + '(' + response.data[i].memUserId + ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p> <br />';
+                        htmlForm += html[i];
+                        fnc_pushDetail.target.find("#input_targetLink").val(response.data[i].memNo);
+                        fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", response.data[i].memNo);
+                    }
+                    $('#div_selectTarget').html(htmlForm);
+                });
             };
         </script>
 

@@ -236,6 +236,11 @@ util.memNoLink = function(display, memNo) {
     return template;
 },
 
+util.pushSendLink = function(memNoList, buttonVal) {
+    $('#' + buttonVal).data('mem_no_list', memNoList);
+    $('#' + buttonVal).addClass('_openSendPushPop');
+},
+
 util.memNoLink_sex = function(display, memNo, sex) {
     var template;
     if(sex == "m"){

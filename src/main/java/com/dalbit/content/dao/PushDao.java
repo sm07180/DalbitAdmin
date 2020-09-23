@@ -1,6 +1,7 @@
 package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.vo.PushChoiceMemVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberReportVo;
@@ -31,4 +32,7 @@ public interface PushDao {
     List<P_MemberListOutputVo> selectMemInfo(List arrayList);
 
     int callContentsNotiAddALL(P_MemberReportVo pMemberReportVo);
+
+    @Transactional(readOnly = true)
+    PushChoiceMemVo selectChoiceMember(String memNo);
 }

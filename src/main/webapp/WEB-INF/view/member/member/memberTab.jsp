@@ -39,11 +39,11 @@
             </div>
             <div class="tab-pane fade" id="clip"><!-- 클립관리 -->
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                    <li><a href="#clipList" role="tab" data-toggle="tab" id="tab_clipList" onclick="tab_click(this.id);">등록 내역</a></li>
+                    <li class="active"><a href="#clipList" role="tab" data-toggle="tab" id="tab_clipList" onclick="tab_click(this.id);">등록 내역</a></li>
                     <li><a href="#clipListenList" role="tab" data-toggle="tab" id="tab_clipListenList" onclick="tab_click(this.id);">청취 내역</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade" id="clipList"><jsp:include page="../clip/clipList.jsp"/></div>       <!-- 방송 -->
+                    <div class="tab-pane fade in active" id="clipList"><jsp:include page="../clip/clipList.jsp"/></div>       <!-- 방송 -->
                     <div class="tab-pane fade" id="clipListenList"><jsp:include page="../clip/clipListenList.jsp"/></div>         <!-- 청취 -->
                 </div>
             </div>
@@ -122,8 +122,9 @@
             getHistory_listenDetail(tmp);
         }else if(tmp == "tab_clip"){
             if($("#tab_clip").parent("li").hasClass("active")){
-                getHistory_clipList(tmp);
+                $("#tab_clipList").click();
             }
+            getHistory_clipList(tmp);
         }else if(tmp == "tab_clipList"){
             if(!$("#tab_clip").parent("li").hasClass("active")){
                 $("#tab_clip").click();
