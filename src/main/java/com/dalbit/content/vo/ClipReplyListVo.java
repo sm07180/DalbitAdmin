@@ -22,9 +22,11 @@ public class ClipReplyListVo extends SearchVo {
     private String cast_mem_no;
     private String cast_mem_nick;
     private String cast_mem_sex;
+    private String cast_birth_year;
     private String writer_mem_no;
     private String writer_mem_nick;
     private String writer_mem_sex;
+    private String writer_birth_year;
     private String contents;
     private String write_date;
     private String last_upd_date;

@@ -14,6 +14,7 @@ public class P_GuestListOutputVo extends PagingVo {
     /* return result */
     private int auth;
     private String room_no;
+    private int state;
     private int proState;
     private int guestState;
     private String mem_no;

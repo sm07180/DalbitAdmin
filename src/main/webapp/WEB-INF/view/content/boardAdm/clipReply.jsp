@@ -23,20 +23,24 @@
             <colgroup>
                 <col width="5%"/>
                 <col width="10%"/>
+                <col width="8%"/>
                 <col width="15%"/>
                 <col width="10%"/>
-                <col width="35%"/>
-                <col width="10%"/>
+                <col width="8%"/>
+                <col width="25%"/>
                 <col width="5%"/>
                 <col width="5%"/>
+                <col width="4%"/>
                 <col width="5%"/>
             </colgroup>
             <thead>
                 <tr>
                     <th>No</th>
                     <th>클립 주인</th>
+                    <th>성별</th>
                     <th>클립 제목</th>
                     <th>댓글등록자</th>
+                    <th>성별</th>
                     <th>클립 댓글 내용</th>
                     <th>등록일시</th>
                     <th>수정일시</th>
@@ -129,15 +133,21 @@
         <tr {{#dalbit_if writer_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td>
-                {{{memNoLink_sex cast_mem_no cast_mem_no cast_mem_sex}}}<br/>
-                {{{memNoLink_sex cast_mem_nick cast_mem_no cast_mem_sex}}}
+                {{{memNoLink cast_mem_no cast_mem_no}}}<br/>
+                {{cast_mem_nick}}
+            </td>
+            <td>
+                {{{sexIcon cast_mem_sex cast_birth_year}}}<br/>
             </td>
             <td>{{title}}</td>
             <td>
-                {{{memNoLink_sex writer_mem_no writer_mem_no writer_mem_sex}}}<br/>
-                {{{memNoLink_sex writer_mem_nick writer_mem_no writer_mem_sex}}}
+                {{{memNoLink_sex writer_mem_no writer_mem_no}}}<br/>
+                {{writer_mem_nick}}
             </td>
-            <td>{{contents}}</td>
+            <td>
+                {{{sexIcon writer_mem_sex writer_birth_year}}}
+            </td>
+            <td class="word-break" style="width: 350px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
             <td>{{write_date}}</td>
             <td>{{last_upd_date}}</td>
             <td>

@@ -377,9 +377,11 @@
                 , b.cast_mem_no
                 , castMem.mem_nick as cast_mem_nick
                 , castMem.mem_sex as cast_mem_sex
+                , castMem.mem_birth_year as cast_birth_year
                 , b.writer_mem_no
                 , writerMem.mem_nick as writer_mem_nick
                 , writerMem.mem_sex as writer_mem_sex
+                , writerMem.mem_birth_year as writer_birth_year
                 , writerMem.inner as writer_inner
                 , b.contents
                 , b.write_date
