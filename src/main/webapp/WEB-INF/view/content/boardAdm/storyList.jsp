@@ -112,8 +112,9 @@
     <table id="tb_storyList" class="table table-sorting table-hover table-bordered mt10">
 
         <colgroup>
-            <col width="3%"/><col width="5%"/><col width="17%"/><col width="10%"/><col width="10%"/>
-            <col width="39%"/><col width="10%"/><col width="4%"/><col width="3%"/>
+            <col width="3%"/><col width="5%"/><col width="17%"/><col width="10%"/><col width="5%"/>
+            <col width="10%"/><col width="5%"/><col width="29%"/><col width="10%"/><col width="4%"/>
+            <col width="3%"/>
         </colgroup>
 
         <thead>
@@ -122,7 +123,9 @@
             <th>방송중</th>
             <th>방송제목</th>
             <th>방송DJ</th>
+            <th>DJ성별</th>
             <th>등록자</th>
+            <th>성별</th>
             <th>사연내용</th>
             <th>등록일시</th>
             <th class="word-break">처리</th>
@@ -142,19 +145,25 @@
             </td>
             <td>
                 {{^equal dj_mem_nick ''}}
-                {{{memNoLink_sex ../dj_mem_no ../dj_mem_no ../dj_mem_sex}}}<br/>
-                {{{memNoLink_sex ../dj_mem_nick ../dj_mem_no ../dj_mem_sex}}}
+                    {{{memNoLink ../dj_mem_no ../dj_mem_no}}}<br/>
+                    {{../dj_mem_nick}}
                 {{else}}
                 (탈퇴한 회원)
                 {{/equal}}
             </td>
             <td>
+                {{{sexIcon dj_mem_sex dj_birth_year}}}
+            </td>
+            <td>
                 {{^equal send_mem_nick ''}}
-                {{{memNoLink_sex ../send_mem_no ../send_mem_no ../send_mem_sex}}}<br/>
-                {{{memNoLink_sex ../send_mem_nick ../send_mem_no ../send_mem_sex}}}
+                    {{{memNoLink ../send_mem_no ../send_mem_no}}}<br/>
+                    {{../send_mem_nick}}
                 {{else}}
                 (탈퇴한 회원)
                 {{/equal}}
+            </td>
+            <td>
+                {{{sexIcon send_mem_sex send_birth_year}}}
             </td>
             <td  class="word-break" style="width: 500px"><span class="pull-left">{{replaceHtml story_content}}</span></td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>

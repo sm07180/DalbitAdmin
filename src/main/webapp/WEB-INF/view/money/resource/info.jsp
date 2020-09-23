@@ -961,7 +961,7 @@
                     <th rowspan="7" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
                     <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                     <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
-                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">아이템 사용</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">아이템 선물</th>
                     <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">결제 취소</th>
                     <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
                     <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
