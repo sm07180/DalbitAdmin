@@ -133,20 +133,24 @@
 <script id="tmp_fanBoardReplyTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardReply" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
-            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="25%"/>
-            <col width="5%"/><col width="5%"/><col width="25%"/><col width="5%"/>
+            <col width="2%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="5%"/><col width="5%"/><col width="25%"/><col width="5%"/><col width="5%"/>
+            <col width="25%"/><col width="5%"/>
         </colgroup>
         <thead>
         <tr>
             <th>No</th>
             <th>팬보드주인</th>
+            <th>성별</th>
             <th>팬보드글등록자</th>
+            <th>성별</th>
             <th>비밀 글 여부</th>
-            <td class="word-break" style="width: 220px">팬보드 등록 글</th>
-            <td>상태</td>
+            <th class="word-break" style="width: 220px">팬보드 등록 글</th>
+            <th>상태</th>
             <th>댓글등록자</th>
-            <td class="word-break" style="width: 220px">등록된 댓글</th>
-            <td>상태</td>
+            <th>성별</th>
+            <th class="word-break" style="width: 220px">등록된 댓글</th>
+            <th>상태</th>
             <th>등록일시</th>
             <th>관리</th>
         </tr>
@@ -156,12 +160,18 @@
             <tr {{#dalbit_if fan_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
                 <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
                 <td>
-                    {{{memNoLink_sex star_mem_no star_mem_no star_mem_sex}}}<br/>
-                    {{{memNoLink_sex star_mem_nick star_mem_no star_mem_sex}}}
+                    {{{memNoLink star_mem_no star_mem_no}}}<br/>
+                    {{star_mem_nick}}
                 </td>
                 <td>
-                    {{{memNoLink_sex fan_mem_no fan_mem_no fan_mem_sex}}}<br/>
-                    {{{memNoLink_sex fan_mem_nick fan_mem_no fan_mem_sex}}}
+                    {{{sexIconBr star_mem_sex star_birth_year}}}
+                </td>
+                <td>
+                    {{{memNoLink fan_mem_no fan_mem_no}}}<br/>
+                    {{fan_mem_nick}}
+                </td>
+                <td>
+                    {{{sexIconBr fan_mem_sex fan_birth_year}}}
                 </td>
                 <td>
                     {{#dalbit_if view_yn '==' 0}} 비밀 글 {{/dalbit_if}}
@@ -177,8 +187,11 @@
                     {{/dalbit_if}}
                 </td>
                 <td>
-                    {{{memNoLink_sex fan_reply_mem_no fan_reply_mem_no fan_reply_mem_sex}}}<br/>
-                    {{{memNoLink_sex fan_reply_mem_nick fan_reply_mem_no fan_reply_mem_sex}}}
+                    {{{memNoLink fan_reply_mem_no fan_reply_mem_no}}}<br/>
+                    {{fan_reply_mem_nick}}
+                </td>
+                <td>
+                    {{{sexIconBr fan_reply_mem_sex fan_reply_birth_year}}}
                 </td>
                 <td class="word-break" style="width: 200px">
                     <span class="pull-left">{{replaceHtml replyContents}}</span>

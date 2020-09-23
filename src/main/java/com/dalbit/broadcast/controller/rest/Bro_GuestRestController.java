@@ -7,6 +7,7 @@ import com.dalbit.broadcast.vo.procedure.P_GuestListInputVo;
 import com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo;
 import com.dalbit.broadcast.vo.procedure.P_ListenListInputVo;
 import com.dalbit.util.GsonUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,4 +38,11 @@ public class Bro_GuestRestController {
     public String getProposeList(P_GuestListInputVo p_guestListInputVo){
         return broGuestService.getProposeList(p_guestListInputVo);
     }
+
+    /*게스트 종료 호출*/
+    @PostMapping("out")
+    public String callGuestOut(P_GuestListInputVo p_guestListInputVo) throws JsonProcessingException {
+        return broGuestService.callGuestOut(p_guestListInputVo);
+    }
+
 }

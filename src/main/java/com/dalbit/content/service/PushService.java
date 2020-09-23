@@ -8,6 +8,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.content.dao.PushDao;
+import com.dalbit.content.vo.PushChoiceMemVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -518,4 +520,19 @@ public class PushService {
         return pushResult;
     }
 
+    /**
+     * 푸시 팝업 화면에 수신 대상 지정하기
+     */
+    public String selectChoiceMember(PushChoiceMemVo pushChoiceMemVo) {
+        String[] memNos = pushChoiceMemVo.getMemNoList().split(",");
+
+        ArrayList<PushChoiceMemVo> list = new ArrayList();
+        for(int i=0; i<memNos.length; i++) {
+            PushChoiceMemVo choiceMem = pushDao.selectChoiceMember(memNos[i]);
+            if(!DalbitUtil.isEmpty(choiceMem)) {
+                list.add(choiceMem);
+            }
+        }
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+    }
 }

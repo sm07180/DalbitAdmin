@@ -31,6 +31,12 @@ $(document).on('click', '._openAdminMessagePop', function(){
     util.windowOpen(url, 800, 435, 'adminMessageInfo');
 });
 
+/*푸시보내기 팝업*/
+$(document).on('click', '._openSendPushPop', function() {
+    var url = "/content/push/popup?memNoList=" + encodeURIComponent($(this).data('mem_no_list'));
+    util.windowOpen(url, 1000, 500, 'sendPushInfo');
+});
+
 /*방송방플레이어 팝업*/
 $(document).on('click', '._openPlayerPop', function(){
     var url = "/broadcast/broadcast/popup/playerPopup?roomNo="+encodeURIComponent($(this).data('roomno'));

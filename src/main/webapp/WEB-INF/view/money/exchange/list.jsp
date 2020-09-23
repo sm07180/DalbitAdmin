@@ -139,7 +139,6 @@
             $('#topBotton li:eq(' + tabType + ') a').tab('show');
         }
         getList();
-
     });
 
     function getParameter(viewName){
@@ -419,6 +418,35 @@
         }).submit();
     });
 
+    $(document).on('click', '#completeListBtn', function(){
+        $("#rangeDatepicker, #completeExcelDownBtn").show();
+        setRangeDatepicker();
+    });
+
+    $(document).on('click', '#completeExcelDownBtn', function(){
+        if($("#startDate").val() == '' || $("#endDate").val() == ''){
+            alert('날짜를 선택해주세요.');
+            return false;
+        }
+
+        var hidden = '<input type="hidden" name="{name}" value="{value}">';
+
+        var hiddenData = '';
+        hiddenData += hidden.replace('{name}', 'startDate').replace('{value}', $("#startDate").val());
+        hiddenData += hidden.replace('{name}', 'endDate').replace('{value}', $("#endDate").val());
+
+        $("#excelForm").html(hiddenData).attr({
+            method : 'post'
+            , action : '/money/exchange/completeListExcel'
+            , target : 'iframe_excel_download'
+        }).submit();
+
+
+    });
+
+
+
+
     function fn_success_excel(response) {
         console.log(response);
     }
@@ -666,13 +694,31 @@
     }
 
 
+    function setRangeDatepicker(startDate, endDate){
+
+        startDate = common.isEmpty(startDate) ? moment(new Date()).format("YYYY.MM.01") : startDate;
+        endDate = common.isEmpty(endDate) ? moment(new Date()).format("YYYY.MM.DD") : endDate;
+
+        $("#startDate").val(startDate);
+        $("#endDate").val(endDate);
+
+        $('#rangeDate').daterangepicker({
+            startDate: startDate,
+            endDate: endDate
+        }, function(startDate,endDate){
+            $("#startDate").val(moment(startDate).format("YYYY.MM.DD"));
+            $("#endDate").val(moment(endDate).format("YYYY.MM.DD"));
+            $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+        });
+    }
+
 </script>
 
 
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
     <div class="col-md-12 no-padding">
         <div class="col-md-12 no-padding">
-            <div class="col-lg-5 no-padding">
+            <div class="col-lg-6 no-padding">
                 <table class="table table-bordered table-summary pull-left">
                     <colgroup>
                         <col width="80px"/>
@@ -776,21 +822,34 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pt10 col-lg-6 no-padding">
+            <div class="col-lg-6 no-padding">
                 <label>ㆍ환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</label><br/>
                 <label>ㆍ경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</label><br/>
                 <label>ㆍ[SMS발송] 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
                 <label>ㆍ환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</label>
             </div>
-            <div class="col-md-2 no-padding pull-right">
-                <div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <button class="btn btn-sm btn-primary print-btn pull-right" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
-                    <button class="btn btn-sm btn-success print-btn no-margin pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
+        </div>
+        <div class="col-md-12">
+            <div>
+                <button class="btn btn-sm btn-primary print-btn pull-right ml5 mr5" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
+                <button class="btn btn-sm btn-success print-btn pull-right ml5 mr5" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
+
+                <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                    <label for="rangeDate" class="input-group-addon">
+                        <span><i class="fa fa-calendar"></i></span>
+                    </label>
+                    <input id="rangeDate" type="text" class="form-control"/>
                 </div>
+
+                <input type="hidden" name="startDate" id="startDate">
+                <input type="hidden" name="endDate" id="endDate" />
+
+                <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
             </div>
         </div>
         <div class="col-md-6 no-padding">

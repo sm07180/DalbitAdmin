@@ -64,7 +64,7 @@
                              </colgroup>
                              <thead>
                                  <tr>
-                                     <th></th>
+                                     <th><input type="checkbox" name="allChk_crew" /></th>
                                      <th>크루 표식</th>
                                      <th>크루명</th>
                                      <th>크루장</th>
@@ -134,7 +134,7 @@
                                  </colgroup>
                                  <thead>
                                      <tr>
-                                         <th></th>
+                                         <th><input type="checkbox" name="allChk_crewMem" /></th>
                                          <th>No</th>
                                          <th>크루 표식</th>
                                          <th>회원상태</th>
@@ -158,6 +158,9 @@
                      <div class="widget-footer">
                          <span>
                              <button class="btn btn-default" type="button" id="bt_deleteCrewMember">선택삭제</button>
+                         </span>
+                         <span>
+                             <button class="btn btn-primary ml15" type="button" id="bt_pushSendCrewMem">PUSH 발송</button>
                          </span>
                      </div>
                  </div>
@@ -198,6 +201,21 @@
         getCrewInfo();
         getCrewMemberInfo();
     }
+
+    $('input:checkbox[name="allChk_crew"]').on('click', function() {
+        if($(this).prop('checked')) {
+            $('._chk_crew').prop('checked', 'checked');
+        } else {
+            $('._chk_crew').removeAttr('checked');
+        }
+    });
+    $('input:checkbox[name="allChk_crewMem"]').on('click', function() {
+        if($(this).prop('checked')) {
+            $('._chk_crewMem').prop('checked', 'checked');
+        } else {
+            $('._chk_crewMem').removeAttr('checked');
+        }
+    });
 
     $('#bt_insertCrewName').on('click', function() {
         if(common.isEmpty($('#crewName').val())) {
@@ -338,6 +356,13 @@
 
         $('#crewMemberList').html(html);
 
+        $('input:checkbox[class="_chk_crewMem"]').each(function() {
+            var memState = $(this).parent().parent().find('._memState').data('mem_state');
+            if(memState != 1 && memState != 2){
+                $(this).attr('disabled', true);
+            }
+        });
+
         crewMemberPagingInfo.totalCnt = response.pagingVo.totalCnt;
         /*util.renderPagingNavigation('crew_paginate_top', crewPagingInfo);*/
         /*util.renderPagingNavigation('crew_paginate', crewMemberPagingInfo);*/
@@ -457,12 +482,27 @@
     $('#monthPayChk').on('click', function(){
         init();
     });
+
+    $('#bt_pushSendCrewMem').on('click', function() {
+        var checked = $('input:checkbox[class="_chk_crewMem"]:checked');
+        if(checked.length == 0) {
+            alert('PUSH 발송할 크루원을 선택해 주세요.');
+            return false;
+        }
+
+        var memNoList='';
+        checked.each(function() {
+           memNoList += $(this).data('mem_no') + ",";
+        });
+        util.pushSendLink(memNoList, $(this).attr('id'));
+    });
+
 </script>
 
 <script id="tmp_crewInfo" type="text/x-handlebars-template">
     {{#each this}}
         <tr>
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" class="_chk_crew"></td>
             <td><a href="javascript://" onclick="displayCrew('{{this.crewName}}', '{{this.crewIdx}}');" class="_crewInfo" data-crewidx="{{this.crewIdx}}">{{crewName}}</a></td>
             <td>
                 <input type="text" id="crewMemo_{{crewIdx}}" value="{{crewMemo}}" style="width:70%">
@@ -484,7 +524,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="3">{{isEmptyData}}</td>
+            <td colspan="10">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
@@ -492,7 +532,7 @@
 <script id="tmp_crewMemberList" type="text/x-handlebars-template">
     {{#each this.data as |user|}}
         <tr>
-            <td><input type="checkbox"/><input type="hidden" class="_crewMember" data-memidx="{{user.idx}}"/> </td>
+            <td><input type="checkbox"  class="_chk_crewMem" data-mem_no="{{user.mem_no}}"/><input type="hidden" class="_crewMember" data-memidx="{{user.idx}}"/> </td>
             <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{#equal user.crewName ''}}
@@ -501,7 +541,7 @@
                     {{user.crewName}}
                 {{/equal}}
             </td>
-            <td>{{{getMemStateName user.memState}}}</td>
+            <td class="_memState" data-mem_state="{{user.memState}}">{{{getMemStateName user.memState}}}</td>
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.memNick}}</a>
             </td>
@@ -531,7 +571,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="13">{{isEmptyData}}</td>
+            <td colspan="14">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>

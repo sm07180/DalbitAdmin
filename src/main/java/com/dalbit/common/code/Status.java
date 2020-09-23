@@ -772,6 +772,11 @@ public enum Status {
     에러로그저장_성공("0", "error.log.save.success", "에러 로그 저장 성공 시"),
     에러로그저장_실패("C006", "error.log.save.fail", "에러 로그 저장 실패 시"),
 
+
+    //게스트 종료
+    게스트종료_성공("0", "guest.out.success", "게스트 종료 성공 시"),
+    게스트종료_실패("C006", "guest.out.fail", "개스트 종료 실패 시"),
+
     ;
 
 
