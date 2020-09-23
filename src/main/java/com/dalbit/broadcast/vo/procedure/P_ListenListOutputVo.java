@@ -42,6 +42,7 @@ public class P_ListenListOutputVo extends PagingVo {
     private int totalGoodCnt;
     private int totalBoosterCnt;
     private int totalGiftCnt;
+    private int totalGuestCnt;
     private int inner;
     private int joinCnt;
 

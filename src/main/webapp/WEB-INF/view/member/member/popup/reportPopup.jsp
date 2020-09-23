@@ -105,7 +105,7 @@
     $("#blockScope_area").html(util.getCommonCodeCheck(-1, block_scope,"Y"));
 
     //아이디, 디바이스 아이디 default로 check한다.
-    $("#blockScope_mem_no").attr({
+    $("#blockScope_3").attr({
         'checked' : 'checked'
         , 'disabled' : 'disabled'
     });
@@ -201,9 +201,9 @@
             obj.notiContents = msgValue;
             obj.notimemo = msgTitle;
             //obj.blockScope = $("blockScope_deviceUuid").
-            obj.blockScope = $("#blockScope_1").prop('checked')+','+$("#blockScope_2").prop('checked');
+            obj.blockScope = $("#blockScope_1").prop('checked')+','+$("#blockScope_2").prop('checked')+','+$("#blockScope_3").prop('checked');
 
-            obj.blockScopeText = deviceUuid +','+ ip;
+            obj.blockScopeText = deviceUuid +','+ ip + ',' + memNo;
 
             util.getAjaxData("report", "/rest/member/member/report", obj, update_success);
         }return false;

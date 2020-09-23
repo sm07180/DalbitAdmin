@@ -137,7 +137,7 @@ var liveListenSort = [
 var listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')
     // ,new COMMON_CODE('','noMemCnt','비회원 참여 수')
-    ,new COMMON_CODE('','guest','게스트ID')
+    ,new COMMON_CODE('','totalGuestCnt','게스트 수')
     ,new COMMON_CODE('','managerCnt','매니저 수')
     ,new COMMON_CODE('','forcedCnt','강제퇴장 수')
     ,new COMMON_CODE('','totalGoodCnt','좋아요 수')

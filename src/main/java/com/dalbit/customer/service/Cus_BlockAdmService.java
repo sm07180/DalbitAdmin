@@ -53,8 +53,12 @@ public class Cus_BlockAdmService {
         blockAdmVo.setEdit_type(0);
         if(blockAdmVo.getRadioBlock() == 1) {
             blockAdmVo.setEdit_contents("deviceUuid 차단 등록 : " + blockAdmVo.getBlock_text());
-        } else {
+
+        } else if(blockAdmVo.getRadioBlock() == 2){
             blockAdmVo.setEdit_contents("ip 차단 등록 : " + blockAdmVo.getBlock_text());
+
+        } else if(blockAdmVo.getRadioBlock() == 3){
+            blockAdmVo.setEdit_contents("회원번호 차단 등록 : " + blockAdmVo.getBlock_text());
         }
 
         int result = 0;
@@ -86,11 +90,13 @@ public class Cus_BlockAdmService {
             if(!DalbitUtil.isEmpty(idxs[i])){
                 // rd_admin.tb_login_block_history에 insert하기 위함
                 BlockAdmVo history = blockInfo(idxs[i]);
-                String temp_blockType;
+                String temp_blockType = "";
                 if(history.getBlock_type() == 1) {
                     temp_blockType = "deviceUuid";
-                } else {
+                } else if(history.getBlock_type() == 2) {
                     temp_blockType = "ip";
+                } else if(history.getBlock_type() == 3) {
+                    temp_blockType = "회원번호";
                 }
                 blockAdmVo.setEdit_contents(temp_blockType + " 차단 해지 : " + history.getBlock_text());
                 blockAdmVo.setEdit_type(1);

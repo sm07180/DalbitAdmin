@@ -7,8 +7,13 @@ var blockAdmDataTableSource = {
                 return util.getCommonCodeLabel(data, block_blockType);
                 }}
             , {'title': '차단 내역', 'data': 'block_text', 'render': function(data, type, row) {
-                return '<a href="javascript://" class="_blockDetail" data-idx="'+row.idx+'" ' +
+                var result = '<a href="javascript://" class="_blockDetail" data-idx="'+row.idx+'" ' +
                     'data-reportidx="'+row.report_idx +'" data-block_type="'+row.block_type+'" data-block_text="'+row.block_text+'">' + data + '</a>';
+
+                if(row.block_type == 3){
+                    result += '<button type="button" class="pull-right _openMemberPop" data-memno="'+data+'">회원상세</button>';
+                }
+                return result;
                 }}
             , {'title': '제재 종류', 'data': 'block_day', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, block_blockDay);

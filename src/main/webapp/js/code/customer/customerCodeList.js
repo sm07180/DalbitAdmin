@@ -51,7 +51,7 @@ var declaration_reason = [
 
 var block_scope = [
     new COMMON_CODE(null, 'blockScope_', '조치 범위')
-    , new COMMON_CODE('mem_no', 'mem_no', '아이디(변경x)')
+    , new COMMON_CODE('mem_no', '3', '아이디(변경x)')
     , new COMMON_CODE('deviceUuid', '1', '디바이스 아이디')
     , new COMMON_CODE('ip', '2', 'ip')
 ]

@@ -11,6 +11,9 @@ import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.LoginBlockHistVo;
+import com.dalbit.member.vo.LoginBlockVo;
+import com.dalbit.member.vo.LoginHistoryVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.DateUtil;
@@ -18,6 +21,7 @@ import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -171,7 +175,7 @@ public class DeclarationService {
     public String callServiceCenterReportOperate(P_DeclarationOperateVo pDeclarationOperateVo) {
         pDeclarationOperateVo.setOpName(MemberVo.getMyMemNo());
 
-         ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
+        ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
 
         declarationDao.callServiceCenterReportOperate(procedureVo);
 
@@ -200,6 +204,56 @@ public class DeclarationService {
                         pushService.sendPushReqOK(pPushInsertVo);
                     } catch (Exception e) {
                         log.error("[PUSH 발송 실패 - 신고 처리 경고]");
+                    }
+                }
+            }
+
+            //차단관리 등록
+            if((3 <= pDeclarationOperateVo.getOpCode() && pDeclarationOperateVo.getOpCode() <= 6) || pDeclarationOperateVo.getOpCode() == 8){
+
+                //회원번호
+                pDeclarationOperateVo.getReported_mem_no();
+
+                LoginHistoryVo loginHistory = mem_MemberDao.memberLoginHistory(pDeclarationOperateVo.getReported_mem_no());
+
+                var blockScopes = pDeclarationOperateVo.getBlockScope().split(",");
+                String reported_mem_no = pDeclarationOperateVo.getReported_mem_no();
+
+                int blockDay = 0;
+                if(pDeclarationOperateVo.getOpCode() == 3){
+                    blockDay = 1;
+                }else if(pDeclarationOperateVo.getOpCode() == 4){
+                    blockDay = 3;
+                }else if(pDeclarationOperateVo.getOpCode() == 5){
+                    blockDay = 7;
+                }else if(pDeclarationOperateVo.getOpCode() == 6){
+                    blockDay = 99;
+                }else if(pDeclarationOperateVo.getOpCode() == 8){
+                    blockDay = 98;
+                }
+
+                String blockScopeTexts = "";
+                for(int i = 0; i < blockScopes.length; i++){
+                    if(blockScopes[i].equals("true")){
+
+                        int block_type = i+1;
+
+                        String edit_contents = "";
+                        if(block_type == 1){
+                            blockScopeTexts = loginHistory.getDevice_uuid();
+                            edit_contents = "deviceUuid 차단 등록 : " +  blockScopeTexts;
+                        }else if(block_type == 2){
+                            blockScopeTexts = loginHistory.getIp();
+                            edit_contents = "ip 차단 등록 : " +  blockScopeTexts;
+                        }else if(block_type == 3){
+                            blockScopeTexts = pDeclarationOperateVo.getReported_mem_no();
+                            edit_contents = "회원번호 차단 등록 : " +  blockScopeTexts;
+                        }
+
+                        if(!DalbitUtil.isEmpty(blockScopeTexts)){
+                            mem_MemberDao.insertLoginBlock(new LoginBlockVo(block_type, blockScopeTexts, blockDay, pDeclarationOperateVo.getOpName(), pDeclarationOperateVo.getReportIdx()));
+                            mem_MemberDao.insertLoginBlockHistory(new LoginBlockHistVo(edit_contents, 0, pDeclarationOperateVo.getOpName(), pDeclarationOperateVo.getReportIdx()));
+                        }
                     }
                 }
             }
