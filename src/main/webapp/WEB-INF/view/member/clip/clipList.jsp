@@ -182,10 +182,11 @@
     function getMemNo_info_reload_clipList(memNo){
         if(!common.isEmpty(clipInfoData)){
             var data = Object();
+            data.memNo = clipInfoData.cast_mem_no;
             data.cast_no = clipInfoData.castNo;
             data.editSlct = 4;
             data.state = 5;
-            data.sendNoti = 0;
+            data.sendNoti = 1;
 
             editClipDetailData(data, false);
         }
@@ -199,10 +200,11 @@
         console.log(clipNo)
         if(confirm("해당 클립을 삭제 하시겠습니까?")){
             var data = Object();
+            data.memNo = clipInfoData.cast_mem_no;
             data.cast_no = clipNo;
             data.editSlct = 4;
             data.state = 5;
-            data.sendNoti = 0;
+            data.sendNoti = 1;
 
             editClipDetailData(data);
         }
