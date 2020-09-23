@@ -498,12 +498,6 @@ public class PushService {
 //        pPushInsertVo.setImage_type("101");
 //        pPushInsertVo.setSlct_push("7");
 
-        // 내부 개발 테스트 표시 추가 2020.07.01
-        if("local".equals(DalbitUtil.getActiveProfile())){
-            String cont = "[내부개발] " + pPushInsertVo.getSend_cont();
-            pPushInsertVo.setSend_cont(cont);
-        }
-
         pPushInsertVo.setSend_cnt("1");
         pPushInsertVo.setIs_all("7");
         pPushInsertVo.setPlatform("111");

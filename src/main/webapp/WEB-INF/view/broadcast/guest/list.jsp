@@ -56,7 +56,7 @@
             data.sortAuth = tmp_sortAuth;       // 청취자인지, 퇴장인지, 강퇴인지
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
-        dtList_info_detail.useCheckBox(true);
+        dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(50);
         dtList_info_detail.createDataTable(guest_summary_table);
@@ -89,6 +89,8 @@
     }
     function guest_out_success(dst_id, response, param){
         alert(response.message);
+        getBroadHistory_guest("tab_guestDetail");
+
     }
     function guestDetail(index){
         var data = dtList_info_detail.getDataRow(index);

@@ -215,7 +215,7 @@
         </thead>
         <tbody id="summaryDataTable">
             <td>{{#equal length '0'}}0{{/equal}}{{content.listenerCnt}}명</td>
-            <td>{{content.guestId}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGuestCnt}}명</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.managerCnt}}명</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.forcedCnt}}명</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
