@@ -286,7 +286,7 @@ public class Cli_ClipHistoryService {
 
             } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("6")) { // 클립 제목 초기화
                 pPushInsertVo.setSlct_push("47");
-                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 완료되었습니다.");
+                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
                 pPushInsertVo.setSend_cont("클립 제목에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
                 pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
 
