@@ -94,6 +94,7 @@
 <script src="/js/dataTablesSource/administrate/messageDataTableSource.js?${dummyData}"></script>
 <script src="/js/dataTablesSource/sample/sampleDataTableSource.js?${dummyData}"></script>
 <script src="/js/dataTablesSource/payment/payDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/money/resourceDataTableSource.js?${dummyData}"></script>
 <script src="/js/dalbitDataTableUtil.js?${dummyData}"></script>
 <script src="/js/code/commonCode.js?${dummyData}"></script>
 

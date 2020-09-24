@@ -25,4 +25,291 @@
         call rd_admin.sp_admin_stat_resource_member_time_total(#{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <sql id="baseDalInc">
+        <if test='type == "1" or type == "12"'>
+           select ifnull(base.mem_no,withdrawal.mem_no) as memNo
+                  , ifnull(base.mem_nick,withdrawal.mem_nick) as memNick
+                  , ifnull(base.mem_sex,withdrawal.mem_sex) as memSex
+                  , ifnull(base.mem_birth_year,withdrawal.mem_birth_year) as memBirthYear
+                  , ifnull(base.inner,withdrawal.inner) as `inner`
+                  , ROUND(pay_amt) as payAmt
+                  , a.dal_cnt as payDalCnt
+                  , a.pay_way as payWay
+                  , concat(a.pay_ok_date,' ',a.pay_ok_time) as payDate
+                  , cancel_dt as cancelDt
+             From rd_data.tb_payment_succ a
+        </if>
+        <if test='type == "3" or type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
+                     or type == "9-1" or type == "9-2" or type == "10" or type == "15"'>
+           select  ifnull(base.mem_no,withdrawal.mem_no) as memNo
+                  , ifnull(base.mem_nick,withdrawal.mem_nick) as memNick
+                  , ifnull(base.mem_sex,withdrawal.mem_sex) as memSex
+                  , ifnull(base.mem_birth_year,withdrawal.mem_birth_year) as memBirthYear
+                  , ifnull(base.inner,withdrawal.inner) as `inner`
+                  , b.gold as byeolCnt
+                  , b.last_upd_date as lastUpdDate
+                <if test='type == "3"'>
+                  , a.ruby_new as dalCnt
+                </if>
+                <if test='type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
+                        or type == "9-1" or type == "9-2" or type == "10" or type == "15"'>
+                  , a.ruby as dalCnt
+                </if>
+                <if test='type == "4"'>
+                  , '가입보상' as rewardType
+                </if>
+                <if test='type == "5"'>
+                    , '레벨보상' as rewardType
+                </if>
+                <if test='type == "6"'>
+                    , '랭킹보상' as rewardType
+                </if>
+                <if test='type == "7"'>
+                    , '출석이벤트' as rewardType
+                </if>
+                <if test='type == "8"'>
+                    , '소실금액 복구' as rewardType
+                </if>
+                <if test='type == "9-1"'>
+                    , '(자동) 이벤트 지급' as rewardType
+                </if>
+                <if test='type == "9-2"'>
+                    , '(운영자) 이벤트 지급' as rewardType
+                </if>
+                <if test='type == "10"'>
+                    , '직원테스트(지급)' as rewardType
+                </if>
+                <if test='type == "15"'>
+                    , '직원테스트(회수)' as rewardType
+                </if>
+            from rd_data.tb_member_wallet_ruby a
+            left join rd_data.tb_member_wallet_gold b on a.mem_no = b.mem_no and a.last_upd_date = b.last_upd_date
+        </if>
+        left join rd_data.tb_member_basic base on a.mem_no = base.mem_no
+        left join rd_data.tb_member_withdrawal_bak withdrawal on a.mem_no = withdrawal.mem_no ,(select @rownum := #{pageStart}) r
+        <if test='type == "1"'>
+            where a.pay_yn='y'
+              and a.pay_ok_date <![CDATA[>=]]> #{sDate} and a.pay_ok_date <![CDATA[<=]]> #{eDate}
+        </if>
+        <if test='type == "12"'>
+            where a.cancel_state='y'
+              and date_format(a.cancel_dt,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.cancel_dt,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        <if test='type == "3"'>
+            where a.type='6'
+              and b.type='1'
+        </if>
+        <if test='type == "4"'>
+            where a.type='15'
+        </if>
+        <if test='type == "5"'>
+            where a.type='10'
+        </if>
+        <if test='type == "6"'>
+            where a.type='16'
+        </if>
+        <if test='type == "7"'>
+            where a.type='11'
+        </if>
+        <if test='type == "8"'>
+            where a.type='12'
+        </if>
+        <if test='type == "9-1"'>
+            where a.type='7'
+        </if>
+        <if test='type == "9-2"'>
+            where a.type='23'
+        </if>
+        <if test='type == "10"'>
+            where a.type='13' and ruby <![CDATA[>]]> 0
+        </if>
+        <if test='type == "15"'>
+            where a.type='13' and ruby <![CDATA[<]]> 0
+        </if>
+        <if test='type != "1" and type != "12"'>
+              and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        <if test='searchText != null and searchText != ""'>
+             and ( (base.mem_no like CONCAT('%',#{searchText},'%') or base.mem_nick like CONCAT('%',#{searchText},'%')) or (withdrawal.mem_no like CONCAT('%',#{searchText},'%') or withdrawal.mem_nick like CONCAT('%',#{searchText},'%')))
+        </if>
+        <if test='gender == "m" or gender == "f" or gender == "n"'>
+            and ifnull(base.mem_sex,withdrawal.mem_sex) = #{gender}
+            and ifnull(base.inner,withdrawal.inner) = 0
+        </if>
+        <if test='gender == "t"'>
+            and ifnull(base.inner,withdrawal.inner) = 1
+        </if>
+        <if test='type == "1"'>
+          order by payDate desc
+        </if>
+        <if test='type == "12"'>
+          order by cancelDt desc
+        </if>
+        <if test='type == "3" or type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
+                or type == "9-1" or type == "9-2" or type == "10" or type == "15"'>
+            order by lastUpdDate desc
+        </if>
+    </sql>
+
+
+    <select id="getDalPayDetailCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
+        /* Mon_Resource.xml - getDalPayDetailCnt */
+        select count(*)
+        from(
+            <include refid="baseDalInc"/>
+        )a
+    </select>
+
+    <select id="getDalPayDetailList" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="com.dalbit.money.vo.procedure.P_ResourcePopupOutputVo">
+        /* Mon_Resource.xml - dalIncListList */
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
+            <include refid="baseDalInc"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+
+
+
+    <sql id="baseDalGiftInc">
+      select  ifnull(b.mem_no,c.mem_no) as memNo
+             ,ifnull(b.mem_nick,c.mem_nick) as memNick
+             ,ifnull(b.mem_sex,c.mem_sex) as memSex
+             ,ifnull(b.mem_birth_year,c.mem_birth_year) as memBirthYear
+             ,ifnull(b.inner,c.inner) as `inner`
+             ,ifnull(d.mem_no,e.mem_no) as recvMemNo
+             ,ifnull(d.mem_nick,e.mem_nick) as recvMemNick
+             ,ifnull(d.mem_sex,e.mem_sex) as recvMemSex
+             ,ifnull(d.mem_birth_year,e.mem_birth_year) as recvMemBirthYear
+             ,ifnull(d.inner,e.inner) as recvInner
+          <if test='type == "2-1" or type == "2-2"'>
+             , 'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg'  as webpImage
+             , 'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' as itemThumbnail
+             , '달 직접선물'  as itemName
+             , a.ruby * 100 as dalAmtCnt
+          </if>
+          <if test='type == "11"'>
+             , f.webp_image  as webpImage
+             , f.item_thumbnail as itemThumbnail
+             , f.item_name  as itemName
+          </if>
+             , a.ruby as dalCnt
+             , a.secret
+             , a.last_upd_date as lastUpdDate
+             , a.item_cnt as itemCnt
+        from rd_data.tb_member_broadcast_item a
+        left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+        left join rd_data.tb_member_withdrawal_bak c on a.mem_no = c.mem_no
+        left join rd_data.tb_member_basic d on a.gifted_mem_no = d.mem_no
+        left join rd_data.tb_member_withdrawal_bak e on a.gifted_mem_no = e.mem_no
+        left join rd_data.tbl_gift_item f on a.item_code = f.item_code ,(select @rownum := #{pageStart}) r
+        where date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        <if test='type == "2-1" or type == "2-2"'>
+            and a.item_type = '3'
+        </if>
+        <if test='type == "11"'>
+            and a.item_type != '3'
+        </if>
+        <if test='gender == "m" or gender == "f" or gender == "n"'>
+            <if test='type == "2-1"'>
+              and ifnull(d.mem_sex,e.mem_sex) = #{gender}
+            </if>
+            <if test='type == "2-2" or type == "11"'>
+              and ifnull(b.mem_sex,c.mem_sex) = #{gender}
+            </if>
+              and ifnull(b.inner,c.inner) = 0
+        </if>
+        <if test='gender == "t"'>
+          and ifnull(b.inner,c.inner) = 1
+        </if>
+
+        <if test='searchText != null and searchText != ""'>
+            and (
+                  (b.mem_no like CONCAT('%',#{searchText},'%') or b.mem_nick like CONCAT('%',#{searchText},'%')) or (c.mem_no like CONCAT('%',#{searchText},'%') or c.mem_nick like CONCAT('%',#{searchText},'%'))
+                  or (d.mem_no like CONCAT('%',#{searchText},'%') or d.mem_nick like CONCAT('%',#{searchText},'%')) or (e.mem_no like CONCAT('%',#{searchText},'%') or e.mem_nick like CONCAT('%',#{searchText},'%'))
+                )
+        </if>
+        order by lastUpdDate desc
+    </sql>
+
+
+    <select id="getDalDirectListCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
+        /* Mon_Resource.xml - getDalDirectListCnt */
+        select count(*)
+        from(
+        <include refid="baseDalGiftInc"/>
+        )a
+    </select>
+
+    <select id="getDalDirectList" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="com.dalbit.money.vo.procedure.P_ResourcePopupOutputVo">
+        /* Mon_Resource.xml - getDalDirectList */
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
+        <include refid="baseDalGiftInc"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+
+
+
+
+    <sql id="baseDalMemStateDec">
+        select a.mem_no as memNo
+                ,a.mem_nick as memNick
+                ,a.mem_sex as memSex
+                ,a.mem_birth_year as memBirthYear
+                ,a.inner as `inner`
+                ,a.last_upd_date as lastUpdDate
+                ,well.ruby as dalCnt
+                ,well.gold as byeolCnt
+            <if test='type == "13"'>
+                ,'영구정지' as memState
+            </if>
+            <if test='type == "14"'>
+                ,'탈퇴' as memState
+            </if>
+        <if test='type == "13"'>
+          from rd_data.tb_member_basic a
+        </if>
+        <if test='type == "14"'>
+            from rd_data.tb_member_withdrawal_bak a
+        </if>
+     left join rd_data.tb_member_wallet well on a.mem_no = well.mem_no
+         where date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        <if test='type == "13"'>
+            and a.mem_state='5'
+        </if>
+        <if test='gender == "m" or gender == "f" or gender == "n"'>
+              and a.mem_sex = #{gender}
+              and a.inner = 0
+        </if>
+        <if test='gender == "t"'>
+          and a.inner = 1
+        </if>
+        <if test='searchText != null and searchText != ""'>
+            and (a.mem_no like CONCAT('%',#{searchText},'%') or a.mem_nick like CONCAT('%',#{searchText},'%'))
+        </if>
+        order by lastUpdDate desc
+    </sql>
+
+
+    <select id="getDalMemberStateCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
+        /* Mon_Resource.xml - getDalDirectListCnt */
+        select count(*)
+        from(
+        <include refid="baseDalMemStateDec"/>
+        )a
+    </select>
+
+    <select id="getDalMemberStateList" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="com.dalbit.money.vo.procedure.P_ResourcePopupOutputVo">
+        /* Mon_Resource.xml - getDalDirectList */
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
+        <include refid="baseDalMemStateDec"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
 </mapper>
