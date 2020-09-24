@@ -73,8 +73,13 @@
         $('#tab_customerQuestion').addClass("show");
 
         qnaIdx = params.qnaIdx;
-        if(qnaIdx == localStorage.qnaIdx){
-            answer = localStorage.answer;
+        state = response.data.state;
+        if(state != 1){     // 처리중, 미처리 상태일때만
+            if(qnaIdx == localStorage.qnaIdx){
+                answer = localStorage.answer;
+            }else{
+                answer = response.data.answer;
+            }
         }else{
             answer = response.data.answer;
         }
@@ -83,7 +88,6 @@
         phone = response.data.phone;
         email = response.data.email;
         qnaTitle = response.data.question_title;
-        state = response.data.state;
         op_name = response.data.op_name;
 
         if(!common.isEmpty(response.data.file_name1)){
@@ -381,7 +385,7 @@
 
     function tmpStorage(){
         storageTimer = setInterval(function() {
-            if(state == "0"){
+            if(state != "1"){
                 localStorage.qnaIdx = "";
                 localStorage.answer = "";
                 localStorage.qnaIdx = qnaIdx;

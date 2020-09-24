@@ -2,6 +2,7 @@ package com.dalbit.money.service;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.money.dao.Mon_ResourceDao;
@@ -99,6 +100,28 @@ public class Mon_ResourceService {
         result.put("detailList", listOutVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    // 자원현황 상세 목록 - 달결제, 달 교환
+    public String dalPayDetailList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        int totalCnt = mon_ResourceDao.getDalPayDetailCnt(pResourcePopupInputVo);
+        pResourcePopupInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_ResourcePopupOutputVo> list = mon_ResourceDao.getDalPayDetailList(pResourcePopupInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pResourcePopupInputVo.getTotalCnt(), pResourcePopupInputVo.getPageStart(), pResourcePopupInputVo.getPageCnt())));
+    }
+    // 자원현황 상세 목록 - 달 직접선물
+    public String dalDirectList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        int totalCnt = mon_ResourceDao.getDalDirectListCnt(pResourcePopupInputVo);
+        pResourcePopupInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_ResourcePopupOutputVo> list = mon_ResourceDao.getDalDirectList(pResourcePopupInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pResourcePopupInputVo.getTotalCnt(), pResourcePopupInputVo.getPageStart(), pResourcePopupInputVo.getPageCnt())));
+    }
+    // 자원현황 상세 목록 - 달결제, 달 교환
+    public String dalMemberState(P_ResourcePopupInputVo pResourcePopupInputVo){
+        int totalCnt = mon_ResourceDao.getDalMemberStateCnt(pResourcePopupInputVo);
+        pResourcePopupInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_ResourcePopupOutputVo> list = mon_ResourceDao.getDalMemberStateList(pResourcePopupInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pResourcePopupInputVo.getTotalCnt(), pResourcePopupInputVo.getPageStart(), pResourcePopupInputVo.getPageCnt())));
     }
 
 

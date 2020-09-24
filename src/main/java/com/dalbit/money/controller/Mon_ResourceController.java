@@ -15,4 +15,9 @@ public class Mon_ResourceController {
         return "money/resource/info";
     }
 
+    @GetMapping("popup/dalInc")
+    public String dalInc() {
+        return "money/resource/popup/dalInc";
+    }
+
 }

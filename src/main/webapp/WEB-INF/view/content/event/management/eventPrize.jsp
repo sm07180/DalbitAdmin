@@ -57,6 +57,7 @@
         $('#modal_select_eventPrize').modal('show');
     });
 
+
     $(document).on('click', '._getPrizeDetail', function() {
         var data = {
             eventIdx : $(this).data('eventidx')
@@ -77,6 +78,14 @@
             modalSetting(2);
 
             $('#modal_select_eventPrize').modal('show');
+
+            $('#prizeRank').val(common.addComma(response.data.prizeRank));
+            $('#prizeCnt').val(common.addComma(response.data.prizeCnt));
+            $('#giveCnt').val(common.addComma(response.data.giveCnt));
+            $('#giveAmt').val(common.addComma(response.data.giveAmt));
+            $('#taxAmt').val(common.addComma(response.data.taxAmt));
+            $('#dalByeol').val(common.addComma(response.data.dalByeol));
+            $('#receiveDal').val(common.addComma(response.data.receiveDal));
         });
     });
 
@@ -147,36 +156,20 @@
         });
     }
 
-    function getPrizeAddParam() {
-        return data = {
-            eventIdx : $("#eventidx").val()
-            , prizeRank : $('#prizeRank').val()
-            , prizeCnt : $('#prizeCnt').val()
-            , prizeName : $('#prizeName').val()
-            , prizeSlct : $('#prize_receive').val()
-            , prizeUrl : $('#prizeUrl').val()
-            , giveCnt : $('#giveCnt').val()
-            , giveAmt : $('#giveAmt').val()
-            , taxAmt : $('#taxAmt').val()
-            , dalByeol : $('#dalByeol').val()
-            , receiveDal : $('#receiveDal').val()
-        };
-    }
-
-    function getPrizeEditParam() {
+    function getPrizeParam() {
         return data = {
             eventIdx : $("#eventidx").val()
             , prizeIdx : $('#PopUpPrizeIdx').val()
-            , prizeRank : $('#prizeRank').val()
-            , prizeCnt : $('#prizeCnt').val()
+            , prizeRank : $('#prizeRank').val().replace(/\,/gi, '')
+            , prizeCnt : $('#prizeCnt').val().replace(/\,/gi, '')
             , prizeName : $('#prizeName').val()
             , prizeSlct : $('#prize_receive').val()
             , prizeUrl : $('#prizeUrl').val()
-            , giveCnt : $('#giveCnt').val()
-            , giveAmt : $('#giveAmt').val()
-            , taxAmt : $('#taxAmt').val()
-            , dalByeol : $('#dalByeol').val()
-            , receiveDal : $('#receiveDal').val()
+            , giveCnt : $('#giveCnt').val().replace(/\,/gi, '')
+            , giveAmt : $('#giveAmt').val().replace(/\,/gi, '')
+            , taxAmt : $('#taxAmt').val().replace(/\,/gi, '')
+            , dalByeol : $('#dalByeol').val().replace(/\,/gi, '')
+            , receiveDal : $('#receiveDal').val().replace(/\,/gi, '')
         };
     }
 
@@ -184,44 +177,52 @@
         if($('#prizeSlct').val() == 1) {
             if (common.isEmpty($('#prizeRank').val())) {
                 alert('등수를 입력해주세요.');
+                $('#prizeRank').focus();
                 return false;
             }
         }
 
         if(common.isEmpty($('#prizeCnt').val())) {
             alert('당첨 인원을 입력해주세요.');
+            $('#prizeCnt').focus();
             return false;
         }
 
         if(common.isEmpty($('#prizeName').val())) {
             alert('경품명을 입력해주세요.');
+            $('#prizeName').focus();
             return false;
         }
 
         if($('#eventPrizeForm #prize_receive').val() == 1) {
             if(common.isEmpty($('input[name="giveCnt"]').val())) {
                 alert('지급 수량을 입력해주세요.');
+                $('input[name="giveCnt"]').focus();
                 return false;
             }
 
             if(common.isEmpty($('input[name="giveAmt"]').val())) {
                 alert('금액을 입력해주세요.');
+                $('input[name="giveAmt"]').focus();
                 return false;
             }
 
             if(common.isEmpty($('input[name="taxAmt"]').val())) {
                 alert('제세 공과금을 입력해주세요.');
+                $('input[name="taxAmt"]').focus();
                 return false;
             }
 
             if(common.isEmpty($('input[name="receiveDal"]').val())) {
                 alert('달로 받기 개수를 입력해주세요.');
+                $('input[name="receiveDal"]').focus();
                 return false;
             }
         } else if($('#eventPrizeForm #prize_receive').val() == 2 || $('#eventPrizeForm #prize_receive').val() == 3) {
             // 달/ 별일 시
             if (common.isEmpty($('input[name="dalByeol"]').val())) {
                 alert('달/별 수를 입력해주세요.');
+                $('input[name="dalByeol"]').focus();
                 return false;
             }
         }
@@ -234,7 +235,7 @@
            console.log($('#eventPrizeForm').serialize());
            if(prizeFormValidation()) {
                if(confirm('경품을 등록하시겠습니까?')) {
-                   util.getAjaxData("eventPrizeAdd", "/rest/content/event/management/prize/add", getPrizeAddParam(), function fn_eventPrizeAdd_success(dst_id, response) {
+                   util.getAjaxData("eventPrizeAdd", "/rest/content/event/management/prize/add", getPrizeParam(), function fn_eventPrizeAdd_success(dst_id, response) {
                        alert(response.message);
                        $('#tab_eventPrize').click();
                        initPrize();
@@ -245,7 +246,7 @@
            console.log($('#eventPrizeForm').serialize());
            if(prizeFormValidation()) {
                if(confirm('경품을 수정하시겠습니까?')) {
-                   util.getAjaxData("eventPrizeEdit", "/rest/content/event/management/prize/edit", getPrizeEditParam(), function fn_eventPrizeEdit_success(dst_id, response) {
+                   util.getAjaxData("eventPrizeEdit", "/rest/content/event/management/prize/edit", getPrizeParam(), function fn_eventPrizeEdit_success(dst_id, response) {
                        alert(response.message);
                        $('#tab_eventPrize').click();
                        initPrize();
@@ -280,15 +281,19 @@
         }
     });
 
+    $(document).on('focusout', '#prizeRank, #prizeCnt, #giveCnt, #giveAmt, #taxAmt, #dalByeol, #receiveDal', function() {
+       $(this).val(common.addComma($(this).val()));
+    });
+
     // 제세공과금, 달로 받기 자동 계산
     $(document).on('focusout', '#giveAmt', function() {
-       var giveAmt = $('#giveAmt').val();
+       var giveAmt = $('#giveAmt').val().replace(/\,/gi, '');
        if(giveAmt >= 50000) {
-           $('#taxAmt').val(giveAmt * 0.22);
+           $('#taxAmt').val(common.addComma(giveAmt * 0.22));
        } else if(giveAmt < 50000) {
            $('#taxAmt').val('0');
        }
-       $('#receiveDal').val(giveAmt * 0.01);
+       $('#receiveDal').val(common.addComma(giveAmt * 0.01));
     });
 
     function bt_x(){
@@ -337,23 +342,23 @@
                               </tr>
                               <tr>
                                   <th>지급 수량</th>
-                                  <td><input type="number" id="giveCnt" name="giveCnt" class="form-control" style="width: 100%;" value="{{giveCnt}}"/></td>
+                                  <td><input type="text" id="giveCnt" name="giveCnt" class="form-control" style="width: 100%;" value="{{giveCnt}}"/></td>
                               </tr>
                               <tr>
                                   <th>금액</th>
-                                  <td><input type="number" id="giveAmt" name="giveAmt" class="form-control" style="width: 100%;" value="{{giveAmt}}"/></td>
+                                  <td><input type="text" id="giveAmt" name="giveAmt" class="form-control" style="width: 100%;" value="{{giveAmt}}"/></td>
                               </tr>
                               <tr>
                                   <th>제세 공과금</th>
-                                  <td><input type="number" id="taxAmt" name="taxAmt" class="form-control" style="width: 100%;" value="{{taxAmt}}"/></td>
+                                  <td><input type="text" id="taxAmt" name="taxAmt" class="form-control" style="width: 100%;" value="{{taxAmt}}"/></td>
                               </tr>
                               <tr>
                                   <th>달/별 수</th>
-                                  <td><input type="number" id="dalByeol" name="dalByeol" class="form-control" style="width: 100%;" value="{{dalByeol}}"/></td>
+                                  <td><input type="text" id="dalByeol" name="dalByeol" class="form-control" style="width: 100%;" value="{{dalByeol}}"/></td>
                               </tr>
                               <tr>
                                   <th>달로 받기</th>
-                                  <td><input type="number" id="receiveDal" name="receiveDal" class="form-control" style="width: 100%;" value="{{receiveDal}}"/></td>
+                                  <td><input type="text" id="receiveDal" name="receiveDal" class="form-control" style="width: 100%;" value="{{receiveDal}}"/></td>
                               </tr>
 
                              </tbody>
@@ -363,8 +368,8 @@
              </form>
          </div>
          <div class="modal-footer">
-             {{^prizeRank}}<button type="button" id="bt_eventPrizeRegister" class="btn btn-success _eventPrizeButton" data-dismiss="modal">등록</button>{{/prizeRank}}
-             {{#prizeRank}}<button type="button" id="bt_eventPrizeUpdate" class="btn btn-success _eventPrizeButton" data-dismiss="modal">수정</button>{{/prizeRank}}
+             {{^prizeRank}}<button type="button" id="bt_eventPrizeRegister" class="btn btn-success _eventPrizeButton" >등록</button>{{/prizeRank}}
+             {{#prizeRank}}<button type="button" id="bt_eventPrizeUpdate" class="btn btn-success _eventPrizeButton" >수정</button>{{/prizeRank}}
          </div>
     </div>
 </script>

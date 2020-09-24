@@ -834,6 +834,18 @@
         }
     }
 
+    function resourceClick(data){
+        var popupUrl = "/money/resource/popup/dalInc?sDate=" + $("#startDate").val() + "&eDate=" + $("#endDate").val() + "&type=" + data.type + "&gender=" + data.gender +"&slctType="+ _datePicker;
+        if(data.type == "1" || data.type == "3" || data.type == "4" || data.type == "5" || data.type == "6"
+            || data.type == "7" || data.type == "8" || data.type == "9-1" || data.type == "9-2" || data.type == "10"
+            || data.type == "12" || data.type == "13" || data.type == "14" || data.type == "15"
+        ){
+            util.windowOpen(popupUrl,"745","550","달증가 데이터");
+        }else{
+            util.windowOpen(popupUrl,"900","550","달증가 데이터");
+        }
+    }
+
 
 </script>
 <script type="text/x-handlebars-template" id="tmp_infoTable_dal">
@@ -871,18 +883,17 @@
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'm'}}}</th>
-                    <td>{{addComma charge_mCnt 'Y'}}</td>
-                    <td>{{addComma dalgiftget_mCnt 'Y'}}</td>
-                    <td>{{addComma change_mCnt 'Y'}}</td>
-                    <td>{{addComma join_mCnt 'Y'}}</td>
-                    <td>{{addComma levelup_mCnt 'Y'}}</td>
-                    <td>{{addComma ranking_mCnt 'Y'}}</td>
-                    <td>{{addComma attendance_mCnt 'Y'}}</td>
-                    <td>{{addComma recovery_mCnt 'Y'}}</td>
-                    <td>{{addComma eventauto_mCnt 'Y'}}</td>
-                    <td>{{addComma eventdirect_mCnt 'Y'}}</td>
-                    <%--<td>{{addComma specialdj_mCnt 'Y'}}</td>--%>
-                    <td>{{addComma testin_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="1"   data-gender="m">{{addComma charge_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-1" data-gender="m">{{addComma dalgiftget_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="3"   data-gender="m">{{addComma change_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="4"   data-gender="m">{{addComma join_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="5"   data-gender="m">{{addComma levelup_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="6"   data-gender="m">{{addComma ranking_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="7"   data-gender="m">{{addComma attendance_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="8"   data-gender="m">{{addComma recovery_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-1" data-gender="m">{{addComma eventauto_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-2" data-gender="m">{{addComma eventdirect_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="10"  data-gender="m">{{addComma testin_mCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">{{{sexIcon 'm'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalInc_total_mCnt 'Y'}}</td>
                     <td rowspan="5" style="border:solid 2px black"><span class="font-bold" style="font-size: 15px">{{addComma dalInc_total_Cnt 'Y'}}</span></td>
@@ -894,67 +905,65 @@
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
-                    <td>{{addComma charge_fCnt 'Y'}}</td>
-                    <td>{{addComma dalgiftget_fCnt 'Y'}}</td>
-                    <td>{{addComma change_fCnt 'Y'}}</td>
-                    <td>{{addComma join_fCnt 'Y'}}</td>
-                    <td>{{addComma levelup_fCnt 'Y'}}</td>
-                    <td>{{addComma ranking_fCnt 'Y'}}</td>
-                    <td>{{addComma attendance_fCnt 'Y'}}</td>
-                    <td>{{addComma recovery_fCnt 'Y'}}</td>
-                    <td>{{addComma eventauto_fCnt 'Y'}}</td>
-                    <td>{{addComma eventdirect_fCnt 'Y'}}</td>
-                    <%--<td>{{addComma specialdj_fCnt 'Y'}}</td>--%>
-                    <td>{{addComma testin_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="1"   data-gender="f">{{addComma charge_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-1" data-gender="f">{{addComma dalgiftget_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="3"   data-gender="f">{{addComma change_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="4"   data-gender="f">{{addComma join_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="5"   data-gender="f">{{addComma levelup_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="6"   data-gender="f">{{addComma ranking_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="7"   data-gender="f">{{addComma attendance_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="8"   data-gender="f">{{addComma recovery_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-1" data-gender="f">{{addComma eventauto_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-2" data-gender="f">{{addComma eventdirect_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="10"  data-gender="f">{{addComma testin_fCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">{{{sexIcon 'f'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalInc_total_fCnt 'Y'}}</td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'n'}}}</th>
-                    <td>{{addComma charge_nCnt 'Y'}}</td>
-                    <td>{{addComma dalgiftget_nCnt 'Y'}}</td>
-                    <td>{{addComma change_nCnt 'Y'}}</td>
-                    <td>{{addComma join_nCnt 'Y'}}</td>
-                    <td>{{addComma levelup_nCnt 'Y'}}</td>
-                    <td>{{addComma ranking_nCnt 'Y'}}</td>
-                    <td>{{addComma attendance_nCnt 'Y'}}</td>
-                    <td>{{addComma recovery_nCnt 'Y'}}</td>
-                    <td>{{addComma eventauto_nCnt 'Y'}}</td>
-                    <td>{{addComma eventdirect_nCnt 'Y'}}</td>
-                    <%--<td>{{addComma specialdj_nCnt 'Y'}}</td>--%>
-                    <td>{{addComma testin_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="1"   data-gender="n">{{addComma charge_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-1" data-gender="n">{{addComma dalgiftget_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="3"   data-gender="n">{{addComma change_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="4"   data-gender="n">{{addComma join_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="5"   data-gender="n">{{addComma levelup_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="6"   data-gender="n">{{addComma ranking_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="7"   data-gender="n">{{addComma attendance_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="8"   data-gender="n">{{addComma recovery_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-1" data-gender="n">{{addComma eventauto_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-2" data-gender="n">{{addComma eventdirect_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="10"  data-gender="n">{{addComma testin_nCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">{{{sexIcon 'n'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalInc_total_nCnt 'Y'}}</td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#b4c7e7">테스트</th>
-                    <td>{{addComma charge_tCnt 'Y'}}</td>
-                    <td>{{addComma dalgiftget_tCnt 'Y'}}</td>
-                    <td>{{addComma change_tCnt 'Y'}}</td>
-                    <td>{{addComma join_tCnt 'Y'}}</td>
-                    <td>{{addComma levelup_tCnt 'Y'}}</td>
-                    <td>{{addComma ranking_tCnt 'Y'}}</td>
-                    <td>{{addComma attendance_tCnt 'Y'}}</td>
-                    <td>{{addComma recovery_tCnt 'Y'}}</td>
-                    <td>{{addComma eventauto_tCnt 'Y'}}</td>
-                    <td>{{addComma eventdirect_tCnt 'Y'}}</td>
-                    <td>{{addComma testin_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="1"   data-gender="t">{{addComma charge_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-1" data-gender="t">{{addComma dalgiftget_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="3"   data-gender="t">{{addComma change_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="4"   data-gender="t">{{addComma join_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="5"   data-gender="t">{{addComma levelup_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="6"   data-gender="t">{{addComma ranking_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="7"   data-gender="t">{{addComma attendance_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="8"   data-gender="t">{{addComma recovery_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-1" data-gender="t">{{addComma eventauto_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="9-2" data-gender="t">{{addComma eventdirect_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="10"  data-gender="t">{{addComma testin_tCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">테스트</th>
                     <td style="border:solid 2px black">{{addComma dalInc_total_tCnt 'Y'}}</td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#dad9d7">총합</th>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma charge_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma dalgiftget_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma change_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma join_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma levelup_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma ranking_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma attendance_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma recovery_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma eventauto_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma eventdirect_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma testin_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="1"   data-gender="a" >{{addComma charge_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="2-1" data-gender="a" >{{addComma dalgiftget_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="3"   data-gender="a" >{{addComma change_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="4"   data-gender="a" >{{addComma join_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="5"   data-gender="a" >{{addComma levelup_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="6"   data-gender="a" >{{addComma ranking_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="7"   data-gender="a" >{{addComma attendance_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="8"   data-gender="a" >{{addComma recovery_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="9-1" data-gender="a" >{{addComma eventauto_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="9-2" data-gender="a" >{{addComma eventdirect_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="10"  data-gender="a" >{{addComma testin_total_Cnt 'Y'}}</td>
                     <td colspan="2" style="border:solid 2px black"></td>
                 </tr>
                 <tr>
@@ -974,57 +983,57 @@
                 <tr></tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
-                    <td>{{addComma dalgiftsend_mCnt 'Y'}}</td>
-                    <td>{{addComma itemuse_mCnt 'Y'}}</td>
-                    <td>{{addComma cancel_mCnt 'Y'}}</td>
-                    <td>{{addComma block_mCnt 'Y'}}</td>
-                    <td>{{addComma withdrawal_mCnt 'Y'}}</td>
-                    <td>{{addComma testout_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-2" data-gender="m">{{addComma dalgiftsend_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="11"  data-gender="m">{{addComma itemuse_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="12"  data-gender="m">{{addComma cancel_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="13"  data-gender="m">{{addComma block_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="14"  data-gender="m">{{addComma withdrawal_mCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="15"  data-gender="m">{{addComma testout_mCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">{{{sexIcon 'm'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalDec_total_mCnt 'Y'}}</td>
                     <td rowspan="5" style="border:solid 2px black"><span class="font-bold" style="font-size: 15px">{{addComma dalDec_total_Cnt 'Y'}}</span></td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'f'}}}</th>
-                    <td>{{addComma dalgiftsend_fCnt 'Y'}}</td>
-                    <td>{{addComma itemuse_fCnt 'Y'}}</td>
-                    <td>{{addComma cancel_fCnt 'Y'}}</td>
-                    <td>{{addComma block_fCnt 'Y'}}</td>
-                    <td>{{addComma withdrawal_fCnt 'Y'}}</td>
-                    <td>{{addComma testout_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-2" data-gender="f">{{addComma dalgiftsend_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="11"  data-gender="f">{{addComma itemuse_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="12"  data-gender="f">{{addComma cancel_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="13"  data-gender="f">{{addComma block_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="14"  data-gender="f">{{addComma withdrawal_fCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="15"  data-gender="f">{{addComma testout_fCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">{{{sexIcon 'f'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalDec_total_fCnt 'Y'}}</td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'n'}}}</th>
-                    <td>{{addComma dalgiftsend_nCnt 'Y'}}</td>
-                    <td>{{addComma itemuse_nCnt 'Y'}}</td>
-                    <td>{{addComma cancel_nCnt 'Y'}}</td>
-                    <td>{{addComma block_nCnt 'Y'}}</td>
-                    <td>{{addComma withdrawal_nCnt 'Y'}}</td>
-                    <td>{{addComma testout_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-2" data-gender="n">{{addComma dalgiftsend_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="11"  data-gender="n">{{addComma itemuse_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="12"  data-gender="n">{{addComma cancel_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="13"  data-gender="n">{{addComma block_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="14"  data-gender="n">{{addComma withdrawal_nCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="15"  data-gender="n">{{addComma testout_nCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">{{{sexIcon 'n'}}}</th>
                     <td style="border:solid 2px black">{{addComma dalDec_total_nCnt 'Y'}}</td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#f8cbad">테스트</th>
-                    <td>{{addComma dalgiftsend_tCnt 'Y'}}</td>
-                    <td>{{addComma itemuse_tCnt 'Y'}}</td>
-                    <td>{{addComma cancel_tCnt 'Y'}}</td>
-                    <td>{{addComma block_tCnt 'Y'}}</td>
-                    <td>{{addComma withdrawal_tCnt 'Y'}}</td>
-                    <td>{{addComma testout_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="2-2" data-gender="t">{{addComma dalgiftsend_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="11"  data-gender="t">{{addComma itemuse_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="12"  data-gender="t">{{addComma cancel_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="13"  data-gender="t">{{addComma block_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="14"  data-gender="t">{{addComma withdrawal_tCnt 'Y'}}</td>
+                    <td onclick="resourceClick($(this).data())" data-type="15"  data-gender="t">{{addComma testout_tCnt 'Y'}}</td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">테스트</th>
                     <td style="border:solid 2px black">{{addComma dalDec_total_tCnt 'Y'}}</td>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgcolor="#dad9d7">총합</th>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma dalgiftsend_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma itemuse_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma cancel_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma block_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma withdrawal_total_Cnt 'Y'}}</td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7">{{addComma testout_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="2-2" data-gender="a">{{addComma dalgiftsend_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="11"  data-gender="a">{{addComma itemuse_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="12"  data-gender="a">{{addComma cancel_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="13"  data-gender="a">{{addComma block_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="14"  data-gender="a">{{addComma withdrawal_total_Cnt 'Y'}}</td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceClick($(this).data())" data-type="15"  data-gender="a">{{addComma testout_total_Cnt 'Y'}}</td>
                     <td colspan="2" style="border:solid 2px black"></td>
                 </tr>
             </tbody>
