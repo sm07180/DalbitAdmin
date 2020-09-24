@@ -76,7 +76,7 @@ var ClipHistoryDataTableSource = {
                     if(data == 4 || row.state == 5){
                         return "-";
                     }else{
-                        return '<p class="mb5"><a href="javascript:;" onclick="reportDeleteClip(\'' + row.castNo + '\')">[경고/삭제]</a></p><a href="javascript:;" onclick="deleteClip(\'' + row.castNo + '\')">[삭제]</a>';
+                        return '<p class="mb5"><a href="javascript:;" onclick="reportDeleteClip(' + row.castNo + ')">[경고/삭제]</a></p><a href="javascript:;" onclick="deleteClip(' + row.castNo + ', ' + row.memNo + ')">[삭제]</a>';
                     }
                 }},
 			{'title': '상태', 'width':'45px', 'data': 'state', 'render': function (data, type, row, meta) {

@@ -1,5 +1,6 @@
 package com.dalbit.customer.controller.rest;
 
+import com.dalbit.clip.vo.ClipHistoryVo;
 import com.dalbit.customer.service.Cus_ImageService;
 import com.dalbit.customer.vo.procedure.P_ImageBroadcastListInputVo;
 import com.dalbit.customer.vo.procedure.P_ImageProfileListInputVo;
@@ -57,6 +58,15 @@ public class Cus_ImageRestController {
     @PostMapping("/broadcast/list")
     public String getBroadcastList(P_ImageBroadcastListInputVo pImageBroadcastListInputVo) {
         String result = cusImageService.getBroadcastList(pImageBroadcastListInputVo);
+        return result;
+    }
+
+    /**
+     * clip image 리스트 조회
+     */
+    @PostMapping("/clip/list")
+    public String callClipList(ClipHistoryVo clipHistoryVo) {
+        String result = cusImageService.callClipList(clipHistoryVo);
         return result;
     }
 

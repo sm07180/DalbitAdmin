@@ -21,5 +21,6 @@ public class P_ClipHistoryDetailInfoEditVo extends SearchVo {
     private String sendNoti;			    // 알림보내기여부(1:보냄, 0: 안보냄)
     private String notiContents;		// 이미지초기화 조치 안내,
     private String notiMemo;			// 안내 내용
+    private String memNo;
 
 }

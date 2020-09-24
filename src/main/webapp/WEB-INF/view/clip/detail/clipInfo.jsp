@@ -73,10 +73,11 @@
         if(eventId == "bt_edit_nick"){ // 닉네임 초기화
             if(confirm("닉네임을 초기화 하시겠습니까?")){
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 2;
                 data.nickName = clipInfoData.cast_userId;
-                data.sendNoti = 0;
+                data.sendNoti = 1;
 
                 editClipDetailData(data);
             }
@@ -91,10 +92,11 @@
 
             if(confirm("클립 이미지를 초기화 하시겠습니까?")){
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 1;
                 data.backgroundImage = "/clip_3/clipbg_200910_0.jpg";
-                data.sendNoti = 0;
+                data.sendNoti = 1;
 
                 editClipDetailData(data);
             }
@@ -106,10 +108,11 @@
                 var nick = clipInfoData.cast_nickName;
 
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 6;
                 data.title = nick.length > 11 ? nick.substr(0, 8) + "..." : nick + "님의 클립입니다.";
-                data.sendNoti = 0;
+                data.sendNoti = 1;
 
                 editClipDetailData(data);
             }
@@ -126,6 +129,7 @@
 
             if(confirm("클립 숨기기를 하는 경우 어드민에서 확인되지만 리스트에서는 본인외 타인에게 확인되지 않습니다. \n\n해당 클립을 "+ ((hideType === 1) ? "숨기기" : "숨기기 해제") +" 하시겠습니까?")){
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 5;
                 data.hide = hideType;
@@ -148,10 +152,11 @@
                 var openType = $(this).data("opentype");
 
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 3;
                 data.openType = openType === 1 ? 0 : 1;
-                data.sendNoti = 0;
+                data.sendNoti = openType === 1 ? 1 : 0;
 
                 editClipDetailData(data);
             }
@@ -166,6 +171,7 @@
 
             if(confirm("클립 주제를 수정 하시겠습니까?")){
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 7;
                 data.subjectType = $("#clipSubjectType").val();
@@ -181,6 +187,7 @@
                 var confirmData = $(this).data("confirm");
 
                 var data = Object();
+                data.memNo = clipInfoData.cast_mem_no;
                 data.cast_no = clipNo;
                 data.editSlct = 8;
                 data.confirm = confirmData === 1 ? 0 : 1;
@@ -356,10 +363,11 @@
     function getMemNo_info_reload(memNo){
         if(eventId == "bt_edit_state"){ // 클립 삭제처리
             var data = Object();
+            data.memNo = clipInfoData.cast_mem_no;
             data.cast_no = clipNo;
             data.editSlct = 4;
             data.state = 5;
-            data.sendNoti = 0;
+            data.sendNoti = 1;
 
             editClipDetailData(data);
         }

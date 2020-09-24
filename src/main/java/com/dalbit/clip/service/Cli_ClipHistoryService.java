@@ -10,6 +10,8 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberAdminMemoAddVo;
@@ -33,6 +35,9 @@ public class Cli_ClipHistoryService {
     Cli_ClipHistoryDao cliClipHistoryDao;
     @Autowired
     Mem_MemberDao mem_MemberDao;
+    @Autowired
+    PushService pushService;
+
 
     /**
      * 클립 리스트 조회
@@ -237,6 +242,60 @@ public class Cli_ClipHistoryService {
      */
     public String callAdminClipInfoDetailEdit(P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo) {
         pClipHistoryDetailInfoEditVo.setOpName(MemberVo.getMyMemNo());
+
+        P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+        if(pClipHistoryDetailInfoEditVo.getSendNoti() != null && pClipHistoryDetailInfoEditVo.getSendNoti().equals("1")) {
+            pPushInsertVo.setMem_nos(pClipHistoryDetailInfoEditVo.getMemNo());
+            pPushInsertVo.setPush_slct("58");   //운영자 메시지(클립 정보 수정 및 신고)
+            pPushInsertVo.setImage_type("101");
+
+            if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("1")) {    // 클립 배경 초기화
+                pPushInsertVo.setSlct_push("45");
+                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_cont("운영정책 위반으로 클립 이미지가 초기화 되었습니다.");
+                pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
+
+                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiMemo("운영정책 위반으로 클립 이미지가 초기화 되었습니다.");
+
+            } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("2")) { // 닉네임 초기화
+                pPushInsertVo.setPush_slct("57");   //운영자 메시지(프로필 이미지 초기화, 닉네임 초기화)
+                pPushInsertVo.setSlct_push("35");
+                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_cont("닉네임에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
+
+                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiMemo("닉네임에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
+
+            } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("3")) { // 클립 비공개
+                pPushInsertVo.setSlct_push("45");
+                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_cont("운영정책 위반으로 클립이 비공개 처리되었습니다.");
+                pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
+
+                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiMemo("운영정책 위반으로 클립이 비공개 처리되었습니다.");
+
+            } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("4")) { // 클립 삭제
+                pPushInsertVo.setSlct_push("47");
+                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_cont("운영정책 위반으로 클립이 삭제 처리되었습니다.");
+
+                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiMemo("운영정책 위반으로 클립이 삭제 처리되었습니다.");
+
+            } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("6")) { // 클립 제목 초기화
+                pPushInsertVo.setSlct_push("45");
+                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 완료되었습니다.");
+                pPushInsertVo.setSend_cont("클립 제목에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
+                pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
+
+                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiMemo("클립 제목에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
+
+            }
+        }
+
         ProcedureVo procedureVo = new ProcedureVo(pClipHistoryDetailInfoEditVo);
         cliClipHistoryDao.callAdminClipInfoDetailEdit(procedureVo);
 
@@ -248,6 +307,14 @@ public class Cli_ClipHistoryService {
         // -5: 이미 확인됨
         // -6: 닉네임중복됨"
         if(Status.클립상세수정_성공.getMessageCode().equals(procedureVo.getRet())){
+            if(pClipHistoryDetailInfoEditVo.getSendNoti() != null && pClipHistoryDetailInfoEditVo.getSendNoti().equals("1")){
+                try {    // PUSH 발송
+                    pushService.sendPushReqOK(pPushInsertVo);
+                } catch (Exception e) {
+                    log.error("[PUSH 발송 실패 - 클립 수정]");
+                }
+            }
+
             return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_성공));
         }else if(Status.클립상세수정_클립번호없음.getMessageCode().equals(procedureVo.getRet())){
             return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_클립번호없음));

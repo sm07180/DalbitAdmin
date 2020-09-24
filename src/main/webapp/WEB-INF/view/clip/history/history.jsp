@@ -187,14 +187,15 @@
 
 
     //클립 삭제 이벤트
-    function deleteClip(clipNo) {
+    function deleteClip(clipNo, memNo) {
         console.log(clipNo)
         if(confirm("해당 클립을 삭제 하시겠습니까?")){
             var data = Object();
+            data.memNo = memNo;
             data.cast_no = clipNo;
             data.editSlct = 4;
             data.state = 5;
-            data.sendNoti = 0;
+            data.sendNoti = 1;
 
             editClipDetailData(data);
         }
@@ -308,14 +309,15 @@
     function getMemNo_info_reload(memNo){
         if(!common.isEmpty(clipInfoData)){
             var data = Object();
+            data.memNo = memNo;
             data.cast_no = clipInfoData.castNo;
             data.editSlct = 4;
             data.state = 5;
-            data.sendNoti = 0;
+            data.sendNoti = 1;
 
             editClipDetailData(data, false);
         }
-        dtList_info.reload(selectCallback_clipHistoty, false);
+        // dtList_info.reload(selectCallback_clipHistoty, false);
     }
 
 </script>
