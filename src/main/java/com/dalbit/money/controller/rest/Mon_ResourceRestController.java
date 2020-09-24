@@ -84,4 +84,16 @@ public class Mon_ResourceRestController {
         String result = mon_ResourceService.dalMemberState(pResourcePopupInputVo);
         return result;
     }
+
+    @PostMapping("byeol/detail/list")
+    public String byeolDetailList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.byeolDetailList(pResourcePopupInputVo);
+        return result;
+    }
+
+    @PostMapping("byeol/gift/list")
+    public String byeolGiftList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.byeolGiftList(pResourcePopupInputVo);
+        return result;
+    }
 }

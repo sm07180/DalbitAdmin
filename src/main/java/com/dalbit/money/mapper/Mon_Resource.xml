@@ -151,7 +151,6 @@
         </if>
     </sql>
 
-
     <select id="getDalPayDetailCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
         /* Mon_Resource.xml - getDalPayDetailCnt */
         select count(*)
@@ -168,9 +167,6 @@
         ) a
         limit #{pageStart}, #{pageCnt}
     </select>
-
-
-
 
     <sql id="baseDalGiftInc">
       select  ifnull(b.mem_no,c.mem_no) as memNo
@@ -233,7 +229,6 @@
         order by lastUpdDate desc
     </sql>
 
-
     <select id="getDalDirectListCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
         /* Mon_Resource.xml - getDalDirectListCnt */
         select count(*)
@@ -250,10 +245,6 @@
         ) a
         limit #{pageStart}, #{pageCnt}
     </select>
-
-
-
-
 
     <sql id="baseDalMemStateDec">
         select a.mem_no as memNo
@@ -294,7 +285,6 @@
         order by lastUpdDate desc
     </sql>
 
-
     <select id="getDalMemberStateCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
         /* Mon_Resource.xml - getDalDirectListCnt */
         select count(*)
@@ -308,6 +298,171 @@
         select @rownum := @rownum + 1 as rowNum,a.*
         from (
         <include refid="baseDalMemStateDec"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+
+    <sql id="baseByeol">
+        select  ifnull(base.mem_no,withdrawal.mem_no) as memNo
+            , ifnull(base.mem_nick,withdrawal.mem_nick) as memNick
+            , ifnull(base.mem_sex,withdrawal.mem_sex) as memSex
+            , ifnull(base.mem_birth_year,withdrawal.mem_birth_year) as memBirthYear
+            , ifnull(base.inner,withdrawal.inner) as `inner`
+            <if test='type == "5"'>
+                , '레벨보상' as rewardType
+            </if>
+            <if test='type == "9"'>
+                , '(운영자) 이벤트 지급' as rewardType
+            </if>
+            <if test='type == "8"'>
+                , '소실금액 복구' as rewardType
+            </if>
+            <if test='type == "10"'>
+                , '테스트지급' as rewardType
+            </if>
+            <if test='type == "15"'>
+                , '테스트회수' as rewardType
+            </if>
+            <if test='type == "16" or type == "17"'>
+                , byeol as byeolCnt
+                ,(select count(*) from rd_data.tb_member_exchange where state = 1 and mem_no= b.mem_no) as exchagneCnt
+                , op_date lastUpdDate
+            </if>
+        <if test='type == "5" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
+            , b.last_upd_date as lastUpdDate
+            , b.gold as byeolCnt
+            <if test='type == "3"'>
+                , b.gold_new as newByeolCnt
+            </if>
+        from rd_data.tb_member_wallet_gold b
+        </if>
+        <if test='type == "16" or type == "17"'>
+            from rd_data.tb_member_exchange b
+        </if>
+        left join rd_data.tb_member_basic base on b.mem_no = base.mem_no
+        left join rd_data.tb_member_withdrawal_bak withdrawal on b.mem_no = withdrawal.mem_no ,(select @rownum := #{pageStart}) r
+        <if test='type == "5"'>
+            where b.type='5'
+        </if>
+        <if test='type == "9"'>
+            where b.type='23'
+        </if>
+        <if test='type == "8"'>
+            where b.type='6'
+              and gold <![CDATA[>]]> 0
+        </if>
+        <if test='type == "10"'>
+            where b.type='7'
+              and gold <![CDATA[>]]> 0
+        </if>
+        <if test='type == "15"'>
+            where (b.type='7' or b.type='6')
+            and gold <![CDATA[<]]> 0
+        </if>
+        <if test='type == "3"'>
+            where b.type='1'
+        </if>
+        <if test='type == "5" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
+              and date_format(b.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(b.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        <if test='type == "16" or type == "17"'>
+            <if test='type == "16"'>
+              where state = '2'
+            </if>
+            <if test='type == "17"'>
+              where state = '1'
+            </if>
+              and date_format(b.op_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(b.op_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        <if test='searchText != null and searchText != ""'>
+            and ( (base.mem_no like CONCAT('%',#{searchText},'%') or base.mem_nick like CONCAT('%',#{searchText},'%')) or (withdrawal.mem_no like CONCAT('%',#{searchText},'%') or withdrawal.mem_nick like CONCAT('%',#{searchText},'%')))
+        </if>
+        <if test='gender == "m" or gender == "f" or gender == "n"'>
+            and ifnull(base.mem_sex,withdrawal.mem_sex) = #{gender}
+            and ifnull(base.inner,withdrawal.inner) = 0
+        </if>
+        <if test='gender == "t"'>
+            and ifnull(base.inner,withdrawal.inner) = 1
+        </if>
+        order by lastUpdDate desc
+    </sql>
+
+
+    <select id="getByeolDetailCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
+        /* Mon_Resource.xml - getByeolDetailCnt */
+        select count(*)
+        from(
+        <include refid="baseByeol"/>
+        )a
+    </select>
+
+    <select id="getByeolDetailList" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="com.dalbit.money.vo.procedure.P_ResourcePopupOutputVo">
+        /* Mon_Resource.xml - getByeolDetailList */
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
+        <include refid="baseByeol"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+
+
+    <sql id="baseByeolGift">
+      select  ifnull(b.mem_no,c.mem_no) as memNo
+             ,ifnull(b.mem_nick,c.mem_nick) as memNick
+             ,ifnull(b.mem_sex,c.mem_sex) as memSex
+             ,ifnull(b.mem_birth_year,c.mem_birth_year) as memBirthYear
+             ,ifnull(b.inner,c.inner) as `inner`
+             ,ifnull(d.mem_no,e.mem_no) as recvMemNo
+             ,ifnull(d.mem_nick,e.mem_nick) as recvMemNick
+             ,ifnull(d.mem_sex,e.mem_sex) as recvMemSex
+             ,ifnull(d.mem_birth_year,e.mem_birth_year) as recvMemBirthYear
+             ,ifnull(d.inner,e.inner) as recvInner
+             , f.webp_image  as webpImage
+             , f.item_thumbnail as itemThumbnail
+             , f.item_name  as itemName
+             , a.gold as ByeolCnt
+             , a.secret
+             , a.last_upd_date as lastUpdDate
+             , a.item_cnt as itemCnt
+        from rd_data.tb_member_broadcast_item a
+        left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+        left join rd_data.tb_member_withdrawal_bak c on a.mem_no = c.mem_no
+        left join rd_data.tb_member_basic d on a.gifted_mem_no = d.mem_no
+        left join rd_data.tb_member_withdrawal_bak e on a.gifted_mem_no = e.mem_no
+        left join rd_data.tbl_gift_item f on a.item_code = f.item_code ,(select @rownum := #{pageStart}) r
+        where date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        and a.item_type != '3'
+        <if test='gender == "m" or gender == "f" or gender == "n"'>
+              and ifnull(b.mem_sex,c.mem_sex) = #{gender}
+              and ifnull(b.inner,c.inner) = 0
+        </if>
+        <if test='gender == "t"'>
+          and ifnull(b.inner,c.inner) = 1
+        </if>
+        <if test='searchText != null and searchText != ""'>
+            and (
+                  (b.mem_no like CONCAT('%',#{searchText},'%') or b.mem_nick like CONCAT('%',#{searchText},'%')) or (c.mem_no like CONCAT('%',#{searchText},'%') or c.mem_nick like CONCAT('%',#{searchText},'%'))
+                  or (d.mem_no like CONCAT('%',#{searchText},'%') or d.mem_nick like CONCAT('%',#{searchText},'%')) or (e.mem_no like CONCAT('%',#{searchText},'%') or e.mem_nick like CONCAT('%',#{searchText},'%'))
+                )
+        </if>
+        order by lastUpdDate desc
+    </sql>
+
+    <select id="getByeolGiftCnt" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="int">
+        /* Mon_Resource.xml - getByeolGiftCnt */
+        select count(*)
+        from(
+        <include refid="baseByeolGift"/>
+        )a
+    </select>
+
+    <select id="getByeolGiftList" parameterType="com.dalbit.money.vo.procedure.P_ResourcePopupInputVo" resultType="com.dalbit.money.vo.procedure.P_ResourcePopupOutputVo">
+        /* Mon_Resource.xml - getByeolGiftList */
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
+        <include refid="baseByeolGift"/>
         ) a
         limit #{pageStart}, #{pageCnt}
     </select>

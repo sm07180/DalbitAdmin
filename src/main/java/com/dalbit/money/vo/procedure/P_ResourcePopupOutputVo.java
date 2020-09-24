@@ -41,6 +41,8 @@ public class P_ResourcePopupOutputVo extends PagingVo {
     private String itemCnt;         // 아이템수
     private String cancelDt;        // 결제 취소 일시
     private String memState;        // 회원상태
+    private String exchagneCnt;     // 누적 환전 횟수
+    private String newByeolCnt;     // 교환후 별수 횟수
 
 
 }

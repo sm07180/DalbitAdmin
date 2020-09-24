@@ -45,4 +45,16 @@ public interface Mon_ResourceDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_ResourcePopupOutputVo> getDalMemberStateList(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    int getByeolDetailCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getByeolDetailList(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    int getByeolGiftCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getByeolGiftList(P_ResourcePopupInputVo pResourcePopupInputVo);
 }

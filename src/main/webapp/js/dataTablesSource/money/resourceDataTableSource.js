@@ -134,7 +134,7 @@ var resourceDataTableSource = {
                 }},
             {'title': '아이템명', 'data' : 'itemName', 'width':'60px'},
             {'title': '선물 수', 'data' : 'itemCnt', 'width':'50px','render':function (data, type, row, meta) {
-                    return common.addComma(data) + " 달";
+                    return common.addComma(data) + " 개";
                 }},
             {'title': '비밀여부', 'secret' : 'payAmt', 'width':'60px','render':function (data, type, row, meta) {
                     if(data == "1"){
@@ -143,7 +143,7 @@ var resourceDataTableSource = {
                     return "";
                 }},
             {'title': '선물 달', 'data' : 'dalCnt', 'width':'50px','render':function (data, type, row, meta) {
-                    return common.addComma(data);
+                    return common.addComma(data) + " 달";
                 }},
             {'title': '일시', 'data' : 'lastUpdDate', 'width':'80px'},
         ]
@@ -205,4 +205,121 @@ var resourceDataTableSource = {
             }
         }
     },
+
+
+    'byeolInc_detail': {
+        'url': '/rest/money/resource/byeol/detail/list'
+        , 'columns': [
+            {'title': '회원번호 <br /> 닉네임', 'data' : 'memNo', 'width':'80px','render':function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.memNick;
+                }},
+            {'title': '성별', 'data' : 'memSex', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.sexIcon(data, row.memBirthYear);
+                }},
+            {'title': '별수', 'data' : 'byeolCnt', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 별";
+                }},
+            {'title': '보상상세', 'data' : 'rewardType', 'width':'80px'},
+            {'title': '일시', 'data' : 'lastUpdDate', 'width':'80px'},
+        ]
+        , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+    'byeolInc_giftList': {
+        'url': '/rest/money/resource/byeol/gift/list'
+        , 'columns': [
+            {'title': '보낸 회원번호 <br /> 닉네임', 'data' : 'memNo', 'width':'80px','render':function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.memNick;
+                }},
+            {'title': '성별', 'data' : 'memSex', 'width':'60px','render':function (data, type, row, meta) {
+                    return common.sexIcon(data, row.memBirthYear, true);
+                }},
+            {'title': '받은 회원번호 <br /> 닉네임', 'data' : 'recvMemNo', 'width':'80px','render':function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.recvMemNick;
+                }},
+            {'title': '성별', 'data' : 'recvMemSex', 'width':'60px','render':function (data, type, row, meta) {
+                    return common.sexIcon(data, row.recvMemBirthYear, true);
+                }},
+            {'title': '이미지', 'data' : 'itemThumbnail', 'width':'60px','render':function (data, type, row, meta) {
+                    return '<img class="fullSize_background _webpImage" src="'+ data +'" width="50px" height="50px" data-webpImage="' + row.webpImage+ '"/>';
+                }},
+            {'title': '아이템명', 'data' : 'itemName', 'width':'60px'},
+            {'title': '선물 수', 'data' : 'itemCnt', 'width':'50px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 개";
+                }},
+            {'title': '비밀여부', 'secret' : 'payAmt', 'width':'60px','render':function (data, type, row, meta) {
+                    if(data == "1"){
+                        return "비밀선물";
+                    }
+                    return "";
+                }},
+            {'title': '받은 별', 'data' : 'byeolCnt', 'width':'50px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 별";
+                }},
+            {'title': '일시', 'data' : 'lastUpdDate', 'width':'80px'},
+        ]
+        , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+    'byeolInc_exchange': {
+        'url': '/rest/money/resource/byeol/detail/list'
+        , 'columns': [
+            {'title': '회원번호 <br /> 닉네임', 'data' : 'memNo', 'width':'80px','render':function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.memNick;
+                }},
+            {'title': '성별', 'data' : 'memSex', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.sexIcon(data, row.memBirthYear);
+                }},
+            {'title': '별수', 'data' : 'byeolCnt', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 별";
+                }},
+            {'title': '누적 환전 횟수', 'data' : 'exchagneCnt', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 번";
+                }},
+            {'title': '일시', 'data' : 'lastUpdDate', 'width':'80px'},
+        ]
+        , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+    'byeolDec_change': {
+        'url': '/rest/money/resource/byeol/detail/list'
+        , 'columns': [
+            {'title': '회원번호 <br /> 닉네임', 'data' : 'memNo', 'width':'80px','render':function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.memNick;
+                }},
+            {'title': '성별', 'data' : 'memSex', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.sexIcon(data, row.memBirthYear);
+                }},
+            {'title': '별수', 'data' : 'byeolCnt', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 별";
+                }},
+            {'title': '교환후 별수', 'data' : 'newByeolCnt', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 별";
+                }},
+            {'title': '일시', 'data' : 'lastUpdDate', 'width':'80px'},
+        ]
+        , 'comments': ''
+        , 'createdRow' : function( row, data, dataIndex ) {
+            if(data.inner == 1){    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+
 }

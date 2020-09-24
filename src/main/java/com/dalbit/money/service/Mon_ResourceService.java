@@ -125,4 +125,19 @@ public class Mon_ResourceService {
     }
 
 
+    // 자원현황 상세 목록 - 별 레벨업 보상
+    public String byeolDetailList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        int totalCnt = mon_ResourceDao.getByeolDetailCnt(pResourcePopupInputVo);
+        pResourcePopupInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_ResourcePopupOutputVo> list = mon_ResourceDao.getByeolDetailList(pResourcePopupInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pResourcePopupInputVo.getTotalCnt(), pResourcePopupInputVo.getPageStart(), pResourcePopupInputVo.getPageCnt())));
+    }
+    // 자원현황 상세 목록 - 아이템 선물
+    public String byeolGiftList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        int totalCnt = mon_ResourceDao.getByeolGiftCnt(pResourcePopupInputVo);
+        pResourcePopupInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_ResourcePopupOutputVo> list = mon_ResourceDao.getByeolGiftList(pResourcePopupInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pResourcePopupInputVo.getTotalCnt(), pResourcePopupInputVo.getPageStart(), pResourcePopupInputVo.getPageCnt())));
+    }
+
 }
