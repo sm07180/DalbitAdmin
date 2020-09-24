@@ -88,6 +88,7 @@
         data["notiContents"] = $("#notiContents").summernote('code');   // 알림 내용
         data["sendNoti"] = $("input:radio[name='declaration_sendNoti']:checked").val();
 
+        data["blockScope"] = $("#block_scope1").prop('checked')+','+$("#block_scope2").prop('checked')+','+$("#block_scope3").prop('checked');
         dalbitLog(data);
 
         return data;
@@ -364,13 +365,23 @@
                 <td>{{mem_nick}}</td>
                 <td>{{{sexIcon memSex mem_birth_year}}}</td>
 
-                <td>{{reported_mem_id}}</td>
+                <td>
+                    {{reported_mem_id}}
+                    <input type="hidden" name="reported_mem_no" id="reported_mem_no" value="{{reported_mem_no}}" />
+                </td>
                 <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
                 <td>{{reported_mem_nick}}</td>
                 <td>{{{sexIcon reported_memSex reported_mem_birth_year}}}</td>
 
-                <th>제재 조치</th>
+                <th>조치범위</th>
                 <td colspan="3">
+                    {{{getCommonCodeCheck 3 'block_scope' 'Y' 'block_scope'}}}
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="2">제재 조치</th>
+                <td colspan="10">
                     {{{getCommonCodeRadio op_code 'declaration_opCode' 'Y' 'opCode'}}}
                 </td>
             </tr>

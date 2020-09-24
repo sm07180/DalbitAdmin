@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_AttendEventDao" >
+
+    <sql id="attendanceCondition">
+     where att.mem_no = bas.mem_no
+       and att.mem_no = pro.mem_no
+       and check_ok = '1'
+           <if test='txt_startSel != null and txt_startSel != ""'>
+               and att.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel}, '%Y-%m-%d 00:00:00')
+           </if>
+           <if test='txt_endSel != null and txt_endSel != ""'>
+               and att.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel}, '%Y-%m-%d 23:59:59')
+           </if>
+           <if test='the_day != null and the_day != ""'>
+               <choose>
+                   <when test='the_day =="1"'>
+                       and att.the_day = 9
+                   </when>
+                   <when test='the_day == "2"'>
+                       and att.the_day in (0,1,2,3,4,5,6)
+                   </when>
+                   <otherwise>
+                       and att.the_day in (0,1,2,3,4,5,6,9)
+                   </otherwise>
+               </choose>
+           </if>
+           <if test='txt_search != null and txt_search != ""'>
+              <choose>
+                  <when test='searchType == "1"'>
+                     and att.mem_no like concat ('%', #{txt_search}, '%')
+                  </when>
+                  <when test='searchType == "2"'>
+                     and bas.mem_userid like concat ('%', #{txt_search}, '%')
+                  </when>
+                  <when test='searchType == "3"'>
+                      and bas.mem_nick like concat ('%', #{txt_search}, '%')
+                  </when>
+                  <otherwise>
+                      and (att.mem_no like concat ('%', #{txt_search}, '%')
+                           or bas.mem_userid like concat('%', #{txt_search}, '%')
+                           or bas.mem_nick like concat('%', #{txt_search}, '%')
+                           )
+                  </otherwise>
+              </choose>
+           </if>
+    </sql>
+
+    <select id="selectAttendanceList" parameterType="com.dalbit.content.vo.AttendanceVo" resultType="com.dalbit.content.vo.AttendanceVo">
+        /* Con_Event.xml - selectAttendanceList */
+        select *
+          from (
+            select
+                bas.mem_state as mem_state
+                , pro.image_profile as image_profile
+                , att.mem_no as mem_no
+                , bas.mem_userid as mem_userid
+                , bas.mem_nick as mem_nick
+                , bas.mem_sex as mem_sex
+                , att.the_day as the_day
+                , att.last_upd_date as last_upd_date
+                , att.reward_exp as reward_exp
+                , att.reward_dal as reward_dal
+                , att.device_uuid as device_uuid
+                , @RNUM := @RNUM + 1 as rowNum
+            from rd_data.tb_member_attendance_check att
+                , rd_data.tb_member_basic bas
+                , rd_data.tb_member_profile pro
+                , (select @RNUM := 0) r
+            <include refid="attendanceCondition"/>
+            order by att.last_upd_date desc
+            ) a
+            limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectAttendanceListCnt" parameterType="com.dalbit.content.vo.AttendanceVo" resultType="integer">
+        /* Con_Event.xml - selectAttendanceListCnt */
+        select
+          count(*)
+        from rd_data.tb_member_attendance_check att
+            , rd_data.tb_member_basic bas
+            , rd_data.tb_member_profile pro
+            <include refid="attendanceCondition"/>
+    </select>
+
+    <select id="selectAttendanceCalendarList" parameterType="com.dalbit.content.vo.AttendanceCalendarVo" resultType="com.dalbit.content.vo.AttendanceCalendarVo">
+        /* Con_Event.xml - selectAttendanceCalendarList */
+        select attendance.the_date
+            , (select count(*) from rd_data.stat_member_login_day where the_date = attendance.the_date) loginCnt
+            , count(the_date) joinCnt
+            , count(the_date) joinSum
+            , sum(sex_man)  sex_man
+            , sum(sex_female) sex_female
+            , sum(sex_unknown) sex_unknown
+            , sum(reward_exp) expSum
+            , sum(reward_dal) dalSum
+        from (
+            select
+                attendance.the_date,
+                ifnull(attendance.reward_exp, 0) reward_exp,
+                ifnull(attendance.reward_dal, 0) reward_dal,
+                if(basic.mem_sex = 'm', 1, 0)    sex_man,
+                if(basic.mem_sex = 'f', 1, 0)    sex_female,
+                if(basic.mem_sex = 'n', 1, 0)    sex_unknown
+            from rd_data.tb_member_attendance_check attendance
+                left join rd_data.tb_member_basic basic on attendance.mem_no = basic.mem_no
+            where attendance.check_ok = 1
+                and attendance.the_day != 9
+                and date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+        ) attendance
+        group by attendance.the_date
+    </select>
+
+    <select id="selectAttendanceWeekCalendarList" parameterType="com.dalbit.content.vo.AttendanceCalendarVo" resultType="com.dalbit.content.vo.AttendanceCalendarVo">
+        /* Con_Event.xml - selectAttendanceWeekCalendarList */
+        select
+            (select count(distinct mem_no)
+                from rd_data.stat_member_login_day
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            ) loginCnt
+            , sum(joinSum) joinSum
+            , sum(dalSum) dalSum
+            , sum(expSum) expSum
+            , (select count(distinct mem_no)
+                from rd_data.tb_member_attendance_check chk
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(chk.the_date, '%Y-%m-%d')
+                    and date_format(chk.the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and check_ok = 1
+                    and the_day != 9) joinCnt
+            , (select count(*)
+                from rd_data.tb_member_attendance_check chk
+                    left join rd_data.tb_member_basic mem on chk.mem_no = mem.mem_no
+                    left join rd_data.tb_member_withdrawal_bak withdrawal on chk.mem_no = withdrawal.mem_no
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(chk.the_date, '%Y-%m-%d')
+                    and date_format(chk.the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and check_ok = 1
+                    and the_day != 9
+                    and (mem.mem_sex = 'm' or withdrawal.mem_sex = 'm')) sex_man
+            , (select count(*)
+                from rd_data.tb_member_attendance_check chk
+                    left join rd_data.tb_member_basic mem on chk.mem_no = mem.mem_no
+                    left join rd_data.tb_member_withdrawal_bak withdrawal on chk.mem_no = withdrawal.mem_no
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(chk.the_date, '%Y-%m-%d')
+                    and date_format(chk.the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and check_ok = 1
+                    and the_day != 9
+                    and (mem.mem_sex = 'f' or withdrawal.mem_sex = 'f')) sex_female
+            , (select count(*)
+                from rd_data.tb_member_attendance_check chk
+                    left join rd_data.tb_member_basic mem on chk.mem_no = mem.mem_no
+                    left join rd_data.tb_member_withdrawal_bak withdrawal on chk.mem_no = withdrawal.mem_no
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(chk.the_date, '%Y-%m-%d')
+                    and date_format(chk.the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and check_ok = 1
+                    and the_day != 9
+                    and (mem.mem_sex = 'n' or withdrawal.mem_sex = 'n')) sex_unknown
+        from (
+                select attendance.the_date
+                , count(the_date) joinSum
+                , sum(reward_exp) expSum
+                , sum(reward_dal) dalSum
+            from (
+                select
+                    attendance.the_date,
+                    ifnull(attendance.reward_exp, 0) reward_exp,
+                    ifnull(attendance.reward_dal, 0) reward_dal
+                from rd_data.tb_member_attendance_check attendance
+                where attendance.check_ok = 1
+                    and attendance.the_day != 9
+                    and date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            ) attendance
+            group by attendance.the_date
+        ) a
+    </select>
+
+    <select id="selectAttendanceBonus" parameterType="com.dalbit.content.vo.AttendanceBonusVo" resultType="com.dalbit.content.vo.AttendanceBonusVo">
+        /* Con_Event.xml - selectAttendanceBonus */
+        select
+            (select count(*)
+                from rd_data.tb_member_attendance_check
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and the_day = 9) target_cnt
+            , count(*) join_cnt
+            , count(case when basic.mem_sex = 'm' or withdrawal.mem_sex = 'm' then 1 end) sex_man
+            , count(case when basic.mem_sex = 'f' or withdrawal.mem_sex = 'f' then 1 end) sex_female
+            , count(case when basic.mem_sex = 'n' or withdrawal.mem_sex = 'n' then 1 end) sex_unkwown
+            , count(case when chk.reward_exp = 50 then 1 end) exp50
+            , count(case when chk.reward_exp = 70 then 1 end) exp70
+            , count(case when chk.reward_exp = 100 then 1 end) exp100
+            , count(case when chk.reward_exp = 200 then 1 end) exp200
+            , count(case when chk.reward_exp = 300 then 1 end) exp300
+            , count(case when chk.reward_exp = 500 then 1 end) exp500
+            , count(case when chk.reward_dal = 1 then 1 end) dal1
+            , count(case when chk.reward_dal = 2 then 1 end) dal2
+            , count(case when chk.reward_dal = 3 then 1 end) dal3
+            , count(case when chk.reward_dal = 4 then 1 end) dal4
+            , count(case when chk.reward_dal = 5 then 1 end) dal5
+            , count(case when chk.reward_dal = 6 then 1 end) dal6
+            , count(case when chk.reward_dal = 7 then 1 end) dal7
+            , count(case when chk.reward_dal = 8 then 1 end) dal8
+            , count(case when chk.reward_dal = 9 then 1 end) dal9
+            , count(case when chk.reward_dal = 10 then 1 end) dal10
+            , sum(chk.reward_exp) expSum
+            , sum(chk.reward_dal) dalSum
+        from rd_data.tb_member_attendance_check chk
+            left join rd_data.tb_member_basic basic on chk.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdrawal on chk.mem_no = withdrawal.mem_no
+        where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+            and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            and check_ok = 1
+            and the_day = 9
+    </select>
+
+    <sql id="giftconCondition">
+        <where>
+            <if test="gifticon_type != -1">
+                win.gifticon_type = #{gifticon_type}
+            </if>
+
+            <if test='search_startDate != null and search_startDate != ""'>
+                and #{search_startDate} <![CDATA[<=]]> date_format(win.win_date,'%Y%m%d')
+            </if>
+
+            <if test='search_endDate != null and search_endDate != ""'>
+                and date_format(win.win_date,'%Y%m%d') <![CDATA[<=]]> #{search_endDate}
+            </if>
+
+            <if test='txt_search != null and txt_search != ""'>
+                <choose>
+                    <when test='searchType == "1"'>
+                        and (
+                            basic.mem_no like concat ('%', #{txt_search}, '%')
+                            or withdraw.mem_no like concat ('%', #{txt_search}, '%')
+                        )
+                    </when>
+                    <when test='searchType == "2"'>
+                        and (
+                            basic.mem_userid like concat ('%', #{txt_search}, '%')
+                            or withdraw.mem_userid like concat ('%', #{txt_search}, '%')
+                        )
+                    </when>
+                    <when test='searchType == "3"'>
+                        and (
+                            basic.mem_nick like concat ('%', #{txt_search}, '%')
+                            or withdraw.mem_nick like concat ('%', #{txt_search}, '%')
+                        )
+                    </when>
+                    <otherwise>
+                        and (
+                            (basic.mem_no like concat ('%', #{txt_search}, '%') or withdraw.mem_no like concat ('%', #{txt_search}, '%'))
+                            or (basic.mem_userid like concat ('%', #{txt_search}, '%') or withdraw.mem_userid like concat ('%', #{txt_search}, '%'))
+                            or (basic.mem_nick like concat ('%', #{txt_search}, '%') or withdraw.mem_nick like concat ('%', #{txt_search}, '%'))
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectGiftconCnt" parameterType="com.dalbit.content.vo.AttendanceGiftconVo" resultType="int">
+        /* Con_Event.xml - selectGiftconCnt */
+        select count(*)
+        from rd_data.tb_gifticon_winning win
+            left join rd_data.tb_member_basic basic on win.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdraw on win.mem_no = withdraw.mem_no
+        <include refid="giftconCondition" />
+    </select>
+
+    <select id="selectGiftconList" parameterType="com.dalbit.content.vo.AttendanceGiftconVo" resultType="com.dalbit.content.vo.AttendanceGiftconVo">
+        /* Con_Event.xml - selectGiftconList */
+        select @RNUM := @RNUM + 1 as rowNum
+            , win.idx
+            , win.the_date
+            , win.mem_no
+            , win.gifticon_type
+            , win.phone
+            , date_format(win.win_date,'%Y.%m.%d %H:%i:%s') win_date
+            , date_format(win.phone_date,'%Y.%m.%d %H:%i:%s') phone_date
+            , profile.image_profile
+            , ifnull(basic.mem_sex, withdraw.mem_sex) mem_sex
+            , ifnull(basic.mem_nick, withdraw.mem_nick) mem_nick
+            , ifnull(basic.mem_userid, withdraw.mem_userid) mem_userid
+            , ifnull(basic.mem_state, withdraw.mem_state) mem_state
+        from rd_data.tb_gifticon_winning win
+            inner join rd_data.tb_member_profile profile on win.mem_no = profile.mem_no
+            left join rd_data.tb_member_basic basic on win.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdraw on win.mem_no = withdraw.mem_no
+            , (select @RNUM := 0) r
+        <include refid="giftconCondition" />
+        order by win.idx desc
+    </select>
+
+</mapper>

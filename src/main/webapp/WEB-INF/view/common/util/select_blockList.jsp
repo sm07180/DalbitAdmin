@@ -84,7 +84,7 @@
     });
 
     var callbackFn;
-    function showPopMemberList(fn) {
+    function showBlockPop(fn) {
         callbackFn = fn;
         $("#"+targetId).find("#modal_select_block").modal("show");
     }

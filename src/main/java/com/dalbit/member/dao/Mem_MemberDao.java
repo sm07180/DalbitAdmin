@@ -136,7 +136,7 @@ public interface Mem_MemberDao {
     int selectLoginHistoryCnt(LoginHistoryVo loginHistoryVo);
 
     @Transactional(readOnly = true)
-    ArrayList<LoginHistoryVo> memberLoginHistory(String mem_no);
+    LoginHistoryVo memberLoginHistory(String mem_no);
     @Transactional(readOnly = true)
     ArrayList<LoginHistoryVo> selectLoginHistory(LoginHistoryVo loginHistoryVo);
 
