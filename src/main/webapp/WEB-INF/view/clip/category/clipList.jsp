@@ -14,7 +14,7 @@
             <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
             <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
         </span>
-        <table id="clip_history_list_info" class="table table-sorting table-hover table-bordered">
+        <table id="clip_hot_list_info" class="table table-sorting table-hover table-bordered">
             <thead>
             </thead>
             <tbody>
@@ -30,81 +30,82 @@
 
 
 <script type="text/javascript">
-    var beforeClipTypeOpen = 0;
-    var beforeClipConfirmType = 0;
-    var beforeClipStateType = 0;
-    var beforeOrderByType = 0;
+    var beforeClipTypeOpen = 1;
+    var beforeClipStateType = 1;
+    var beforeOrderByType = 5;
     var beforeClipSubjectType = -1;
 
     $(document).on('change', "#clipSubjectType, #clipOrderByType, #searchTypeOpen, #searchConfirm, #searchState", function(){
         beforeClipTypeOpen = $("#searchTypeOpen").val();
-        beforeClipConfirmType = $("#searchConfirm").val();
         beforeClipStateType = $("#searchState").val();
         beforeOrderByType = $("#clipOrderByType").val();
         beforeClipSubjectType = $("#clipSubjectType").val();
-        dtList_info.reload(selectCallback_clipHistory, false);
+        dtList_info.reload(selectCallback_hotHistory, false);
     });
 
     $(function(){
 
     });
 
-    function initClipHistory(){
-        beforeClipTypeOpen = -1;
-        beforeClipConfirmType = -1;
-        beforeClipStateType = -1;
-        beforeOrderByType = 0;
+    function initClipHotList(){
+        beforeClipTypeOpen = 1;
+        beforeClipStateType = 1;
+        beforeOrderByType = 5;
         beforeClipSubjectType = -1;
-        $("#searchTypeOpen").val("-1");
-        $("#searchConfirm").val("-1");
-        $("#searchState").val("-1");
-        $("#clipOrderByType").val("0");
+
+        $("#searchTypeOpen").val("1");
+        $("#searchState").val("1");
+        $("#clipOrderByType").val("5");
         $("#clipSubjectType").val("-1");
-
-
-        $("#page-wrapper").css("height", "140px");
-        $("#searchContainer").removeClass("col-lg-9");
-        $("#totalContainer").removeClass("col-md-3");
-        $("#tabContainer").removeClass("col-lg-9");
-        $("#searchContainer").addClass("col-lg-7");
-        $("#totalContainer").addClass("col-lg-5");
-        $("#tabContainer").addClass("col-lg-7");
     }
 
-    function getHistory(){
+    function initClipNewList(){
+        beforeClipTypeOpen = 1;
+        beforeClipStateType = 1;
+        beforeOrderByType = 1;
+        beforeClipSubjectType = -1;
+
+        $("#searchTypeOpen").val("1");
+        $("#searchState").val("1");
+        $("#clipOrderByType").val("1");
+        $("#clipSubjectType").val("-1");
+    }
+
+    function getClipList(){
         $("#select_clipTypeOpen").html(util.getCommonCodeSelect(beforeClipTypeOpen, clip_typeOpen_select));
-        $("#select_clipConfirmType").html(util.getCommonCodeSelect(beforeClipConfirmType, clip_confirmType_select));
+        $("#select_clipTypeOpen").hide();
         $("#select_clipStateType").html(util.getCommonCodeSelect(beforeClipStateType, clip_stateType_select));
-        $("#select_clipOrderByType").html(util.getCommonCodeSelect(beforeOrderByType, clip_orderByType));
+        $("#select_clipStateType").hide();
+        $("#select_clipOrderByType").html(util.getCommonCodeSelect(beforeOrderByType, clip_orderByType_hot));
+        $("#select_clipOrderByType").hide();
         getClipSubjectTypeCodeDefine();
 
-        initDataTable_clipHistory();
+        initDataTable_clipHot();
     }
 
     var dtList_info;
-    function initDataTable_clipHistory() {
+    function initDataTable_clipHot() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
             data.searchTypeOpen = Number($("#searchTypeOpen").val());
-            data.searchConfirm = Number($("#searchConfirm").val());
             data.searchState = Number($("#searchState").val());
             data.orderByType = Number($("#clipOrderByType").val());
             data.subjectType = Number(common.isEmpty($("#clipSubjectType").val()) ? "-1" : $("#clipSubjectType").val());
         };
 
-        dtList_info = new DalbitDataTable($("#clip_history_list_info"), dtList_info_data, ClipHistoryDataTableSource.list, $("#searchForm"));
+        dtList_info = new DalbitDataTable($("#clip_hot_list_info"), dtList_info_data, ClipHistoryDataTableSource.list, $("#searchForm"));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
-        dtList_info.usePageLenght(50);
-        dtList_info.createDataTable(selectCallback_clipHistory);
+        // dtList_info.createDataTable(selectCallback_hotHistory);
+        dtList_info.createDataTable();
 
         //---------- Main DataTable ----------=
     };
 
-    function selectCallback_clipHistory(data){
+    function selectCallback_hotHistory(data){
         // 탭 우측 총 건수 추가
-        var template = $("#tmp_headerInfo_clipHistory").html();
+        var template = $("#tmp_headerInfo_clipHot").html();
         var templateScript = Handlebars.compile(template);
 
         data.summary.viewCnt = (data.pagingVo.totalCnt - data.summary.delTotalCnt);
@@ -118,7 +119,7 @@
         ui.paintColor();
 
         $(".top-right").css("padding", "0px");
-        $("#clip_history_list_info_length").css("margin", "0px");
+        $("#clip_hot_list_info_length").css("margin", "0px");
     }
 
     function getClipSubjectTypeCodeDefine(){
@@ -288,7 +289,7 @@
 
     function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
         console.log(response);
-        dtList_info.reload(selectCallback_clipHistory, false);
+        dtList_info.reload(selectCallback_hotHistory, false);
         if(isAlertShow){alert(response.message)};
     }
 
@@ -317,7 +318,7 @@
 
             editClipDetailData(data, false);
         }
-        // dtList_info.reload(selectCallback_clipHistory, false);
+        // dtList_info.reload(selectCallback_hotHistory, false);
     }
 
 </script>
@@ -331,7 +332,7 @@
     </select>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_headerInfo_clipHistory">
+<script type="text/x-handlebars-template" id="tmp_headerInfo_clipHot">
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="11%"/><col width="9%"/><col width="13%"/>

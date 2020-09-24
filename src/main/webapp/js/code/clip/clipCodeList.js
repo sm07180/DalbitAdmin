@@ -28,6 +28,12 @@ var clip_orderByType = [
     , new COMMON_CODE('3', '3', '청취 수 많은 순으로')
 ];
 
+var clip_orderByType_hot = [
+    new COMMON_CODE(null, 'clipOrderByType', '정렬')
+    , new COMMON_CODE('0', '0', '최근 등록 순으로')
+    , new COMMON_CODE('5', '5', '인기 순으로')
+];
+
 var clip_orderByType_listen_clipDetail = [
     new COMMON_CODE(null, 'clipOrderByType', '정렬')
     , new COMMON_CODE('0', '0', '최근 등록 순으로')

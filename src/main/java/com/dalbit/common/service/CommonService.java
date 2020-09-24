@@ -62,6 +62,7 @@ public class CommonService {
         result.put("roomRight", setData(data, "broadcast_auth"));
         result.put("declarReason", setData(data, "report_reason"));
         result.put("special_dj_condition", setData(data, "special_dj_condition"));
+        result.put("clipType", setData(data, "clip_type"));
 
         return result;
     }
