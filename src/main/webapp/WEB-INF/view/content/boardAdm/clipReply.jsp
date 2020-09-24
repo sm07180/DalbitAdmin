@@ -141,7 +141,7 @@
             </td>
             <td>{{title}}</td>
             <td>
-                {{{memNoLink_sex writer_mem_no writer_mem_no}}}<br/>
+                {{{memNoLink writer_mem_no writer_mem_no}}}<br/>
                 {{writer_mem_nick}}
             </td>
             <td>
