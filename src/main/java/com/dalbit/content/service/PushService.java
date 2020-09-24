@@ -8,6 +8,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.content.dao.PushDao;
+import com.dalbit.content.vo.PushChoiceMemVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -496,12 +498,6 @@ public class PushService {
 //        pPushInsertVo.setImage_type("101");
 //        pPushInsertVo.setSlct_push("7");
 
-        // 내부 개발 테스트 표시 추가 2020.07.01
-        if("local".equals(DalbitUtil.getActiveProfile())){
-            String cont = "[내부개발] " + pPushInsertVo.getSend_cont();
-            pPushInsertVo.setSend_cont(cont);
-        }
-
         pPushInsertVo.setSend_cnt("1");
         pPushInsertVo.setIs_all("7");
         pPushInsertVo.setPlatform("111");
@@ -518,4 +514,19 @@ public class PushService {
         return pushResult;
     }
 
+    /**
+     * 푸시 팝업 화면에 수신 대상 지정하기
+     */
+    public String selectChoiceMember(PushChoiceMemVo pushChoiceMemVo) {
+        String[] memNos = pushChoiceMemVo.getMemNoList().split(",");
+
+        ArrayList<PushChoiceMemVo> list = new ArrayList();
+        for(int i=0; i<memNos.length; i++) {
+            PushChoiceMemVo choiceMem = pushDao.selectChoiceMember(memNos[i]);
+            if(!DalbitUtil.isEmpty(choiceMem)) {
+                list.add(choiceMem);
+            }
+        }
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+    }
 }

@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.PushChoiceMemVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
@@ -64,6 +65,15 @@ public class PushRestController {
     @PostMapping("delete")
     public String delete(P_pushDeleteVo pPushDeleteVo) {
         String result = pushService.callContentsPushDelete(pPushDeleteVo);
+        return result;
+    }
+
+    /**
+     * 푸시 팝업 화면에 수신 대상 지정하기
+     */
+    @PostMapping("choice")
+    public String choiceMember(PushChoiceMemVo pushChoiceMemVo) {
+        String result = pushService.selectChoiceMember(pushChoiceMemVo);
         return result;
     }
 }
