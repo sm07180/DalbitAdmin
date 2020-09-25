@@ -118,6 +118,7 @@ var fnc_broadcastList = {};
 
     // 수정
     fnc_broadcastList.updateData= function(dom) {
+        console.log(dom);
         var data = $(dom).data("info");
         console.log(data);
 

@@ -58,10 +58,13 @@ var fnc_clipList = {};
     fnc_clipList.initDataTable= function() {
         console.log(fnc_clipList.pagingInfo);
 
-        $("#pageStart").val(fnc_clipList.pagingInfo.pageNo);
-        $("#pageCnt").val(fnc_clipList.pagingInfo.pageCnt);
+        var data = {
+            pageNo : fnc_clipList.pagingInfo.pageNo
+            , pageCnt : fnc_clipList.pagingInfo.pageCnt
+            , orderByType : 0
+        };
 
-        util.getAjaxData(fnc_clipList.targetId, "/rest/customer/image/clip/list", $("#searchForm").serialize(), fnc_clipList.fn_select_success, fnc_clipList.fn_fail);
+        util.getAjaxData(fnc_clipList.targetId, "/rest/customer/image/clip/list", data, fnc_clipList.fn_select_success, fnc_clipList.fn_fail);
     };
 
 
@@ -118,25 +121,21 @@ var fnc_clipList = {};
     // };
 
     //수정
-    // fnc_clipList.updateData= function(dom) {
-    //     var data = $(dom).data("info");
-    //     console.log(data);
-    //
-    //     if(common.isEmpty(data.image_profile.path)){
-    //         alert("대상은 이미 초기이미지 입니다.");
-    //         return false;
-    //     }
-    //
-    //     if(confirm("대상의 이미지를 초기화 하시겠습니까?")){
-    //         report = "/customer/image/popup/imagePopup?memNo='" + encodeURIComponent(data.mem_no) + "'&memId='"
-    //                                                             + encodeURIComponent(data.mem_userid) + "'&memNick='"
-    //                                                             + encodeURIComponent(common.replaceHtml(data.mem_nick)) + "'&memSex='"
-    //                                                             + encodeURIComponent(data.mem_sex) + "'&targetId='"
-    //                                                             + encodeURIComponent(fnc_profileList.targetId) + "'";
-    //         console.log(report);
-    //         util.windowOpen(report,"600","450","경고/정지");
-    //     }
-    // };
+    fnc_clipList.updateData= function(dom) {
+        var data = $(dom).data("info");
+        console.log(data);
+
+        if(data.imageBackground.indexOf("/clip_3/") > -1){
+            alert("이미 기본 배경이미지 입니다.");
+            return;
+        }
+
+        if(confirm("대상의 이미지를 초기화 하시겠습니까?")){
+            report = "/customer/image/popup/imagePopup?memNo='" + data.memNo + "'&cast_no='" + data.castNo + "'&editSlct='1'&backgroundImage='/clip_3/clipbg_200910_0.jpg'&sendNoti='1'&targetId='" + fnc_broadcastList.targetId + "'";
+            console.log(report);
+            util.windowOpen(report,"600","450","클립 배경 초기화");
+        }
+    };
 
     fnc_clipList.fn_select_success= function(dst_id, response, dst_params){
         console.log(response.data)
@@ -175,10 +174,10 @@ var fnc_clipList = {};
     };
 
 
-    // // 검색
-    // fnc_profileList.selectMainList= function(){
-    //     fnc_profileList.initDataTable();
-    // };
+    // 검색
+    fnc_profileList.selectMainList= function(){
+        fnc_profileList.initDataTable();
+    };
 </script>
 
 
@@ -186,33 +185,40 @@ var fnc_clipList = {};
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_clipSelectFrm" type="text/x-handlebars-template">
     {{#each this as |clip|}}
-        {{#dalbit_if inner '==' 1}}
-        <div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
-        {{else}}
-        <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
-        {{/dalbit_if}}
+        <%--{{#dalbit_if inner '==' 1}}--%>
+        <%--<div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">--%>
+        <%--{{else}}--%>
+        <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
+        <%--{{/dalbit_if}}--%>
             <div>
-                <%--<label>NO.{{indexDesc ../length clip.rowNum}}</label>--%>
+                <label>NO.{{indexDesc ../length clip.rowNum}}</label>
             </div>
-            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
-            <div class="thumbnail" src="{{clip.imageBackground.url}}?360x360">
-                <img class="list-group-image thumbnailImg fullSize_background" style="width:360px; height:225px;" src="{{clip.imageBackground.url}}" alt="" data-toggle="modal" data-target="#imgModal" />
+            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
+            <div class="thumbnail" src="{{renderImage clip.imageBackground}}?360x360">
+                <img class="list-group-image thumbnailImg fullSize_background" style="width:360px; height:225px;" src="{{renderImage clip.imageBackground}}" alt="" data-toggle="modal" data-target="#imgModal" />
                 <div class="caption">
                     <div class="action-buttons">
-                        <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_profileList.updateData(this)" data-info="{{json user}}"><i class="fa fa-undo"></i> 초기화</a>
+                        <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_clipList.updateData(this)" data-info="{{json clip}}"><i class="fa fa-undo"></i> 초기화</a>
                     </div>
                 </div>
             </div>
             <div>
-                <h3 class="inner list-group-item-heading">
-                    <a href="javascript://" class="_openMemberPop" data-memno="{{clip.memNo}}">
-                        <h5>{{clip.memNo}}</h5>
+                <h3 class="inner list-group-item-heading broadcast_title">
+                    <a href="javascript://" class="_openClipInfoPop" data-clipNo="{{clip.castNo}}">
+                        <h5>{{clip.title}}</h5>
                     </a>
                 </h3>
                 <ul class="list-unstyled">
+                    <li><strong>클립번호:</strong>
+                        {{clip.castNo}}
+                    </li>
                     <li><strong>Nick:</strong> {{replaceHtml clip.memNick}}</li>
+                    <li><strong>No:</strong>
+                        <a href="javascript://" class="_openMemberPop" data-memno="{{clip.memNo}}" >
+                        {{clip.memNo}}
+                        </a>
+                    </li>
                     <li class="sexType"><strong>Sex:</strong> {{{sexIcon clip.memSex clip.memBirthYear}}}</li>
-                    <li><strong>No:</strong> {{clip.memNo}}</li>
                 </ul>
             </div>
             </div>
@@ -222,5 +228,4 @@ var fnc_clipList = {};
         <label>{{isEmptyData}}</label>
     </div>
     {{/each}}
-        </div>
 </script>
