@@ -14,7 +14,9 @@ var resourceDataTableSource = {
             {'title': '결제금액', 'data' : 'payAmt', 'width':'80px','render':function (data, type, row, meta) {
                     return common.addComma(data) + " 원";
                 }},
-            {'title': '결제수단', 'data' : 'payWay', 'width':'80px'},
+            {'title': '결제수단', 'data' : 'payWay', 'width':'80px','render':function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, "payWay");
+                }},
             {'title': '일시', 'data' : 'payDate', 'width':'80px'},
         ]
         , 'comments': ''
