@@ -32,7 +32,7 @@
 
 <script>
     $(document).ready(function() {
-        // fnc_broadcastList.init();
+        fnc_broadcastList.init();
     });
 
 var fnc_broadcastList = {};
@@ -118,6 +118,7 @@ var fnc_broadcastList = {};
 
     // 수정
     fnc_broadcastList.updateData= function(dom) {
+        console.log(dom);
         var data = $(dom).data("info");
         console.log(data);
 
@@ -143,7 +144,7 @@ var fnc_broadcastList = {};
         // form 띄우기
         var template = $('#tmp_broadcastSelectFrm').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = response;
         var html = templateScript(context);
         fnc_broadcastList.target.find("#"+ fnc_broadcastList.formId).html(html);
 
@@ -185,14 +186,14 @@ var fnc_broadcastList = {};
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_broadcastSelectFrm" type="text/x-handlebars-template">
-    {{#each this as |user|}}
+    {{#each data as |user|}}
         {{#dalbit_if inner '==' 1}}
         <div class="item col-md-2 col-sm-6 bg-testMember" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
         {{else}}
         <div class="item col-md-2 col-sm-6" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
         {{/dalbit_if}}
             <div>
-                <label>NO.{{indexDesc ../length user.rowNum}}</label>
+                <label>NO.{{indexDesc ../pagingVo.totalCnt user.rowNum}}</label>
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
                     {{{getCommonCodeLabel user.state 'broadcast_state_icon'}}}

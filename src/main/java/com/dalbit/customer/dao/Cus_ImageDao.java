@@ -1,5 +1,7 @@
 package com.dalbit.customer.dao;
 
+import com.dalbit.clip.vo.ClipHistoryVo;
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.vo.procedure.P_ImageBroadcastListInputVo;
 import com.dalbit.customer.vo.procedure.P_ImageBroadcastListOutputVo;
 import com.dalbit.customer.vo.procedure.P_ImageProfileListInputVo;
@@ -23,4 +25,7 @@ public interface Cus_ImageDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_ImageBroadcastListOutputVo> callCustomerImageBroadcastList(P_ImageBroadcastListInputVo pImageBroadcastListInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<ClipHistoryVo> callClipList(ProcedureVo procedureVo);
 }

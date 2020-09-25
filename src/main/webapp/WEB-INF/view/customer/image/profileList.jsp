@@ -143,7 +143,7 @@ var fnc_profileList = {};
         // form 띄우기
         var template = $('#tmp_profileSelectFrm').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = response;
         var html = templateScript(context);
         fnc_profileList.target.find("#"+ fnc_profileList.formId).html(html);
 
@@ -184,14 +184,14 @@ var fnc_profileList = {};
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_profileSelectFrm" type="text/x-handlebars-template">
-    {{#each this as |user|}}
+    {{#each data as |user|}}
         {{#dalbit_if inner '==' 1}}
         <div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
         {{else}}
         <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 35px;padding-right: 3px;padding-left: 3px; height: 376px">
         {{/dalbit_if}}
             <div>
-                <label>NO.{{indexDesc ../length user.rowNum}}</label>
+                <label>NO.{{indexDesc ../pagingVo.totalCnt user.rowNum}}</label>
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
             <div class="thumbnail" src="{{user.image_profile.url}}?360x360">

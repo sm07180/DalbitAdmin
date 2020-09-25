@@ -30,16 +30,12 @@
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                 <li class="active"><a href="#profileList" role="tab" data-toggle="tab" id="tab_profileList" onclick="onClickHeaderTab(this.id)">프로필</a></li>
                 <li><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송방 배경</a></li>
-                <%--    TODO 추후 추가
-                <li><a href="#castList" role="tab" data-toggle="tab" id="tab_castList" onclick="onClickHeaderTab(this.id)">캐스트</a></li>
-                --%>
+                <li><a href="#clipList" role="tab" data-toggle="tab" id="tab_clipList" onclick="onClickHeaderTab(this.id)">클립</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="profileList"><jsp:include page="/WEB-INF/view/customer/image/profileList.jsp"/></div>     <!-- 프로필 -->
                 <div class="tab-pane fade" id="broadcastList"><jsp:include page="/WEB-INF/view/customer/image/broadcastList.jsp"/></div>          <!-- 방송방 배경 -->
-                <%--    TODO 추후 추가
-                <div class="tab-pane fade" id="castList"><jsp:include page="/WEB-INF/view/content/item/castList.jsp"/></div>                       <!-- 캐스트 -->
-                --%>
+                <div class="tab-pane fade" id="clipList"><jsp:include page="/WEB-INF/view/customer/image/clipList.jsp"/></div>                       <!-- 클립 -->
             </div>
         </div>
     </div>
@@ -90,7 +86,6 @@
             $("#search_osType_aria").html(util.getCommonCodeSelect(-1, content_platform2));
         }
 
-        targetFnc.init();
 
         // 하위 탭 초기화
         initSelectDataInfo();
