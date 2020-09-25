@@ -148,6 +148,7 @@
             , search_month : $("#search_month").val()
             , search_state : $("#search_state").val()
             , exchange_sort : $("#exchange_sort").val()
+            , gender : $("#gender").val()
             , search_type : $("#search_type").val()
             , search_value : $("#search_value").val()
             , search_testId : $('input[name="search_testId"]').prop('checked') ? 1 : 0
@@ -253,6 +254,7 @@
 
             $("#searchStateArea").html(util.getCommonCodeSelect('', search_exchange_state));
             $("#exchangeSort").html(util.getCommonCodeSelect('', exchange_sort));
+            $("#selGender").html(util.getCommonCodeSelect('', gender));
         }
 
         var template = $('#tmp_exchangeTable').html();
@@ -692,6 +694,9 @@
     function exchangeSort_click(){
         exchangeList("button");
     }
+    function gender_click(){
+        exchangeList("button");
+    }
 
 
     function setRangeDatepicker(startDate, endDate){
@@ -855,6 +860,9 @@
         <div class="col-md-6 no-padding">
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
+            <c:if test="${fn:contains('|고병권|', principal.getUserInfo().getName())}">
+                <span id="selGender" onchange="gender_click();"></span>
+            </c:if>
         </div>
     </div>
 </script>
@@ -894,6 +902,9 @@
             <th>상태</th>
             <th><input type="checkbox" id="allChk"></th>
             <th>프로필</th>
+            <c:if test="${fn:contains('|고병권|', principal.getUserInfo().getName())}">
+                <th>신분증</th>
+            </c:if>
             <th>회원번호</th>
             <th>닉네임</th>
             <th>성별</th>
@@ -949,6 +960,11 @@
                      style="width: 50px;height: 50px;margin-bottom: 0px;" />
             </form>
         </td>
+        <c:if test="${fn:contains('|고병권|', principal.getUserInfo().getName())}">
+        <td >
+            <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
+        </td>
+        </c:if>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
