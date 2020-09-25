@@ -46,7 +46,7 @@ public class Cus_ImageRestController {
         String result;
         if(room_no != null && !room_no.equals("")){ // 배경이미지 초기화
             result = cusImageService.getBroadcastReset(pMemberReportVo, room_no);
-        } else if(cast_no != null && cast_no.equals("")) {   // 클립이미지 초기화
+        } else if(cast_no != null && !cast_no.equals("")) {   // 클립이미지 초기화
             result = cusImageService.getClipReset(pMemberReportVo, cast_no);
         } else {    // 프로필 이미지 초기화
             result = cusImageService.getMemberReset(pMemberReportVo);
