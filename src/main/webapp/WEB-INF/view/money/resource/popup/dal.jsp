@@ -3,7 +3,10 @@
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <!-- 결제/환불 > 결제내역 -->
-<div class="widget widget-table mb10">
+<div class="widget-table mb10">
+    <div class="col-md-12" style="background-color: #fbe5d6;padding:7px;margin-top: 8px">
+        <span class="font-bold" id="sp_type" style="color: #7792c9;"></span><span class="font-bold">&nbsp;상세내역</span>
+    </div>
     <div class="widget-content mt10">
         <table class="table table-bordered" id="list">
             <thead>
@@ -22,6 +25,42 @@
 
     getDalList();
     function getDalList() {
+        if(type == "1"){
+            $("#sp_type").text("달 결제");
+        }else if(type == "2-1"){
+            $("#sp_type").text("달 직접 선물");
+        }else if(type == "3"){
+            $("#sp_type").text("달 교환");
+        }else if(type == "4"){
+            $("#sp_type").text("가입보상");
+        }else if(type == "5"){
+            $("#sp_type").text("레벨 보상");
+        }else if(type == "6"){
+            $("#sp_type").text("랭킹 보상");
+        }else if(type == "7"){
+            $("#sp_type").text("출석이벤트");
+        }else if(type == "8"){
+            $("#sp_type").text("소실금액복구(운영자지급)");
+        }else if(type == "9-1"){
+            $("#sp_type").text("이벤트 지급(자동)");
+        }else if(type == "9-2"){
+            $("#sp_type").text("이벤트 지급(운영자지급)");
+        }else if(type == "10"){
+            $("#sp_type").text("테스트 지급");
+        }else if(type == "2-2"){
+            $("#sp_type").text("달 직접 선물");
+        }else if(type == "11"){
+            $("#sp_type").text("아이템 선물");
+        }else if(type == "12"){
+            $("#sp_type").text("결제 취소");
+        }else if(type == "13"){
+            $("#sp_type").text("영구정지");
+        }else if(type == "14"){
+            $("#sp_type").text("탈퇴");
+        }else if(type == "15"){
+            $("#sp_type").text("테스트 회수");
+        }
+
         var dtList_info_data = function(data) {
             data.sDate = '${param.sDate}';
             data.eDate = '${param.eDate}';
