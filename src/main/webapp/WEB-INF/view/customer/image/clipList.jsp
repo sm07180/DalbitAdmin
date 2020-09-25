@@ -56,8 +56,6 @@ var fnc_clipList = {};
 
 
     fnc_clipList.initDataTable= function() {
-        console.log(fnc_clipList.pagingInfo);
-
         var data = {
             pageNo : fnc_clipList.pagingInfo.pageNo
             , pageCnt : fnc_clipList.pagingInfo.pageCnt
@@ -123,7 +121,6 @@ var fnc_clipList = {};
     //수정
     fnc_clipList.updateData= function(dom) {
         var data = $(dom).data("info");
-        console.log(data);
 
         if(data.imageBackground.indexOf("/clip_3/") > -1){
             alert("이미 기본 배경이미지 입니다.");
@@ -142,7 +139,7 @@ var fnc_clipList = {};
         // form 띄우기
         var template = $('#tmp_clipSelectFrm').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = response;
         var html = templateScript(context);
         fnc_clipList.target.find("#"+ fnc_clipList.formId).html(html);
 
@@ -184,14 +181,14 @@ var fnc_clipList = {};
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_clipSelectFrm" type="text/x-handlebars-template">
-    {{#each this as |clip|}}
-        <%--{{#dalbit_if inner '==' 1}}--%>
-        <%--<div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">--%>
-        <%--{{else}}--%>
+    {{#each data as |clip|}}
+        {{#dalbit_if inner '==' 1}}
+        <div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
+        {{else}}
         <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
-        <%--{{/dalbit_if}}--%>
+        {{/dalbit_if}}
             <div>
-                <label>NO.{{indexDesc ../length clip.rowNum}}</label>
+                <label>NO.{{indexDesc ../pagingVo.totalCnt clip.rowNum}}</label>
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
             <div class="thumbnail" src="{{renderImage clip.imageBackground}}?360x360">
