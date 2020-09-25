@@ -179,10 +179,10 @@
     function reportDeleteClip(clipNo){
         console.log(clipNo)
         // if(confirm("해당 클립을 삭제 하시겠습니까?")){
-        var data = new Object();
-        data.cast_no = clipNo;
+            var data = new Object();
+            data.cast_no = clipNo;
 
-        util.getAjaxData("clipDetailInfo", "/rest/clip/history/info", data, fn_detailInfo_select_success);
+            util.getAjaxData("clipDetailInfo", "/rest/clip/history/info", data, fn_detailInfo_select_success);
         // }
     }
 
@@ -333,59 +333,59 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_headerInfo_clipHot">
-    <table class="table table-bordered _tableHeight" data-height="23px">
-        <colgroup>
-            <col width="11%"/><col width="9%"/><col width="13%"/>
-            <col width="11%"/><col width="9%"/><col width="13%"/>
-            <col width="11%"/><col width="9%"/><col width="13%"/>
-        </colgroup>
-        <thead>
-        <tr>
-            <th colspan="9" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">
-                전체 클립 등록 (본인삭제/운영자삭제) 건 수 : {{addComma pagingVo.totalCnt 'N'}} 건 ( {{addComma summary.delMyselfTotalCnt 'N'}} / {{addComma summary.delAdminTotalCnt 'N'}} 건 )
-                <br><span style="color:yellow"> - 삭제 제외 현재 등록 건 수 : {{addComma summary.viewCnt 'N'}} 건 </span>
-            </th>
-        </tr>
-        <tr>
-            <th colspan="3" class="_bgColor" data-bgcolor="#dae3f3">남성</th>
-            <th colspan="3" class="_bgColor" data-bgcolor="#fbe5d6">여성</th>
-            <th colspan="3" class="_bgColor" data-bgcolor="#FFF2CC">알수없음</th>
-        </tr>
-        <tr>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">등록자 수</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">삭제<br>(본인/운영자)</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">등록자 수</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">삭제<br>(본인/운영자)</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">등록자 수</th>
-            <th class="_bgColor" data-bgcolor="#f2f2f2">삭제<br>(본인/운영자)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>{{addComma summary.manTotalCnt 'N'}} 건</td>
-            <td>{{addComma summary.manCnt 'N'}} 명</td>
-            <td>
-                {{addComma summary.delManTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfManTotalCnt 'N'}} / {{addComma summary.delAdminManTotalCnt 'N'}} )
-            </td>
+        <table class="table table-bordered _tableHeight" data-height="23px">
+            <colgroup>
+                <col width="11%"/><col width="9%"/><col width="13%"/>
+                <col width="11%"/><col width="9%"/><col width="13%"/>
+                <col width="11%"/><col width="9%"/><col width="13%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th colspan="9" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">
+                    전체 클립 등록 (본인삭제/운영자삭제) 건 수 : {{addComma pagingVo.totalCnt 'N'}} 건 ( {{addComma summary.delMyselfTotalCnt 'N'}} / {{addComma summary.delAdminTotalCnt 'N'}} 건 )
+                    <br><span style="color:yellow"> - 삭제 제외 현재 등록 건 수 : {{addComma summary.viewCnt 'N'}} 건 </span>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="3" class="_bgColor" data-bgcolor="#dae3f3">남성</th>
+                <th colspan="3" class="_bgColor" data-bgcolor="#fbe5d6">여성</th>
+                <th colspan="3" class="_bgColor" data-bgcolor="#FFF2CC">알수없음</th>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록자 수</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">삭제<br>(본인/운영자)</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록자 수</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">삭제<br>(본인/운영자)</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">등록자 수</th>
+                <th class="_bgColor" data-bgcolor="#f2f2f2">삭제<br>(본인/운영자)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{addComma summary.manTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.manCnt 'N'}} 명</td>
+                <td>
+                    {{addComma summary.delManTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfManTotalCnt 'N'}} / {{addComma summary.delAdminManTotalCnt 'N'}} )
+                </td>
 
-            <td>{{addComma summary.femaleTotalCnt 'N'}} 건</td>
-            <td>{{addComma summary.femaleCnt 'N'}} 명</td>
-            <td>
-                {{addComma summary.delFemaleTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfFemaleTotalCnt 'N'}} / {{addComma summary.delAdminFemaleTotalCnt 'N'}} )
-            </td>
+                <td>{{addComma summary.femaleTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.femaleCnt 'N'}} 명</td>
+                <td>
+                    {{addComma summary.delFemaleTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfFemaleTotalCnt 'N'}} / {{addComma summary.delAdminFemaleTotalCnt 'N'}} )
+                </td>
 
-            <td>{{addComma summary.unknownTotalCnt 'N'}} 건</td>
-            <td>{{addComma summary.unknownCnt 'N'}} 명</td>
-            <td>
-                {{addComma summary.delUnknownTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfUnknownTotalCnt 'N'}} / {{addComma summary.delAdminUnknownTotalCnt 'N'}} )
-            </td>
-        </tr>
-        <tr>
-            <td colspan="9" class="_bgColor" data-bgcolor="#f2f2f2">총 등록자 수 : {{addComma summary.memberTotalCnt}} 명</td>
-        </tr>
-        </tbody>
-    </table>
+                <td>{{addComma summary.unknownTotalCnt 'N'}} 건</td>
+                <td>{{addComma summary.unknownCnt 'N'}} 명</td>
+                <td>
+                    {{addComma summary.delUnknownTotalCnt 'N'}} 건 <br>( {{addComma summary.delMyselfUnknownTotalCnt 'N'}} / {{addComma summary.delAdminUnknownTotalCnt 'N'}} )
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9" class="_bgColor" data-bgcolor="#f2f2f2">총 등록자 수 : {{addComma summary.memberTotalCnt}} 명</td>
+            </tr>
+            </tbody>
+        </table>
 </script>

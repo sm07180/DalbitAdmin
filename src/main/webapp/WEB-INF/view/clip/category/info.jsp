@@ -4,9 +4,9 @@
 
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-12 no-padding" style="height: 85px;">
-        <div class="container-fluid col-lg-9 no-padding" id="searchContainer">
+        <div class="container-fluid col-lg-12 no-padding" id="searchContainer">
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+                <div class="col-lg-12 form-inline no-padding">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
@@ -69,9 +69,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div class="col-md-3 no-padding pull-right" id="totalContainer">
-            <div id="headerInfo"></div>
         </div>
     </div>
     <!-- tab -->
@@ -147,7 +144,7 @@
         // setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
         setRangeDatepicker(moment(), moment())
 
-        $("#tab_hot").click();
+        $("#tab_new").click();
 
     });
 
