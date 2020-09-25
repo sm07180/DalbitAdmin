@@ -269,7 +269,7 @@
         <if test='type == "14"'>
             from rd_data.tb_member_withdrawal_bak a
         </if>
-     left join rd_data.tb_member_wallet well on a.mem_no = well.mem_no
+     left join rd_data.tb_member_wallet well on a.mem_no = well.mem_no ,(select @rownum := #{pageStart}) r
          where date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
         <if test='type == "13"'>
             and a.mem_state='5'
