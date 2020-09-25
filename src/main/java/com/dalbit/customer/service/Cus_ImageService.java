@@ -197,9 +197,8 @@ public class Cus_ImageService {
         String result;
         try {
             ArrayList<ClipHistoryVo> clipList = cusImageDao.callClipList(procedureVo);
-            clipHistoryVo.setTotalCnt(clipList.size());
             if(clipList != null && clipList.size() > 0) {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.조회, clipList, new PagingVo(clipHistoryVo.getTotalCnt(), clipHistoryVo.getPageStart(), clipHistoryVo.getPageCnt())));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.조회, clipList, new PagingVo(procedureVo.getRet())));
             }else {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
             }
@@ -224,7 +223,8 @@ public class Cus_ImageService {
             pClipHistoryDetailInfoEditVo.setCast_no(cast_no);
             pClipHistoryDetailInfoEditVo.setMemNo(pMemberReportVo.getMem_no());
             pClipHistoryDetailInfoEditVo.setEditSlct("1");
-            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_0.jpg");
+            int random = Integer.parseInt(DalbitUtil.randomBgValue());
+            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_" + random + ".jpg");
 
             String result = cliClipHistoryService.callAdminClipInfoDetailEdit(pClipHistoryDetailInfoEditVo);
             log.debug(result);
