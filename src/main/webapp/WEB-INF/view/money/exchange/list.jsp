@@ -860,7 +860,7 @@
         <div class="col-md-6 no-padding">
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
-            <c:if test="${fn:contains('|고병권|', principal.getUserInfo().getName())}">
+            <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
                 <span id="selGender" onchange="gender_click();"></span>
             </c:if>
         </div>
@@ -902,7 +902,7 @@
             <th>상태</th>
             <th><input type="checkbox" id="allChk"></th>
             <th>프로필</th>
-            <c:if test="${fn:contains('|고병권|', principal.getUserInfo().getName())}">
+            <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
                 <th>신분증</th>
             </c:if>
             <th>회원번호</th>
@@ -960,7 +960,7 @@
                      style="width: 50px;height: 50px;margin-bottom: 0px;" />
             </form>
         </td>
-        <c:if test="${fn:contains('|고병권|', principal.getUserInfo().getName())}">
+        <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
         <td >
             <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
         </td>
