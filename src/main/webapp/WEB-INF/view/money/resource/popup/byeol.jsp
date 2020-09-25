@@ -66,7 +66,7 @@
         // data-type="17" 환전승인
         // data-type="3"  교환
         // data-type="13" 영구정지
-        // data-type="14" 탈퇴
+        // data-type="18" 탈퇴
         // data-type="15" 테스트 회수
 
         if(type == "5" || type == "9" || type == "8" || type == "10" || type == "15"){            // 레벨업보상, 이벤트 지급(운영자 지급), 소실금액 복구(운영자 지급), 테스트 지급, 테스트 회수
@@ -77,7 +77,7 @@
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_exchange);
         } else if(type == "3" ){                        // 교환
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolDec_change);
-        } else if(type == "13" || type == "14"){        // 영구정지, 탈퇴회원
+        } else if(type == "13" || type == "18"){        // 영구정지, 탈퇴회원
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.dalDec_memState);
         }
         dtList_info.useCheckBox(false);
