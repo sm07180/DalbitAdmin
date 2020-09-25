@@ -51,10 +51,10 @@
         <span class="font-bold">◈ 성별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="%5.2"/>
-                <col width="0.1%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
-                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
+                <col width="6%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
+                <col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
+                <col width="0.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
+                <col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
 
             </colgroup>
             <thead>
@@ -132,7 +132,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getMonthList();
+        // getMonthList();
     });
 
     function getMonthList(){
@@ -184,6 +184,27 @@
             $("#monthTableBody").append(totalHtml);
 
             response.data.detailList.slctType = slctType;
+        }
+
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].index = common.lpad(Number(moment().format("HH")),2,"0");
+
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+
+            response.data.detailList[i].the_date = moment($("#startDate").val()).add('months', 0).format('YYYY.MM') + "." +common.lpad(response.data.detailList[i].day,2,"0");
+
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else{
+                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+            }
+            response.data.detailList[i].date = toDay;
         }
 
         for(var i=0;i<response.data.detailList.length;i++) {
@@ -240,12 +261,22 @@
             response.data.detailList.slctType = slctType;
         }
 
-        for(var i=0;i<response.data.detailList.length;i++) {
-            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
-            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD"), 2, "0"));
-            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i].index = common.lpad(Number(moment().format("HH")),2,"0");
 
-            response.data.detailList[i].day = Number(response.data.detailList[i].the_date.substr(8,2));
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+            if(toDay == "토"){
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else if(toDay == "일"){
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+            }else{
+                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+            }
+            response.data.detailList[i].date = toDay;
         }
 
         var template = $('#tmp_genderDetailList').html();
@@ -339,7 +370,7 @@
     {{#each this as |data|}}
     <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#dae3f3"  {{/dalbit_if}}>
         <td class="font-bold" style="background-color: #dae3f3">
-            {{day}}일
+            {{{date}}}
         </td>
         <td>{{addComma specialdj_succ_Cnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
@@ -396,7 +427,7 @@
     {{#each this as |data|}}
     <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#dae3f3"  {{/dalbit_if}}>
         <td class="font-bold" style="background-color: #dae3f3">
-            {{day}}일
+            {{{date}}}
         </td>
         <td>{{addComma specialdj_succ_mCnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_mAmt 'Y'}}</td>
