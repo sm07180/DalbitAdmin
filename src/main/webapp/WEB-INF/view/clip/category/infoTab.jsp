@@ -7,10 +7,10 @@
     <div id="page-wrapper">
         <div class="col-lg-12 form-inline no-padding" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
-                <div class="row col-lg-12" id="tabContainer">
+                <div class="col-lg-12 no-padding" id="tabContainer">
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                        <li class="active"><a href="#clipList" role="tab" data-toggle="tab" id="tab_hot">인기 클립</a></li>
-                        <li><a href="#clipList" role="tab" data-toggle="tab" id="tab_new">최신 클립</a></li>
+                        <li class="active"><a href="#clipList" role="tab" data-toggle="tab" id="tab_new">최신 클립</a></li>
+                        <li><a href="#clipList" role="tab" data-toggle="tab" id="tab_hot">인기 클립</a></li>
                         <li><a href="#category" role="tab" data-toggle="tab" id="tab_category">주제 관리</a></li>
                     </ul>
                 </div>
