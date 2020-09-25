@@ -103,6 +103,7 @@
         </if>
         <if test='type == "4"'>
             where a.type='15'
+              and ruby <![CDATA[>]]> 0
         </if>
         <if test='type == "5"'>
             where a.type='10'
@@ -260,13 +261,13 @@
             <if test='type == "13"'>
                 ,'영구정지' as memState
             </if>
-            <if test='type == "14"'>
+            <if test='type == "14" or type == "18"'>
                 ,'탈퇴' as memState
             </if>
         <if test='type == "13"'>
           from rd_data.tb_member_basic a
         </if>
-        <if test='type == "14"'>
+        <if test='type == "14" or type == "18"'>
             from rd_data.tb_member_withdrawal_bak a
         </if>
      left join rd_data.tb_member_wallet well on a.mem_no = well.mem_no ,(select @rownum := #{pageStart}) r
@@ -275,11 +276,17 @@
             and a.mem_state='5'
         </if>
         <if test='gender == "m" or gender == "f" or gender == "n"'>
-              and a.mem_sex = #{gender}
-              and a.inner = 0
+            and a.mem_sex = #{gender}
+            and a.inner = 0
         </if>
         <if test='gender == "t"'>
-          and a.inner = 1
+            and a.inner = 1
+        </if>
+        <if test='type == "14"'>
+            and well.ruby > 0
+        </if>
+        <if test='type == "18"'>
+            and well.gold > 0
         </if>
         <if test='searchText != null and searchText != ""'>
             and (a.mem_no like CONCAT('%',#{searchText},'%') or a.mem_nick like CONCAT('%',#{searchText},'%'))

@@ -1154,7 +1154,7 @@
                     <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_mcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_mcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_mcnt 'Y'}}</span></a></td>
-                    <td onclick="resourceByeolClick($(this).data())" data-type="14" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_mcnt 'Y'}}</span></a></td>
+                    <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_mcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_mcnt 'Y'}}</span></a></td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">{{{sexIcon 'm'}}}</th>
                     <td style="border:solid 2px black">{{addComma byeolDec_total_mCnt 'Y'}}</td>
@@ -1165,7 +1165,7 @@
                     <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_fcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_fcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_fcnt 'Y'}}</span></a></td>
-                    <td onclick="resourceByeolClick($(this).data())" data-type="14" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_fcnt 'Y'}}</span></a></td>
+                    <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_fcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_fcnt 'Y'}}</span></a></td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">{{{sexIcon 'f'}}}</th>
                     <td style="border:solid 2px black">{{addComma byeolDec_total_fCnt 'Y'}}</td>
@@ -1175,7 +1175,7 @@
                     <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_ncnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_ncnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_ncnt 'Y'}}</span></a></td>
-                    <td onclick="resourceByeolClick($(this).data())" data-type="14" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_ncnt 'Y'}}</span></a></td>
+                    <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_ncnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_ncnt 'Y'}}</span></a></td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">{{{sexIcon 'n'}}}</th>
                     <td style="border:solid 2px black">{{addComma byeolDec_total_nCnt 'Y'}}</td>
@@ -1185,7 +1185,7 @@
                     <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_tcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_tcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_tcnt 'Y'}}</span></a></td>
-                    <td onclick="resourceByeolClick($(this).data())" data-type="14" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_tcnt 'Y'}}</span></a></td>
+                    <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_tcnt 'Y'}}</span></a></td>
                     <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_tcnt 'Y'}}</span></a></td>
                     <th class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">테스트</th>
                     <td style="border:solid 2px black">{{addComma byeolDec_total_tCnt 'Y'}}</td>
@@ -1195,7 +1195,7 @@
                     <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_total_cnt 'Y'}}</span></a></td>
                     <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_total_cnt 'Y'}}</span></a></td>
                     <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_total_cnt 'Y'}}</span></a></td>
-                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="14" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_total_cnt 'Y'}}</span></a></td>
+                    <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_total_cnt 'Y'}}</span></a></td>
                     <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_total_cnt 'Y'}}</span></a></td>
                     <td colspan="2" style="border:solid 2px black"></td>
                 </tr>
