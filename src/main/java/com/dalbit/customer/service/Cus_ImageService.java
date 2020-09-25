@@ -214,7 +214,6 @@ public class Cus_ImageService {
     /**
      * clip 이미지 초기화 조회
      */
-    @Transactional(readOnly = true)
     public String getClipReset(P_MemberReportVo pMemberReportVo, String cast_no) throws GlobalException {
 
         try {
