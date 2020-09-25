@@ -59,7 +59,7 @@ var fnc_clipList = {};
         var data = {
             pageNo : fnc_clipList.pagingInfo.pageNo
             , pageCnt : fnc_clipList.pagingInfo.pageCnt
-            , orderByType : 0
+            , orderByType : 6
         };
 
         util.getAjaxData(fnc_clipList.targetId, "/rest/customer/image/clip/list", data, fnc_clipList.fn_select_success, fnc_clipList.fn_fail);
