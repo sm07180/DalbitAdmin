@@ -28,4 +28,33 @@ public interface Mon_ResourceDao {
     @Transactional(readOnly = true)
     ArrayList<P_LiveResourceDataOutVo> callResourceLive(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    int getDalPayDetailCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getDalPayDetailList(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    int getDalDirectListCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getDalDirectList(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    int getDalMemberStateCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getDalMemberStateList(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    int getByeolDetailCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getByeolDetailList(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    int getByeolGiftCnt(P_ResourcePopupInputVo pResourcePopupInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ResourcePopupOutputVo> getByeolGiftList(P_ResourcePopupInputVo pResourcePopupInputVo);
 }
