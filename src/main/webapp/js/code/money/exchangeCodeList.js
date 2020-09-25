@@ -124,3 +124,12 @@ var changeList_searchType = [
     , new COMMON_CODE('5', '5', '남은 달 수 많은 순으로')
     , new COMMON_CODE('6', '6', '교환 오래된 순으로')
 ]
+
+
+var gender = [
+    new COMMON_CODE(null, 'gender', '성별')
+    , new COMMON_CODE('0', '0', '전체')
+    , new COMMON_CODE('m', 'm', '남')
+    , new COMMON_CODE('f', 'f', '여')
+    , new COMMON_CODE('n', 'n', '알수없음')
+]
