@@ -224,7 +224,7 @@ public class Cus_ImageService {
             pClipHistoryDetailInfoEditVo.setMemNo(pMemberReportVo.getMem_no());
             pClipHistoryDetailInfoEditVo.setEditSlct("1");
             int random = Integer.parseInt(DalbitUtil.randomBgValue());
-            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_" + random + ".jpg");
+            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_0.jpg");
 
             String result = cliClipHistoryService.callAdminClipInfoDetailEdit(pClipHistoryDetailInfoEditVo);
             log.debug(result);
