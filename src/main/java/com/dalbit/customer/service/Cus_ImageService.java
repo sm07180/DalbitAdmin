@@ -2,6 +2,9 @@ package com.dalbit.customer.service;
 
 import com.dalbit.broadcast.service.Bro_BroadcastService;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
+import com.dalbit.clip.service.Cli_ClipHistoryService;
+import com.dalbit.clip.vo.ClipHistoryVo;
+import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditVo;
 import com.dalbit.common.code.Code;
 import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
@@ -40,6 +43,9 @@ public class Cus_ImageService {
 
     @Autowired
     Bro_BroadcastService broBroadcastService;
+
+    @Autowired
+    Cli_ClipHistoryService cliClipHistoryService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -176,6 +182,75 @@ public class Cus_ImageService {
                 return gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_종료된방));
             } else {
                 return gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_에러));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new GlobalException(ErrorStatus.서버처리중오류);
+        }
+    }
+
+    /**
+     * clip image 리스트 조회
+     */
+    public String callClipList(ClipHistoryVo clipHistoryVo) {
+        ProcedureVo procedureVo = new ProcedureVo(clipHistoryVo);
+        String result;
+        try {
+            ArrayList<ClipHistoryVo> clipList = cusImageDao.callClipList(procedureVo);
+            if(clipList != null && clipList.size() > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.조회, clipList, new PagingVo(procedureVo.getRet())));
+            }else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
+        return result;
+    }
+
+    /**
+     * clip 이미지 초기화 조회
+     */
+    @Transactional(readOnly = true)
+    public String getClipReset(P_MemberReportVo pMemberReportVo, String cast_no) throws GlobalException {
+
+        try {
+            //클립 배경 초기화
+            P_ClipHistoryDetailInfoEditVo pClipHistoryDetailInfoEditVo = new P_ClipHistoryDetailInfoEditVo();
+            pClipHistoryDetailInfoEditVo.setCast_no(cast_no);
+            pClipHistoryDetailInfoEditVo.setMemNo(pMemberReportVo.getMem_no());
+            pClipHistoryDetailInfoEditVo.setEditSlct("1");
+            int random = Integer.parseInt(DalbitUtil.randomBgValue());
+            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_" + random + ".jpg");
+
+            String result = cliClipHistoryService.callAdminClipInfoDetailEdit(pClipHistoryDetailInfoEditVo);
+            log.debug(result);
+
+            // 방송방 수정 성공여부 확인
+            JsonParser parser = new JsonParser();
+            JsonElement element;
+            element = parser.parse(result);
+            String codeResult = element.getAsJsonObject().get("code").getAsString();
+
+            if(Status.클립상세수정_성공.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_성공));
+            }else if(Status.클립상세수정_클립번호없음.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_클립번호없음));
+            }else if(Status.클립상세수정_수정변화없음.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_수정변화없음));
+            }else if(Status.클립상세수정_잘못된값.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_잘못된값));
+            }else if(Status.클립상세수정_이미삭제.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_이미삭제));
+            }else if(Status.클립상세수정_이미처리.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_이미처리));
+            }else if(Status.클립상세수정_닉네임중복.getMessageCode().equals(codeResult)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.클립상세수정_닉네임중복));
+            }else {
+                return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
             }
         }catch (Exception e){
             e.printStackTrace();

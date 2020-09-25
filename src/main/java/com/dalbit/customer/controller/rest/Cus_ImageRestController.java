@@ -1,5 +1,6 @@
 package com.dalbit.customer.controller.rest;
 
+import com.dalbit.clip.vo.ClipHistoryVo;
 import com.dalbit.customer.service.Cus_ImageService;
 import com.dalbit.customer.vo.procedure.P_ImageBroadcastListInputVo;
 import com.dalbit.customer.vo.procedure.P_ImageProfileListInputVo;
@@ -40,12 +41,17 @@ public class Cus_ImageRestController {
         pMemberReportVo.setBrowser(DalbitUtil.getUserAgent(request));
 
         String room_no = request.getParameter("room_no");
+        String cast_no = request.getParameter("cast_no");
+
         String result;
         if(room_no != null && !room_no.equals("")){ // 배경이미지 초기화
             result = cusImageService.getBroadcastReset(pMemberReportVo, room_no);
-        }else{// 프로필 이미지 초기화
+        } else if(cast_no != null && !cast_no.equals("")) {   // 클립이미지 초기화
+            result = cusImageService.getClipReset(pMemberReportVo, cast_no);
+        } else {    // 프로필 이미지 초기화
             result = cusImageService.getMemberReset(pMemberReportVo);
         }
+
 
 
         return result;
@@ -57,6 +63,15 @@ public class Cus_ImageRestController {
     @PostMapping("/broadcast/list")
     public String getBroadcastList(P_ImageBroadcastListInputVo pImageBroadcastListInputVo) {
         String result = cusImageService.getBroadcastList(pImageBroadcastListInputVo);
+        return result;
+    }
+
+    /**
+     * clip image 리스트 조회
+     */
+    @PostMapping("/clip/list")
+    public String callClipList(ClipHistoryVo clipHistoryVo) {
+        String result = cusImageService.callClipList(clipHistoryVo);
         return result;
     }
 

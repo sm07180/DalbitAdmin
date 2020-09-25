@@ -211,5 +211,7 @@
     </select>
 
 
-
+    <select id="callClipList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryVo">
+        call rd_admin.sp_admin_clip_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>
