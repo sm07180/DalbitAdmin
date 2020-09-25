@@ -9,6 +9,7 @@
     String in_memSex = request.getParameter("memSex");
     String in_targetId = request.getParameter("targetId");
     String in_room_no = request.getParameter("room_no");
+    String in_cast_no = request.getParameter("cast_no");
 %>
 
 <div class="col-md-12 no-padding" id="report_detail">
@@ -79,6 +80,7 @@
     var memSex =  <%=in_memSex%>;
     var targetId =  <%=in_targetId%>;
     var room_no =  <%=in_room_no%>;
+    var cast_no = <%= in_cast_no%>;
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
     $("#member_declaration_slctType").html(util.getCommonCodeRadio(2, member_declaration_slctType));
@@ -164,11 +166,14 @@
         if(confirm("신고 하시겠습니까?")) {
             var obj = new Object();
             obj.mem_no = memNo;             // 신고자 대상 ID검색용
-            if(common.isEmpty(room_no)){
-                obj.slctReason = 2;
-            }else{
+            if(!common.isEmpty(room_no)){
                 obj.room_no = room_no;
                 obj.slctReason = 1;
+            } else if(!common.isEmpty(cast_no)) {
+                obj.cast_no = cast_no;
+                // obj.slctReason // -todo
+            } else {
+                obj.slctReason = 2;
             }
             obj.slctType = $('input:radio[name="slctType"]:checked').val();
             obj.notiContents = msgTitle;
