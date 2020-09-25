@@ -223,6 +223,7 @@ public class Cus_ImageService {
             pClipHistoryDetailInfoEditVo.setCast_no(cast_no);
             pClipHistoryDetailInfoEditVo.setMemNo(pMemberReportVo.getMem_no());
             pClipHistoryDetailInfoEditVo.setEditSlct("1");
+            pClipHistoryDetailInfoEditVo.setSendNoti("1");
             int random = Integer.parseInt(DalbitUtil.randomBgValue());
             pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_" + random + ".jpg");
 
