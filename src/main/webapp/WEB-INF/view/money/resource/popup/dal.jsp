@@ -17,6 +17,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
     var dtList_info;
