@@ -131,7 +131,7 @@ var fnc_clipList = {};
         }
 
         if(confirm("대상의 이미지를 초기화 하시겠습니까?")){
-            report = "/customer/image/popup/imagePopup?memNo='" + data.memNo + "'&cast_no='" + data.castNo + "'&editSlct='1'&backgroundImage='/clip_3/clipbg_200910_0.jpg'&sendNoti='1'&targetId='" + fnc_broadcastList.targetId + "'";
+            report = "/customer/image/popup/imagePopup?memNo='" + data.memNo + "'&cast_no='" + data.castNo + "'&editSlct='1'&backgroundImage='/clip_3/clipbg_200910_0.jpg'&sendNoti='1'&targetId='" + fnc_clipList.targetId + "'";
             console.log(report);
             util.windowOpen(report,"600","450","클립 배경 초기화");
         }
@@ -175,8 +175,8 @@ var fnc_clipList = {};
 
 
     // 검색
-    fnc_profileList.selectMainList= function(){
-        fnc_profileList.initDataTable();
+    fnc_clipList.selectMainList= function(){
+        fnc_clipList.initDataTable();
     };
 </script>
 
