@@ -15,4 +15,15 @@ public class Mon_ResourceController {
         return "money/resource/info";
     }
 
+    @GetMapping("popup/dal")
+    public String dal() {
+        return "money/resource/popup/dal";
+    }
+
+    @GetMapping("popup/byeol")
+    public String byeol() {
+        return "money/resource/popup/byeol";
+    }
+
+
 }

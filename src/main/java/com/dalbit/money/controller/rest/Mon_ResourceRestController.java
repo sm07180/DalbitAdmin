@@ -11,6 +11,7 @@ import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.money.vo.procedure.P_ResourceDetailInPutVo;
 import com.dalbit.money.vo.procedure.P_ResourceInfoInPutVo;
+import com.dalbit.money.vo.procedure.P_ResourcePopupInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,36 @@ public class Mon_ResourceRestController {
     @PostMapping("live")
     public String live(P_ResourceInfoInPutVo pResourceInfoInPutVo){
         String result = mon_ResourceService.resourceLive(pResourceInfoInPutVo);
+        return result;
+    }
+
+    @PostMapping("dal/pay/detail/list")
+    public String dalPayDetailList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.dalPayDetailList(pResourcePopupInputVo);
+        return result;
+    }
+
+    @PostMapping("dal/direct/list")
+    public String dalDirectList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.dalDirectList(pResourcePopupInputVo);
+        return result;
+    }
+
+    @PostMapping("dal/member/state/list")
+    public String dalMemberState(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.dalMemberState(pResourcePopupInputVo);
+        return result;
+    }
+
+    @PostMapping("byeol/detail/list")
+    public String byeolDetailList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.byeolDetailList(pResourcePopupInputVo);
+        return result;
+    }
+
+    @PostMapping("byeol/gift/list")
+    public String byeolGiftList(P_ResourcePopupInputVo pResourcePopupInputVo){
+        String result = mon_ResourceService.byeolGiftList(pResourcePopupInputVo);
         return result;
     }
 }
