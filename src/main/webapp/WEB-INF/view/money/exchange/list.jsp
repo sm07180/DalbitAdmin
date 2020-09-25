@@ -254,6 +254,7 @@
 
             $("#searchStateArea").html(util.getCommonCodeSelect('', search_exchange_state));
             $("#exchangeSort").html(util.getCommonCodeSelect('', exchange_sort));
+            $("#selGender").html(util.getCommonCodeSelect('', gender));
         }
 
         var template = $('#tmp_exchangeTable').html();
