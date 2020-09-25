@@ -99,7 +99,9 @@
                     </choose>
                 </if>
 
-
+                <if test='gender != "0" and gender != "" and gender != null'>
+                    and IFNULL(basic.mem_sex, withdrawal.mem_sex) = #{gender}
+                </if>
                 <if test='search_state != null and search_state != ""'>
                     and exchange.state = #{search_state}
                 </if>
