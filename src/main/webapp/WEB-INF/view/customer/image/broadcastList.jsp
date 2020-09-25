@@ -32,7 +32,7 @@
 
 <script>
     $(document).ready(function() {
-        fnc_broadcastList.init();
+        // fnc_broadcastList.init();
     });
 
 var fnc_broadcastList = {};

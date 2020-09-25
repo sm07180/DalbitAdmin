@@ -49,7 +49,9 @@
                   , b.gold as byeolCnt
                   , a.last_upd_date as lastUpdDate
                 <if test='type == "3"'>
-                  , a.ruby_new as dalCnt
+                  , a.ruby as dalCnt
+                  , a.ruby_old as dalOldCnt
+                  , a.ruby_new as dalNewCnt
                 </if>
                 <if test='type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
                         or type == "9-1" or type == "9-2" or type == "10" or type == "15"'>
@@ -205,7 +207,7 @@
             and a.item_type = '3'
         </if>
         <if test='type == "11"'>
-            and a.item_type != '3'
+            and a.item_type not in ('3','4','5')
         </if>
         <if test='gender == "m" or gender == "f" or gender == "n"'>
             <if test='type == "2-1"'>
@@ -427,13 +429,13 @@
              , a.last_upd_date as lastUpdDate
              , a.item_cnt as itemCnt
         from rd_data.tb_member_broadcast_item a
-        left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
-        left join rd_data.tb_member_withdrawal_bak c on a.mem_no = c.mem_no
-        left join rd_data.tb_member_basic d on a.gifted_mem_no = d.mem_no
-        left join rd_data.tb_member_withdrawal_bak e on a.gifted_mem_no = e.mem_no
-        left join rd_data.tbl_gift_item f on a.item_code = f.item_code ,(select @rownum := #{pageStart}) r
-        where date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
-        and a.item_type != '3'
+   left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+   left join rd_data.tb_member_withdrawal_bak c on a.mem_no = c.mem_no
+   left join rd_data.tb_member_basic d on a.gifted_mem_no = d.mem_no
+   left join rd_data.tb_member_withdrawal_bak e on a.gifted_mem_no = e.mem_no
+   left join rd_data.tbl_gift_item f on a.item_code = f.item_code ,(select @rownum := #{pageStart}) r
+       where date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(a.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        and a.item_type not in ('3','4','5')
         <if test='gender == "m" or gender == "f" or gender == "n"'>
               and ifnull(b.mem_sex,c.mem_sex) = #{gender}
               and ifnull(b.inner,c.inner) = 0

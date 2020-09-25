@@ -90,6 +90,7 @@
             $("#search_osType_aria").html(util.getCommonCodeSelect(-1, content_platform2));
         }
 
+        targetFnc.init();
 
         // 하위 탭 초기화
         initSelectDataInfo();

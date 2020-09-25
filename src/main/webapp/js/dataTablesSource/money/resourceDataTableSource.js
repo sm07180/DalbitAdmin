@@ -75,10 +75,13 @@ var resourceDataTableSource = {
             {'title': '성별', 'data' : 'memSex', 'width':'80px','render':function (data, type, row, meta) {
                     return common.sexIcon(data, row.memBirthYear);
                 }},
-            {'title': '교환별수', 'data' : 'byeolCnt', 'width':'80px','render':function (data, type, row, meta) {
+            {'title': '교환 별 수', 'data' : 'byeolCnt', 'width':'80px','render':function (data, type, row, meta) {
                     return common.addComma(data) + " 별";
                 }},
-            {'title': '교환후 달수', 'data' : 'dalCnt', 'width':'80px','render':function (data, type, row, meta) {
+            {'title': '교환 달 수', 'data' : 'dalCnt', 'width':'80px','render':function (data, type, row, meta) {
+                    return common.addComma(data) + " 달";
+                }},
+            {'title': '교환 후 달수', 'data' : 'dalNewCnt', 'width':'80px','render':function (data, type, row, meta) {
                     return common.addComma(data) + " 달";
                 }},
             {'title': '일시', 'data' : 'lastUpdDate', 'width':'80px'},

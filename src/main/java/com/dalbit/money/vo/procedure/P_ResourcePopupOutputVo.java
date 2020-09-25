@@ -43,6 +43,8 @@ public class P_ResourcePopupOutputVo extends PagingVo {
     private String memState;        // 회원상태
     private String exchagneCnt;     // 누적 환전 횟수
     private String newByeolCnt;     // 교환후 별수 횟수
+    private String dalOldCnt;       // 교환전 달 수
+    private String dalNewCnt;       // 교환후 달 수
 
 
 }
