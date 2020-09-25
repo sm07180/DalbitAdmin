@@ -47,7 +47,7 @@
                   , ifnull(base.mem_birth_year,withdrawal.mem_birth_year) as memBirthYear
                   , ifnull(base.inner,withdrawal.inner) as `inner`
                   , b.gold as byeolCnt
-                  , b.last_upd_date as lastUpdDate
+                  , a.last_upd_date as lastUpdDate
                 <if test='type == "3"'>
                   , a.ruby_new as dalCnt
                 </if>
