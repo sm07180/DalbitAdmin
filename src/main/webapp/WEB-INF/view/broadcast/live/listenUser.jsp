@@ -60,7 +60,7 @@
             data.inner = 0;
         };
         dtList_info_lisetnUser = new DalbitDataTable($("#listenUser_tableList"), dtList_data, BroadcastDataTableSource.liveListenerList);
-        dtList_info_lisetnUser.setPageLength(50);
+        dtList_info_lisetnUser.setPageLength(100);
         dtList_info_lisetnUser.useCheckBox(false);
         dtList_info_lisetnUser.useIndex(true);
         dtList_info_lisetnUser.createDataTable(liveNextFunc);
