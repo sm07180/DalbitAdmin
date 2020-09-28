@@ -34,7 +34,6 @@
                     <th class="_bgColor _fontColor" data-bgColor="#416dbb" data-fontColor="white">No</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">회원No</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">성별(나이)</th>
-                    <th class="_bgColor" data-bgColor="##bfbfbf">회원상태</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">총 방송 시간</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">총 청취 시간</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">클립 등록<br/>(삭제)</th>
@@ -50,6 +49,7 @@
                     <th class="_bgColor" data-bgColor="##bfbfbf">환전승인</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">환전금액</th>
                     <th class="_bgColor" data-bgColor="#f4b183">잔여 별</th>
+                    <th class="_bgColor" data-bgColor="##bfbfbf">최근 접속 일자</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">가입일자</th>
                 </tr>
                 </thead>
@@ -88,7 +88,6 @@
     }
 
     function memberDataList(pagingInfo) {
-        console.log("----------------------------------------  ");
         if(!common.isEmpty(pagingInfo)){
             memberDataPagingInfo.pageNo = pagingInfo;
         }else{
@@ -150,16 +149,20 @@
         {{memNick}}
     </td>
     <td {{#dalbit_if memSex '==' 'm'}} style="color:blue" {{/dalbit_if}}
-    {{#dalbit_if memSex '==' 'f'}} style="color:red" {{/dalbit_if}}
-    >
-    {{{sexIcon memSex}}}({{memAge}})
+    {{#dalbit_if memSex '==' 'f'}} style="color:red" {{/dalbit_if}}>
+    {{{sexIcon memSex}}}({{memAge}})<br/>
+    <span style="color: #999999;">{{getMemStateName memState}}</span>
     </td>
-    <td>{{getMemStateName memState}}</td>
     <td>{{timeStampDay airtime}}</td>
     <td>{{timeStampDay listentime}}</td>
     <td>
         {{#dalbit_if castcount '!=' 0}}
-        {{addComma castcount}}
+        {{addComma castcount}} ({{addComma castDelcount}})
+        {{/dalbit_if}}
+        {{#dalbit_if castcount '==' 0}}
+            {{#dalbit_if castDelcount '!=' 0}}
+                0 ({{addComma castDelcount}})
+            {{/dalbit_if}}
         {{/dalbit_if}}
     </td>
     <td>{{addComma payAmt}}원</td>
@@ -174,6 +177,7 @@
     <td>{{addComma exchangeByeol}}개</td>
     <td>{{addComma exchangeAmt}}원</td>
     <td style="background-color: #fbe5d6">{{addComma nowByeol}}개</td>
+    <td>{{memLoginDate}}</td>
     <td>{{memJoinDateFormat}}</td>
     </tr>
     {{else}}
