@@ -312,12 +312,23 @@
 
 
         var max_y;
-        max_y = max_naver;
-        (max_y < max_fbook) ? max_y = max_fbook :
-            ((max_y < max_google) ?  max_y = max_google :
-                ((max_y < max_kakao) ? max_y = max_kakao :
-                    ((max_y < max_naver) ? max_y = max_naver :
-                        ((max_y < max_phone) ? max_y = max_phone : max_y = max_apple))));
+        max_y = max_apple;
+
+        if(max_y < max_fbook){
+            max_y = max_fbook
+        }
+        if(max_y < max_google){
+            max_y = max_google
+        }
+        if(max_y < max_kakao){
+            max_y = max_kakao
+        }
+        if(max_y < max_naver){
+            max_y = max_naver
+        }
+        if(max_y < max_phone){
+            max_y = max_phone
+        }
 
         var sumPlaform = [detailData.totalInfo.apple_join_total_cnt, detailData.totalInfo.fbook_join_total_cnt
                         , detailData.totalInfo.google_join_total_cnt, detailData.totalInfo.kakao_join_total_cnt
