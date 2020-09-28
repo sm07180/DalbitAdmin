@@ -214,7 +214,6 @@ public class Cus_ImageService {
     /**
      * clip 이미지 초기화 조회
      */
-    @Transactional(readOnly = true)
     public String getClipReset(P_MemberReportVo pMemberReportVo, String cast_no) throws GlobalException {
 
         try {
@@ -223,8 +222,9 @@ public class Cus_ImageService {
             pClipHistoryDetailInfoEditVo.setCast_no(cast_no);
             pClipHistoryDetailInfoEditVo.setMemNo(pMemberReportVo.getMem_no());
             pClipHistoryDetailInfoEditVo.setEditSlct("1");
+            pClipHistoryDetailInfoEditVo.setSendNoti("1");
             int random = Integer.parseInt(DalbitUtil.randomBgValue());
-            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_" + random + ".jpg");
+            pClipHistoryDetailInfoEditVo.setBackgroundImage("/clip_3/clipbg_200910_0.jpg");
 
             String result = cliClipHistoryService.callAdminClipInfoDetailEdit(pClipHistoryDetailInfoEditVo);
             log.debug(result);
