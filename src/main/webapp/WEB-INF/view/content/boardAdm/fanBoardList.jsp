@@ -17,9 +17,14 @@
         <div class="tab-pane fade in active">
             <div class="widget-content">
                 <div class="col-md-12 no-padding mt10">
-                    <div class="col-md-3 no-padding">
+                    <div class="col-md-4 no-padding">
                         <span id="fanboardListCnt"></span><br/>
-                        <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
+                        <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span><br/>
+                        <select id="fanBoardStatus" name="fanBoardStatus" class="form-control searchType">
+                            <option value="0" selected="selected">게시글 전체</option>
+                            <option value="1">정상</option>
+                            <option value="2">삭제</option>
+                        </select>
                     </div>
                     <div class="col-md-2 no-padding pull-right">
                         <table class="table table-sorting table-hover table-bordered">
@@ -84,6 +89,7 @@
             , 'end_sel' : $("#endDate").val()
             , 'searchType' : 0
             , 'boardType' : 1
+            , 'status' : Number($("#fanBoardStatus option:selected").val())
         };
 
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
@@ -202,13 +208,17 @@
         fanBoardList();
     }
 
+    $('#fanBoardStatus').on('change', function () {
+        fanBoardList();
+    });
+
 </script>
 
 <script id="tmp_fanBoardTable" type="text/x-handlebars-template">
     <table id="tb_fanBoardList" class="table table-sorting table-hover table-bordered mt10">
         <colgroup>
             <col width="2%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-            <col width="5%"/><col width="38%"/><col width="8%"/><col width="4%"/><col width="4%"/>
+            <col width="5%"/><col width="34%"/><col width="8%"/><col width="4%"/><col width="4%"/>
         </colgroup>
         <thead>
         <tr>
@@ -262,7 +272,7 @@
             </tr>
         {{else}}
         <tr>
-            <td colspan="8">{{isEmptyData}}</td>
+            <td colspan="12">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
