@@ -9,6 +9,8 @@ import lombok.ToString;
 @ToString
 public class P_JoinLiveOutDetailVo {
     private String the_date;
+    private String monthly;
+    private String day;
     private int the_day;
     private int the_hr;
     private int phone_join_mCnt;

@@ -146,4 +146,17 @@ public class Mai_MainStatusRestController {
         String result = mai_MainStatusService.callLoginAge(pStatVo);
         return result;
     }
+
+    // 가입/탈퇴현황 플랫폼 별
+    @PostMapping("new/main/stat/join/platform")
+    public String statJoinPlatform(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callStatJoinPlatform(pStatVo);
+        return result;
+    }
 }
