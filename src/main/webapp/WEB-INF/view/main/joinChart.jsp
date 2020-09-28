@@ -312,7 +312,7 @@
 
 
         var max_y;
-        max_y = max_apple;
+        max_y = max_naver;
         (max_y < max_fbook) ? max_y = max_fbook :
             ((max_y < max_google) ?  max_y = max_google :
                 ((max_y < max_kakao) ? max_y = max_kakao :
@@ -323,6 +323,15 @@
                         , detailData.totalInfo.google_join_total_cnt, detailData.totalInfo.kakao_join_total_cnt
                         , detailData.totalInfo.naver_join_total_cnt, detailData.totalInfo.phone_join_total_cnt
                         ];
+
+        console.log("-------------------------------------");
+        console.log(max_fbook);
+        console.log(max_google);
+        console.log(max_kakao);
+        console.log(max_naver);
+        console.log(max_phone);
+        console.log(max_apple);
+        console.log(max_y);
 
         var resultData = {
             x : arrayList_x
