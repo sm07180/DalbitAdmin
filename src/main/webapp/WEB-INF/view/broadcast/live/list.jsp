@@ -273,9 +273,9 @@
         if(liveState != 1){
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
         }
-        dtList_info_lisetnUser.reload(liveNextFunc);
-        dtList_info_loginUser.reload(loginNextFunc);
         if(liveState == 1){
+            dtList_info_lisetnUser.reload(liveNextFunc);
+            dtList_info_loginUser.reload(loginNextFunc);
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
         }
 
