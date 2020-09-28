@@ -324,6 +324,15 @@
                         , detailData.totalInfo.naver_join_total_cnt, detailData.totalInfo.phone_join_total_cnt
                         ];
 
+        console.log("-------------------------------------");
+        console.log(max_fbook);
+        console.log(max_google);
+        console.log(max_kakao);
+        console.log(max_naver);
+        console.log(max_phone);
+        console.log(max_apple);
+        console.log(max_y);
+
         var resultData = {
             x : arrayList_x
             , apple : arrayList_apple

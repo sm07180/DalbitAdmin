@@ -71,7 +71,7 @@
                 l: 120,
                 r: 50,
                 t: 20,
-                b: 20,
+                b: 100,
                 pad: 4
             },
         };
@@ -103,7 +103,7 @@
             if($('input[name="slctType"]:checked').val() == 0) {
                 array = detailData.detailList[i].hour +'시';
             }else if($('input[name="slctType"]:checked').val() == 1) {
-                array = detailData.detailList[i].month +'월' + detailData.detailList[i].day + "일";
+                array = detailData.detailList[i].day + "일";
             }else if($('input[name="slctType"]:checked').val() == 2) {
                 array = detailData.detailList[i].month +'월';
             }
