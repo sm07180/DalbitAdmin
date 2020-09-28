@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_ChuseokEventDao" >
+
+    <select id="selectFreeDalList" parameterType="com.dalbit.content.vo.ChuseokEventVo" resultType="com.dalbit.content.vo.ChuseokEventVo">
+        /* Con_ChuseokEvent.xml - selectFreeDalList */
+        select *
+        from (
+            select event.idx
+                 , event.mem_no
+                 , event.level
+                 , event.dal
+                 , date_format(event.upd_date, '%Y-%m-%d %H:%i:%s') upd_date
+                 , ifnull(member.mem_nick, outMember.mem_nick) mem_nick
+                 , ifnull(member.mem_sex, outMember.mem_sex) mem_sex
+                 , ifnull(member.mem_birth_year, outMember.mem_birth_year) mem_birth_year
+            from rd_data.tb_event_free_dal event
+                left join rd_data.tb_member_basic member on event.mem_no = member.mem_no
+                left join rd_data.tb_member_withdrawal_bak outMember on event.mem_no = outMember.mem_no
+            where 1 = 1
+            <include refid="freeDalListCondition" />
+        ) a
+        order by a.idx desc
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectFreeDalListCnt" parameterType="com.dalbit.content.vo.ChuseokEventVo" resultType="integer">
+        /* Con_ChuseokEvent.xml - selectFreeDalListCnt */
+        select
+          count(*)
+        from rd_data.tb_event_free_dal event
+                left join rd_data.tb_member_basic member on event.mem_no = member.mem_no
+                left join rd_data.tb_member_withdrawal_bak outMember on event.mem_no = outMember.mem_no
+        where 1 = 1
+        <include refid="freeDalListCondition" />
+    </select>
+
+    <sql id="freeDalListCondition">
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    and event.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    and (
+                    member.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMember.mem_userid like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "3"'>
+                    and (
+                    member.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMember.mem_nick like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "4"'>
+                    and (
+                    member.mem_phone like concat('%', #{txt_search}, '%')
+                    or outMember.mem_phone like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <otherwise>
+                    and
+                    (
+                        event.mem_no like concat('%', #{txt_search}, '%')
+                        or member.mem_userid like concat('%', #{txt_search}, '%')
+                        or outMember.mem_userid like concat('%', #{txt_search}, '%')
+                        or member.mem_nick like concat('%', #{txt_search}, '%')
+                        or outMember.mem_nick like concat('%', #{txt_search}, '%')
+                        or member.mem_phone like concat('%', #{txt_search}, '%')
+                        or outMember.mem_phone like concat('%', #{txt_search}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+</mapper>
+
+

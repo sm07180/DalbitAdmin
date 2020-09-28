@@ -38,6 +38,8 @@ public class PagingVo extends BaseVo {
         this.totalCnt = totalCnt;
         this.searchStartNo = (int)(Math.floor(this.pageStart-1) * this.pageCnt) + 1;
         this.searchEndNo = this.pageStart * this.pageCnt;
+
+        this.pageStart = (int)(Math.floor(this.pageStart-1) * this.pageCnt);
     }
 
 }

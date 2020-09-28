@@ -49,4 +49,9 @@ public class Con_EventController {
     public String memberList(){
         return "content/event/member/list";
     }
+
+    @GetMapping("chuseok/freeDalList")
+    public String freeDalList(){
+        return "content/event/chuseok/freeDalList";
+    }
 }
