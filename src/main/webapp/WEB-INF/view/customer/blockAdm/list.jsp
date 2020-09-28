@@ -184,6 +184,9 @@
         var html = templateScript(context);
 
         $('#blockDetail').html(html);
+
+        var scrollPosition = $("#blockDetail").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function fullSize_background(url) {
@@ -286,7 +289,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_blockDetail">
-    <table class="table table-bordered table-dalbit mt15">
+    <table class="table table-bordered table-dalbit mt15" id="blockDetail_table">
         <colgroup>
             <col width="5%" />
             <col width="15%" />

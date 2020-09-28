@@ -260,19 +260,8 @@
 
      function handlebarsPaging(targetId, pagingInfo) {
 
-         if(targetId == "notice_paginate_top" || targetId == "notice_paginate") {
-             noticePagingInfo = pagingInfo;
-             noticeList(pagingInfo.pageNo);
-         }else if(targetId == "story_paginate_top" || targetId == "story_paginate"){
-             StoryPagingInfo = pagingInfo;
-             storyList(pagingInfo.pageNo);
-         } else if(targetId == "fanBoard_paginate_top" || targetId == "fanBoard_paginate") {
-             fanBoardPagingInfo = pagingInfo;
-             fanBoardList(pagingInfo.pageNo);
-         } else if(targetId == "list_info_paginate_top" || targetId == "list_info_paginate") {
-             shotListPagingInfo = pagingInfo;
-             profileMsgList(pagingInfo.pageNo);
-         }
+         shotListPagingInfo = pagingInfo;
+         init();
      }
 </script>
 

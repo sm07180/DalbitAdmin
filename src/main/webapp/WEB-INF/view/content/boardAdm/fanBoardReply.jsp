@@ -19,7 +19,12 @@
                 <div class="col-md-12 no-padding mt10">
                     <div class="col-md-3 no-padding">
                         <span id="fanboardReplyListCnt"></span><br/>
-                        <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span>
+                        <span style="color: red">* 팬보드 작성 글 수(비밀글 수)를 표기한 정보입니다.</span><br/>
+                        <select id="fanBoardReplayStatus" name="fanBoardReplayStatus" class="form-control searchType">
+                            <option value="0" selected="selected">게시글 전체</option>
+                            <option value="1">정상</option>
+                            <option value="2">삭제</option>
+                        </select>
                     </div>
                     <div class="col-md-2 no-padding pull-right">
                         <table class="table table-sorting table-hover table-bordered">
@@ -67,6 +72,7 @@
             , 'end_sel' : $("#endDate").val()
             , 'searchType' : 0
             , 'boardType' : 2
+            , 'status' : Number($("#fanBoardReplayStatus option:selected").val())
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardReply);
     }
@@ -127,6 +133,9 @@
         alert(response.message);
         fanBoardReply();
     }
+    $('#fanBoardReplayStatus').on('change', function () {
+        fanBoardReply();
+    });
 
 </script>
 
