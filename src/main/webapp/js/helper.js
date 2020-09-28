@@ -99,6 +99,11 @@ Handlebars.registerHelper("indexDesc", function(totalCnt, rownum)
     return common.isEmpty(totalCnt) ? 0 : totalCnt - rownum + 1;
 });
 
+Handlebars.registerHelper("indexDescWithoutRownum", function(totalCnt, pageStart, index)
+{
+    return common.isEmpty(totalCnt) ? 0 : totalCnt - pageStart - index;
+});
+
 Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn, name)
 {
     return util.getCommonCodeSelect(value, targetCode, isExcludeAllYn, name);
