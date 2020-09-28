@@ -423,6 +423,9 @@
         <if test='eDate != null and eDate != ""'>
             and date_format(b.write_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
         </if>
+        <if test='status != 0'>
+            and `status` = #{status}
+        </if>
         order by b.write_date desc
     </sql>
 

@@ -184,6 +184,9 @@
         var html = templateScript(context);
 
         $('#blockDetail').html(html);
+
+        var scrollPosition = $("#tmp_blockDetail").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function fullSize_background(url) {
