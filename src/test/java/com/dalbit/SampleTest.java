@@ -2,6 +2,7 @@ package com.dalbit;
 
 import com.dalbit.administrate.service.Adm_AlarmTalkService;
 import com.dalbit.common.service.CommonService;
+import com.dalbit.common.service.EmailService;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.socket.service.SocketService;
 import com.dalbit.util.JwtUtil;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 
 
@@ -33,6 +35,8 @@ public class SampleTest {
     JwtUtil jwtUtil;
     @Autowired
     SmsService smsService;
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     Adm_AlarmTalkService alarmTalkService;
@@ -86,4 +90,5 @@ public class SampleTest {
 
         */
     }
+
 }

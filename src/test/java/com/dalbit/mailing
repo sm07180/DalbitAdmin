@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>HTML Email Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <!-- OUTERMOST CONTAINER TABLE -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="bodyTable">
+      <tr>
+        <td style="padding: 20px 0 30px 0;">
+          <!-- 600px - 800px CONTENTS CONTAINER TABLE -->
+          <table border="0" cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto; border: 1px solid #e0e0e0;">
+            <tr>
+              <!-- header -->
+              <td style="background: #632beb; padding: 0 20px;">
+                <table width="100%" height="66">
+                  <tr>
+                    <td><img src="https://image.dalbitlive.com/mailing/logo_p_s.png" alt="logo" /></td>
+                    <td style="text-align: right; color: #fff; padding-top: 20px;">20.04.20</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <!-- content -->
+              <td>
+                <table width="100%">
+                  <tr>
+                    <td style="padding: 40px 24px; line-height: 24px;">
+                      회원님! 안녕하세요 ^^<br />
+                      『달빛 라이브』 운영자 <span style="color: #632beb;">“달빛지기”</span> 입니다.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 20px 0; background: #f5f5f5; font-size: 18px; text-align: center; font-weight: bold;">
+                      고객센터 <span style="color: #632beb;">문의에 대한 답변</span>을 확인하세요.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 40px 24px; color: #ec455f; font-weight: bold;">
+                      1:1 문의 정보
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <!-- 문의 정보 -->
+                    <td style="padding: 0 24px; font-size: 14px;">
+                      <table width="100%" style="border-bottom: 1px solid #e0e0e0;">
+                        <tr>
+                          <td>
+                            <table width="100%">
+                              <tr>
+                                <td width="15%" style="padding-bottom: 20px; font-weight: bold;">
+                                  문의구분 :
+                                </td>
+                                <td width="85%" style="padding-bottom: 20px;">
+                                  @@qnaType@@
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <table width="100%">
+                              <tr>
+                                <td width="15%" style="padding-bottom: 20px; font-weight: bold;">
+                                  제&nbsp;&nbsp;&nbsp;&nbsp;목 :
+                                </td>
+                                <td width="85%" style="padding-bottom: 20px;">
+                                  @@qnaTitle@@
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td height="100" style="vertical-align: top;">
+                            <table width="100%">
+                              <tr>
+                                <td width="15%" style="padding-bottom: 20px; font-weight: bold; vertical-align: top;">
+                                  내&nbsp;&nbsp;&nbsp;&nbsp;용 :
+                                </td>
+                                <td width="85%" style="padding-bottom: 20px;">
+                                  @@qnaContent@@
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td height="150" style="vertical-align: top;">
+                            <table width="100%">
+                              <tr>
+                                <td width="15%" style="padding-bottom: 20px; font-weight: bold;">
+                                  첨부파일 :
+                                </td>
+                                <td style="padding-bottom: 20px;">
+                                  @@fileName@@
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 40px 24px 20px 24px; color: #ec455f; font-weight: bold;">1:1 문의 운영자 답변</td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 0 24px;">
+                      <table width="100%">
+                        <tr>
+                          <td
+                            height="180"
+                            style="padding: 20px; background: #f5f5f5; border-radius: 12px; vertical-align: top; font-size: 12px;"
+                          >
+                            @@answer@@
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 80px 24px 20px 24px; color: #424242; font-size: 14px; line-height: 28px;">
+                      『달빛 라이브』 를 이용해 주셔서 감사합니다.<br />
+                      항상 회원님을 바라보며 달과 같은 마음으로 빛날 수 있도록 최선을 다하겠습니다.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 0 24px 24px 24px;">
+                      <table width="100%" style="border: 1px solid #632beb;">
+                        <tr>
+                          <td
+                            colspan="3"
+                            style="
+                              padding: 14px 0;
+                              font-size: 20px;
+                              color: #8556f6;
+                              text-align: center;
+                              font-weight: bold;
+                              border-radius: 12px;
+                            "
+                          >
+                            달빛 라이브 바로가기
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td width="33.3333%" style="padding-bottom: 14px; text-align: center;">
+                            <a href="https://dalbitlive.com/" target="_blank"
+                              ><img src="https://image.dalbitlive.com/mailing/ic_pcweb.png" alt="PC Web"
+                            /></a>
+                          </td>
+                          <td width="33.3333%" style="padding-bottom: 14px; text-align: center;">
+                            <img src="https://image.dalbitlive.com/mailing/ic_mobileapp.png" alt="Mobile App" />
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td
+                      style="
+                        padding: 14px;
+                        background: #f5f5f5;
+                        color: #757575;
+                        font-size: 12px;
+                        text-align: center;
+                        line-height: 18px;
+                      "
+                    >
+                      해당 메일은 회원님께서 1:1문의 시 직접 작성하여 주신 E-mail 주소로 발송된 발신 전용 메일입니다.<br />
+                      답변을 확인하신 후 궁금증에 대한 해결이 되지 않으셨거나 추가 궁금한 사항이 있으시면,<br />
+                      「 달빛라이브 」 고객센터 > 1:1문의 또는 고객센터 연락처
+                      <a href="tel:1522-0251" style="color: #757575; text-decoration: none;">1522-0251</a>로 연락해 주시기
+                      바랍니다.<br />
+                      <br />
+                      잠깐!! 회원님께서 1:1문의를 요청하지 않으셨다면 해당 문의에 대한 답변을 무시하여 주시고,<br />
+                      도용 우려가 있으신 경우 해당 메일의 비밀번호를 즉시 변경하여 주세요.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 26px 0;">
+                      <table width="100%">
+                        <tr>
+                          <td width="32%" style="text-align: right; padding-right: 2%;">
+                            <img src="https://image.dalbitlive.com/mailing/logo_p_ss.png" alt="logo" />
+                          </td>
+                          <td width="64%" style="color: #757575; font-size: 12px; line-height: 18px;">
+                            Copyright ⓒ 2020 by (주)인포렉스 All rights reserved.<br />
+                            사업자등록번호 409-81-49209 | 통신판매업 신고번호 제2004-30호<br />
+                            주소 : 서울특별시 강남구 테헤란로83길 18(삼성동) 8층<br />
+                            연락처 : <a href="tel:1522-0251" style="color: #757575; text-decoration: none;">1522-0251</a> |
+                            제휴/이벤트
+                            <a href="mailto:help@dalbitlive.com" style="color: #757575; text-decoration: none;"
+                              >help@dalbitlive.com</a
+                            >
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
