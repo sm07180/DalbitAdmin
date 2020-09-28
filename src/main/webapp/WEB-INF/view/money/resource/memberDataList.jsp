@@ -151,7 +151,7 @@
     <td {{#dalbit_if memSex '==' 'm'}} style="color:blue" {{/dalbit_if}}
     {{#dalbit_if memSex '==' 'f'}} style="color:red" {{/dalbit_if}}>
     {{{sexIcon memSex}}}({{memAge}})<br/>
-    <span style="color: #999999;">{{getMemStateName memState}}</span>
+    <span style="color: #333333;">{{getMemStateName memState}}</span>
     </td>
     <td>{{timeStampDay airtime}}</td>
     <td>{{timeStampDay listentime}}</td>
