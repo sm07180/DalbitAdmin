@@ -21,6 +21,7 @@ public class P_memberDataListOutVo {
     private String airtime;
     private String listentime;
     private int castcount;
+    private int castDelcount;
     private int payAmt;
     private int cancelAmt;
     private int totalDal;
@@ -36,6 +37,7 @@ public class P_memberDataListOutVo {
     private Date memJoinDate;
     private String memJoinDateFormat;
     private int inner;
+    private String memLoginDate;
 
     private int totalCnt;
 
