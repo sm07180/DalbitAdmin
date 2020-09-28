@@ -126,7 +126,7 @@
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td><img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:68px; width:68px; margin: auto;' /></td>
             <td>
-                {{{memNoLink mem_no mem_no}}}
+                {{{memNoLink mem_no mem_no}}}<br/>
                 {{mem_nick}}
             </td>
             <td>

@@ -11,4 +11,5 @@ public class P_MemberNoticeInputVo extends SearchVo {
     private String mem_no;
     private String sDate;
     private String eDate;
+    private int status;
 }

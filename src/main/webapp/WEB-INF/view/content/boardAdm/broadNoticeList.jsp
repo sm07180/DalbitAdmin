@@ -6,7 +6,12 @@
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
         <div class="col-md-12 no-padding mt10">
-            <span id="broadNoticeListCnt"></span>
+            <span id="broadNoticeListCnt"></span><br/>
+            <select id="boardRoomStatus" name="boardRoomStatus" class="form-control searchType">
+                <option value="0" selected="selected">공지 전체</option>
+                <option value="1">정상</option>
+                <option value="2">삭제</option>
+            </select>
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -22,7 +27,7 @@
         <table id="broadNoticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
                 <col width="4%"/><col width="10%"/><col width="5%"/><col width="50%"/><col width="10%"/>
-                <col width="10%"/>
+                <col width="5%"/><col width="5%"/>
             </colgroup>
             <thead>
             <tr>
@@ -31,6 +36,7 @@
                 <th>성별</th>
                 <th>방송방 공지 내용</th>
                 <th>등록일자</th>
+                <th>상태</th>
                 <th>관리</th>
             </tr>
             </thead>
@@ -71,6 +77,7 @@
             , 'sDate' : $("#startDate").val()
             , 'eDate' : $("#endDate").val()
             , 'searchType' : 1
+            , 'status' : $("#boardRoomStatus option:selected").val()
         };
 
         util.getAjaxData("noticeList", "/rest/content/boardAdm/noticeList", data, fn_success_broadNoticeList);
@@ -130,6 +137,9 @@
         alert(response.message);
         broadNoticeList();
     }
+    $('#boardRoomStatus').on('change', function () {
+        broadNoticeList();
+    });
 
 </script>
 
@@ -146,11 +156,18 @@
             </td>
             <td class="word-break" style="width: 400px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
             <td>{{lastUpdDateFormat}}</td>
+            <td>
+                {{#dalbit_if status '==' 0}}
+                    정상
+                {{else}}
+                    삭제 ({{op_name}})
+                {{/dalbit_if}}
+            </td>
             <td><a href="javascript://" class="_broadNoticeDelBtn" data-broadnoticeidx="{{idx}}" data-type="{{type}}">[삭제]</a></td>
         </tr>
     {{else}}
         <tr>
-            <td colspan="6">{{isEmptyData}}</td>
+            <td colspan="7">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
