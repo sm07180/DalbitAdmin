@@ -275,9 +275,7 @@
         }
         dtList_info_lisetnUser.reload(liveNextFunc);
         dtList_info_loginUser.reload(loginNextFunc);
-        if(liveState != 1){
-            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
-        }else{
+        if(liveState == 1){
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
         }
 
@@ -286,7 +284,7 @@
     }
 
     function summary_table(json){
-        dalbitLog(json);
+        // dalbitLog(json);
         var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {

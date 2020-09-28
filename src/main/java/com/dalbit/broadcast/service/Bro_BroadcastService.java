@@ -92,17 +92,6 @@ public class Bro_BroadcastService {
         String year = DalbitUtil.getDate("yyyy");
 
         for(int i=0;i < broadList.size(); i++){
-            pBroadcastListInputVo.setRoom_no(broadList.get(i).getRoom_no());
-            ProcedureVo brocastInfo_procedureVo = new ProcedureVo(pBroadcastListInputVo);
-            bro_BroadcastDao.callBroadcastInfo(brocastInfo_procedureVo);
-            P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(brocastInfo_procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
-            if(!DalbitUtil.isEmpty(broadcastDetail)){
-                broadList.get(i).setBackgroundImage(broadcastDetail.getBackgroundImage());
-                broadList.get(i).setDj_birth_year(broadcastDetail.getDj_birth_year());
-                broadList.get(i).setDj_birth_month(broadcastDetail.getDj_birth_month());
-                broadList.get(i).setDj_birth_day(broadcastDetail.getDj_birth_day());
-                broadList.get(i).setDj_korean_age(broadcastDetail.getDj_korean_age());
-            }
             if(DalbitUtil.isEmpty(broadList.get(i).getDj_nickname())){
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getDj_mem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
