@@ -6,7 +6,12 @@
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
         <div class="col-md-12 no-padding mt10">
-            <span id ="clipReplyListCnt"></span>
+            <span id ="clipReplyListCnt"></span><br/>
+            <select id="clipReplayStatus" name="clipReplayStatus" class="form-control searchType">
+                <option value="0" selected="selected">게시글 전체</option>
+                <option value="1">정상</option>
+                <option value="2">삭제</option>
+            </select>
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -79,6 +84,7 @@
             , 'sDate' : $("#startDate").val()
             , 'eDate' : $("#endDate").val()
             , 'searchType' : 0
+            , 'status' : Number($("#clipReplayStatus option:selected").val())
         };
 
         util.getAjaxData("clipReplyList", "/rest/content/boardAdm/clipReplyList", data, fn_success_clipReplyList);
@@ -125,6 +131,9 @@
         alert(response.message);
         clipReplyList();
     }
+    $('#clipReplayStatus').on('change', function () {
+        clipReplyList();
+    });
 
 </script>
 
