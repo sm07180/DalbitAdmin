@@ -312,7 +312,7 @@
 
 
         var max_y;
-        max_y = max_apple;
+        max_y = max_naver;
         (max_y < max_fbook) ? max_y = max_fbook :
             ((max_y < max_google) ?  max_y = max_google :
                 ((max_y < max_kakao) ? max_y = max_kakao :
