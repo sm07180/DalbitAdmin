@@ -18,7 +18,7 @@
             <foreach item="item" index="index" collection="codeVoList">
                 (
                     #{codeType}
-                    ,#{item.cd}
+                    ,LPAD(#{item.cd}, 2 , 0)
                     ,#{item.cdNm}
                     ,#{item.sortNo}
                     ,#{item.isUse}

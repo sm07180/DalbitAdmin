@@ -55,7 +55,7 @@
             data.broad = 0;
         };
         dtList_info_loginUser = new DalbitDataTable($("#loginUser_tableList"), dtList_data, BroadcastDataTableSource.loginUser);
-        dtList_info_loginUser.setPageLength(100);
+        dtList_info_loginUser.setPageLength(50);
         dtList_info_loginUser.useCheckBox(false);
         dtList_info_loginUser.useIndex(true);
         dtList_info_loginUser.createDataTable(loginNextFunc);

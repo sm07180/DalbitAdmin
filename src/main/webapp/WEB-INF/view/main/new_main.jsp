@@ -446,7 +446,15 @@
         if(dataType == 0) {
             listSort(dst_id, response, param);
             // 회원가입 플랫폼
-            util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platform_success);
+            if($('input[name="slctType"]:checked').val() == 1){
+                data.slctType = 3;
+            }else if($('input[name="slctType"]:checked').val() == 2){
+                data.slctType = 4;
+            }
+            util.getAjaxData("live", "/rest/mainStatus/new/main/stat/join/platform", data, fn_platform_success);
+            // util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platform_success);
+
+            data.slctType = $('input[name="slctType"]:checked').val();
             // 회원가입 성별, 회원가입 연령
             util.getAjaxData("genderList", "/rest/enter/join/info/gender", data, fn_genderAge_success);
         }

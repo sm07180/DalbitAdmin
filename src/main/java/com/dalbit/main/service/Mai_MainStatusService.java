@@ -9,6 +9,7 @@ import com.dalbit.connect.vo.procedure.P_LoginAgeOutVo;
 import com.dalbit.connect.vo.procedure.P_LoginTotalOutDetailVo;
 import com.dalbit.connect.vo.procedure.P_LoginTotalOutVo;
 import com.dalbit.enter.dao.Ent_JoinDao;
+import com.dalbit.enter.dao.Ent_NewJoinDao;
 import com.dalbit.enter.dao.Ent_PayDao;
 import com.dalbit.enter.vo.procedure.*;
 import com.dalbit.main.dao.Mai_MainStatusDao;
@@ -58,6 +59,8 @@ public class Mai_MainStatusService {
     Ent_PayDao ent_PayDao;
     @Autowired
     Sta_ExchangeDao sta_ExchangeDao;
+    @Autowired
+    Ent_NewJoinDao ent_NewJoinDao;
 
     /**
      * Total 메인
@@ -444,5 +447,28 @@ public class Mai_MainStatusService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
+
+
+    /**
+     * 가입/탈퇴현황 플랫폼별
+     * @return
+     */
+    public String callStatJoinPlatform(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_JoinLiveOutDetailVo> detailList =  ent_NewJoinDao.callJoinLive(procedureVo);
+        P_JoinLiveOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinLiveOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+
 
 }
