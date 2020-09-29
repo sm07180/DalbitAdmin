@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.Mem_NoticeDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
@@ -42,7 +43,7 @@ public class Mem_NoticeService {
      * 회원 공지 삭제
      */
     public String getNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo){
-
+        pMemberNoticeDeleteVo.setOpName(MemberVo.getMyMemNo());
         for(int i=0;i<pMemberNoticeDeleteVo.getNociceType().length;i++){
 
             pMemberNoticeDeleteVo.getNoticeIdx()[i] = pMemberNoticeDeleteVo.getNoticeIdx()[i].replace("[","");
@@ -50,15 +51,16 @@ public class Mem_NoticeService {
             pMemberNoticeDeleteVo.getNociceType()[i] = pMemberNoticeDeleteVo.getNociceType()[i].replace("[","");
             pMemberNoticeDeleteVo.getNociceType()[i] = pMemberNoticeDeleteVo.getNociceType()[i].replace("]","");
 
+            pMemberNoticeDeleteVo.setIdx(pMemberNoticeDeleteVo.getNoticeIdx()[i]);
             if(pMemberNoticeDeleteVo.getNociceType()[i].equals("1")) {
-                mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo.getNoticeIdx()[i]);
+                mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo);
             }else if(pMemberNoticeDeleteVo.getNociceType()[i].equals("2")) {
-                mem_NoticeDao.callBroadNoticeDelete(pMemberNoticeDeleteVo.getNoticeIdx()[i]);
+                mem_NoticeDao.callBroadNoticeDelete(pMemberNoticeDeleteVo);
             }
         }
 
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_성공));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_성공));
         return result;
     }
 }

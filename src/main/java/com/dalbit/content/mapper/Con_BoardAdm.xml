@@ -34,6 +34,11 @@
             <if test="boardType == 2">
               and fan.depth = 2
             </if>
+
+            <if test='status != 0'>
+              and fan.`status` = #{status}
+
+            </if>
         </where>
     </sql>
 
@@ -207,6 +212,14 @@
             </if>
             <if test='end_sel != null and end_sel != ""'>
                  and sto.write_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
+            </if>
+            <if test='broState != 0'>
+                <if test='broState == 1'>
+                    and bro.state != 4
+                </if>
+                <if test='broState == 2'>
+                    and bro.state = 4
+                </if>
             </if>
         </where>
     </sql>
@@ -409,6 +422,9 @@
         </if>
         <if test='eDate != null and eDate != ""'>
             and date_format(b.write_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        <if test='status != 0'>
+            and `status` = #{status}
         </if>
         order by b.write_date desc
     </sql>

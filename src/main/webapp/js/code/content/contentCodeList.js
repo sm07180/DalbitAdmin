@@ -519,6 +519,7 @@ var inssaticon_category = [
 
 var fanBoard_status = [
   new COMMON_CODE(null, 'status', '게시글 상태')
+    , new COMMON_CODE('0', 0, '게시글 전체')
     , new COMMON_CODE('1', 1, '정상')
     , new COMMON_CODE('2', 2, '삭제')
 ];

@@ -6,7 +6,12 @@
 <div class="no-padding col-lg-12 form-inline">
     <div class="tab-content no-padding">
         <div class="col-md-12 no-padding mt10 mb5">
-            <span class="mb5" id="storyListCnt"></span>
+            <span class="mb5" id="storyListCnt"></span><br/>
+            <select id="broState" name="broState" class="form-control searchType">
+                <option value="0" selected="selected">방송상태 전체</option>
+                <option value="1">방송 중</option>
+                <option value="2">방송 종료</option>
+            </select>
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -49,6 +54,7 @@
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
             , 'searchType' : 0
+            , 'broState' : Number($("#broState option:selected").val())
         };
 
         console.log(data);
@@ -104,6 +110,10 @@
         alert(response.message);
         storyList();
     }
+
+    $('#broState').on('change', function () {
+        storyList();
+    });
 
 
 </script>
@@ -180,7 +190,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="9">{{isEmptyData}}</td>
+            <td colspan="11">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>

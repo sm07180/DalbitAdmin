@@ -10,23 +10,31 @@
     <sql id="storyCondition">
         <if test="searchType == 1">
         select a.idx
-                    , '1' as type
-                    , b.mem_no
-                    , b.mem_nick
-                    , b.mem_sex
-                    , b.mem_birth_year
-                    , b.inner
-                    ,'-' as room_no
-                    , a.title
-                    , a.last_upd_date
-                    , a.contents
-              From rd_data.tb_member_broadcast_notice a
-              left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
-             where (b.mem_no like CONCAT('%',#{mem_no},'%') OR b.mem_userid like CONCAT('%',#{mem_no},'%') OR b.mem_nick like CONCAT('%',#{mem_no},'%'))
-                <if test='sDate != null and sDate !=""'>
-                    and a.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 00:00:00')
-                    and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
-                </if>
+                , '1' as type
+                , b.mem_no
+                , b.mem_nick
+                , b.mem_sex
+                , b.mem_birth_year
+                , b.inner
+                ,'-' as room_no
+                , a.title
+                , a.last_upd_date
+                , a.contents
+                , a.status
+                , a.op_name
+          From rd_data.tb_member_broadcast_notice a
+          left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+         where (b.mem_no like CONCAT('%',#{mem_no},'%') OR b.mem_userid like CONCAT('%',#{mem_no},'%') OR b.mem_nick like CONCAT('%',#{mem_no},'%'))
+            <if test='sDate != null and sDate !=""'>
+                and a.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 00:00:00')
+                and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
+            </if>
+            <if test='status == 1'>
+                and a.status = 0
+            </if>
+            <if test='status == 2'>
+                and a.status = 1
+            </if>
         </if>
 
         <if test="searchType == 2">
@@ -80,9 +88,9 @@
             ) a
     </select>
 
-    <delete id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
-         delete from rd_data.tb_member_broadcast_notice where idx=#{idx}
-    </delete>
+    <update id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
+         update rd_data.tb_member_broadcast_notice set status=1, op_name = #{opName} where idx=#{idx}
+    </update>
     <update id="callBroadNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
          update rd_data.tb_broadcast_room set notice='', last_upd_date = now() where idx=#{idx}
     </update>

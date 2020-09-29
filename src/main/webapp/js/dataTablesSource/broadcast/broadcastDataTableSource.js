@@ -38,7 +38,7 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '회원번호<br/>닉네임', 'data': 'dj_nickname','width' : '75px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(row.dj_mem_no, row.dj_mem_no);
-                    return tmp + '<br/>' + data + '<br/>' + common.sexIcon(row.dj_memSex) + " (" +row.dj_korean_age + "세)";
+                    return tmp + '<br/>' + data + '<br/>' + common.sexIcon(row.dj_memSex, row.dj_birth_year);
                 }},
             // {'title': '성별', 'data': 'dj_memSex', 'width':'35px', 'render': function (data, type, row, meta) {
             //         return ;
@@ -172,7 +172,7 @@ var BroadcastDataTableSource = {
                     return tmp + '<br/>' + data;
                 }},
             {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data) + '<br/>' + "(" +row.dj_korean_age + "세)";
+                    return common.sexIcon(data, row.dj_birth_year, true);
                 }},
             {'title': '방송 개설', 'data': 'broadCastCnt','width' : '70px', 'render': function (data, type, row, meta) {
                     return common.addComma(data);

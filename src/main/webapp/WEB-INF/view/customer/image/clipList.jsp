@@ -135,7 +135,6 @@ var fnc_clipList = {};
     };
 
     fnc_clipList.fn_select_success= function(dst_id, response, dst_params){
-        console.log(response.data)
         // form 띄우기
         var template = $('#tmp_clipSelectFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -145,11 +144,11 @@ var fnc_clipList = {};
 
         var pagingInfo = response.pagingVo;
         fnc_clipList.pagingInfo.totalCnt = pagingInfo.totalCnt;
-        console.log(fnc_clipList.pagingInfo);
         util.renderPagingNavigation("clipList_info_paginate_top", fnc_clipList.pagingInfo);
         util.renderPagingNavigation("clipList_info_paginate", fnc_clipList.pagingInfo);
 
         fnc_clipList.initEvent();
+
     };
 
 
@@ -189,6 +188,17 @@ var fnc_clipList = {};
         {{/dalbit_if}}
             <div>
                 <label>NO.{{indexDesc ../pagingVo.totalCnt clip.rowNum}}</label>
+                {{#dalbit_if clip.state '!=' 1}}
+                <label class="pull-right" style="background-color: #fff7e5">상태 : <span style="color:red;">삭제</span></label>
+                {{/dalbit_if}}
+                {{#dalbit_if clip.state '==' 1}}
+                    {{#dalbit_if clip.hide '==' 1}}
+                <label class="pull-right" style="background-color: #fff7e5">상태 : <span style="color:blue;">숨김</span></label>
+                    {{/dalbit_if}}
+                    {{#dalbit_if clip.hide '==' 0}}
+                        <label class="pull-right" style="background-color: #fff7e5">상태 : 정상</label>
+                    {{/dalbit_if}}
+                {{/dalbit_if}}
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;height: 430px;">
             <div class="thumbnail" src="{{renderImage clip.imageBackground}}?360x360">

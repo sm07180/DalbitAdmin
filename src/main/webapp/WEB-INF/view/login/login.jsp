@@ -81,20 +81,25 @@
     function loginSuccess(dst_id, data){
         dalbitLog(dst_id, data);
         if(data.result == 'success'){
-            for(var i=0;i<data.data.loginCookieVo.length;i++){
-                var cookie = data.data.loginCookieVo[i];
-                var option = {
-                    path : cookie.path
-                    , domain : cookie.domain
-                }
-                var value = cookie.value;
 
-                config(cookie.key, value, option);
+            try{
+                for(var i=0;i<data.data.loginCookieVo.length;i++){
+                    var cookie = data.data.loginCookieVo[i];
+                    var option = {
+                        path : cookie.path
+                        , domain : cookie.domain
+                    }
+                    var value = cookie.value;
+
+                    config(cookie.key, value, option);
+                }
+
+                inforexApi.callInforexMenuApi();
+            }catch (e) {
+                alert('인포렉스 메뉴 가져오기 실패.');
+                location.href = '/index.html';
             }
 
-            inforexApi.callInforexMenuApi();
-
-            //location.href = '/index.html';
         }else if(data.result == 'fail'){
             alert(data.message);
         }

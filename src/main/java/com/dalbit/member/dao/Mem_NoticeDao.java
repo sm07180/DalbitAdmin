@@ -22,7 +22,7 @@ public interface Mem_NoticeDao {
     @Transactional(readOnly = true)
     int callNoticeHistory_totalCnt(P_MemberNoticeInputVo pMemberNoticeInputVo);
 
-    int callMemberNoticeDelete(String idx);
-    int callBroadNoticeDelete(String idx);
+    int callMemberNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo);
+    int callBroadNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo);
 
 }
