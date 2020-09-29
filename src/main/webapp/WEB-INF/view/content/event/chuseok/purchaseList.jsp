@@ -53,7 +53,6 @@
                             <th>성별(나이)</th>
                             <th>지급일시</th>
                             <th>지급달</th>
-                            <th>레벨</th>
                         </tr>
                         </thead>
                         <tbody id="memberTableBody">
@@ -94,7 +93,7 @@
             , searchType : $('#searchType').val()
             , txt_search : $("#txt_search").val()
         }
-        util.getAjaxData('memberList', "/rest/content/event/chuseok/freeDalList", data, fn_succ_list);
+        util.getAjaxData('memberList', "/rest/content/event/chuseok/purchaseList", data, fn_succ_list);
 
         $("#allChk").prop('checked', false);
     }
@@ -138,9 +137,8 @@
             </td>
             <td>{{item.mem_nick}}</td>
             <td>{{{sexIcon item.mem_sex item.mem_birth_year}}}</td>
-            <td>{{item.upd_date}}</td>
-            <td>{{item.dal}}</td>
-            <td>{{item.level}}</td>
+            <td>{{item.last_upd_date}}</td>
+            <td>{{item.ruby}}</td>
         </tr>
 
     {{else}}
