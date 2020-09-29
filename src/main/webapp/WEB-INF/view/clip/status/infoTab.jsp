@@ -9,7 +9,7 @@
         <div class="widget-content">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                 <li class="active"><a href="#time" role="tab" data-toggle="tab" id="tab_time">시간대별</a></li>
-                <%--<li><a href="#calendar" role="tab" data-toggle="tab" id="tab_calendar">일자별</a></li>--%>
+                <li><a href="#calendar" role="tab" data-toggle="tab" id="tab_calendar">일자별</a></li>
                 <li><a href="#day" role="tab" data-toggle="tab" id="tab_day">월간별</a></li>
                 <li><a href="#year" role="tab" data-toggle="tab" id="tab_year">연간별</a></li>
 
@@ -18,6 +18,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="time"><jsp:include page="time.jsp"/></div>      <!-- 시간대별 중복 -->
+                <div class="tab-pane fade" id="calendar"><jsp:include page="calendar.jsp"/></div>      <!-- 일자별 -->
                 <div class="tab-pane fade" id="day"><jsp:include page="day.jsp"/></div>      <!-- 월간별 -->
                 <div class="tab-pane fade" id="year"><jsp:include page="year.jsp"/></div>      <!-- 연간별 -->
 
@@ -49,12 +50,6 @@
         }
         radioChange();
 
-        if(tabId != 'tab_loginHistory') {
-            $("#searchText").addClass('hide');
-        }else{
-            $("#searchText").removeClass('hide');
-        }
-
         $("#searchForm").show();
         console.log("---------------");
         console.log(tabId);
@@ -79,9 +74,6 @@
             getDayList();
         }else if(tabId == 'tab_year') {
             getYearList();
-        }else if(tabId == 'tab_calendar'){
-            $("#searchForm").hide();
-            getCalendarInfo();
         }
     });
 </script>

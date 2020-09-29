@@ -2,9 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.clip.dao.Cli_ClipStatusDao">
 
+    <!-- 클립 등록 현황 조회 -->
+    <select id="callClipStatusTime" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.procedure.P_ClipStatusTimeOutputVo">
+        call rd_admin.sp_admin_stat_clip_gender_time(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
     <!-- 클립 선물 현황 조회 -->
     <select id="callClipStatusGift" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.procedure.P_ClipStatusGiftOutputVo">
         call rd_admin.sp_admin_stat_clip_gift(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <!-- 클립 주제별 등록 현황 조회 -->
+    <select id="callClipStatusType" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.procedure.P_ClipStatusSubjectOutputVo">
+        call rd_admin.sp_admin_stat_clip_subject(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <!-- 클립 플랫폼별 등록 현황 조회 -->
+    <select id="callClipStatusAge" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.procedure.P_ClipStatusAgeOutputVo">
+        call rd_admin.sp_admin_stat_clip_age(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <!-- 클립 플랫폼별 등록 현황 조회 -->
+    <select id="callClipStatusPlatform" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.procedure.P_ClipStatusPlatformOutputVo">
+        call rd_admin.sp_admin_stat_clip_platform(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
 </mapper>
