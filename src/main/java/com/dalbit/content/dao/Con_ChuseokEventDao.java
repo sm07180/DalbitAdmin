@@ -15,4 +15,10 @@ public interface Con_ChuseokEventDao {
     @Transactional(readOnly = true)
     int selectFreeDalListCnt(ChuseokEventVo chuseokEventVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<ChuseokEventVo> selectPurchaseList(ChuseokEventVo chuseokEventVo);
+
+    @Transactional(readOnly = true)
+    int selectPurchaseListCnt(ChuseokEventVo chuseokEventVo);
+
 }
