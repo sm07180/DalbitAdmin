@@ -22,11 +22,12 @@
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
                 <col width="5%"/>
-                <col width="10%"/>
+                <col width="8%"/>
                 <col width="10%"/>
                 <col width="5%"/>
-                <col width="55%"/>
+                <col width="50%"/>
                 <col width="10%"/>
+                <col width="5%"/>
                 <col width="5%"/>
             </colgroup>
             <thead>
@@ -37,6 +38,7 @@
                     <th>성별</th>
                     <th>프로필 메시지 내용</th>
                     <th>최근접속일시</th>
+                    <th>수정</th>
                     <th>삭제</th>
                 </tr>
             </thead>
@@ -118,6 +120,11 @@
         profileMsgList();
     }
 
+    $(document).on('click', '._profileEditList', function() {
+        var mem_no = $(this).data('memno');
+        var url = "/content/boardAdm/popup/editList?type=2&mem_no=" + mem_no;
+        util.windowOpen(url,"1200","450","");
+    });
 </script>
 
 <script id="tmp_profileMsgTable" type="text/x-handlebars-template">
@@ -134,6 +141,7 @@
             </td>
             <td>{{{replaceEnter msg_profile}}}</td>
             <td>{{last_upd_date}}</td>
+            <td><a href="javascript://" class="_profileEditList" data-memno="{{mem_no}}">{{addComma editCnt}}</a></td>
             <td><a href="javascript://" class="_profileMsgDelBtn" data-memno="{{mem_no}}">[삭제]</a></td>
         </tr>
     {{else}}

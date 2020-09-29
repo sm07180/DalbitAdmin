@@ -8,5 +8,7 @@ import lombok.Setter;
 @Setter
 public class P_MemberEditHistInputVo extends SearchVo {
     private String mem_no;
+    private String room_no;
+    private String type;
     private int pageNo;
 }

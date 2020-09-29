@@ -3,6 +3,7 @@ package com.dalbit.content.controller.rest;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
 import com.dalbit.content.vo.*;
+import com.dalbit.member.vo.procedure.P_MemberEditHistInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
 import lombok.extern.slf4j.Slf4j;
@@ -142,5 +143,14 @@ public class Con_BoardAdmRestController {
     @PostMapping("/clipReplyList/del")
     public String clipReplyListDel(ClipReplyListVo clipReplyListVo) {
         return conBoardAdmService.clipReplyListDel(clipReplyListVo);
+    }
+
+
+    /**
+     * 수정이력
+     */
+    @PostMapping("/edit/list")
+    public String editList(P_MemberEditHistInputVo pMemberEditHistInputVo) {
+        return conBoardAdmService.editList(pMemberEditHistInputVo);
     }
 }

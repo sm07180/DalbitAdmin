@@ -15,4 +15,10 @@ public class Con_BoardAdmController {
         return "content/boardAdm/list";
     }
 
+
+    @GetMapping("/popup/editList")
+    public String editList() {
+        return "content/boardAdm/popup/editList";
+    }
+
 }

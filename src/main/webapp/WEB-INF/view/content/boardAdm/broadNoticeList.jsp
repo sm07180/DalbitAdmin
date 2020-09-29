@@ -112,7 +112,7 @@
     }
 
     function fn_success_broadNoticeSummary(dst_id, response) {
-        $("#tab_broadNoticeList").text("방송방공지" + "(" + response.data.totalCnt +")");
+        $("#tab_broadNoticeList").text("방송공지" + "(" + response.data.totalCnt +")");
         $("#broadNoticeListCnt").html(
             '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
             '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
@@ -167,7 +167,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="7">{{isEmptyData}}</td>
+            <td colspan="6">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
