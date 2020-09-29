@@ -215,7 +215,7 @@
             // width: 1300,
             yaxis: {
                 range: [0, 100],
-                autorange: false
+                autorange: true
             },
             barmode: 'stack'
         }
@@ -324,7 +324,7 @@
             // width: 1300,
             yaxis: {
                 range: [0, 100],
-                autorange: false
+                autorange: true
             },
             legend: {
                 y: 0.5,
