@@ -133,7 +133,7 @@
     {{#each this.data as |item|}}
         <tr>
             <td>
-                {{indexDescWithoutRownum ../pagingVo.totalCnt ../pagingVo.pageStart @index}}
+                {{idx}}
             </td>
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{item.mem_no}}">{{item.mem_no}}</a>
