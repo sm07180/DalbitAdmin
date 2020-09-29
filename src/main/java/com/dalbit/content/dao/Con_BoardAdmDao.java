@@ -2,10 +2,7 @@ package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.*;
-import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
-import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
-import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
-import com.dalbit.member.vo.procedure.P_MemberProfileOutputVo;
+import com.dalbit.member.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,4 +62,14 @@ public interface Con_BoardAdmDao {
     ClipReplyListVo clipReplyListSummary(ClipReplyListVo clipReplyListVo);
 
     int clipReplyDelete(ClipReplyListVo clipReplyListVo);
+
+    @Transactional(readOnly = true)
+    P_MemberProfileOutputVo callMemberProfileMsg(P_MemberProfileInputVo pMemberProfileInputVo);
+
+
+    @Transactional(readOnly = true)
+    int editListCnt(P_MemberEditHistInputVo pMemberEditHistInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_MemberEditHistOutputVo> editList(P_MemberEditHistInputVo pMemberEditHistInputVo);
 }

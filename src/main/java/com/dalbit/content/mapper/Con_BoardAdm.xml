@@ -308,42 +308,43 @@
 
     <sql id="profileCondition">
         select
-                @RNUM := @RNUM +1 as rowNum
-                , date_format(session.last_upd_date,'%Y.%m.%d %H:%i:%s') as last_upd_date
-                , session.mem_no as mem_no
-                , profile.image_profile as image_profile
-                , profile.msg_profile as msg_profile
-                , basic.mem_nick as mem_nick
-                , basic.mem_sex as mem_sex
-                , basic.mem_birth_year as mem_birth_year
-                , basic.mem_userid as mem_userid
-                , basic.mem_join_date as mem_join_date
-                , basic.mem_phone as mem_phone
-                , basic.inner
-            from rd_data.tb_member_basic basic
-                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
-                inner join (select mem_no, max(last_upd_date) last_upd_date
-                                from rd_data.tb_member_session
-                                group by mem_no
-                                order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
-                inner join (select @RNUM := 0) r
-            where session.mem_no is not null
-              and profile.msg_profile is not null
-              and profile.msg_profile != ''
-            <if test='searchText != null and searchText != ""'>
-                and (basic.mem_no like CONCAT('%',#{searchText},'%')
-                OR basic.mem_userid like CONCAT('%',#{searchText},'%')
-                OR basic.mem_nick like CONCAT('%',#{searchText},'%')
-                OR basic.mem_id like CONCAT('%',#{searchText},'%')
-                OR basic.mem_phone like CONCAT('%',#{searchText},'%'))
-            </if>
-            <if test='sDate != null and sDate !=""'>
-                and date_format(profile.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
-            </if>
-            <if test='eDate != null and eDate != ""'>
-                and date_format(profile.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
-            </if>
-            order by session.last_upd_date desc
+        @RNUM := @RNUM +1 as rowNum
+            , date_format(session.last_upd_date,'%Y.%m.%d %H:%i:%s') as last_upd_date
+            , session.mem_no as mem_no
+            , profile.image_profile as image_profile
+            , profile.msg_profile as msg_profile
+            , basic.mem_nick as mem_nick
+            , basic.mem_sex as mem_sex
+            , basic.mem_birth_year as mem_birth_year
+            , basic.mem_userid as mem_userid
+            , basic.mem_join_date as mem_join_date
+            , basic.mem_phone as mem_phone
+            , basic.inner
+            , (SELECT count(*) FROM rd_data.tb_member_profile_edit_history  where mem_no=session.mem_no and edit_contents like '프로필메세지 변경%') as editCnt
+        from rd_data.tb_member_basic basic
+            inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+            inner join (select mem_no, max(last_upd_date) last_upd_date
+                            from rd_data.tb_member_session
+                            group by mem_no
+                            order by max(last_upd_date) desc) session on basic.mem_no = session.mem_no
+            inner join (select @RNUM := 0) r
+        where session.mem_no is not null
+          and profile.msg_profile is not null
+          and profile.msg_profile != ''
+        <if test='searchText != null and searchText != ""'>
+            and (basic.mem_no like CONCAT('%',#{searchText},'%')
+            OR basic.mem_userid like CONCAT('%',#{searchText},'%')
+            OR basic.mem_nick like CONCAT('%',#{searchText},'%')
+            OR basic.mem_id like CONCAT('%',#{searchText},'%')
+            OR basic.mem_phone like CONCAT('%',#{searchText},'%'))
+        </if>
+        <if test='sDate != null and sDate !=""'>
+            and date_format(profile.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+        </if>
+        <if test='eDate != null and eDate != ""'>
+            and date_format(profile.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        </if>
+        order by session.last_upd_date desc
     </sql>
 
     <select id="selectprofileMsgListCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileInputVo" resultType="int">
@@ -462,6 +463,56 @@
         update rd_data.tb_cast_room_board set `status`=2, last_upd_date=now() where cast_no=#{cast_no} and idx=#{castReplyIdx}
     </update>
 
+    <select id="callMemberProfileMsg" parameterType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo" resultType="com.dalbit.member.vo.procedure.P_MemberProfileOutputVo">
+        /* Con_BoardAdm.xml - callMemberProfileMsg */
+        select msg_profile from rd_data.tb_member_profile where mem_no=#{mem_no}
+    </select>
 
+
+
+
+    <select id="editListCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="int">
+        /* Con_BoardAdm.xml - editListCnt */
+        <if test='type == "1"'>
+        SELECT count(*) FROM rd_data.tb_broadcast_room_edit_history
+         where room_no=#{room_no}
+           and edit_contents like '방송방공지변경%'
+        </if>
+        <if test='type == "2"'>
+        SELECT count(*) FROM rd_data.tb_member_profile_edit_history
+         where mem_no=#{mem_no}
+           and edit_contents like '프로필메세지 변경%'
+        </if>
+    </select>
+
+    <select id="editList" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
+        /* Con_BoardAdm.xml - editList */
+        select *
+        from (
+              <if test='type == "1"'>
+                SELECT @RNUM := @RNUM +1 as rowNum
+                      ,idx
+                      ,room_no
+                      ,edit_contents as editContents
+                      ,op_name as opName
+                      ,last_upd_date as editDate
+                 FROM rd_data.tb_broadcast_room_edit_history inner join (select @RNUM := #{pageStart}) r
+                where room_no=#{room_no}
+                  and edit_contents like '방송방공지변경%'
+              </if>
+              <if test='type == "2"'>
+                  SELECT @RNUM := @RNUM +1 as rowNum
+                          ,idx
+                          ,mem_no
+                          ,edit_contents as editContents
+                          ,op_name as opName
+                          ,last_upd_date as editDate
+                   FROM rd_data.tb_member_profile_edit_history inner join (select @RNUM := #{pageStart}) r
+                  where mem_no=#{mem_no}
+                    and edit_contents like '프로필메세지 변경%'
+              </if>
+        ) list
+        limit #{pageStart}, #{pageCnt}
+    </select>
 
 </mapper>

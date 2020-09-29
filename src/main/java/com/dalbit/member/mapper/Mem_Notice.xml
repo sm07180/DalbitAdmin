@@ -49,6 +49,7 @@
                     , a.title
                     , a.last_upd_date
                     , a.notice as contents
+                    , (select count(*) from rd_data.tb_broadcast_room_edit_history where room_no = a.room_no and edit_contents like '방송방공지변경%') as editCnt
               From rd_data.tb_broadcast_room a
               left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
              where CHAR_LENGTH(a.notice) > 0
@@ -91,8 +92,13 @@
     <update id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
          update rd_data.tb_member_broadcast_notice set status=1, op_name = #{opName} where idx=#{idx}
     </update>
+
+
+    <select id="callBroadBeforNotice" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
+        select notice as contents FROM rd_data.tb_broadcast_room WHERE room_no = #{roomNo}
+    </select>
     <update id="callBroadNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
-         update rd_data.tb_broadcast_room set notice='', last_upd_date = now() where idx=#{idx}
+         update rd_data.tb_broadcast_room set notice='', last_upd_date = now() where idx=#{noticeIdx}
     </update>
 
 </mapper>

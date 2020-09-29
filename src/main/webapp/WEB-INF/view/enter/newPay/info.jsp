@@ -69,6 +69,8 @@
     var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
 
+    var clickTab = false;
+
     $(function(){
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -209,7 +211,9 @@
                 setYear(1);
             }
         }
-        $("#bt_search").click();
+        if(!clickTab){
+            $("#bt_search").click();
+        }
     }
 
     function setDay(days){

@@ -1,5 +1,7 @@
 package com.dalbit.member.service;
 
+import com.dalbit.broadcast.dao.Bro_BroadcastDao;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
@@ -23,6 +25,8 @@ public class Mem_NoticeService {
     @Autowired
     Mem_NoticeDao mem_NoticeDao;
     @Autowired
+    Bro_BroadcastDao bro_BroadcastDao;
+    @Autowired
     GsonUtil gsonUtil;
 
     public String getNoticeHistory(P_MemberNoticeInputVo pMemberNoticeInputVo){
@@ -44,19 +48,22 @@ public class Mem_NoticeService {
      */
     public String getNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo){
         pMemberNoticeDeleteVo.setOpName(MemberVo.getMyMemNo());
-        for(int i=0;i<pMemberNoticeDeleteVo.getNociceType().length;i++){
 
-            pMemberNoticeDeleteVo.getNoticeIdx()[i] = pMemberNoticeDeleteVo.getNoticeIdx()[i].replace("[","");
-            pMemberNoticeDeleteVo.getNoticeIdx()[i] = pMemberNoticeDeleteVo.getNoticeIdx()[i].replace("]","");
-            pMemberNoticeDeleteVo.getNociceType()[i] = pMemberNoticeDeleteVo.getNociceType()[i].replace("[","");
-            pMemberNoticeDeleteVo.getNociceType()[i] = pMemberNoticeDeleteVo.getNociceType()[i].replace("]","");
+        if(pMemberNoticeDeleteVo.getNociceType().equals("1")) {
+            mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo);
+        }else if(pMemberNoticeDeleteVo.getNociceType().equals("2")) {
+            // befor 공지내용
+            P_MemberNoticeOutputVo pMemberNoticeOutputVo = mem_NoticeDao.callBroadBeforNotice(pMemberNoticeDeleteVo);
 
-            pMemberNoticeDeleteVo.setIdx(pMemberNoticeDeleteVo.getNoticeIdx()[i]);
-            if(pMemberNoticeDeleteVo.getNociceType()[i].equals("1")) {
-                mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo);
-            }else if(pMemberNoticeDeleteVo.getNociceType()[i].equals("2")) {
-                mem_NoticeDao.callBroadNoticeDelete(pMemberNoticeDeleteVo);
-            }
+            // 수정이력
+            P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
+            pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
+            pBroadcastEditInputVo.setRoom_no(pMemberNoticeDeleteVo.getRoomNo());
+            pBroadcastEditInputVo.setEditContents("방송방공지변경 : " + pMemberNoticeOutputVo.getContents() + " >> ");
+            bro_BroadcastDao.callBroadCastEditHistoryAdd(pBroadcastEditInputVo);
+
+            // 삭제
+            mem_NoticeDao.callBroadNoticeDelete(pMemberNoticeDeleteVo);
         }
 
         String result;

@@ -23,6 +23,9 @@ public interface Mem_NoticeDao {
     int callNoticeHistory_totalCnt(P_MemberNoticeInputVo pMemberNoticeInputVo);
 
     int callMemberNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo);
+
+    @Transactional(readOnly = true)
+    P_MemberNoticeOutputVo callBroadBeforNotice(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo);
     int callBroadNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo);
 
 }
