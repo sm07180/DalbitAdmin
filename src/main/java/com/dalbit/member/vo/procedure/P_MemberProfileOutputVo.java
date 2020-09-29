@@ -21,6 +21,7 @@ public class P_MemberProfileOutputVo extends SearchVo {
     private String mem_phone;
     private String mem_birth_year;
     private int inner;
+    private int editCnt;
 
     private int maleCnt;
     private int femaleCnt;

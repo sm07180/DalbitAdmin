@@ -1,5 +1,7 @@
 package com.dalbit.content.service;
 
+import com.dalbit.broadcast.dao.Bro_BroadcastDao;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
@@ -7,13 +9,11 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BoardAdmDao;
 import com.dalbit.content.vo.*;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
-import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
-import com.dalbit.member.vo.procedure.P_MemberProfileOutputVo;
+import com.dalbit.member.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.member.dao.Mem_NoticeDao;
-import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
-import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +34,12 @@ public class Con_BoardAdmService {
 
     @Autowired
     Mem_NoticeDao mem_NoticeDao;
+
+    @Autowired
+    Bro_BroadcastDao bro_BroadcastDao;
+
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      * 팬보드 조회
@@ -189,6 +195,19 @@ public class Con_BoardAdmService {
      * 프로필메시지 삭제
      */
     public String profileDelete(P_MemberProfileInputVo pMemberNoticeInputVo) {
+
+        // befor 프로필메시지
+        P_MemberProfileOutputVo pMemberProfileOutputVo = conBoardAdmDao.callMemberProfileMsg(pMemberNoticeInputVo);
+
+        // 수정이력
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setMem_no(pMemberNoticeInputVo.getMem_no());
+        pMemberEditorVo.setEditContents("프로필메세지 변경 : " + pMemberProfileOutputVo.getMsg_profile() + " >> ");
+        pMemberEditorVo.setType(0);
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        // 프로필 메시지 삭제
         int resultInt = conBoardAdmDao.callProfileMsgDelete(pMemberNoticeInputVo);
 
         String result;
@@ -223,6 +242,7 @@ public class Con_BoardAdmService {
         String result = gsonUtil.toJson(new JsonOutputVo(Status.클립댓글조회_성공, clipReplyList, new PagingVo(clipReplyListCount)));
         return result;
     }
+
     /**
      * 클립댓글 통계
      */
@@ -249,4 +269,15 @@ public class Con_BoardAdmService {
         return result;
     }
 
+    /**
+     * 수정이력
+     */
+    public String editList(P_MemberEditHistInputVo pMemberEditHistInputVo) {
+        int editListCount = conBoardAdmDao.editListCnt(pMemberEditHistInputVo);
+        pMemberEditHistInputVo.setTotalCnt(editListCount);
+        List<P_MemberEditHistOutputVo> editList = conBoardAdmDao.editList(pMemberEditHistInputVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, editList, new PagingVo(editListCount)));
+        return result;
+    }
 }

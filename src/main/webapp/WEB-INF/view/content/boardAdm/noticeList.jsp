@@ -22,7 +22,7 @@
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
                 <col width="4%"/><col width="10%"/><col width="6%"/><col width="10%"/><col width="46%"/>
-                <col width="10%"/><col width="10%"/>
+                <col width="10%"/><col width="5%"/><col width="5%"/>
             </colgroup>
             <thead>
             <tr>
@@ -32,6 +32,7 @@
                 <th>공지제목</th>
                 <th>공지내용</th>
                 <th>등록일시</th>
+                <th>수정</th>
                 <th>관리</th>
             </tr>
             </thead>
@@ -105,7 +106,7 @@
         util.getAjaxData("noticeListSummary", "/rest/content/boardAdm/noticeList/summary", param, fn_success_noticeSummary);
     }
     function fn_success_noticeSummary(dst_id, response) {
-        $("#tab_noticeList").text("방송공지" + "(" + response.data.totalCnt +")");
+        $("#tab_noticeList").text("방송방공지" + "(" + response.data.totalCnt +")");
         $("#noticeListCnt").html(
             '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
             '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
@@ -118,12 +119,22 @@
         if(confirm("삭제하시겠습니까?")) {
             var data = {
                 noticeIdx: $(this).data('noticeidx'),
-                nociceType: $(this).data('type')
+                nociceType: $(this).data('type'),
+                roomNo: $(this).data('roomno')
             };
 
             console.log(data);
             util.getAjaxData("delete", "/rest/member/notice/delete", data, noticeDel_success);
         }else return;
+    });
+
+    $(document).on('click', '._noticeEditList', function() {
+        var index = $(this).data('noticeidx');
+        var room_no = $(this).data('roomno');
+        var url = "/content/boardAdm/popup/editList?type=1&noticeidx=" + index + "&room_no=" + room_no;
+
+        console.log(url);
+        util.windowOpen(url,"1200","450","");
     });
 
     function noticeDel_success(dst_id, response){
@@ -144,11 +155,12 @@
             <td class="word-break" style="width: 150px"><span class="pull-left">{{{replaceHtml title}}}</span></td>
             <td class="word-break" style="width: 550px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
             <td>{{lastUpdDateFormat}}</td>
-            <td><a href="javascript://" class="_noticeDelBtn" data-noticeIdx="{{idx}}" data-type="{{type}}">[삭제]</a></td>
+            <td><a href="javascript://" class="_noticeEditList" data-noticeIdx="{{idx}}" data-type="{{type}}" data-roomno="{{room_no}}">{{addComma editCnt}}</a></td>
+            <td><a href="javascript://" class="_noticeDelBtn" data-noticeIdx="{{idx}}" data-type="{{type}}" data-roomno="{{room_no}}">[삭제]</a></td>
         </tr>
     {{else}}
         <tr>
-            <td colspan="6">{{isEmptyData}}</td>
+            <td colspan="7">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
