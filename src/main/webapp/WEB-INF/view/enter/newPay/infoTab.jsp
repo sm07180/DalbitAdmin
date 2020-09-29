@@ -62,6 +62,7 @@
             }
             $("#slctTypeArea").show();
         }
+        clickTab = true;
         changeDatepicker();
         if(tabId == 'tab_payTime'){
             getPayTimeList();
