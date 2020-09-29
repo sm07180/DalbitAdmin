@@ -63,6 +63,16 @@
                         console.log(response);
                         $("#totalTable").empty();
 
+                        response.data.totalInfo.sum_reg_maleCnt= 0;
+                        response.data.totalInfo.sum_del_maleCnt= 0;
+                        response.data.totalInfo.sum_reg_femaleCnt= 0;
+                        response.data.totalInfo.sum_del_femaleCnt= 0;
+                        response.data.totalInfo.sum_reg_noneCnt= 0;
+                        response.data.totalInfo.sum_del_noneCnt= 0;
+                        response.data.totalInfo.sum_reg_totalCnt= 0;
+                        response.data.totalInfo.sum_del_totalCnt= 0;
+
+
                         if(!common.isEmpty(response.data)){
                             response.data.detailList.forEach(function(detail, detailIndex) {
                                 detail.reg_maleCnt = detail.open_reg_maleCnt + detail.notopen_reg_maleCnt;
@@ -73,6 +83,15 @@
                                 detail.del_noneCnt = detail.mem_del_noneCnt + detail.op_del_noneCnt;
                                 detail.reg_totalCnt = detail.open_reg_totalCnt + detail.notopen_reg_totalCnt;
                                 detail.del_totalCnt = detail.mem_del_totalCnt + detail.op_del_totalCnt;
+
+                                response.data.totalInfo.sum_reg_maleCnt += detail.reg_maleCnt;
+                                response.data.totalInfo.sum_del_maleCnt += detail.del_maleCnt;
+                                response.data.totalInfo.sum_reg_femaleCnt += detail.reg_femaleCnt;
+                                response.data.totalInfo.sum_del_femaleCnt += detail.del_femaleCnt;
+                                response.data.totalInfo.sum_reg_noneCnt += detail.reg_noneCnt;
+                                response.data.totalInfo.sum_del_noneCnt += detail.del_noneCnt;
+                                response.data.totalInfo.sum_reg_totalCnt += detail.reg_totalCnt;
+                                response.data.totalInfo.sum_del_totalCnt += detail.del_totalCnt;
 
                                 var the_date = detail.the_date;
                                 var dayTarget = $('.fc-day[data-date="' + the_date + '"]').find('.fc-day-content');
@@ -196,7 +215,7 @@
             // width: 1300,
             yaxis: {
                 range: [0, 100],
-                autorange: true
+                autorange: false
             },
             barmode: 'stack'
         }
@@ -305,7 +324,7 @@
             // width: 1300,
             yaxis: {
                 range: [0, 100],
-                autorange: true
+                autorange: false
             },
             legend: {
                 y: 0.5,
