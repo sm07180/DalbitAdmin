@@ -703,6 +703,25 @@ public class DalbitUtil {
     }
 
     /**
+     * 클립이미지 번호 랜덤 추출
+     */
+    public static String randomClipImgValue() {
+        StringBuffer bf = new StringBuffer();
+        String[] num = {"0","1"};
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(num));
+        if(list != null) {
+            for(int i=0; i<list.size(); i++) {
+                list.get(i);
+            }
+        }
+        Collections.shuffle(list);
+
+        String[] num_ = list.toArray(new String[list.size()]);
+        bf.append(num_[0]);
+        return bf.toString();
+    }
+
+    /**
      * 휴대폰 유효성 체크
      */
     public static boolean isSmsPhoneNoChk(String phoneNo){
