@@ -76,6 +76,79 @@
             </choose>
         </if>
     </sql>
+
+    <select id="selectPurchaseList" parameterType="com.dalbit.content.vo.ChuseokEventVo" resultType="com.dalbit.content.vo.ChuseokEventVo">
+        /* Con_ChuseokEvent.xml - selectPurchaseList */
+        select *
+        from(
+            select ruby.mem_no
+                 , ruby
+                 , date_format(ruby.last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
+                 , ifnull(member.mem_nick, outMember.mem_nick) mem_nick
+                 , ifnull(member.mem_sex , outMember.mem_sex) mem_sex
+                 , ifnull(member.mem_birth_year, outMember.mem_birth_year) mem_birth_year
+                 , @rownum := @rownum + 1 as rowNum
+            from rd_data.tb_member_wallet_ruby ruby
+                left join rd_data.tb_member_basic member on ruby.mem_no = member.mem_no
+                left join rd_data.tb_member_withdrawal_bak outMember on ruby.mem_no = outMember.mem_no
+               , (select @rownum := 0) r
+            where ruby.type = 7
+                and ruby.use_contents like '%구매 보너스%'
+                <include refid="purchaseListCondition" />
+        )a
+        WHERE rowNum BETWEEN #{searchStartNo, jdbcType=INTEGER} AND #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPurchaseListCnt" parameterType="com.dalbit.content.vo.ChuseokEventVo" resultType="integer">
+        /* Con_ChuseokEvent.xml - selectPurchaseListCnt */
+        select count(*)
+        from rd_data.tb_member_wallet_ruby ruby
+            left join rd_data.tb_member_basic member on ruby.mem_no = member.mem_no
+            left join rd_data.tb_member_withdrawal_bak outMember on ruby.mem_no = outMember.mem_no
+        where ruby.type = 7
+            and ruby.use_contents like '%구매 보너스%'
+            <include refid="purchaseListCondition" />
+    </select>
+
+    <sql id="purchaseListCondition">
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    and ruby.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    and (
+                    member.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMember.mem_userid like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "3"'>
+                    and (
+                    member.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMember.mem_nick like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "4"'>
+                    and (
+                    member.mem_phone like concat('%', #{txt_search}, '%')
+                    or outMember.mem_phone like concat('%', #{txt_search}, '%')
+                    )
+                </when>
+                <otherwise>
+                    and
+                    (
+                    ruby.mem_no like concat('%', #{txt_search}, '%')
+                    or member.mem_userid like concat('%', #{txt_search}, '%')
+                    or outMember.mem_userid like concat('%', #{txt_search}, '%')
+                    or member.mem_nick like concat('%', #{txt_search}, '%')
+                    or outMember.mem_nick like concat('%', #{txt_search}, '%')
+                    or member.mem_phone like concat('%', #{txt_search}, '%')
+                    or outMember.mem_phone like concat('%', #{txt_search}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
 </mapper>
 
 

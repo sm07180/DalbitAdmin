@@ -37,4 +37,18 @@ public class Con_ChuseokEventService {
 
         return result;
     }
+
+    /**
+     * 구매 보너스 이벤트 리스트 조회
+     */
+    public String selectPurchaseList(ChuseokEventVo chuseokEventVo) {
+
+        int totalCnt = con_chuseokEventDao.selectPurchaseListCnt(chuseokEventVo);
+        chuseokEventVo.setTotalCnt(totalCnt);
+
+        List<ChuseokEventVo> list = con_chuseokEventDao.selectPurchaseList(chuseokEventVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(chuseokEventVo.getTotalCnt(), chuseokEventVo.getPageStart(), chuseokEventVo.getPageCnt())));
+
+        return result;
+    }
 }
