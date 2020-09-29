@@ -77,7 +77,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
                     return JSON.stringify( json ); // return JSON string
                 }catch (e) {
-                    //dalbitLog(data);
+                    dalbitLog(data);
                     //todo - 세션 만료 체크 로직 필요.
                     if(0 < data.indexOf('로그인')){
                         alert('세션이 만료되어 로그인 페이지로 이동합니다.');
@@ -115,10 +115,12 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             }
 
 
-            //dalbitLog(aoData);
+            dalbitLog(aoData);
         },
         fnPreDrawCallback: function(oSettings){
-            //dalbitLog("[fnPreDrawCallback]");
+            dalbitLog("[fnPreDrawCallback]");
+            //loading bar start
+            $('body').addClass('dalbit_module_loading')
 
             // 최초 Order 저장
             $(oSettings.aoColumns).each(function () {
@@ -128,7 +130,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             });
         },
         fnDrawCallback: function(oSettings){
-            //dalbitLog("[fnDrawCallback]");
+            dalbitLog("[fnDrawCallback]");
             $('.dataTables_paginate > .pagination').addClass('borderless');
 
             // 조회 데이터 없을 경우
@@ -158,7 +160,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             }
         },
         fnInitComplete: function(oSettings){
-            //dalbitLog("[fnInitComplete]");
+            dalbitLog("[fnInitComplete]");
 
             // 새로생성 시 1 페이지 유지를 위함
             this.fnPageChange(0, true);
@@ -260,11 +262,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         var isInitResetCallback = this.isInitResetCallback;
 
         this.dataTableSource.ajax.complete = function (response) {
-                //dalbitLog("[complete]");
+                dalbitLog("[complete]");
 
 
                 if(!common.isEmpty(response.responseJSON)){
-                    //dalbitLog(response.responseJSON);
+                    dalbitLog(response.responseJSON);
                     ui.toogleSearchListFooter(response.responseJSON.recordsTotal);
                 }
 
@@ -273,6 +275,9 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                     initFn(response.responseJSON);
                     initFn = isInitResetCallback ? "" : initFn;    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
                 }
+
+                //loading bar end
+                $('body').removeClass('dalbit_module_loading');
             };
 
 
@@ -466,13 +471,13 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     /* get Row Idx Data  */
     DalbitDataTable.prototype.getDataRow = function (idxRow) {
-        //dalbitLog(this.dom.DataTable().row(idxRow).data());
+        dalbitLog(this.dom.DataTable().row(idxRow).data());
         return this.dom.DataTable().row(idxRow).data();
     }
 
     /* get Rows Size  */
     DalbitDataTable.prototype.getRowSize = function(){
-        //dalbitLog(this.dom.DataTable().row()[0].length);
+        dalbitLog(this.dom.DataTable().row()[0].length);
         return this.dom.DataTable().row()[0].length;
     }
 
@@ -519,7 +524,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     /* set Row Click Event 함수 지정, 이벤트 column 지정 */
     DalbitDataTable.prototype.setEventClick = function (eventFnc, column) {
         if(common.isEmpty(eventFnc)){
-            //dalbitLog("[DalbitDataTable.prototype.setEventClick] eventFnc is Null!!");
+            dalbitLog("[DalbitDataTable.prototype.setEventClick] eventFnc is Null!!");
             return;
         }
 
@@ -539,7 +544,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     }
 
     DalbitDataTable.prototype.setOrder = function (columnIdx, orderDir) {
-        //dalbitLog("[Order] columnidx:" + columnIdx + " / orderDir :" + orderDir)
+        dalbitLog("[Order] columnidx:" + columnIdx + " / orderDir :" + orderDir)
         if(common.isEmpty(orderDir)){orderDir = "desc"}
         this.dataTableSource.order = [[ columnIdx, orderDir ]] ;
     }
