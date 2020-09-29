@@ -6,7 +6,7 @@
     <div id="page-wrapper">
         <div id="container-fluid" class="col-lg-12 no-padding">
             <!-- searchBox -->
-            <form id="searchForm">
+            <form id="searchForm" style="display: none;">
                 <div class="col-lg-12 form-inline no-padding">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
