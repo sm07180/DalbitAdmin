@@ -202,7 +202,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getTimeList();
+        // getTimeList();
     });
 
     var subjectCodeList = "";

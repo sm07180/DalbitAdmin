@@ -23,7 +23,7 @@
 <script type="text/javascript">
 
     $(function(){
-        //init();
+        getCalendarInfo();
     });
 
     function getCalendarInfo(){
@@ -132,15 +132,15 @@
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else{
                 toDay = response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")";
             }
             response.data.detailList[i].date = toDay;
 
-            day.unshift(toDay)
+            day.unshift(toDay);
             maleCnt.unshift(response.data.detailList[i].maleCnt);
             maleRegCnt.unshift(response.data.detailList[i].reg_maleCnt);
             maledelCnt.unshift(response.data.detailList[i].del_maleCnt);
@@ -153,6 +153,7 @@
 
         }
 
+        /* 막대차트 [start] */
         var trace_male_cnt = {
             x: day,
             y: maleCnt,
@@ -201,7 +202,7 @@
         }
 
         Plotly.newPlot('barArea', barData, barLayout);
-
+        /* 막대차트 [end] */
 
 
         /* 라인차트 [start] */
@@ -302,10 +303,6 @@
             title: month+'월 일자별 - 등록/삭제',
             // height: 500,
             // width: 1300,
-            // xaxis: {
-            //     range: [0.75, 5.25],
-            //     autorange: false
-            // },
             yaxis: {
                 range: [0, 100],
                 autorange: false
@@ -321,7 +318,6 @@
 
         Plotly.newPlot('lineArea', data, layout);
         /* 라인차트 [end] */
-
     }
 
 </script>
