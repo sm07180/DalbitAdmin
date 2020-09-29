@@ -31,4 +31,10 @@ public class Con_ChuseokEventRestController {
         return result;
     }
 
+    @PostMapping("/chuseok/purchaseList")
+    public String chuseokPurchaseList(ChuseokEventVo chuseokEventVo) {
+        String result = con_chuseokEventService.selectPurchaseList(chuseokEventVo);
+        return result;
+    }
+
 }

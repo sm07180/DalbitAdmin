@@ -23,5 +23,7 @@ public class ChuseokEventVo extends PagingVo {
     private int level;
     private int dal;
     private String upd_date;
+    private String last_upd_date;
+    private int ruby;
 
 }
