@@ -23,7 +23,7 @@
 <script type="text/javascript">
 
     $(function(){
-        //init();
+        getCalendarInfo();
     });
 
     function getCalendarInfo(){
@@ -63,6 +63,16 @@
                         console.log(response);
                         $("#totalTable").empty();
 
+                        response.data.totalInfo.sum_reg_maleCnt= 0;
+                        response.data.totalInfo.sum_del_maleCnt= 0;
+                        response.data.totalInfo.sum_reg_femaleCnt= 0;
+                        response.data.totalInfo.sum_del_femaleCnt= 0;
+                        response.data.totalInfo.sum_reg_noneCnt= 0;
+                        response.data.totalInfo.sum_del_noneCnt= 0;
+                        response.data.totalInfo.sum_reg_totalCnt= 0;
+                        response.data.totalInfo.sum_del_totalCnt= 0;
+
+
                         if(!common.isEmpty(response.data)){
                             response.data.detailList.forEach(function(detail, detailIndex) {
                                 detail.reg_maleCnt = detail.open_reg_maleCnt + detail.notopen_reg_maleCnt;
@@ -73,6 +83,15 @@
                                 detail.del_noneCnt = detail.mem_del_noneCnt + detail.op_del_noneCnt;
                                 detail.reg_totalCnt = detail.open_reg_totalCnt + detail.notopen_reg_totalCnt;
                                 detail.del_totalCnt = detail.mem_del_totalCnt + detail.op_del_totalCnt;
+
+                                response.data.totalInfo.sum_reg_maleCnt += detail.reg_maleCnt;
+                                response.data.totalInfo.sum_del_maleCnt += detail.del_maleCnt;
+                                response.data.totalInfo.sum_reg_femaleCnt += detail.reg_femaleCnt;
+                                response.data.totalInfo.sum_del_femaleCnt += detail.del_femaleCnt;
+                                response.data.totalInfo.sum_reg_noneCnt += detail.reg_noneCnt;
+                                response.data.totalInfo.sum_del_noneCnt += detail.del_noneCnt;
+                                response.data.totalInfo.sum_reg_totalCnt += detail.reg_totalCnt;
+                                response.data.totalInfo.sum_del_totalCnt += detail.del_totalCnt;
 
                                 var the_date = detail.the_date;
                                 var dayTarget = $('.fc-day[data-date="' + the_date + '"]').find('.fc-day-content');
@@ -132,15 +151,15 @@
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else{
                 toDay = response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")";
             }
             response.data.detailList[i].date = toDay;
 
-            day.unshift(toDay)
+            day.unshift(toDay);
             maleCnt.unshift(response.data.detailList[i].maleCnt);
             maleRegCnt.unshift(response.data.detailList[i].reg_maleCnt);
             maledelCnt.unshift(response.data.detailList[i].del_maleCnt);
@@ -153,6 +172,7 @@
 
         }
 
+        /* 막대차트 [start] */
         var trace_male_cnt = {
             x: day,
             y: maleCnt,
@@ -195,13 +215,13 @@
             // width: 1300,
             yaxis: {
                 range: [0, 100],
-                autorange: false
+                autorange: true
             },
             barmode: 'stack'
         }
 
         Plotly.newPlot('barArea', barData, barLayout);
-
+        /* 막대차트 [end] */
 
 
         /* 라인차트 [start] */
@@ -302,13 +322,9 @@
             title: month+'월 일자별 - 등록/삭제',
             // height: 500,
             // width: 1300,
-            // xaxis: {
-            //     range: [0.75, 5.25],
-            //     autorange: false
-            // },
             yaxis: {
                 range: [0, 100],
-                autorange: false
+                autorange: true
             },
             legend: {
                 y: 0.5,
@@ -321,7 +337,6 @@
 
         Plotly.newPlot('lineArea', data, layout);
         /* 라인차트 [end] */
-
     }
 
 </script>

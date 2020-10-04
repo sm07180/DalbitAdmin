@@ -33,9 +33,9 @@
                     <th rowspan="2" class="_bgColor" data-bgColor="#e9ebf5">등록자</th>
                     <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">등록</th>
                     <th colspan="2" class="_bgColor" data-bgColor="#e9ebf5">삭제</th>
-                    <th rowspan="2" class="_bgColor" data-bgColor="#d0cece">등록자</th>
-                    <th colspan="2" class="_bgColor" data-bgColor="#d0cece">등록</th>
-                    <th colspan="2" class="_bgColor" data-bgColor="#d0cece">삭제</th>
+                    <th rowspan="2" class="_bgColor" data-bgColor="#e2e2e2">등록자</th>
+                    <th colspan="2" class="_bgColor" data-bgColor="#e2e2e2">등록</th>
+                    <th colspan="2" class="_bgColor" data-bgColor="#e2e2e2">삭제</th>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgColor="#e9ebf5">공개</th>
@@ -50,10 +50,10 @@
                     <th class="_bgColor" data-bgColor="#e9ebf5">비공개</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">본인</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">운영자</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">공개</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">비공개</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">본인</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">운영자</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">공개</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">비공개</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">본인</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">운영자</th>
                 </tr>
                 </thead>
                 <tbody id="timeTableBody"></tbody>
@@ -82,8 +82,8 @@
                     <th class="_bgColor" data-bgColor="#e9ebf5">달수</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">건수</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">달수</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">건수</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">달수</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">건수</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">달수</th>
                 </tr>
                 </thead>
                 <tbody  id="giftListBody">
@@ -91,7 +91,7 @@
             </table>
         </div>
 
-        <div class="col-md-8 no-padding">
+        <div class="col-md-10 no-padding">
             <span class="font-bold">◈연령대 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
@@ -155,8 +155,8 @@
                     <th class="_bgColor" data-bgColor="#e9ebf5">청취자 수</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">등록(삭제)</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">청취자 수</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">등록(삭제)</th>
-                    <th class="_bgColor" data-bgColor="#d0cece">청취자 수</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">등록(삭제)</th>
+                    <th class="_bgColor" data-bgColor="#e2e2e2">청취자 수</th>
                 </tr>
                 </thead>
                 <tbody id="typeTimeTableBody"></tbody>
@@ -202,7 +202,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getTimeList();
+        // getTimeList();
     });
 
     var subjectCodeList = "";
@@ -325,11 +325,11 @@
 
             toDay = week[moment(response.data.detailList[i].daily.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].daily.replace(/-/gi,".") + " (" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].daily.replace(/-/gi,".") + " (" + toDay + ")" + '</span>';
             }else{
-                toDay = response.data.detailList[i].daily.replace(/-/gi,".") + "(" + toDay + ")";
+                toDay = response.data.detailList[i].daily.replace(/-/gi,".") + " (" + toDay + ")";
             }
 
             response.data.detailList[i].date = toDay;
@@ -374,11 +374,11 @@
 
             toDay = week[moment(response.data.detailList[i].date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].date.replace(/-/gi,".") + " (" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].date.replace(/-/gi,".") + " (" + toDay + ")" + '</span>';
             }else{
-                toDay = response.data.detailList[i].date.replace(/-/gi,".") + "(" + toDay + ")";
+                toDay = response.data.detailList[i].date.replace(/-/gi,".") + " (" + toDay + ")";
             }
 
             response.data.detailList[i].date = toDay;
@@ -468,11 +468,11 @@
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + " (" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + " (" + toDay + ")" + '</span>';
             }else{
-                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + " (" + toDay + ")";
             }
 
             response.data.detailList[i].date = toDay;

@@ -8,8 +8,8 @@
     <li class="active"><a href="#storyList" role="tab" data-toggle="tab" id="tab_storyList">사연</a></li>
     <li><a href="#fanBoardList" role="tab" data-toggle="tab" id="tab_fanBoardList">팬보드</a></li>
     <li><a href="#fanBoardReply" role="tab" data-toggle="tab" id="tab_fanBoardReply">팬보드댓글</a></li>
-    <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">방송공지</a></li>
-    <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">방송방공지</a></li>
+    <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">방송방공지</a></li>
+    <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">방송공지</a></li>
     <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
     <li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->
 </ul>
