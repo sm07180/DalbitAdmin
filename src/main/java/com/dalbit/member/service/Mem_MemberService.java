@@ -234,7 +234,7 @@ public class Mem_MemberService {
             }
         }
         memberInfo.setLiveBadgeList(liveBadgeList);
-        
+
         //ip정보 및 device 정보
         //recentLoginInfo
         LoginHistoryVo loginHostory = mem_MemberDao.memberLoginHistory(pMemberInfoInputVo.getMem_no());

@@ -184,9 +184,6 @@
     var dtList_info_data = function (data) {
         var slctType = $('input[name="searchRadio"]:checked').val();
         data.slctType = slctType;
-        console.log("---------------------------- slctType");
-        console.log(slctType);
-
         if(slctType == "1"){      // DJ정보
             data.dj_slctType = $("select[name='searchType_broad']").val();
             data.dj_searchText = tmp_searchText;
