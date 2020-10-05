@@ -35,7 +35,7 @@ var search_exchange_state = [
     , new COMMON_CODE('all', '', '처리상태(전체)')
     , new COMMON_CODE('wait', '0', '미처리')
     , new COMMON_CODE('ok', '1', '완료')
-    , new COMMON_CODE('reject', '2', '불가')
+    , new COMMON_CODE('reject', '2', '취소')
 ]
 
 var exchange_sort = [
