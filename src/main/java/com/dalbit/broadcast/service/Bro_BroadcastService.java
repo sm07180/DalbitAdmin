@@ -3,10 +3,8 @@ package com.dalbit.broadcast.service;
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
 import com.dalbit.broadcast.vo.procedure.*;
 import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.ImageVo;
-import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.PagingVo;
-import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.common.dao.CommonDao;
+import com.dalbit.common.vo.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
@@ -34,6 +32,8 @@ public class Bro_BroadcastService {
     Bro_BroadcastDao bro_BroadcastDao;
     @Autowired
     Mem_MemberDao mem_MemberDao;
+    @Autowired
+    CommonDao commonDao;
     @Autowired
     MessageUtil messageUtil;
     @Autowired
@@ -92,6 +92,26 @@ public class Bro_BroadcastService {
         String year = DalbitUtil.getDate("yyyy");
 
         for(int i=0;i < broadList.size(); i++){
+
+//            fanBadgeList   주간/일간 탑DJ/팽 1,2,3
+            HashMap fanBadgeMap = new HashMap();
+            fanBadgeMap.put("mem_no", broadList.get(i).getDj_mem_no());
+            fanBadgeMap.put("type", -1);
+            List fanBadgeList = commonDao.callMemberBadgeSelect(fanBadgeMap);
+            broadList.get(i).setFanBadgeList(fanBadgeList);
+
+//            liveBadgeList    실시간1,2,3 / 회장,부회장,사장,부장,팀장
+            HashMap liveBadgeMap = new HashMap();
+            liveBadgeMap.put("mem_no", broadList.get(i).getDj_mem_no());
+            liveBadgeMap.put("type", -1);
+            List liveBadgeList = commonDao.callLiveBadgeSelect(liveBadgeMap);
+            for(int j = (liveBadgeList.size() -1); j > -1; j--){
+                if(DalbitUtil.isEmpty(((FanBadgeVo)liveBadgeList.get(j)).getIcon())){
+                    liveBadgeList.remove(j);
+                }
+            }
+            broadList.get(i).setLiveBadgeList(liveBadgeList);
+
             if(DalbitUtil.isEmpty(broadList.get(i).getDj_nickname())){
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getDj_mem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
@@ -429,8 +449,26 @@ public class Bro_BroadcastService {
         ArrayList<P_LiveListenerListOutputVo> liveListenerList = bro_BroadcastDao.callLiveListenerList(procedureVo);
         P_LiveListenerListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_LiveListenerListOutputVo.class);
 
+        for(int i=0;i<liveListenerList.size();i++) {
+//            fanBadgeList   주간/일간 탑DJ/팽 1,2,3
+            HashMap fanBadgeMap = new HashMap();
+            fanBadgeMap.put("mem_no", liveListenerList.get(i).getMemNo());
+            fanBadgeMap.put("type", -1);
+            List fanBadgeList = commonDao.callMemberBadgeSelect(fanBadgeMap);
+            liveListenerList.get(i).setFanBadgeList(fanBadgeList);
 
-
+//            liveBadgeList    실시간1,2,3 / 회장,부회장,사장,부장,팀장
+            HashMap liveBadgeMap = new HashMap();
+            liveBadgeMap.put("mem_no", liveListenerList.get(i).getMemNo());
+            liveBadgeMap.put("type", -1);
+            List liveBadgeList = commonDao.callLiveBadgeSelect(liveBadgeMap);
+            for (int j = (liveBadgeList.size() - 1); j > -1; j--) {
+                if (DalbitUtil.isEmpty(((FanBadgeVo) liveBadgeList.get(j)).getIcon())) {
+                    liveBadgeList.remove(j);
+                }
+            }
+            liveListenerList.get(i).setLiveBadgeList(liveBadgeList);
+        }
         String result = "";
         if(liveListenerList.size() > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송청취자목록보기_성공, liveListenerList, new PagingVo(procedureVo.getRet()),summary));

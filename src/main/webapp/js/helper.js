@@ -350,3 +350,18 @@ Handlebars.registerHelper('getCommonCodeSelectForName', function(code, targetCod
 Handlebars.registerHelper('renderSlct', function(type, size){
     return util.renderSlct(type,size);
 });
+
+
+Handlebars.registerHelper("getBadgeList", function(value, divWidth, divHeight, radius, imgWidth, imgHeight){
+    console.log("--------------------------------------");
+    console.log(value);
+    var tmp = "";
+    for(var i=0;i<value.length;i++){
+        tmp = tmp + util.getMemberBadge(value[i].startColor, value[i].endColor, value[i].icon, value[i].text, divWidth, divHeight, radius, imgWidth, imgHeight );
+    }
+    return tmp;
+});
+
+Handlebars.registerHelper("getBadge", function(startColor, endColor, icon, text, divWidth, divHeight, radius, imgWidth, imgHeight){
+    return util.getMemberBadge(startColor, endColor, icon, text, divWidth, divHeight, radius, imgWidth, imgHeight);
+});

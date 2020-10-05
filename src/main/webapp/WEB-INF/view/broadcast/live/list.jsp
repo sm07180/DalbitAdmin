@@ -184,6 +184,9 @@
     var dtList_info_data = function (data) {
         var slctType = $('input[name="searchRadio"]:checked').val();
         data.slctType = slctType;
+        console.log("---------------------------- slctType");
+        console.log(slctType);
+
         if(slctType == "1"){      // DJ정보
             data.dj_slctType = $("select[name='searchType_broad']").val();
             data.dj_searchText = tmp_searchText;
@@ -284,7 +287,6 @@
     }
 
     function summary_table(json){
-        // dalbitLog(json);
         var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
@@ -296,7 +298,11 @@
 
         if(liveState == 1) {
             $("#selJoinDate").hide();
-            $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+            if(json.code != "C006"){
+                $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+            }else{
+                $("#tab_liveList").text("실시간 방송(0)");
+            }
         }else{
             $("#selJoinDate").hide();
             if(liveState == 2){

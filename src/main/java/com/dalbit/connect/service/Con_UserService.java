@@ -2,15 +2,14 @@ package com.dalbit.connect.service;
 
 
 import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.PagingVo;
-import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.common.vo.StatVo;
+import com.dalbit.common.dao.CommonDao;
+import com.dalbit.common.vo.*;
 import com.dalbit.connect.dao.Con_UserDao;
 import com.dalbit.connect.vo.procedure.P_ConnectNonBroadOutDetailVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentInputVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentOutputVo;
 import com.dalbit.connect.vo.procedure.P_UserTotalOutDetailVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -33,6 +32,8 @@ public class Con_UserService {
     GsonUtil gsonUtil;
     @Autowired
     Con_UserDao con_UserDao;
+    @Autowired
+    CommonDao commonDao;
 
     /**
      * 현재 접속자 통계 총계
@@ -71,6 +72,27 @@ public class Con_UserService {
         ProcedureVo procedureVo2 = new ProcedureVo(pUserCurrentInputVo);
         con_UserDao.callCurrentLiveSummary(procedureVo2);
         P_ConnectNonBroadOutDetailVo detailList = new Gson().fromJson(procedureVo2.getExt(), P_ConnectNonBroadOutDetailVo.class);
+
+        for(int i=0;i<currentList.size();i++) {
+//            fanBadgeList   주간/일간 탑DJ/팽 1,2,3
+            HashMap fanBadgeMap = new HashMap();
+            fanBadgeMap.put("mem_no", currentList.get(i).getMem_no());
+            fanBadgeMap.put("type", -1);
+            List fanBadgeList = commonDao.callMemberBadgeSelect(fanBadgeMap);
+            currentList.get(i).setFanBadgeList(fanBadgeList);
+
+//            liveBadgeList    실시간1,2,3 / 회장,부회장,사장,부장,팀장
+            HashMap liveBadgeMap = new HashMap();
+            liveBadgeMap.put("mem_no", currentList.get(i).getMem_no());
+            liveBadgeMap.put("type", -1);
+            List liveBadgeList = commonDao.callLiveBadgeSelect(liveBadgeMap);
+            for (int j = (liveBadgeList.size() - 1); j > -1; j--) {
+                if (DalbitUtil.isEmpty(((FanBadgeVo) liveBadgeList.get(j)).getIcon())) {
+                    liveBadgeList.remove(j);
+                }
+            }
+            currentList.get(i).setLiveBadgeList(liveBadgeList);
+        }
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +27,6 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int recommBadge;
     private int popularBadge;
     private int newjdBadge;
-    private int specialdj_badge;
     private int state;
     private Date start_date;
     private String startDateFormat;
@@ -61,6 +61,18 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int inner;
     private int freezeMsg;
 
+    /* 회원 배지 */
+    private int day_badge;
+    private int week_badge;
+    private int month_badge;
+    private int recomm_badge;
+    private int newdj_badge;
+    private int new_badge;
+    private int specialdj_badge;
+    private int admin_badge;
+
+    List fanBadgeList;
+    List liveBadgeList;
 
     /* summary */
     private int totalBroadCastCnt;
