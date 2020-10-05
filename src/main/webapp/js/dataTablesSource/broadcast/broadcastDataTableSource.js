@@ -22,10 +22,10 @@ var BroadcastDataTableSource = {
             {'title': '보유뱃지', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     for(var i=0;i<row.fanBadgeList.length;i++){
-                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, row.fanBadgeList[i].icon, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
+                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
                     }
                     for(var i=0;i<row.liveBadgeList.length;i++) {
-                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, row.liveBadgeList[i].icon, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
+                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
 
                     if(row.recommBadge == "1"){
@@ -160,10 +160,10 @@ var BroadcastDataTableSource = {
             {'title': '보유뱃지', 'data': 'tag','width' : '80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     for(var i=0;i<row.fanBadgeList.length;i++){
-                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, row.fanBadgeList[i].icon, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
+                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
                     }
                     for(var i=0;i<row.liveBadgeList.length;i++) {
-                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, row.liveBadgeList[i].icon, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
+                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
 
                     if(row.recommBadge == "1"){
@@ -648,10 +648,10 @@ var BroadcastDataTableSource = {
             {'title': '보유뱃지', 'data': 'tag','width' : '80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     for(var i=0;i<row.fanBadgeList.length;i++){
-                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, row.fanBadgeList[i].icon, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
+                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
                     }
                     for(var i=0;i<row.liveBadgeList.length;i++) {
-                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, row.liveBadgeList[i].icon, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
+                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
 
                     if(row.recommBadge == "1"){
@@ -730,10 +730,10 @@ var BroadcastDataTableSource = {
             {'title': '보유뱃지', 'data': 'tag','width' : '80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     for(var i=0;i<row.fanBadgeList.length;i++){
-                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, row.fanBadgeList[i].icon, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
+                        tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
                     }
                     for(var i=0;i<row.liveBadgeList.length;i++) {
-                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, row.liveBadgeList[i].icon, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
+                        tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
 
                     if(row.recommBadge == "1"){
