@@ -106,7 +106,7 @@ var inforex_bank_code = [
 ]
 
 var exchange_cancel_type = [
-    new COMMON_CODE(null, 'send_type', '환전불가 사유')
+    new COMMON_CODE(null, 'send_type', '환전취소 사유')
     , new COMMON_CODE('0', '0', '미선택')
     , new COMMON_CODE('1', '1', '증빙서류 화질문제')
     , new COMMON_CODE('2', '2', '미비한 증빙서류 ')

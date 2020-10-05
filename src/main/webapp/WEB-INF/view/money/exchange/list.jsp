@@ -73,7 +73,7 @@
 
                             <c:if test="${fn:contains('|이재은|이형원|전유신|강다인|고병권|이재호|양효진|최계석|손우걸|', principal.getUserInfo().getName())}">
                                 <li class="_tab ml15">
-                                    <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">불가내역</a>
+                                    <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">취소내역</a>
                                 </li>
                             </c:if>
 
@@ -514,7 +514,7 @@
     });
 
     $(document).on('click', '._rejectBtn', function(){
-        if(confirm('불가처리 하시겠습니까?\n불가처리 시 환전 신청한 별 수가 반환됩니다.')){
+        if(confirm('취소처리 하시겠습니까?\n취소처리 시 환전 신청한 별 수가 반환됩니다.')){
             var data = $("#exchangeForm").serialize();
             data += '&state=2';
             util.getAjaxData("reject", "/rest/money/exchange/complete", data, fn_succ_complete);
@@ -765,7 +765,7 @@
                         <td colspan="4" style="height: 5px;"></td>
                     </tr>
                     <tr>
-                        <th>처리불가</th>
+                        <th>환전취소</th>
                         <td><span class="_summary_special_6">0</span>건</td>
                         <!-- 양과장님 요청으로 수치 표현 안함 -->
                         <!--<td><span class="_summary_special_7">0</span>원</td>
@@ -816,7 +816,7 @@
                         <td colspan="4" style="height: 5px;"></td>
                     </tr>
                     <tr>
-                        <th>처리불가</th>
+                        <th>환전취소</th>
                         <td><span class="_summary_user_6">0</span>건</td>
                         <!-- 양과장님 요청으로 수치 표현 안함 -->
                         <!--<td><span class="_summary_special_7">0</span>원</td>
@@ -828,10 +828,10 @@
                 </table>
             </div>
             <div class="col-lg-6 no-padding">
-                <label>ㆍ환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</label><br/>
+                <label>ㆍ환전완료 정보를 확인하고, 환전 취소 회원에 대한 응대를 할 수 있습니다.</label><br/>
                 <label>ㆍ경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</label><br/>
-                <label>ㆍ[SMS발송] 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
-                <label>ㆍ환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</label>
+                <label>ㆍ[SMS발송] 후 [최종완료], [환전취소] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
+                <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
             </div>
         </div>
         <div class="col-md-12">
@@ -1126,7 +1126,7 @@
                                         <td colspan="3">
                                             <input type="hidden" id="send_title" name="send_title">
                                             {{{getCommonCodeSelect detail.send_type 'exchange_cancel_type'}}} <label id="label_send_title">{{detail.send_title}}</label>
-                                            <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 불가 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
+                                            <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 취소 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
                                         </td>
                                     </tr>
 
@@ -1240,7 +1240,7 @@
                     {{#equal detail.state '0'}}
                         {{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}
                             <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
-                            <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
+                            <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 취소</button>
                             <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
                         {{else}}
                             <span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>
@@ -1252,7 +1252,7 @@
                     {{/equal}}
 
                     {{#equal detail.state '2'}}
-                        <span class="exchange_reject_txt">불가처리 되었습니다.</span>
+                        <span class="exchange_reject_txt">취소처리 되었습니다.</span>
                     {{/equal}}
 
                 </div>
@@ -1348,7 +1348,7 @@
     {{/each}}
 </script>
 
-<!-- 불가목록 -->
+<!-- 취소목록 -->
 <script type="text/x-handlebars-template" id="tmp_rejectTable">
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
