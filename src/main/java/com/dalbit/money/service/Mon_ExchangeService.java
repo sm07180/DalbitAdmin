@@ -397,7 +397,7 @@ public class Mon_ExchangeService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
                 pPushInsertVo.setSlct_push("2");
-                pPushInsertVo.setPush_slct("63");   //환전 불가
+                pPushInsertVo.setPush_slct("63");   //환전 취소
 //                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
 //                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
                 pPushInsertVo.setSend_title(monExchangeOutputVo.getSend_title());
@@ -405,7 +405,7 @@ public class Mon_ExchangeService {
                 pPushInsertVo.setImage_type("101");
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){
-                log.error("[PUSH 발송 실패 - 환전 불가]");
+                log.error("[PUSH 발송 실패 - 환전 취소]");
             }
 
         }

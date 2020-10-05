@@ -43,7 +43,7 @@
                     <th class="_bgColor" data-bgColor="##bfbfbf">무료 지급 달</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">사용 달</th>
                     <th class="_bgColor" data-bgColor="#8faadc">잔여 달</th>
-                    <th class="_bgColor" data-bgColor="#f4b183">총 획득 별<br/>(아이템+무료+환전불가)</th>
+                    <th class="_bgColor" data-bgColor="#f4b183">총 획득 별<br/>(아이템+무료+환전취소)</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">무료지급 별</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">교환</th>
                     <th class="_bgColor" data-bgColor="##bfbfbf">환전승인</th>

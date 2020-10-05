@@ -44,7 +44,7 @@
         }else if(type == "15"){
             $("#sp_type").text("테스트 회수");
         }else if(type == "16"){
-            $("#sp_type").text("환전 불가");
+            $("#sp_type").text("환전 취소");
         }else if(type == "17"){
             $("#sp_type").text("환전 승인");
         }
@@ -60,7 +60,7 @@
         // data-type="5"  레벨업 보상
         // data-type="11" 아이템 선물(비밀선물)
         // data-type="9"  이벤트 지급(운영자 지급)
-        // data-type="16" 환전 불가
+        // data-type="16" 환전 취소
         // data-type="8"  소실금액 복구(운영자 지급)
         // data-type="10" 테스트 지급
         // data-type="17" 환전승인
@@ -73,7 +73,7 @@
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_detail);
         } else if(type == "11" ){                       // 아이템 선물(비밀선물)
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_giftList);
-        } else if(type == "16" || type == "17" ){       // 환전 불가, 환전 승인
+        } else if(type == "16" || type == "17" ){       // 환전 취소, 환전 승인
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_exchange);
         } else if(type == "3" ){                        // 교환
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolDec_change);

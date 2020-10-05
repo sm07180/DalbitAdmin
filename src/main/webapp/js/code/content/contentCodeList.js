@@ -149,7 +149,7 @@ var push_push_slct = [
     , new COMMON_CODE('60', '60', '1:1 문의 답변')
     , new COMMON_CODE('61', '61', '운영자 선물 수신')
     , new COMMON_CODE('62', '62', '환전 완료')
-    , new COMMON_CODE('63', '63', '환전 불가')
+    , new COMMON_CODE('63', '63', '환전 취소')
     , new COMMON_CODE('92', '92', '운영자(회원 + 비회원)')
     , new COMMON_CODE('93', '93', '운영자(회원)')
     , new COMMON_CODE('94', '94', '운영자(비회원)')
