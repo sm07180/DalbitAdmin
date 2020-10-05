@@ -284,7 +284,6 @@
     }
 
     function summary_table(json){
-        // dalbitLog(json);
         var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
@@ -296,7 +295,11 @@
 
         if(liveState == 1) {
             $("#selJoinDate").hide();
-            $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+            if(json.code != "C006"){
+                $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
+            }else{
+                $("#tab_liveList").text("실시간 방송(0)");
+            }
         }else{
             $("#selJoinDate").hide();
             if(liveState == 2){

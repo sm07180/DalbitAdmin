@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,6 +31,17 @@ public class P_LiveListenerListOutputVo extends PagingVo {
     private int giftCnt;
     private int boosterCnt;
     private int inner;
+
+    private int day_badge;
+    private int week_badge;
+    private int month_badge;
+    private int recomm_badge;
+    private int newdj_badge;
+    private int new_badge;
+    private int specialdj_badge;
+    private int admin_badge;
+    List fanBadgeList;
+    List liveBadgeList;
 
     /* summary */
     private int aosCnt;

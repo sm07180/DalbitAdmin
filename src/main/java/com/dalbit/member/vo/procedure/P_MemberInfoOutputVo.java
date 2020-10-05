@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -51,6 +52,10 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String lastOpName;
     private String memWithdrawal;
     private String last_upd_date;       // 탈퇴일시
+
+    List fanBadgeList;
+    List liveBadgeList;
+
 
     private int op_code_2_cnt;   // 경고
     private int op_code_3_cnt;   // 1일 정지

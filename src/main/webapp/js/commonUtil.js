@@ -688,3 +688,17 @@ util.serializeToJson = function(form){
     }finally  {}
     return obj;
 }
+
+
+util.getMemberBadge = function(startColor,endColor,icon,text, divWidth, divHeight, radius, imgWidth, imgHeight){
+    var result;
+    result = '<div class="pull-left" style="margin:2px;display:table;width:' + divWidth + ';height:' +divHeight+ ';border-radius:' + radius + 'px ' + radius + 'px ' + radius + 'px;background: linear-gradient(to right, ' + startColor + ', ' + endColor + ');">';
+    result +=   '<div style="display:table-cell;vertical-align: middle; text-align: center">';
+    if(!common.isEmpty(icon)){
+        result +=       '<img style="width: ' + imgWidth + ';height: ' + imgHeight + ';" src="' + icon + '">';
+    }
+    result +=   '<span style="color: white; font-size: ' +(radius + 1)+ 'px">' + text + '</span>';
+    result +=   '</div>';
+    result +='</div>';
+    return result;      // euc-kr
+}
