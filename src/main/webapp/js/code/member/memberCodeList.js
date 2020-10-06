@@ -246,3 +246,9 @@ var mem_wallet_byeol_code = [
     , new COMMON_CODE('22', '22', '스페셜DJ혜택')
     , new COMMON_CODE('23', '23', '이벤트 지급(어드민)')
 ];
+
+var slctWalletDateType = [
+    new COMMON_CODE('', 'slctWalletDateType', '달/별기간선택')
+    , new COMMON_CODE('0', '0', '기간선택(전체)')
+    , new COMMON_CODE('1', '1', '선물 일시')
+];
