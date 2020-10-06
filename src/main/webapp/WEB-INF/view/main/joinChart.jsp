@@ -3,23 +3,25 @@
 
 <!--방송건수 차트-->
 <div class="widget row">
-    <div class="widget-content">
-        <!-- end chart tab nav -->
-        <div class="col-md-8 no-padding">
-            <div id='barArea'></div>
-        </div>
-        <div class="col-md-4 no-padding">
-            <div id='pieArea'></div>
-        </div>
-        <div class="col-md-6 no-padding">
-            <div id='pieArea2'></div>
-        </div>
-        <div class="col-md-6 no-padding">
-            <div id='pieArea3'></div>
-        </div>
-        <!-- end chart placeholder-->
-        <hr class="separator">
+    <!-- end chart tab nav -->
+    <div class="col-md-8 no-padding">
+        <span class="font-bold mt5">* 플랫폼별(가입)</span>
+        <div id='barArea'></div>
     </div>
+    <div class="col-md-4 no-padding">
+        <span class="font-bold mt5">* 플랫폼별(가입)</span>
+        <div id='pieArea'></div>
+    </div>
+    <div class="col-md-8 no-padding">
+        <span class="font-bold mt5">* 성별(가입)</span>
+        <div id='pieArea2'></div>
+    </div>
+        <span class="font-bold mt5">* 연령별(가입)</span>
+    <div class="col-md-4 no-padding">
+        <div id='pieArea3'></div>
+    </div>
+    <!-- end chart placeholder-->
+    <hr class="separator">
 </div>
 
 <script type="text/javascript">
@@ -334,15 +336,6 @@
                         , detailData.totalInfo.google_join_total_cnt, detailData.totalInfo.kakao_join_total_cnt
                         , detailData.totalInfo.naver_join_total_cnt, detailData.totalInfo.phone_join_total_cnt
                         ];
-
-        console.log("-------------------------------------");
-        console.log(max_fbook);
-        console.log(max_google);
-        console.log(max_kakao);
-        console.log(max_naver);
-        console.log(max_phone);
-        console.log(max_apple);
-        console.log(max_y);
 
         var resultData = {
             x : arrayList_x

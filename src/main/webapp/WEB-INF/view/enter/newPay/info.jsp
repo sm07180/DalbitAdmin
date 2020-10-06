@@ -183,7 +183,6 @@
     function searchDate(dateType){
         if(_datePicker == 0){ //시간별 , 일간
             if(common.isEmpty(dateType)){
-                console.log("---------------------------- 1");
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
@@ -195,7 +194,6 @@
             }
         }else if(_datePicker == 1){ // 월간
             if(common.isEmpty(dateType)){
-                console.log("---------------------------- 2");
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
                 $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
                 $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
@@ -227,7 +225,6 @@
         toDay = week[moment($("#startDate").val()).add('days', days).day()];
         $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
         $("#endDate").val($("#startDate").val());
-        console.log("---------------------------- 3");
         $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
         $("#onedayDate").val($("#startDate").val());
     }
