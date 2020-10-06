@@ -491,7 +491,10 @@
         if(dataType == 2) {
             listSort(dst_id, response, param);
             // 방송 개설 성별, 방송 개설 연령
-            util.getAjaxData("broadcastDj", "/rest/status/broadcast/info/dj", data, fn_broadcastDj_success);
+            // util.getAjaxData("broadcastDj", "/rest/status/broadcast/info/dj", data, fn_broadcastDj_success);
+
+            // 방송개설/청취자 현황 성별/ 비중복 수치
+            util.getAjaxData("time", "/rest/status/newBroadcast/info/time", data, fn_listener_success);
         }
     }
 

@@ -6,15 +6,19 @@
     <div class="widget-content">
         <!-- end chart tab nav -->
         <div class="col-md-8 no-padding">
+            <span class="font-bold mt5">* 수단별(결제)</span>
             <div id='payWayBarChart'></div>
         </div>
         <div class="col-md-4 no-padding">
+            <span class="font-bold mt5">* 수단별(결제)</span>
             <div id='payWayPieChart'></div>
         </div>
-        <div class="col-md-6 no-padding">
+        <div class="col-md-8 no-padding">
+            <span class="font-bold mt5">* 성별(결제)</span>
             <div id='payGenderPieChart'></div>
         </div>
-        <div class="col-md-6 no-padding">
+        <div class="col-md-4 no-padding">
+            <span class="font-bold mt5">* 연령별(결제)</span>
             <div id='payAgePieChart'></div>
         </div>
         <%--<div class="col-md-6 no-padding">--%>
