@@ -9,7 +9,7 @@
     <li><a href="#fanBoardList" role="tab" data-toggle="tab" id="tab_fanBoardList">팬보드</a></li>
     <li><a href="#fanBoardReply" role="tab" data-toggle="tab" id="tab_fanBoardReply">팬보드댓글</a></li>
     <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">방송방공지</a></li>
-    <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">방송공지</a></li>
+    <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">회원공지</a></li>   <!-- 2020.10.06 방송공지 -> 회원공지 텍스트 변경(이상훈 과장님 요청) -->
     <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
     <li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->
 </ul>

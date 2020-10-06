@@ -20,6 +20,7 @@
                 , a.title
                 , a.last_upd_date
                 , a.contents
+                , a.image_path
                 , a.status
                 , a.op_name
           From rd_data.tb_member_broadcast_notice a

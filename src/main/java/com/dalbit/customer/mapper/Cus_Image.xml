@@ -214,4 +214,38 @@
     <select id="callClipList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryVo">
         call rd_admin.sp_admin_clip_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <sql id="noticeCondition">
+        <where>
+            a.image_path != '' and a.image_path is not null
+        </where>
+    </sql>
+
+    <select id="getNoticeHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="integer">
+        select count(*)
+        from rd_data.tb_member_broadcast_notice
+    </select>
+
+    <select id="getNoticeHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
+        select c.*
+        from (
+            select a.idx
+                , b.mem_no
+                , b.mem_nick
+                , b.mem_sex
+                , b.mem_birth_year
+                , b.inner
+                ,'-' as room_no
+                , a.title
+                , a.last_upd_date
+                , a.contents
+                , a.image_path
+                , a.status
+                , a.op_name
+              From rd_data.tb_member_broadcast_notice a
+                left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+        <include refid="noticeCondition"/>
+        ) as c
+        limit #{pageStart}, #{pageCnt}
+    </select>
 </mapper>

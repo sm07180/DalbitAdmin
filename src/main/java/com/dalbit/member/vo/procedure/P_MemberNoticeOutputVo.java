@@ -16,6 +16,7 @@ public class P_MemberNoticeOutputVo extends SearchVo {
     private String room_no;
     private String type;
     private String contents;
+    private String image_path;
     private Date last_upd_date;
     private String lastUpdDateFormat;
 
