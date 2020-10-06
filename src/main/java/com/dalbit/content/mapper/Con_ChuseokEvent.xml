@@ -95,6 +95,7 @@
             where ruby.type = 7
                 and ruby.use_contents like '%구매 보너스%'
                 <include refid="purchaseListCondition" />
+            order by ruby.idx desc
         )a
         WHERE rowNum BETWEEN #{searchStartNo, jdbcType=INTEGER} AND #{searchEndNo, jdbcType=INTEGER}
     </select>

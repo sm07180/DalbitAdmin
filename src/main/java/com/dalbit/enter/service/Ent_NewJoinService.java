@@ -159,15 +159,12 @@ public class Ent_NewJoinService {
         if(Integer.parseInt(procedureVo.getRet()) <= 0){
             return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
         }
-        ArrayList resultList = new ArrayList();
 
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);
         result.put("detailList", detailList);
 
-        resultList.add(result);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
     /**
