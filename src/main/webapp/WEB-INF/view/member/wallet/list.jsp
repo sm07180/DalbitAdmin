@@ -40,7 +40,6 @@
     var slct_type = 0;
     var sDate;
     var eDate;
-    var walletDataType ;
     function memberWalletList(tmp){
         walletType = 0;
         slct_type = 0;
@@ -51,7 +50,7 @@
             data.slct_type = slct_type;
             data.sDate = sDate;
             data.eDate = eDate;
-            data.walletDataType = walletDataType;
+            data.walletDataType = $("#slctWalletDateType").find("select").val();
 
         };
         var tmp_summary;
@@ -98,22 +97,22 @@
         var code;
 
         if(walletList_gubun == "dal" ){
-            topTable = '<span name="search_wallet_top" id="search_wallet_top" onchange="wallet_sel_change()"></span>';
-            topTable = topTable + '<span name="search_wallet_dalbyeol_top" id="search_wallet_dalbyeol_top" onchange="wallet_sel_change()"></span>';
+            topTable = '<span class="mr5" name="search_wallet_top" id="search_wallet_top" onchange="wallet_sel_change()"></span>';
+            topTable = topTable + '<span class="mr5" name="search_wallet_dalbyeol_top" id="search_wallet_dalbyeol_top" onchange="wallet_sel_change()"></span>';
             code = mem_wallet_dal_code;
         }else if(walletList_gubun == "byeol"){
-            topTable = '<span name="search_wallet_top" id="search_wallet_top" onchange="wallet_sel_change()"></span>';
-            topTable = topTable + '<span name="search_wallet_dalbyeol_top" id="search_wallet_dalbyeol_top" onchange="wallet_sel_change()"></span>';
+            topTable = '<span class="mr5" name="search_wallet_top" id="search_wallet_top" onchange="wallet_sel_change()"></span>';
+            topTable = topTable + '<span class="mr5" name="search_wallet_dalbyeol_top" id="search_wallet_dalbyeol_top" onchange="wallet_sel_change()"></span>';
             code = mem_wallet_byeol_code;
         }
-        topTable = topTable + '<span name="slctWalletDateType" id="slctWalletDateType" onchange="slctWalletDateType_change();"></span>';
-        topTable = topTable + '<div class="input-group date" id="rangeWalletDatepicker" style="display: none">';
+        topTable = topTable + '<span class="mr5" name="slctWalletDateType" id="slctWalletDateType" onchange="slctWalletDateType_change();"></span>';
+        topTable = topTable + '<div class="input-group date mr5" id="rangeWalletDatepicker" style="display: none">';
         topTable = topTable +   '<label for="displayWalletDate" class="input-group-addon">';
         topTable = topTable +       '<span><i class="fa fa-calendar"></i></span>';
         topTable = topTable +   '</label>';
         topTable = topTable +   '<input type="text" name="displayDate" id="displayWalletDate" class="form-control" />';
         topTable = topTable + '</div>';
-        topTable = topTable + '<button type="button" class="btn btn-success" id="bt_searchWallet" onclick="searchWallet_click();">검색</button>';
+        topTable = topTable + '<button type="button" class="btn btn-success mr5" id="bt_searchWallet" onclick="searchWallet_click();">검색</button>';
 
         $("#wallet_main_table").find(".top-left").addClass("no-padding").append(topTable);
 
@@ -155,6 +154,9 @@
         formData.append("mem_no", memNo);
         formData.append("walletType", walletType);
         formData.append("slct_type", slct_type);
+        formData.append("walletDataType", $("#slctWalletDateType").find("select").val());
+        formData.append("sDate", sDate);
+        formData.append("eDate", eDate);
 
         if(walletList_gubun == "dal" ){
             util.excelDownload($(this), "/rest/member/wallet/dal/excel", formData, fn_success_excel, fn_fail_excel)
@@ -184,12 +186,7 @@
     function searchWallet_click(){
         sDate = $("#startWalletDate").val();
         eDate = $("#endWalletDate").val();
-        walletDataType = $("#slctWalletDateType").find("select").val();
 
-        console.log("---------------------------------------");
-        console.log(sDate);
-        console.log(eDate);
-        console.log(walletDataType);
         if(walletList_gubun == "dal" ){
             dtList_info_detail.reload(dal_summary_table,true);
         }else if(walletList_gubun == "byeol"){
