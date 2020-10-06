@@ -49,10 +49,10 @@
                         slctType : 1
                     },
                     success: function(response) {
-                        console.log("-----------------------");
+                        console.log("[response] ------- /rest/enter/newJoin/info/calender -------");
                         console.log(response);
-                        response.data.forEach(function(info){
-                            info.detailList.forEach(function(detail, detailIndex) {
+                        if(!common.isEmpty(response.data.detailList)){
+                            response.data.detailList.forEach(function(detail, detailIndex) {
                                 var the_date = detail.the_date;
                                 var dayTarget = $('.fc-day[data-date="' + the_date + '"]').find('.fc-day-content');
                                 var template = $('#tmp_calendarData').html();
@@ -61,15 +61,14 @@
                                 var html = templateScript(context);
                                 dayTarget.append(html);
                             });
+                        }
 
-                            $("#totalTable").empty();
-                            var template = $('#tmp_totalTable').html();
-                            var templateScript = Handlebars.compile(template);
-                            var detailContext = info.totalInfo;
-                            var html=templateScript(detailContext);
-                            $("#totalTable").append(html);
-
-                        });
+                        $("#totalTable").empty();
+                        var template = $('#tmp_totalTable').html();
+                        var templateScript = Handlebars.compile(template);
+                        var detailContext = response.data.totalInfo;
+                        var html=templateScript(detailContext);
+                        $("#totalTable").append(html);
                         ui.paintColor();
                     }
                 });

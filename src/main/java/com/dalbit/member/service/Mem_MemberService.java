@@ -914,6 +914,13 @@ public class Mem_MemberService {
      * 법정대리인 동의 철회
      */
     public int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("법정대리인 동의정보 철회");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         return mem_MemberDao.updateRecant(pMemberParentsAgreeInputVo);
     }
 
@@ -921,6 +928,13 @@ public class Mem_MemberService {
      * 법정대리인 동의 복귀
      */
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         return mem_MemberDao.updateBackRecant(pMemberParentsAgreeInputVo);
     }
 
