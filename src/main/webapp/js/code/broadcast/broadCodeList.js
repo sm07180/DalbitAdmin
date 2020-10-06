@@ -64,6 +64,7 @@ var searchBroad_broad = [
     , new COMMON_CODE('broadTitle', '1', '방송제목')
     , new COMMON_CODE('welcomMsg', '2', '인사말')
     , new COMMON_CODE('broadNotie', '3', '방송중공지')
+    , new COMMON_CODE('roomNo', '4', '방송방번호')
 ];
 
 var state = [
