@@ -70,3 +70,10 @@ var receiptSearchType = [
     , new COMMON_CODE('rcpt_nm','rcpt_nm','이름')
     , new COMMON_CODE('receipt_ok_number','receipt_ok_number','승인번호')
 ]
+
+var slctPayMemberDateType = [
+    new COMMON_CODE(null, 'slctPayMemberDateType', '조회구분')
+    , new COMMON_CODE('0', '0', '날짜(전체)')
+    , new COMMON_CODE('1', '1', '시도일시')
+    , new COMMON_CODE('2', '2', '완료일시')
+];

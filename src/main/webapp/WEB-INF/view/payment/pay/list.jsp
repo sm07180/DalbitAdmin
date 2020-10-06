@@ -20,11 +20,11 @@
                                 <input type="text" name="displayDate" id="displayDate" class="form-control" />
                             </div>
 
-                            <input type="hidden" name="startDate" id="startDate">
-                            <input type="hidden" name="endDate" id="endDate" />
+                            <%--<input type="hidden" name="startDate" id="startDate">--%>
+                            <%--<input type="hidden" name="endDate" id="endDate" />--%>
 
-                            <%--<input name="startDate" id="startDate">--%>
-                            <%--<input name="endDate" id="endDate" />--%>
+                            <input name="startDate" id="startDate">
+                            <input name="endDate" id="endDate" />
 
 
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
@@ -58,6 +58,7 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
+        init();
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
@@ -145,12 +146,11 @@
         getPaySearch();
     });
 
-    init();
-
     function init(){
         txt_search = $('#txt_search').val();
         sDate = $("#startDate").val();
         eDate = $("#endDate").val();
+        memberDataType = 99;
         getPayList("payment");
     }
 
@@ -161,6 +161,7 @@
         txt_search = $('#txt_search').val();
         tmp_sDate = sDate;
         tmp_eDate = eDate;
+        memberDataType = 99;
         dtList_info_pay.reload(pay_listSummary);
     }
 

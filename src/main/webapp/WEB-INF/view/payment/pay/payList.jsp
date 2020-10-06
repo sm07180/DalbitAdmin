@@ -5,17 +5,27 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="top-left pull-left dataTable-div col-md-6 no-padding">
+        <div class="top-left pull-left dataTable-div col-md-8 no-padding">
             <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
             <div class="col-md-12 no-padding">
                 <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
                 <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
                 <label id="payWayArea" onchange="sel_change_payWayArea();"></label>
                 <label id="payInnerArea" onchange="sel_change_payInnerArea();" style="border: 1px solid #632beb"></label>
+                <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"<%-- style="display: none"--%>></span>
+                <div class="input-group date" id="rangeMemberDatepicker" style="display: none">
+                    <label for="displayMemberDate" class="input-group-addon">
+                        <span><i class="fa fa-calendar"></i></span>
+                    </label>
+                    <input type="text" name="displayDate" id="displayMemberDate" class="form-control" />
+                </div>
+                <input class="hide" name="startMemberDate" id="startMemberDate">
+                <input class="hide" name="endMemberDate" id="endMemberDate" />
+                <button type="button" class="btn btn-success" id="bt_searchMember" style="display: none">검색</button>
             </div>
         </div>
 
-        <div class="col-md-6 no-padding pull-right mb5">
+        <div class="col-md-4 no-padding pull-right mb5">
             <div class="pull-right">
                 <span id="pay_summaryArea2"></span>
             </div>
@@ -60,12 +70,32 @@
     var tmp_payWay = "all";
     var sDate;
     var eDate;
+    var memberDataType;
 
     $(document).ready(function() {
+        $("#slctDateType").html(util.getCommonCodeSelect(-1, slctPayMemberDateType));
+        $("#displayMemberDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startMemberDate").val(start.format('YYYY.MM.DD'));
+                $("#endMemberDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
     });
 
 
     function getPayList(tmp) {
+        if(tmp == "payment"){
+            $("#slctDateType").hide();
+            $("#rangeMemberDatepicker").hide();
+            $('#bt_searchMember').hide();
+        }else{
+            $("#slctDateType").show();
+            $('#bt_searchMember').show();
+            var dateTime = new Date();
+            dateTime = moment(dateTime).format("YYYY.MM.DD");
+            $("#startMemberDate").val(dateTime);
+            $("#endMemberDate").val(dateTime);
+        }
         var dtList_info_pay_data = function(data) {
             data.searchText = txt_search;                        // 검색명
             data.sDate = sDate;
@@ -74,6 +104,7 @@
             data.searchPayStatus = tmp_searchPayStatus;
             data.innerType = tmp_innerType;
             data.payWay = tmp_payWay;
+            data.memberDataType = memberDataType;
 
         };
         if(tmp == "payment"){
@@ -196,6 +227,25 @@
 
         util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
 
+    });
+
+    function seldateType_change(){
+        if($("#slctDateType").find("select").val() == 0){
+            sDate = "";
+            eDate = "";
+            $("#rangeMemberDatepicker").hide();
+        }else{
+            $("#rangeMemberDatepicker").show();
+        }
+    }
+
+    $('#bt_searchMember').click( function() {       //검색
+        sDate = $("#startMemberDate").val();
+        eDate = $("#endMemberDate").val();
+        memberDataType = $("#slctDateType").find("select").val();
+        console.log("------------ memberDataType");
+        console.log(memberDataType);
+        dtList_info_pay.reload(pay_listSummary);
     });
 
 
