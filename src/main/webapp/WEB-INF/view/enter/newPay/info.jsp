@@ -139,18 +139,23 @@
     });
 
     $(document).on('click', '._prevSearch', function(){
+        clickTab = false;
         searchDate('prev');
     });
 
     $(document).on('click', '._nextSearch', function(){
+        clickTab = false;
         searchDate('next');
     });
 
     $(document).on('click', '._todaySearch', function(){
+        clickTab = false;
         toDay = week[moment(new Date()).day()];
         changeDatepicker();
 
-        setTimeDate(dateTime);
+        if(_datePicker == 0) {
+            setTimeDate(dateTime);
+        }
     });
 
     var _datePicker = 0;

@@ -5,15 +5,19 @@
 <div class="widget row">
     <!-- end chart tab nav -->
     <div class="col-md-8 no-padding">
+        <span class="font-bold mt5">* 플랫폼별(접속)</span>
         <div id='loginBrowserBarChart'></div>
     </div>
     <div class="col-md-4 no-padding">
+        <span class="font-bold mt5">* 플랫폼별(접속)</span>
         <div id='loginBrowserPieChart'></div>
     </div>
-    <div class="col-md-6 no-padding">
+    <div class="col-md-8 no-padding">
+        <span class="font-bold mt5">* 성별(접속)</span>
         <div id='loginTotalChart'></div>
     </div>
-    <div class="col-md-6 no-padding">
+    <div class="col-md-4 no-padding">
+        <span class="font-bold mt5">* 연령별(접속)</span>
         <div id='loginAgeChart'></div>
     </div>
     <!-- end chart placeholder-->

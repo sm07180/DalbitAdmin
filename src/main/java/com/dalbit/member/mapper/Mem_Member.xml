@@ -60,7 +60,14 @@
     </select>
 
     <select id="callMemberInfo_badge" parameterType="String" resultType="java.util.HashMap">
-        select if(recomm_badge = 1, 1, 0) as recomm_badge, if(newdj_badge = 1, 1, 0) as newdj_badge, if(specialdj_badge = 1, 1, 0) as specialdj_badge
+        select if(day_badge = 1, 1, 0) as day_badge
+                , if(week_badge = 1, 1, 0) as week_badge
+                , if(month_badge = 1, 1, 0) as month_badge
+                , if(recomm_badge = 1, 1, 0) as recomm_badge
+                , if(newdj_badge = 1, 1, 0) as newdj_badge
+                , if(new_badge = 1, 1, 0) as new_badge
+                , if(specialdj_badge = 1, 1, 0) as specialdj_badge
+                , if(admin_badge = 1, 1, 0) as admin_badge
            from rd_data.tb_member_profile where mem_no=#{mem_no}
     </select>
 

@@ -29,6 +29,10 @@
             <if test='slct_type != null and slct_type != ""'>
                 AND `type` = #{slct_type}
             </if>
+            <if test="walletDataType != 0">
+                and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
+            </if>
         )
     </sql>
 
@@ -163,6 +167,10 @@
             </if>
             <if test='slct_type != null and slct_type != ""'>
                 AND a.gubun = #{slct_type}
+            </if>
+            <if test="walletDataType != 0">
+                and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
             </if>
         </where>
     </select>
@@ -305,6 +313,10 @@
                 <if test='slct_type != null and slct_type != ""'>
                     AND a.gubun = #{slct_type}
                 </if>
+                <if test="walletDataType != 0">
+                    and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                    and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
+                </if>
             </where>
             ORDER BY a.giftDate DESC
             limit  #{pageStart}, #{pageCnt}
@@ -339,6 +351,10 @@
         </if>
         <if test='slct_type != null and slct_type != ""'>
             AND `type` = #{slct_type}
+        </if>
+        <if test="walletDataType != 0">
+            and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+            and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
         </if>
         )
     </sql>
@@ -437,6 +453,10 @@
             </if>
             <if test='slct_type != null and slct_type != ""'>
                 AND a.gubun = #{slct_type}
+            </if>
+            <if test="walletDataType != 0">
+                and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
             </if>
         </where>
         ORDER BY a.giftDate DESC
@@ -542,6 +562,10 @@
                 </if>
                 <if test='slct_type != null and slct_type != ""'>
                     AND a.gubun = #{slct_type}
+                </if>
+                <if test="walletDataType != 0">
+                    and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                    and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
                 </if>
             </where>
             ORDER BY a.giftDate DESC

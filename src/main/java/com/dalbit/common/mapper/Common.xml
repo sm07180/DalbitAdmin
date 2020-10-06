@@ -59,4 +59,12 @@
     <select id="saveErrorLog" statementType="CALLABLE" parameterType="ProcedureVo" resultType="ProcedureVo">
       call rd_data.sp_log_error_data(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callMemberBadgeSelect" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="com.dalbit.common.vo.FanBadgeVo">
+      call rd_data.sp_member_badge_select(#{mem_no, mode=IN, jdbcType=INTEGER}, #{type, mode=IN, jdbcType=INTEGER})
+    </select>
+
+    <select id="callLiveBadgeSelect" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="com.dalbit.common.vo.FanBadgeVo">
+      call rd_data.sp_member_live_badge(#{mem_no, mode=IN, jdbcType=INTEGER}, #{type, mode=IN, jdbcType=INTEGER})
+    </select>
 </mapper>

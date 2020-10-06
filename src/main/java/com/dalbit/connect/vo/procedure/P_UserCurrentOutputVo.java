@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,6 +41,18 @@ public class P_UserCurrentOutputVo extends SearchVo {
     private String profile;
     private int listenCnt;
     private int listenTime;
+
+    private int day_badge;
+    private int week_badge;
+    private int month_badge;
+    private int recomm_badge;
+    private int newdj_badge;
+    private int new_badge;
+    private int specialdj_badge;
+    private int admin_badge;
+    List fanBadgeList;
+    List liveBadgeList;
+
 
     public void setConnectDate(Date connectDate){
         this.connectDate = connectDate;

@@ -8,6 +8,7 @@ import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.common.code.Code;
 import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.dao.CommonDao;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.*;
 import com.dalbit.content.service.PushService;
@@ -67,6 +68,8 @@ public class Mem_MemberService {
 
     @Autowired
     Bro_BroadcastService bro_broadcastService;
+    @Autowired
+    CommonDao commonDao;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -212,7 +215,26 @@ public class Mem_MemberService {
             memberInfo.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
             memberInfo.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
         }
-        
+
+        //            fanBadgeList   주간/일간 탑DJ/팽 1,2,3
+        HashMap fanBadgeMap = new HashMap();
+        fanBadgeMap.put("mem_no", pMemberInfoInputVo.getMem_no());
+        fanBadgeMap.put("type", -1);
+        List fanBadgeList = commonDao.callMemberBadgeSelect(fanBadgeMap);
+        memberInfo.setFanBadgeList(fanBadgeList);
+
+//            liveBadgeList    실시간1,2,3 / 회장,부회장,사장,부장,팀장
+        HashMap liveBadgeMap = new HashMap();
+        liveBadgeMap.put("mem_no", pMemberInfoInputVo.getMem_no());
+        liveBadgeMap.put("type", -1);
+        List liveBadgeList = commonDao.callLiveBadgeSelect(liveBadgeMap);
+        for (int j = (liveBadgeList.size() - 1); j > -1; j--) {
+            if (DalbitUtil.isEmpty(((FanBadgeVo) liveBadgeList.get(j)).getIcon())) {
+                liveBadgeList.remove(j);
+            }
+        }
+        memberInfo.setLiveBadgeList(liveBadgeList);
+
         //ip정보 및 device 정보
         //recentLoginInfo
         LoginHistoryVo loginHostory = mem_MemberDao.memberLoginHistory(pMemberInfoInputVo.getMem_no());
@@ -892,6 +914,13 @@ public class Mem_MemberService {
      * 법정대리인 동의 철회
      */
     public int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("법정대리인 동의정보 철회");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         return mem_MemberDao.updateRecant(pMemberParentsAgreeInputVo);
     }
 
@@ -899,6 +928,13 @@ public class Mem_MemberService {
      * 법정대리인 동의 복귀
      */
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+        pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀");
+        pMemberEditorVo.setType(0);
+
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         return mem_MemberDao.updateBackRecant(pMemberParentsAgreeInputVo);
     }
 

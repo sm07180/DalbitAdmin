@@ -64,12 +64,6 @@
         else
             response.data["icon_listeningState"] = '<i class="fa fa-volume-off" style="color: #000000;font-size:20px;"></i> ' + response.data.listeningState;
 
-        var tmp_badge = "";
-        if(response.data.recomm_badge == "1") tmp_badge = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span>';
-        if(response.data.newdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
-        if(response.data.specialdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
-        response.data["dj_badge"] = tmp_badge;
-
         if(response.data.age < 19){
             response.data["adultYn"] = "n";
         } else {
@@ -1019,9 +1013,6 @@
             <th>UserID</th>
             <td style="text-align: left" id="td_userid" data-userid="{{userId}}">
                 {{userId}}<br>
-                {{^equal dj_badge ''}}
-                <label class="pull-left pt5"> DJ타입 | {{{../dj_badge}}} </label>
-                {{/equal}}
             </td>
             <th>클립 등록</th>
             <td colspan="3"><a href="javascript: $('#tab_clipList').click();">{{addComma clipCnt}} 건</a></td>
@@ -1030,13 +1021,16 @@
         </tr>
         <tr>
             <th>닉네임</th>
-            <td style="text-align: left;border-right-color:white;border-right-width:0px;">
+            <td style="text-align: left;">
                 {{nickName}}
                 {{#equal memWithdrawal '0'}}
                 <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
                 {{/equal}}
             </td>
-            <td colspan="2"></td>
+            <%--<td colspan="2">--%>
+            <th>내/외국인</th>
+            <td style="text-align: left">{{local}}</td>
+            <%--</td>--%>
             <th>보유달</th>
             <td colspan="6" style="text-align: left;">
                 <span class="col-md-3 no-padding">
@@ -1071,8 +1065,24 @@
                 {{/equal}}
             </td>
 
-            <th>내/외국인</th>
-            <td style="text-align: left">{{local}}</td>
+            <th>보유뱃지</th>
+            <td style="text-align: left">
+                {{{getBadgeList fanBadgeList '100px' '20px' 10 '15px' '15px'}}}
+                {{{getBadgeList liveBadgeList '100px' '20px' 10 '15px' '15px'}}}
+
+                {{#dalbit_if recomm_badge '==' '1'}}
+                    {{{getBadge '#d943c1' '#d943c1' '' '추천' '100px' '20px' 10 '15px' '15px'}}}
+                {{/dalbit_if}}
+
+                {{#dalbit_if newdj_badge '==' '1'}}
+                    {{{getBadge '#d9c811' '#d9c811' '' '신입' '100px' '20px' 10 '15px' '15px'}}}
+                {{/dalbit_if}}
+
+                {{#dalbit_if specialdj_badge '==' '1'}}
+                    {{{getBadge 'red' 'red' '' '스패셜DJ' '100px' '20px' 10 '15px' '15px'}}}
+                {{/dalbit_if}}
+
+            </td>
             <th>보유별</th>
             <td colspan="6" style="text-align: left">
                 <span class="col-md-3 no-padding">
