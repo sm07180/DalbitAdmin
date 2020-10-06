@@ -20,7 +20,7 @@ Handlebars.registerHelper("stateName", function (state) {
     }else if(state == 1){
         return '<span style=color:blue;>완료</span>'
     }else if(state == 2){
-        return '<span style=color:red;>불가</span>'
+        return '<span style=color:red;>취소</span>'
     }
     
 });
