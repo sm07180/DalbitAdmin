@@ -58,6 +58,7 @@ var fnc_noticeList = {};
         var data = {
             'pageNo' : fnc_noticeList.pagingInfo.pageNo
             , 'pageCnt' : fnc_noticeList.pagingInfo.pageCnt
+            , 'searchText' : $('#txt_search').val()
         };
 
         util.getAjaxData(fnc_noticeList.targetId, "/rest/customer/image/notice/list", data, fnc_noticeList.fn_select_success, fnc_noticeList.fn_fail);
@@ -85,35 +86,13 @@ var fnc_noticeList = {};
     };
 
     // 삭제
-    fnc_profileList.deleteEvent= function() {
-        // var checkDatas = fnc_profileList.dtList_info.getCheckedData();
-        //
-        // if(checkDatas.length <= 0){
-        //     alert("삭제할 정보를 선택해주세요.");
-        //     return false;
-        // }
-        //
-        // dalbitLog(checkDatas);
-        // if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-        //
-        //     var itemCodes = "";
-        //     for(var idx=0; idx < checkDatas.length; idx++){
-        //         var dataInfo = checkDatas[idx];
-        //         if(common.isEmpty(dataInfo.item_code)){
-        //             dalbitLog("[delete] Item code does not exist. : ");
-        //             dalbitLog(dataInfo);
-        //             continue;
-        //         }
-        //
-        //         itemCodes += "," + dataInfo.item_code;
-        //     }
-        //     itemCodes = itemCodes.substring(1);
-        //
-        //     var data = new Object();
-        //     data.item_code = itemCodes;
-        //
-        //     util.getAjaxData(fnc_profileList.targetId, "/rest/content/item/profile/delete",data, fnc_profileList.fn_delete_success, fnc_profileList.fn_fail);
-        // };
+    fnc_noticeList.deleteEvent= function(dom) {
+        if(confirm("선택하신 회원 공지의 이미지를 삭제하시겠습니까?")) {
+            var data = {
+                idx : $(dom).data('idx')
+            }
+            util.getAjaxData("deleteNoticeImg", "/rest/customer/image/notice/imgDelete", data, fnc_noticeList.fn_delete_success, fnc_noticeList.fn_fail);
+        }
     };
 
     fnc_noticeList.fn_select_success= function(dst_id, response, dst_params){
@@ -135,11 +114,11 @@ var fnc_noticeList = {};
 
 
     // 삭제 성공 시
-    fnc_profileList.fn_update_success= function(dst_id, data, dst_params){
+    fnc_noticeList.fn_delete_success= function(dst_id, data, dst_params){
         alert(data.message);
 
         // reload
-        fnc_profileList.selectMainList();
+        fnc_noticeList.selectMainList();
     };
 
 
@@ -156,6 +135,17 @@ var fnc_noticeList = {};
     fnc_noticeList.selectMainList= function(){
         fnc_noticeList.initDataTable();
     };
+
+    // 공지제목 누르면 회원/방송공지 탭이 나오도록
+    function noticePop(memNo) {
+        var moveTabId = '';
+        if(!common.isEmpty(memNo)){
+            moveTabId = '&moveTabId=' + encodeURIComponent('tab_notice');
+        }
+
+        var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent(memNo) + moveTabId;
+        util.windowOpen(url, 1460, 825, 'memberInfo' + memNo);
+    }
 </script>
 
 
@@ -170,7 +160,7 @@ var fnc_noticeList = {};
             <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
             {{/dalbit_if}}
                 <div>
-                    <label>NO.{{indexDesc ../pagingVo.totalCnt data.rowNum}}</label>
+                    <label>NO.{{indexDesc ../../pagingVo.totalCnt data.rowNum}}</label>
                     {{#dalbit_if data.status '==' 1}}
                         <label class="pull-right" style="background-color: #fff7e5">공지상태 : <span style="color:red;">삭제</span></label>
                     {{/dalbit_if}}
@@ -183,19 +173,18 @@ var fnc_noticeList = {};
                     <img class="list-group-image thumbnailImg fullSize_background" style="width:360px; height:225px;" src="{{renderImage data.image_path}}" alt="" data-toggle="modal" data-target="#imgModal" />
                     <div class="caption">
                         <div class="action-buttons">
-                            <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_noticeList.updateData(this)"><i class="fa fa-times-circle"></i> 삭제</a>
+                            <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_noticeList.deleteEvent(this)" data-idx="{{data.idx}}"><i class="fa fa-times-circle"></i> 삭제</a>
                         </div>
                     </div>
                 </div>
                 <div>
                     <h3 class="inner list-group-item-heading broadcast_title">
-                        <a href="javascript://" class="_openClipInfoPop">
+                        <a href="javascript://" data-memno="{{data.mem_no}}" onclick="noticePop({{data.mem_no}});">
                             <h5>{{data.title}}</h5>
                         </a>
                     </h3>
                     <ul class="list-unstyled">
-                        <li>작성일시: {{data.last_upd_date}}
-                        </li>
+                        <li><strong>작성일시:</strong> <br />{{data.lastUpdDateFormat}}</li>
                         <li><strong>Nick:</strong> {{replaceHtml data.mem_nick}}</li>
                         <li><strong>No:</strong>
                             <a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}" >
