@@ -12,6 +12,10 @@
         <div class="widget-content">
             <label id="walletTitle"></label>
             <span id="table_wallet_summaryArea"></span>
+
+            <input type="hidden" name="startWalletDate" id="startWalletDate">
+            <input type="hidden" name="endWalletDate" id="endWalletDate" />
+
             <table id="wallet_info_detail" class="table table-sorting table-hover table-bordered datatable">
                 <thead id="tableTop_detail">
                 </thead>
@@ -34,6 +38,9 @@
     var walletList_gubun="dal";
     var walletType = 0;
     var slct_type = 0;
+    var sDate;
+    var eDate;
+    var walletDataType ;
     function memberWalletList(tmp){
         walletType = 0;
         slct_type = 0;
@@ -42,6 +49,10 @@
             data.mem_no = memNo;
             data.walletType = walletType;
             data.slct_type = slct_type;
+            data.sDate = sDate;
+            data.eDate = eDate;
+            data.walletDataType = walletDataType;
+
         };
         var tmp_summary;
         dtList_info_detail.destroy();
@@ -95,10 +106,31 @@
             topTable = topTable + '<span name="search_wallet_dalbyeol_top" id="search_wallet_dalbyeol_top" onchange="wallet_sel_change()"></span>';
             code = mem_wallet_byeol_code;
         }
+        topTable = topTable + '<span name="slctWalletDateType" id="slctWalletDateType" onchange="slctWalletDateType_change();"></span>';
+        topTable = topTable + '<div class="input-group date" id="rangeWalletDatepicker" style="display: none">';
+        topTable = topTable +   '<label for="displayWalletDate" class="input-group-addon">';
+        topTable = topTable +       '<span><i class="fa fa-calendar"></i></span>';
+        topTable = topTable +   '</label>';
+        topTable = topTable +   '<input type="text" name="displayDate" id="displayWalletDate" class="form-control" />';
+        topTable = topTable + '</div>';
+        topTable = topTable + '<button type="button" class="btn btn-success" id="bt_searchWallet" onclick="searchWallet_click();">검색</button>';
+
         $("#wallet_main_table").find(".top-left").addClass("no-padding").append(topTable);
 
         $("#search_wallet_top").html(util.getCommonCodeSelect(0, mem_wallet_code));
         $("#search_wallet_dalbyeol_top").html(util.getCommonCodeSelect(0, code));
+        $("#slctWalletDateType").html(util.getCommonCodeSelect(-1, slctWalletDateType));
+        $("#displayWalletDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startWalletDate").val(start.format('YYYY.MM.DD'));
+                $("#endWalletDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
+
+        var dateTime = new Date();
+        dateTime = moment(dateTime).format("YYYY.MM.DD");
+        $("#startWalletDate").val(dateTime);
+        $("#endWalletDate").val(dateTime);
     }
 
     function wallet_sel_change(){
@@ -139,6 +171,34 @@
         console.log("fn_fail_excel");
     }
     /*==================================*/
+
+    function slctWalletDateType_change(){
+        if($("#slctWalletDateType").find("select").val() == 0){
+            sDate = "";
+            eDate = "";
+            $("#rangeWalletDatepicker").hide();
+        }else{
+            $("#rangeWalletDatepicker").show();
+        }
+    }
+    function searchWallet_click(){
+        sDate = $("#startWalletDate").val();
+        eDate = $("#endWalletDate").val();
+        walletDataType = $("#slctWalletDateType").find("select").val();
+
+        console.log("---------------------------------------");
+        console.log(sDate);
+        console.log(eDate);
+        console.log(walletDataType);
+        if(walletList_gubun == "dal" ){
+            dtList_info_detail.reload(dal_summary_table,true);
+        }else if(walletList_gubun == "byeol"){
+            dtList_info_detail.reload(byeol_summary_table,true);
+        }
+    }
+    $('#bt_searchWallet').click( function() {       //검색
+
+    });
 
 </script>
 

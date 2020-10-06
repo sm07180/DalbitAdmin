@@ -12,15 +12,15 @@
                 <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
                 <label id="payWayArea" onchange="sel_change_payWayArea();"></label>
                 <label id="payInnerArea" onchange="sel_change_payInnerArea();" style="border: 1px solid #632beb"></label>
-                <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"<%-- style="display: none"--%>></span>
+                <span name="slctDateType" id="slctDateType" onchange="seldateType_change();" style="display: none"></span>
                 <div class="input-group date" id="rangeMemberDatepicker" style="display: none">
                     <label for="displayMemberDate" class="input-group-addon">
                         <span><i class="fa fa-calendar"></i></span>
                     </label>
                     <input type="text" name="displayDate" id="displayMemberDate" class="form-control" />
                 </div>
-                <input class="hide" name="startMemberDate" id="startMemberDate">
-                <input class="hide" name="endMemberDate" id="endMemberDate" />
+                <input type="hidden" name="startMemberDate" id="startMemberDate">
+                <input type="hidden" name="endMemberDate" id="endMemberDate" />
                 <button type="button" class="btn btn-success" id="bt_searchMember" style="display: none">검색</button>
             </div>
         </div>
@@ -243,8 +243,6 @@
         sDate = $("#startMemberDate").val();
         eDate = $("#endMemberDate").val();
         memberDataType = $("#slctDateType").find("select").val();
-        console.log("------------ memberDataType");
-        console.log(memberDataType);
         dtList_info_pay.reload(pay_listSummary);
     });
 

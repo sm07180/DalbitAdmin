@@ -20,11 +20,11 @@
                                 <input type="text" name="displayDate" id="displayDate" class="form-control" />
                             </div>
 
-                            <%--<input type="hidden" name="startDate" id="startDate">--%>
-                            <%--<input type="hidden" name="endDate" id="endDate" />--%>
+                            <input type="hidden" name="startDate" id="startDate">
+                            <input type="hidden" name="endDate" id="endDate" />
 
-                            <input name="startDate" id="startDate">
-                            <input name="endDate" id="endDate" />
+                            <%--<input name="startDate" id="startDate">--%>
+                            <%--<input name="endDate" id="endDate" />--%>
 
 
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
