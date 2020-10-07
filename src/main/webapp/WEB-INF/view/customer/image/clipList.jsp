@@ -57,9 +57,10 @@ var fnc_clipList = {};
 
     fnc_clipList.initDataTable= function() {
         var data = {
-            pageNo : fnc_clipList.pagingInfo.pageNo
-            , pageCnt : fnc_clipList.pagingInfo.pageCnt
-            , orderByType : 6
+            'pageNo' : fnc_clipList.pagingInfo.pageNo
+            , 'pageCnt' : fnc_clipList.pagingInfo.pageCnt
+            , 'orderByType' : 6
+            , 'searchText' : $('#txt_search').val()
         };
 
         util.getAjaxData(fnc_clipList.targetId, "/rest/customer/image/clip/list", data, fnc_clipList.fn_select_success, fnc_clipList.fn_fail);
@@ -189,14 +190,14 @@ var fnc_clipList = {};
             <div>
                 <label>NO.{{indexDesc ../pagingVo.totalCnt clip.rowNum}}</label>
                 {{#dalbit_if clip.state '!=' 1}}
-                <label class="pull-right" style="background-color: #fff7e5">상태 : <span style="color:red;">삭제</span></label>
+                <label class="pull-right" style="background-color: #fff7e5">클립상태 : <span style="color:red;">삭제</span></label>
                 {{/dalbit_if}}
                 {{#dalbit_if clip.state '==' 1}}
                     {{#dalbit_if clip.hide '==' 1}}
-                <label class="pull-right" style="background-color: #fff7e5">상태 : <span style="color:blue;">숨김</span></label>
+                <label class="pull-right" style="background-color: #fff7e5">클립상태 : <span style="color:blue;">숨김</span></label>
                     {{/dalbit_if}}
                     {{#dalbit_if clip.hide '==' 0}}
-                        <label class="pull-right" style="background-color: #fff7e5">상태 : 정상</label>
+                        <label class="pull-right" style="background-color: #fff7e5">클립상태 : 정상</label>
                     {{/dalbit_if}}
                 {{/dalbit_if}}
             </div>

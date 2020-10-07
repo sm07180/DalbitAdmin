@@ -31,11 +31,13 @@
                 <li class="active"><a href="#profileList" role="tab" data-toggle="tab" id="tab_profileList" onclick="onClickHeaderTab(this.id)">프로필</a></li>
                 <li><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송방 배경</a></li>
                 <li><a href="#clipList" role="tab" data-toggle="tab" id="tab_clipList" onclick="onClickHeaderTab(this.id)">클립</a></li>
+                <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList" onclick="onClickHeaderTab(this.id)">회원공지</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="profileList"><jsp:include page="/WEB-INF/view/customer/image/profileList.jsp"/></div>     <!-- 프로필 -->
                 <div class="tab-pane fade" id="broadcastList"><jsp:include page="/WEB-INF/view/customer/image/broadcastList.jsp"/></div>          <!-- 방송방 배경 -->
                 <div class="tab-pane fade" id="clipList"><jsp:include page="/WEB-INF/view/customer/image/clipList.jsp"/></div>                       <!-- 클립 -->
+                <div class="tab-pane fade" id="noticeList"><jsp:include page="/WEB-INF/view/customer/image/noticeList.jsp"/></div>                       <!-- 회원공지 -->
             </div>
         </div>
     </div>

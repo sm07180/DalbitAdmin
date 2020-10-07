@@ -17,8 +17,13 @@ import com.dalbit.customer.vo.procedure.P_ImageBroadcastListOutputVo;
 import com.dalbit.customer.vo.procedure.P_ImageProfileListInputVo;
 import com.dalbit.customer.vo.procedure.P_ImageProfileListOutputVo;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.service.Mem_MemberService;
+import com.dalbit.member.vo.MemberNoticeImgDeleteVo;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberEditorVo;
+import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
+import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -28,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 
@@ -256,5 +262,45 @@ public class Cus_ImageService {
             e.printStackTrace();
             throw new GlobalException(ErrorStatus.서버처리중오류);
         }
+    }
+
+    /**
+     * notice image 리스트 조회
+     */
+    public String getNoticeHistory(P_MemberNoticeInputVo pMemberNoticeInputVo) {
+        pMemberNoticeInputVo.setMem_no(MemberVo.getMyMemNo());
+        String result;
+
+        try {
+            int totalCnt = cusImageDao.getNoticeHistory_totalCnt(pMemberNoticeInputVo);
+            pMemberNoticeInputVo.setTotalCnt(totalCnt);
+            ArrayList<P_MemberNoticeOutputVo> noticeList = cusImageDao.getNoticeHistory(pMemberNoticeInputVo);
+            if(noticeList.size() > 0 && noticeList !=null ) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(pMemberNoticeInputVo.getTotalCnt())));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+            }
+        } catch(Exception e) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+        return result;
+    }
+
+    /**
+     * notice image 삭제
+     */
+    public String deleteNoticeImg(MemberNoticeImgDeleteVo memberNoticeImgDeleteVo) {
+        memberNoticeImgDeleteVo.setOp_name(MemberVo.getMyMemNo());
+        String result="";
+
+        if(!DalbitUtil.isEmpty(memberNoticeImgDeleteVo.getIdx())) {
+            int state = cusImageDao.deleteNoticeImg(memberNoticeImgDeleteVo);
+            if(state > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+            }
+        }
+        return result;
     }
 }

@@ -12,4 +12,6 @@ public class P_MemberNoticeInputVo extends SearchVo {
     private String sDate;
     private String eDate;
     private int status;
+
+    private String searchText;
 }
