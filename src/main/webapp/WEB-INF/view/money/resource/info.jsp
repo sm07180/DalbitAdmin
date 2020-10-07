@@ -72,9 +72,9 @@
     <!-- tab -->
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="topTab">
-            <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
-            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
-            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
+            <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대</a></li>
+            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간</a></li>
+            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간</a></li>
             <li><a href="#memberDataList" role="tab" data-toggle="tab" id="tab_memberDataList" onclick="memberDataListTabClick(3);">회원Data</a></li>
             <li><a href="#buyDalDataList" role="tab" data-toggle="tab" id="tab_buyDalDataList" onclick="buyDalDataListTabClick(4);">달 결제내역</a></li>
             <li><a href="#useDalDataList" role="tab" data-toggle="tab" id="tab_useDalDataList" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>

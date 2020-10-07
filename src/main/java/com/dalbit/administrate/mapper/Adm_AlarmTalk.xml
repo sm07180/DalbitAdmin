@@ -154,48 +154,44 @@
 
     <!-- 알림톡 발송 로그 조회  -->
     <select id="callAlarmTalkLogList" parameterType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogListInputVo" resultType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogListOutputVo">
-        SELECT
-         *
+        select
+        @rownum := @rownum + 1 as rowNum,
+        a.*
         FROM
         (
-            select
-            @rownum := @rownum + 1 as rowNum,
-            a.*
-            FROM
-            (
-            <include refid="alarmTalkLogSelect"/>
-            <include refid="log_condition"/>
-            <!--<where>-->
-                <!--<if test='is_view != null and is_view != "" and is_view != "-1" '>-->
-                    <!--AND is_view = #{is_view}-->
-                <!--</if>-->
-                <!--<if test='position != null and position != "" and position != "-1" '>-->
-                    <!--AND position = #{position}-->
-                <!--</if>-->
-                <!--<if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>-->
-                    <!--<choose>-->
-                        <!--<when test='platformGroup == "2" '>-->
-                            <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))-->
-                        <!--</when>-->
-                        <!--<when test='platformGroup == "3" '>-->
-                            <!--AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
-                        <!--</when>-->
-                        <!--<when test='platformGroup == "4" '>-->
-                            <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
-                        <!--</when>-->
-                    <!--</choose>-->
-                <!--</if>-->
-                <!--<if test='searchText != null and searchText != ""'>-->
-                    <!--AND title like CONCAT('%',#{searchText},'%')-->
-                <!--</if>-->
-            <!--</where>-->
-            ) AS a,
-            (SELECT @rownum := 0) AS b
-            <trim prefix="ORDER BY">
-                a.send_date desc
-            </trim>
-        ) d
-        WHERE rowNum BETWEEN #{searchStartNo, jdbcType=INTEGER} AND #{searchEndNo, jdbcType=INTEGER}
+        <include refid="alarmTalkLogSelect"/>
+        <include refid="log_condition"/>
+        <!--<where>-->
+            <!--<if test='is_view != null and is_view != "" and is_view != "-1" '>-->
+                <!--AND is_view = #{is_view}-->
+            <!--</if>-->
+            <!--<if test='position != null and position != "" and position != "-1" '>-->
+                <!--AND position = #{position}-->
+            <!--</if>-->
+            <!--<if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>-->
+                <!--<choose>-->
+                    <!--<when test='platformGroup == "2" '>-->
+                        <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))-->
+                    <!--</when>-->
+                    <!--<when test='platformGroup == "3" '>-->
+                        <!--AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
+                    <!--</when>-->
+                    <!--<when test='platformGroup == "4" '>-->
+                        <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
+                    <!--</when>-->
+                <!--</choose>-->
+            <!--</if>-->
+            <!--<if test='searchText != null and searchText != ""'>-->
+                <!--AND title like CONCAT('%',#{searchText},'%')-->
+            <!--</if>-->
+        <!--</where>-->
+        ) AS a,
+        (SELECT @rownum := #{pageStart}) AS b
+        <trim prefix="ORDER BY">
+            a.send_date desc
+        </trim>
+        limit #{pageStart}, #{pageCnt}
+        <!--WHERE rowNum BETWEEN #{searchStartNo, jdbcType=INTEGER} AND #{searchEndNo, jdbcType=INTEGER}-->
     </select>
 
 
