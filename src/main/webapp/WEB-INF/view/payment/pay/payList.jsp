@@ -85,10 +85,12 @@
 
     function getPayList(tmp) {
         if(tmp == "payment"){
+            memberDataType = 99;
             $("#slctDateType").hide();
             $("#rangeMemberDatepicker").hide();
             $('#bt_searchMember').hide();
         }else{
+            memberDataType = 0;
             $("#slctDateType").show();
             $('#bt_searchMember').show();
             var dateTime = new Date();
@@ -217,17 +219,24 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("searchText", txt_search);
-        formData.append("period", tmp_period);
+        // formData.append("period", tmp_period);
         formData.append("sDate", sDate);
         formData.append("eDate", eDate);
         formData.append("ostype", tmp_ostype);
         formData.append("searchPayStatus", tmp_searchPayStatus);
         formData.append("innerType", tmp_innerType);
         formData.append("payWay", tmp_payWay);
+        formData.append("memberDataType", memberDataType);
 
-        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData, fn_excelSuccess, fn_excelFail);
 
     });
+    function fn_excelSuccess(){
+        alert("다운로드 완료");
+    }
+    function fn_excelFail(){
+        alert("다운로드 실패");
+    }
 
     function seldateType_change(){
         if($("#slctDateType").find("select").val() == 0){

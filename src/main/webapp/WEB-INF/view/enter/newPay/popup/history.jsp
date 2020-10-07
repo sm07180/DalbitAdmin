@@ -30,8 +30,6 @@
 <script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
-    console.log("-------------------------  00");
-
     var dtList_info;
 
     var tmp_ostype = -1;
@@ -91,8 +89,15 @@
         formData.append("payWay", $("#div_payY").find("select[name='payWay']").val());
         formData.append("gender", gender);
         formData.append("time", time);
-
-        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+        formData.append("memberDataType", 99);
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData, fn_excelSuccess, fn_excelFail);
     });
+
+    function fn_excelSuccess(){
+        alert("다운로드 완료");
+    }
+    function fn_excelFail(){
+        alert("다운로드 실패");
+    }
 
 </script>

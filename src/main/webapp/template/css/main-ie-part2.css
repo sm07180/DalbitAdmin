@@ -1650,7 +1650,7 @@ input.ui-editRangeSlider-inputValue {
 
 /* line 1050, ../../sass/partials/_ui-elements.scss */
 .gritter-item {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cambria Math", Cambria, Arial, sans-serif;
   padding: 2px 11px;
 }
 /* line 1054, ../../sass/partials/_ui-elements.scss */
@@ -3906,7 +3906,7 @@ div[class*="col-"] > .form-group {
 .profile h3,
 .activity h3,
 .settings h3 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cambria Math", Cambria, Arial, sans-serif;
   font-size: 1.2em;
   margin-top: 0;
   margin-bottom: 20px;
@@ -3939,7 +3939,7 @@ div[class*="col-"] > .form-group {
 }
 /* line 38, ../../sass/partials/pages/_profile.scss */
 .profile .user-info-left h2 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cambria Math", Cambria, Arial, sans-serif;
   font-size: 1.3em;
   margin-bottom: 20px;
 }

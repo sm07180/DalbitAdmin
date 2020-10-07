@@ -723,7 +723,7 @@
     max-width: 270px; }
 
 .daterangepicker .calendar th, .daterangepicker .calendar td {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Cambria Math', Cambria, Arial, sans-serif;
     white-space: nowrap;
     text-align: center;
     min-width: 32px; }
@@ -4780,7 +4780,7 @@ html[dir="rtl"] .select2-search-choice-close {
     -webkit-tap-highlight-color: transparent; }
 
 .note-editor body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
     color: #333333;
@@ -4923,7 +4923,7 @@ html[dir="rtl"] .select2-search-choice-close {
 .note-editor .h4,
 .note-editor .h5,
 .note-editor .h6 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     font-weight: 500;
     line-height: 1.1;
     color: inherit; }
@@ -12228,7 +12228,7 @@ div.DTTT_collection a.DTTT_button {
 /*	General Styles
 /*------------------------------------------------*/
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     font-size: 13px;
     color: #555;
     background: #FFFFFF; }
@@ -12237,7 +12237,7 @@ h1, h2 {
     font-family: "latolight"; }
 
 h3, h4, h5, h6 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    font-family: "Cambria Math", Cambria, Arial, sans-serif; }
 
 a {
     color: #1D92AF; }
@@ -12546,7 +12546,7 @@ body.topnav-fixed #wrapper {
 .top-bar .notifications .inbox img {
     width: 32px; }
 .top-bar .notifications .inbox .name {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     font-size: 0.85em;
     color: #555;
     font-weight: 700;
@@ -14739,7 +14739,7 @@ input.ui-editRangeSlider-inputValue {
     color: #555; }
 
 .gritter-item {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     padding: 2px 11px; }
 .gritter-item .gritter-title {
     text-shadow: none; }
@@ -16373,7 +16373,7 @@ div[class*="col-"] > .form-group {
 .profile h3,
 .activity h3,
 .settings h3 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     font-size: 1.2em;
     margin-top: 0;
     margin-bottom: 20px; }
@@ -16394,7 +16394,7 @@ div[class*="col-"] > .form-group {
 .profile .user-info-left img {
     border: 3px solid #fff; }
 .profile .user-info-left h2 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Cambria Math", Cambria, Arial, sans-serif;
     font-size: 1.3em;
     margin-bottom: 20px; }
 .profile .user-info-left h2 i {
