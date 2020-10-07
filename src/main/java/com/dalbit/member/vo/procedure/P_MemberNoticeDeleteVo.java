@@ -15,6 +15,6 @@ public class P_MemberNoticeDeleteVo extends SearchVo {
     private String opName;
 
     private String noticeIdx;
-    private String nociceType;
+    private String noticeType;
     private String roomNo;
 }

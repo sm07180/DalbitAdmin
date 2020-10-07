@@ -119,7 +119,7 @@
         if(confirm("삭제하시겠습니까?")) {
             var data = {
                 noticeIdx: $(this).data('noticeidx'),
-                nociceType: $(this).data('type'),
+                noticeType: $(this).data('type'),
                 roomNo: $(this).data('roomno')
             };
 

@@ -91,7 +91,7 @@
     </select>
 
     <update id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
-         update rd_data.tb_member_broadcast_notice set status=1, op_name = #{opName} where idx=#{idx}
+         update rd_data.tb_member_broadcast_notice set status=#{noticeType}, op_name = #{opName} where idx=#{noticeIdx}
     </update>
 
 

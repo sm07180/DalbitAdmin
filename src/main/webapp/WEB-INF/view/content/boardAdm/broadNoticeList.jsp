@@ -34,7 +34,7 @@
                 <th>No</th>
                 <th>등록 DJ</th>
                 <th>성별</th>
-                <th>방송방 공지 내용</th>
+                <th>회원 공지 내용</th>
                 <th>이미지</th>
                 <th>등록일자</th>
                 <th>상태</th>
@@ -126,7 +126,7 @@
         if(confirm("삭제하시겠습니까?")) {
             var data = {
                 noticeIdx: $(this).data('broadnoticeidx'),
-                nociceType: $(this).data('type')
+                noticeType: $(this).data('type')
             };
 
             console.log(data);
