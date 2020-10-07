@@ -30,6 +30,8 @@ public class P_ResourceDetailDalOutVo {
     private long block_Cnt;
     private long withdrawal_Cnt;
     private long testout_Cnt;
+    private long increaseCnt;
+    private long decreaseCnt;
 
 
 
