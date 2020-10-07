@@ -808,11 +808,6 @@
                 $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_join_nCnt);
                 $("#liveTableBody tr:eq(1) td:eq(" + (37 + (++tmp)) + ")").html(google_out_nCnt);
 
-
-                console.log(tmp);
-                console.log(sum_phone_m);
-                console.log($("#liveTableBody tr:eq(26) td:eq(" + (37 + (tmp)) + ")").length)
-
                 $("#liveTableBody tr:eq(26) td:eq(20)").html(sum_phone_m);
                 $("#liveTableBody tr:eq(26) td:eq(21)").html(sum_kakao_m);
                 $("#liveTableBody tr:eq(26) td:eq(22)").html(sum_naver_m);
