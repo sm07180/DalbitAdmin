@@ -1391,8 +1391,8 @@
             </tr>
             <tr class="font-bold" style="background-color: #d9d9d9">
                 <td>총합</td>
-                <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
@@ -1420,8 +1420,8 @@
                         {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
                         {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
                     </td>
-                    <td>{{addComma byeolgift_Cnt 'Y'}}</td>
                     <td>{{addComma levelup_Cnt 'Y'}}</td>
+                    <td>{{addComma byeolgift_Cnt 'Y'}}</td>
                     <td>{{addComma eventdirect_Cnt 'Y'}}</td>
                     <td>{{addComma cancel_Cnt 'Y'}}</td>
                     <td>{{addComma recovery_Cnt 'Y'}}</td>
@@ -1445,8 +1445,8 @@
                 {{/each}}
                 <tr class="font-bold" style="background-color: #d9d9d9">
                     <td>총합</td>
-                    <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
