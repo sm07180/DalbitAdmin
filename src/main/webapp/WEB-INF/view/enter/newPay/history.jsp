@@ -222,14 +222,21 @@
         formData.append("period", 0);
         formData.append("sDate", sDate);
         formData.append("eDate", eDate);
-        formData.append("ostype", $("#div_payY").find("select[name='ostype']").val());
+        formData.append("ostype", -1);
         formData.append("searchPayStatus", -1);
-        formData.append("innerType", $("#div_payY").find("select[name='innerType']").val());
-        formData.append("payWay", $("#div_payY").find("select[name='payWay']").val());
-
-        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+        formData.append("innerType", -1);
+        formData.append("payWay", "all");
+        formData.append("memberDataType", 99);
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData, fn_excelSuccess, fn_excelFail);
 
     });
+
+    function fn_excelSuccess(data){
+        alert("다운로드 완료   " + data);
+    }
+    function fn_excelFail(data){
+        alert("다운로드 실패   " + data);
+    }
 
     function click_way(){
         $("#tablist_con li:eq(7) a").tab("show");   // 수단

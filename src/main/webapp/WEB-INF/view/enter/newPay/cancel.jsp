@@ -117,10 +117,17 @@
         formData.append("searchPayStatus", -1);
         formData.append("innerType", $("#div_canselY").find("select[name='innerType']").val());
         formData.append("payWay", $("#div_canselY").find("select[name='payWay']").val());
-
-        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+        formData.append("memberDataType", 99);
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData, fn_excelSuccess, fn_excelFail);
 
     });
+
+    function fn_excelSuccess(){
+        alert("다운로드 완료");
+    }
+    function fn_excelFail(){
+        alert("다운로드 실패");
+    }
 
 </script>
 

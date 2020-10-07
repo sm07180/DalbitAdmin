@@ -13,9 +13,33 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
                             <div>
+
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="rankType" value='3' checked="checked" />
+                                    <span><i></i>월간</span>
+                                </label>
+
+                                <div class="input-group date" id="rangeDatepicker">
+                                    <label for="monthDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input id="monthDate" type="text" class="form-control" style="width: 168px;"/>
+                                </div>
+
+
+                                <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                <input class="hide" name="endDate" id="endDate" style="width: 100px">
+
+                                <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+
                                 <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
@@ -39,32 +63,6 @@
                                     &nbsp;&nbsp;가산점 총합 순위이며, 가산점 총합이 동일한 경우 월간 랭킹 점수가 높은 순으로 노출됩니다.
 
                                 </span>
-                            </div>
-                            <div class="col-md-4 table-option pt10 pull-right">
-                                <div class="col-md-10 no-padding pull-right">
-                                    <label class="control-inline fancy-radio custom-color-green">
-                                        <input type="radio" name="rankType" value='3' checked="checked" />
-                                        <span><i></i>월간</span>
-                                    </label>
-
-                                    <div class="input-group date" id="rangeDatepicker">
-                                        <label for="monthDate" class="input-group-addon">
-                                            <span><i class="fa fa-calendar"></i></span>
-                                        </label>
-                                        <input id="monthDate" type="text" class="form-control" style="width: 168px;"/>
-                                    </div>
-
-
-                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
-                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
-
-                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
-
-                                    <a href="javascript://" class="_prevSearch">[이전]</a>
-                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                    <a href="javascript://" class="_nextSearch">[다음]</a>
-                                </div>
                             </div>
                         </div>
 

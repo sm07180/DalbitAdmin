@@ -72,9 +72,9 @@
     <!-- tab -->
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="topTab">
-            <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
-            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
-            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
+            <li class="active"><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대</a></li>
+            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간</a></li>
+            <li><a href="#resourceState" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간</a></li>
             <li><a href="#memberDataList" role="tab" data-toggle="tab" id="tab_memberDataList" onclick="memberDataListTabClick(3);">회원Data</a></li>
             <li><a href="#buyDalDataList" role="tab" data-toggle="tab" id="tab_buyDalDataList" onclick="buyDalDataListTabClick(4);">달 결제내역</a></li>
             <li><a href="#useDalDataList" role="tab" data-toggle="tab" id="tab_useDalDataList" onclick="useDalDataListTabClick(5);">달 사용내역</a></li>
@@ -122,6 +122,9 @@
 
     var _datePicker = 0;
     var _itemClick = 1;
+
+    var afterData;
+    var beforData;
 
     $(function(){
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText) {
@@ -233,7 +236,6 @@
     function searchDate(dateType){
         if(_datePicker == 0 || _datePicker == 4 || _datePicker == 5){ //시간별 , 일간    (시간대별/달 결제 내역)
             if(common.isEmpty(dateType)){
-                console.log("-------------------------   3");
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
@@ -327,11 +329,9 @@
             util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_dal_success);
         }else if (_itemClick == 0){
             util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_byeol_success);
-
         }
     }
     function fn_dal_success(dst_id, response) {
-
         // 증가합 --------------------------------------------------------------------------
         var dalInc_total_mCnt = [
             response.data.totalInfo.charge_mCnt,
@@ -486,11 +486,68 @@
         var html = templateScript(context);
         $("#infoTable_dal").html(html);
 
-        response.data.detailList.slctType = _datePicker;
 
-        response.data.detailList.nowMonth = Number(moment().format("MM"));
-        response.data.detailList.nowDay = Number(moment().format("DD"));
-        response.data.detailList.nowHour = Number(moment().format("HH"));
+
+        afterData = response.data;
+
+        if(_datePicker == 0){
+            sDate = moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD');
+            eDate = sDate;
+        }else if(_datePicker == 1){
+            sDate = moment($("#startDate").val()).add('months', -1).format('YYYY.MM.01');
+            eDate = moment($("#startDate").val()).add('months', 0).add('days', -1).format('YYYY.MM.DD');
+        }else if(_datePicker == 2){
+            sDate = moment($("#startDate").val()).add('years', -1).format('YYYY.01.01');
+            eDate = moment($("#startDate").val()).add('years', 0).add('days', -1).format('YYYY.12.31');
+        }
+
+        /* 증감을 위한 befor 데이터 호출*/
+        var data = {};
+        data.slctType = _datePicker;
+        data.startDate = sDate;
+        data.endDate = eDate;
+        data.slctResource = _itemClick;
+
+        util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_dal_befor_success);
+
+
+    }
+    function fn_dal_befor_success(dst_id, response) {
+
+        var total_incTotal_befor_Cnt = 0;
+        var total_decTotal_befor_Cnt = 0;
+
+        if(!common.isEmpty(response.data.detailList)){
+            for(var i=0; i<response.data.detailList.length;i++){
+                var sub_incTotal_Cnt = [
+                    response.data.detailList[i].charge_Cnt,
+                    response.data.detailList[i].dalgiftget_Cnt,
+                    response.data.detailList[i].change_Cnt,
+                    response.data.detailList[i].join_Cnt,
+                    response.data.detailList[i].levelup_Cnt,
+                    response.data.detailList[i].ranking_Cnt,
+                    response.data.detailList[i].attendance_Cnt,
+                    response.data.detailList[i].recovery_Cnt,
+                    response.data.detailList[i].eventauto_Cnt,
+                    response.data.detailList[i].eventdirect_Cnt,
+                    response.data.detailList[i].specialdj_Cnt,
+                    response.data.detailList[i].testin_Cnt,
+                ];
+                response.data.detailList[i].sub_incTotal_Cnt = common.getListSum(sub_incTotal_Cnt);
+                var sub_decTotal_Cnt = [
+                    response.data.detailList[i].dalgiftsend_Cnt,
+                    response.data.detailList[i].itemuse_Cnt,
+                    response.data.detailList[i].cancel_Cnt,
+                    response.data.detailList[i].block_Cnt,
+                    response.data.detailList[i].withdrawal_Cnt,
+                    response.data.detailList[i].testout_Cnt,
+                ];
+                response.data.detailList[i].sub_decTotal_Cnt = common.getListSum(sub_decTotal_Cnt);
+
+                total_incTotal_befor_Cnt = total_incTotal_befor_Cnt + response.data.detailList[i].sub_incTotal_Cnt;
+                total_decTotal_befor_Cnt = total_decTotal_befor_Cnt + response.data.detailList[i].sub_decTotal_Cnt;
+            }
+        }
 
         var total_charge_Cnt = 0;
         var total_dalgiftget_Cnt = 0;
@@ -512,91 +569,121 @@
         var total_testout_Cnt = 0;
         var total_incTotal_Cnt = 0;
         var total_decTotal_Cnt = 0;
-        for(var i=0; i<response.data.detailList.length;i++){
-            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
-            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
-            response.data.detailList[i].nowHour = Number(moment().format("HH"));
-            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
-            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+
+
+        afterData.slctType = _datePicker;
+
+        afterData.nowMonth = Number(moment().format("MM"));
+        afterData.nowDay = Number(moment().format("DD"));
+        afterData.nowHour = Number(moment().format("HH"));
+
+        for(var i=0; i<afterData.detailList.length;i++){
+            afterData.detailList[i].nowMonth = Number(moment().format("MM"));
+            afterData.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            afterData.detailList[i].nowHour = Number(moment().format("HH"));
+            afterData.detailList[i].day = afterData.detailList[i].the_date.substr(8,2);
+            toDay = week[moment(afterData.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + afterData.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red">' + afterData.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else{
-                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+                toDay = afterData.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
             }
-            response.data.detailList[i].date = toDay;
+            afterData.detailList[i].date = toDay;
 
             var sub_incTotal_Cnt = [
-                response.data.detailList[i].charge_Cnt,
-                response.data.detailList[i].dalgiftget_Cnt,
-                response.data.detailList[i].change_Cnt,
-                response.data.detailList[i].join_Cnt,
-                response.data.detailList[i].levelup_Cnt,
-                response.data.detailList[i].ranking_Cnt,
-                response.data.detailList[i].attendance_Cnt,
-                response.data.detailList[i].recovery_Cnt,
-                response.data.detailList[i].eventauto_Cnt,
-                response.data.detailList[i].eventdirect_Cnt,
-                response.data.detailList[i].specialdj_Cnt,
-                response.data.detailList[i].testin_Cnt,
+                afterData.detailList[i].charge_Cnt,
+                afterData.detailList[i].dalgiftget_Cnt,
+                afterData.detailList[i].change_Cnt,
+                afterData.detailList[i].join_Cnt,
+                afterData.detailList[i].levelup_Cnt,
+                afterData.detailList[i].ranking_Cnt,
+                afterData.detailList[i].attendance_Cnt,
+                afterData.detailList[i].recovery_Cnt,
+                afterData.detailList[i].eventauto_Cnt,
+                afterData.detailList[i].eventdirect_Cnt,
+                afterData.detailList[i].specialdj_Cnt,
+                afterData.detailList[i].testin_Cnt,
             ];
-            response.data.detailList[i].sub_incTotal_Cnt = common.getListSum(sub_incTotal_Cnt);
+            afterData.detailList[i].sub_incTotal_Cnt = common.getListSum(sub_incTotal_Cnt);
             var sub_decTotal_Cnt = [
-                response.data.detailList[i].dalgiftsend_Cnt,
-                response.data.detailList[i].itemuse_Cnt,
-                response.data.detailList[i].cancel_Cnt,
-                response.data.detailList[i].block_Cnt,
-                response.data.detailList[i].withdrawal_Cnt,
-                response.data.detailList[i].testout_Cnt,
+                afterData.detailList[i].dalgiftsend_Cnt,
+                afterData.detailList[i].itemuse_Cnt,
+                afterData.detailList[i].cancel_Cnt,
+                afterData.detailList[i].block_Cnt,
+                afterData.detailList[i].withdrawal_Cnt,
+                afterData.detailList[i].testout_Cnt,
             ];
-            response.data.detailList[i].sub_decTotal_Cnt = common.getListSum(sub_decTotal_Cnt);
+            afterData.detailList[i].sub_decTotal_Cnt = common.getListSum(sub_decTotal_Cnt);
 
-            total_charge_Cnt = total_charge_Cnt + response.data.detailList[i].charge_Cnt;
-            total_dalgiftget_Cnt = total_dalgiftget_Cnt + response.data.detailList[i].dalgiftget_Cnt;
-            total_change_Cnt = total_change_Cnt + response.data.detailList[i].change_Cnt;
-            total_join_Cnt = total_join_Cnt + response.data.detailList[i].join_Cnt;
-            total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
-            total_ranking_Cnt = total_ranking_Cnt + response.data.detailList[i].ranking_Cnt;
-            total_attendance_Cnt = total_attendance_Cnt + response.data.detailList[i].attendance_Cnt;
-            total_recovery_Cnt = total_recovery_Cnt + response.data.detailList[i].recovery_Cnt;
-            total_eventauto_Cnt = total_eventauto_Cnt + response.data.detailList[i].eventauto_Cnt;
-            total_eventdirect_Cnt = total_eventdirect_Cnt + response.data.detailList[i].eventdirect_Cnt;
-            total_specialdj_Cnt = total_specialdj_Cnt + response.data.detailList[i].specialdj_Cnt;
-            total_testin_Cnt = total_testin_Cnt + response.data.detailList[i].testin_Cnt;
-            total_dalgiftsend_Cnt = total_dalgiftsend_Cnt + response.data.detailList[i].dalgiftsend_Cnt;
-            total_itemuse_Cnt = total_itemuse_Cnt + response.data.detailList[i].itemuse_Cnt;
-            total_cancel_Cnt = total_cancel_Cnt + response.data.detailList[i].cancel_Cnt;
-            total_block_Cnt = total_block_Cnt + response.data.detailList[i].block_Cnt;
-            total_withdrawal_Cnt = total_withdrawal_Cnt + response.data.detailList[i].withdrawal_Cnt;
-            total_testout_Cnt = total_testout_Cnt + response.data.detailList[i].testout_Cnt;
-            total_incTotal_Cnt = total_incTotal_Cnt + response.data.detailList[i].sub_incTotal_Cnt;
-            total_decTotal_Cnt = total_decTotal_Cnt + response.data.detailList[i].sub_decTotal_Cnt;
+            if(!common.isEmpty(response.data.detailList)){
+                if(!common.isEmpty(response.data.detailList[i])){
+                    afterData.detailList[i].sub_incTotal_befor_Cnt = response.data.detailList[i].sub_incTotal_Cnt;
+                    afterData.detailList[i].sub_decTotal_befor_Cnt = response.data.detailList[i].sub_decTotal_Cnt;
+                }else{
+                    afterData.detailList[i].sub_incTotal_befor_Cnt = 0;
+                    afterData.detailList[i].sub_decTotal_befor_Cnt = 0;
+                }
+            }else{
+                afterData.detailList[i].sub_incTotal_befor_Cnt = 0;
+                afterData.detailList[i].sub_decTotal_befor_Cnt = 0;
+            }
+
+            afterData.detailList[i].sub_inc_Cnt = afterData.detailList[i].sub_incTotal_Cnt - afterData.detailList[i].sub_incTotal_befor_Cnt;
+            afterData.detailList[i].sub_dec_Cnt = afterData.detailList[i].sub_decTotal_Cnt - afterData.detailList[i].sub_decTotal_befor_Cnt;
+
+            total_charge_Cnt = total_charge_Cnt + afterData.detailList[i].charge_Cnt;
+            total_dalgiftget_Cnt = total_dalgiftget_Cnt + afterData.detailList[i].dalgiftget_Cnt;
+            total_change_Cnt = total_change_Cnt + afterData.detailList[i].change_Cnt;
+            total_join_Cnt = total_join_Cnt + afterData.detailList[i].join_Cnt;
+            total_levelup_Cnt = total_levelup_Cnt + afterData.detailList[i].levelup_Cnt;
+            total_ranking_Cnt = total_ranking_Cnt + afterData.detailList[i].ranking_Cnt;
+            total_attendance_Cnt = total_attendance_Cnt + afterData.detailList[i].attendance_Cnt;
+            total_recovery_Cnt = total_recovery_Cnt + afterData.detailList[i].recovery_Cnt;
+            total_eventauto_Cnt = total_eventauto_Cnt + afterData.detailList[i].eventauto_Cnt;
+            total_eventdirect_Cnt = total_eventdirect_Cnt + afterData.detailList[i].eventdirect_Cnt;
+            total_specialdj_Cnt = total_specialdj_Cnt + afterData.detailList[i].specialdj_Cnt;
+            total_testin_Cnt = total_testin_Cnt + afterData.detailList[i].testin_Cnt;
+            total_dalgiftsend_Cnt = total_dalgiftsend_Cnt + afterData.detailList[i].dalgiftsend_Cnt;
+            total_itemuse_Cnt = total_itemuse_Cnt + afterData.detailList[i].itemuse_Cnt;
+            total_cancel_Cnt = total_cancel_Cnt + afterData.detailList[i].cancel_Cnt;
+            total_block_Cnt = total_block_Cnt + afterData.detailList[i].block_Cnt;
+            total_withdrawal_Cnt = total_withdrawal_Cnt + afterData.detailList[i].withdrawal_Cnt;
+            total_testout_Cnt = total_testout_Cnt + afterData.detailList[i].testout_Cnt;
+            total_incTotal_Cnt = total_incTotal_Cnt + afterData.detailList[i].sub_incTotal_Cnt;
+            total_decTotal_Cnt = total_decTotal_Cnt + afterData.detailList[i].sub_decTotal_Cnt;
         }
-        response.data.totalInfo.total_charge_Cnt = total_charge_Cnt;
-        response.data.totalInfo.total_dalgiftget_Cnt = total_dalgiftget_Cnt;
-        response.data.totalInfo.total_change_Cnt = total_change_Cnt;
-        response.data.totalInfo.total_join_Cnt = total_join_Cnt;
-        response.data.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
-        response.data.totalInfo.total_ranking_Cnt = total_ranking_Cnt;
-        response.data.totalInfo.total_attendance_Cnt = total_attendance_Cnt;
-        response.data.totalInfo.total_recovery_Cnt = total_recovery_Cnt;
-        response.data.totalInfo.total_eventauto_Cnt = total_eventauto_Cnt;
-        response.data.totalInfo.total_eventdirect_Cnt = total_eventdirect_Cnt;
-        response.data.totalInfo.total_specialdj_Cnt = total_specialdj_Cnt;
-        response.data.totalInfo.total_testin_Cnt = total_testin_Cnt;
-        response.data.totalInfo.total_dalgiftsend_Cnt = total_dalgiftsend_Cnt;
-        response.data.totalInfo.total_itemuse_Cnt = total_itemuse_Cnt;
-        response.data.totalInfo.total_cancel_Cnt = total_cancel_Cnt;
-        response.data.totalInfo.total_block_Cnt = total_block_Cnt;
-        response.data.totalInfo.total_withdrawal_Cnt = total_withdrawal_Cnt;
-        response.data.totalInfo.total_testout_Cnt = total_testout_Cnt;
-        response.data.totalInfo.total_incTotal_Cnt = total_incTotal_Cnt;
-        response.data.totalInfo.total_decTotal_Cnt = total_decTotal_Cnt;
+        afterData.totalInfo.total_charge_Cnt = total_charge_Cnt;
+        afterData.totalInfo.total_dalgiftget_Cnt = total_dalgiftget_Cnt;
+        afterData.totalInfo.total_change_Cnt = total_change_Cnt;
+        afterData.totalInfo.total_join_Cnt = total_join_Cnt;
+        afterData.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
+        afterData.totalInfo.total_ranking_Cnt = total_ranking_Cnt;
+        afterData.totalInfo.total_attendance_Cnt = total_attendance_Cnt;
+        afterData.totalInfo.total_recovery_Cnt = total_recovery_Cnt;
+        afterData.totalInfo.total_eventauto_Cnt = total_eventauto_Cnt;
+        afterData.totalInfo.total_eventdirect_Cnt = total_eventdirect_Cnt;
+        afterData.totalInfo.total_specialdj_Cnt = total_specialdj_Cnt;
+        afterData.totalInfo.total_testin_Cnt = total_testin_Cnt;
+        afterData.totalInfo.total_dalgiftsend_Cnt = total_dalgiftsend_Cnt;
+        afterData.totalInfo.total_itemuse_Cnt = total_itemuse_Cnt;
+        afterData.totalInfo.total_cancel_Cnt = total_cancel_Cnt;
+        afterData.totalInfo.total_block_Cnt = total_block_Cnt;
+        afterData.totalInfo.total_withdrawal_Cnt = total_withdrawal_Cnt;
+        afterData.totalInfo.total_testout_Cnt = total_testout_Cnt;
+
+        afterData.totalInfo.total_incTotal_Cnt = total_incTotal_Cnt;
+        afterData.totalInfo.total_decTotal_Cnt = total_decTotal_Cnt;
+
+        afterData.totalInfo.total_incTotal_befor_Cnt = total_incTotal_befor_Cnt;
+        afterData.totalInfo.total_decTotal_befor_Cnt = total_decTotal_befor_Cnt;
+        afterData.totalInfo.total_inc_Cnt = total_incTotal_Cnt - total_incTotal_befor_Cnt;
+        afterData.totalInfo.total_dec_Cnt = total_decTotal_Cnt - total_decTotal_befor_Cnt;
 
         var template = $('#tmp_dalListTable').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = afterData;
         var html = templateScript(context);
         $("#dalListTable").html(html);
 
@@ -604,6 +691,7 @@
         ui.tableHeightSet();
 
         liveResourceData();
+
     }
 
     function fn_byeol_success(dst_id, response) {
@@ -718,11 +806,70 @@
         var html = templateScript(context);
         $("#infoTable_byeol").html(html);
 
-        response.data.detailList.slctType = _datePicker;
 
-        response.data.detailList.nowMonth = Number(moment().format("MM"));
-        response.data.detailList.nowDay = Number(moment().format("DD"));
-        response.data.detailList.nowHour = Number(moment().format("HH"));
+
+        afterData = response.data;
+
+        if(_datePicker == 0){
+            sDate = moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD');
+            eDate = sDate;
+        }else if(_datePicker == 1){
+            sDate = moment($("#startDate").val()).add('months', -1).format('YYYY.MM.01');
+            eDate = moment($("#startDate").val()).add('months', 0).add('days', -1).format('YYYY.MM.DD');
+        }else if(_datePicker == 2){
+            sDate = moment($("#startDate").val()).add('years', -1).format('YYYY.01.01');
+            eDate = moment($("#startDate").val()).add('years', 0).add('days', -1).format('YYYY.12.31');
+        }
+
+        /* 증감을 위한 befor 데이터 호출*/
+        var data = {};
+        data.slctType = _datePicker;
+        data.startDate = sDate;
+        data.endDate = eDate;
+        data.slctResource = _itemClick;
+
+        util.getAjaxData("statResourceInfo", "/rest/money/resource/info", data, fn_byeol_befor_success);
+
+    }
+
+    function fn_byeol_befor_success(dst_id, response) {
+
+        var total_incTotal_befor_Cnt = 0;
+        var total_decTotal_befor_Cnt = 0;
+
+        if(!common.isEmpty(response.data.detailList)){
+            for(var i=0; i<response.data.detailList.length;i++){
+
+                var sub_incByeolTotal_Cnt = [
+                    response.data.detailList[i].byeolgift_Cnt,
+                    response.data.detailList[i].levelup_Cnt,
+                    response.data.detailList[i].eventdirect_Cnt,
+                    response.data.detailList[i].cancel_Cnt,
+                    response.data.detailList[i].recovery_Cnt,
+                    response.data.detailList[i].testin_Cnt,
+                ];
+                response.data.detailList[i].sub_incByeolTotal_Cnt = common.getListSum(sub_incByeolTotal_Cnt);
+
+                var sub_decByeolTotal_Cnt = [
+                   response.data.detailList[i].exchange_Cnt,
+                   response.data.detailList[i].change_Cnt,
+                   response.data.detailList[i].block_Cnt,
+                   response.data.detailList[i].withdrawal_Cnt,
+                   response.data.detailList[i].testout_Cnt,
+                ];
+                response.data.detailList[i].sub_decByeolTotal_Cnt = common.getListSum(sub_decByeolTotal_Cnt);
+
+                total_incTotal_befor_Cnt = total_incTotal_befor_Cnt + response.data.detailList[i].sub_incByeolTotal_Cnt;
+                total_decTotal_befor_Cnt = total_decTotal_befor_Cnt + response.data.detailList[i].sub_decByeolTotal_Cnt;
+            }
+        }
+
+
+        afterData.detailList.slctType = _datePicker;
+
+        afterData.detailList.nowMonth = Number(moment().format("MM"));
+        afterData.detailList.nowDay = Number(moment().format("DD"));
+        afterData.detailList.nowHour = Number(moment().format("HH"));
 
 
         var total_byeolgift_Cnt = 0;
@@ -736,78 +883,108 @@
         var total_block_Cnt = 0;
         var total_withdrawal_Cnt = 0;
         var total_testout_Cnt = 0;
+        var total_incTotal_Cnt = 0;
+        var total_decTotal_Cnt = 0;
 
-        for(var i=0; i<response.data.detailList.length;i++){
-            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
-            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
-            response.data.detailList[i].nowHour = Number(moment().format("HH"));
-            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
-            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
+        for(var i=0; i<afterData.detailList.length;i++){
+            afterData.detailList[i].nowMonth = Number(moment().format("MM"));
+            afterData.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            afterData.detailList[i].nowHour = Number(moment().format("HH"));
+            afterData.detailList[i].day = afterData.detailList[i].the_date.substr(8,2);
+            toDay = week[moment(afterData.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="blue">' + afterData.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
+                toDay = '<span class="_fontColor" data-fontColor="red">' + afterData.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
             }else{
-                toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
+                toDay = afterData.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
             }
-            response.data.detailList[i].date = toDay;
+            afterData.detailList[i].date = toDay;
 
             var sub_incByeolTotal_Cnt = [
-                response.data.detailList[i].byeolgift_Cnt,
-                response.data.detailList[i].levelup_Cnt,
-                response.data.detailList[i].eventdirect_Cnt,
-                response.data.detailList[i].cancel_Cnt,
-                response.data.detailList[i].recovery_Cnt,
-                response.data.detailList[i].testin_Cnt,
+                afterData.detailList[i].byeolgift_Cnt,
+                afterData.detailList[i].levelup_Cnt,
+                afterData.detailList[i].eventdirect_Cnt,
+                afterData.detailList[i].cancel_Cnt,
+                afterData.detailList[i].recovery_Cnt,
+                afterData.detailList[i].testin_Cnt,
             ];
-            response.data.detailList[i].sub_incByeolTotal_Cnt = common.getListSum(sub_incByeolTotal_Cnt);
+            afterData.detailList[i].sub_incByeolTotal_Cnt = common.getListSum(sub_incByeolTotal_Cnt);
 
             var sub_decByeolTotal_Cnt = [
-                response.data.detailList[i].exchange_Cnt,
-                response.data.detailList[i].change_Cnt,
-                response.data.detailList[i].block_Cnt,
-                response.data.detailList[i].withdrawal_Cnt,
-                response.data.detailList[i].testout_Cnt,
+                afterData.detailList[i].exchange_Cnt,
+                afterData.detailList[i].change_Cnt,
+                afterData.detailList[i].block_Cnt,
+                afterData.detailList[i].withdrawal_Cnt,
+                afterData.detailList[i].testout_Cnt,
             ];
-            response.data.detailList[i].sub_decByeolTotal_Cnt = common.getListSum(sub_decByeolTotal_Cnt);
+            afterData.detailList[i].sub_decByeolTotal_Cnt = common.getListSum(sub_decByeolTotal_Cnt);
 
-            total_byeolgift_Cnt = total_byeolgift_Cnt + response.data.detailList[i].byeolgift_Cnt;
-            total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
-            total_eventdirect_Cnt = total_eventdirect_Cnt + response.data.detailList[i].eventdirect_Cnt;
-            total_cancel_Cnt = total_cancel_Cnt + response.data.detailList[i].cancel_Cnt;
-            total_recovery_Cnt = total_recovery_Cnt + response.data.detailList[i].recovery_Cnt;
-            total_testin_Cnt = total_testin_Cnt + response.data.detailList[i].testin_Cnt;
-            total_exchange_Cnt = total_exchange_Cnt + response.data.detailList[i].exchange_Cnt;
-            total_change_Cnt = total_change_Cnt + response.data.detailList[i].change_Cnt;
-            total_block_Cnt = total_block_Cnt + response.data.detailList[i].block_Cnt;
-            total_withdrawal_Cnt = total_withdrawal_Cnt + response.data.detailList[i].withdrawal_Cnt;
-            total_testout_Cnt = total_testout_Cnt + response.data.detailList[i].testout_Cnt;
+            if(!common.isEmpty(response.data.detailList)){
+                if(!common.isEmpty(response.data.detailList[i])){
+                    afterData.detailList[i].sub_incByeol_befor_Cnt = response.data.detailList[i].sub_incByeolTotal_Cnt;
+                    afterData.detailList[i].sub_decByeol_befor_Cnt = response.data.detailList[i].sub_decByeolTotal_Cnt;
+                }else{
+                    afterData.detailList[i].sub_incByeol_befor_Cnt = 0;
+                    afterData.detailList[i].sub_decByeol_befor_Cnt = 0;
+                }
+            }else{
+                afterData.detailList[i].sub_incByeol_befor_Cnt = 0;
+                afterData.detailList[i].sub_decByeol_befor_Cnt = 0;
+            }
+
+            afterData.detailList[i].sub_inc_Cnt = afterData.detailList[i].sub_incByeolTotal_Cnt - afterData.detailList[i].sub_incByeol_befor_Cnt;
+            afterData.detailList[i].sub_dec_Cnt = afterData.detailList[i].sub_decByeolTotal_Cnt - afterData.detailList[i].sub_decByeol_befor_Cnt;
+
+            total_byeolgift_Cnt = total_byeolgift_Cnt + afterData.detailList[i].byeolgift_Cnt;
+            total_levelup_Cnt = total_levelup_Cnt + afterData.detailList[i].levelup_Cnt;
+            total_eventdirect_Cnt = total_eventdirect_Cnt + afterData.detailList[i].eventdirect_Cnt;
+            total_cancel_Cnt = total_cancel_Cnt + afterData.detailList[i].cancel_Cnt;
+            total_recovery_Cnt = total_recovery_Cnt + afterData.detailList[i].recovery_Cnt;
+            total_testin_Cnt = total_testin_Cnt + afterData.detailList[i].testin_Cnt;
+            total_exchange_Cnt = total_exchange_Cnt + afterData.detailList[i].exchange_Cnt;
+            total_change_Cnt = total_change_Cnt + afterData.detailList[i].change_Cnt;
+            total_block_Cnt = total_block_Cnt + afterData.detailList[i].block_Cnt;
+            total_withdrawal_Cnt = total_withdrawal_Cnt + afterData.detailList[i].withdrawal_Cnt;
+            total_testout_Cnt = total_testout_Cnt + afterData.detailList[i].testout_Cnt;
+
+            total_incTotal_Cnt = total_incTotal_Cnt + afterData.detailList[i].sub_incByeolTotal_Cnt;
+            total_decTotal_Cnt = total_decTotal_Cnt + afterData.detailList[i].sub_decByeolTotal_Cnt;
         }
-        response.data.totalInfo.total_byeolgift_Cnt = total_byeolgift_Cnt;
-        response.data.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
-        response.data.totalInfo.total_eventdirect_Cnt = total_eventdirect_Cnt;
-        response.data.totalInfo.total_cancel_Cnt = total_cancel_Cnt;
-        response.data.totalInfo.total_recovery_Cnt = total_recovery_Cnt;
-        response.data.totalInfo.total_testin_Cnt = total_testin_Cnt;
-        response.data.totalInfo.total_exchange_Cnt = total_exchange_Cnt;
-        response.data.totalInfo.total_change_Cnt = total_change_Cnt;
-        response.data.totalInfo.total_block_Cnt = total_block_Cnt;
-        response.data.totalInfo.total_withdrawal_Cnt = total_withdrawal_Cnt;
-        response.data.totalInfo.total_testout_Cnt = total_testout_Cnt;
+        afterData.totalInfo.total_byeolgift_Cnt = total_byeolgift_Cnt;
+        afterData.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
+        afterData.totalInfo.total_eventdirect_Cnt = total_eventdirect_Cnt;
+        afterData.totalInfo.total_cancel_Cnt = total_cancel_Cnt;
+        afterData.totalInfo.total_recovery_Cnt = total_recovery_Cnt;
+        afterData.totalInfo.total_testin_Cnt = total_testin_Cnt;
+        afterData.totalInfo.total_exchange_Cnt = total_exchange_Cnt;
+        afterData.totalInfo.total_change_Cnt = total_change_Cnt;
+        afterData.totalInfo.total_block_Cnt = total_block_Cnt;
+        afterData.totalInfo.total_withdrawal_Cnt = total_withdrawal_Cnt;
+        afterData.totalInfo.total_testout_Cnt = total_testout_Cnt;
 
-        response.data.totalInfo.total_incbyeol_Cnt = total_byeolgift_Cnt + total_levelup_Cnt + total_eventdirect_Cnt + total_cancel_Cnt + total_recovery_Cnt + total_testin_Cnt;
-        response.data.totalInfo.total_decbyeol_Cnt = total_exchange_Cnt + total_change_Cnt + total_block_Cnt + total_withdrawal_Cnt + total_testout_Cnt;
+        afterData.totalInfo.total_incbyeol_Cnt = total_incTotal_Cnt;
+        afterData.totalInfo.total_decbyeol_Cnt = total_decTotal_Cnt;
+
+        afterData.totalInfo.total_incTotal_befor_Cnt = total_incTotal_befor_Cnt;
+        afterData.totalInfo.total_decTotal_befor_Cnt = total_decTotal_befor_Cnt;
+
+        afterData.totalInfo.total_inc_Cnt = total_incTotal_Cnt - total_incTotal_befor_Cnt;
+        afterData.totalInfo.total_dec_Cnt = total_decTotal_Cnt - total_decTotal_befor_Cnt;
 
         var template = $('#tmp_byeolListTable').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = afterData;
         var html = templateScript(context);
         $("#byeolListTable").html(html);
 
         ui.paintColor();
         ui.tableHeightSet();
         liveResourceData();
+
     }
+
+
     function liveResourceData(){
         util.getAjaxData("liveResourceData", "/rest/money/resource/live", "", fn_liveResourceData_success);
     }
@@ -1215,9 +1392,9 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="13" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
+                <th colspan="14" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
+                <th colspan="9" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
             </tr>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -1233,6 +1410,7 @@
                 <%--<th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>--%>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">달 직접 선물</th>
@@ -1242,6 +1420,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#dae3f3">(자동)</th>
@@ -1264,6 +1443,7 @@
                 <%--<td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>--%>
                 <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_inc_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_inc_Cnt}}"></i> {{addComma totalInfo.total_inc_Cnt}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>총합</td>
                 <td>{{addComma totalInfo.total_dalgiftsend_Cnt 'Y'}}</td>
@@ -1273,73 +1453,76 @@
                 <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_decTotal_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_dec_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_dec_Cnt}}"></i> {{addComma totalInfo.total_dec_Cnt}}</td>
             </tr>
             {{#each detailList}}
-            <tr
-                {{#dalbit_if ../detailList.slctType '==' '0'}}{{#dalbit_if ../detailList.nowHour '==' the_hr}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
-            >
-            <td class="font-bold _bgColor" data-bgcolor="#dae3f3">
-                {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
-            </td>
-            <td>{{addComma charge_Cnt 'Y'}}</td>
-            <td>{{addComma dalgiftget_Cnt 'Y'}}</td>
-            <td>{{addComma change_Cnt 'Y'}}</td>
-            <td>{{addComma join_Cnt 'Y'}}</td>
-            <td>{{addComma levelup_Cnt 'Y'}}</td>
-            <td>{{addComma ranking_Cnt 'Y'}}</td>
-            <td>{{addComma attendance_Cnt 'Y'}}</td>
-            <td>{{addComma recovery_Cnt 'Y'}}</td>
-            <td>{{addComma eventauto_Cnt 'Y'}}</td>
-            <td>{{addComma eventdirect_Cnt 'Y'}}</td>
-            <%--<td>{{addComma specialdj_Cnt 'Y'}}</td>--%>
-            <td>{{addComma testin_Cnt 'Y'}}</td>
-            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incTotal_Cnt 'Y'}}</td>
-            <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-            <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
-                {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
-                {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
-            </td>
-            <td>{{addComma dalgiftsend_Cnt 'Y'}}</td>
-            <td>{{addComma itemuse_Cnt 'Y'}}</td>
-            <td>{{addComma cancel_Cnt 'Y'}}</td>
-            <td>{{addComma block_Cnt 'Y'}}</td>
-            <td>{{addComma withdrawal_Cnt 'Y'}}</td>
-            <td>{{addComma testout_Cnt 'Y'}}</td>
-            <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decTotal_Cnt 'Y'}}</td>
-            </tr>
-            {{else}}
-            <td colspan="23" class="noData">{{isEmptyData}}<td>
-                {{/each}}
-                <tr class="font-bold" style="background-color: #d9d9d9">
-                    <td>총합</td>
-                    <td>{{addComma totalInfo.total_charge_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_dalgiftget_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_join_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_ranking_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_attendance_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
-                    <%--<td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>--%>
-                    <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
-                    <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                    <td>총합</td>
-                    <td>{{addComma totalInfo.total_dalgiftsend_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_itemuse_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
-                    <td>{{addComma totalInfo.total_decTotal_Cnt 'Y'}}</td>
+                <tr
+                    {{#dalbit_if ../slctType '==' '0'}}{{#dalbit_if ../nowHour '==' the_hr}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../slctType '==' '1'}}{{#dalbit_if ../nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                    {{#dalbit_if ../slctType '==' '2'}}{{#dalbit_if ../nowMonth '==' day}} class="font-bold _bgColor" data-bgcolor="#fff2cc" {{/dalbit_if}}{{/dalbit_if}}
+                >
+                <td class="font-bold _bgColor" data-bgcolor="#dae3f3">
+                    {{#dalbit_if ../slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
+                    {{#dalbit_if ../slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
+                    {{#dalbit_if ../slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
+                </td>
+                <td>{{addComma charge_Cnt 'Y'}}</td>
+                <td>{{addComma dalgiftget_Cnt 'Y'}}</td>
+                <td>{{addComma change_Cnt 'Y'}}</td>
+                <td>{{addComma join_Cnt 'Y'}}</td>
+                <td>{{addComma levelup_Cnt 'Y'}}</td>
+                <td>{{addComma ranking_Cnt 'Y'}}</td>
+                <td>{{addComma attendance_Cnt 'Y'}}</td>
+                <td>{{addComma recovery_Cnt 'Y'}}</td>
+                <td>{{addComma eventauto_Cnt 'Y'}}</td>
+                <td>{{addComma eventdirect_Cnt 'Y'}}</td>
+                <%--<td>{{addComma specialdj_Cnt 'Y'}}</td>--%>
+                <td>{{addComma testin_Cnt 'Y'}}</td>
+                <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incTotal_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass sub_inc_Cnt}}"> <i class="fa {{upAndDownIcon sub_inc_Cnt}}"></i> {{addComma sub_inc_Cnt 'Y'}}</td>
+                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
+                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '1'}}{{{date}}}{{/dalbit_if}}
+                    {{#dalbit_if ../detailList.slctType '==' '2'}}{{the_date}}월{{/dalbit_if}}
+                </td>
+                <td>{{addComma dalgiftsend_Cnt 'Y'}}</td>
+                <td>{{addComma itemuse_Cnt 'Y'}}</td>
+                <td>{{addComma cancel_Cnt 'Y'}}</td>
+                <td>{{addComma block_Cnt 'Y'}}</td>
+                <td>{{addComma withdrawal_Cnt 'Y'}}</td>
+                <td>{{addComma testout_Cnt 'Y'}}</td>
+                <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decTotal_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass sub_dec_Cnt}}"> <i class="fa {{upAndDownIcon sub_dec_Cnt}}"></i> {{addComma sub_dec_Cnt 'Y'}}</td>
                 </tr>
+            {{/each}}
+            <tr class="font-bold" style="background-color: #d9d9d9">
+                <td>총합</td>
+                <td>{{addComma totalInfo.total_charge_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_dalgiftget_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_join_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_ranking_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_attendance_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
+                <%--<td>{{addComma totalInfo.total_specialdj_Cnt 'Y'}}</td>--%>
+                <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_incTotal_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_inc_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_inc_Cnt}}"></i> {{addComma totalInfo.total_inc_Cnt 'Y'}}</td>
+                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+                <td>총합</td>
+                <td>{{addComma totalInfo.total_dalgiftsend_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_itemuse_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_decTotal_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_dec_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_dec_Cnt}}"></i> {{addComma totalInfo.total_dec_Cnt 'Y'}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -1355,9 +1538,9 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="8" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
+                <th colspan="9" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="7" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
+                <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -1368,6 +1551,7 @@
                 <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 지급)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
                 <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
@@ -1376,6 +1560,7 @@
                 <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
                 <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
                 <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
             </tr>
             </thead>
             <tbody>
@@ -1388,6 +1573,7 @@
                 <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_incbyeol_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_inc_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_inc_Cnt}}"></i> {{addComma totalInfo.total_inc_Cnt}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>총합</td>
                 <td>{{addComma totalInfo.total_exchange_Cnt 'Y'}}</td>
@@ -1396,6 +1582,7 @@
                 <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_decbyeol_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_dec_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_dec_Cnt}}"></i> {{addComma totalInfo.total_dec_Cnt}}</td>
             </tr>
             {{#each detailList}}
             <tr
@@ -1415,6 +1602,7 @@
             <td>{{addComma recovery_Cnt 'Y'}}</td>
             <td>{{addComma testin_Cnt 'Y'}}</td>
             <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_incByeolTotal_Cnt 'Y'}}</td>
+            <td class="{{upAndDownClass sub_inc_Cnt}}"> <i class="fa {{upAndDownIcon sub_inc_Cnt}}"></i> {{addComma sub_inc_Cnt 'Y'}}</td>
             <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
             <td class="font-bold _bgColor" data-bgcolor="#fbe5d6">
                 {{#dalbit_if ../detailList.slctType '==' '0'}}{{the_hr}}시{{/dalbit_if}}
@@ -1427,6 +1615,7 @@
             <td>{{addComma withdrawal_Cnt 'Y'}}</td>
             <td>{{addComma testout_Cnt 'Y'}}</td>
             <td class="_bgColor" data-bgcolor="#d9d9d9">{{addComma sub_decByeolTotal_Cnt 'Y'}}</td>
+            <td class="{{upAndDownClass sub_dec_Cnt}}"> <i class="fa {{upAndDownIcon sub_dec_Cnt}}"></i> {{addComma sub_dec_Cnt 'Y'}}</td>
             </tr>
             {{/each}}
             <tr class="font-bold" style="background-color: #d9d9d9">
@@ -1438,6 +1627,7 @@
                 <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testin_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_incbyeol_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_inc_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_inc_Cnt}}"></i> {{addComma totalInfo.total_inc_Cnt}}</td>
                 <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>총합</td>
                 <td>{{addComma totalInfo.total_exchange_Cnt 'Y'}}</td>
@@ -1446,6 +1636,7 @@
                 <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_decbyeol_Cnt 'Y'}}</td>
+                <td class="{{upAndDownClass totalInfo.total_dec_Cnt}}"> <i class="fa {{upAndDownIcon totalInfo.total_dec_Cnt}}"></i> {{addComma totalInfo.total_dec_Cnt}}</td>
             </tr>
             </tbody>
         </table>

@@ -107,6 +107,9 @@ public class Adm_AlarmTalkService {
         // 로그 리스트
         int totalCnt = admAlarmTalkDao.callAlarmTalkLogList_total(pAlarmTalkLogListInputVo);
         pAlarmTalkLogListInputVo.setTotalCnt(totalCnt);
+
+        pAlarmTalkLogListInputVo.setPageStart(pAlarmTalkLogListInputVo.getPageStart() -1);
+        pAlarmTalkLogListInputVo.setPageStart(pAlarmTalkLogListInputVo.getPageStart() * pAlarmTalkLogListInputVo.getPageCnt());
         List<P_AlarmTalkLogListOutputVo> logList = admAlarmTalkDao.callAlarmTalkLogList(pAlarmTalkLogListInputVo);
 
         for(P_AlarmTalkLogListOutputVo log : logList){
