@@ -16,9 +16,57 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
                         <div>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="rankType" value='1' checked="checked" />
+                                <span><i></i>일간</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="rankType" value='2' />
+                                <span><i></i>주간</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="rankType" value='3' />
+                                <span><i></i>월간</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="rankType" value='4' />
+                                <span><i></i>연간</span>
+                            </label>
+
+                            <div class="input-group date" id="oneDayDatePicker">
+                                <label for="onedayDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
+                                </label>
+                                <input type="text" class="form-control" id="onedayDate" name="onedayDate">
+                            </div>
+
+                            <div class="input-group date" id="rangeDatepicker" style="display: none">
+                                <label for="monthDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar"></i></span>
+                                </label>
+                                <input id="monthDate" type="text" class="form-control" style="width: 168px;"/>
+                            </div>
+
+                            <div class="input-group date" id="yearDatepicker" style="display:none;">
+                                <label for="yearDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar"></i></span>
+                                </label>
+                                <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
+                            </div>
+
+                            <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                            <input class="hide" name="endDate" id="endDate" style="width: 100px">
+
+                            <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                            <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+
+
                             <span id="searchArea"></span>
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            <a href="javascript://" class="_prevSearch">[이전]</a>
+                            <a href="javascript://" class="_todaySearch">[오늘]</a>
+                            <a href="javascript://" class="_nextSearch">[다음]</a>
                         </div>
                     </div>
                 </div>
@@ -45,56 +93,6 @@
                         <div class="row col-lg-12 form-inline">
                             <div class="col-md-7 no-padding mt10">
                                 <span id="tab_title">DJ 랭킹 점수는 받은 별(부스터 제외) 1점, 누적 청취자 2점, 받은 좋아요 1점, 부스터 횟수 20점으로 반영됩니다.</span>
-                            </div>
-                            <div class="col-md-5 table-option pt10 pull-right">
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="rankType" value='1' checked="checked" />
-                                    <span><i></i>일간</span>
-                                </label>
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="rankType" value='2' />
-                                    <span><i></i>주간</span>
-                                </label>
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="rankType" value='3' />
-                                    <span><i></i>월간</span>
-                                </label>
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="rankType" value='4' />
-                                    <span><i></i>연간</span>
-                                </label>
-
-                                <div class="input-group date" id="oneDayDatePicker">
-                                    <label for="onedayDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
-                                    </label>
-                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
-                                </div>
-
-                                <div class="input-group date" id="rangeDatepicker" style="display: none">
-                                    <label for="monthDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="monthDate" type="text" class="form-control" style="width: 168px;"/>
-                                </div>
-
-                                <div class="input-group date" id="yearDatepicker" style="display:none;">
-                                    <label for="yearDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
-                                </div>
-
-                                <input class="hide" name="startDate" id="startDate" style="width: 100px">
-                                <input class="hide" name="endDate" id="endDate" style="width: 100px">
-
-                                <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                <%--<input name="endDate" id="endDate" style="width: 100px">--%>
-
-                                <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                <a href="javascript://" class="_nextSearch">[다음]</a>
-
                             </div>
                         </div>
 
