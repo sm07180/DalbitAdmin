@@ -19,6 +19,9 @@ public class ClipHistoryGiftVo extends PagingVo {
     private int pageNo;
     private String targetClipNo;
 
+    private String searchSex;
+    private int searchState = -1;
+
     /* output */
     private String memNo;
     private String memNick;
@@ -33,6 +36,7 @@ public class ClipHistoryGiftVo extends PagingVo {
     private String itemName;
     private int itemCnt;
     private int gold;
+    private int ruby;
     private int itemTotalCnt;
     private int goldTotalCnt;
 

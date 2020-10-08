@@ -9,11 +9,11 @@
             <span class="font-bold">◈클립등록자 성별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="6.5%"/>
-                    <col width="4%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                    <col width="4%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                    <col width="4%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                    <col width="4%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                    <col />
+                    <col width="4.3%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                    <col width="4.3%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                    <col width="4.3%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
+                    <col width="4.3%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
                 </colgroup>
                 <thead>
                 <tr>
@@ -64,7 +64,7 @@
             <span class="font-bold">◈선물 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="9%"/>
+                    <col/>
                     <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
                     <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
                 </colgroup>
@@ -92,12 +92,13 @@
             </table>
         </div>
 
-        <div class="col-md-10 no-padding">
+        <div class="col-md-9 no-padding">
             <span class="font-bold">◈연령대 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="7.2%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
-                    <col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+                    <col/>
+                    <col width="11.2%"/><col width="11.2%"/><col width="11.2%"/><col width="11.2%"/>
+                    <col width="11.2%"/><col width="11.2%"/><col width="11.2%"/><col width="11.2%"/>
                 </colgroup>
                 <thead>
                 <tr>
@@ -120,7 +121,7 @@
             <span class="font-bold">◈클립 주제 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="6.1%"/>
+                    <col/>
                     <col width="5.15%"/><col width="5.15%"/>
                     <col width="5.15%"/><col width="5.15%"/>
                     <col width="5.15%"/><col width="5.15%"/>
@@ -169,11 +170,11 @@
             </table>
         </div>
 
-        <div class="col-md-9 no-padding">
+        <div class="col-md-8 no-padding">
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="8%"/>
+                    <col/>
                     <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
                     <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
                 </colgroup>
@@ -583,23 +584,23 @@
 <script type="text/x-handlebars-template" id="tmp_dayTotal">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_maleCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_open_reg_maleCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_notopen_reg_maleCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_mem_del_maleCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_op_del_maleCnt}}</td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="2" data-searchSex="m" data-searchGroupBy="1" style="cursor:pointer;">{{addComma sum_maleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-1" data-searchSex="m" style="cursor:pointer;">{{addComma sum_open_reg_maleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-1" data-searchSex="m" style="cursor:pointer;">{{addComma sum_notopen_reg_maleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-2" data-searchSex="m" style="cursor:pointer;">{{addComma sum_mem_del_maleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-2" data-searchSex="m" style="cursor:pointer;">{{addComma sum_op_del_maleCnt}}</span></td>
 
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_femaleCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_open_reg_femaleCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_notopen_reg_femaleCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_mem_del_femaleCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_op_del_femaleCnt}}</td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="2" data-searchSex="f" data-searchGroupBy="1" style="cursor:pointer;">{{addComma sum_femaleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-1" data-searchSex="f" style="cursor:pointer;">{{addComma sum_open_reg_femaleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-1" data-searchSex="f" style="cursor:pointer;">{{addComma sum_notopen_reg_femaleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-2" data-searchSex="f" style="cursor:pointer;">{{addComma sum_mem_del_femaleCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-2" data-searchSex="f" style="cursor:pointer;">{{addComma sum_op_del_femaleCnt}}</span></td>
 
-        <td class="_fontColor">{{addComma sum_noneCnt}}</td>
-        <td class="_fontColor">{{addComma sum_open_reg_noneCnt}}</td>
-        <td class="_fontColor">{{addComma sum_notopen_reg_noneCnt}}</td>
-        <td class="_fontColor">{{addComma sum_mem_del_noneCnt}}</td>
-        <td class="_fontColor">{{addComma sum_op_del_noneCnt}}</td>
+        <td class="_fontColor"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="2" data-searchSex="n" data-searchGroupBy="1" style="cursor:pointer;">{{addComma sum_noneCnt}}</span></td>
+        <td class="_fontColor"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-1" data-searchSex="n" style="cursor:pointer;">{{addComma sum_open_reg_noneCnt}}</span></td>
+        <td class="_fontColor"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-1" data-searchSex="n" style="cursor:pointer;">{{addComma sum_notopen_reg_noneCnt}}</span></td>
+        <td class="_fontColor"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-2" data-searchSex="n" style="cursor:pointer;">{{addComma sum_mem_del_noneCnt}}</span></td>
+        <td class="_fontColor"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="1-2" data-searchSex="n" style="cursor:pointer;">{{addComma sum_op_del_noneCnt}}</span></td>
 
         <td class="_fontColor">{{addComma sum_totalCnt}}</td>
         <td class="_fontColor">{{addComma sum_open_reg_totalCnt}}</td>
@@ -616,30 +617,29 @@
         {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{data.the_date}}}
         </td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma maleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma open_reg_maleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma notopen_reg_maleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma mem_del_maleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma op_del_maleCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="2" data-searchSex="m" data-searchGroupBy="1" style="cursor:pointer;">{{addComma maleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-1" data-searchSex="m" style="cursor:pointer;">{{addComma open_reg_maleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-1" data-searchSex="m"  style="cursor:pointer;">{{addComma notopen_reg_maleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-2" data-searchSex="m"  style="cursor:pointer;">{{addComma mem_del_maleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-2" data-searchSex="m"  style="cursor:pointer;">{{addComma op_del_maleCnt 'Y'}}</span></td>
 
-        <td class="_fontColor" data-fontColor="red">{{addComma femaleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma open_reg_femaleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma notopen_reg_femaleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma mem_del_femaleCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma op_del_femaleCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="2" data-searchSex="f" data-searchGroupBy="1" style="cursor:pointer;">{{addComma femaleCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-1" data-searchSex="f" style="cursor:pointer;">{{addComma open_reg_femaleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-1" data-searchSex="f" style="cursor:pointer;">{{addComma notopen_reg_femaleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-2" data-searchSex="f" style="cursor:pointer;">{{addComma mem_del_femaleCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-2" data-searchSex="f" style="cursor:pointer;">{{addComma op_del_femaleCnt 'Y'}}</span></td>
 
-        <td>{{addComma noneCnt 'Y'}}</td>
-        <td>{{addComma open_reg_noneCnt 'Y'}}</td>
-        <td>{{addComma notopen_reg_noneCnt 'Y'}}</td>
-        <td>{{addComma mem_del_noneCnt 'Y'}}</td>
-        <td>{{addComma op_del_noneCnt 'Y'}}</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="2" data-searchSex="n" data-searchGroupBy="1" style="cursor:pointer;">{{addComma noneCnt 'Y'}}</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-1" data-searchSex="n" style="cursor:pointer;">{{addComma open_reg_noneCnt 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-1" data-searchSex="n" style="cursor:pointer;">{{addComma notopen_reg_noneCnt 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-2" data-searchSex="n" style="cursor:pointer;">{{addComma mem_del_noneCnt 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="1-2" data-searchSex="n" style="cursor:pointer;">{{addComma op_del_noneCnt 'Y'}}</span></td>
 
         <td>{{addComma totalCnt 'Y'}}</td>
         <td>{{addComma open_reg_totalCnt 'Y'}}</td>
         <td>{{addComma notopen_reg_totalCnt 'Y'}}</td>
         <td>{{addComma mem_del_totalCnt 'Y'}}</td>
         <td>{{addComma op_del_totalCnt 'Y'}}</td>
-
     </tr>
     {{else}}
     <tr>
@@ -652,12 +652,12 @@
 <script type="text/x-handlebars-template" id="tmp_giftDay">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_maleGiftCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma sum_maleGiftAmount}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_femaleGiftCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma sum_femaleGiftAmount}}</td>
-        <td>{{addComma sum_noneGiftCnt}}</td>
-        <td>{{addComma sum_noneGiftAmount}}</td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="3" data-searchSex="m" style="cursor:pointer;">{{addComma sum_maleGiftCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="3" data-searchSex="m" style="cursor:pointer;">{{addComma sum_maleGiftAmount}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="3" data-searchSex="f" style="cursor:pointer;">{{addComma sum_femaleGiftCnt}}</span></td>
+        <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="3" data-searchSex="f" style="cursor:pointer;">{{addComma sum_femaleGiftAmount}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="3" data-searchSex="n" style="cursor:pointer;">{{addComma sum_noneGiftCnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="3" data-searchSex="n" style="cursor:pointer;">{{addComma sum_noneGiftAmount}}</span></td>
         <td>{{addComma sum_totalGiftCnt}}</td>
         <td>{{addComma sum_totalGiftAmount}}</td>
     </tr>
@@ -670,14 +670,14 @@
         {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{data.date}}}
         </td>
-            <td class="_fontColor" data-fontColor="blue">{{addComma maleGiftCnt 'Y'}}</td>
-            <td class="_fontColor" data-fontColor="blue">{{addComma maleGiftAmount 'Y'}}</td>
-            <td class="_fontColor" data-fontColor="red">{{addComma femaleGiftCnt 'Y'}}</td>
-            <td class="_fontColor" data-fontColor="red">{{addComma femaleGiftAmount 'Y'}}</td>
-            <td>{{addComma noneGiftCnt 'Y'}}</td>
-            <td>{{addComma noneGiftAmount 'Y'}}</td>
-            <td>{{addComma totalGiftCnt 'Y'}}</td>
-            <td>{{addComma totalGiftAmount 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="3" data-searchSex="m" style="cursor:pointer;">{{addComma maleGiftCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="3" data-searchSex="m" style="cursor:pointer;">{{addComma maleGiftAmount 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="red"> <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="3" data-searchSex="f" style="cursor:pointer;">{{addComma femaleGiftCnt 'Y'}}</span></td>
+        <td class="_fontColor" data-fontColor="red"> <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="3" data-searchSex="f" style="cursor:pointer;">{{addComma femaleGiftAmount 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="3" data-searchSex="n" style="cursor:pointer;">{{addComma noneGiftCnt 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="3" data-searchSex="n" style="cursor:pointer;">{{addComma noneGiftAmount 'Y'}}</span></td>
+        <td>{{addComma totalGiftCnt 'Y'}}</td>
+        <td>{{addComma totalGiftAmount 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
@@ -689,13 +689,13 @@
 <script type="text/x-handlebars-template" id="tmp_ageDay">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td>{{addComma sum_reg_12_16_cnt}} ({{addComma sum_del_12_16_cnt}})</td>
-        <td>{{addComma sum_reg_17_19_cnt}} ({{addComma sum_del_17_19_cnt}})</td>
-        <td>{{addComma sum_reg_20_25_cnt}} ({{addComma sum_del_20_25_cnt}})</td>
-        <td>{{addComma sum_reg_26_30_cnt}} ({{addComma sum_del_26_30_cnt}})</td>
-        <td>{{addComma sum_reg_31_35_cnt}} ({{addComma sum_del_31_35_cnt}})</td>
-        <td>{{addComma sum_reg_36_40_cnt}} ({{addComma sum_del_36_40_cnt}})</td>
-        <td>{{addComma sum_reg_41_00_cnt}} ({{addComma sum_del_41_00_cnt}})</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="1" style="cursor:pointer;">{{addComma sum_reg_12_16_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="1" style="cursor:pointer;">{{addComma sum_del_12_16_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="2" style="cursor:pointer;">{{addComma sum_reg_17_19_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="2" style="cursor:pointer;">{{addComma sum_del_17_19_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="3" style="cursor:pointer;">{{addComma sum_reg_20_25_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="3" style="cursor:pointer;">{{addComma sum_del_20_25_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="4" style="cursor:pointer;">{{addComma sum_reg_26_30_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="4" style="cursor:pointer;">{{addComma sum_del_26_30_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="5" style="cursor:pointer;">{{addComma sum_reg_31_35_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="5" style="cursor:pointer;">{{addComma sum_del_31_35_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="6" style="cursor:pointer;">{{addComma sum_reg_36_40_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="6" style="cursor:pointer;">{{addComma sum_del_36_40_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="4-1" data-searchAgeType="7" style="cursor:pointer;">{{addComma sum_reg_41_00_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="4-2" data-searchAgeType="7" style="cursor:pointer;">{{addComma sum_del_41_00_cnt}}</span>)</td>
         <td>{{addComma sum_reg_total_cnt}} ({{addComma sum_del_total_cnt}})</td>
     </tr>
 </script>
@@ -706,14 +706,69 @@
     <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
     {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
     {{{data.date}}}
-    </td>
-        <td>{{#dalbit_if reg_12_16_cnt '!=' '0'}}{{addComma reg_12_16_cnt}} ({{addComma del_12_16_cnt}}){{else}}{{#dalbit_if del_12_16_cnt '!=' '0'}}{{addComma reg_12_16_cnt}} ({{addComma del_12_16_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_17_19_cnt '!=' '0'}}{{addComma reg_17_19_cnt}} ({{addComma del_17_19_cnt}}){{else}}{{#dalbit_if del_17_19_cnt '!=' '0'}}{{addComma reg_17_19_cnt}} ({{addComma del_17_19_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_20_25_cnt '!=' '0'}}{{addComma reg_20_25_cnt}} ({{addComma del_20_25_cnt}}){{else}}{{#dalbit_if del_20_25_cnt '!=' '0'}}{{addComma reg_20_25_cnt}} ({{addComma del_20_25_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_26_30_cnt '!=' '0'}}{{addComma reg_26_30_cnt}} ({{addComma del_26_30_cnt}}){{else}}{{#dalbit_if del_26_30_cnt '!=' '0'}}{{addComma reg_26_30_cnt}} ({{addComma del_26_30_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_31_35_cnt '!=' '0'}}{{addComma reg_31_35_cnt}} ({{addComma del_31_35_cnt}}){{else}}{{#dalbit_if del_31_35_cnt '!=' '0'}}{{addComma reg_31_35_cnt}} ({{addComma del_31_35_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_36_40_cnt '!=' '0'}}{{addComma reg_36_40_cnt}} ({{addComma del_36_40_cnt}}){{else}}{{#dalbit_if del_36_40_cnt '!=' '0'}}{{addComma reg_36_40_cnt}} ({{addComma del_36_40_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_41_00_cnt '!=' '0'}}{{addComma reg_41_00_cnt}} ({{addComma del_41_00_cnt}}){{else}}{{#dalbit_if del_41_00_cnt '!=' '0'}}{{addComma reg_41_00_cnt}} ({{addComma del_41_00_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
+        <td>
+            {{#dalbit_if reg_12_16_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="1" style="cursor:pointer;">{{addComma reg_12_16_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="1"  style="cursor:pointer;">{{addComma del_12_16_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_12_16_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="1" style="cursor:pointer;">{{addComma reg_12_16_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="1"  style="cursor:pointer;">{{addComma del_12_16_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_17_19_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="2" style="cursor:pointer;">{{addComma reg_17_19_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="2"  style="cursor:pointer;">{{addComma del_17_19_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_17_19_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="2" style="cursor:pointer;">{{addComma reg_17_19_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="2"  style="cursor:pointer;">{{addComma del_17_19_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_20_25_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="3" style="cursor:pointer;">{{addComma reg_20_25_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="3"  style="cursor:pointer;">{{addComma del_20_25_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_20_25_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="3" style="cursor:pointer;">{{addComma reg_20_25_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="3"  style="cursor:pointer;">{{addComma del_20_25_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_26_30_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="4" style="cursor:pointer;">{{addComma reg_26_30_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="4"  style="cursor:pointer;">{{addComma del_26_30_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_26_30_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="4" style="cursor:pointer;">{{addComma reg_26_30_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="4"  style="cursor:pointer;">{{addComma del_26_30_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_31_35_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="5" style="cursor:pointer;">{{addComma reg_31_35_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="5"  style="cursor:pointer;">{{addComma del_31_35_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_31_35_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="5" style="cursor:pointer;">{{addComma reg_31_35_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="5"  style="cursor:pointer;">{{addComma del_31_35_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_36_40_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="6" style="cursor:pointer;">{{addComma reg_36_40_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="6"  style="cursor:pointer;">{{addComma del_36_40_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_36_40_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="6" style="cursor:pointer;">{{addComma reg_36_40_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="6"  style="cursor:pointer;">{{addComma del_36_40_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_41_00_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="7" style="cursor:pointer;">{{addComma reg_41_00_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="7"  style="cursor:pointer;">{{addComma del_41_00_cnt}}</span>)
+            {{else}}
+            {{#dalbit_if del_41_00_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-1" data-searchAgeType="7" style="cursor:pointer;">{{addComma reg_41_00_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-type="4-2" data-searchAgeType="7"  style="cursor:pointer;">{{addComma del_41_00_cnt}}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
         <td>{{#dalbit_if reg_total_cnt '!=' '0'}}{{addComma reg_total_cnt}} ({{addComma del_total_cnt}}){{else}}{{#dalbit_if del_total_cnt '!=' '0'}}{{addComma reg_total_cnt}} ({{addComma del_total_cnt}}){{/dalbit_if}}{{/dalbit_if}}</td>
     </tr>
     {{else}}
@@ -727,13 +782,13 @@
 <script type="text/x-handlebars-template" id="tmp_platformDay">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td>{{addComma sum_reg_pc_cnt}} ({{addComma sum_del_pc_cnt}})</td>
-        <td>{{addComma sum_reg_and_cnt}} ({{addComma sum_del_and_cnt}})</td>
-        <td>{{addComma sum_reg_ios_cnt}} ({{addComma sum_del_ios_cnt}})</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="7-1" data-searchOsType="3" style="cursor:pointer;">{{addComma sum_reg_pc_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="3" style="cursor:pointer;">{{addComma sum_del_pc_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="7-1" data-searchOsType="1" style="cursor:pointer;">{{addComma sum_reg_and_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="1" style="cursor:pointer;">{{addComma sum_del_and_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="7-1" data-searchOsType="2" style="cursor:pointer;">{{addComma sum_reg_ios_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="2" style="cursor:pointer;">{{addComma sum_del_ios_cnt}}</span>)</td>
         <td>{{addComma sum_reg_total_cnt}} ({{addComma sum_del_total_cnt}})</td>
-        <td>{{addComma sum_listen_pc_cnt}}</td>
-        <td>{{addComma sum_listen_and_cnt}}</td>
-        <td>{{addComma sum_listen_ios_cnt}}</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="8" data-searchOsType="3" style="cursor:pointer;">{{addComma sum_listen_pc_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="8" data-searchOsType="1" style="cursor:pointer;">{{addComma sum_listen_and_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="8" data-searchOsType="2" style="cursor:pointer;">{{addComma sum_listen_ios_cnt}}</span></td>
         <td>{{addComma sum_listen_total_cnt}}</td>
     </tr>
 </script>
@@ -745,14 +800,48 @@
         {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{data.date}}}
         </td>
-        <td>{{#dalbit_if reg_pc_cnt '!=' '0'}}{{addComma reg_pc_cnt }} ({{addComma del_pc_cnt }}){{else}}{{#dalbit_if del_pc_cnt '!=' '0'}}{{addComma reg_pc_cnt }} ({{addComma del_pc_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_and_cnt '!=' '0'}}{{addComma reg_and_cnt }} ({{addComma del_and_cnt }}){{else}}{{#dalbit_if del_and_cnt '!=' '0'}}{{addComma reg_and_cnt }} ({{addComma del_and_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_ios_cnt '!=' '0'}}{{addComma reg_ios_cnt }} ({{addComma del_ios_cnt }}){{else}}{{#dalbit_if del_ios_cnt '!=' '0'}}{{addComma reg_ios_cnt }} ({{addComma del_ios_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{#dalbit_if reg_total_cnt '!=' '0'}}{{addComma reg_total_cnt }} ({{addComma del_total_cnt }}){{else}}{{#dalbit_if del_total_cnt '!=' '0'}}{{addComma reg_total_cnt }} ({{addComma del_total_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-
-        <td>{{addComma listen_pc_cnt 'Y'}}</td>
-        <td>{{addComma listen_and_cnt 'Y'}}</td>
-        <td>{{addComma listen_ios_cnt 'Y'}}</td>
+        <td>
+            {{#dalbit_if reg_pc_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" data-searchOsType="3" style="cursor:pointer;">{{addComma reg_pc_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="3" style="cursor:pointer;">{{addComma del_pc_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_pc_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" data-searchOsType="3" style="cursor:pointer;">{{addComma reg_pc_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="3" style="cursor:pointer;">{{addComma del_pc_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_and_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" data-searchOsType="1" style="cursor:pointer;">{{addComma reg_and_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="1" style="cursor:pointer;">{{addComma del_and_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_and_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" data-searchOsType="1" style="cursor:pointer;">{{addComma reg_and_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="1" style="cursor:pointer;">{{addComma del_and_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_ios_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" data-searchOsType="2" style="cursor:pointer;">{{addComma reg_ios_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="2" style="cursor:pointer;">{{addComma del_ios_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_ios_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" data-searchOsType="2" style="cursor:pointer;">{{addComma reg_ios_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" data-searchOsType="2" style="cursor:pointer;">{{addComma del_ios_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if reg_total_cnt '!=' '0'}}
+                <%--<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" style="cursor:pointer;">{{addComma reg_total_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" style="cursor:pointer;">{{addComma del_total_cnt }}</span>)--%>
+                {{addComma reg_total_cnt }} ({{addComma del_total_cnt }})tal_cnt }})
+            {{else}}
+                {{#dalbit_if del_total_cnt '!=' '0'}}
+                    <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" style="cursor:pointer;">{{addComma reg_total_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" style="cursor:pointer;">{{addComma del_total_cnt }}</span>)
+                    {{addComma reg_total_cnt }} ({{addComma del_total_cnt }})tal_cnt }})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+    
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="8" data-searchOsType="3" style="cursor:pointer;">{{addComma listen_pc_cnt 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="8" data-searchOsType="1" style="cursor:pointer;">{{addComma listen_and_cnt 'Y'}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="8" data-searchOsType="2" style="cursor:pointer;">{{addComma listen_ios_cnt 'Y'}}</span></td>
         <td>{{addComma listen_total_cnt 'Y'}}</td>
     </tr>
     {{/each}}
@@ -762,22 +851,22 @@
 <script type="text/x-handlebars-template" id="tmp_typeDay">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td>{{addComma sum_reg_01_cnt}} ({{addComma sum_del_01_cnt}})</td>
-        <td>{{addComma sum_play_01_cnt}}</td>
-        <td>{{addComma sum_reg_02_cnt}} ({{addComma sum_del_02_cnt}})</td>
-        <td>{{addComma sum_play_02_cnt}}</td>
-        <td>{{addComma sum_reg_03_cnt}} ({{addComma sum_del_03_cnt}})</td>
-        <td>{{addComma sum_play_03_cnt}}</td>
-        <td>{{addComma sum_reg_04_cnt}} ({{addComma sum_del_04_cnt}})</td>
-        <td>{{addComma sum_play_04_cnt}}</td>
-        <td>{{addComma sum_reg_05_cnt}} ({{addComma sum_del_05_cnt}})</td>
-        <td>{{addComma sum_play_05_cnt}}</td>
-        <td>{{addComma sum_reg_06_cnt}} ({{addComma sum_del_06_cnt}})</td>
-        <td>{{addComma sum_play_06_cnt}}</td>
-        <td>{{addComma sum_reg_07_cnt}} ({{addComma sum_del_07_cnt}})</td>
-        <td>{{addComma sum_play_07_cnt}}</td>
-        <td>{{addComma sum_reg_08_cnt}} ({{addComma sum_del_08_cnt}})</td>
-        <td>{{addComma sum_play_08_cnt}}</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="01" style="cursor:pointer;">{{addComma sum_reg_01_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="01" style="cursor:pointer;">{{addComma sum_del_01_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="01" style="cursor:pointer;">{{addComma sum_play_01_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="02" style="cursor:pointer;">{{addComma sum_reg_02_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="02" style="cursor:pointer;">{{addComma sum_del_02_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="02" style="cursor:pointer;">{{addComma sum_play_02_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="03" style="cursor:pointer;">{{addComma sum_reg_03_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="03" style="cursor:pointer;">{{addComma sum_del_03_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="03" style="cursor:pointer;">{{addComma sum_play_03_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="04" style="cursor:pointer;">{{addComma sum_reg_04_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="04" style="cursor:pointer;">{{addComma sum_del_04_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="04" style="cursor:pointer;">{{addComma sum_play_04_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="05" style="cursor:pointer;">{{addComma sum_reg_05_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="05" style="cursor:pointer;">{{addComma sum_del_05_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="05" style="cursor:pointer;">{{addComma sum_play_05_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="06" style="cursor:pointer;">{{addComma sum_reg_06_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="06" style="cursor:pointer;">{{addComma sum_del_06_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="06" style="cursor:pointer;">{{addComma sum_play_06_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="07" style="cursor:pointer;">{{addComma sum_reg_07_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="07" style="cursor:pointer;">{{addComma sum_del_07_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="07" style="cursor:pointer;">{{addComma sum_play_07_cnt}}</span></td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="5-1" data-subjectType="08" style="cursor:pointer;">{{addComma sum_reg_08_cnt}}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="08" style="cursor:pointer;">{{addComma sum_del_08_cnt}}</span>)</td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-type="6" data-subjectType="08" style="cursor:pointer;">{{addComma sum_play_08_cnt}}</span></td>
         <td>{{addComma sum_reg_total_cnt}} ({{addComma sum_del_total_cnt}})</td>
         <td>{{addComma sum_play_total_cnt}}</td>
     </tr>
@@ -790,22 +879,86 @@
         {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{data.date}}}
         </td>
-        <td>{{#dalbit_if reg_01_cnt '!=' '0'}}{{addComma reg_01_cnt }} ({{addComma del_01_cnt }}){{else}}{{#dalbit_if del_01_cnt '!=' '0'}}{{addComma reg_01_cnt }} ({{addComma del_01_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_01_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_02_cnt '!=' '0'}}{{addComma reg_02_cnt }} ({{addComma del_02_cnt }}){{else}}{{#dalbit_if del_02_cnt '!=' '0'}}{{addComma reg_02_cnt }} ({{addComma del_02_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_02_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_03_cnt '!=' '0'}}{{addComma reg_03_cnt }} ({{addComma del_03_cnt }}){{else}}{{#dalbit_if del_03_cnt '!=' '0'}}{{addComma reg_03_cnt }} ({{addComma del_03_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_03_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_04_cnt '!=' '0'}}{{addComma reg_04_cnt }} ({{addComma del_04_cnt }}){{else}}{{#dalbit_if del_04_cnt '!=' '0'}}{{addComma reg_04_cnt }} ({{addComma del_04_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_04_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_05_cnt '!=' '0'}}{{addComma reg_05_cnt }} ({{addComma del_05_cnt }}){{else}}{{#dalbit_if del_05_cnt '!=' '0'}}{{addComma reg_05_cnt }} ({{addComma del_05_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_05_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_06_cnt '!=' '0'}}{{addComma reg_06_cnt }} ({{addComma del_06_cnt }}){{else}}{{#dalbit_if del_06_cnt '!=' '0'}}{{addComma reg_06_cnt }} ({{addComma del_06_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_06_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_07_cnt '!=' '0'}}{{addComma reg_07_cnt }} ({{addComma del_07_cnt }}){{else}}{{#dalbit_if del_07_cnt '!=' '0'}}{{addComma reg_07_cnt }} ({{addComma del_07_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_07_cnt 'Y'}}</td>
-        <td>{{#dalbit_if reg_08_cnt '!=' '0'}}{{addComma reg_08_cnt }} ({{addComma del_08_cnt }}){{else}}{{#dalbit_if del_08_cnt '!=' '0'}}{{addComma reg_08_cnt }} ({{addComma del_08_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
-        <td>{{addComma play_08_cnt 'Y'}}</td>
+        <td>
+            {{#dalbit_if reg_01_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="01" style="cursor:pointer;">{{addComma reg_01_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="01" style="cursor:pointer;">{{addComma del_01_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_01_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="01" style="cursor:pointer;">{{addComma reg_01_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="01" style="cursor:pointer;">{{addComma del_01_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="01" style="cursor:pointer;">{{addComma play_01_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_02_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="02" style="cursor:pointer;">{{addComma reg_02_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="02" style="cursor:pointer;">{{addComma del_02_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_02_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="02" style="cursor:pointer;">{{addComma reg_02_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="02" style="cursor:pointer;">{{addComma del_02_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="02" style="cursor:pointer;">{{addComma play_02_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_03_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="03" style="cursor:pointer;">{{addComma reg_03_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="03" style="cursor:pointer;">{{addComma del_03_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_03_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="03" style="cursor:pointer;">{{addComma reg_03_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="03" style="cursor:pointer;">{{addComma del_03_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="03" style="cursor:pointer;">{{addComma play_03_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_04_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="04" style="cursor:pointer;">{{addComma reg_04_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="04" style="cursor:pointer;">{{addComma del_04_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_04_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="04" style="cursor:pointer;">{{addComma reg_04_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="04" style="cursor:pointer;">{{addComma del_04_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="04" style="cursor:pointer;">{{addComma play_04_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_05_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="05" style="cursor:pointer;">{{addComma reg_05_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="05" style="cursor:pointer;">{{addComma del_05_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_05_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="05" style="cursor:pointer;">{{addComma reg_05_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="05" style="cursor:pointer;">{{addComma del_05_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="05" style="cursor:pointer;">{{addComma play_05_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_06_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="06" style="cursor:pointer;">{{addComma reg_06_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="06" style="cursor:pointer;">{{addComma del_06_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_06_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="06" style="cursor:pointer;">{{addComma reg_06_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="06" style="cursor:pointer;">{{addComma del_06_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="06" style="cursor:pointer;">{{addComma play_06_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_07_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="07" style="cursor:pointer;">{{addComma reg_07_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="07" style="cursor:pointer;">{{addComma del_07_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_07_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="07" style="cursor:pointer;">{{addComma reg_07_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="07" style="cursor:pointer;">{{addComma del_07_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="07" style="cursor:pointer;">{{addComma play_07_cnt 'Y'}}</span></td>
+        <td>
+            {{#dalbit_if reg_08_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="08" style="cursor:pointer;">{{addComma reg_08_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="08" style="cursor:pointer;">{{addComma del_08_cnt }}</span>)
+            {{else}}
+            {{#dalbit_if del_08_cnt '!=' '0'}}
+            <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-1" data-subjectType="08" style="cursor:pointer;">{{addComma reg_08_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="5-2" data-subjectType="08" style="cursor:pointer;">{{addComma del_08_cnt }}</span>)
+            {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="6" data-subjectType="08" style="cursor:pointer;">{{addComma play_08_cnt 'Y'}}</span></td>
         <td>{{#dalbit_if reg_total_cnt '!=' '0'}}{{addComma reg_total_cnt }} ({{addComma del_total_cnt }}){{else}}{{#dalbit_if del_total_cnt '!=' '0'}}{{addComma reg_total_cnt }} ({{addComma del_total_cnt }}){{/dalbit_if}}{{/dalbit_if}}</td>
         <td>{{addComma play_total_cnt 'Y'}}</td>
     </tr>

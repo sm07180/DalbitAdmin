@@ -56,6 +56,23 @@ public class Cli_ClipHistoryService {
         }
     }
 
+    /**
+     * 클립 리스트 조회
+     */
+    public String callClipRegHistoryList(ClipHistoryVo clipHistoryVo) {
+        ProcedureVo procedureVo = new ProcedureVo(clipHistoryVo);
+        ArrayList<ClipHistoryVo> list = cliClipHistoryDao.callClipRegHistoryList(procedureVo);
+        ClipHistoryTotalVo summary = new Gson().fromJson(procedureVo.getExt(), ClipHistoryTotalVo.class);
+
+        if(list.size() > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(procedureVo.getRet()), summary));
+        }else if(list.size() == 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(procedureVo.getRet()), summary));
+        }else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+
 
     /**
      * 클립 회원 리스트 조회
@@ -141,7 +158,6 @@ public class Cli_ClipHistoryService {
             return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
     }
-
 
     /**
      * 클립 좋아요 리스트 조회
@@ -388,5 +404,23 @@ public class Cli_ClipHistoryService {
             return gsonUtil.toJson(new JsonOutputVo(Status.클립댓글삭제_실패));
         }
 
+    }
+
+
+    /**
+     * 클립 청취자 상세 리스트 조회
+     */
+    public String callClipHistoryPlayList(ClipHistoryListenVo clipHistoryListenVo) {
+        ProcedureVo procedureVo = new ProcedureVo(clipHistoryListenVo);
+        ArrayList<ClipHistoryListenVo> list = cliClipHistoryDao.callClipHistoryPlayList(procedureVo);
+        ClipHistoryTotalVo summary = new Gson().fromJson(procedureVo.getExt(), ClipHistoryListenTotalVo.class);
+
+        if(list.size() > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(procedureVo.getRet()), summary));
+        }else if(list.size() == 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(procedureVo.getRet()), summary));
+        }else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
     }
 }

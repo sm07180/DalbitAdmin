@@ -33,6 +33,15 @@ public class Cli_ClipHistoryRestController {
     }
 
     /**
+     * 클립 내역 조회
+     */
+    @PostMapping("/reg/list")
+    public String selectClipRegHistoryList(ClipHistoryVo clipHistoryVo) {
+//        return cliClipHistoryService.selectClipHistoryList(clipHistoryVo);
+        return cliClipHistoryService.callClipRegHistoryList(clipHistoryVo);
+    }
+
+    /**
      * 클립 내역(회원) 조회
      */
     @PostMapping("/member/list")
@@ -64,7 +73,6 @@ public class Cli_ClipHistoryRestController {
 //        return cliClipHistoryService.selectClipHistoryListenList(clipHistoryListenVo);
         return cliClipHistoryService.callClipHistoryListenList(clipHistoryListenVo);
     }
-
 
     /**
      * 클립 좋아요 내역 조회
@@ -150,5 +158,13 @@ public class Cli_ClipHistoryRestController {
         return cliClipHistoryService.deleteClipReply(clipHistoryReplyVo);
     }
 
+    /**
+     * 클립 청취 상세 내역 조회
+     */
+    @PostMapping("play/list")
+    public String callClipHistoryPlayList(ClipHistoryListenVo clipHistoryListenVo) {
+//        return cliClipHistoryService.selectClipHistoryListenList(clipHistoryListenVo);
+        return cliClipHistoryService.callClipHistoryPlayList(clipHistoryListenVo);
+    }
 
 }
