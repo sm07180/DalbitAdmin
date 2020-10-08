@@ -17,7 +17,7 @@
                 <th colspan="2">선물</th>
                 <%--<th colspan="2">구독</th>--%>
                 <th colspan="2">방송 선물</th>
-                <th colspan="2">캐스트 선물</th>
+                <th colspan="2">클립 선물</th>
             </tr>
 
             <tr>
