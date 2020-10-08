@@ -17,7 +17,7 @@
                 <th colspan="2">선물</th>
                 <%--<th colspan="2">구독</th>--%>
                 <th colspan="2">방송 선물</th>
-                <%--<th colspan="2">캐스트 선물</th>--%>
+                <th colspan="2">캐스트 선물</th>
             </tr>
 
             <tr>
@@ -29,8 +29,8 @@
                 <%--<th>달수</th>--%>
                 <th>건수</th>
                 <th>달수</th>
-                <%--<th>건수</th>--%>
-                <%--<th>달수</th>--%>
+                <th>건수</th>
+                <th>달수</th>
             </tr>
             </thead>
             <tbody id="tableBody"></tbody>
@@ -90,8 +90,8 @@
         <%--<td>{{addComma sum_subsAmt}}</td>--%>
         <td>{{addComma sum_broadgiftCnt}}</td>
         <td>{{addComma sum_broadgiftAmt}}</td>
-        <%--<td>{{addComma sum_castgiftCnt}}</td>--%>
-        <%--<td>{{addComma sum_castgiftAmt}}</td>--%>
+        <td>{{addComma sum_castgiftCnt}}</td>
+        <td>{{addComma sum_castgiftAmt}}</td>
     </tr>
 </script>
 
@@ -112,8 +112,8 @@
         <%--<td>{{addComma subsAmt}}</td>--%>
         <td>{{addComma broadgiftCnt}}</td>
         <td>{{addComma broadgiftAmt}}</td>
-        <%--<td>{{addComma castgiftCnt}}</td>--%>
-        <%--<td>{{addComma castgiftAmt}}</td>--%>
+        <td>{{addComma castgiftCnt}}</td>
+        <td>{{addComma castgiftAmt}}</td>
     </tr>
     {{else}}
     <%--<tr>--%>
