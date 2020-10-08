@@ -587,6 +587,9 @@
 
         var adminMemoDel = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_adminMemoDel" style="margin-right: 3px;"/>';
         $("#memberInfoDetail").find(".footer-left").append(adminMemoDel);
+
+        $("#tab_adminMemo").show();
+
         adminMemoDelInit();
     }
     function adminMemoDelInit(){
@@ -1241,7 +1244,7 @@
         <div class="tab-content" style="padding-top: 0px;">
             <div class="tab-pane fade in active" id="memberInfoDetail">
                 <div class="widget-content mt5">
-                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tab_adminMemo" style="display: none">
                         <li class="active"><a href="#memoContent" role="tab" data-toggle="tab" id="tab_memoMember" onclick="adminMemoSubTabClick(1)">회원</a></li>
                         <li><a href="#memoContent" role="tab" data-toggle="tab" id="tab_memoBroadcast" onclick="adminMemoSubTabClick(2)">방송방</a></li>
                         <li><a href="#memoContent" role="tab" data-toggle="tab" id="tab_memoCast" onclick="adminMemoSubTabClick(3)">클립</a></li>
@@ -1261,16 +1264,15 @@
                 </div>
             </div>
         </div>
-            <div class="tab-pane fade" id="memberInfoDetail2">
-                <div class="widget widget-table">
-                    <div class="widget-content">
-                        <table id="info_detail2" class="table table-sorting table-hover table-bordered datatable">
-                            <thead id="tableTop_detail2">
-                            </thead>
-                            <tbody id="tableBody_detail2">
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="tab-pane fade" id="memberInfoDetail2">
+            <div class="widget widget-table">
+                <div class="widget-content">
+                    <table id="info_detail2" class="table table-sorting table-hover table-bordered datatable">
+                        <thead id="tableTop_detail2">
+                        </thead>
+                        <tbody id="tableBody_detail2">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
