@@ -31,6 +31,7 @@
     </select>
 
     <select id="getCodeList" parameterType="com.dalbit.common.vo.CodeListVo" resultType="com.dalbit.common.vo.CodeListVo">
+        <!-- Common.xml - getCodeList -->
         select `type`,`value`,`code`,ifnull(`order`,1) as `order`, is_use
            from rd_data.tbl_code_define
         <where>
@@ -56,6 +57,19 @@
 
     </select>
 
+    <select id="getCodeDefine" parameterType="com.dalbit.common.vo.CodeListVo" resultType="com.dalbit.common.vo.CodeListVo">
+        <!-- Common.xml - getCodeDefine -->
+        select `type`
+            , `value`
+            , code
+            , `order`
+            , is_use
+        from rd_data.tbl_code_define
+        where `type` = #{type}
+            and code = #{code}
+        limit 1
+    </select>
+
     <select id="saveErrorLog" statementType="CALLABLE" parameterType="ProcedureVo" resultType="ProcedureVo">
       call rd_data.sp_log_error_data(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
@@ -67,4 +81,12 @@
     <select id="callLiveBadgeSelect" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="com.dalbit.common.vo.FanBadgeVo">
       call rd_data.sp_member_live_badge(#{mem_no, mode=IN, jdbcType=INTEGER}, #{type, mode=IN, jdbcType=INTEGER})
     </select>
+
+    <update id="updateCodeDefine" parameterType="com.dalbit.common.vo.CodeListVo">
+        <!-- Common.xml - updateCodeDefine -->
+        update rd_data.tbl_code_define
+        set `value` = #{value}
+        where `type` = #{type}
+            and code = #{code}
+    </update>
 </mapper>

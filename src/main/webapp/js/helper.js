@@ -363,3 +363,7 @@ Handlebars.registerHelper("getBadgeList", function(value, divWidth, divHeight, r
 Handlebars.registerHelper("getBadge", function(startColor, endColor, icon, text, divWidth, divHeight, radius, imgWidth, imgHeight){
     return util.getMemberBadge(startColor, endColor, icon, text, divWidth, divHeight, radius, imgWidth, imgHeight);
 });
+
+Handlebars.registerHelper("getPlatformName", function(platform){
+    return util.getPlatformName(platform);
+});

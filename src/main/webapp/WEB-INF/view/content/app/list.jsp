@@ -16,6 +16,33 @@
                     </div>
                 </div>
             </form>
+
+            <div class="row col-lg-12 form-inline">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3>IOS 심사중여부</h3>
+                        <div class="widget-header-toolbar">
+                            <div class="control-inline toolbar-item-group">
+                                <span class="control-title _fontColor font-bold" data-fontColor="red"><i class="fa fa-mobile-phone"></i>심사중여부</span>
+                                <div class="control-inline onoffswitch">
+                                    <input type="checkbox" name="iosJudge" class="onoffswitch-checkbox" id="iosJudge">
+                                    <label class="onoffswitch-label" for="iosJudge">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <span>
+                            심사중여부를 "ON"으로 설정 시 <br />
+                            배너와 공지사항의 이벤트 성으로 체크한 항목을 보이지 않도록 합니다.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <div class="row col-lg-12 form-inline" id="insertBtn">
                 [현재 최신버전]<br/>
                 <div class="col-md-9 no-padding">
@@ -33,8 +60,8 @@
                 <div class="col-md-3 no-padding"><br/>
                     <button type="button" class="btn btn-default btn-sm pull-right mb5" id="bt_insert">등록</button>
                 </div>
-
             </div>
+
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
                     <div class="widget-header">
@@ -86,6 +113,9 @@
         $("#search_os_area").html(util.getCommonCodeSelect(-1, content_selectApp));
 
         getAppList();
+
+        //IOS 심사중여부 가져오기
+        getIosJudgeState();
 
     }
 
@@ -313,6 +343,49 @@
         versionSelect();
     }
 
+    function getIosJudgeState(){
+        var data = {
+            type : 'system_config'
+            , code : 'IOS_심사중여부'
+        }
+        util.getAjaxData("iosJudgeState", "/common/getCodeDefine", data, function(dst_id, response){
+            if(response.result == 'success'){
+                if(common.isEmpty(response.data)){
+                    alert('IOS 심사중 상태 조회에 실패했습니다.')
+                    return false;
+                }
+                var code = response.data.code;
+                if(code.value == 'Y'){
+                    $("#iosJudge").prop('checked', 'checked');
+                }
+            }else{
+                alert('IOS 심사중 상태 조회에 실패했습니다.')
+            }
+        });
+    }
+
+    $('#iosJudge').on('click', function(e){
+        var me = $(this);
+        if(confirm(me.prop('checked') ? "IOS 심사중 상태로 변경하시겠습니까?" : "IOS 심사중 상태를 OFF 하시겠습니까?")){
+            var data = {
+                type : 'system_config'
+                , code : 'IOS_심사중여부'
+                , value : me.prop('checked') ? 'Y' : 'N'
+            }
+            util.getAjaxData("iosJudgeState", "/common/updateCodeDefine", data, function(dst_id, response){
+                var resultMsg = 'IOS 심사중 상태 변경에 실패했습니다.';
+                if(response.result == 'success'){
+                    if(response.data.updateResult == 1){
+                        resultMsg = 'IOS 심사중 상태가 변경되었습니다.';
+                    }
+                }
+                alert(resultMsg);
+            });
+        }else{
+            e.preventDefault();
+            return false;
+        }
+    })
 
 </script>
 

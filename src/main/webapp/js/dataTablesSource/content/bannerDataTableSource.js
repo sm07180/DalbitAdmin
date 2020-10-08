@@ -4,16 +4,7 @@ var BannerDataTableSource = {
 
         , 'columns': [
             {'title': '플랫폼', 'data': 'platform', 'render': function (data, type, row, meta) {
-                    if(data == '111'){
-                        return '전체'
-                    }
-
-                    var platformData = data.split('');
-                    var platformDisplay = platformData[0] == '1' ? 'PC<br />' : '';
-                        platformDisplay += platformData[1] == '1' ? 'Android<br />' : '';
-                        platformDisplay += platformData[2] == '1' ? 'IOS' : '';
-
-                    return platformDisplay;
+                    return util.getPlatformName(data);
                 }},
             {'title': '배너구분', 'data': 'position', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, banner_bannerType);
