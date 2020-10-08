@@ -288,6 +288,31 @@
         return data;
     }
 
+
+    function resourceClipStatusClick(data){
+        console.log(data);
+
+        var param = "?sdate=" + $("#startDate").val();
+
+        // 주제 코드로  이름 추출
+        if(!common.isEmpty(data.subjecttype)){
+            subjectCodeList.forEach(function(code){
+                if(code.value == data.subjecttype){
+                    param += "&subjectname=" + code.code;
+                }
+            });
+        }
+
+        // DOM data -> queryString 으로 추가
+        Object.keys(data).forEach(function(key){
+            param += "&" + key  + "=" + data[key]
+        })
+
+        var popupUrl = "/clip/status/popup/detail" + param;
+
+        util.windowOpen(popupUrl,"1020","700","달 정보 데이터");
+    }
+
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_loginLive">
@@ -296,7 +321,7 @@
         <td>{{addComma m_now_cnt}}</td>
         <td>{{addComma m_yes_cnt}}</td>
         <td class="{{upAndDownClass m_now_inc_cnt}}"><i class="fa {{upAndDownIcon m_now_inc_cnt}}"></i> {{addComma m_now_inc_cnt}}</td>
-        <td>{{addComma m_week_cnt}}</td>
+        <td>{{addComma m_week_cnt}}</td>알림
         <td>{{addComma m_bweek_cnt}}</td>
         <td class="{{upAndDownClass m_week_inc_cnt}}"><i class="fa {{upAndDownIcon m_week_inc_cnt}}"></i> {{addComma m_week_inc_cnt}}</td>
         <td>{{addComma m_month_cnt}}</td>

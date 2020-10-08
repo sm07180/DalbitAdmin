@@ -22,6 +22,10 @@ public class ClipHistoryVo extends PagingVo {
     private int searchTypeOpen = -1;
     private int searchConfirm = -1;
     private int searchState = -1;
+    private int searchOsType = -1;
+    private int searchAgeType = -1;
+    private int searchGroupBy = -1;
+    private String searchSex;
 
     /* output */
     private String clipIdx;
@@ -51,7 +55,8 @@ public class ClipHistoryVo extends PagingVo {
     private String badgeNewdj;
     private String osType;
     private String lastUpdDate;
-    private String memInsertCnt;
+    private int memInsertCnt;
+    private int memDeleteCnt;
     private String inner;
     private String replyCnt;
     private int clipConfirm;

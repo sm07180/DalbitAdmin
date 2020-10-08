@@ -13,12 +13,14 @@ public class ClipHistoryListenVo extends PagingVo {
     private String searchText;
     private int search_testId;
     private String searchHistText;
+    private String searchSex;
     private int orderByType;
     private int slctType;
     private int isChoiceDate;
     private int pageNo;
     private String targetMemNo;
     private String targetClipNo;
+    private int searchOsType = -1;
 
     /* output */
     private String listenDate;
