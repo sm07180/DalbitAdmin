@@ -8,6 +8,12 @@
     </select>
 
 
+    <!-- 클립 등록자 이력 조회 -->
+    <select id="callClipRegHistoryList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryVo">
+        call rd_admin.sp_admin_clip_reg_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
     <!-- 클립 이력(회원) 조회 -->
     <select id="callClipHistoryMemberList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryMemberVo">
         call rd_admin.sp_admin_clip_member_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
@@ -178,8 +184,6 @@
     <select id="callClipHistoryListenList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryListenVo">
         call rd_admin.sp_admin_clip_listen_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
-
-
 
 
     <!-- 클립 좋아요 이력 조회 -->
@@ -468,4 +472,10 @@
           AND idx = #{replyIdx}
     </update>
 
+
+
+    <!-- 클립 플레이 이력 조회 -->
+    <select id="callClipHistoryPlayList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryListenVo">
+        call rd_admin.sp_admin_clip_play_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

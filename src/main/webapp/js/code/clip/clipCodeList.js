@@ -118,8 +118,18 @@ var clip_stateType_select = [
     new COMMON_CODE(null, 'searchState', '공개여부')
     , new COMMON_CODE('-1', '-1', '클립상태(전체)')
     , new COMMON_CODE('1', '1', '정상')
-    , new COMMON_CODE('4', '4', '삭제')
+    , new COMMON_CODE('3', '3', '삭제(본인+운영자)')
+    , new COMMON_CODE('4', '4', '삭제(본인)')
+    , new COMMON_CODE('5', '5', '삭제(운영자)')
     , new COMMON_CODE('9', '9', '숨기기')
+]
+
+var clip_sex_select = [
+    new COMMON_CODE(null, 'searchSex', '성별')
+    , new COMMON_CODE('', '', '성별(전체)')
+    , new COMMON_CODE('m', 'm', '남성')
+    , new COMMON_CODE('f', 'f', '여성')
+    , new COMMON_CODE('n', 'n', '알수없음')
 ]
 
 var clip_entryType = [
@@ -135,6 +145,17 @@ var clip_platform = [
     , new COMMON_CODE('Android', '1', 'Android')
     , new COMMON_CODE('iOS', '2', 'iOS')
     , new COMMON_CODE('PC', '3', 'PC')
+];
+
+var clip_age = [
+    new COMMON_CODE(null, 'age', '플랫폼구분')
+    , new COMMON_CODE('1', '1', '12세~16세')
+    , new COMMON_CODE('2', '2', '17세~19세')
+    , new COMMON_CODE('3', '3', '20세~25세')
+    , new COMMON_CODE('4', '4', '26세~30세')
+    , new COMMON_CODE('5', '5', '31세~35세')
+    , new COMMON_CODE('6', '6', '36세~40세')
+    , new COMMON_CODE('7', '7', '41세이상')
 ];
 
 var clip_searchType = [

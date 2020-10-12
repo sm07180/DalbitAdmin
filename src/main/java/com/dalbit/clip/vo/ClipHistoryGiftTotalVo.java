@@ -26,5 +26,10 @@ public class ClipHistoryGiftTotalVo extends PagingVo {
     private int byeolFemaleTotalCnt;
     private int byeolUnknownTotalCnt;
 
+    private int dalTotalCnt;                 // 받은 달수
+    private int dalManTotalCnt;
+    private int dalFemaleTotalCnt;
+    private int dalUnknownTotalCnt;
+
 
 }

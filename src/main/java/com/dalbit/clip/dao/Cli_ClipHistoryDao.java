@@ -15,6 +15,9 @@ public interface Cli_ClipHistoryDao {
     ArrayList<ClipHistoryVo> callClipHistoryList(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
+    ArrayList<ClipHistoryVo> callClipRegHistoryList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
     ArrayList<ClipHistoryMemberVo> callClipHistoryMemberList(ProcedureVo procedureVo);
 
     int updateHide(ClipHistoryVo clipHistoryVo);
@@ -54,4 +57,7 @@ public interface Cli_ClipHistoryDao {
     ArrayList<P_ClipHistoryDetailInfoEditHistoryVo> callAdminClipEditHistory(ProcedureVo procedureVo);
 
     int deleteClipReply(ClipHistoryReplyVo clipHistoryReplyVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<ClipHistoryListenVo> callClipHistoryPlayList(ProcedureVo procedureVo);
 }
