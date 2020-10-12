@@ -45,7 +45,10 @@ public class CommonErrorController {
      */
     public boolean isSaveLog(GlobalException globalException, HttpServletRequest request, HttpServletResponse response) {
         if(globalException.getStatus() == Status.벨리데이션체크) return false;
-        if(globalException.getClass().getSimpleName().toLowerCase().equals("clientabortexception")) return false;
+
+        //Broken pipe 처리
+        if(globalException.getClass().getSimpleName().toLowerCase().equals("clientabortexception")) return false; //ClientAbortException
+        if(globalException.getMessage().contains("Broken pipe")) return false;
 
         return true;
     }

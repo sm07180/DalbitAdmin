@@ -718,3 +718,17 @@ util.getMemberBadge = function(startColor,endColor,icon,text, divWidth, divHeigh
     result +='</div>';
     return result;      // euc-kr
 }
+
+util.getPlatformName = function(platform){
+    console.log(""+platform)
+    if(platform == '111'){
+        return '전체'
+    }
+
+    var platformData = (""+platform).split('');
+    var platformDisplay = platformData[0] == '1' ? 'PC<br />' : '';
+    platformDisplay += platformData[1] == '1' ? 'Android<br />' : '';
+    platformDisplay += platformData[2] == '1' ? 'IOS' : '';
+
+    return platformDisplay;
+}
