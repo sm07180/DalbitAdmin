@@ -777,6 +777,10 @@ public enum Status {
     게스트종료_성공("0", "guest.out.success", "게스트 종료 성공 시"),
     게스트종료_실패("C006", "guest.out.fail", "개스트 종료 실패 시"),
 
+    //테스트 아이디 달별 지급 목록
+    테스트아이디달별지급목록조회_성공("0", "test.dal.byeol.list.success", "테스트 아이디 달/별 지급 목록 조회 성공 시"),
+    테스트아이디달별지급목록조회_실패("C006", "test.dal.byeol.list.fail", "테스트 아이디 달/별 지급 목록 조회 실패 시"),
+
     ;
 
 

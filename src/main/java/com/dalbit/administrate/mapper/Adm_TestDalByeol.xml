@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.administrate.dao.Adm_TestDalByeolDao" >
+
+    <select id="getTestDalByeolList_totalCnt" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="integer">
+        /* Adm_TestDalByeol.xml - getTestDalByeolList_totalCnt */
+        select count(*) as totalCnt
+          from (select '1' as `type`
+                        , last_upd_date
+                  from rd_data.tb_member_wallet_ruby ruby
+                 where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+           union
+               select '2' as `type`
+                    , last_upd_date
+              from rd_data.tb_member_wallet_gold gold
+             where op_name is not null
+              <if test='emp_name != null and emp_name != ""'>
+               and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+              </if>
+           ) a
+         where DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+           and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
+    </select>
+
+    <select id="getTestDalByeolList" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestDalByeolListVo">
+        /* Adm_TestDalByeol.xml - getTestDalByeolList */
+        select @rownum := @rownum + 1 as rowNum, a.*
+          from (select '1' as `type`
+                        , (select emp_name from rd_admin.tb_admin_test_account a where a.mem_no = ruby.mem_no) as emp_name
+                        , if(ruby <![CDATA[>]]> 0,ruby,0) as send
+                        , if(ruby <![CDATA[<]]> 0,ruby,0) as recv
+                        , op_name
+                        , mem_no as memNo
+                        , (select ruby From rd_data.tb_member_wallet a where a.mem_no = ruby.mem_no) as dal
+                        , (select gold From rd_data.tb_member_wallet a where a.mem_no = ruby.mem_no) as byeol
+                        , last_upd_date
+                        , (select last_upd_date From rd_data.tb_member_wallet a where a.mem_no = ruby.mem_no) as lastUpdDate
+                  from rd_data.tb_member_wallet_ruby ruby
+                 where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+           union
+               select '2' as `type`
+                    , (select emp_name from rd_admin.tb_admin_test_account a where a.mem_no = gold.mem_no) as emp_name
+                    , if(gold <![CDATA[>]]> 0,gold,0) as send
+                    , if(gold <![CDATA[<]]> 0,gold,0) as recv
+                    , op_name
+                    , mem_no as memNo
+                    , (select ruby From rd_data.tb_member_wallet a where a.mem_no = gold.mem_no) as dal
+                    , (select gold From rd_data.tb_member_wallet a where a.mem_no = gold.mem_no) as byeol
+                    , last_upd_date
+                    , (select last_upd_date From rd_data.tb_member_wallet a where a.mem_no = gold.mem_no) as lastUpdDate
+              from rd_data.tb_member_wallet_gold gold
+             where op_name is not null
+              <if test='emp_name != null and emp_name != ""'>
+               and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+              </if>
+           ) a, (select @rownum := #{pageStart}) r
+         where DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+           and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
+         order by last_upd_date desc
+         limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="getTestDalByeolSummary1" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestDalByeolListVo">
+        select
+             sum(if(type='1',1,0)) as sendDalMem
+             , sum(if(type='11',1,0)) as recvDalMem
+             , sum(if(type='1',1,0)) + sum(if(type='11',1,0)) as dalTotalMem
+             , sum(if(type='2',1,0)) as sendByeolMem
+             , sum(if(type='22',1,0)) as recvByeolMem
+             , sum(if(type='2',1,0)) + sum(if(type='22',1,0)) as byeolTotalMem
+              From (
+            SELECT
+              distinct type,memNo
+            FROM (select
+                    '1'                            as `type`,
+                    mem_no                         as memNo,
+                    last_upd_date
+                   FROM rd_data.tb_member_wallet_ruby ruby
+                  where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                    and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+                    and ruby <![CDATA[>]]> 0
+                  UNION
+                  select
+                    '11'                            as `type`,
+                    mem_no                         as memNo,
+                    last_upd_date
+                   FROM rd_data.tb_member_wallet_ruby ruby
+                  where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                    and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+                    and ruby <![CDATA[<]]> 0
+                  UNION
+                  SELECT
+                      '2'                            as `type`,
+                      mem_no                         as memNo,
+                      last_upd_date
+                    FROM rd_data.tb_member_wallet_gold gold
+                    where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                      and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+                      and gold <![CDATA[>]]> 0
+                  UNION
+                  SELECT
+                      '22'                            as `type`,
+                      mem_no                         as memNo,
+                      last_upd_date
+                    FROM rd_data.tb_member_wallet_gold gold
+                    where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                      and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+                      and gold <![CDATA[<]]> 0
+                 ) a
+             WHERE DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+            group by type, memNo
+            ) aa
+    </select>
+
+    <select id="getTestDalByeolSummary2" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestDalByeolListVo">
+        select sum(if(`type` = '1', aa.send ,0 )) as dalSend
+              , sum(if(`type` = '1', aa.recv ,0 )) as dalrecv
+              , sum(if(`type` = '1', aa.send ,0 )) + sum(if(`type` = '1', aa.recv ,0 )) as totalDal
+              ,sum(if(`type` = '2', aa.send ,0 )) as byeolSend
+              ,sum(if(`type` = '2', aa.recv ,0 )) as byeolRecv
+              ,sum(if(`type` = '2', aa.send ,0 )) + sum(if(`type` = '2', aa.recv ,0 )) as totalByeol
+          From (
+        SELECT
+          a.*
+        FROM (select
+                '1'                            as `type`,
+                if(ruby <![CDATA[>]]> 0, ruby, 0)          as send,
+                if(ruby <![CDATA[<]]> 0, ruby, 0)          as recv,
+                last_upd_date
+               FROM rd_data.tb_member_wallet_ruby ruby
+              where op_name is not null
+              <if test='emp_name != null and emp_name != ""'>
+                and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+              </if>
+              UNION SELECT
+                      '2'                            as `type`,
+                      if(gold <![CDATA[>]]> 0, gold, 0)          as send,
+                      if(gold <![CDATA[<]]> 0, gold, 0)          as recv,
+                      last_upd_date
+                    FROM rd_data.tb_member_wallet_gold gold
+                    where op_name is not null
+                  <if test='emp_name != null and emp_name != ""'>
+                      and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                  </if>
+             ) a
+        WHERE DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+        ) aa
+    </select>
+
+
+    <select id="getDalSendList" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestResourceSendListVo">
+        /* Adm_TestDalByeol.xml - getDalSendList */
+        SELECT
+              @rownum := @rownum + 1 as rowNum,
+              r.*
+            FROM (
+               SELECT
+                 a.item_type,
+                 a.ruby,
+                 a.room_no,
+                 ifnull((select title From rd_data.tb_broadcast_room where room_no = a.room_no),
+                        (select title From rd_data.tb_cast_room where cast_no = a.room_no))as title,
+                 a.mem_no,
+                 a.`level`,
+                 a.`grade`,
+                 date_format(a.giftDate,'%Y-%m-%d %h:%i:%s') AS giftDate,
+                 a.secret,
+                 b.item_image AS itemImage,
+                 IFNULL(b.item_name, a.cont) AS itemName,
+                 a.itemCnt,
+                 b.item_thumbnail,
+                 c.mem_userid AS userId,
+                 c.mem_nick AS nickName,
+                 c.mem_sex,
+                 c.inner
+               FROM (
+                      SELECT
+                        item_type,
+                        ruby,
+                        room_no,
+                        gifted_mem_no AS mem_no,
+                        mem_level AS `level`,
+                        mem_grade AS grade,
+                        last_upd_date AS giftDate,
+                        item_code,
+                        item_cnt AS itemCnt,
+                        secret,
+                        '' AS cont
+                      FROM rd_data.tb_member_broadcast_item
+                      WHERE mem_no = #{mem_no} AND item_type in ('1','2','3','4','7')
+                        and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                        and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+                    UNION ALL
+                      SELECT
+                      item_type,
+                      ruby,
+                      room_no,
+                      gifted_mem_no AS mem_no,
+                      mem_level AS `level`,
+                                   mem_grade AS grade,
+                                   last_upd_date AS giftDate,
+                      item_code,
+                      item_cnt AS itemCnt,
+                      secret,
+                      '' AS cont
+                            FROM rd_data.tb_member_broadcast_item
+                            WHERE mem_no = #{mem_no} and item_type = '3'
+                            and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                            and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+                     UNION ALL
+                      SELECT
+                      item_type,
+                      ruby,
+                      room_no,
+                      mem_no AS mem_no,
+                      mem_level AS `level`,
+                      mem_grade AS grade,
+                      last_upd_date AS giftDate,
+                                    item_code,
+                                    item_cnt AS itemCnt,
+                                    secret,
+                      '' AS cont
+                      FROM rd_data.tb_member_broadcast_item
+                      WHERE gifted_mem_no = #{mem_no} and item_type = '3'
+                        and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                        and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+                    ) a
+                 LEFT JOIN rd_data.tbl_gift_item AS b
+                   ON a.item_code = b.item_code
+                 LEFT JOIN (
+                             SELECT
+                               mem_no,
+                               mem_userid,
+                               mem_nick,
+                               mem_sex,
+                               `inner`
+                             FROM rd_data.tb_member_basic
+                             UNION SELECT
+                                     mem_no,
+                                     mem_userid,
+                                     mem_nick,
+                                     mem_sex,
+                                     `inner`
+                                   FROM rd_data.tb_member_withdrawal_bak) AS c
+                   ON a.mem_no = c.mem_no
+                ORDER BY a.giftDate DESC
+       limit #{pageStart}, #{pageCnt}) AS r, (SELECT @rownum := #{pageStart}
+     ) AS d;
+    </select>
+
+    <select id="getDalSendList_totalCnt" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="integer">
+    /* Adm_TestDalByeol.xml - getDalSendList_totalCnt */
+    SELECT count(*) as totalCnt
+       FROM (
+              SELECT
+                gifted_mem_no        AS mem_no,
+                last_upd_date        AS giftDate,
+                item_code
+              FROM rd_data.tb_member_broadcast_item
+              WHERE mem_no = #{mem_no} AND item_type in ('1','2','3','4','7')
+                and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+              UNION ALL
+              SELECT
+                gifted_mem_no AS mem_no,
+                last_upd_date AS giftDate,
+                item_code
+              FROM rd_data.tb_member_broadcast_item
+              WHERE mem_no = #{mem_no} and item_type = '3'
+                and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+              UNION ALL
+              SELECT
+                mem_no        AS mem_no,
+                last_upd_date AS giftDate,
+                item_code
+              FROM rd_data.tb_member_broadcast_item
+              WHERE gifted_mem_no = #{mem_no} and item_type = '3'
+                and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+              ) a
+         LEFT JOIN rd_data.tbl_gift_item AS b
+           ON a.item_code = b.item_code
+         LEFT JOIN (
+                     SELECT
+                       mem_no,
+                       mem_userid,
+                       mem_nick,
+                       mem_sex,
+                       `inner`
+                     FROM rd_data.tb_member_basic
+                     UNION SELECT
+                             mem_no,
+                             mem_userid,
+                             mem_nick,
+                             mem_sex,
+                             `inner`
+                           FROM rd_data.tb_member_withdrawal_bak) AS c
+           ON a.mem_no = c.mem_no
+       <!--WHERE DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}-->
+    </select>
+
+
+    <select id="getByeolSendList" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestResourceSendListVo">
+        /* Adm_TestDalByeol.xml - getByeolSendList */
+        SELECT
+              @rownum := @rownum + 1 as rowNum,
+              r.*
+            FROM (
+                   SELECT
+                     a.type,
+                     a.gubun,
+                     a.gold,
+                     a.room_no,
+                     a.mem_no,
+                     a.`level`,
+                     a.`grade`,
+                     date_format(a.giftDate,'%Y-%m-%d %h:%i:%s') AS giftDate,
+                     a.secret,
+                     b.item_image                AS itemImage,
+                     IFNULL(b.item_name, a.cont) AS itemName,
+                     a.itemCnt,
+                     b.item_thumbnail,
+                     c.mem_userid                AS userId,
+                     c.mem_nick                  AS nickName,
+                     c.mem_sex,
+                     c.inner
+                   FROM (SELECT
+                            '2' AS `type`,
+                            `type`                AS gubun,
+                            (gold_new - gold_old) AS gold,
+                            ''                    AS room_no,
+                            '10000000000000'      AS mem_no,
+                            0                     AS `level`,
+                            ''                    AS grade,
+                            last_upd_date         AS giftDate,
+                            ''                    AS item_code,
+                            1                     AS itemCnt,
+                            0                     AS secret,
+                            use_contents          AS cont
+                          FROM rd_data.tb_member_wallet_gold
+                         WHERE mem_no = #{mem_no} and type in ('1','3')
+                           and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+                        ) a
+                     LEFT JOIN rd_data.tbl_gift_item AS b
+                       ON a.item_code = b.item_code
+                     LEFT JOIN (
+                                 SELECT
+                                   mem_no,
+                                   mem_userid,
+                                   mem_nick,
+                                   mem_sex,
+                                   `inner`
+                                 FROM rd_data.tb_member_basic
+                                 UNION SELECT
+                                         mem_no,
+                                         mem_userid,
+                                         mem_nick,
+                                         mem_sex,
+                                         `inner`
+                                       FROM rd_data.tb_member_withdrawal_bak) AS c
+                       ON a.mem_no = c.mem_no
+                   ORDER BY a.giftDate DESC
+                   limit #{pageStart}, #{pageCnt}) AS r, (SELECT @rownum := #{pageStart}) AS d;
+    </select>
+
+    <select id="getByeolSendList_totalCnt" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="integer">
+        /* Adm_TestDalByeol.xml - getByeolSendList_totalCnt */
+       SELECT count(*) AS totalCnt
+          FROM ( SELECT
+                   a.mem_no,
+                   a.giftDate
+                 FROM (SELECT
+                          '10000000000000'      AS mem_no,
+                          last_upd_date         AS giftDate
+                        FROM rd_data.tb_member_wallet_gold
+                       WHERE mem_no = #{mem_no} and type in ('1','3')
+                         and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+                      ) a
+                   LEFT JOIN (
+                               SELECT
+                                 mem_no,
+                                 mem_userid,
+                                 mem_nick,
+                                 mem_sex,
+                                 `inner`
+                               FROM rd_data.tb_member_basic
+                               UNION SELECT
+                                       mem_no,
+                                       mem_userid,
+                                       mem_nick,
+                                       mem_sex,
+                                       `inner`
+                                     FROM rd_data.tb_member_withdrawal_bak) AS c
+                     ON a.mem_no = c.mem_no) AS r;
+    </select>
+</mapper>
