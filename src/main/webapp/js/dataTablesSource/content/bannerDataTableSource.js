@@ -64,6 +64,8 @@ var BannerDataTableSource = {
                     return util.getCommonCodeLabel(data, banner_loginType);
                 }},
             {'title': '노출상태', 'data': 'is_view', 'render': function (data, type, row, meta) {
+                    var on_text = '<span style="color:blue;">ON</span>';
+                    var off_text = '<span style="color:gray">OFF</span>';
 
                     if(data == 1){
                         if(row.start_datetime != ''){
