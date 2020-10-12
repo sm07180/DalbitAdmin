@@ -11,7 +11,7 @@ import java.sql.Date;
 public class P_noticeDetailOutputVo extends BaseVo {
     private int noticeIdx;
     private int slctType;
-    private int platform;
+    private String platform;
     private int gender;
     private String title;
     private String contents;

@@ -21,10 +21,15 @@ public interface CommonDao {
     @Transactional(readOnly = true)
     ArrayList<CodeListVo> getCodeList(CodeListVo codeListVo);
 
+    @Transactional(readOnly = true)
+    CodeListVo getCodeDefine(CodeListVo codeListVo);
+
     ProcedureVo saveErrorLog(ProcedureVo procedureVo);
 
     List<FanBadgeVo> callMemberBadgeSelect(HashMap param);
 
     List<FanBadgeVo> callLiveBadgeSelect(HashMap param);
+
+    int updateCodeDefine(CodeListVo codeListVo);
 
 }

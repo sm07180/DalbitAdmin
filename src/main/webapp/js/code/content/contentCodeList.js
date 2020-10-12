@@ -1,4 +1,12 @@
 /** =------ Notice ---------- */
+var notice_platform = [
+    new COMMON_CODE(null, 'platform', '플랫폼')
+    , new COMMON_CODE('all', '111', '전체')
+    , new COMMON_CODE('title', '100', 'PC')
+    , new COMMON_CODE('content', '010', '안드로이드')
+    , new COMMON_CODE('opName', '3', '작성자')
+];
+
 var notice_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')

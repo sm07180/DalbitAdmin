@@ -9,7 +9,7 @@ import lombok.Setter;
 public class P_noticeUpdateVo extends BaseVo {
     private int noticeIdx;
     private int slctType;
-    private int platform;
+    private String platform;
     private int gender;
     private String title;
     private String contents;

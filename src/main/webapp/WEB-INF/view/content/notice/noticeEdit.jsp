@@ -55,6 +55,15 @@
         var html = templateScript(context);
         $("#noticeForm").html(html);
 
+        //platform check 추가
+        var platformInfo = response.data.platform;
+        var platformData = platformInfo.split('');
+        platformData.forEach(function(data, index){
+            if(data == '1'){
+                $("#platform"+ (index + 1)).click();
+            }
+        });
+
         // uploadType 추가
         util.editorInit("content-notice");
     }
@@ -72,6 +81,11 @@
         if(common.isEmpty(title.val())){
             alert("제목을 입력해주세요.");
             title.focus();
+            return false;
+        }
+
+        if($('input[name="platform"]:checked').length == 0){
+            alert("플랫폼을 하나 이상 선택해 주세요.");
             return false;
         }
 
@@ -93,6 +107,11 @@
         }
         data["contents"] = $("#editor").summernote('code');
         data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
+
+        var platform_pc = $("#platform1").prop('checked') ? '1' : '0';
+        var platform_aos = $("#platform2").prop('checked') ? '1' : '0';
+        var platform_ios = $("#platform3").prop('checked') ? '1' : '0';
+        data["platform"] = platform_pc + platform_aos + platform_ios;
 
         dalbitLog(data);
 
@@ -146,6 +165,30 @@
         }
     }
 
+    $(document).on('change', 'input[name="platform"]', function(){
+       var me = $(this);
+       var index = me.index('input[name="platform"]');
+       if(index == 0){
+           console.log(me.prop('checked'))
+           if(me.prop('checked')){
+               $('input[name="platform"]').prop('checked', 'checked');
+           }else{
+               $('input[name="platform"]').prop('checked', false);
+           }
+       }else{
+           var checkboxLength = $('input[name="platform"]:not("#platform-1")').length;
+           var checkedLength = $('input[name="platform"]:not("#platform-1"):checked').length;
+
+           if(me.prop('checked')){
+               if(checkboxLength == checkedLength){
+                   $("#platform-1").prop('checked', 'checked');
+               }
+           }else{
+               $("#platform-1").prop('checked', false);
+           }
+       }
+    });
+
 </script>
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
@@ -198,7 +241,7 @@
                 </tr>
                 <tr>
                     <th colspan="2" style="border-color: black">플랫폼</th>
-                    <td colspan="2" style="border-color: black">{{{getCommonCodeSelect platform 'platform'}}}</td>
+                    <td colspan="2" style="border-color: black">{{{getCommonCodeCheck platform 'content_platform2'}}}</td>
 
                     <th style="border-color: black">성별</th>
                     <td style="border-color: black">{{{getCommonCodeSelect gender 'gender'}}}</td>

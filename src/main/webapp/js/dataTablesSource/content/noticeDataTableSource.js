@@ -4,7 +4,7 @@ var NoticeDataTableSource = {
 
         , 'columns': [
             {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat', 'render': function (data) {
-                    return util.getCommonCodeLabel(data, platform) ;
+                    return util.getPlatformName(data) ;
                 }}
             , {'title': '구분', 'data': 'slctType', 'name': 'sortSlct', 'render': function (data) {
                     return util.getCommonCodeLabel(data, notice_slctType) ;

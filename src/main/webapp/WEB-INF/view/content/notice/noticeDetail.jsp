@@ -111,7 +111,7 @@
                 </tr>
                 <tr>
                     <th colspan="2" style="border-color: black">플랫폼</th>
-                    <td colspan="2" style="border-color: black">{{{getCommonCodeLabel platform 'platform'}}}</td>
+                    <td colspan="2" style="border-color: black">{{{getPlatformName platform}}}</td>
 
                     <th style="border-color: black">성별</th>
                     <td style="border-color: black">{{{getCommonCodeLabel gender 'gender'}}}</td>

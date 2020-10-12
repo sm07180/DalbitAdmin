@@ -830,11 +830,11 @@
         <td>
             {{#dalbit_if reg_total_cnt '!=' '0'}}
                 <%--<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" style="cursor:pointer;">{{addComma reg_total_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" style="cursor:pointer;">{{addComma del_total_cnt }}</span>)--%>
-                {{addComma reg_total_cnt }} ({{addComma del_total_cnt }})tal_cnt }})
+                {{addComma reg_total_cnt }} ({{addComma del_total_cnt }})
             {{else}}
                 {{#dalbit_if del_total_cnt '!=' '0'}}
                     <span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-1" style="cursor:pointer;">{{addComma reg_total_cnt }}</span> (<span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="7-2" style="cursor:pointer;">{{addComma del_total_cnt }}</span>)
-                    {{addComma reg_total_cnt }} ({{addComma del_total_cnt }})tal_cnt }})
+                    {{addComma reg_total_cnt }} ({{addComma del_total_cnt }})
                 {{/dalbit_if}}
             {{/dalbit_if}}
         </td>
