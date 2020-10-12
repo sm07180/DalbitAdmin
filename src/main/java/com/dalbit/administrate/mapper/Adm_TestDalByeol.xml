@@ -12,6 +12,8 @@
                   <if test='emp_name != null and emp_name != ""'>
                    and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
            union
                select '2' as `type`
                     , last_upd_date
@@ -20,9 +22,10 @@
               <if test='emp_name != null and emp_name != ""'>
                and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
               </if>
+               and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+               and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
            ) a
-         where DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
-           and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
+
     </select>
 
     <select id="getTestDalByeolList" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestDalByeolListVo">
@@ -43,6 +46,8 @@
                   <if test='emp_name != null and emp_name != ""'>
                    and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
            union
                select '2' as `type`
                     , (select emp_name from rd_admin.tb_admin_test_account a where a.mem_no = gold.mem_no) as emp_name
@@ -59,9 +64,9 @@
               <if test='emp_name != null and emp_name != ""'>
                and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
               </if>
+               and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+               and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
            ) a, (select @rownum := #{pageStart}) r
-         where DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
-           and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
          order by last_upd_date desc
          limit #{pageStart}, #{pageCnt}
     </select>
@@ -84,8 +89,10 @@
                    FROM rd_data.tb_member_wallet_ruby ruby
                   where op_name is not null
                   <if test='emp_name != null and emp_name != ""'>
-                    and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
                     and ruby <![CDATA[>]]> 0
                   UNION
                   select
@@ -95,8 +102,10 @@
                    FROM rd_data.tb_member_wallet_ruby ruby
                   where op_name is not null
                   <if test='emp_name != null and emp_name != ""'>
-                    and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
                     and ruby <![CDATA[<]]> 0
                   UNION
                   SELECT
@@ -106,8 +115,10 @@
                     FROM rd_data.tb_member_wallet_gold gold
                     where op_name is not null
                   <if test='emp_name != null and emp_name != ""'>
-                      and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
                       and gold <![CDATA[>]]> 0
                   UNION
                   SELECT
@@ -117,11 +128,12 @@
                     FROM rd_data.tb_member_wallet_gold gold
                     where op_name is not null
                   <if test='emp_name != null and emp_name != ""'>
-                      and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
-                      and gold <![CDATA[<]]> 0
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
+                  and gold <![CDATA[<]]> 0
                  ) a
-             WHERE DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
             group by type, memNo
             ) aa
     </select>
@@ -144,8 +156,10 @@
                FROM rd_data.tb_member_wallet_ruby ruby
               where op_name is not null
               <if test='emp_name != null and emp_name != ""'>
-                and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+               and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
               </if>
+               and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+               and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
               UNION SELECT
                       '2'                            as `type`,
                       if(gold <![CDATA[>]]> 0, gold, 0)          as send,
@@ -154,10 +168,11 @@
                     FROM rd_data.tb_member_wallet_gold gold
                     where op_name is not null
                   <if test='emp_name != null and emp_name != ""'>
-                      and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account where emp_name=#{emp_name})
                   </if>
+                   and mem_no in (select mem_no from rd_admin.tb_admin_test_account)
+                   and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
              ) a
-        WHERE DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
         ) aa
     </select>
 
