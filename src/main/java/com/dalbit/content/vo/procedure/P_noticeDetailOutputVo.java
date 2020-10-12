@@ -20,5 +20,6 @@ public class P_noticeDetailOutputVo extends BaseVo {
     private int viewCnt;
     private String offDate;
     private String writeDate;
+    private int iosJudgeViewOn;
 
 }

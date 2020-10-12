@@ -162,6 +162,10 @@ Handlebars.registerHelper("getOnOffSwitch", function(value, name){
    return util.getOnOffSwitch(value, name);
 });
 
+Handlebars.registerHelper("renderOnOff", function(value){
+    return util.renderOnOff(value);
+});
+
 Handlebars.registerHelper("renderProfileImage", function(value,gender){
     return common.profileImage(PHOTO_SERVER_URL,value,gender);
 });

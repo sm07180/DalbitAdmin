@@ -21,6 +21,7 @@ public class P_noticeListOutputVo extends BaseVo {
     private Date offDate;
     private Date writeDate;
     private String writeDateFormat;
+    private int iosJudgeViewOn;
 
     public void setWriteDate(Date writeDate){
         this.writeDate = writeDate;

@@ -15,4 +15,5 @@ public class P_noticeUpdateVo extends BaseVo {
     private String contents;
     private int topFix;
     private int viewOn;
+    private int iosJudgeViewOn;
 }

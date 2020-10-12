@@ -720,7 +720,6 @@ util.getMemberBadge = function(startColor,endColor,icon,text, divWidth, divHeigh
 }
 
 util.getPlatformName = function(platform){
-    console.log(""+platform)
     if(platform == '111'){
         return '전체'
     }

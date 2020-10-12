@@ -14,5 +14,6 @@ public class P_noticeInsertVo extends BaseVo {
     private String contents;
     private int topFix;
     private int viewOn;
+    private int iosJudgeViewOn;
 }
 

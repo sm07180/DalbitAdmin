@@ -264,6 +264,14 @@ ui.paintColor = function(){
             $(this).css('color', fontcolor);
         }
     });
+
+    $('._borderColor').each(function () {
+        var bordercolor = $(this).data('bordercolor');
+        if (bordercolor != null && bordercolor != '') {
+            $(this).css('border-color', bordercolor);
+        }
+    });
+
     $('._noBorder').each(function () {
         var noborderwidth = $(this).data('noborderwidth');
         $(this).css("background-color", 'white')
