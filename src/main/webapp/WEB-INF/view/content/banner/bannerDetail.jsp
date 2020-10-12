@@ -204,7 +204,7 @@
 
     fnc_bannerDetail.popupBannerDisplayChange = function(){
         //배너위치에 따른 display 변경
-        if($('input[name="position"]:checked').val() == 6){
+        if(-1 < '|6|11|12|'.indexOf('|'+$('input[name="position"]:checked').val()+'|')){
             $('._show_popup').show();
             $("input[name='popup_type']:radio").change();
 
@@ -496,7 +496,7 @@
         }
 
         //팝업 선택 시 필수 값 체크
-        if($('input[name="position"]:checked').val() == 6){
+        if(-1 < '|6|11|12|'.indexOf('|'+$('input[name="position"]:checked').val()+'|')){
 
             //이미지팝업
             if($('input[name="popup_type"]:checked').val() == 0){
@@ -629,15 +629,15 @@
                 <td colspan="5">{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
 
                 <th>오늘하루 열지않기</th>
-                <td colspan="5">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
+                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
             </tr>
 
             <tr class="_show_popup _show_popup_text" style='display:none;'>
                 <th>제목 노출 여부</th>
-                <td colspan="5">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
+                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
 
                 <th>버튼 노출 여부</th>
-                <td colspan="5">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
+                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
             </tr>
 
             <tr class="_show_popup _show_popup_text" style='display:none;'>

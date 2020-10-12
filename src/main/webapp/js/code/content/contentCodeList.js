@@ -1,4 +1,12 @@
 /** =------ Notice ---------- */
+var notice_platform = [
+    new COMMON_CODE(null, 'platform', '플랫폼')
+    , new COMMON_CODE('all', '111', '전체')
+    , new COMMON_CODE('title', '100', 'PC')
+    , new COMMON_CODE('content', '010', '안드로이드')
+    , new COMMON_CODE('opName', '3', '작성자')
+];
+
 var notice_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
@@ -188,6 +196,8 @@ var banner_bannerType = [
     , new COMMON_CODE('endPopup', '8', '종료팝업')
     , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
     , new COMMON_CODE('clip', '10', '클립 Center')
+    , new COMMON_CODE('exchangePopup', '11', '환전팝업')
+    , new COMMON_CODE('storePopup', '12', '스토어팝업')
 ];
 
 var banner_loginType = [

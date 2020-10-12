@@ -14177,6 +14177,10 @@ fieldset[disabled] .btn-default.active {
     border-radius: 0;
     background: #7d939a; }
 
+.no-margin .onoffswitch {
+    margin : 0;
+}
+
 .onoffswitch {
     position: relative;
     width: 50px;

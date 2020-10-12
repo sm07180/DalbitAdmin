@@ -79,6 +79,11 @@ public class CommonService {
         return data;
     }
 
+    public CodeListVo getCodeDefine(CodeListVo codeListVo){
+        CodeListVo code = commonDao.getCodeDefine(codeListVo);
+        return code;
+    }
+
     public String getCodeList(CodeListVo codeListVo){
         List<String> typeList = new ArrayList<>();
         if(codeListVo.getType().indexOf(",") > 0){
@@ -93,6 +98,7 @@ public class CommonService {
         ArrayList<CodeListVo> codeList = commonDao.getCodeList(codeListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, codeList));
     }
+
     public List<CodeVo> getCodeList(String code){
         return (List<CodeVo>)callCodeDefineSelect().get(code);
     }
@@ -155,5 +161,9 @@ public class CommonService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.에러로그저장_실패));
         }
         return result;
+    }
+
+    public int updateCodeDefine(CodeListVo codeListVo){
+        return commonDao.updateCodeDefine(codeListVo);
     }
 }

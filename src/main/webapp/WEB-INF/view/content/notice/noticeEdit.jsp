@@ -55,6 +55,15 @@
         var html = templateScript(context);
         $("#noticeForm").html(html);
 
+        //platform check 추가
+        var platformInfo = response.data.platform;
+        var platformData = platformInfo.split('');
+        platformData.forEach(function(data, index){
+            if(data == '1'){
+                $("#platform"+ (index + 1)).click();
+            }
+        });
+
         // uploadType 추가
         util.editorInit("content-notice");
     }
@@ -72,6 +81,11 @@
         if(common.isEmpty(title.val())){
             alert("제목을 입력해주세요.");
             title.focus();
+            return false;
+        }
+
+        if($('input[name="platform"]:checked').length == 0){
+            alert("플랫폼을 하나 이상 선택해 주세요.");
             return false;
         }
 
@@ -93,6 +107,13 @@
         }
         data["contents"] = $("#editor").summernote('code');
         data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
+
+        var platform_pc = $("#platform1").prop('checked') ? '1' : '0';
+        var platform_aos = $("#platform2").prop('checked') ? '1' : '0';
+        var platform_ios = $("#platform3").prop('checked') ? '1' : '0';
+        data["platform"] = platform_pc + platform_aos + platform_ios;
+
+        data["iosJudgeViewOn"] = $("#detail_iosJudgeViewOn").prop('checked') ? 1 : 0;
 
         dalbitLog(data);
 
@@ -146,6 +167,30 @@
         }
     }
 
+    $(document).on('change', 'input[name="platform"]', function(){
+       var me = $(this);
+       var index = me.index('input[name="platform"]');
+       if(index == 0){
+           console.log(me.prop('checked'))
+           if(me.prop('checked')){
+               $('input[name="platform"]').prop('checked', 'checked');
+           }else{
+               $('input[name="platform"]').prop('checked', false);
+           }
+       }else{
+           var checkboxLength = $('input[name="platform"]:not("#platform-1")').length;
+           var checkedLength = $('input[name="platform"]:not("#platform-1"):checked').length;
+
+           if(me.prop('checked')){
+               if(checkboxLength == checkedLength){
+                   $("#platform-1").prop('checked', 'checked');
+               }
+           }else{
+               $("#platform-1").prop('checked', false);
+           }
+       }
+    });
+
 </script>
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
@@ -162,7 +207,7 @@
             <button class="btn btn-default" type="button" id="listBack">목록보기</button>
         </span>
         </div>
-        <table class="table table-bordered table-dalbit mb0" style="border-color: black">
+        <table class="table table-bordered border-black table-dalbit mb0" style="border-color: black">
             <colgroup>
                 <col width="4%" />
                 <col width="4%" />
@@ -181,43 +226,47 @@
             </colgroup>
             <tbody>
                 <tr class="align-middle">
-                    <th style="border-color: black">No</th>
-                    <td style="border-color: black">{{rowNum}}</td>
+                    <th>No</th>
+                    <td>{{rowNum}}</td>
 
-                    <th style="border-color: black">공지번호</th>
-                    <td style="border-color: black">{{noticeIdx}}</td>
+                    <th>공지번호</th>
+                    <td>{{noticeIdx}}</td>
 
-                    <th style="border-color: black">구분</th>
-                    <td style="border-color: black">{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
+                    <th>구분</th>
+                    <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
 
-                    <th style="border-color: black">제목</th>
-                    <td colspan="5" style="border-color: black"><input type="text" name="title" id="title" class="form-control" value="{{{title}}}" maxlen></td>
+                    <th>제목</th>
+                    <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{{title}}}" maxlen></td>
 
-                    <th style="border-color: black">조회수</th>
-                    <td style="border-color: black">{{addComma viewCnt}}</td>
+                    <th>조회수</th>
+                    <td>{{addComma viewCnt}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2" style="border-color: black">플랫폼</th>
-                    <td colspan="2" style="border-color: black">{{{getCommonCodeSelect platform 'platform'}}}</td>
+                    <th rowspan="2" colspan="2">플랫폼</th>
+                    <td rowspan="2" colspan="2">{{{getCommonCodeCheck platform 'content_platform2'}}}</td>
 
-                    <th style="border-color: black">성별</th>
-                    <td style="border-color: black">{{{getCommonCodeSelect gender 'gender'}}}</td>
+                    <th rowspan="2">성별</th>
+                    <td rowspan="2">{{{getCommonCodeSelect gender 'gender'}}}</td>
 
-                    <th style="border-color: black">등록일시</th>
-                    <td style="border-color: black">{{writeDate}}</td>
+                    <th rowspan="2">등록일시</th>
+                    <td rowspan="2">{{writeDate}}</td>
 
-                    <th style="border-color: black">게시중지일시</th>
-                    <td style="border-color: black">
+                    <th rowspan="2">게시중지일시</th>
+                    <td rowspan="2">
                         {{offDate}}
                         {{#equal offDate ''}}-{{/equal}}
                     </td>
 
-                    <th style="border-color: black">처리자</th>
-                    <td style="border-color: black">{{opName}}</td>
-                    <th style="border-color: black">게시상태</th>
-                    <td style="border-color: black">
+                    <th rowspan="2">처리자</th>
+                    <td rowspan="2">{{opName}}</td>
+                    <th>게시상태</th>
+                    <td>
                         {{{getOnOffSwitch viewOn 'viewOn'}}}
                     </td>
+                </tr>
+                <tr>
+                    <th>IOS심사시<br />비노출</th>
+                    <td>{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
                 </tr>
             </tbody>
         </table>

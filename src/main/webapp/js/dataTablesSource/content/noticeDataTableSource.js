@@ -4,7 +4,7 @@ var NoticeDataTableSource = {
 
         , 'columns': [
             {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat', 'render': function (data) {
-                    return util.getCommonCodeLabel(data, platform) ;
+                    return util.getPlatformName(data) ;
                 }}
             , {'title': '구분', 'data': 'slctType', 'name': 'sortSlct', 'render': function (data) {
                     return util.getCommonCodeLabel(data, notice_slctType) ;
@@ -28,6 +28,9 @@ var NoticeDataTableSource = {
                     return '<a href="javascript://" class="_notice">'+'[바로알림]'+'</a>';
                 }}
             , {'title': '처리자명', 'data': 'opName'}
+            , {'title': 'IOS 심사 중<br />노출여부', 'data': 'iosJudgeViewOn', 'render': function (data) {
+                    return util.renderOnOff(data);
+                }}
         ]
         , 'comments': ' • 달빛라이브 사이트 내 공지를 등록/수정/삭제할 수 있습니다.'
     },

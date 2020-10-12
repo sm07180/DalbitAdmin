@@ -127,6 +127,14 @@ table.table-dalbit {
     font-size: 12.5px;
 }
 
+table.table-dalbit.border-black tr th{
+    border-color : #000000;
+}
+
+table.table-dalbit.border-black tr td{
+    border-color : #000000;
+}
+
 table.table-dalbit tbody tr th {
     background-color: #DCE6F2;
     text-align: center;

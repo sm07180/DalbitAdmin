@@ -450,6 +450,22 @@ util.getCommonCodeLabel = function(code, targetCode) {
     }
 },
 
+util.getCommonCodeText = function(code, targetCode) {
+    targetCode = eval(targetCode);
+    if (!common.isEmpty(targetCode)) {
+        var codeText = "";
+        targetCode.forEach(function (value) {
+            if (!common.isEmpty(value.type)) {
+                if (code == value.value) {
+                    codeText = value.code + "";
+                    console.log(codeText);
+                }
+            }
+        });
+        return codeText;
+    }
+},
+
 util.getCommonCodeLabelAndHidden = function(code, targetCode, name) {
     targetCode = eval(targetCode);
     if (!common.isEmpty(targetCode)) {
@@ -701,4 +717,17 @@ util.getMemberBadge = function(startColor,endColor,icon,text, divWidth, divHeigh
     result +=   '</div>';
     result +='</div>';
     return result;      // euc-kr
+}
+
+util.getPlatformName = function(platform){
+    if(platform == '111'){
+        return '전체'
+    }
+
+    var platformData = (""+platform).split('');
+    var platformDisplay = platformData[0] == '1' ? 'PC<br />' : '';
+    platformDisplay += platformData[1] == '1' ? 'Android<br />' : '';
+    platformDisplay += platformData[2] == '1' ? 'IOS' : '';
+
+    return platformDisplay;
 }
