@@ -33,6 +33,7 @@ public class ClipHistoryGiftVo extends PagingVo {
     private String giftedMemSex;
     private String giftedMemBirthYear;
     private String itemThumbnail;
+    private String itemWebpImage;
     private String itemName;
     private int itemCnt;
     private int gold;

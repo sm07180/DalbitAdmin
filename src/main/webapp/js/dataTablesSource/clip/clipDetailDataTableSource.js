@@ -75,7 +75,7 @@ var ClipDetailDataTableSource = {
                     if(common.isEmpty(data)){
                         return "";
                     }
-                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" max-height="50px" />';
+                    return '<img class="thumbnail fullSize_background _webpImage" src="'+ data +'" width="50px" max-height="50px" />';
 
                     // return data;
                 }},
