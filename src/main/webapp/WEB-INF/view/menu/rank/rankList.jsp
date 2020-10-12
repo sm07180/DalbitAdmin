@@ -518,7 +518,7 @@
                 {{/dalbit_if}}
             </td>
             <td>{{addComma rankPoint}}점</td>
-            <td>{{addComma recByeol}}개(받은별)<br/>({{addComma itemCnt}}개)</td>
+            <td>{{addComma recByeol}}개<br/>({{addComma itemCnt}}개)</td>
             <td>{{addComma listenCnt}}명</td>
             <td>{{addComma totalGoodCnt}}<br/>({{addComma goodCnt}}개)</td>
             <td>{{addComma boostCnt}}개</td>
