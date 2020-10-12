@@ -92,7 +92,9 @@
                     <div class="tab-pane fade in active " id="djRankList">
                         <div class="row col-lg-12 form-inline">
                             <div class="col-md-7 no-padding mt10">
-                                <span id="tab_title">DJ 랭킹 점수는 받은 별(부스터 제외) 1점, 누적 청취자 2점, 받은 좋아요 1점, 부스터 횟수 20점으로 반영됩니다.</span>
+                                <span id="tab_title">ㆍDJ 랭킹 점수 산출 방법<br/>
+                                                        : 받은 별(부스터 제외) 1점 + 누적 청취자 2점 + 받은 좋아요(부스터 제외) 1점 + 부스터 횟수 20점
+                                </span>
                             </div>
                         </div>
 
@@ -247,14 +249,15 @@
 
         response.data.rankType = $('input:radio[name="rankType"]:checked').val();
 
-
         if(dst_id == "djRankList"){
             for(var i=0;i<response.data.length;i++){
                 response.data[i]["recByeol"] = response.data[i].itemCnt + Number(response.data[i].boostByeol);
+                response.data[i]["totalGoodCnt"] = response.data[i].goodCnt + (response.data[i].boostCnt * 10);
             }
         }else if(dst_id == "fanRankList"){
             for(var i=0;i<response.data.length;i++){
                 response.data[i]["giftDal"] = response.data[i].itemCnt + Number(response.data[i].boostDal);
+                response.data[i]["totalGoodCnt"] = response.data[i].goodCnt + (response.data[i].boostCnt * 10);
             }
         }
 
@@ -462,9 +465,8 @@
         <th>랭킹 점수</th>
         <th style="background-color: #4472c4;color: white">받은 별<br/>(부스터 제외)<br/>x1점</th>
         <th style="background-color: #4472c4;color: white">누적 청취자<br/>x2점</th>
-        <th style="background-color: #4472c4;color: white">받은 좋아요<br/>x1점</th>
+        <th style="background-color: #4472c4;color: white">받은 좋아요<br/>(부스터 제외)<br/>x1점</th>
         <th style="background-color: #4472c4;color: white">부스터 횟수<br/>x20점</th>
-        <th>받은 별</th>
         <th>방송진행 시간</th>
     </tr>
     </thead>
@@ -516,11 +518,10 @@
                 {{/dalbit_if}}
             </td>
             <td>{{addComma rankPoint}}점</td>
-            <td>{{addComma itemCnt}}개</td>
+            <td>{{addComma recByeol}}개<br/>({{addComma itemCnt}}개)</td>
             <td>{{addComma listenCnt}}명</td>
-            <td>{{addComma goodCnt}}개</td>
+            <td>{{addComma totalGoodCnt}}<br/>({{addComma goodCnt}}개)</td>
             <td>{{addComma boostCnt}}개</td>
-            <td>{{addComma recByeol}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 

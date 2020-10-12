@@ -63,9 +63,10 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '45px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '받은 별', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
+            {'title': '받은 별<br/>(부스터제외)', 'data': 'byeolCnt','width' : '40px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(data);
-                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 4 + ');" style="color:#555555">' + tmp + '개</a>';
+                    var totalByeolCnt = data + (row.boosterCnt * 10);
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 5 + ');" style="color:#555555">' + common.addComma(totalByeolCnt) + '개' + '<br/>(' + tmp + '개)</a>';
                 }},
             {'title': '방송랭킹<br/>점수', 'data': 'total','width' : '45px','render': function (data){
                     return common.addComma(data) + "점";
@@ -84,9 +85,9 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(row.memLiveListener) + '명<br/>(' + common.addComma(row.notMemLiveListener) + '명)';
                     return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + tmp + '</a>';
                 }},
-            {'title': '좋아요', 'data': 'goodCnt','width' : '35px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "건";
+            {'title': '좋아요<br/>부스터제외', 'data': 'goodCnt','width' : '35px','render': function (data,type,row,meta){
+                    var totalGoodCnt = data + (row.boosterCnt * 10);
+                    return totalGoodCnt + "건<br/>(" + common.addComma(data) + "건)";
                 }},
             {'title': '부스터<br/>(만료/진행)', 'data': 'boosterCnt','width' : '50px','render': function (data, type, row, meta) {
                     var liveboostCnt;

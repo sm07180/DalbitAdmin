@@ -90,3 +90,13 @@ var message_searchType = [
     , new COMMON_CODE('cont', '2', '내용')
     , new COMMON_CODE('opName', '3', '작성자')
 ];
+
+var testDalByeollistSort = [
+    new COMMON_CODE(null, 'testDalByeollistSort', '테스트아이디 달/별 관리')
+    , new COMMON_CODE('0', '0', '최근 지급 회수 순으로')
+    , new COMMON_CODE('1', '1', '달 지급 수가 많은 순으로')
+    , new COMMON_CODE('2', '2', '별 지급 수가 많은 순으로')
+    , new COMMON_CODE('3', '3', '달 회수 수가 많은 순으로')
+    , new COMMON_CODE('4', '4', '별 회수 수가 많은 순으로')
+    , new COMMON_CODE('5', '5', '최근 사용 일시 순으로')
+];
