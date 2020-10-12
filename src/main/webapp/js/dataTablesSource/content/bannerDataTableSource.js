@@ -4,16 +4,7 @@ var BannerDataTableSource = {
 
         , 'columns': [
             {'title': '플랫폼', 'data': 'platform', 'render': function (data, type, row, meta) {
-                    if(data == '111'){
-                        return '전체'
-                    }
-
-                    var platformData = data.split('');
-                    var platformDisplay = platformData[0] == '1' ? 'PC<br />' : '';
-                        platformDisplay += platformData[1] == '1' ? 'Android<br />' : '';
-                        platformDisplay += platformData[2] == '1' ? 'IOS' : '';
-
-                    return platformDisplay;
+                    return util.getPlatformName(data);
                 }},
             {'title': '배너구분', 'data': 'position', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, banner_bannerType);
@@ -44,7 +35,8 @@ var BannerDataTableSource = {
 
                 }},
             {'title': '게시여부', 'data': 'is_view', 'render': function (data, type, row, meta) {
-                    return util.getCommonCodeLabel(data, content_viewOn);
+                    //return util.getCommonCodeLabel(data, content_viewOn);
+                    return util.renderOnOff(data);
 
                 }},
             {'title': '이미지 등록', 'data': '', 'render': function (data, type, row, meta) {
@@ -73,9 +65,6 @@ var BannerDataTableSource = {
                 }},
             {'title': '노출상태', 'data': 'is_view', 'render': function (data, type, row, meta) {
 
-                    var on_text = '<span style="color:blue;">ON</span>';
-                    var off_text = '<span style="color:gray">OFF</span>';
-
                     if(data == 1){
                         if(row.start_datetime != ''){
                             var start = moment(row.start_datetime).format('YYYYMMDDHHmmss');
@@ -96,6 +85,9 @@ var BannerDataTableSource = {
             {'title': '클릭', 'data': 'banner_col11', 'defaultContent': '0'},
             {'title': '<label style="color: blue">남</label>', 'data': 'banner_col12', 'defaultContent': '0'},
             {'title': '<label style="color: red">여</label>', 'data': 'banner_col13', 'defaultContent': '0'},*/
+            {'title': 'IOS 심사 중<br />노출여부', 'data': 'iosJudgeViewOn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return util.renderOnOff(data);
+                }},
             {'title': '등록자명', 'data': 'opName', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data + '<br />' + row.reg_dateFormat;
                 }},

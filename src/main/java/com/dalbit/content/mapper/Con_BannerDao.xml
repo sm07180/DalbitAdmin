@@ -35,6 +35,7 @@
             ,DATE_FORMAT(last_upd_date, '%Y-%m-%d %H:%i:%s') AS lastUpdDateFormat
             ,last_op_name       AS lastOpName
             ,`order`            AS `order`
+            ,ios_judge_view_on  AS iosJudgeViewOn
         FROM rd_admin.tb_admin_banner
     </sql>
 
@@ -124,6 +125,7 @@
                 ,is_title_view
                 ,is_button_view
                 ,`desc`
+                ,ios_judge_view_on
                 ,reg_date
                 ,op_name
                 ,last_upd_date
@@ -153,6 +155,7 @@
                 ,#{is_title_view}
                 ,#{is_button_view}
                 ,#{desc}
+                ,#{iosJudgeViewOn}
                 ,NOW()
                 ,#{opName}
                 ,NOW()
@@ -183,9 +186,10 @@
             ,popup_type = IFNULL(#{popup_type}, popup_type)
             ,is_cookie = IFNULL(#{is_cookie}, is_cookie)
             ,contents = IFNULL(#{contents}, contents)
-            ,is_title_view = IFNULL(#{is_title_view}, contents)
-            ,is_button_view = IFNULL(#{is_button_view}, contents)
+            ,is_title_view = IFNULL(#{is_title_view}, is_title_view)
+            ,is_button_view = IFNULL(#{is_button_view}, is_button_view)
             ,`desc` = IFNULL(#{desc}, `desc`)
+            ,ios_judge_view_on = IFNULL(#{iosJudgeViewOn}, ios_judge_view_on)
             ,last_upd_date = NOW()
             ,last_op_name = #{opName}
         WHERE

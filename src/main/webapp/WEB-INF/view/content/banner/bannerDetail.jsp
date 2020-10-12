@@ -411,17 +411,10 @@
             resultJson['platform'] = platform;
         }
 
-        if(0 < $('#detail_is_cookie:checked').length){
-            resultJson['is_cookie'] = 1;
-        }
-
-        if(0 < $('#detail_is_title_view:checked').length){
-            resultJson['is_title_view'] = 1;
-        }
-
-        if(0 < $('#detail_is_button_view:checked').length){
-            resultJson['is_button_view'] = 1;
-        }
+        resultJson['is_cookie'] = $('#detail_is_cookie').prop('checked') ? 1 : 0;
+        resultJson['is_title_view'] = $('#detail_is_title_view').prop('checked') ? 1 : 0;
+        resultJson['is_button_view'] = $('#detail_is_button_view').prop('checked') ? 1 : 0;
+        resultJson['iosJudgeViewOn'] = $('#detail_iosJudgeViewOn').prop('checked') ? 1 : 0;
 
         //예약발송 일경우 Date 처리
         if(fnc_bannerDetail.target.find("input[name='term_type']:radio:checked").val() == "1"){
@@ -601,7 +594,7 @@
                 <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
 
                 <th>노출 기간</th>
-                <td colspan="5">
+                <td colspan="2">
                     <div>
                         {{{getCommonCodeRadio term_type 'banner_exposureType' 'N' 'term_type'}}}
                     </div>
@@ -623,6 +616,8 @@
                         </div>
                     </div>
                 </td>
+                <th>IOS심사 중<br />노출여부</th>
+                <td colspan="2" class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
             </tr>
             <tr class="_show_popup" style='display:none;'>
                 <th>팝업 구분</th>
