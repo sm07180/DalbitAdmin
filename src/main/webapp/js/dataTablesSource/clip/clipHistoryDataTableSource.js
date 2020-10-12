@@ -200,7 +200,7 @@ var ClipHistoryDataTableSource = {
                     if(common.isEmpty(data)){
                         return "";
                     }
-                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" max-height="50px" />';
+                    return '<img class="fullSize_background _webpImage" src="'+ data +'" width="50px" max-height="50px" data-webpImage="' + row.itemWebpImage+ '"/>';
 
                     // return data;
                 }},
