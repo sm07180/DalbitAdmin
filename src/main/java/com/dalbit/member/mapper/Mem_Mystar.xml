@@ -23,9 +23,9 @@
                         , if(a.state = '1',a.last_upd_date,'') as regDateFormat
                         , if(a.state = '0',a.last_upd_date,'') as delDateFormat
                    From rd_data.tb_member_fanstar_history a join rd_data.tb_member_basic b on a.mem_no_star = b.mem_no
-                  where mem_no_fan = #{mem_no} and b.mem_state != 5
-                  order by totalItemCnt desc, last_upd_date desc ) as a, (select @rownum := #{pageNo} ) AS d
-
+                      , (select @rownum := #{pageNo} ) AS d
+                  where mem_no_fan = #{mem_no} and b.mem_state != 5 ) as a
+                  order by totalItemCnt desc, last_upd_date desc
           limit #{pageNo}, #{pageCnt}
     </select>
 
@@ -54,8 +54,9 @@
                         , if(a.state = '1',a.last_upd_date,'') as regDateFormat
                         , if(a.state = '0',a.last_upd_date,'') as delDateFormat
                    From rd_data.tb_member_fanstar_history a join rd_data.tb_member_basic b on a.mem_no_fan = b.mem_no
-                  where mem_no_star = #{mem_no} and b.mem_state != 5
-                  order by totalItemCnt desc, last_upd_date desc ) as a, (select @rownum := #{pageNo} ) AS d
+                      , (select @rownum := #{pageNo} ) AS d
+                  where mem_no_star = #{mem_no} and b.mem_state != 5 ) as a
+                  order by totalItemCnt desc, last_upd_date desc
           limit #{pageNo}, #{pageCnt}
     </select>
 
