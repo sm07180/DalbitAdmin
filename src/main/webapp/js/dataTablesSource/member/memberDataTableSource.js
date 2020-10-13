@@ -379,7 +379,9 @@ var MemberDataTableSource = {
                 }},
             {'title': 'Mystar등록일', 'data': 'regDateFormat'},
             {'title': '삭제일', 'data': 'delDateFormat'},
-            {'title': '삭제자', 'data': 'delete_op'},
+            {'title': '삭제자', 'data': 'delMemNo', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(row.delMemNick, data);
+                }},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
@@ -406,7 +408,9 @@ var MemberDataTableSource = {
                 }},
             {'title': 'Fan 등록일', 'data': 'regDateFormat'},
             {'title': '삭제일', 'data': 'delDateFormat'},
-            {'title': '삭제자', 'data': 'delete_op'},
+            {'title': '삭제자', 'data': 'delMemNo', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(row.delMemNick, data);
+                }},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
