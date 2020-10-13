@@ -10,24 +10,25 @@
     <select id="callMystarHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">
       select @rownum := @rownum + 1 as rowNum,
               a.*
-         from ( select a.mem_no_star,a.reg_date
-                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_star
-                          union
-                          select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star ) as mem_no_start_id
-                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_star
-                          union
-                          select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star ) as mem_no_start_nick
+         from ( select a.mem_no_star
+                        ,ifnull(mem_userid ,(select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star )) as mem_no_start_id
+                        ,ifnull(mem_nick, (select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star )) as mem_no_start_nick
                         ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as accumCnt
                         ,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = mem_no_star and mem_no = #{mem_no}) as totalItemCnt
                         , b.inner
-                   From rd_data.tb_member_fanstar a join rd_data.tb_member_basic b on a.mem_no_star = b.mem_no
+                        , a.state
+                        , a.delete_op
+                        , a.last_upd_date
+                        , if(a.state = '1',a.last_upd_date,'') as regDateFormat
+                        , if(a.state = '0',a.last_upd_date,'') as delDateFormat
+                   From rd_data.tb_member_fanstar_history a join rd_data.tb_member_basic b on a.mem_no_star = b.mem_no
                   where mem_no_fan = #{mem_no} and b.mem_state != 5) as a, (select @rownum := #{pageNo} ) AS d
-         order by totalItemCnt desc, reg_date desc
+         order by totalItemCnt desc, last_upd_date desc
           limit #{pageNo}, #{pageCnt}
     </select>
 
     <select id="callMystarHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="integer">
-        select count(*) as totalCnt From rd_data.tb_member_fanstar a join rd_data.tb_member_basic b on a.mem_no_star = b.mem_no where a.mem_no_fan = #{mem_no} and b.mem_state != 5
+        select count(*) as totalCnt From rd_data.tb_member_fanstar_history a join rd_data.tb_member_basic b on a.mem_no_star = b.mem_no where a.mem_no_fan = #{mem_no} and b.mem_state != 5
     </select>
 
     <!--<select id="callMyfanHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">-->
@@ -38,19 +39,20 @@
     <select id="callMyfanHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">
       select @rownum := @rownum + 1 as rowNum,
               a.*
-         from ( select a.mem_no_fan,a.reg_date
-                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_fan
-                          union
-                          select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan ) as mem_no_fan_id
-                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_fan
-                          union
-                          select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan ) as mem_no_fan_nick
+         from ( select a.mem_no_fan
+                        ,ifnull(mem_userid ,(select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan )) as mem_no_fan_id
+                        ,ifnull(mem_nick, (select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan )) as mem_no_fan_nick
                         ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = #{mem_no}) as accumCnt
                         ,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = #{mem_no} and mem_no = mem_no_fan) as totalItemCnt
                         , b.inner
-                   From rd_data.tb_member_fanstar a join rd_data.tb_member_basic b on a.mem_no_fan = b.mem_no
+                        , a.state
+                        , a.delete_op
+                        , a.last_upd_date
+                        , if(a.state = '1',a.last_upd_date,'') as regDateFormat
+                        , if(a.state = '0',a.last_upd_date,'') as delDateFormat
+                   From rd_data.tb_member_fanstar_history a join rd_data.tb_member_basic b on a.mem_no_fan = b.mem_no
                   where mem_no_star = #{mem_no} and b.mem_state != 5) as a, (select @rownum := #{pageNo} ) AS d
-         order by totalItemCnt desc, reg_date desc
+         order by totalItemCnt desc, last_upd_date desc
           limit #{pageNo}, #{pageCnt}
     </select>
 
