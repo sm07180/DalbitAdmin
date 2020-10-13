@@ -196,7 +196,7 @@ var banner_bannerType = [
     , new COMMON_CODE('endPopup', '8', '종료팝업')
     , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
     , new COMMON_CODE('clip', '10', '클립 Center')
-    , new COMMON_CODE('clipMain', '13', '클립 메인')
+    , new COMMON_CODE('clipMain', '13', '클립 팝업')
     , new COMMON_CODE('exchangePopup', '11', '환전팝업')
     , new COMMON_CODE('storePopup', '12', '스토어팝업')
 ];
