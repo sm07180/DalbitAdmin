@@ -23,11 +23,11 @@
                                         <input type="text" name="displayDate" id="displayDate" class="form-control" />
                                     </div>
 
-                                    <%--<input type="hidden" name="startDate" id="startDate">--%>
-                                    <%--<input type="hidden" name="endDate" id="endDate" />--%>
+                                    <input type="hidden" name="startDate" id="startDate">
+                                    <input type="hidden" name="endDate" id="endDate" />
 
-                                    <input name="startDate" id="startDate">
-                                    <input name="endDate" id="endDate" />
+                                    <%--<input name="startDate" id="startDate">--%>
+                                    <%--<input name="endDate" id="endDate" />--%>
 
                                     <label><input type="text" class="form-control" id="searchText" name="searchText"></label>
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -236,6 +236,8 @@
     });
 
     $("#bt_search").on('click', function(){
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
        getList();
     });
 
@@ -294,7 +296,7 @@
         $("#searchText").val(empName);
         sDate = "";
         eDate = "";
-        $("#bt_search").click();
+        getList();
         ui.topScroll();
     });
 
