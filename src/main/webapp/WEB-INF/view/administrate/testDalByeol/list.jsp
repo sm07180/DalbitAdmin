@@ -109,11 +109,12 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
-        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
+        $("#searchFormRadio").html(util.getCommonCodeRadio(0, searchFormRadio));
 
         $('#testDalByeollistSort').html(util.getCommonCodeSelect(-1, testDalByeollistSort));
 
         init();
+        radioChange();
     });
 
 
@@ -246,32 +247,38 @@
         util.getAjaxData("summary", "/rest/administrate/testDalByeol/list", data , fn_list_success);
     }
 
-    function fn_list_success(dst_id, response){
+    function fn_list_success(dst_id, response) {
 
-        if(response.result == 'success'){
+        var template = $('#tmp_testDalByeolSummary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#testDalByeolSummary").html(html);
 
-            var template = $('#tmp_testDalByeolSummary').html();
-            var templateScript = Handlebars.compile(template);
-            var context = response.data;
-            var html=templateScript(context);
-            $("#testDalByeolSummary").html(html);
-
-            for(var i=0; i<response.data.list.length;i++){
+        if (!common.isEmpty(response.data.list)) {
+            for (var i = 0; i < response.data.list.length; i++) {
                 response.data.list[i].rowNum = response.data.totalCnt - response.data.list[i].rowNum + 1;
             }
-            var template = $('#tmp_list').html();
-            var templateScript = Handlebars.compile(template);
-            var context = response.data.list;
-            var html=templateScript(context);
-            $("#tb_list").html(html);
+        }
 
-            pagingInfo.totalCnt = response.data.totalCnt;
+        var template = $('#tmp_list').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.list;
+        var html=templateScript(context);
+        $("#tb_list").html(html);
 
-            if(response.data.list.length > 0){
+        pagingInfo.totalCnt = response.data.totalCnt;
+
+        if (!common.isEmpty(response.data.list)) {
+            if (response.data.list.length > 0) {
                 util.renderPagingNavigation("list_info_paginate_top", pagingInfo);
                 util.renderPagingNavigation("list_info_paginate", pagingInfo);
             }
+        }else{
+            util.renderPagingNavigation("list_info_paginate_top", 0);
+            util.renderPagingNavigation("list_info_paginate", 0);
         }
+
         ui.paintColor();
         ui.tableHeightSet();
     }
