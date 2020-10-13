@@ -804,4 +804,32 @@
 
     </select>
 
+    <insert id="insertAuth" parameterType="com.dalbit.member.vo.procedure.P_AuthVo">
+        /* M_Member.xml - insertAuth */
+        insert into rd_data.tb_member_certification(
+           mem_no
+            , mem_name
+            , mem_phone
+            , mem_sex
+            , mem_birth_year
+            , mem_birth_month
+            , mem_birth_day
+            , comm_company
+            , foreign_yn
+            , cert_code
+            , parents_agree_yn
+        ) values (
+            #{memNo}
+            , #{userName}
+            , #{phoneNo}
+            , #{gender}
+            , #{birthYear}
+            , #{birthMonth}
+            , #{birthDay}
+            , '기타'
+            , '0'
+            , 'admin'
+            , 'n'
+        )
+    </insert>
 </mapper>

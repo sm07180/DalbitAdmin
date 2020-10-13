@@ -160,4 +160,6 @@ public interface Mem_MemberDao {
 
     @Transactional(readOnly = true)
     P_MemberAccumOutputVo getMemberAccumData(P_MemberInfoInputVo pMemberInfoInputVo);
+
+    int insertAuth(P_AuthVo pAuthVo);
 }
