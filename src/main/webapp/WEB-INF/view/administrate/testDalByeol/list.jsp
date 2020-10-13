@@ -217,6 +217,10 @@
             var html=templateScript(context);
             $("#summaryArea").html(html);
 
+
+            sDate = $("#startDate").val();
+            eDate = $("#endDate").val();
+
             getList();
         }else{
             $("#summaryTotalArea_mem").html("(0명)");
@@ -225,6 +229,8 @@
 
     $('input[id="searchText"]').keydown(function() {
         if (event.keyCode === 13) {
+            sDate = $("#startDate").val();
+            eDate = $("#endDate").val();
             getList();
         };
     });
@@ -236,8 +242,8 @@
     function getList(){
         var data = {
             emp_name : $("#searchText").val()
-            ,sDate : $("#startDate").val()
-            ,eDate : $("#endDate").val()
+            ,sDate : sDate
+            ,eDate : eDate
             ,pageStart : pagingInfo.pageNo
             ,pageCnt : pagingInfo.pageCnt
             ,listSort : listSort
@@ -286,6 +292,8 @@
     $(document).on('click', '._empName', function(){
         empName = $(this).data("empname");
         $("#searchText").val(empName);
+        sDate = "";
+        eDate = "";
         $("#bt_search").click();
         ui.topScroll();
     });
