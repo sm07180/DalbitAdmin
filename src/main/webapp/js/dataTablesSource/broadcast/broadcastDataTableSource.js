@@ -85,7 +85,7 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(row.memLiveListener) + '명<br/>(' + common.addComma(row.notMemLiveListener) + '명)';
                     return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 1 + ');" style="color:red">' + tmp + '</a>';
                 }},
-            {'title': '좋아요<br/>부스터제외', 'data': 'goodCnt','width' : '35px','render': function (data,type,row,meta){
+            {'title': '좋아요<br/>(부스터제외)', 'data': 'goodCnt','width' : '35px','render': function (data,type,row,meta){
                     var totalGoodCnt = data + (row.boosterCnt * 10);
                     return totalGoodCnt + "건<br/>(" + common.addComma(data) + "건)";
                 }},
