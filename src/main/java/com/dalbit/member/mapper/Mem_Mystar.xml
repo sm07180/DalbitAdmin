@@ -60,7 +60,7 @@
     </select>
 
     <select id="callMyfanHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="integer">
-        select count(*) as totalCnt From rd_data.tb_member_fanstar a join rd_data.tb_member_basic b on a.mem_no_fan = b.mem_no where a.mem_no_star = #{mem_no} and b.mem_state != 5
+        select count(*) as totalCnt From rd_data.tb_member_fanstar_history a join rd_data.tb_member_basic b on a.mem_no_fan = b.mem_no where a.mem_no_star = #{mem_no} and b.mem_state != 5
     </select>
 
 </mapper>
