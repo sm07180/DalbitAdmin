@@ -310,7 +310,7 @@
     }
 
     function resourceClick(data){
-        var popupUrl = "/administrate/testDalByeol/popup/resourceList?sDate=" + $("#startDate").val() + "&eDate=" + $("#endDate").val() + "&memno=" + data.memno + "&type=" + data.type;
+        var popupUrl = "/administrate/testDalByeol/popup/resourceList?sDate=" + sDate + "&eDate=" + eDate + "&memno=" + data.memno + "&type=" + data.type;
         util.windowOpen(popupUrl,"900","550","데이터");
     }
 
@@ -355,13 +355,13 @@
         </thead>
         <tbody>
             <tr>
-                <th>인원</th>
-                <td>{{addComma summary1.sendDalMem}} 명</td>
-                <td>{{addComma summary1.recvDalMem}} 명</td>
-                <td>{{addComma summary1.dalTotalMem}} 명</td>
-                <td>{{addComma summary1.sendByeolMem}} 명</td>
-                <td>{{addComma summary1.recvByeolMem}} 명</td>
-                <td>{{addComma summary1.byeolTotalMem}} 명</td>
+                <th>계정</th>
+                <td>{{addComma summary1.sendDalMem}} 개</td>
+                <td>{{addComma summary1.recvDalMem}} 개</td>
+                <td>{{addComma summary1.dalTotalMem}} 개</td>
+                <td>{{addComma summary1.sendByeolMem}} 개</td>
+                <td>{{addComma summary1.recvByeolMem}} 개</td>
+                <td>{{addComma summary1.byeolTotalMem}} 개</td>
             </tr>
             <tr>
                 <th>수량</th>
