@@ -351,7 +351,7 @@
             <td>{{user.charge}}</td>
             <td>{{user.chargeDate}}</td>
             <td>{{user.lastOpName}}</td>
-            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}" data-tabid="tab_walletDetail">
                 <label class="font-bold" style="color: #7030a0;">달 : {{user.dal}}</label><br/>
                 <label class="font-bold" style="color: #b79135;">별 : {{user.byeol}}</label>
                 </a>
