@@ -396,7 +396,7 @@
                 <tr>
                     <td>{{rowNum}}</td>
                     <td>{{emp_name}}</td>
-                    <td>{{{memNoLink memNo memNo}}}</td>
+                    <td><a href="javascript://" class="_openMemberPop" data-memno="{{memNo}}" data-tabid="tab_walletDetail">{{memNo}}</a></td>
                     <td>{{addComma dalSend}}</td>
                     <td>{{addComma dalRecv}}</td>
                     <td><a onclick="resourceClick($(this).data())" data-memno="{{memNo}}" data-type="d">{{addComma dal}}</a></td>

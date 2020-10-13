@@ -201,7 +201,7 @@
             if(response.data.menuInfo[i].idx == 12){
                 for(var j = 0 ;j<response.data.menuInfo[i].twoDepth.length;j++){
                     if(response.data.menuInfo[i].twoDepth[j].idx == 52) {
-                        response.data.menuInfo[i].twoDepth[j]["menu_name"] = response.data.menuInfo[i].twoDepth[j].menu_name + '<br/>' + "(달/별 변경권한 부여)";
+                        response.data.menuInfo[i].twoDepth[j]["menu_name"] = response.data.menuInfo[i].twoDepth[j].menu_name;
                     }
                 }
             }

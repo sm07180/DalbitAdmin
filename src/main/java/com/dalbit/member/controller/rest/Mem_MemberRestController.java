@@ -296,4 +296,12 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.getMemberAccumData(pMemberInfoInputVo);
         return result;
     }
+
+    /**
+     * 수동 본인인증 추가
+     */
+    @PostMapping("auth")
+    public String insertAuth(P_AuthVo pAuthVo){
+        return mem_MemberService.insertAuth(pAuthVo);
+    }
 }
