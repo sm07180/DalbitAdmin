@@ -119,7 +119,7 @@
         if(confirm("삭제하시겠습니까?")) {
             var data = {
                 noticeIdx: $(this).data('noticeidx'),
-                nociceType: $(this).data('type'),
+                noticeType: $(this).data('type'),
                 roomNo: $(this).data('roomno')
             };
 
@@ -141,6 +141,14 @@
         alert(response.message);
         noticeList();
     }
+
+    function handlebarsPaging(targetId, pagingInfo) {
+        if(targetId == "notice_paginate_top" || targetId == "notice_paginate") {
+            noticePagingInfo = pagingInfo;
+            noticeList(pagingInfo.pageNo);
+        }
+    }
+
 </script>
 
 <script id="tmp_noticeTable" type="text/x-handlebars-template">

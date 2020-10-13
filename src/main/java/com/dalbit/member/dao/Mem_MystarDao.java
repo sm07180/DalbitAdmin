@@ -19,9 +19,15 @@ public interface Mem_MystarDao {
     int callMystarHistory_totalCnt(P_MemberMystarInputVo pMemberMystarInputVo);
 
     @Transactional(readOnly = true)
+    int callMystar_totalCnt(P_MemberMystarInputVo pMemberMystarInputVo);
+
+    @Transactional(readOnly = true)
     ArrayList<P_MemberMystarOutputVo> callMyfanHistory(P_MemberMystarInputVo pMemberMystarInputVo);
 
     @Transactional(readOnly = true)
     int callMyfanHistory_totalCnt(P_MemberMystarInputVo pMemberMystarInputVo);
+
+    @Transactional(readOnly = true)
+    int callMyfan_totalCnt(P_MemberMystarInputVo pMemberMystarInputVo);
 
 }

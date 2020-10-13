@@ -44,8 +44,9 @@ public class Mem_MystarService {
                 mystarList.get(i).setMem_birth_day(outVo.getMem_birth_day());
             }
         }
+        int liveTotalCnt = mem_MystarDao.callMystar_totalCnt(pMemberMystarInputVo);
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, mystarList, new PagingVo(totalCnt)));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, mystarList, new PagingVo(totalCnt), liveTotalCnt));
         log.info(result);
         return result;
     }
@@ -69,8 +70,9 @@ public class Mem_MystarService {
             }
         }
 
+        int liveTotalCnt = mem_MystarDao.callMyfan_totalCnt(pMemberMystarInputVo);
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, myfanList, new PagingVo(totalCnt)));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, myfanList, new PagingVo(totalCnt), liveTotalCnt));
         log.info(result);
         return result;
     }
