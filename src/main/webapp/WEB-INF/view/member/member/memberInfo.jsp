@@ -850,6 +850,25 @@
         });
     });
 
+    //수동인증
+    $(document).on('click', '#bt_auth', function(){
+        var data = {
+            memNo : memNo
+            , userName : memberInfo_responseDate.userName
+            , phoneNo : memberInfo_responseDate.phoneNum
+            , birth : memberInfo_responseDate.birthData
+            , userId : memberInfo_responseDate.userId
+            , memSex : memberInfo_responseDate.memSex
+        }
+        console.log("수동인증", data);
+        util.getAjaxData("insertAuth", "/rest/member/member/auth", data, function(dst_id, response){
+            alert("수동으로 인증정보를 추가하였습니다.");
+            getMemNo_info_reload(memNo);
+        });
+
+    });
+
+
     function fn_succ_recant(){
         alert("법정대리인(동의)를 철회하였습니다.");
         getMemNo_info_reload(memNo);
@@ -1162,6 +1181,7 @@
                     {{#equal ../certificationBakYn 'Y'}}
                         <button type="button" id="bt_rollback_cert" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
                     {{/equal}}
+                    <button type="button" id="bt_auth" class="btn btn-default btn-sm pull-right ml5">수동인증</button>
                 {{/equal}}
             </td>
             <th>법정대리인<br>(보호자)</br>동의</th>

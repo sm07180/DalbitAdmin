@@ -984,4 +984,28 @@ public class Mem_MemberService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberAccumOutputVo));
     }
+
+
+    /**
+     * 수동 본인인증 추가
+     */
+    public String insertAuth(P_AuthVo pAuthVo) {
+        pAuthVo.setUserName(DalbitUtil.isEmpty(pAuthVo.getUserName()) ? pAuthVo.getUserId() : pAuthVo.getUserName());
+        pAuthVo.setPhoneNo(DalbitUtil.isEmpty(pAuthVo.getPhoneNo()) ? "01000000000" : pAuthVo.getPhoneNo());
+        pAuthVo.setGender(DalbitUtil.isEmpty(pAuthVo.getMemSex()) ? 0 : "m".equals(pAuthVo.getMemSex()) ? 0 : 1);
+        pAuthVo.setBirthYear(pAuthVo.getBirth().split("-")[0]);
+        pAuthVo.setBirthMonth(pAuthVo.getBirth().split("-")[1]);
+        pAuthVo.setBirthDay(pAuthVo.getBirth().split("-")[2]);
+
+
+        int success = mem_MemberDao.insertAuth(pAuthVo);
+        String result;
+        if(success > 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생성));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+        return result;
+
+    }
 }
