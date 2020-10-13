@@ -37,16 +37,17 @@
     </select>
 
     <select id="callMystarHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="integer">
-        select count(*) totalCnt
+        select count(*) AS totalCnt
          from (	SELECT a.mem_no_star
                   FROM rd_data.tb_member_fanstar_history a
                   join rd_data.tb_member_basic b ON a.mem_no_star = b.mem_no
                      , (select @rownum := 0 ) AS d
-                  WHERE mem_no_fan = '11584609037101' and b.mem_state != 5
+                  WHERE mem_no_fan = #{mem_no} and b.mem_state != 5
                 <if test='searchText != null and searchText != ""'>
                     and (b.mem_no like concat('%', #{searchText}, '%') or b.mem_nick like concat('%', #{searchText}, '%'))
                 </if>
-       group BY a.mem_no_fan , mem_no_star ) as a
+                   group BY a.mem_no_fan , mem_no_star
+           ) as a
 
     </select>
 
