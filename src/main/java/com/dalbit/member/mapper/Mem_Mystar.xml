@@ -17,7 +17,8 @@
                         ,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = mem_no_star and mem_no = #{mem_no}) as totalItemCnt
                         , b.inner
                         , a.state
-                        , a.delete_op
+                        , (select ifnull(mem_no,a.delete_op) from rd_data.tb_member_basic where mem_no = a.delete_op) as delMemNo
+                        , (select ifnull(mem_nick,'') from rd_data.tb_member_basic where mem_no = a.delete_op) as delMemNick
                         , a.last_upd_date
                         , if(a.state = '1',a.last_upd_date,'') as regDateFormat
                         , if(a.state = '0',a.last_upd_date,'') as delDateFormat
@@ -46,7 +47,8 @@
                         ,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = #{mem_no} and mem_no = mem_no_fan) as totalItemCnt
                         , b.inner
                         , a.state
-                        , a.delete_op
+                        , (select ifnull(mem_no,a.delete_op) from rd_data.tb_member_basic where mem_no = a.delete_op) as delMemNo
+                        , (select ifnull(mem_nick,'') from rd_data.tb_member_basic where mem_no = a.delete_op) as delMemNick
                         , a.last_upd_date
                         , if(a.state = '1',a.last_upd_date,'') as regDateFormat
                         , if(a.state = '0',a.last_upd_date,'') as delDateFormat

@@ -28,7 +28,8 @@ public class P_MemberMystarOutputVo extends SearchVo {
     private int inner;
 
     private int state;
-    private String delete_op;
+    private String delMemNo;
+    private String delMemNick;
     private String regDateFormat;
     private String delDateFormat;
     private String last_upd_date;
