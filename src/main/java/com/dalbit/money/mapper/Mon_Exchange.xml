@@ -188,7 +188,11 @@
 
     <select id="selectCompleteExchangeList" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
         /* Mon_Exchange.xml - selectCompleteExchangeList */
-        SELECT reg_date
+        SELECT
+            mem_no
+            , (select mem_userid from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_userid
+            , (select mem_name from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_name
+            , reg_date
             , account_name
             , cash_basic
             , benefit

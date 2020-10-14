@@ -93,7 +93,7 @@ public class Mon_ExchangeController {
             return mv;
         }
 
-        String[] colums = new String[]{"No", "주민번호", "예금주", "금액",
+        String[] colums = new String[]{"No", "아이디" , "이름" , "주민번호", "예금주", "금액",
                 "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
                 "실지급액", "연락처", "은행명", "계좌번호",
                 "주소"};
