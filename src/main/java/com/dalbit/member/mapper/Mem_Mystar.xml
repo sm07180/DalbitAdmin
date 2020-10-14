@@ -9,7 +9,8 @@
 
     <select id="callMystarHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">
       select @rownum := @rownum + 1 as rowNum,
-              a.*
+              a.*,
+             (select ifnull(mem_nick, '') FROM rd_data.tb_member_basic WHERE mem_no = delete_op) as delMemNick
          from (	SELECT
 					a.mem_no_star
 					,ifnull(mem_userid ,(select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star )) as mem_no_start_id
@@ -17,8 +18,9 @@
 					,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as accumCnt
 					,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = mem_no_star and mem_no = a.mem_no_fan) as totalItemCnt
 					, b.inner
-                    , @delete_op := (SELECT delete_op FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star AND state = 0 ORDER BY last_upd_date DESC LIMIT 1 ) AS delete_op
-					, (select ifnull(mem_nick,'') from rd_data.tb_member_basic where mem_no = @delete_op) as delMemNick
+                    , b.mem_sex AS star_sex
+                    , b.mem_birth_year
+                    , (SELECT delete_op FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star AND state = 0 ORDER BY last_upd_date DESC LIMIT 1 ) AS delete_op
 				    , (select state FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star ORDER BY last_upd_date DESC LIMIT 1) AS state
 				    , max(a.last_upd_date) AS last_upd_date
 				    , (SELECT last_upd_date FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star AND state = 1 ORDER BY last_upd_date DESC LIMIT 1 ) AS regDateFormat
@@ -62,7 +64,8 @@
 
     <select id="callMyfanHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">
       select @rownum := @rownum + 1 as rowNum,
-              a.*
+              a.*,
+              (select ifnull(mem_nick, '') FROM rd_data.tb_member_basic WHERE mem_no = delete_op) as delMemNick
          from (	SELECT
 					a.mem_no_fan
 					,ifnull(mem_userid ,(select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan )) as mem_no_fan_id
@@ -70,8 +73,9 @@
 					,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as accumCnt
 					,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = a.mem_no_star and mem_no = mem_no_fan) as totalItemCnt
 					, b.inner
-                    , @delete_op := (SELECT delete_op FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star AND state = 0 ORDER BY last_upd_date DESC LIMIT 1 ) AS delete_op
-					, (select ifnull(mem_nick,'') from rd_data.tb_member_basic where mem_no = @delete_op) as delMemNick
+                    , b.mem_sex AS fan_sex
+                    , b.mem_birth_year
+                    , (SELECT delete_op FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star AND state = 0 ORDER BY last_upd_date DESC LIMIT 1 ) AS delete_op
 				    , (select state FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star ORDER BY last_upd_date DESC LIMIT 1) AS state
 				    , max(a.last_upd_date) AS last_upd_date
 				    , (SELECT last_upd_date FROM rd_data.tb_member_fanstar_history WHERE mem_no_fan = a.mem_no_fan AND mem_no_star = a.mem_no_star AND state = 1 ORDER BY last_upd_date DESC LIMIT 1 ) AS regDateFormat
