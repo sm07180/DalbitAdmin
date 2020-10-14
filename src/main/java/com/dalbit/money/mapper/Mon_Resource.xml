@@ -321,8 +321,11 @@
             <if test='type == "5"'>
                 , '레벨보상' as rewardType
             </if>
+            <if test='type == "9-1"'>
+                , '이벤트 지급(자동)' as rewardType
+            </if>
             <if test='type == "9"'>
-                , '(운영자) 이벤트 지급' as rewardType
+                , '이벤트 지급(운영자 지급)' as rewardType
             </if>
             <if test='type == "8"'>
                 , '소실금액 복구' as rewardType
@@ -338,7 +341,7 @@
                 ,(select count(*) from rd_data.tb_member_exchange where state = 1 and mem_no= b.mem_no) as exchagneCnt
                 , op_date lastUpdDate
             </if>
-        <if test='type == "5" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
+        <if test='type == "5" or type == "9-1" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
             , b.last_upd_date as lastUpdDate
             , b.gold as byeolCnt
             <if test='type == "3"'>
@@ -353,6 +356,10 @@
         left join rd_data.tb_member_withdrawal_bak withdrawal on b.mem_no = withdrawal.mem_no ,(select @rownum := #{pageStart}) r
         <if test='type == "5"'>
             where b.type='5'
+        </if>
+        <if test='type == "9-1"'>
+            where b.type='4'
+              and gold <![CDATA[>]]> 0
         </if>
         <if test='type == "9"'>
             where b.type='23'
@@ -372,7 +379,7 @@
         <if test='type == "3"'>
             where b.type='1'
         </if>
-        <if test='type == "5" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
+        <if test='type == "5" or type == "9-1" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
               and date_format(b.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(b.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
         </if>
         <if test='type == "16" or type == "17"'>

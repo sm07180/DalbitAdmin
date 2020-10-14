@@ -12,6 +12,7 @@ public class P_ResourceTotalByeolOutVo {
     // 상단통계
     private long byeolgift_mcnt;
     private long levelup_mcnt;
+    private long event_auto_mcnt;
     private long event_direct_mcnt;
     private long cancel_mcnt;
     private long recovery_mcnt;
@@ -23,6 +24,7 @@ public class P_ResourceTotalByeolOutVo {
     private long test_out_mcnt;
     private long byeolgift_fcnt;
     private long levelup_fcnt;
+    private long event_auto_fcnt;
     private long event_direct_fcnt;
     private long cancel_fcnt;
     private long recovery_fcnt;
@@ -34,6 +36,7 @@ public class P_ResourceTotalByeolOutVo {
     private long test_out_fcnt;
     private long byeolgift_ncnt;
     private long levelup_ncnt;
+    private long event_auto_ncnt;
     private long event_direct_ncnt;
     private long cancel_ncnt;
     private long recovery_ncnt;
@@ -45,6 +48,7 @@ public class P_ResourceTotalByeolOutVo {
     private long test_out_ncnt;
     private long byeolgift_tcnt;
     private long levelup_tcnt;
+    private long event_auto_tcnt;
     private long event_direct_tcnt;
     private long cancel_tcnt;
     private long recovery_tcnt;
