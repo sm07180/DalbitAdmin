@@ -838,7 +838,6 @@
                 {{/dalbit_if}}
             {{/dalbit_if}}
         </td>
-    
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="8" data-searchOsType="3" style="cursor:pointer;">{{addComma listen_pc_cnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="8" data-searchOsType="1" style="cursor:pointer;">{{addComma listen_and_cnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="1" data-sDay="{{day}}" data-type="8" data-searchOsType="2" style="cursor:pointer;">{{addComma listen_ios_cnt 'Y'}}</span></td>

@@ -572,19 +572,16 @@
         <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-1" data-searchSex="m"  style="cursor:pointer;">{{addComma notopen_reg_maleCnt 'Y'}}</span></td>
         <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-2" data-searchSex="m"  style="cursor:pointer;">{{addComma mem_del_maleCnt 'Y'}}</span></td>
         <td class="_fontColor" data-fontColor="blue"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-2" data-searchSex="m"  style="cursor:pointer;">{{addComma op_del_maleCnt 'Y'}}</span></td>
-    
         <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="2" data-searchSex="f" data-searchGroupBy="1" style="cursor:pointer;">{{addComma femaleCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-1" data-searchSex="f" style="cursor:pointer;">{{addComma open_reg_femaleCnt 'Y'}}</span></td>
         <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-1" data-searchSex="f" style="cursor:pointer;">{{addComma notopen_reg_femaleCnt 'Y'}}</span></td>
         <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-2" data-searchSex="f" style="cursor:pointer;">{{addComma mem_del_femaleCnt 'Y'}}</span></td>
         <td class="_fontColor" data-fontColor="red"><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-2" data-searchSex="f" style="cursor:pointer;">{{addComma op_del_femaleCnt 'Y'}}</span></td>
-    
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="2" data-searchSex="n" data-searchGroupBy="1" style="cursor:pointer;">{{addComma noneCnt 'Y'}}</td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-1" data-searchSex="n" style="cursor:pointer;">{{addComma open_reg_noneCnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-1" data-searchSex="n" style="cursor:pointer;">{{addComma notopen_reg_noneCnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-2" data-searchSex="n" style="cursor:pointer;">{{addComma mem_del_noneCnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="1-2" data-searchSex="n" style="cursor:pointer;">{{addComma op_del_noneCnt 'Y'}}</span></td>
-    
         <td>{{addComma totalCnt 'Y'}}</td>
         <td>{{addComma open_reg_totalCnt 'Y'}}</td>
         <td>{{addComma notopen_reg_totalCnt 'Y'}}</td>
@@ -787,7 +784,7 @@
                 {{/dalbit_if}}
             {{/dalbit_if}}
         </td>
-    
+
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="8" data-searchOsType="3" style="cursor:pointer;">{{addComma listen_pc_cnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="8" data-searchOsType="1" style="cursor:pointer;">{{addComma listen_and_cnt 'Y'}}</span></td>
         <td><span onclick="resourceClipStatusClick($(this).data())" data-slctType="2" data-sMonth="{{month}}" data-type="8" data-searchOsType="2" style="cursor:pointer;">{{addComma listen_ios_cnt 'Y'}}</span></td>
