@@ -93,9 +93,9 @@ public class Mon_ExchangeController {
             return mv;
         }
 
-        String[] colums = new String[]{"No", "예금주", "금액",
+        String[] colums = new String[]{"No", "주민번호", "예금주", "금액",
                 "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
-                "실지급액", "주민번호", "연락처", "은행명", "계좌번호",
+                "실지급액", "연락처", "은행명", "계좌번호",
                 "주소"};
         String fileName = "스페셜DJ 완료내역";
 
