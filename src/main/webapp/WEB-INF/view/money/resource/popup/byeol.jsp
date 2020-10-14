@@ -31,6 +31,8 @@
             $("#sp_type").text("레벨 보상");
         }else if(type == "8"){
             $("#sp_type").text("소실금액 복구(운영자지급)");
+        }else if(type == "9-1"){
+            $("#sp_type").text("이벤트 지급(자동)");
         }else if(type == "9"){
             $("#sp_type").text("이벤트 지급(운영자지급)");
         }else if(type == "10"){
@@ -69,7 +71,7 @@
         // data-type="18" 탈퇴
         // data-type="15" 테스트 회수
 
-        if(type == "5" || type == "9" || type == "8" || type == "10" || type == "15"){            // 레벨업보상, 이벤트 지급(운영자 지급), 소실금액 복구(운영자 지급), 테스트 지급, 테스트 회수
+        if(type == "5" || type == "9-1" || type == "9" || type == "8" || type == "10" || type == "15"){            // 레벨업보상, 이벤트 지급(운영자 지급), 소실금액 복구(운영자 지급), 테스트 지급, 테스트 회수
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_detail);
         } else if(type == "11" ){                       // 아이템 선물(비밀선물)
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_giftList);

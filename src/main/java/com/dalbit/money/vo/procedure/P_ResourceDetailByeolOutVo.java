@@ -14,6 +14,7 @@ public class P_ResourceDetailByeolOutVo {
     private String the_hr;
     private long byeolgift_Cnt;
     private long levelup_Cnt;
+    private long eventauto_Cnt;
     private long eventdirect_Cnt;
     private long cancel_Cnt;
     private long recovery_Cnt;

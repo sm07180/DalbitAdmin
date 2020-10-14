@@ -614,6 +614,7 @@
         var byeolInc_total_mCnt = [
             response.data.totalInfo.byeolgift_mcnt,
             response.data.totalInfo.levelup_mcnt,
+            response.data.totalInfo.event_auto_mcnt,
             response.data.totalInfo.event_direct_mcnt,
             response.data.totalInfo.cancel_mcnt,
             response.data.totalInfo.recovery_mcnt,
@@ -624,6 +625,7 @@
         var byeolInc_total_fCnt = [
             response.data.totalInfo.byeolgift_fcnt,
             response.data.totalInfo.levelup_fcnt,
+            response.data.totalInfo.event_auto_fcnt,
             response.data.totalInfo.event_direct_fcnt,
             response.data.totalInfo.cancel_fcnt,
             response.data.totalInfo.recovery_fcnt,
@@ -634,6 +636,7 @@
         var byeolInc_total_nCnt = [
             response.data.totalInfo.byeolgift_ncnt,
             response.data.totalInfo.levelup_ncnt,
+            response.data.totalInfo.event_auto_ncnt,
             response.data.totalInfo.event_direct_ncnt,
             response.data.totalInfo.cancel_ncnt,
             response.data.totalInfo.recovery_ncnt,
@@ -644,6 +647,7 @@
         var byeolInc_total_tCnt = [
             response.data.totalInfo.byeolgift_tcnt,
             response.data.totalInfo.levelup_tcnt,
+            response.data.totalInfo.event_auto_tcnt,
             response.data.totalInfo.event_direct_tcnt,
             response.data.totalInfo.cancel_tcnt,
             response.data.totalInfo.recovery_tcnt,
@@ -704,6 +708,7 @@
         //총합 ------------------------------------
         response.data.totalInfo["byeolgift_total_cnt"] = response.data.totalInfo.byeolgift_mcnt + response.data.totalInfo.byeolgift_fcnt + response.data.totalInfo.byeolgift_ncnt + response.data.totalInfo.byeolgift_tcnt ;
         response.data.totalInfo["levelup_total_cnt"] = response.data.totalInfo.levelup_mcnt + response.data.totalInfo.levelup_fcnt + response.data.totalInfo.levelup_ncnt + response.data.totalInfo.levelup_tcnt;
+        response.data.totalInfo["event_auto_total_cnt"] = response.data.totalInfo.event_auto_mcnt + response.data.totalInfo.event_auto_fcnt + response.data.totalInfo.event_auto_ncnt + response.data.totalInfo.event_auto_tcnt;
         response.data.totalInfo["event_direct_total_cnt"] = response.data.totalInfo.event_direct_mcnt + response.data.totalInfo.event_direct_fcnt + response.data.totalInfo.event_direct_ncnt + response.data.totalInfo.event_direct_tcnt;
         response.data.totalInfo["cancel_total_cnt"] = response.data.totalInfo.cancel_mcnt + response.data.totalInfo.cancel_fcnt + response.data.totalInfo.cancel_ncnt + response.data.totalInfo.cancel_tcnt ;
         response.data.totalInfo["recovery_total_cnt"] = response.data.totalInfo.recovery_mcnt + response.data.totalInfo.recovery_fcnt + response.data.totalInfo.recovery_ncnt + response.data.totalInfo.recovery_tcnt;
@@ -731,6 +736,7 @@
         var total_byeolgift_Cnt = 0;
         var total_levelup_Cnt = 0;
         var total_eventdirect_Cnt = 0;
+        var total_eventauto_Cnt = 0;
         var total_cancel_Cnt = 0;
         var total_recovery_Cnt = 0;
         var total_testin_Cnt = 0;
@@ -758,6 +764,7 @@
             var sub_incByeolTotal_Cnt = [
                 response.data.detailList[i].byeolgift_Cnt,
                 response.data.detailList[i].levelup_Cnt,
+                response.data.detailList[i].eventauto_Cnt,
                 response.data.detailList[i].eventdirect_Cnt,
                 response.data.detailList[i].cancel_Cnt,
                 response.data.detailList[i].recovery_Cnt,
@@ -779,6 +786,7 @@
 
             total_byeolgift_Cnt = total_byeolgift_Cnt + response.data.detailList[i].byeolgift_Cnt;
             total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
+            total_eventauto_Cnt = total_eventauto_Cnt + response.data.detailList[i].eventauto_Cnt;
             total_eventdirect_Cnt = total_eventdirect_Cnt + response.data.detailList[i].eventdirect_Cnt;
             total_cancel_Cnt = total_cancel_Cnt + response.data.detailList[i].cancel_Cnt;
             total_recovery_Cnt = total_recovery_Cnt + response.data.detailList[i].recovery_Cnt;
@@ -791,6 +799,7 @@
         }
         response.data.totalInfo.total_byeolgift_Cnt = total_byeolgift_Cnt;
         response.data.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
+        response.data.totalInfo.total_eventauto_Cnt = total_eventauto_Cnt;
         response.data.totalInfo.total_eventdirect_Cnt = total_eventdirect_Cnt;
         response.data.totalInfo.total_cancel_Cnt = total_cancel_Cnt;
         response.data.totalInfo.total_recovery_Cnt = total_recovery_Cnt;
@@ -1062,27 +1071,32 @@
             <colgroup>
                 <col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
                 <col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
-                <col width="8%"/><col width="8%"/>
+                <col width="8%"/><col width="8%"/><col width="8%"/>
             </colgroup>
             <tbody>
             <tr>
-                <th rowspan="6" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀선물)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 지급)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">환전 취소</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 지급)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">구분</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">소계</th>
-                <th class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">증가 합</th>
-                <th class="_bgColor _fontColor" data-bgcolor="#000000" data-fontcolor="white" style="border:solid 2px black">총 합</th>
+                <th rowspan="7" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀선물)</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">환전 취소</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 지급)</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">구분</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">소계</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7" style="border:solid 2px black">증가 합</th>
+                <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="#000000" data-fontcolor="white" style="border:solid 2px black">총 합</th>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#dae3f3">(자동)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">(운영자지급)</th>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'm'}}}</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="5" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="11"  data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma byeolgift_mcnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="9-1"  data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_auto_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="9"  data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_direct_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="16" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma cancel_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="8"  data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma recovery_mcnt 'Y'}}</span></a></td>
@@ -1099,6 +1113,7 @@
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'f'}}}</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="5" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="11"  data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma byeolgift_fcnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="9-1"  data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_auto_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="9"  data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_direct_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="16" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma cancel_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="8"  data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma recovery_fcnt 'Y'}}</span></a></td>
@@ -1110,6 +1125,7 @@
                 <th class="_bgColor" data-bgcolor="#b4c7e7">{{{sexIcon 'n'}}}</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="5" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="11"  data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma byeolgift_ncnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="9-1"  data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_auto_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="9"  data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_direct_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="16" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma cancel_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="8"  data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma recovery_ncnt 'Y'}}</span></a></td>
@@ -1121,6 +1137,7 @@
                 <th class="_bgColor" data-bgcolor="#b4c7e7">테스트</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="5" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="11"  data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma byeolgift_tcnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="9-1"  data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_auto_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="9"  data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_direct_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="16" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma cancel_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="8"  data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma recovery_tcnt 'Y'}}</span></a></td>
@@ -1132,6 +1149,7 @@
                 <th class="_bgColor" data-bgcolor="#dad9d7">총합</th>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="5" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="11"  data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma byeolgift_total_cnt 'Y'}}</span></a></td>
+                <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="9-1"  data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_auto_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="9"  data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma event_direct_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="16" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma cancel_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="8"  data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma recovery_total_cnt 'Y'}}</span></a></td>
@@ -1365,34 +1383,39 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="9" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
+                <th colspan="10" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀 선물)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급<br/>(운영자 지급)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">환전 취소</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 지급)</th>
-                <th class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
-                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
-                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th class="_bgColor" data-bgcolor="#f8cbad">구분</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
-                <th class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
-                <th class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">레벨업 보상</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">아이템 선물<br/>(비밀 선물)</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">이벤트 지급</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">환전 취소</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">소실금액 복구<br/>(운영자 지급)</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th rowspan="3" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
+                <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                <th rowspan="3" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#dae3f3">(자동)</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">(운영자 지급)</th>
             </tr>
             <tr class="font-bold" style="background-color: #d9d9d9">
                 <td>총합</td>
                 <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
@@ -1422,6 +1445,7 @@
                     </td>
                     <td>{{addComma levelup_Cnt 'Y'}}</td>
                     <td>{{addComma byeolgift_Cnt 'Y'}}</td>
+                    <td>{{addComma eventauto_Cnt 'Y'}}</td>
                     <td>{{addComma eventdirect_Cnt 'Y'}}</td>
                     <td>{{addComma cancel_Cnt 'Y'}}</td>
                     <td>{{addComma recovery_Cnt 'Y'}}</td>
@@ -1447,6 +1471,7 @@
                     <td>총합</td>
                     <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_byeolgift_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_eventauto_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_eventdirect_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_cancel_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_recovery_Cnt 'Y'}}</td>
