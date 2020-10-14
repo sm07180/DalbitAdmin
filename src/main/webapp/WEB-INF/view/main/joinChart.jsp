@@ -12,12 +12,12 @@
         <span class="font-bold mt5">* 플랫폼별(가입)</span>
         <div id='pieArea'></div>
     </div>
-    <div class="col-md-8 no-padding">
+    <div class="col-md-8 no-padding" style="display: none">
         <span class="font-bold mt5">* 성별(가입)</span>
         <div id='pieArea2'></div>
     </div>
+    <div class="col-md-4 no-padding" style="display: none">
         <span class="font-bold mt5">* 연령별(가입)</span>
-    <div class="col-md-4 no-padding">
         <div id='pieArea3'></div>
     </div>
     <!-- end chart placeholder-->

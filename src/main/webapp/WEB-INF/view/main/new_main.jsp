@@ -59,7 +59,7 @@
                             </a>
                         </h3>
                         <h3 class="pull-right">
-                            <a href="/enter/join/info" onclick="labelClick(0);">
+                            <a href="/enter/newJoin/info" onclick="labelClick(0);">
                                 <i class="fa fa-search"></i> 상세보기
                             </a>
                         </h3>
@@ -119,7 +119,7 @@
                             </a>
                         </h3>
                         <h3 class="pull-right">
-                            <a href="/status/broadcast/info" onclick="labelClick(0);">
+                            <a href="/status/newBroadcast/info" onclick="labelClick(0);">
                                 <i class="fa fa-search"></i> 상세보기
                             </a>
                         </h3>
