@@ -57,16 +57,16 @@ public class Mon_ExchangeController {
         String[] colums = null;
         String fileName = "";
         if(monExchangeInputVo.getIsSpecial() == 1) {
-            colums = new String[]{"No", "아이디", "이름", "예금주", "금액",
+            colums = new String[]{"No", "아이디", "이름", "주민번호", "예금주", "금액",
                 "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
-                "실지급액", "주민번호", "연락처", "은행명", "계좌번호",
+                "실지급액", "연락처", "은행명", "계좌번호",
                 "주소"};
 
             fileName = "스페셜DJ 환전내역";
         }else{
-            colums = new String[]{"No", "아이디", "이름", "예금주", "금액",
+            colums = new String[]{"No", "아이디", "이름", "주민번호", "예금주", "금액",
                 /*"스페셜DJ혜택", "과세금액",*/ "소득세", "주민세", "수수료",
-                "실지급액", "주민번호", "연락처", "은행명", "계좌번호",
+                "실지급액", "연락처", "은행명", "계좌번호",
                 "주소"};
             fileName = "일반회원 환전내역";
         }

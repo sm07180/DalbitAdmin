@@ -439,6 +439,7 @@ public class Mon_ExchangeService {
             hm.put("no", i+1);
             hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
             hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
 
             hm.put("cashBasic", exchangeVo.getCash_basic());
@@ -463,7 +464,6 @@ public class Mon_ExchangeService {
             hm.put("exchangeCash", exchangeVo.getCash_real());
             exchangeCashTotal += exchangeVo.getCash_real();
 
-            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
 
             hm.put("bankName", exchangeVo.getBank_name());
@@ -481,6 +481,7 @@ public class Mon_ExchangeService {
             totalMap.put("no", "");
             totalMap.put("id", "합계");
             totalMap.put("name", "");
+            totalMap.put("socialNo", "");
             totalMap.put("accountName", "");
             totalMap.put("cashBasic", cashBasicTotal);
 
@@ -493,7 +494,6 @@ public class Mon_ExchangeService {
             totalMap.put("resident_tax", residentTaxTotal);
             totalMap.put("transfer_fee", transferFeeTotal);
             totalMap.put("exchangeCash", exchangeCashTotal);
-            totalMap.put("socialNo", "");
             totalMap.put("phoneNo", "");
             totalMap.put("bankName", "");
             totalMap.put("accountNo", "");
