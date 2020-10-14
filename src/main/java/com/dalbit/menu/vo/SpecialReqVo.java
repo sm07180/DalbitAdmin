@@ -41,6 +41,7 @@ public class SpecialReqVo extends PagingVo {
     private int airTime;
     private int broadcastCnt;
     private int goodCnt;
+    private int boostGoodCnt;
     private int fanCnt;
     private int allListenCnt;
     private int listenCnt;
