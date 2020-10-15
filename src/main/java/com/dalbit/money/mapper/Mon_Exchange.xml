@@ -49,7 +49,7 @@
                    exchange.op_msg,
                    exchange.op_name,
                    exchange.op_date,
-                   exchange.reg_date,
+                   date_format(exchange.reg_date,'%Y-%m-%d %H:%i:%s') AS reg_date,
                    exchange.send_title,
                    exchange.send_cont,
                    exchange.send_type,
@@ -188,7 +188,10 @@
 
     <select id="selectCompleteExchangeList" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
         /* Mon_Exchange.xml - selectCompleteExchangeList */
-        SELECT reg_date
+        SELECT
+            mem_no
+            , (select mem_userid from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_userid
+            , (select mem_name from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_name
             , account_name
             , cash_basic
             , benefit
@@ -203,6 +206,7 @@
             , account_no
             , address_1
             , address_2
+            , date_format(reg_date,'%Y-%m-%d %H:%i:%s') AS reg_date
         FROM rd_data.tb_member_exchange EXCHANGE
         WHERE DATE_FORMAT(#{startDate},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> op_date
             AND op_date <![CDATA[<=]]> DATE_FORMAT(#{endDate},'%Y-%m-%d 23:59:59')
@@ -380,7 +384,7 @@
             where exchange.state = 1
                 <choose>
                     <when test="end_year == null">
-                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                        and DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
                     </when>
                     <otherwise>
                         and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
@@ -389,10 +393,10 @@
                 </choose>
                 <choose>
                     <when test="isSpecial == 0">
-                        and special.mem_no is null
+                        and benefit = 0
                     </when>
                     <when test="isSpecial == 1">
-                        and special.mem_no is not null
+                        and benefit != 0
                     </when>
                 </choose>
                 <if test='search_testId == 1'>
@@ -424,7 +428,7 @@
             where exchange.state = 1
                 <choose>
                     <when test="end_year == null">
-                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                        and DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
                     </when>
                     <otherwise>
                         and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
@@ -433,10 +437,10 @@
                 </choose>
                 <choose>
                     <when test="isSpecial == 0">
-                        and special.mem_no is null
+                        and benefit = 0
                     </when>
                     <when test="isSpecial == 1">
-                        and special.mem_no is not null
+                        and benefit != 0
                     </when>
                 </choose>
                 <if test='search_testId == 1'>
@@ -467,7 +471,7 @@
         where exchange.state = 1
             <choose>
                 <when test="end_year == null">
-                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    and DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
                 </when>
                 <otherwise>
                     and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
@@ -476,10 +480,10 @@
             </choose>
             <choose>
                 <when test="isSpecial == 0">
-                    and special.mem_no is null
+                    and benefit = 0
                 </when>
                 <when test="isSpecial == 1">
-                    and special.mem_no is not null
+                    and benefit != 0
                 </when>
             </choose>
             <if test='search_testId == 1'>
