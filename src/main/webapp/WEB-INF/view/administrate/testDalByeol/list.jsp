@@ -165,6 +165,8 @@
 
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
         getList();
     }
     function setStartDay() {
@@ -190,6 +192,8 @@
         }
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
         getList();
     }
 
