@@ -256,9 +256,9 @@
                        union
                       select badge_value From rd_data.tb_member_badge_history where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                     ) as reward_rank
-                    ,(select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                    ,(select date_format(start_date , '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                        union
-                      select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                      select date_format(start_date , '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                     ) as rewardStartDate
                     ,(select date_format(end_date , '%Y.%m.%d' ) From rd_data.tb_member_badge where slct_type=3 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                        union
@@ -270,7 +270,7 @@
                     ,(select reward_exp from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_exp
                     ,(select reward_yn from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_yn
                     ,'1' as ranking_type
-                    ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as rewardLastUpdDate
+                    ,(select date_format(last_upd_date, '%Y.%m.%d %H:%i:%s' ) from rd_data.tb_member_ranking_reward_dj where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as rewardLastUpdDate
                     ,(select image
                        from rd_data.tbl_badge_info
                       where slct_type=3
@@ -284,9 +284,9 @@
                        union
                       select badge_value From rd_data.tb_member_badge_history where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                     ) as reward_rank
-                    ,(select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                    ,(select date_format(start_date , '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                        union
-                      select date_format(start_date , '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                      select date_format(start_date , '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                     ) as rewardStartDate
                     ,(select date_format(end_date, '%Y.%m.%d' ) From rd_data.tb_member_badge where slct_type=5 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                        union
@@ -298,7 +298,7 @@
                     ,(select reward_exp from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_exp
                     ,(select reward_yn from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_yn
                     ,(select ranking_type from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as ranking_type
-                    ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as rewardLastUpdDate
+                    ,(select date_format(last_upd_date, '%Y.%m.%d %H:%i:%s' ) from rd_data.tb_member_ranking_reward_dj where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as rewardLastUpdDate
                     ,(select image
                         from rd_data.tbl_badge_info
                        where slct_type=5
@@ -389,9 +389,9 @@
                                union
                               select badge_value From rd_data.tb_member_badge_history where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                             ) as reward_rank
-                            ,(select date_format(start_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                            ,(select date_format(start_date, '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                                union
-                              select date_format(start_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
+                              select date_format(start_date, '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge_history where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                             ) as rewardStartDate
                             ,(select date_format(end_date, '%Y.%m.%d' ) From rd_data.tb_member_badge where slct_type=2 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') = #{sDate}
                                union
@@ -403,7 +403,7 @@
                             ,(select reward_exp from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_exp
                             ,(select reward_yn from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as reward_yn
                             ,(select ranking_type from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as ranking_type
-                            ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as rewardLastUpdDate
+                            ,(select date_format(last_upd_date, '%Y.%m.%d %H:%i:%s' ) from rd_data.tb_member_ranking_reward_fan where ranking_type=1 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') = #{sDate}) as rewardLastUpdDate
                             ,(select image
                                 from rd_data.tbl_badge_info
                                where slct_type=2
@@ -417,9 +417,9 @@
                                union
                               select badge_value From rd_data.tb_member_badge_history where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                             ) as reward_rank
-                            ,(select date_format(start_date, '%Y.%m.%d %h:%i:%s' ) From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                            ,(select date_format(start_date, '%Y.%m.%d %H:%i:%s' ) From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                                union
-                              select date_format(start_date, '%Y.%m.%d %h:%i:%s' )  From rd_data.tb_member_badge_history where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
+                              select date_format(start_date, '%Y.%m.%d %H:%i:%s' )  From rd_data.tb_member_badge_history where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                             ) as rewardStartDate
                             ,(select date_format(end_date, '%Y.%m.%d' )  From rd_data.tb_member_badge where slct_type=4 and mem_no=mem.mem_no and date_format(start_date, '%Y.%m.%d') >= #{sDate} and date_format(start_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}
                                union
@@ -431,7 +431,7 @@
                             ,(select reward_exp from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_exp
                             ,(select reward_yn from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as reward_yn
                             ,(select ranking_type from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as ranking_type
-                            ,(select date_format(last_upd_date, '%Y.%m.%d %h:%i:%s' ) from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as rewardLastUpdDate
+                            ,(select date_format(last_upd_date, '%Y.%m.%d %H:%i:%s' ) from rd_data.tb_member_ranking_reward_fan where ranking_type=2 and mem_no=mem.mem_no and date_format(last_upd_date, '%Y.%m.%d') >= #{sDate} and date_format(last_upd_date, '%Y.%m.%d') <![CDATA[ <= ]]> #{eDate}) as rewardLastUpdDate
                             ,(select image
                                 from rd_data.tbl_badge_info
                                where slct_type=4
