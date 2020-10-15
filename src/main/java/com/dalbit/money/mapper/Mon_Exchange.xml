@@ -49,7 +49,7 @@
                    exchange.op_msg,
                    exchange.op_name,
                    exchange.op_date,
-                   exchange.reg_date,
+                   date_format(exchange.reg_date,'%Y-%m-%d %h:%i:%s') AS reg_date,
                    exchange.send_title,
                    exchange.send_cont,
                    exchange.send_type,
@@ -192,7 +192,6 @@
             mem_no
             , (select mem_userid from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_userid
             , (select mem_name from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_name
-            , reg_date
             , account_name
             , cash_basic
             , benefit
@@ -207,6 +206,7 @@
             , account_no
             , address_1
             , address_2
+            , date_format(reg_date,'%Y-%m-%d %h:%i:%s') AS reg_date
         FROM rd_data.tb_member_exchange EXCHANGE
         WHERE DATE_FORMAT(#{startDate},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> op_date
             AND op_date <![CDATA[<=]]> DATE_FORMAT(#{endDate},'%Y-%m-%d 23:59:59')

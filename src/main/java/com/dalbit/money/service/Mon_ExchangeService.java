@@ -472,6 +472,7 @@ public class Mon_ExchangeService {
             String address = DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1();
             address += DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : " "+ exchangeVo.getAddress_2();
             hm.put("address", address);
+            hm.put("reg_date", exchangeVo.getReg_date());
 
             bodies.add(hm.values().toArray());
         }
@@ -498,6 +499,7 @@ public class Mon_ExchangeService {
             totalMap.put("bankName", "");
             totalMap.put("accountNo", "");
             totalMap.put("address", "");
+            totalMap.put("reg_date", "");
 
             bodies.add(totalMap.values().toArray());
         }
@@ -557,6 +559,7 @@ public class Mon_ExchangeService {
             String address = DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1();
             address += DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : " "+ exchangeVo.getAddress_2();
             hm.put("address", address);
+            hm.put("reg_date", exchangeVo.getReg_date());
 
             bodies.add(hm.values().toArray());
         }
@@ -581,6 +584,8 @@ public class Mon_ExchangeService {
             totalMap.put("bankName", "");
             totalMap.put("accountNo", "");
             totalMap.put("address", "");
+            totalMap.put("reg_date", "");
+
 
             bodies.add(totalMap.values().toArray());
         }
