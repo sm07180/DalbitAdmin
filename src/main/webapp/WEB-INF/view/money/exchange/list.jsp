@@ -350,6 +350,21 @@
         var html = templateScript(context);
         $("#tableBody").html(html);
 
+        /*2일 이상된 미처리 데이터가 있을 경우 체크*/
+        var is_waring = false;
+        var checkPassDay = moment(new Date()).add('days', -1).format('YYYYMMDD');
+        if(0 < response.data.exchangeCnt){
+            response.data.exchangeList.forEach(function(data, index){
+                if(moment(data.reg_date).format('YYYYMMDD') < checkPassDay && data.state == 0){
+                    is_waring = true;
+                }
+            });
+        }
+        if(is_waring){
+            $("#warning_desc").show();
+            alert('2일 이상된 미처리 데이터가 존재합니다.\n환전 완료여부를 한번 더 확인해주세요.');
+        }
+
         exchangePagingInfo.totalCnt = response.data.exchangeCnt;
         util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
         util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
@@ -832,6 +847,9 @@
                 <label>ㆍ경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</label><br/>
                 <label>ㆍ[SMS발송] 후 [최종완료], [환전취소] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
                 <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
+                <div id="warning_desc" style="display:none;">
+                    <label style="color:red"><h2>2일 이상된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
+                </div>
             </div>
         </div>
         <div class="col-md-12">
