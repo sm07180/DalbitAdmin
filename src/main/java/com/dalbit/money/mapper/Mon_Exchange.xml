@@ -384,7 +384,7 @@
             where exchange.state = 1
                 <choose>
                     <when test="end_year == null">
-                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                        and DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
                     </when>
                     <otherwise>
                         and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
@@ -428,7 +428,7 @@
             where exchange.state = 1
                 <choose>
                     <when test="end_year == null">
-                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                        and DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
                     </when>
                     <otherwise>
                         and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
@@ -471,7 +471,7 @@
         where exchange.state = 1
             <choose>
                 <when test="end_year == null">
-                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    and DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
                 </when>
                 <otherwise>
                     and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
