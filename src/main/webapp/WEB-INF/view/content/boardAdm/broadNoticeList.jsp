@@ -34,7 +34,8 @@
                 <th>No</th>
                 <th>등록 DJ</th>
                 <th>성별</th>
-                <th>방송방 공지 내용</th>
+                <th>회원 공지 내용</th>
+                <th>이미지</th>
                 <th>등록일자</th>
                 <th>상태</th>
                 <th>관리</th>
@@ -112,7 +113,7 @@
     }
 
     function fn_success_broadNoticeSummary(dst_id, response) {
-        $("#tab_broadNoticeList").text("방송공지" + "(" + response.data.totalCnt +")");
+        $("#tab_broadNoticeList").text("회원공지" + "(" + response.data.totalCnt +")");
         $("#broadNoticeListCnt").html(
             '<span style="color:black">[검색결과 : ' +  response.data.totalCnt + ' 건]</span>' +
             '<span style="color: blue;"> [남' + response.data.maleCnt + " 건]</span>" + "," +
@@ -125,7 +126,7 @@
         if(confirm("삭제하시겠습니까?")) {
             var data = {
                 noticeIdx: $(this).data('broadnoticeidx'),
-                nociceType: $(this).data('type')
+                noticeType: $(this).data('type')
             };
 
             console.log(data);
@@ -155,6 +156,12 @@
                 {{{sexIcon mem_sex mem_birth_year}}}
             </td>
             <td class="word-break" style="width: 400px"><span class="pull-left">{{{replaceHtml contents}}}</span></td>
+            <td>
+                {{#equal image_path ''}}
+                {{else}}
+                <img class="thumbnail fullSize_background" alt="your image" src="{{renderImage ../image_path}}" style='height:68px; width:68px; margin: auto;' />
+                {{/equal}}
+            </td>
             <td>{{lastUpdDateFormat}}</td>
             <td>
                 {{#dalbit_if status '==' 0}}
@@ -167,7 +174,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="6">{{isEmptyData}}</td>
+            <td colspan="8">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>

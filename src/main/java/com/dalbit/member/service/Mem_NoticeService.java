@@ -49,9 +49,9 @@ public class Mem_NoticeService {
     public String getNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo){
         pMemberNoticeDeleteVo.setOpName(MemberVo.getMyMemNo());
 
-        if(pMemberNoticeDeleteVo.getNociceType().equals("1")) {
+        if(pMemberNoticeDeleteVo.getNoticeType().equals("1")) {
             mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo);
-        }else if(pMemberNoticeDeleteVo.getNociceType().equals("2")) {
+        }else if(pMemberNoticeDeleteVo.getNoticeType().equals("2")) {
             // befor 공지내용
             P_MemberNoticeOutputVo pMemberNoticeOutputVo = mem_NoticeDao.callBroadBeforNotice(pMemberNoticeDeleteVo);
 

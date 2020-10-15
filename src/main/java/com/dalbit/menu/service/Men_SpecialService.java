@@ -167,17 +167,17 @@ public class Men_SpecialService {
             hm.put("no", list.size()-i);
             hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
             hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
-            hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
-            hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getBroadcastCnt()) ? "" : list.get(i).getBroadcastCnt());
+            hm.put("airTime", list.get(i).getAirTime());
+            hm.put("broadcastCnt", list.get(i).getBroadcastCnt());
 
-            hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
-            hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getAllListenCnt()) ? "" : list.get(i).getAllListenCnt());
-            hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getListenCnt()) ? "" : list.get(i).getListenCnt());
-            hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getReportCnt()) ? "" : list.get(i).getReportCnt());
-            hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getReceiveStar()) ? "" : list.get(i).getReceiveStar());
+            hm.put("goodCnt", list.get(i).getGoodCnt() + list.get(i).getBoostGoodCnt());
+            hm.put("allListenCnt", list.get(i).getAllListenCnt());
+            hm.put("listenCnt", list.get(i).getListenCnt());
+            hm.put("reportCnt", list.get(i).getReportCnt());
+            hm.put("receiveStar", list.get(i).getReceiveStar());
 
-            hm.put("broadCnt", DalbitUtil.isEmpty(list.get(i).getBroadCnt()) ? "" : list.get(i).getBroadCnt());
-            hm.put("listenCnt30", DalbitUtil.isEmpty(list.get(i).getListenCnt30()) ? "" : list.get(i).getListenCnt30());
+            hm.put("broadCnt", list.get(i).getBroadCnt());
+            hm.put("listenCnt30", list.get(i).getListenCnt30());
 
             bodies.add(hm.values().toArray());
         }

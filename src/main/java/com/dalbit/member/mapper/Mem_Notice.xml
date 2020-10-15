@@ -20,6 +20,7 @@
                 , a.title
                 , a.last_upd_date
                 , a.contents
+                , a.image_path
                 , a.status
                 , a.op_name
           From rd_data.tb_member_broadcast_notice a
@@ -90,7 +91,7 @@
     </select>
 
     <update id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
-         update rd_data.tb_member_broadcast_notice set status=1, op_name = #{opName} where idx=#{idx}
+         update rd_data.tb_member_broadcast_notice set status=#{noticeType}, op_name = #{opName} where idx=#{noticeIdx}
     </update>
 
 
