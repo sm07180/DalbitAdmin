@@ -12,4 +12,8 @@ public class P_StatVo {
     private String startDate;
     private String endDate;
     private String dateList;
+    private int slctTab;
+
+    private String beforeStartDate;
+    private String beforeEndDate;
 }
