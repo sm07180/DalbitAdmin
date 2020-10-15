@@ -480,10 +480,10 @@
             </choose>
             <choose>
                 <when test="isSpecial == 0">
-                    and special.mem_no is null
+                    and benefit = 0
                 </when>
                 <when test="isSpecial == 1">
-                    and special.mem_no is not null
+                    and benefit != 0
                 </when>
             </choose>
             <if test='search_testId == 1'>
