@@ -848,7 +848,7 @@
                 <label>ㆍ[SMS발송] 후 [최종완료], [환전취소] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
                 <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
                 <div id="warning_desc" style="display:none;">
-                    <label style="color:red"><h2>2일 이상된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
+                    <label style="color:red"><h2>2일 이상 된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
                 </div>
             </div>
         </div>
