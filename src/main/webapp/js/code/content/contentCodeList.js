@@ -199,6 +199,7 @@ var banner_bannerType = [
     , new COMMON_CODE('clipMain', '13', '클립 팝업')
     , new COMMON_CODE('exchangePopup', '11', '환전팝업')
     , new COMMON_CODE('storePopup', '12', '스토어팝업')
+    , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
 ];
 
 var banner_loginType = [
