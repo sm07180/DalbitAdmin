@@ -22,7 +22,8 @@
          where a.mem_no= #{mem_no}
            and a.auth != 3
            and a.join_date > DATE_SUB(now(), INTERVAL 2 DAY)
-           /*limit 30*/
+         order by a.join_date desc
+           limit 30
     </select>
 
 </mapper>
