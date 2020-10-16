@@ -242,7 +242,8 @@
         }else if($('input[name="joinDate"]:checked').val() == "3" ){
             data.startDate = sDate;
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.startDate = $("#onedayDate").val();
+            data.startDate = $("#onedayDate").val() + ' 00:00:00';
+            data.endDate = $("#onedayDate").val() + ' 23:59:59';
         }
     };
     if(liveState == 1){
