@@ -163,6 +163,10 @@
             sDate = date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
         }else if($('input[name="joinDate"]:checked').val() == "4"){               // 당일
             $("#seldate").removeClass('hide');
+            console.log('ddddd');
+            console.log('sDate : ' + sDate);
+            console.log('eDate : ' + eDate);
+
         }
         $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
         getSearch();
@@ -242,7 +246,8 @@
         }else if($('input[name="joinDate"]:checked').val() == "3" ){
             data.startDate = sDate;
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.startDate = $("#onedayDate").val();
+            data.startDate = $("#onedayDate").val() + ' 00:00:00';
+            data.endDate = $("#onedayDate").val() + ' 23:59:59';
         }
     };
     if(liveState == 1){
