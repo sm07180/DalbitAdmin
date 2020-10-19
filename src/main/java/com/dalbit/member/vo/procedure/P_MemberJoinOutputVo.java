@@ -36,6 +36,7 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private int listenCnt2;
     private int payCnt;
     private int inner;
+    private int serviceDate;
 
     //summary
     private int allCnt;
@@ -45,6 +46,11 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private int slctKakaoCnt;
     private int slctNaverCnt;
     private int slctAppleCnt;
+
+    private int aosCnt;
+    private int iosCnt;
+    private int pcCnt;
+
 
     public void setMem_join_date(Date mem_join_date){
         this.mem_join_date = mem_join_date;

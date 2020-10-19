@@ -184,6 +184,20 @@ var searchMemoSlct = [
     ,new COMMON_CODE('3','3','클립')
 ];
 
+var withdrawalDateSort = [
+    new COMMON_CODE('','withdrawalDateSort','탈퇴일시')
+    ,new COMMON_CODE('-1','-1','탈퇴일시')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var serviceDateSort = [
+    new COMMON_CODE('','serviceDateSort','서비스 유지기간')
+    ,new COMMON_CODE('-1','-1','서비스 유지기간')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
 // ------------------------- table -----------------------------
 var mem_gift_summary = [
     new COMMON_CODE('', 'total_charge_dal', '누적 충전 보낸 달')

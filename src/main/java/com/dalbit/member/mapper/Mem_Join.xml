@@ -73,6 +73,9 @@
                 ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
+                ,count(case when os_type = 1 then 1 end) as aosCnt
+                ,count(case when os_type = 2 then 1 end) as iosCnt
+                ,count(case when os_type = 3 then 1 end) as pcCnt
          From rd_data.tb_member_basic a
         where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
             <if test="testid != -1">
@@ -82,7 +85,7 @@
 
 
     <select id="callWithdrawalList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
-        select @rownum := @rownum + 1 as rowNum, c.*
+        select @rownum := @rownum + 1 as rowNum, c.*, TIMESTAMPDIFF(SECOND,mem_join_date,last_upd_date) AS serviceDate
           from ( select if(a.inner = 1 ,'Test',null) testId
                         ,a.*
                         , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
@@ -105,7 +108,7 @@
                        or mem_phone like concat('%', #{searchText}, '%')
                        or mem_id like concat('%', #{searchText}, '%')
                        or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
-                )as c, (select @rownum := #{pageNo} ) AS d
+                ) as c, (select @rownum := #{pageNo} ) AS d
 
         <trim prefix="ORDER BY" suffixOverrides=",">
             <if test="memJoinDateSort_withdrawal == 0"> mem_join_date desc, </if>
@@ -116,8 +119,14 @@
             <if test="memLoginIdSort_withdrawal == 1"> mem_id asc, </if>
             <if test="memIpSort_withdrawal == 0"> ip desc, </if>
             <if test="memIpSort_withdrawal == 1"> ip asc, </if>
-            <if test="memJoinDateSort_withdrawal == -1 and memNickSort_withdrawal == -1 and memLoginIdSort_withdrawal == -1 and memIpSort_withdrawal == -1">
-                mem_join_date desc,
+
+            <if test="withdrawalDateSort == 0"> last_upd_date desc, </if>
+            <if test="withdrawalDateSort == 1"> last_upd_date asc, </if>
+            <if test="serviceDateSort == 0"> serviceDate desc, </if>
+            <if test="serviceDateSort == 1"> serviceDate asc, </if>
+
+            <if test="withdrawalDateSort == -1 and serviceDateSort == -1 and memJoinDateSort_withdrawal == -1 and memNickSort_withdrawal == -1 and memLoginIdSort_withdrawal == -1 and memIpSort_withdrawal == -1">
+                last_upd_date desc,
             </if>
         </trim>
 
@@ -125,22 +134,23 @@
     </select>
 
     <select id="callWithdrawalList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
-        select count(*) totalCnt From rd_data.tb_member_withdrawal_bak a
-         where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
-            <if test="testid != -1">
-                and a.inner = 0
-            </if>
-            <if test="memJoinPath == 1">
-                and a.join_path is not null
-                and a.join_path != ''
-            </if>
-            and (mem_no like concat('%', #{searchText}, '%')
-                or mem_name like concat('%', #{searchText}, '%')
-                or mem_userid like concat('%', #{searchText}, '%')
-                or mem_nick like concat('%', #{searchText}, '%')
-                or mem_phone like concat('%', #{searchText}, '%')
-                or mem_id like concat('%', #{searchText}, '%')
-                or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
+         select count(*) AS totalCnt
+           From rd_data.tb_member_withdrawal_bak a
+          where DATE_FORMAT(last_upd_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(last_upd_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
+           <if test="testid != -1">
+               and a.inner = 0
+           </if>
+           <if test="memJoinPath == 1">
+               and a.join_path is not null
+               and a.join_path != ''
+           </if>
+           and (mem_no like concat('%', #{searchText}, '%')
+               or mem_name like concat('%', #{searchText}, '%')
+               or mem_userid like concat('%', #{searchText}, '%')
+               or mem_nick like concat('%', #{searchText}, '%')
+               or mem_phone like concat('%', #{searchText}, '%')
+               or mem_id like concat('%', #{searchText}, '%')
+               or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
     </select>
 
     <select id="callWithdrawalList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
@@ -151,11 +161,25 @@
                 ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
+                ,count(case when os_type = 1 then 1 end) as aosCnt
+                ,count(case when os_type = 2 then 1 end) as iosCnt
+                ,count(case when os_type = 3 then 1 end) as pcCnt
          From rd_data.tb_member_withdrawal_bak a
-        where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
-            <if test="testid != -1">
-                and a.inner = 0
-            </if>
+         where DATE_FORMAT(last_upd_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(last_upd_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
+         <if test="testid != -1">
+           and a.inner = 0
+         </if>
+         <if test="memJoinPath == 1">
+           and a.join_path is not null
+           and a.join_path != ''
+         </if>
+           and (mem_no like concat('%', #{searchText}, '%')
+           or mem_name like concat('%', #{searchText}, '%')
+           or mem_userid like concat('%', #{searchText}, '%')
+           or mem_nick like concat('%', #{searchText}, '%')
+           or mem_phone like concat('%', #{searchText}, '%')
+           or mem_id like concat('%', #{searchText}, '%')
+           or mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText}))
     </select>
 
 </mapper>

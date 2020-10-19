@@ -743,7 +743,7 @@
                     <colgroup>
                         <col width="80px"/>
                         <col width="80px"/>
-                        <col width="100px"/>
+                        <col width="80px"/>
                         <col width="80px"/>
                     </colgroup>
                     <thead>
@@ -794,7 +794,7 @@
                     <colgroup>
                         <col width="80px"/>
                         <col width="80px"/>
-                        <col width="100px"/>
+                        <col width="80px"/>
                         <col width="80px"/>
                     </colgroup>
                     <thead>
