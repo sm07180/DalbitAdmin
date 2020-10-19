@@ -4,8 +4,6 @@
 <!-- 로그인 > 총계 -->
 <div class="widget widget-table mb10 col-md-10">
     <div class="widget-content mt10">
-        <span class="_searchDate"></span>
-
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="0.1%"/>
@@ -20,9 +18,9 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 탈퇴 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">남성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">여성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">알수없음</th>
+                <th class="_bgColor _sex_male" data-bgColor="#dae3f3">남성</th>
+                <th class="_bgColor _sex_female" data-bgColor="#dae3f3">여성</th>
+                <th class="_bgColor _sex_none" data-bgColor="#dae3f3">알수없음</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
@@ -47,9 +45,9 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 탈퇴 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">남성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">여성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">알수없음</th>
+                <th class="_bgColor _sex_male" data-bgColor="#dae3f3">남성</th>
+                <th class="_bgColor _sex_female" data-bgColor="#dae3f3">여성</th>
+                <th class="_bgColor _sex_none" data-bgColor="#dae3f3">알수없음</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
@@ -217,19 +215,19 @@
 
 <script type="text/x-handlebars-template" id="tmp_dummymonth">
     {{#each this.detailList as |data|}}
-    <tr {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-        <td {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-        {{#dalbit_if nowHour '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{date}}}
         </td>
-        <td>{{total_out_mcnt}}</td>
-        <td>{{total_out_fcnt}}</td>
-        <td>{{total_out_ncnt}}</td>
+        <td>{{addComma total_out_mcnt 'Y'}}</td>
+        <td>{{addComma total_out_fcnt 'Y'}}</td>
+        <td>{{addComma total_out_ncnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td>{{aos_total_out_cnt}}</td>
-        <td>{{ios_total_out_cnt}}</td>
-        <td>{{pc_total_out_cnt}}</td>
-        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{total_out_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
+        <td>{{addComma aos_total_out_cnt 'Y'}}</td>
+        <td>{{addComma ios_total_out_cnt 'Y'}}</td>
+        <td>{{addComma pc_total_out_cnt 'Y'}}</td>
+        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_out_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
     </tr>
     {{else}}
     <tr>
@@ -239,32 +237,32 @@
 
     <tr class="_tr_{{this}} font-bold" style="background-color: #f2f2f2">
         <td>총합</td>
-        <td>{{totalInfo.sum_total_out_mcnt}} ({{average totalInfo.sum_total_out_mcnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_total_out_fcnt}} ({{average totalInfo.sum_total_out_fcnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_total_out_ncnt}} ({{average totalInfo.sum_total_out_ncnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_total_out_mcnt}} ({{average totalInfo.sum_total_out_mcnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_total_out_fcnt}} ({{average totalInfo.sum_total_out_fcnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_total_out_ncnt}} ({{average totalInfo.sum_total_out_ncnt totalInfo.sum_total_out_cnt}}%)</td>
         <td class="_noBorder"></td>
-        <td>{{totalInfo.sum_aos_total_out_cnt}} ({{average totalInfo.sum_aos_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_ios_total_out_cnt}} ({{average totalInfo.sum_ios_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_pc_total_out_cnt}} ({{average totalInfo.sum_pc_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{totalInfo.sum_total_out_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt}}</span>)</td>
+        <td>{{addComma totalInfo.sum_aos_total_out_cnt}} ({{average totalInfo.sum_aos_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_ios_total_out_cnt}} ({{average totalInfo.sum_ios_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_pc_total_out_cnt}} ({{average totalInfo.sum_pc_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo.sum_total_out_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt}}</span>)</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummymonth2">
     {{#each this.detailList2 as |data|}}
-    <tr {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-        <td {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-        {{#dalbit_if nowHour '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{date}}}
         </td>
-        <td>{{total_out_mcnt}}</td>
-        <td>{{total_out_fcnt}}</td>
-        <td>{{total_out_ncnt}}</td>
+        <td>{{addComma total_out_mcnt 'Y'}}</td>
+        <td>{{addComma total_out_fcnt 'Y'}}</td>
+        <td>{{addComma total_out_ncnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td>{{aos_total_out_cnt}}</td>
-        <td>{{ios_total_out_cnt}}</td>
-        <td>{{pc_total_out_cnt}}</td>
-        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{total_out_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
+        <td>{{addComma aos_total_out_cnt 'Y'}}</td>
+        <td>{{addComma ios_total_out_cnt 'Y'}}</td>
+        <td>{{addComma pc_total_out_cnt 'Y'}}</td>
+        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_out_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
     </tr>
     {{else}}
     <tr>
@@ -274,13 +272,13 @@
 
     <tr class="_tr_{{this}} font-bold" style="background-color: #f2f2f2">
         <td>총합</td>
-        <td>{{totalInfo.sum_total_out_mcnt}} ({{average totalInfo.sum_total_out_mcnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_total_out_fcnt}} ({{average totalInfo.sum_total_out_fcnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_total_out_ncnt}} ({{average totalInfo.sum_total_out_ncnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_total_out_mcnt}} ({{average totalInfo2.sum_total_out_mcnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_total_out_fcnt}} ({{average totalInfo2.sum_total_out_fcnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_total_out_ncnt}} ({{average totalInfo2.sum_total_out_ncnt totalInfo2.sum_total_out_cnt}}%)</td>
         <td class="_noBorder"></td>
-        <td>{{totalInfo.sum_aos_total_out_cnt}} ({{average totalInfo.sum_aos_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_ios_total_out_cnt}} ({{average totalInfo.sum_ios_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{totalInfo.sum_pc_total_out_cnt}} ({{average totalInfo.sum_pc_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{totalInfo.sum_total_out_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt}}</span>)</td>
+        <td>{{addComma totalInfo2.sum_aos_total_out_cnt}} ({{average totalInfo2.sum_aos_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_ios_total_out_cnt}} ({{average totalInfo2.sum_ios_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_pc_total_out_cnt}} ({{average totalInfo2.sum_pc_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td class="{{upAndDownClass totalInfo2.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo2.sum_total_out_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo2.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo2.sum_inc_total_cnt}}</span>)</td>
     </tr>
 </script>

@@ -76,6 +76,7 @@
                     success: function(response) {
                         console.log(response);
                         var accum_total_join_cnt = 0;
+                        var accum_total_out_cnt = 0;
                         if(!common.isEmpty(response.data.detailList)){
                             response.data.detailList.forEach(function(detail, detailIndex) {
 
@@ -91,10 +92,18 @@
                                     detail.total_inc_join_cnt = detail.total_join_cnt - total_join_before_cnt;
                                     accum_total_join_cnt = accum_total_join_cnt + detail.total_join_cnt;
                                     detail.accum_total_join_cnt = accum_total_join_cnt;
+
+                                    detail.total_inc_out_cnt = detail.total_out_cnt - total_join_before_cnt;
+                                    accum_total_out_cnt = accum_total_out_cnt + detail.total_out_cnt;
+                                    detail.accum_total_out_cnt = accum_total_out_cnt;
                                 }else{
                                     detail.total_inc_join_cnt = detail.total_join_cnt - 0;
                                     accum_total_join_cnt = accum_total_join_cnt + detail.total_join_cnt;
                                     detail.accum_total_join_cnt = accum_total_join_cnt;
+
+                                    detail.total_inc_out_cnt = detail.total_out_cnt - 0;
+                                    accum_total_out_cnt = accum_total_out_cnt + detail.total_out_cnt;
+                                    detail.accum_total_out_cnt = accum_total_out_cnt;
                                 }
                                 var the_date = detail.the_date;
                                 var dayTarget = $('.fc-day[data-date="' + the_date + '"]').find('.fc-day-content');
@@ -106,7 +115,15 @@
                             });
                         }
 
-                        response.data.totalInfo.cnt = response.data.detailList.length;
+                        if(moment(new Date()).format('YYYY.MM') == tmp_sDate.substring(0,7)){       // 같은달이면 전일 누적 / 전일 일수
+                            response.data.totalInfo.befor_accum_total_join_cnt = response.data.detailList[response.data.detailList.length - 2].accum_total_join_cnt;
+                            response.data.totalInfo.befor_accum_total_out_cnt = response.data.detailList[response.data.detailList.length - 2].accum_total_out_cnt;
+                            response.data.totalInfo.cnt = response.data.detailList.length - 1;
+                        }else{
+                            response.data.totalInfo.befor_accum_total_join_cnt = response.data.detailList[response.data.detailList.length-1].accum_total_join_cnt;
+                            response.data.totalInfo.befor_accum_total_out_cnt = response.data.detailList[response.data.detailList.length-1].accum_total_out_cnt;
+                            response.data.totalInfo.cnt = response.data.detailList.length;
+                        }
 
                         response.data.totalInfo.sum_total_inc_join_cnt = response.data.totalInfo.sum_total_join_cnt - response.data.totalInfo2.sum_total_join_cnt;
                         response.data.totalInfo.sum_total_inc_out_cnt = response.data.totalInfo.sum_total_out_cnt - response.data.totalInfo2.sum_total_out_cnt;
@@ -378,14 +395,14 @@
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
     <div class="font-bold" style="color: #ff5600;">가입 총계 : {{addComma total_join_cnt}}</div>
-    <div class="font-bold">가입 누적 : {{addComma accum_total_join_cnt}}</div>
-    <div class="{{upAndDownClass total_inc_join_cnt}}">전월 대비 :
-        <span {{#dalbit_if total_inc_join_cnt '>' 0 }} style="color: blue" {{/dalbit_if}}
-              {{#dalbit_if total_inc_join_cnt '<' 0 }} style="color: red" {{/dalbit_if}} >
+    <div class="font-bold" style="color: black;">가입 누적 : {{addComma accum_total_join_cnt}}</div>
+    <div class="{{upAndDownClass total_inc_join_cnt}}" style="color: black;">전월 대비 :
+        <span {{#dalbit_if total_inc_join_cnt '>' 0 }} style="color: red" {{/dalbit_if}}
+              {{#dalbit_if total_inc_join_cnt '<' 0 }} style="color: blue" {{/dalbit_if}} >
             <i class="fa {{upAndDownIcon total_inc_join_cnt}}"></i> <span>{{addComma total_inc_join_cnt}}</span>
         </span>
     </div>
-    <div class="font-bold">탈퇴 총계 : {{addComma total_out_cnt}} <br/> (탈퇴 비율 : {{average total_out_cnt total_join_cnt 0}}%)</div>
+    <div class="font-bold" style="color: black;">탈퇴 총계 : {{addComma total_out_cnt}} <br/> (탈퇴 비율 : {{average total_out_cnt total_join_cnt 0}}%)</div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_totalTable">
@@ -406,17 +423,16 @@
             </tr>
             <tr>
                 <td>일평균</td>
-                <td>{{division sum_total_join_cnt cnt}}%</td>
-                <td>{{division sum_total_out_cnt cnt}}%</td>
+                <td>{{division befor_accum_total_join_cnt cnt 0}}</td>
+                <td>{{division befor_accum_total_out_cnt cnt 0}}</td>
             </tr>
             <tr>
-                <td>전달 대비</td>
+                <td>전월 대비</td>
                 <td class="{{upAndDownClass sum_total_inc_join_cnt}}"><i class="fa {{upAndDownIcon sum_total_inc_join_cnt}}"></i> <span>{{addComma sum_total_inc_join_cnt}}</span></td>
                 <td class="{{upAndDownClass sum_total_inc_out_cnt}}"><i class="fa {{upAndDownIcon sum_total_inc_out_cnt}}"></i> <span>{{addComma sum_total_inc_out_cnt}}</span></td>
             </tr>
             <tr>
-                <td>가입 대비 <br/> 탈퇴 비율</td>
-                <td>{{average sum_total_join_cnt sum_total_out_cnt 0}}%</td>
+                <td colspan="2">가입 대비 탈퇴 비율</td>
                 <td>{{average sum_total_out_cnt sum_total_join_cnt 0}}%</td>
             </tr>
         </tbody>

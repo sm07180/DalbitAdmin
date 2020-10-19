@@ -172,10 +172,10 @@
             x: day,
             y: total_out_cnt,
             mode: 'lines',
-            name: '<span>가입</span>',
+            name: '<span>탈퇴</span>',
             type: 'bar',
             marker: {
-                color: '#99CCFF'
+                color: '#f8cbad'
             }
         };
 
@@ -326,18 +326,20 @@
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
     <div class="font-bold" style="color: #ff5600;">탈퇴 총계 : {{addComma total_out_cnt}}</div>
-    <div class="font-bold">탈퇴 누적 : {{addComma accum_total_out_cnt}}</div>
-    <div class="{{upAndDownClass total_inc_out_cnt}}">전월 대비 :
-        <span {{#dalbit_if total_inc_out_cnt '>' 0 }} style="color: blue" {{/dalbit_if}}
-              {{#dalbit_if total_inc_out_cnt '<' 0 }} style="color: red" {{/dalbit_if}} >
+    <div class="font-bold" style="color: black;">탈퇴 누적 : {{addComma accum_total_out_cnt}}</div>
+    <div class="{{upAndDownClass total_inc_out_cnt}}" style="color: black;">전월 대비 :
+        <span {{#dalbit_if total_inc_out_cnt '>' 0 }} style="color: red" {{/dalbit_if}}
+              {{#dalbit_if total_inc_out_cnt '<' 0 }} style="color: blue" {{/dalbit_if}} >
             <i class="fa {{upAndDownIcon total_inc_out_cnt}}"></i> <span>{{addComma total_inc_out_cnt}}</span>
         </span>
     </div>
     <div class="font-bold" style="font-size: 10px">
         <span style="color: blue">남</span>/
-        <span style="color: red">여</span>/알수없음 탈퇴:
+        <span style="color: red">여</span>/
+        <span style="color: black">알수없음 탈퇴:</span><br/>
         <span style="color: blue">{{addComma total_out_mcnt}}</span>/
-        <span style="color: red">{{addComma total_out_fcnt}}</span>/{{addComma total_out_ncnt}}</div>
+        <span style="color: red">{{addComma total_out_fcnt}}</span>/
+        <span style="color: black">{{addComma total_out_ncnt}}</span></div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_totalTable">
@@ -357,19 +359,23 @@
                 <td>{{addComma sum_total_out_cnt}}</td>
             </tr>
             <tr>
-                <td>남성</td>
-                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{{sexIcon 'n'}}}</td>
+                <td>{{addComma sum_total_join_ncnt}}</td>
+                <td>{{addComma sum_total_out_ncnt}}</td>
+            </tr>
+            <tr>
+                <td>{{{sexIcon 'm'}}}</td>
+                <td>{{addComma sum_total_join_mcnt}}</td>
                 <td>{{addComma sum_total_out_mcnt}}</td>
             </tr>
             <tr>
-                <td>여성</td>
-                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{{sexIcon 'f'}}}</td>
+                <td>{{addComma sum_total_join_fcnt}}</td>
                 <td>{{addComma sum_total_out_fcnt}}</td>
             </tr>
             <tr>
-                <td>알수없음</td>
-                <td>{{addComma sum_total_join_cnt}}</td>
-                <td>{{addComma sum_total_out_ncnt}}</td>
+                <td colspan="2">가입 대비 탈퇴 비율</td>
+                <td>{{average sum_total_out_cnt sum_total_join_cnt}}%</td>
             </tr>
         </tbody>
     </table>

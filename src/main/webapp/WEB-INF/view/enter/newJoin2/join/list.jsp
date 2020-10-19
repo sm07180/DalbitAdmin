@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
-<div class="row col-lg-12 form-inline">
+<div class="col-lg-12 no-padding">
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active" id="memberList">       <!-- 회원 -->
             <div class="widget-content">

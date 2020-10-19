@@ -23,6 +23,9 @@ public class P_NewJoin2OutDetailVo {
     private int sum_total_out_mcnt;
     private int sum_total_out_fcnt;
     private int sum_total_out_ncnt;
+    private int sum_total_join_mcnt;
+    private int sum_total_join_fcnt;
+    private int sum_total_join_ncnt;
     private int sum_aos_total_out_cnt;
     private int sum_ios_total_out_cnt;
     private int sum_pc_total_out_cnt;

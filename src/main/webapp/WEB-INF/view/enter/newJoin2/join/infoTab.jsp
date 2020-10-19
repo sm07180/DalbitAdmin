@@ -3,9 +3,9 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
+        <div class="col-lg-12 no-padding" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
-                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_top">
+                <ul class="nav nav-tabs nav-tabs-custom-colored col-md-8 no-padding" role="tablist" id="tablist_top">
                     <li class="active"><a href="#join" role="tab" data-toggle="tab" id="tab_join">가입 현황</a></li>
                     <li><a href="/enter/newJoin2/withdrawal/info" id="tab_withdraral">탈퇴 현황</a></li>
                 </ul>
