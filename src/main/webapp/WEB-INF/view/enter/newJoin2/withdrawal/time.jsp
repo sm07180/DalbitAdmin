@@ -201,7 +201,7 @@
         <td>{{addComma aos_total_out_cnt 'Y'}}</td>
         <td>{{addComma ios_total_out_cnt 'Y'}}</td>
         <td>{{addComma pc_total_out_cnt 'Y'}}</td>
-        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_out_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt 'Y'}}</span>)</td>
+        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_out_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
     </tr>
     {{else}}
     <tr>
@@ -211,14 +211,14 @@
 
     <tr class="_tr_{{this}} font-bold" style="background-color: #f2f2f2">
         <td>총합</td>
-        <td>{{addComma totalInfo.sum_total_out_mcnt 'Y'}} ({{average totalInfo.sum_total_out_mcnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo.sum_total_out_fcnt 'Y'}} ({{average totalInfo.sum_total_out_fcnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo.sum_total_out_ncnt 'Y'}} ({{average totalInfo.sum_total_out_ncnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_total_out_mcnt}} ({{average totalInfo.sum_total_out_mcnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_total_out_fcnt}} ({{average totalInfo.sum_total_out_fcnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_total_out_ncnt}} ({{average totalInfo.sum_total_out_ncnt totalInfo.sum_total_out_cnt}}%)</td>
         <td class="_noBorder"></td>
-        <td>{{addComma totalInfo.sum_aos_total_out_cnt 'Y'}} ({{average totalInfo.sum_aos_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo.sum_ios_total_out_cnt 'Y'}} ({{average totalInfo.sum_ios_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo.sum_pc_total_out_cnt 'Y'}} ({{average totalInfo.sum_pc_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
-        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo.sum_total_out_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt 'Y'}}</span>)</td>
+        <td>{{addComma totalInfo.sum_aos_total_out_cnt}} ({{average totalInfo.sum_aos_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_ios_total_out_cnt}} ({{average totalInfo.sum_ios_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_pc_total_out_cnt}} ({{average totalInfo.sum_pc_total_out_cnt totalInfo.sum_total_out_cnt}}%)</td>
+        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo.sum_total_out_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt}}</span>)</td>
     </tr>
 </script>
 
@@ -236,7 +236,7 @@
         <td>{{addComma aos_total_out_cnt 'Y'}}</td>
         <td>{{addComma ios_total_out_cnt 'Y'}}</td>
         <td>{{addComma pc_total_out_cnt 'Y'}}</td>
-    <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_out_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt 'Y'}}</span>)</td>
+    <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_out_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
     </tr>
     {{else}}
     <tr>
@@ -246,13 +246,13 @@
 
     <tr class="_tr_{{this}} font-bold" style="background-color: #f2f2f2">
         <td>총합</td>
-        <td>{{addComma totalInfo2.sum_total_out_mcnt 'Y'}} ({{average totalInfo2.sum_total_out_mcnt totalInfo2.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo2.sum_total_out_fcnt 'Y'}} ({{average totalInfo2.sum_total_out_fcnt totalInfo2.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo2.sum_total_out_ncnt 'Y'}} ({{average totalInfo2.sum_total_out_ncnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_total_out_mcnt}} ({{average totalInfo2.sum_total_out_mcnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_total_out_fcnt}} ({{average totalInfo2.sum_total_out_fcnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_total_out_ncnt}} ({{average totalInfo2.sum_total_out_ncnt totalInfo2.sum_total_out_cnt}}%)</td>
         <td class="_noBorder"></td>
-        <td>{{addComma totalInfo2.sum_aos_total_out_cnt 'Y'}} ({{average totalInfo2.sum_aos_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo2.sum_ios_total_out_cnt 'Y'}} ({{average totalInfo2.sum_ios_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
-        <td>{{addComma totalInfo2.sum_pc_total_out_cnt 'Y'}} ({{average totalInfo2.sum_pc_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
-        <td class="{{upAndDownClass totalInfo2.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo2.sum_total_out_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon totalInfo2.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo2.sum_inc_total_cnt 'Y'}}</span>)</td>
+        <td>{{addComma totalInfo2.sum_aos_total_out_cnt}} ({{average totalInfo2.sum_aos_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_ios_total_out_cnt}} ({{average totalInfo2.sum_ios_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_pc_total_out_cnt}} ({{average totalInfo2.sum_pc_total_out_cnt totalInfo2.sum_total_out_cnt}}%)</td>
+        <td class="{{upAndDownClass totalInfo2.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo2.sum_total_out_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo2.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo2.sum_inc_total_cnt}}</span>)</td>
     </tr>
 </script>
