@@ -21,12 +21,12 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">전화</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">카카오</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">네이버</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">페이스북</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">애플</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">구글</th>
+                <th class="_bgColor _phone" data-bgColor="#dae3f3">전화</th>
+                <th class="_bgColor _kakao" data-bgColor="#dae3f3">카카오</th>
+                <th class="_bgColor _naver" data-bgColor="#dae3f3">네이버</th>
+                <th class="_bgColor _fbook" data-bgColor="#dae3f3">페이스북</th>
+                <th class="_bgColor _apple" data-bgColor="#dae3f3">애플</th>
+                <th class="_bgColor _google" data-bgColor="#dae3f3">구글</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
@@ -52,12 +52,12 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">전화</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">카카오</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">네이버</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">페이스북</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">애플</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">구글</th>
+                <th class="_bgColor _phone" data-bgColor="#dae3f3">전화</th>
+                <th class="_bgColor _kakao" data-bgColor="#dae3f3">카카오</th>
+                <th class="_bgColor _naver" data-bgColor="#dae3f3">네이버</th>
+                <th class="_bgColor _fbook" data-bgColor="#dae3f3">페이스북</th>
+                <th class="_bgColor _apple" data-bgColor="#dae3f3">애플</th>
+                <th class="_bgColor _google" data-bgColor="#dae3f3">구글</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>

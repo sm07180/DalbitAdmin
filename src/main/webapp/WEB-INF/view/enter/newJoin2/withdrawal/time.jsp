@@ -32,7 +32,7 @@
             <tbody id="timeTableBody"></tbody>
         </table>
 
-
+        <span class="_beforSearchDate"></span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="0.1%"/>
@@ -76,6 +76,9 @@
 
         twoAgoSDate = moment($("#startDate").val()).add("days", -2).format('YYYY.MM.DD');
         beforeSDate = moment($("#startDate").val()).add("days", -1).format('YYYY.MM.DD');
+
+        var beforDay = week[moment(beforeSDate).add('days', 0).day()];
+        $("._beforSearchDate").html(beforeSDate + " (" + beforDay + ")");
 
         var data = {
             startDate: $("#startDate").val()

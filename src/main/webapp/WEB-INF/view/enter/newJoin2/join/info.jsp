@@ -340,21 +340,21 @@
         </colgroup>
         <tr>
             <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#b4c7e7">SNS 별</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">전화</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">카카오</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">네이버</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">페이스북</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">애플</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">구글</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'p' 15}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'k' 17}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'n' 18}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'f' 18}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'i' 18}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'g' 15}}}</th>
             <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
         </tr>
         <tr>
-            <td>{{sum_phone_join_cnt}}({{average sum_phone_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_kakao_join_cnt}}({{average sum_kakao_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_naver_join_cnt}}({{average sum_naver_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_fbook_join_cnt}}({{average sum_fbook_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_apple_join_cnt}}({{average sum_apple_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_google_join_cnt}}({{average sum_google_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_phone_join_cnt}}<br/>({{average sum_phone_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_kakao_join_cnt}}<br/>({{average sum_kakao_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_naver_join_cnt}}<br/>({{average sum_naver_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_fbook_join_cnt}}<br/>({{average sum_fbook_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_apple_join_cnt}}<br/>({{average sum_apple_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_google_join_cnt}}<br/>({{average sum_google_join_cnt sum_total_join_cnt}}%)</td>
         </tr>
         <tr>
             <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#f8cbad">플랫폼 별</th>
@@ -363,9 +363,9 @@
             <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">PC</th>
         </tr>
         <tr>
-            <td colspan="2">{{sum_aos_total_join_cnt}}({{average  sum_aos_total_join_cnt sum_total_join_cnt}}%)</td>
-            <td colspan="2">{{sum_ios_total_join_cnt}}({{average  sum_ios_total_join_cnt sum_total_join_cnt}}%)</td>
-            <td colspan="2">{{sum_pc_total_join_cnt}}({{average sum_pc_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{sum_aos_total_join_cnt}}<br/>({{average  sum_aos_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{sum_ios_total_join_cnt}}<br/>({{average  sum_ios_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{sum_pc_total_join_cnt}}<br/>({{average sum_pc_total_join_cnt sum_total_join_cnt}}%)</td>
             <td class="{{upAndDownClass sum_inc_total_cnt}}"><span style="color: #555555">{{sum_total_join_cnt}}</span> (<i class="fa {{upAndDownIcon sum_inc_total_cnt}}"></i> <span>{{addComma sum_inc_total_cnt}}</span>)</td>
         </tr>
     </table>
@@ -381,21 +381,21 @@
         </colgroup>
         <tr>
             <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#b4c7e7">SNS 별</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">전화</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">카카오</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">네이버</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">페이스북</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">애플</th>
-            <th class="_bgColor" data-bgColor="#dae3f3">구글</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'p' 15}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'k' 17}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'n' 18}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'f' 18}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'i' 18}}}</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">{{{renderSlct 'g' 15}}}</th>
             <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
         </tr>
         <tr>
-            <td>{{content.slctPhonCnt}}({{average content.slctPhonCnt content.allCnt}}%)</td>
-            <td>{{content.slctFaceCnt}}({{average content.slctFaceCnt content.allCnt}}%)</td>
-            <td>{{content.slctGoogleCnt}}({{average content.slctGoogleCnt content.allCnt}}%)</td>
-            <td>{{content.slctKakaoCnt}}({{average content.slctKakaoCnt content.allCnt}}%)</td>
-            <td>{{content.slctNaverCnt}}({{average content.slctNaverCnt content.allCnt}}%)</td>
-            <td>{{content.slctAppleCnt}}({{average content.slctAppleCnt content.allCnt}}%)</td>
+            <td>{{content.slctPhonCnt}}<br/>({{average content.slctPhonCnt content.allCnt}}%)</td>
+            <td>{{content.slctFaceCnt}}<br/>({{average content.slctFaceCnt content.allCnt}}%)</td>
+            <td>{{content.slctGoogleCnt}}<br/>({{average content.slctGoogleCnt content.allCnt}}%)</td>
+            <td>{{content.slctKakaoCnt}}<br/>({{average content.slctKakaoCnt content.allCnt}}%)</td>
+            <td>{{content.slctNaverCnt}}<br/>({{average content.slctNaverCnt content.allCnt}}%)</td>
+            <td>{{content.slctAppleCnt}}<br/>({{average content.slctAppleCnt content.allCnt}}%)</td>
         </tr>
         <tr>
             <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#f8cbad">플랫폼 별</th>
@@ -404,9 +404,9 @@
             <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">PC</th>
         </tr>
         <tr>
-            <td colspan="2">{{content.aosCnt}}({{average content.aosCnt content.allCnt}}%)</td>
-            <td colspan="2">{{content.iosCnt}}({{average content.iosCnt content.allCnt}}%)</td>
-            <td colspan="2">{{content.pcCnt}}({{average content.pcCnt content.allCnt}}%)</td>
+            <td colspan="2">{{content.aosCnt}}<br/>({{average content.aosCnt content.allCnt}}%)</td>
+            <td colspan="2">{{content.iosCnt}}<br/>({{average content.iosCnt content.allCnt}}%)</td>
+            <td colspan="2">{{content.pcCnt}}<br/>({{average content.pcCnt content.allCnt}}%)</td>
             <td>{{content.allCnt}}</td>
         </tr>
     </table>
