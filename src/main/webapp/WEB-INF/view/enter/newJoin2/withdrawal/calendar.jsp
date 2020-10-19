@@ -335,9 +335,11 @@
     </div>
     <div class="font-bold" style="font-size: 10px">
         <span style="color: blue">남</span>/
-        <span style="color: red">여</span>/알수없음 탈퇴:
+        <span style="color: red">여</span>/
+        <span style="color: black">알수없음 탈퇴:</span><br/>
         <span style="color: blue">{{addComma total_out_mcnt}}</span>/
-        <span style="color: red">{{addComma total_out_fcnt}}</span>/{{addComma total_out_ncnt}}</div>
+        <span style="color: red">{{addComma total_out_fcnt}}</span>/
+        <span style="color: black">{{addComma total_out_ncnt}}</span></div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_totalTable">
@@ -373,7 +375,7 @@
             </tr>
             <tr>
                 <td colspan="2">가입 대비 탈퇴 비율</td>
-                <td>{{addComma sum_total_out_ncnt}}</td>
+                <td>{{average sum_total_out_cnt sum_total_join_cnt}}%</td>
             </tr>
         </tbody>
     </table>

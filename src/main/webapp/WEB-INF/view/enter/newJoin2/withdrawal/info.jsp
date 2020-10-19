@@ -346,9 +346,9 @@
             <th class="_bgColor" data-bgColor="#bfbfbf">비율</th>
         </tr>
         <tr>
-            <th class="_bgColor" data-bgColor="#dbe2f4">남성</th>
-            <th class="_bgColor" data-bgColor="#dbe2f4">여성</th>
-            <th class="_bgColor" data-bgColor="#dbe2f4">알수없음</th>
+            <th class="_bgColor" data-bgColor="#dbe2f4">{{{sexIcon 'm'}}}</th>
+            <th class="_bgColor" data-bgColor="#dbe2f4">{{{sexIcon 'f'}}}</th>
+            <th class="_bgColor" data-bgColor="#dbe2f4">{{{sexIcon 'n'}}}</th>
             <th class="_bgColor" data-bgColor="#fde6d8">AOS</th>
             <th class="_bgColor" data-bgColor="#fde6d8">IOS</th>
             <th class="_bgColor" data-bgColor="#fde6d8">PC</th>
@@ -391,9 +391,9 @@
             <th class="_bgColor" data-bgColor="#bfbfbf">총합</th>
         </tr>
         <tr>
-            <th class="_bgColor" data-bgColor="#dbe2f4">남성</th>
-            <th class="_bgColor" data-bgColor="#dbe2f4">여성</th>
-            <th class="_bgColor" data-bgColor="#dbe2f4">알수없음</th>
+            <th class="_bgColor" data-bgColor="#dbe2f4">{{{sexIcon 'm'}}}</th>
+            <th class="_bgColor" data-bgColor="#dbe2f4">{{{sexIcon 'f'}}}</th>
+            <th class="_bgColor" data-bgColor="#dbe2f4">{{{sexIcon 'n'}}}</th>
             <th class="_bgColor" data-bgColor="#fde6d8">AOS</th>
             <th class="_bgColor" data-bgColor="#fde6d8">IOS</th>
             <th class="_bgColor" data-bgColor="#fde6d8">PC</th>

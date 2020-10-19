@@ -427,7 +427,7 @@
                 <td>{{division befor_accum_total_out_cnt cnt 0}}</td>
             </tr>
             <tr>
-                <td>전달 대비</td>
+                <td>전월 대비</td>
                 <td class="{{upAndDownClass sum_total_inc_join_cnt}}"><i class="fa {{upAndDownIcon sum_total_inc_join_cnt}}"></i> <span>{{addComma sum_total_inc_join_cnt}}</span></td>
                 <td class="{{upAndDownClass sum_total_inc_out_cnt}}"><i class="fa {{upAndDownIcon sum_total_inc_out_cnt}}"></i> <span>{{addComma sum_total_inc_out_cnt}}</span></td>
             </tr>
