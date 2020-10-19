@@ -423,8 +423,8 @@
             </tr>
             <tr>
                 <td>일평균</td>
-                <td>{{division befor_accum_total_join_cnt cnt}}</td>
-                <td>{{division befor_accum_total_out_cnt cnt}}</td>
+                <td>{{division befor_accum_total_join_cnt cnt 0}}</td>
+                <td>{{division befor_accum_total_out_cnt cnt 0}}</td>
             </tr>
             <tr>
                 <td>전달 대비</td>

@@ -8,16 +8,17 @@
 
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/>
-                <col width="12.5%"/><col width="12.5%"/>
+                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                <col width="10%"/><col width="10%"/><col width="10%"/>
             </colgroup>
             <thead>
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th class="_totalDate" colspan="7" id="ageNonOver_th_0"></th>
+                <th class="_totalDate" colspan="8" id="ageNonOver_th_0"></th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>소계</th>
+                <th>10대미만</th>
                 <th>10대</th>
                 <th>20대</th>
                 <th>30대</th>
@@ -31,16 +32,17 @@
 
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/>
-                <col width="12.5%"/><col width="12.5%"/>
+                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                <col width="10%"/><col width="10%"/><col width="10%"/>
             </colgroup>
             <thead>
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th class="_totalDate" colspan="7" id="ageNonOver_th_1"></th>
+                <th class="_totalDate" colspan="8" id="ageNonOver_th_1"></th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>소계</th>
+                <th>10대미만</th>
                 <th>10대</th>
                 <th>20대</th>
                 <th>30대</th>
@@ -92,8 +94,24 @@
 
         top_tmp = response.data[0].detailList.length - 1;
         var slctType_date = [];
+
+
+        var date = "";
         for(var i = top_tmp; 0 < i; i-- ){
             slctType_date.push(i + " 일");
+
+            // date = moment($("#startDate").val()).add('months', 0).format('YYYY.MM') +"."+ common.lpad(i,2,"0");
+            //
+            // toDay =  week[moment(date).add('days', 0).day()];
+            // if (toDay == "토") {
+            //     toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + date.substr(5) + "(" + toDay + ")" + '</span>';
+            // } else if (toDay == "일") {
+            //     toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + date.substr(5) + "(" + toDay + ")" + '</span>';
+            // } else {
+            //     toDay = date.substr(5) + "(" + toDay + ")";
+            // }
+
+            // slctType_date.push(toDay);
         }
         data = { slctType_date : slctType_date };
 
@@ -106,7 +124,18 @@
         bottom_tmp = response.data[1].detailList.length - 1;
         slctType_date = [];
         for(var i = bottom_tmp; 0 < i; i-- ){
-            slctType_date.push(i + " 일");
+            date = moment($("#startDate").val()).add('months', -1).format('YYYY.MM') +"."+ common.lpad(i,2,"0");
+
+            toDay =  week[moment(date).add('days', 0).day()];
+            if (toDay == "토") {
+                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + date.substr(5) + "(" + toDay + ")" + '</span>';
+            } else if (toDay == "일") {
+                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + date.substr(5) + "(" + toDay + ")" + '</span>';
+            } else {
+                toDay = date.substr(5) + "(" + toDay + ")";
+            }
+
+            slctType_date.push(toDay);
         }
         data = { slctType_date : slctType_date };
         var template = $('#tmp_dummyAgeNonOver2').html();
@@ -128,6 +157,7 @@
                 }
 
                 var totalCnt = "";
+                var age00Cnt = "";
                 var age10Cnt = "";
                 var age20Cnt = "";
                 var age30Cnt = "";
@@ -137,6 +167,9 @@
 
                 if(detail.totalCnt != 0){
                     totalCnt = common.addComma(detail.totalCnt);
+                }
+                if(detail.age00Cnt != 0){
+                    age00Cnt = common.addComma(detail.age00Cnt);
                 }
                 if(detail.age10Cnt != 0){
                     age10Cnt = common.addComma(detail.age10Cnt);
@@ -159,7 +192,13 @@
                 //상단
                 count = 0;
                 if (index == 0) {
+
+                    console.log("------------------------------ ");
+                    console.log(detail.day);
+                    console.log(++count);
+
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age20Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age30Cnt);
@@ -178,6 +217,7 @@
                 count = 0;
                 if (index == 1) {
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age20Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age30Cnt);
@@ -200,6 +240,7 @@
             count = 0;
             if(i == 0){
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -208,6 +249,7 @@
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age60Cnt));
                 count = 0;
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -219,6 +261,7 @@
             count = 0;
             if(i == 1){
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -227,6 +270,7 @@
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
                 count = 0;
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -243,33 +287,33 @@
 <script type="text/x-handlebars-template" id="tmp_dummyAgeNonOver">
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="font-bold"  style="background-color: #dae3f3">{{{this}}}</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyAgeNonOver2">
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="font-bold" style="background-color: #dae3f3">{{{this}}}</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
 </script>

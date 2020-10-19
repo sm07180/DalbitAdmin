@@ -460,12 +460,16 @@ common.payRate = function(lvalue,rvalue) {
     return common.addComma(tmp.toFixed(1));
 };
 
-common.division = function(lvalue,rvalue) {
+common.division = function(lvalue,rvalue, dot) {
     if (rvalue == 0) {
         return 0;
     }
     var tmp = lvalue / rvalue;
-    return common.addComma(tmp.toFixed(1));
+    if(!common.isEmpty(dot)){
+        return common.addComma(tmp.toFixed(dot));
+    }else{
+        return common.addComma(tmp.toFixed(1));
+    }
 };
 
 common.exchangeAmt = function(star, isSpecial){

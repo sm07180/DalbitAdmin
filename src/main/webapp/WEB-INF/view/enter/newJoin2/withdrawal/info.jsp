@@ -357,12 +357,12 @@
             <th class="_bgColor" data-bgColor="#f2f2f2">가입 대비 탈퇴</th>
         </tr>
         <tr>
-            <td>{{sum_total_out_mcnt}}({{average  sum_total_out_mcnt sum_total_out_cnt}}%)</td>
-            <td>{{sum_total_out_fcnt}}({{average  sum_total_out_fcnt sum_total_out_cnt}}%)</td>
-            <td>{{sum_total_out_ncnt}}({{average  sum_total_out_ncnt sum_total_out_cnt}}%)</td>
-            <td>{{sum_aos_total_out_cnt}}({{average  sum_aos_total_out_cnt sum_total_out_cnt}}%)</td>
-            <td>{{sum_ios_total_out_cnt}}({{average  sum_ios_total_out_cnt sum_total_out_cnt}}%)</td>
-            <td>{{sum_pc_total_out_cnt}}({{average sum_pc_total_out_cnt sum_total_out_cnt}}%)</td>
+            <td>{{sum_total_out_mcnt}}<br/>({{average  sum_total_out_mcnt sum_total_out_cnt}}%)</td>
+            <td>{{sum_total_out_fcnt}}<br/>({{average  sum_total_out_fcnt sum_total_out_cnt}}%)</td>
+            <td>{{sum_total_out_ncnt}}<br/>({{average  sum_total_out_ncnt sum_total_out_cnt}}%)</td>
+            <td>{{sum_aos_total_out_cnt}}<br/>({{average  sum_aos_total_out_cnt sum_total_out_cnt}}%)</td>
+            <td>{{sum_ios_total_out_cnt}}<br/>({{average  sum_ios_total_out_cnt sum_total_out_cnt}}%)</td>
+            <td>{{sum_pc_total_out_cnt}}<br/>({{average sum_pc_total_out_cnt sum_total_out_cnt}}%)</td>
             <td class="{{upAndDownClass sum_inc_total_cnt}}"><span style="color: #555555">{{sum_total_join_cnt}}</span> <br/> (<i class="fa {{upAndDownIcon sum_inc_total_cnt}}"></i> <span>{{addComma sum_inc_total_cnt}}</span>)</td>
             <td class="{{upAndDownClass sum_inc_out_total_cnt}}"><span style="color: #555555">{{sum_total_out_cnt}}</span> <br/> (<i class="fa {{upAndDownIcon sum_inc_out_total_cnt}}"></i> <span>{{addComma sum_inc_out_total_cnt}}</span>)</td>
             <td>{{average sum_total_out_cnt sum_total_join_cnt 0}}%</td>
@@ -400,12 +400,12 @@
             <th class="_bgColor" data-bgColor="#f2f2f2">탈퇴</th>
         </tr>
         <tr>
-            <td>{{content.maleCnt}}({{average content.maleCnt content.allCnt}}%)</td>
-            <td>{{content.femaleCnt}}({{average content.femaleCnt content.allCnt}}%)</td>
-            <td>{{content.noneCnt}}({{average content.noneCnt content.allCnt}}%)</td>
-            <td>{{content.aosCnt}}({{average content.aosCnt content.allCnt}}%)</td>
-            <td>{{content.iosCnt}}({{average content.iosCnt content.allCnt}}%)</td>
-            <td>{{content.pcCnt}}({{average content.pcCnt content.allCnt}}%)</td>
+            <td>{{content.maleCnt}}<br/>({{average content.maleCnt content.allCnt}}%)</td>
+            <td>{{content.femaleCnt}}<br/>({{average content.femaleCnt content.allCnt}}%)</td>
+            <td>{{content.noneCnt}}<br/>({{average content.noneCnt content.allCnt}}%)</td>
+            <td>{{content.aosCnt}}<br/>({{average content.aosCnt content.allCnt}}%)</td>
+            <td>{{content.iosCnt}}<br/>({{average content.iosCnt content.allCnt}}%)</td>
+            <td>{{content.pcCnt}}<br/>({{average content.pcCnt content.allCnt}}%)</td>
             <td>{{content.allCnt}}</td>
         </tr>
     </table>
