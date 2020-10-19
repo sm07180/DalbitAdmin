@@ -25,7 +25,7 @@
 
             <div class="widget widget-table mb10">
                 <div class="widget-header">
-                    <h3><i class="fa fa-table"></i> 더줘 현황</h3>
+                    <h3><i class="fa fa-table"></i> 보너스 현황</h3>
                 </div>
                 <div class="col-md-12 no-padding">
                     <div class="widget-content mt10 no-padding ml10 mr10">
