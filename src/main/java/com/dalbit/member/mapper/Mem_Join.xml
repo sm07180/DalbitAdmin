@@ -164,6 +164,9 @@
                 ,count(case when os_type = 1 then 1 end) as aosCnt
                 ,count(case when os_type = 2 then 1 end) as iosCnt
                 ,count(case when os_type = 3 then 1 end) as pcCnt
+                ,count(case when mem_sex = 'm' then 1 end) as maleCnt
+                ,count(case when mem_sex = 'f' then 1 end) as femaleCnt
+                ,count(case when mem_sex = 'n' then 1 end) as noneCnt
          From rd_data.tb_member_withdrawal_bak a
          where DATE_FORMAT(last_upd_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(last_upd_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
          <if test="testid != -1">
