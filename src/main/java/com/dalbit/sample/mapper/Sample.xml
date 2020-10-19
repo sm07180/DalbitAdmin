@@ -34,10 +34,7 @@
     <sql id="condition">
         <where>
             <if test='txt_startSel != null and txt_startSel != ""'>
-                upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
-            </if>
-            <if test='txt_endSel != null and txt_endSel != ""'>
-                and upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
+                DATE_FORMAT(upd_date, '%Y%m%d')  <![CDATA[=]]> DATE_FORMAT(#{txt_startSel},'%Y%m%d')
             </if>
             <if test="ostype != null and ostype != '' ">
                 and ostype = #{ostype}

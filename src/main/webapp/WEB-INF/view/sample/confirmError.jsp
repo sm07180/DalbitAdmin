@@ -5,23 +5,22 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div id="container-fluid">
-            <h3>log - error data 확인</h3>
             <!-- searchBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
+                            <h3 class="title"><i class="fa fa-search"></i> 에러로그</h3>
                             <input type="hidden" name="pageStart" id="pageStart">
                             <input type="hidden" name="pageCnt" id="pageCnt">
                             <div>
                                 <div class="input-group date" id="date_startSel">
                                     <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
                                 </div>
-                                <label>~</label>
+                                <%--<label>~</label>
                                 <div class="input-group date" id="date_endSel">
                                     <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                                </div>
+                                </div>--%>
                                 <span id="osTypeArea"></span>
                                 <span id="searchTypeArea"></span>
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="description 검색창"></label>
@@ -80,30 +79,14 @@
         init();
     });
 
-    function compare() {
-        var startDate = $('#txt_startSel').val();
-        var startDateArr = startDate.split('.');
-        var endDate = $('#txt_endSel').val();
-        var endDateArr = endDate.split('.');
-
-        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
-        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
-
-        if(startDateCompare.getTime() > endDateCompare.getTime()) {
-            alert('시작날짜와 종료날짜를 확인해주세요');
-        }
-    }
-
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {
-            compare();
             errorPagingInfo.pageNo = 1;
             getErrorList();
         };
     });
 
     $('#bt_search').click( function() {       //검색
-        compare();
         errorPagingInfo.pageNo = 1;
         getErrorList();
     });
