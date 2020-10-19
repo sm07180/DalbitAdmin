@@ -225,22 +225,22 @@
 
 <script type="text/x-handlebars-template" id="tmp_dummymonth">
     {{#each this.detailList as |data|}}
-    <tr {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-        <td {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-        {{#dalbit_if nowHour '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{{date}}}
         </td>
-        <td>{{phone_join_cnt}}</td>
-        <td>{{kakao_join_cnt}}</td>
-        <td>{{naver_join_cnt}}</td>
-        <td>{{fbook_join_cnt}}</td>
-        <td>{{apple_join_cnt}}</td>
-        <td>{{google_join_cnt}}</td>
+        <td>{{addComma phone_join_cnt 'Y'}}</td>
+        <td>{{addComma kakao_join_cnt 'Y'}}</td>
+        <td>{{addComma naver_join_cnt 'Y'}}</td>
+        <td>{{addComma fbook_join_cnt 'Y'}}</td>
+        <td>{{addComma apple_join_cnt 'Y'}}</td>
+        <td>{{addComma google_join_cnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td>{{aos_total_join_cnt}}</td>
-        <td>{{ios_total_join_cnt}}</td>
-        <td>{{pc_total_join_cnt}}</td>
-        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{total_join_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
+        <td>{{addComma aos_total_join_cnt 'Y'}}</td>
+        <td>{{addComma ios_total_join_cnt 'Y'}}</td>
+        <td>{{addComma pc_total_join_cnt 'Y'}}</td>
+        <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_join_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt 'Y'}}</span>)</td>
     </tr>
     {{else}}
     <tr>
@@ -250,38 +250,38 @@
 
     <tr class="_tr_{{this}} font-bold" style="background-color: #f2f2f2">
         <td>총합</td>
-        <td>{{totalInfo.sum_phone_join_cnt}} ({{average totalInfo.sum_phone_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_kakao_join_cnt}} ({{average totalInfo.sum_kakao_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_naver_join_cnt}} ({{average totalInfo.sum_naver_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_fbook_join_cnt}} ({{average totalInfo.sum_fbook_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_apple_join_cnt}} ({{average totalInfo.sum_apple_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_google_join_cnt}} ({{average totalInfo.sum_google_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_phone_join_cnt 'Y'}} ({{average totalInfo.sum_phone_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_kakao_join_cnt 'Y'}} ({{average totalInfo.sum_kakao_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_naver_join_cnt 'Y'}} ({{average totalInfo.sum_naver_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_fbook_join_cnt 'Y'}} ({{average totalInfo.sum_fbook_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_apple_join_cnt 'Y'}} ({{average totalInfo.sum_apple_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_google_join_cnt 'Y'}} ({{average totalInfo.sum_google_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
         <td class="_noBorder"></td>
-        <td>{{totalInfo.sum_aos_total_join_cnt}} ({{average totalInfo.sum_aos_total_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_ios_total_join_cnt}} ({{average totalInfo.sum_ios_total_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo.sum_pc_total_join_cnt}} ({{average totalInfo.sum_pc_total_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
-        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{totalInfo.sum_total_join_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt}}</span>)</td>
+        <td>{{addComma totalInfo.sum_aos_total_join_cnt 'Y'}} ({{average totalInfo.sum_aos_total_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_ios_total_join_cnt 'Y'}} ({{average totalInfo.sum_ios_total_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo.sum_pc_total_join_cnt 'Y'}} ({{average totalInfo.sum_pc_total_join_cnt totalInfo.sum_total_join_cnt}}%)</td>
+        <td class="{{upAndDownClass totalInfo.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo.sum_total_join_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon totalInfo.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo.sum_inc_total_cnt 'Y'}}</span>)</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummymonth2">
     {{#each this.detailList2 as |data|}}
-    <tr {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-        <td {{#dalbit_if nowHour '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-        {{#dalbit_if nowHour '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+    <tr {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
+        <td {{#dalbit_if nowDay '==' day}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowDay '!=' day}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
     {{{date}}}
         </td>
-        <td>{{phone_join_cnt}}</td>
-        <td>{{kakao_join_cnt}}</td>
-        <td>{{naver_join_cnt}}</td>
-        <td>{{fbook_join_cnt}}</td>
-        <td>{{apple_join_cnt}}</td>
-        <td>{{google_join_cnt}}</td>
+        <td>{{addComma phone_join_cnt 'Y'}}</td>
+        <td>{{addComma kakao_join_cnt 'Y'}}</td>
+        <td>{{addComma naver_join_cnt 'Y'}}</td>
+        <td>{{addComma fbook_join_cnt 'Y'}}</td>
+        <td>{{addComma apple_join_cnt 'Y'}}</td>
+        <td>{{addComma google_join_cnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td>{{aos_total_join_cnt}}</td>
-        <td>{{ios_total_join_cnt}}</td>
-        <td>{{pc_total_join_cnt}}</td>
-    <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{total_join_cnt}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt}}</span>)</td>
+        <td>{{addComma aos_total_join_cnt 'Y'}}</td>
+        <td>{{addComma ios_total_join_cnt 'Y'}}</td>
+        <td>{{addComma pc_total_join_cnt 'Y'}}</td>
+    <td class="{{upAndDownClass total_inc_cnt}}"><span style="color: #555555">{{addComma total_join_cnt'Y'}}</span> (<i class="fa {{upAndDownIcon total_inc_cnt}}"></i> <span>{{addComma total_inc_cnt 'Y'}}</span>)</td>
     </tr>
     {{else}}
     <tr>
@@ -291,16 +291,16 @@
 
     <tr class="_tr_{{this}} font-bold" style="background-color: #f2f2f2">
         <td>총합</td>
-        <td>{{totalInfo2.sum_phone_join_cnt}} ({{average totalInfo2.sum_phone_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_kakao_join_cnt}} ({{average totalInfo2.sum_kakao_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_naver_join_cnt}} ({{average totalInfo2.sum_naver_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_fbook_join_cnt}} ({{average totalInfo2.sum_fbook_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_apple_join_cnt}} ({{average totalInfo2.sum_apple_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_google_join_cnt}} ({{average totalInfo2.sum_google_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_phone_join_cnt 'Y'}} ({{average totalInfo2.sum_phone_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_kakao_join_cnt 'Y'}} ({{average totalInfo2.sum_kakao_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_naver_join_cnt 'Y'}} ({{average totalInfo2.sum_naver_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_fbook_join_cnt 'Y'}} ({{average totalInfo2.sum_fbook_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_apple_join_cnt 'Y'}} ({{average totalInfo2.sum_apple_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_google_join_cnt 'Y'}} ({{average totalInfo2.sum_google_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
         <td class="_noBorder"></td>
-        <td>{{totalInfo2.sum_aos_total_join_cnt}} ({{average totalInfo2.sum_aos_total_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_ios_total_join_cnt}} ({{average totalInfo2.sum_ios_total_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td>{{totalInfo2.sum_pc_total_join_cnt}} ({{average totalInfo2.sum_pc_total_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
-        <td class="{{upAndDownClass totalInfo2.sum_inc_total_cnt}}"><span style="color: #555555">{{totalInfo2.sum_total_join_cnt}}</span> (<i class="fa {{upAndDownIcon totalInfo2.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo2.sum_inc_total_cnt}}</span>)</td>
+        <td>{{addComma totalInfo2.sum_aos_total_join_cnt 'Y'}} ({{average totalInfo2.sum_aos_total_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_ios_total_join_cnt 'Y'}} ({{average totalInfo2.sum_ios_total_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td>{{addComma totalInfo2.sum_pc_total_join_cnt 'Y'}} ({{average totalInfo2.sum_pc_total_join_cnt totalInfo2.sum_total_join_cnt}}%)</td>
+        <td class="{{upAndDownClass totalInfo2.sum_inc_total_cnt}}"><span style="color: #555555">{{addComma totalInfo2.sum_total_join_cnt 'Y'}}</span> (<i class="fa {{upAndDownIcon totalInfo2.sum_inc_total_cnt}}"></i> <span>{{addComma totalInfo2.sum_inc_total_cnt 'Y'}}</span>)</td>
     </tr>
 </script>

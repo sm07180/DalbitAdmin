@@ -349,12 +349,12 @@
             <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
         </tr>
         <tr>
-            <td>{{sum_phone_join_cnt}}<br/>({{average sum_phone_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_kakao_join_cnt}}<br/>({{average sum_kakao_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_naver_join_cnt}}<br/>({{average sum_naver_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_fbook_join_cnt}}<br/>({{average sum_fbook_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_apple_join_cnt}}<br/>({{average sum_apple_join_cnt sum_total_join_cnt}}%)</td>
-            <td>{{sum_google_join_cnt}}<br/>({{average sum_google_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{addComma sum_phone_join_cnt}}<br/>({{average sum_phone_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{addComma sum_kakao_join_cnt}}<br/>({{average sum_kakao_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{addComma sum_naver_join_cnt}}<br/>({{average sum_naver_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{addComma sum_fbook_join_cnt}}<br/>({{average sum_fbook_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{addComma sum_apple_join_cnt}}<br/>({{average sum_apple_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{addComma sum_google_join_cnt}}<br/>({{average sum_google_join_cnt sum_total_join_cnt}}%)</td>
         </tr>
         <tr>
             <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#f8cbad">플랫폼 별</th>
@@ -363,10 +363,10 @@
             <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">PC</th>
         </tr>
         <tr>
-            <td colspan="2">{{sum_aos_total_join_cnt}}<br/>({{average  sum_aos_total_join_cnt sum_total_join_cnt}}%)</td>
-            <td colspan="2">{{sum_ios_total_join_cnt}}<br/>({{average  sum_ios_total_join_cnt sum_total_join_cnt}}%)</td>
-            <td colspan="2">{{sum_pc_total_join_cnt}}<br/>({{average sum_pc_total_join_cnt sum_total_join_cnt}}%)</td>
-            <td class="{{upAndDownClass sum_inc_total_cnt}}"><span style="color: #555555">{{sum_total_join_cnt}}</span> (<i class="fa {{upAndDownIcon sum_inc_total_cnt}}"></i> <span>{{addComma sum_inc_total_cnt}}</span>)</td>
+            <td colspan="2">{{addComma sum_aos_total_join_cnt}}<br/>({{average sum_aos_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{addComma sum_ios_total_join_cnt}}<br/>({{average sum_ios_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{addComma sum_pc_total_join_cnt}}<br/>({{average sum_pc_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td class="{{upAndDownClass sum_inc_total_cnt}}"><span style="color: #555555">{{addComma sum_total_join_cnt}}</span> <br/> (<i class="fa {{upAndDownIcon sum_inc_total_cnt}}"></i> <span>{{addComma sum_inc_total_cnt}}</span>)</td>
         </tr>
     </table>
 </script>
@@ -390,12 +390,12 @@
             <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
         </tr>
         <tr>
-            <td>{{content.slctPhonCnt}}<br/>({{average content.slctPhonCnt content.allCnt}}%)</td>
-            <td>{{content.slctFaceCnt}}<br/>({{average content.slctFaceCnt content.allCnt}}%)</td>
-            <td>{{content.slctGoogleCnt}}<br/>({{average content.slctGoogleCnt content.allCnt}}%)</td>
-            <td>{{content.slctKakaoCnt}}<br/>({{average content.slctKakaoCnt content.allCnt}}%)</td>
-            <td>{{content.slctNaverCnt}}<br/>({{average content.slctNaverCnt content.allCnt}}%)</td>
-            <td>{{content.slctAppleCnt}}<br/>({{average content.slctAppleCnt content.allCnt}}%)</td>
+            <td>{{addComma content.slctPhonCnt}}<br/>({{average content.slctPhonCnt content.allCnt}}%)</td>
+            <td>{{addComma content.slctFaceCnt}}<br/>({{average content.slctFaceCnt content.allCnt}}%)</td>
+            <td>{{addComma content.slctGoogleCnt}}<br/>({{average content.slctGoogleCnt content.allCnt}}%)</td>
+            <td>{{addComma content.slctKakaoCnt}}<br/>({{average content.slctKakaoCnt content.allCnt}}%)</td>
+            <td>{{addComma content.slctNaverCnt}}<br/>({{average content.slctNaverCnt content.allCnt}}%)</td>
+            <td>{{addComma content.slctAppleCnt}}<br/>({{average content.slctAppleCnt content.allCnt}}%)</td>
         </tr>
         <tr>
             <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#f8cbad">플랫폼 별</th>
@@ -404,10 +404,10 @@
             <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">PC</th>
         </tr>
         <tr>
-            <td colspan="2">{{content.aosCnt}}<br/>({{average content.aosCnt content.allCnt}}%)</td>
-            <td colspan="2">{{content.iosCnt}}<br/>({{average content.iosCnt content.allCnt}}%)</td>
-            <td colspan="2">{{content.pcCnt}}<br/>({{average content.pcCnt content.allCnt}}%)</td>
-            <td>{{content.allCnt}}</td>
+            <td colspan="2">{{addComma content.aosCnt}}<br/>({{average content.aosCnt content.allCnt}}%)</td>
+            <td colspan="2">{{addComma content.iosCnt}}<br/>({{average content.iosCnt content.allCnt}}%)</td>
+            <td colspan="2">{{addComma content.pcCnt}}<br/>({{average content.pcCnt content.allCnt}}%)</td>
+            <td>{{addComma content.allCnt}}</td>
         </tr>
     </table>
 </script>

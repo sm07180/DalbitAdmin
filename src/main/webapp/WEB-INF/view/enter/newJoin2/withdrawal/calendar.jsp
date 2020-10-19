@@ -357,13 +357,18 @@
                 <td>{{addComma sum_total_out_cnt}}</td>
             </tr>
             <tr>
-                <td>남성</td>
-                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{{sexIcon 'n'}}}</td>
+                <td>{{addComma sum_total_join_ncnt}}</td>
+                <td>{{addComma sum_total_out_ncnt}}</td>
+            </tr>
+            <tr>
+                <td>{{{sexIcon 'm'}}}</td>
+                <td>{{addComma sum_total_join_mcnt}}</td>
                 <td>{{addComma sum_total_out_mcnt}}</td>
             </tr>
             <tr>
-                <td>여성</td>
-                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{{sexIcon 'f'}}}</td>
+                <td>{{addComma sum_total_join_fcnt}}</td>
                 <td>{{addComma sum_total_out_fcnt}}</td>
             </tr>
             <tr>
