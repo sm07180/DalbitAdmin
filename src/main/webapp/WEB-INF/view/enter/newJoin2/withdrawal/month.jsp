@@ -18,9 +18,9 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 탈퇴 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">남성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">여성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">알수없음</th>
+                <th class="_bgColor _sex_male" data-bgColor="#dae3f3">남성</th>
+                <th class="_bgColor _sex_female" data-bgColor="#dae3f3">여성</th>
+                <th class="_bgColor _sex_none" data-bgColor="#dae3f3">알수없음</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
@@ -29,6 +29,8 @@
             </thead>
             <tbody id="monthTableBody"></tbody>
         </table>
+
+
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="0.1%"/>
@@ -43,9 +45,9 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 탈퇴 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">남성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">여성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">알수없음</th>
+                <th class="_bgColor _sex_male" data-bgColor="#dae3f3">남성</th>
+                <th class="_bgColor _sex_female" data-bgColor="#dae3f3">여성</th>
+                <th class="_bgColor _sex_none" data-bgColor="#dae3f3">알수없음</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
