@@ -30,7 +30,7 @@
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
                 <th rowspan="2" class="_stateTopTh"></th>
                 <th colspan="2" class="_stateSubTh">총계</th>
-                <th colspan="2" class="_stateSubTh">10대미만</th>
+                <%--<th colspan="2" class="_stateSubTh">10대미만</th>--%>
                 <th colspan="2" class="_stateSubTh">10대</th>
                 <th colspan="2" class="_stateSubTh">20대</th>
                 <th colspan="2" class="_stateSubTh">30대</th>
@@ -41,8 +41,8 @@
             <tr>
                 <th class="_stateSubTh">건(비율)</th>
                 <th class="_stateSubTh">금액(비율)</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
+                <%--<th class="_stateSubTh">건</th>--%>
+                <%--<th class="_stateSubTh">금액</th>--%>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
@@ -154,6 +154,8 @@
         <td>소계</td>
         <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
         <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <%--<td>{{addComma sum_age00Cnt}}</td>--%>
+        <%--<td>{{vatMinus sum_age00Amt}}</td>--%>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{vatMinus sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
@@ -201,6 +203,8 @@
         </td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a></td>
         <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
+        <%--<td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="00"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00Cnt}}</span></a></td>--%>
+        <%--<td>{{vatMinus age00Amt}}</td>--%>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="10"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10Cnt}}</span></a></td>
         <td>{{vatMinus age10Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="20"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20Cnt}}</span></a></td>

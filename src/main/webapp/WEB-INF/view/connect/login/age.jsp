@@ -14,11 +14,11 @@
             <thead>
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th class="_totalDate" colspan="8" id="ageNonOver_th_0"></th>
+                <th class="_totalDate" colspan="7" id="ageNonOver_th_0"></th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>소계</th>
-                <th>10대미만</th>
+                <%--<th>10대미만</th>--%>
                 <th>10대</th>
                 <th>20대</th>
                 <th>30대</th>
@@ -38,11 +38,11 @@
             <thead>
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th class="_totalDate" colspan="8" id="ageNonOver_th_1"></th>
+                <th class="_totalDate" colspan="7" id="ageNonOver_th_1"></th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>소계</th>
-                <th>10대미만</th>
+                <%--<th>10대미만</th>--%>
                 <th>10대</th>
                 <th>20대</th>
                 <th>30대</th>
@@ -166,7 +166,7 @@
                 count = 0;
                 if (index == 0) {
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
+                    // $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age20Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age30Cnt);
@@ -185,7 +185,7 @@
                 count = 0;
                 if (index == 1) {
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
+                    // $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age20Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age30Cnt);
@@ -208,7 +208,7 @@
             count = 0;
             if(i == 0){
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age00Cnt));
+                // $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -217,7 +217,7 @@
                 $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age60Cnt));
                 count = 0;
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
+                // $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody tr:eq(" + (top_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -229,7 +229,7 @@
             count = 0;
             if(i == 1){
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
+                // $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -238,7 +238,7 @@
                 $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
                 count = 0;
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
+                // $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age00Cnt));
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
                 $("#ageNonOverTableBody2 tr:eq( " + (bottom_tmp + 1) + ") td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
@@ -255,33 +255,33 @@
 <script type="text/x-handlebars-template" id="tmp_dummyAgeNonOver">
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><%--<td>0</td>--%>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><%--<td></td>--%>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><%--<td>0</td>--%>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyAgeNonOver2">
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><%--<td>0</td>--%>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><%--<td></td>--%>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><%--<td>0</td>--%>
     </tr>
 </script>

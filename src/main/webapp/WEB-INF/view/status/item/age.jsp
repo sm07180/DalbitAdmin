@@ -16,7 +16,7 @@
             <tr>
                 <th rowspan="2"></th>
                 <th colspan="2">총계</th>
-                <th colspan="2">10대미만</th>
+                <%--<th colspan="2">10대미만</th>--%>
                 <th colspan="2">10대</th>
                 <th colspan="2">20대</th>
                 <th colspan="2">30대</th>
@@ -25,8 +25,8 @@
                 <th colspan="2">60대 이상</th>
             </tr>
             <tr>
-                <th>건수</th>
-                <th>달수</th>
+                <%--<th>건수</th>--%>
+                <%--<th>달수</th>--%>
                 <th>건수</th>
                 <th>달수</th>
                 <th>건수</th>
@@ -94,8 +94,8 @@
         <td>소계</td>
         <td>{{addComma sum_totalCnt}}</td>
         <td>{{addComma sum_totalAmt}}</td>
-        <td>{{addComma sum_age00Cnt}}</td>
-        <td>{{addComma sum_age00Amt}}</td>
+        <%--<td>{{addComma sum_age00Cnt}}</td>--%>
+        <%--<td>{{addComma sum_age00Amt}}</td>--%>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{addComma sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
@@ -121,8 +121,8 @@
         </td>
         <td>{{addComma totalCnt}}</td>
         <td>{{addComma totalAmt}}</td>
-        <td>{{addComma age00Cnt}}</td>
-        <td>{{addComma age00Amt}}</td>
+        <%--<td>{{addComma age00Cnt}}</td>--%>
+        <%--<td>{{addComma age00Amt}}</td>--%>
         <td>{{addComma age10Cnt}}</td>
         <td>{{addComma age10Amt}}</td>
         <td>{{addComma age20Cnt}}</td>
