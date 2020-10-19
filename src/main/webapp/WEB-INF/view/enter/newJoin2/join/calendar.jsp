@@ -189,9 +189,13 @@
         var trace_join_cnt = {
             x: day,
             y: total_join_cnt,
-            mode: 'lines',
+            // mode: 'lines',
             name: '<span>가입</span>',
             type: 'bar',
+            text: total_join_cnt.map(String),
+            textposition: 'auto',
+            hoverinfo: 'none',
+
             marker: {
                 color: '#99CCFF'
             }
