@@ -16,4 +16,9 @@ public class P_StatVo {
 
     private String beforeStartDate;
     private String beforeEndDate;
+
+
+    private String twoAgoStartDate;
+    private String twoAgoEndDate;
+
 }

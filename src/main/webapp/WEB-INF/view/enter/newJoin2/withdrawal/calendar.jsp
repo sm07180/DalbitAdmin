@@ -6,15 +6,15 @@
         <div class="col-md-12 no-padding">
             <div id='barArea'></div>
         </div>
+        <div class="col-md-12 no-padding">
+            <div id='lineArea'></div>
+        </div>
         <div id="container-fluid">
             <div class="widget-content col-md-10">
                 <div class="calendar col-md-10 no-padding"></div>
                 <div class="col-md-2 no-padding" id="totalTable"></div>
 
             </div>
-        </div>
-        <div class="col-md-12 no-padding">
-            <div id='lineArea'></div>
         </div>
     </div>
 </div>
@@ -28,17 +28,22 @@
 <script type="text/javascript">
 
     $(function(){
-        //init();
+        getCalendar();
     });
 
     function getCalendar(){
         $("#summary_today").html(moment(new Date()).format('YYYY-MM-DD'));
-        renderCalendar();
+        setTimeout(function(){
+            renderCalendar();
+        },160)
     }
 
     function renderCalendar(){
-
         var tmp_sDate = $("#startDate").val();
+
+        beforeSDate = moment($("#startDate").val()).add("months", -1).format('YYYY.MM.01');
+        var monthLastDate = new Date(beforeSDate.substr(0,4),beforeSDate.substr(5,7),-1);
+        beforeEDate = beforeSDate.substr(0,8) +(monthLastDate.getDate() + 1);
 
         $('.calendar').fullCalendar('destroy').fullCalendar({
             header: {
@@ -55,21 +60,42 @@
 
             events: function(start, end, timezone, callback) {
                 $(".fc-header").hide();
-                var month =  $('.fc-day').not('.fc-other-month').first().data('date').replace(/-/gi,".") + " - " + $('.fc-day').not('.fc-other-month').last().data('date').replace(/-/gi,".") + "@";
 
                 $.ajax({
-                    url: '/rest/enter/newJoin/info/calender',
+                    url: '/rest/enter/newjoin2/info/state',
                     type: 'post',
                     dataType: 'json',
                     data: {
-                        dateList : month,
-                        slctType : 1
+                        startDate : $('.fc-day').not('.fc-other-month').first().data('date').replace(/-/gi,".")
+                        , endDate : $('.fc-day').not('.fc-other-month').last().data('date').replace(/-/gi,".")
+                        , beforeStartDate : beforeSDate
+                        , beforeEndDate : beforeEDate
+                        , slctType : 1
+                        , slctTab : 2
                     },
                     success: function(response) {
-                        console.log("[response] ------- /rest/enter/newJoin/info/calender -------");
                         console.log(response);
+                        var accum_total_out_cnt = 0;
                         if(!common.isEmpty(response.data.detailList)){
                             response.data.detailList.forEach(function(detail, detailIndex) {
+
+                                var sw = false;
+                                var total_join_before_cnt = 0;
+                                response.data.detailList2.forEach(function(detail2, detailIndex2) {
+                                    if(detail.daily == detail2.daily){
+                                        sw = true;
+                                        total_join_before_cnt = detail2.total_out_cnt;
+                                    }
+                                });
+                                if(sw){
+                                    detail.total_inc_out_cnt = detail.total_out_cnt - total_join_before_cnt;
+                                    accum_total_out_cnt = accum_total_out_cnt + detail.total_out_cnt;
+                                    detail.accum_total_out_cnt = accum_total_out_cnt;
+                                }else{
+                                    detail.total_inc_out_cnt = detail.total_out_cnt - 0;
+                                    accum_total_out_cnt = accum_total_out_cnt + detail.total_out_cnt;
+                                    detail.accum_total_out_cnt = accum_total_out_cnt;
+                                }
                                 var the_date = detail.the_date;
                                 var dayTarget = $('.fc-day[data-date="' + the_date + '"]').find('.fc-day-content');
                                 var template = $('#tmp_calendarData').html();
@@ -79,6 +105,10 @@
                                 dayTarget.append(html);
                             });
                         }
+
+                        response.data.totalInfo.cnt = response.data.detailList.length;
+
+                        response.data.totalInfo.sum_total_inc_out_cnt = response.data.totalInfo.sum_total_out_cnt - response.data.totalInfo2.sum_total_out_cnt;
 
                         $("#totalTable").empty();
                         var template = $('#tmp_totalTable').html();
@@ -96,58 +126,63 @@
     }
 
 
-    function renderChart(response){
+    function renderChart(response) {
         var month;
 
         var day = [];
-        var total_join_Cnt = [];
+        var total_out_cnt = [];
 
-        if(common.isEmpty(response.data)){
+        if (common.isEmpty(response.data)) {
             $("#lineArea").empty();
             $("#barArea").empty();
-            return ;
+            return;
         }
 
-        for(var i=0;i<response.data.detailList.length;i++){
+        response.data.detailList.sort(function (a, b) { // 오름차순
+            return b["daily"] - a["daily"];
+        });
+
+        for (var i = 0; i < response.data.detailList.length; i++) {
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
-            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")), 2, "0");
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
 
-            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
-            response.data.detailList[i].month = response.data.detailList[i].the_date.substr(5,2);
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8, 2);
+            response.data.detailList[i].month = response.data.detailList[i].the_date.substr(5, 2);
             month = response.data.detailList[i].month;
 
-            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
-            if(toDay == "토"){
-                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
-            }else if(toDay == "일"){
-                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
-            }else{
-                toDay = response.data.detailList[i].the_date.substr(5).replace(/-/gi,".") + "(" + toDay + ")";
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi, ".")).add('days', 0).day()];
+            if (toDay == "토") {
+                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi, ".") + "(" + toDay + ")" + '</span>';
+            } else if (toDay == "일") {
+                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi, ".") + "(" + toDay + ")" + '</span>';
+            } else {
+                toDay = response.data.detailList[i].the_date.substr(5).replace(/-/gi, ".") + "(" + toDay + ")";
             }
             response.data.detailList[i].date = toDay;
 
             day.unshift(toDay);
-            total_join_Cnt.unshift(response.data.detailList[i].total_join_Cnt);
+            total_out_cnt.unshift(response.data.detailList[i].total_out_cnt);
+
 
         }
 
         /* 막대차트 [start] */
-        var trace_join_cnt = {
+        var trace_out_cnt = {
             x: day,
-            y: total_join_Cnt,
+            y: total_out_cnt,
             mode: 'lines',
             name: '<span>가입</span>',
-            type : 'bar',
+            type: 'bar',
             marker: {
                 color: '#99CCFF'
             }
         };
 
-        var barData = [trace_join_cnt];
+        var barData = [trace_out_cnt];
 
         var barLayout = {
-            title: month+'월 일자별 - 가입자 현황',
+            title: month + '월 일자별 - 탈퇴자 현황',
             // height: 500,
             // width: 1300,
             yaxis: {
@@ -160,127 +195,149 @@
         Plotly.newPlot('barArea', barData, barLayout);
         /* 막대차트 [end] */
 
+        /* 플랫폼별 라인 Chart */
+        platform_lineChart();
+    }
+
+
+
+    function platform_lineChart() {
+        var data = {
+            startDate: $("#startDate").val()
+            , endDate: $("#endDate").val()
+            , beforeStartDate : beforeSDate
+            , beforeEndDate : beforeEDate
+            , slctType: 2
+            , slctTab: 2
+        };
+        util.getAjaxData("month", "/rest/enter/newjoin2/info/state", data, fn_platform_success);
+    }
+
+    function fn_platform_success(dst_id, response) {
+        var month;
+
+        var day = [];
+        var total_out_mcnt = [];
+        var total_out_fcnt = [];
+        var total_out_ncnt = [];
+
+        response.data.detailList.sort(function (a, b) { // 오름차순
+            return b["daily"] - a["daily"];
+        });
+
+        for (var i = 0; i < response.data.detailList.length; i++) {
+            response.data.detailList[i].nowMonth = Number(moment().format("MM"));
+            response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")), 2, "0");
+            response.data.detailList[i].nowHour = Number(moment().format("HH"));
+
+            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8, 2);
+            response.data.detailList[i].month = response.data.detailList[i].the_date.substr(5, 2);
+            month = response.data.detailList[i].month;
+
+            toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi, ".")).add('days', 0).day()];
+            if (toDay == "토") {
+                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi, ".") + "(" + toDay + ")" + '</span>';
+            } else if (toDay == "일") {
+                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + response.data.detailList[i].the_date.substr(5).replace(/-/gi, ".") + "(" + toDay + ")" + '</span>';
+            } else {
+                toDay = response.data.detailList[i].the_date.substr(5).replace(/-/gi, ".") + "(" + toDay + ")";
+            }
+            response.data.detailList[i].date = toDay;
+
+            day.unshift(toDay);
+            total_out_mcnt.unshift(response.data.detailList[i].total_out_mcnt);
+            total_out_fcnt.unshift(response.data.detailList[i].total_out_fcnt);
+            total_out_ncnt.unshift(response.data.detailList[i].total_out_ncnt);
+        }
 
         /* 라인차트 [start] */
-        // var trace_male_reg = {
-        //     x: day,
-        //     y: maleRegCnt,
-        //     mode: 'lines',
-        //     name: '<span style="color:blue">남성</span> 등록',
-        //     line: {
-        //         dash: 'solid',
-        //         width: 4,
-        //         color: '#99CCFF'
-        //     },
-        //     marker: {
-        //         color: '#99CCFF'
-        //     }
-        // };
-        //
-        // var trace_male_del = {
-        //     x: day,
-        //     y: maledelCnt,
-        //     mode: 'lines',
-        //     name: '<span style="color:blue">남성</span> 삭제',
-        //     line: {
-        //         dash: 'dot',
-        //         width: 4,
-        //         color: '#99CCFF'
-        //     },
-        //     marker: {
-        //         color: '#99CCFF'
-        //     }
-        //
-        // };
-        //
-        // var trace_female_reg = {
-        //     x: day,
-        //     y: femaleRegCnt,
-        //     mode: 'lines',
-        //     name: '<span style="color:red">여성</span> 등록',
-        //     line: {
-        //         dash: 'solid',
-        //         width: 4,
-        //         color: '#FF6666'
-        //     },
-        //     marker: {
-        //         color: '#FF6666'
-        //     }
-        // };
-        //
-        // var trace_female_del = {
-        //     x: day,
-        //     y: femaledelCnt,
-        //     mode: 'lines',
-        //     name: '<span style="color:red">여성</span> 삭제',
-        //     line: {
-        //         dash: 'dot',
-        //         width: 4,
-        //         color: '#FF6666'
-        //     },
-        //     marker: {
-        //         color: '#FF6666'
-        //     }
-        // };
-        //
-        // var trace_none_reg = {
-        //     x: day,
-        //     y: noneRegCnt,
-        //     mode: 'lines',
-        //     name: '알수없음 등록',
-        //     line: {
-        //         dash: 'solid',
-        //         width: 4,
-        //         color: '#999999'
-        //     },
-        //     marker: {
-        //         color: '#999999'
-        //     }
-        // };
-        //
-        // var trace_none_del = {
-        //     x: day,
-        //     y: nonedelCnt,
-        //     mode: 'lines',
-        //     name: '알수없음 삭제',
-        //     line: {
-        //         dash: 'dot',
-        //         width: 4,
-        //         color: '#999999'
-        //     },
-        //     marker: {
-        //         color: '#999999'
-        //     }
-        // };
-        //
-        // var data = [trace_male_reg, trace_male_del, trace_female_reg, trace_female_del, trace_none_reg, trace_none_del];
-        //
-        // var layout = {
-        //     title: month+'월 일자별 - 등록/삭제',
-        //     // height: 500,
-        //     // width: 1300,
-        //     yaxis: {
-        //         range: [0, 100],
-        //         autorange: true
-        //     },
-        //     legend: {
-        //         y: 0.5,
-        //         traceorder: 'reversed',
-        //         font: {
-        //             size: 16
-        //         }
-        //     }
-        // };
-        //
-        // Plotly.newPlot('lineArea', data, layout);
+        var trace_male = {
+            x: day,
+            y: total_out_mcnt,
+            mode: 'lines',
+            name: '<span style="color:blue">남성</span>',
+            line: {
+                dash: 'solid',
+                width: 4,
+                color: 'blue'
+            },
+            marker: {
+                color: 'blue'
+            }
+        };
+
+        var trace_female = {
+            x: day,
+            y: total_out_fcnt,
+            mode: 'lines',
+            name: '<span style="color:red">여성</span>',
+            line: {
+                dash: 'solid',
+                width: 4,
+                color: 'red'
+            },
+            marker: {
+                color: 'red'
+            }
+
+        };
+
+        var trace_none = {
+            x: day,
+            y: total_out_ncnt,
+            mode: 'lines',
+            name: '<span style="color:black">알수없음</span>',
+            line: {
+                dash: 'solid',
+                width: 4,
+                color: 'black'
+            },
+            marker: {
+                color: 'black'
+            }
+        };
+
+        var data = [trace_none,trace_female,trace_male];
+
+        var layout = {
+            title: month+'월 일자별 - 성별 탈퇴 현황',
+            // height: 500,
+            // width: 1300,
+            yaxis: {
+                range: [0, 100],
+                autorange: true
+            },
+            legend: {
+                y: 0.5,
+                traceorder: 'reversed',
+                font: {
+                    size: 16
+                }
+            }
+        };
+
+        Plotly.newPlot('lineArea', data, layout);
         /* 라인차트 [end] */
+        setSummary(response.data);
+
     }
 
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div class="font-bold" style="color: #ff5600;">가입 총계 : {{addComma total_join_Cnt}}</div>
-    <div class="font-bold">탈퇴 총계 :{{addComma total_out_Cnt}} <br/> (탈퇴 비율 : {{average total_out_Cnt total_join_Cnt 0}}%)</div>
+    <div class="font-bold" style="color: #ff5600;">탈퇴 총계 : {{addComma total_out_cnt}}</div>
+    <div class="font-bold">탈퇴 누적 : {{addComma accum_total_out_cnt}}</div>
+    <div class="{{upAndDownClass total_inc_out_cnt}}">전월 대비 :
+        <span {{#dalbit_if total_inc_out_cnt '>' 0 }} style="color: blue" {{/dalbit_if}}
+              {{#dalbit_if total_inc_out_cnt '<' 0 }} style="color: red" {{/dalbit_if}} >
+            <i class="fa {{upAndDownIcon total_inc_out_cnt}}"></i> <span>{{addComma total_inc_out_cnt}}</span>
+        </span>
+    </div>
+    <div class="font-bold" style="font-size: 10px">
+        <span style="color: blue">남</span>/
+        <span style="color: red">여</span>/알수없음 탈퇴:
+        <span style="color: blue">{{addComma total_out_mcnt}}</span>/
+        <span style="color: red">{{addComma total_out_fcnt}}</span>/{{addComma total_out_ncnt}}</div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_totalTable">
@@ -296,23 +353,23 @@
             </tr>
             <tr class="font-bold" style="color: #ff5600">
                 <td>총합</td>
-                <td>{{addComma total_join_Cnt}}</td>
-                <td>{{addComma total_out_Cnt}}</td>
+                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{addComma sum_total_out_cnt}}</td>
             </tr>
             <tr>
-                <td>일평균</td>
-                <td>0%</td>
-                <td>0%</td>
+                <td>남성</td>
+                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{addComma sum_total_out_mcnt}}</td>
             </tr>
             <tr>
-                <td>전달 대비</td>
-                <td>0</td>
-                <td>0</td>
+                <td>여성</td>
+                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{addComma sum_total_out_fcnt}}</td>
             </tr>
             <tr>
-                <td>가입 대비 <br/> 탈퇴 비율</td>
-                <td>{{average total_join_Cnt total_out_Cnt 0}}%</td>
-                <td>{{average total_out_Cnt total_join_Cnt 0}}%</td>
+                <td>알수없음</td>
+                <td>{{addComma sum_total_join_cnt}}</td>
+                <td>{{addComma sum_total_out_ncnt}}</td>
             </tr>
         </tbody>
     </table>

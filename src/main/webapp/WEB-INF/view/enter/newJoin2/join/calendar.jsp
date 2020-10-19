@@ -28,16 +28,17 @@
 <script type="text/javascript">
 
     $(function(){
-        //init();
+        getCalendar();
     });
 
     function getCalendar(){
         $("#summary_today").html(moment(new Date()).format('YYYY-MM-DD'));
-        renderCalendar();
+        setTimeout(function(){
+            renderCalendar();
+        },160)
     }
 
     function renderCalendar(){
-
         var tmp_sDate = $("#startDate").val();
 
         beforeSDate = moment($("#startDate").val()).add("months", -1).format('YYYY.MM.01');
@@ -205,13 +206,15 @@
         var data = {
             startDate: $("#startDate").val()
             , endDate: $("#endDate").val()
+            , beforeStartDate : beforeSDate
+            , beforeEndDate : beforeEDate
             , slctType: 2
             , slctTab: 1
         };
-        util.getAjaxData("month", "/rest/enter/newjoin2/info/state", data, fn_month_success);
+        util.getAjaxData("month", "/rest/enter/newjoin2/info/state", data, fn_platform_success);
     }
 
-    function fn_month_success(dst_id, response) {
+    function fn_platform_success(dst_id, response) {
         var month;
 
         var day = [];
@@ -367,6 +370,8 @@
 
         Plotly.newPlot('lineArea', data, layout);
         /* 라인차트 [end] */
+        setSummary(response.data);
+
     }
 
 </script>

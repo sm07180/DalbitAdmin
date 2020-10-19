@@ -54,25 +54,29 @@ var MemberDataTableSource = {
     'withdrawalList': {
         'url': '/rest/member/join/withdrawalList'
         , 'columns': [
-            {'title': '가입일시', 'data': 'lastUpdDateFormat', 'width':'100px'},
+            {'title': '가입일시', 'data': 'memJoinDateFormat', 'width':'100px'},
+            {'title': '탈퇴일시', 'data': 'lastUpdDateFormat', 'width':'100px'},
+            {'title': '서비스유지기간', 'data': 'serviceDate', 'width':'100px', 'render' : function (data){
+                    return common.timeStampDay(data);
+                }},
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
                     return util.renderSlct(data,"30");
                 }},
-            {'title': 'OS', 'data': 'os_type', 'width':'100px', 'render': function (data) {
+            {'title': 'OS', 'data': 'os_type', 'width':'70px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
                 }},
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
             // {'title': '로그인ID', 'data': 'mem_id', 'width':'100px'},
-            {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': 'UserID', 'data': 'mem_userid', 'width':'70px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
             {'title': '성별', 'data': 'mem_sex', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.mem_birth_year);
                 }},
-            {'title': '이름', 'data': 'mem_name', 'width':'100px'},
+            {'title': '이름', 'data': 'mem_name', 'width':'70px'},
             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
             {'title': 'IP', 'data': 'ip', 'width':'100px'},
             {'title': '광고유입여부', 'data': 'join_path', 'width':'100px', 'render' : function(data, type, row, meta){

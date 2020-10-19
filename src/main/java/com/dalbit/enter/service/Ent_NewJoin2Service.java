@@ -49,11 +49,19 @@ public class Ent_NewJoin2Service {
         List<P_NewJoin2OutDetailVo> detailList2 =  ent_NewJoin2Dao.callInfoDay(procedureVo);
         P_NewJoin2OutDetailVo totalInfo2 = new Gson().fromJson(procedureVo.getExt(), P_NewJoin2OutDetailVo.class);
 
+        pStatVo.setStartDate(pStatVo.getTwoAgoStartDate());
+        pStatVo.setEndDate(pStatVo.getTwoAgoEndDate());
+        procedureVo = new ProcedureVo(pStatVo);
+        List<P_NewJoin2OutDetailVo> detailList3 =  ent_NewJoin2Dao.callInfoDay(procedureVo);
+        P_NewJoin2OutDetailVo totalInfo3 = new Gson().fromJson(procedureVo.getExt(), P_NewJoin2OutDetailVo.class);
+
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);
         result.put("detailList", detailList);
         result.put("totalInfo2", totalInfo2);
         result.put("detailList2", detailList2);
+        result.put("totalInfo3", totalInfo3);
+        result.put("detailList3", detailList3);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }

@@ -16,6 +16,7 @@
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
                                 <%--<span id="slctTypeArea"></span>--%>
+                                <span id="searchFormRadio" style="display: none;"></span>
 
                                 <div class="input-group date" id="oneDayDatePicker"  style="display:none;">
                                     <label for="onedayDate" class="input-group-addon">
@@ -38,15 +39,35 @@
                                     <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
                                 </div>
 
+                                <div class="input-group date" id="rangeDatepicker"  style="display:none; width: 200px">
+                                    <label for="displayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                </div>
+
                                 <input type="hidden" name="startDate" id="startDate">
                                 <input type="hidden" name="endDate" id="endDate" />
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
 
+                                <input type="text" class="form-control" id="txt_search" name="txt_search" style="display:none;width: 100px" >
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                <span id="searchCheck" style="display: none">
+                                    <label class="control-inline fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                        <span>테스트 아이디 제외</span>
+                                    </label>
+
+                                    <label class="control-inline fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="search_joinPath" id="search_joinPath" value="1">
+                                        <span>광고유입</span>
+                                    </label>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -54,6 +75,15 @@
             </form>
         </div>
     </div>
+
+    <div class="col-lg-4" id="stateSummary">
+        <span id="summary"></span>
+    </div>
+
+    <div class="col-lg-4" id="joinListSummary" style="display: none">
+        <span id="joinList_summaryArea"></span>
+    </div>
+
     <!-- tab -->
     <div class="no-padding" id="infoTab">
         <jsp:include page="infoTab.jsp"/>
@@ -78,6 +108,7 @@
 
     $(function(){
         // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
+        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -115,6 +146,13 @@
             $("#endDate").val($("#yearDate").val() + ".12.31");
         });
 
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
+
         radioChange();
 
     });
@@ -123,6 +161,7 @@
         $("#onedayDate").val(dateTime);
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
         $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
@@ -149,6 +188,12 @@
         }else if(tabId == 'tab_calendar' || tabId == 'tab_month') {
             slctType = "1";
             me = 1;
+        }else if(tabId == 'tab_list') {
+            slctType = "2";
+            me = 2;
+
+            $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
+            _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
         }
         setTimeDate(dateTime);
         radioChange();
@@ -156,20 +201,21 @@
     });
 
     var me = 1;
-    function radioChange(){
+    function radioChange(tmp){
         if(me == 0){
             $("#oneDayDatePicker").show();
             $("#monthDatepicker").hide();
             $("#yearDatepicker").hide();
+            $("#rangeDatepicker").hide();
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
         }else{
             if(me == 1){
-                console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 // 일별 -----------------------------------
                 $("#oneDayDatePicker").hide();
                 $("#monthDatepicker").show();
                 $("#yearDatepicker").hide();
+                $("#rangeDatepicker").hide();
 
                 var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
                 $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
@@ -185,12 +231,11 @@
                 // 월별 ----------------------------------
                 $("#oneDayDatePicker").hide();
                 $("#monthDatepicker").hide();
-                $("#yearDatepicker").show();
+                $("#yearDatepicker").hide();
+                $("#rangeDatepicker").show();
 
-                var yearDate = new Date();
-                $("#startDate").val(yearDate.getFullYear() + '.01.01');
-                $("#endDate").val(yearDate.getFullYear() + ".12.31");
-                $("#yearDate").val(yearDate.getFullYear());
+                _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+                setStartDay();
             }
         }
     }
@@ -205,59 +250,164 @@
 
         if(slctType == 0){
             setTimeDate(targetDate);
+            $("#bt_search").click();
         }else if(slctType == 1){
             $("#startDate").val(moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD'));
             var monthLastDate = new Date($("#startDate").val().substr(0,4),$("#startDate").val().substr(5,7),-1);
             $("#endDate").val($("#startDate").val().substr(0,8) +(monthLastDate.getDate() + 1));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+        // }else if(slctType == 2){
+        //     $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
+        //     $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
+        //     setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+            $("#bt_search").click();
         }else if(slctType == 2){
-            $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
-            $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
-            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+            $("#startDate").val(moment($("#startDate").val()).add("days", addDate).format('YYYY.MM.DD'));
+            $("#endDate").val(moment($("#endDate").val()).add("days", addDate).format('YYYY.MM.DD'));
+
+            $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+            getUserInfo();
         }
-        $("#bt_search").click();
     }
 
-    function dataSet(isPrev){
-        var startDate;
-        var endDate;
+    $(document).on('change', 'input[name="searchFormRadio"]', function(){
+        radioChange();
+    });
 
-        if(!common.isEmpty(isPrev)){
-            var addDate = isPrev ? -1 : 1;
-            startDate = moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD');
-            var monthLastDate = new Date(startDate.substr(0,4),startDate.substr(5,7),-1);
-            endDate = startDate.substr(0,8) +(monthLastDate.getDate() + 1);
-        }else{
-            startDate = $("#startDate").val();
-            endDate = $("#endDate").val();
+    function setStartDay(){
+        var date = new Date();
+        $("#endDate").val(dateTime);
 
+        if(_searchFormRadio == 1) {     // 일주일 전
+            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
+            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            $("#startDate").val(sDate);
+        }else if(_searchFormRadio == 0) {       // 한달전
+            $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
+        }else if(_searchFormRadio == 2) {       // 날짜선택
+            $("#startDate").val(dateTime);
         }
+        console.log("-----------------------------3");
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
+        getUserInfo();
+    }
+
+    function setSummary(response){
+
+        console.log("-------------- setSummary -----------------");
+        console.log(response);
+
+
+        response.totalInfo.sum_total_join_cnt = response.totalInfo.sum_pc_total_join_cnt + response.totalInfo.sum_aos_total_join_cnt + response.totalInfo.sum_ios_total_join_cnt;
+        response.totalInfo2.sum_total_join_cnt = response.totalInfo2.sum_pc_total_join_cnt + response.totalInfo2.sum_aos_total_join_cnt + response.totalInfo2.sum_ios_total_join_cnt;
+
+        response.totalInfo.sum_inc_total_cnt = response.totalInfo.sum_total_join_cnt - response.totalInfo2.sum_total_join_cnt;
+
+        var template = $('#tmp_summary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.totalInfo;
+        var html=templateScript(context);
+        $("#summary").html(html);
+
+        ui.tableHeightSet();
+        ui.paintColor();
+    }
+
+    function joinListSummary(json){
+        var template = $("#joinList_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
         var data = {
-            slctType : slctType,
-            startDate : startDate,
-            endDate : endDate
-        };
-
-        return data;
-    }
-
-    console.log(tabType);
-
-    if(!common.isEmpty(tabType)){
-        if(tabType == 0){
-            $('.nav-tabs li:eq(0) a').tab('show');
-        }else if(tabType == 1){
-            $('.nav-tabs li:eq(1) a').tab('show');
-        }else if(tabType == 2){
-            $('.nav-tabs li:eq(2) a').tab('show');
-        }else if(tabType == 3){
-            $('.nav-tabs li:eq(3) a').tab('show');
-        }else if(tabType == 4){
-            $('.nav-tabs li:eq(4) a').tab('show');
+            content : json.summary
+            , length : json.recordsTotal
         }
-        $("#bt_search").click();
-    }else{
-        getCalendar();
+        var html = templateScript(data);
+        $("#joinList_summaryArea").html(html);
+
+        ui.tableHeightSet();
+        ui.paintColor();
     }
+</script>
+
+
+
+<script type="text/x-handlebars-template" id="tmp_summary">
+    <table class="table table-bordered _tableHeight no-margin" data-height="23px">
+        <colgroup>
+            <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+            <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+        </colgroup>
+        <tr>
+            <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#b4c7e7">SNS 별</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">전화</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">카카오</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">네이버</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">페이스북</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">애플</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">구글</th>
+            <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
+        </tr>
+        <tr>
+            <td>{{sum_phone_join_cnt}}({{average sum_phone_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_kakao_join_cnt}}({{average sum_kakao_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_naver_join_cnt}}({{average sum_naver_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_fbook_join_cnt}}({{average sum_fbook_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_apple_join_cnt}}({{average sum_apple_join_cnt sum_total_join_cnt}}%)</td>
+            <td>{{sum_google_join_cnt}}({{average sum_google_join_cnt sum_total_join_cnt}}%)</td>
+        </tr>
+        <tr>
+            <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#f8cbad">플랫폼 별</th>
+            <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
+            <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
+            <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">PC</th>
+        </tr>
+        <tr>
+            <td colspan="2">{{sum_aos_total_join_cnt}}({{average  sum_aos_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{sum_ios_total_join_cnt}}({{average  sum_ios_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td colspan="2">{{sum_pc_total_join_cnt}}({{average sum_pc_total_join_cnt sum_total_join_cnt}}%)</td>
+            <td class="{{upAndDownClass sum_inc_total_cnt}}"><span style="color: #555555">{{sum_total_join_cnt}}</span> (<i class="fa {{upAndDownIcon sum_inc_total_cnt}}"></i> <span>{{addComma sum_inc_total_cnt}}</span>)</td>
+        </tr>
+    </table>
+</script>
+
+
+
+<script id="joinList_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered _tableHeight no-margin" data-height="23px">
+        <colgroup>
+            <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+            <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+        </colgroup>
+        <tr>
+            <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#b4c7e7">SNS 별</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">전화</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">카카오</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">네이버</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">페이스북</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">애플</th>
+            <th class="_bgColor" data-bgColor="#dae3f3">구글</th>
+            <th rowspan="3" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 가입 수</th>
+        </tr>
+        <tr>
+            <td>{{content.slctPhonCnt}}({{average content.slctPhonCnt content.allCnt}}%)</td>
+            <td>{{content.slctFaceCnt}}({{average content.slctFaceCnt content.allCnt}}%)</td>
+            <td>{{content.slctGoogleCnt}}({{average content.slctGoogleCnt content.allCnt}}%)</td>
+            <td>{{content.slctKakaoCnt}}({{average content.slctKakaoCnt content.allCnt}}%)</td>
+            <td>{{content.slctNaverCnt}}({{average content.slctNaverCnt content.allCnt}}%)</td>
+            <td>{{content.slctAppleCnt}}({{average content.slctAppleCnt content.allCnt}}%)</td>
+        </tr>
+        <tr>
+            <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#f8cbad">플랫폼 별</th>
+            <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
+            <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
+            <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">PC</th>
+        </tr>
+        <tr>
+            <td colspan="2">{{content.aosCnt}}({{average content.aosCnt content.allCnt}}%)</td>
+            <td colspan="2">{{content.iosCnt}}({{average content.iosCnt content.allCnt}}%)</td>
+            <td colspan="2">{{content.pcCnt}}({{average content.pcCnt content.allCnt}}%)</td>
+            <td>{{content.allCnt}}</td>
+        </tr>
+    </table>
 </script>
