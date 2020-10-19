@@ -30,6 +30,7 @@
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
                 <th rowspan="2" class="_stateTopTh"></th>
                 <th colspan="2" class="_stateSubTh">총계</th>
+                <th colspan="2" class="_stateSubTh">10대미만</th>
                 <th colspan="2" class="_stateSubTh">10대</th>
                 <th colspan="2" class="_stateSubTh">20대</th>
                 <th colspan="2" class="_stateSubTh">30대</th>
@@ -40,6 +41,8 @@
             <tr>
                 <th class="_stateSubTh">건(비율)</th>
                 <th class="_stateSubTh">금액(비율)</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>

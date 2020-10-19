@@ -13,6 +13,7 @@
     <tr>
         <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
         <th style="background-color: #ebccd1; color:red;">◈ 연령대 별</th>
+        <th>10대미만</th>
         <th>10대</th>
         <th>20~24세</th>
         <th>25~29세</th>
@@ -62,6 +63,7 @@
     <tr>
         <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
         <th>{{{sexIcon 'm'}}}</th>
+        <td style="color: blue">{{addComma age00_male_cnt}}</td>
         <td style="color: blue">{{addComma age10_male_cnt}}</td>
         <td style="color: blue">{{addComma age2024_male_cnt}}</td>
         <td style="color: blue">{{addComma age2529_male_cnt}}</td>
@@ -73,6 +75,7 @@
     <tr>
         <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
         <th>{{{sexIcon 'f'}}}</th>
+        <td style="color: red">{{addComma age00_female_cnt}}</td>
         <td style="color: red">{{addComma age10_female_cnt}}</td>
         <td style="color: red">{{addComma age2024_female_cnt}}</td>
         <td style="color: red">{{addComma age2529_female_cnt}}</td>
@@ -84,6 +87,7 @@
     <tr>
         <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
         <th>알수없음</th>
+        <td>{{addComma age00_none_cnt}}</td>
         <td>{{addComma age10_none_cnt}}</td>
         <td>{{addComma age2024_none_cnt}}</td>
         <td>{{addComma age2529_none_cnt}}</td>
@@ -95,6 +99,7 @@
     <tr>
         <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
         <th>합계</th>
+        <td>{{addComma age00_total_cnt}}</td>
         <td>{{addComma age10_total_cnt}}</td>
         <td>{{addComma age2024_total_cnt}}</td>
         <td>{{addComma age2529_total_cnt}}</td>

@@ -10,6 +10,7 @@ import lombok.ToString;
 public class P_LoginAgeOutVo {
 
     private int sum_totalCnt;
+    private int sum_age00Cnt;
     private int sum_age10Cnt;
     private int sum_age20Cnt;
     private int sum_age30Cnt;

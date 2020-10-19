@@ -8,8 +8,8 @@
 
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                <col width="10%"/><col width="10%"/><col width="10%"/>
+                <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
+                <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
             </colgroup>
             <thead>
             <tr style="background-color: #b4c7e7">
@@ -32,8 +32,8 @@
 
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                <col width="10%"/><col width="10%"/><col width="10%"/>
+                <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
+                <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
             </colgroup>
             <thead>
             <tr style="background-color: #b4c7e7">
@@ -94,24 +94,8 @@
 
         top_tmp = response.data[0].detailList.length - 1;
         var slctType_date = [];
-
-
-        var date = "";
         for(var i = top_tmp; 0 < i; i-- ){
             slctType_date.push(i + " 일");
-
-            // date = moment($("#startDate").val()).add('months', 0).format('YYYY.MM') +"."+ common.lpad(i,2,"0");
-            //
-            // toDay =  week[moment(date).add('days', 0).day()];
-            // if (toDay == "토") {
-            //     toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + date.substr(5) + "(" + toDay + ")" + '</span>';
-            // } else if (toDay == "일") {
-            //     toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + date.substr(5) + "(" + toDay + ")" + '</span>';
-            // } else {
-            //     toDay = date.substr(5) + "(" + toDay + ")";
-            // }
-
-            // slctType_date.push(toDay);
         }
         data = { slctType_date : slctType_date };
 
@@ -124,18 +108,7 @@
         bottom_tmp = response.data[1].detailList.length - 1;
         slctType_date = [];
         for(var i = bottom_tmp; 0 < i; i-- ){
-            date = moment($("#startDate").val()).add('months', -1).format('YYYY.MM') +"."+ common.lpad(i,2,"0");
-
-            toDay =  week[moment(date).add('days', 0).day()];
-            if (toDay == "토") {
-                toDay = '<span class="_fontColor" data-fontColor="blue" style="color:blue">' + date.substr(5) + "(" + toDay + ")" + '</span>';
-            } else if (toDay == "일") {
-                toDay = '<span class="_fontColor" data-fontColor="red" style="color:red">' + date.substr(5) + "(" + toDay + ")" + '</span>';
-            } else {
-                toDay = date.substr(5) + "(" + toDay + ")";
-            }
-
-            slctType_date.push(toDay);
+            slctType_date.push(i + " 일");
         }
         data = { slctType_date : slctType_date };
         var template = $('#tmp_dummyAgeNonOver2').html();
@@ -169,7 +142,7 @@
                     totalCnt = common.addComma(detail.totalCnt);
                 }
                 if(detail.age00Cnt != 0){
-                    age00Cnt = common.addComma(detail.age00Cnt);
+                    age10Cnt = common.addComma(detail.age00Cnt);
                 }
                 if(detail.age10Cnt != 0){
                     age10Cnt = common.addComma(detail.age10Cnt);
@@ -192,11 +165,6 @@
                 //상단
                 count = 0;
                 if (index == 0) {
-
-                    console.log("------------------------------ ");
-                    console.log(detail.day);
-                    console.log(++count);
-
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age00Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
@@ -291,7 +259,7 @@
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold"  style="background-color: #dae3f3">{{{this}}}</td>
+        <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
@@ -308,8 +276,8 @@
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">{{{this}}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
