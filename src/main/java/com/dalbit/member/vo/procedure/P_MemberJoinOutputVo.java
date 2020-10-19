@@ -51,6 +51,10 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private int iosCnt;
     private int pcCnt;
 
+    private int maleCnt;
+    private int femaleCnt;
+    private int noneCnt;
+
 
     public void setMem_join_date(Date mem_join_date){
         this.mem_join_date = mem_join_date;
