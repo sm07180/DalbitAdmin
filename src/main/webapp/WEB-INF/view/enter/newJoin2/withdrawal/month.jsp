@@ -20,9 +20,9 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 탈퇴 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">남성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">여성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">알수없음</th>
+                <th class="_bgColor _sex_male" data-bgColor="#dae3f3">남성</th>
+                <th class="_bgColor _sex_female" data-bgColor="#dae3f3">여성</th>
+                <th class="_bgColor _sex_none" data-bgColor="#dae3f3">알수없음</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
@@ -47,9 +47,9 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgColor="#d9d9d9">총 탈퇴 수</th>
             </tr>
             <tr>
-                <th class="_bgColor" data-bgColor="#dae3f3">남성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">여성</th>
-                <th class="_bgColor" data-bgColor="#dae3f3">알수없음</th>
+                <th class="_bgColor _sex_male" data-bgColor="#dae3f3">남성</th>
+                <th class="_bgColor _sex_female" data-bgColor="#dae3f3">여성</th>
+                <th class="_bgColor _sex_none" data-bgColor="#dae3f3">알수없음</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>
