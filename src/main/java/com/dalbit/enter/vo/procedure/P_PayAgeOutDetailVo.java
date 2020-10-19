@@ -21,6 +21,8 @@ public class P_PayAgeOutDetailVo {
     private int femaleAmt;
     private int noneCnt;
     private int noneAmt;
+    private int age00Cnt;
+    private int age00Amt;
     private int age10Cnt;
     private int age10Amt;
     private int age20Cnt;

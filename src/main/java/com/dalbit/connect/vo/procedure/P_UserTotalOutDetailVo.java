@@ -9,6 +9,10 @@ import lombok.ToString;
 @ToString
 public class P_UserTotalOutDetailVo {
 
+    private int age00_total_cnt;
+    private int age00_male_cnt;
+    private int age00_female_cnt;
+    private int age00_none_cnt;
     private int age10_total_cnt;
     private int age10_male_cnt;
     private int age10_female_cnt;

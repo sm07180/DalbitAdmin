@@ -54,8 +54,11 @@
                 and (b.mem_sex = #{genderStr} or c.mem_sex = #{genderStr})
             </if>
             <if test="ageStr != null">
+                <if test="ageStr == '00'">
+                    and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -10 year), '%Y')
+                </if>
                 <if test="ageStr == '10'">
-                    and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -20 year), '%Y')
+                    and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -10 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -20 year), '%Y')
                 </if>
                 <if test="ageStr == '20'">
                     and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -20 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -30 year), '%Y')
