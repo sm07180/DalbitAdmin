@@ -174,6 +174,9 @@
             mode: 'lines',
             name: '<span>탈퇴</span>',
             type: 'bar',
+            text: total_out_cnt.map(String),
+            textposition: 'auto',
+            hoverinfo: 'none',
             marker: {
                 color: '#f8cbad'
             }
