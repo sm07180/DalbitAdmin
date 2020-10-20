@@ -202,7 +202,7 @@
             response.data.totalInfo.sum_code15Cmt,
             response.data.totalInfo.sum_code23Cmt,
         ];
-        
+
         var sum_android_total_amt = [
             response.data.totalInfo.sum_code01Amt,
             response.data.totalInfo.sum_code02Amt,
