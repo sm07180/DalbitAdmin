@@ -16,6 +16,7 @@ public class P_PayTotalOutDetailVo {
     private int hour;
 
     private int succCnt;
+    private int succCmt;
     private int succAmt;
     private int accumAmt;
 
@@ -26,6 +27,7 @@ public class P_PayTotalOutDetailVo {
     private int tryCnt;
     private int succRate;
     private int cancCnt;
+    private int cancCmt;
 
 
     private int inc_succCnt;

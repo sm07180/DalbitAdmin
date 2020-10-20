@@ -95,6 +95,7 @@
             response.data.info.code13_cnt,
             response.data.info.code14_cnt,
             response.data.info.code15_cnt,
+            response.data.info.code23_cnt,
         ];
         var android_total_amt = [
             response.data.info.code01_amt,
@@ -106,9 +107,23 @@
             response.data.info.code13_amt,
             response.data.info.code14_amt,
             response.data.info.code15_amt,
+            response.data.info.code23_amt,
+        ];
+        var android_total_cmt = [
+            response.data.info.code01_cmt,
+            response.data.info.code02_cmt,
+            response.data.info.code03_cmt,
+            response.data.info.code04_cmt,
+            response.data.info.code05_cmt,
+            response.data.info.code06_cmt,
+            response.data.info.code13_cmt,
+            response.data.info.code14_cmt,
+            response.data.info.code15_cmt,
+            response.data.info.code23_cmt,
         ];
         response.data.info["android_total_cnt"] = common.getListSum(android_total_cnt);
         response.data.info["android_total_amt"] = common.getListSum(android_total_amt);
+        response.data.info["android_total_cmt"] = common.getListSum(android_total_cmt);
 
         // IOS 총 계/합
         var ios_total_cnt = [
@@ -141,8 +156,24 @@
             response.data.info.code21_amt,
             response.data.info.code22_amt,
         ];
+        var ios_total_cmt = [
+            response.data.info.code07_cmt,
+            response.data.info.code08_cmt,
+            response.data.info.code09_cmt,
+            response.data.info.code10_cmt,
+            response.data.info.code11_cmt,
+            response.data.info.code12_cmt,
+            response.data.info.code16_cmt,
+            response.data.info.code17_cmt,
+            response.data.info.code18_cmt,
+            response.data.info.code19_cmt,
+            response.data.info.code20_cmt,
+            response.data.info.code21_cmt,
+            response.data.info.code22_cmt,
+        ];
         response.data.info["ios_total_cnt"] = common.getListSum(ios_total_cnt);
         response.data.info["ios_total_amt"] = common.getListSum(ios_total_amt);
+        response.data.info["ios_total_cmt"] = common.getListSum(ios_total_cmt);
 
         var template = $('#tmp_payTableSummary1').html();
         var templateScript = Handlebars.compile(template);
@@ -307,6 +338,22 @@
             <td>{{addComma kakaopay_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
+        <tr>
+            <th>결제수량</th>
+            <td>{{addComma mc_cmt}}</td>
+            <td>{{addComma cn_cmt}}</td>
+            <td>{{addComma va_cmt}}</td>
+            <td>{{addComma inapp_cmt}}</td>
+            <td>{{addComma gm_cmt}}</td>
+            <td>{{addComma hm_cmt}}</td>
+            <%--<td>{{addComma gg_cmt}}</td>--%>
+            <%--<td>{{addComma gc_cmt}}</td>--%>
+            <td>{{addComma tmoney_cmt}}</td>
+            <td>{{addComma cashbee_cmt}}</td>
+            <td>{{addComma payco_cmt}}</td>
+            <td>{{addComma kakaopay_cmt}}</td>
+            <td><b>{{addComma total_cmt}}</b></td>
+        </tr>
         <tr  style="color: #66a449">
             <th>부가세 포함 금액</th>
             <td>{{addComma mc_amt}}</td>
@@ -364,8 +411,8 @@
     <table class="table table-bordered mb0 _tableHeight" data-height="23px">
         <colgroup>
             <col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
-            <col width="0.1%"/><col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/>
-            <col width="7%"/><col width="7%"/><col width="8%"/><col width="8%"/>
+            <col width="0.1%"/><col width="9%"/><col width="6%"/><col width="6%"/><col width="6%"/>
+            <col width="6%"/><col width="6%"/><col width="6%"/><col width="6%"/><col width="8%"/>
         </colgroup>
         <thead>
         <tr>
@@ -407,6 +454,23 @@
             <td onclick="click_popupAge('50')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50_cnt}}</span></a></td>
             <td onclick="click_popupAge('60')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60_cnt}}</span></a></td>
             <td><b>{{addComma total_cnt}}</b></td>
+        </tr>
+        <tr>
+            <th>결제수량</th>
+            <td onclick="click_popupGender('m')"><a href="javascript://"><span class="font-bold" style="color: blue">{{addComma male_cmt}}</span></a></td>
+            <td onclick="click_popupGender('f')"><a href="javascript://"><span class="font-bold" style="color: red"> {{addComma female_cmt}}</span></a></td>
+            <td onclick="click_popupGender('n')"><a href="javascript://"><span class="font-bold _fontColor" data-fontColor="#555">{{addComma none_cmt}}</span></a></td>
+            <td><b>{{addComma total_cmt}}</b></td>
+            <td></td>
+            <th>결제수량</th>
+            <td onclick="click_popupAge('00')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00_cmt}}</span></a></td>
+            <td onclick="click_popupAge('10')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10_cmt}}</span></a></td>
+            <td onclick="click_popupAge('20')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20_cmt}}</span></a></td>
+            <td onclick="click_popupAge('30')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30_cmt}}</span></a></td>
+            <td onclick="click_popupAge('40')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age40_cmt}}</span></a></td>
+            <td onclick="click_popupAge('50')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50_cmt}}</span></a></td>
+            <td onclick="click_popupAge('60')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60_cmt}}</span></a></td>
+            <td><b>{{addComma total_cmt}}</b></td>
         </tr>
         <tr style="color: #66a449;">
             <th>부가세 포함 금액</th>
@@ -469,7 +533,7 @@
         <colgroup>
             <col width="14%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
             <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
-            <col width="7%"/>
+            <col width="7%"/><col width="7%"/>
         </colgroup>
         <tbody>
         <tr>
@@ -482,9 +546,10 @@
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0300.png" width="25px" height="25px"> 달 300</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0500.png" width="25px" height="25px"> 달 500</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 달 1,000</th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 달 2,000</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 달 2,000<br/>(판매종료)</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px" height="25px"> 달 3,000</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 달 5,000</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 달 11,000</th>
             <th>총합</th>
         </tr>
         <tr>
@@ -498,7 +563,22 @@
             <td>{{addComma code05_cnt}}</td>
             <td>{{addComma code06_cnt}}</td>
             <td>{{addComma code15_cnt}}</td>
+            <td>{{addComma code23_cnt}}</td>
             <td><b>{{addComma android_total_cnt}}</b></td>
+        </tr>
+        <tr>
+            <th>결제수량</th>
+            <td>{{addComma code13_cmt}}</td>
+            <td>{{addComma code01_cmt}}</td>
+            <td>{{addComma code02_cmt}}</td>
+            <td>{{addComma code14_cmt}}</td>
+            <td>{{addComma code03_cmt}}</td>
+            <td>{{addComma code04_cmt}}</td>
+            <td>{{addComma code05_cmt}}</td>
+            <td>{{addComma code06_cmt}}</td>
+            <td>{{addComma code15_cmt}}</td>
+            <td>{{addComma code23_cmt}}</td>
+            <td><b>{{addComma android_total_cmt}}</b></td>
         </tr>
         <tr  style="color: #66a449;">
             <th>부가세 포함 금액</th>
@@ -511,6 +591,7 @@
             <td>{{addComma code05_amt}}</td>
             <td>{{addComma code06_amt}}</td>
             <td>{{addComma code15_amt}}</td>
+            <td>{{addComma code23_amt}}</td>
             <td><b>{{addComma android_total_amt}}</b></td>
         </tr>
         <tr style="color: #ff5600;">
@@ -524,6 +605,7 @@
             <td>{{vatMinus code05_amt}}</td>
             <td>{{vatMinus code06_amt}}</td>
             <td>{{vatMinus code15_amt}}</td>
+            <td>{{vatMinus code23_amt}}</td>
             <td><b>{{vatMinus android_total_amt}}</b></td>
         </tr>
         <tr>
@@ -537,6 +619,7 @@
             <td>({{payRate code05_cnt android_total_cnt}}%)<br><b>{{payRate code05_amt android_total_amt}}%</b></td>
             <td>({{payRate code06_cnt android_total_cnt}}%)<br><b>{{payRate code06_amt android_total_amt}}%</b></td>
             <td>({{payRate code15_cnt android_total_cnt}}%)<br><b>{{payRate code15_amt android_total_amt}}%</b></td>
+            <td>({{payRate code23_cnt android_total_cnt}}%)<br><b>{{payRate code23_amt android_total_amt}}%</b></td>
             <td>({{payRate android_total_cnt android_total_cnt}}%)<br><b>{{payRate android_total_amt android_total_amt}}%</b></td>
         </tr>
         </tbody>
@@ -609,6 +692,23 @@
             <td>{{addComma code21_cnt}}</td>
             <td>{{addComma code22_cnt}}</td>
             <td><b>{{addComma ios_total_cnt}}</b></td>
+        </tr>
+        <tr>
+            <th>결제 수량</th>
+            <td>{{addComma code16_cmt}}</td>
+            <td>{{addComma code07_cmt}}</td>
+            <td>{{addComma code17_cmt}}</td>
+            <td>{{addComma code18_cmt}}</td>
+            <td>{{addComma code08_cmt}}</td>
+            <td>{{addComma code09_cmt}}</td>
+            <td>{{addComma code10_cmt}}</td>
+            <td>{{addComma code19_cmt}}</td>
+            <td>{{addComma code11_cmt}}</td>
+            <td>{{addComma code20_cmt}}</td>
+            <td>{{addComma code12_cmt}}</td>
+            <td>{{addComma code21_cmt}}</td>
+            <td>{{addComma code22_cmt}}</td>
+            <td><b>{{addComma ios_total_cmt}}</b></td>
         </tr>
         <tr  style="color: #66a449;">
             <th>부가세 포함 금액</th>

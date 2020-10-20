@@ -10,18 +10,17 @@
         <div class="col-md-12 no-padding">
             <table class="table table-bordered mb0 _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                    <col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                    <col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-                    <col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+                    <col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/>
+                    <col width="12.5%"/>
                 </colgroup>
                 <thead>
                 <tr style="background-color: #b4c7e7">
                     <th rowspan="2"></th>
-                    <th class="_totalDate" colspan="4" id="year_th_0"></th>
+                    <th class="_totalDate" colspan="5" id="year_th_0"></th>
                 </tr>
                 <tr style="background-color: #dae3f3">
                     <th>건수</th>
+                    <th>수량</th>
                     <th>결제</th>
                     <th>누적</th>
                     <th>환불</th>
@@ -34,56 +33,70 @@
             <label class="font-bold" style="color: blue">※결제 수단 별</label>
             <table class="table table-bordered">
                 <colgroup>
-                    <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                    <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                    <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                    <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                    <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                    <col width="3.7%"/><col width="3.7%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
+                    <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
                 </colgroup>
                 <thead>
                 <tr>
                     <th rowspan="2" class="_stateTopTh"></th>
-                    <th colspan="2" class="_stateTopTh">총계</th>
-                    <th colspan="2" class="_stateTopTh">휴대폰<i class="fa fa-tablet"></i></th>
-                    <th colspan="2" class="_stateTopTh">카드<i class="fa fa-credit-card"></i></th>
-                    <th colspan="2" class="_stateTopTh">인앱결제(아이폰)<i class="fa fa-apple"></i></th>
-                    <th colspan="2" class="_stateTopTh">가상계좌아체<i class="fa fa-money"></i></th>
-                    <th colspan="2" class="_stateTopTh">문화상품권<i class="fa fa-barcode"></i></th>
-                    <th colspan="2" class="_stateTopTh">해피머니상품권<i class="fa fa-smile-o"></i></th>
+                    <th colspan="3" class="_stateTopTh">총계</th>
+                    <th colspan="3" class="_stateTopTh">휴대폰<i class="fa fa-tablet"></i></th>
+                    <th colspan="3" class="_stateTopTh">카드<i class="fa fa-credit-card"></i></th>
+                    <th colspan="3" class="_stateTopTh">인앱결제(아이폰)<i class="fa fa-apple"></i></th>
+                    <th colspan="3" class="_stateTopTh">가상계좌아체<i class="fa fa-money"></i></th>
+                    <th colspan="3" class="_stateTopTh">문화상품권<i class="fa fa-barcode"></i></th>
+                    <th colspan="3" class="_stateTopTh">해피머니상품권<i class="fa fa-smile-o"></i></th>
                     <%--<th colspan="2" class="_stateTopTh">스마트문상(게임)<i class="fa fa-gamepad"></i></th>--%>
                     <%--<th colspan="2" class="_stateTopTh">도서문화상품권<i class="fa fa-book"></i></th>--%>
-                    <th colspan="2" class="_stateTopTh">티머니<i class="fa fa-bus"></i></th>
-                    <th colspan="2" class="_stateTopTh">캐시비<i class="fa fa-forumbee"></i></th>
-                    <th colspan="2" class="_stateTopTh">페이코<i class="fa fa-paypal"></i></th>
-                    <th colspan="2" class="_stateTopTh">카카오페이<i class="fa fa-comment"></i></th>
+                    <th colspan="3" class="_stateTopTh">티머니<i class="fa fa-bus"></i></th>
+                    <th colspan="3" class="_stateTopTh">캐시비<i class="fa fa-forumbee"></i></th>
+                    <th colspan="3" class="_stateTopTh">페이코<i class="fa fa-paypal"></i></th>
+                    <th colspan="3" class="_stateTopTh">카카오페이<i class="fa fa-comment"></i></th>
                 </tr>
                 <tr>
                     <th class="_stateSubTh">건(비율)</th>
+                    <th class="_stateSubTh">수량(비율)</th>
                     <th class="_stateSubTh">금액(비율)</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <%--<th class="_stateSubTh">건</th>--%>
+                    <%--<th class="_stateSubTh">수량</th>--%>
                     <%--<th class="_stateSubTh">금액</th>--%>
                     <%--<th class="_stateSubTh">건</th>--%>
+                    <%--<th class="_stateSubTh">수량</th>--%>
                     <%--<th class="_stateSubTh">금액</th>--%>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">수량</th>
                     <th class="_stateSubTh">금액</th>
                 </tr>
                 </thead>
@@ -165,10 +178,13 @@
                 }
 
                 var succCnt = detail.succCnt;
+                var succCmt = detail.succCmt;
                 var succAmt = detail.succAmt;
                 var accumAmt = detail.accumAmt;
                 if(succCnt == 0)
                     succCnt = "null";
+                if(succCmt == 0)
+                    succCmt = "null";
                 if(succAmt == 0)
                     succAmt = "null";
                 if(accumAmt == 0)
@@ -177,12 +193,13 @@
                 //상단
                 if (index == 1) {
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (1) + ")").html(common.addComma(succCnt));
-                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (2) + ")").html(common.vatMinus(succAmt));
-                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3) + ")").html(common.vatMinus(accumAmt));
-                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (4) + ")").html();
+                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (2) + ")").html(common.vatMinus(succCmt));
+                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3) + ")").html(common.vatMinus(succAmt));
+                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (4) + ")").html(common.vatMinus(accumAmt));
+                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (5) + ")").html();
 
                     if(Number(tmp_day.split(".")[1]) == detail.monthly) {
-                        for (var i = 1; i < 4; i++) {
+                        for (var i = 1; i < 6; i++) {
                             $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (i) + ")").css("font-weight", "bold");
                         }
                     }
@@ -193,38 +210,50 @@
         for(var i=0 ; i<response.data.length;i++){
             var totalInfo = response.data[i].totalInfo;
             var sum_succCnt = totalInfo.sum_succCnt;
+            var sum_succCmt = totalInfo.sum_succCmt;
             var sum_succAmt = totalInfo.sum_succAmt;
             var sum_firstCnt = totalInfo.sum_firstCnt;
+            var sum_firstCmt = totalInfo.sum_firstCmt;
             var sum_firstAmt = totalInfo.sum_firstAmt;
             var sum_reCnt = totalInfo.sum_reCnt;
+            var sum_reCmt = totalInfo.sum_reCmt;
             var sum_reAmt = totalInfo.sum_reAmt;
 
             if(sum_succCnt == 0)
                 sum_succCnt = "null";
+            if(sum_succCmt == 0)
+                sum_succCmt = "null";
             if(sum_succAmt == 0)
                 sum_succAmt = "null";
             if(sum_firstCnt == 0)
                 sum_firstCnt = "null";
+            if(sum_firstCmt == 0)
+                sum_firstCmt = "null";
             if(sum_firstAmt == 0)
                 sum_firstAmt = "null";
             if(sum_reCnt == 0)
                 sum_reCnt = "null";
+            if(sum_reCmt == 0)
+                sum_reCmt = "null";
             if(sum_reAmt == 0)
                 sum_reAmt = "null";
 
             if(i == 1){
                 //총합
                 $("#yearTableBody tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
-                $("#yearTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.vatMinus(sum_succAmt));
-                $("#yearTableBody tr:eq(0) td:eq(" + (3) + ")").html();
+                $("#yearTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.vatMinus(sum_succCmt));
+                $("#yearTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.vatMinus(sum_succAmt));
+                $("#yearTableBody tr:eq(0) td:eq(" + (4) + ")").html();
                 //첫구매
                 $("#yearTableBody tr:eq(1) td:eq(" + (1) + ")").html(common.addComma(sum_firstCnt));
-                $("#yearTableBody tr:eq(1) td:eq(" + (2) + ")").html(common.vatMinus(sum_firstAmt));
-                $("#yearTableBody tr:eq(1) td:eq(" + (3) + ")").html();
+                $("#yearTableBody tr:eq(1) td:eq(" + (2) + ")").html(common.vatMinus(sum_firstCmt));
+                $("#yearTableBody tr:eq(1) td:eq(" + (3) + ")").html(common.vatMinus(sum_firstAmt));
+                $("#yearTableBody tr:eq(1) td:eq(" + (4) + ")").html();
                 //재구매
                 $("#yearTableBody tr:eq(2) td:eq(" + (1) + ")").html(common.addComma(sum_reCnt));
-                $("#yearTableBody tr:eq(2) td:eq(" + (2) + ")").html(common.vatMinus(sum_reAmt));
-                $("#yearTableBody tr:eq(2) td:eq(" + (3) + ")").html();
+                $("#yearTableBody tr:eq(2) td:eq(" + (2) + ")").html(common.vatMinus(sum_reCmt));
+                $("#yearTableBody tr:eq(2) td:eq(" + (3) + ")").html(common.vatMinus(sum_reAmt));
+                $("#yearTableBody tr:eq(2) td:eq(" + (4) + ")").html();
             }
         }
         ui.tableHeightSet();
@@ -248,6 +277,7 @@
         }
         for(var i=0;i<response.data.detailList.length;i++){
             response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
+            response.data.detailList[i]["sum_totalCmt"] = response.data.totalInfo.sum_totalCmt;
             response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
         }
         var isDataEmpty = response.data.detailList == null;
@@ -332,21 +362,21 @@
 <script type="text/x-handlebars-template" id="tmp_yearTableBody">
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;">
         <td style="background-color: #dae3f3">총합</td>
-        <td></td><td colspan="2"></td><td></td>
+        <td></td><td></td><td colspan="2"></td><td></td>
     </tr>
     <tr class="_tr_{{this}}" style="background-color: #f2f2f2">
         <td class="font-bold">첫구매</td>
-        <td></td><td colspan="2"></td><td></td>
+        <td></td><td></td><td colspan="2"></td><td></td>
     </tr>
     <tr class="_tr_{{this}}" style="background-color: #f2f2f2">
         <td class="font-bold">재구매</td>
-        <td></td><td colspan="2"></td><td></td>
+        <td></td><td></td><td colspan="2"></td><td></td>
     </tr>
 
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
 </script>
@@ -356,18 +386,25 @@
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
         <td style="font-weight:bold;color: #ff5600;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</td>
+        <td style="font-weight:bold;color: #ff5600;"><b>{{sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
         <td style="font-weight:bold;color: #ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_mcCnt}}</td>
+        <td>{{vatMinus sum_mcCmt}}</td>
         <td>{{vatMinus sum_mcAmt}}</td>
         <td>{{addComma sum_cnCnt}}</td>
+        <td>{{vatMinus sum_cnCmt}}</td>
         <td>{{vatMinus sum_cnAmt}}</td>
         <td>{{addComma sum_inappCnt}}</td>
+        <td>{{vatMinus sum_inappCmt}}</td>
         <td>{{vatMinus sum_inappAmt}}</td>
         <td>{{addComma sum_vaCnt}}</td>
+        <td>{{vatMinus sum_vaCmt}}</td>
         <td>{{vatMinus sum_vaAmt}}</td>
         <td>{{addComma sum_gmCnt}}</td>
+        <td>{{vatMinus sum_gmCmt}}</td>
         <td>{{vatMinus sum_gmAmt}}</td>
         <td>{{addComma sum_hmCnt}}</td>
+        <td>{{vatMinus sum_hmCmt}}</td>
         <td>{{vatMinus sum_hmAmt}}</td>
         <%--<td>{{vatMinus sum_ggCnt}}</td>--%>
         <%--<td>{{vatMinus sum_ggAmt}}</td>--%>
@@ -375,12 +412,16 @@
         <%--<td>{{vatMinus sum_gcAmt}}</td>--%>
 
         <td>{{vatMinus sum_tmoneyCnt}}</td>
+        <td>{{vatMinus sum_tmoneyCmt}}</td>
         <td>{{vatMinus sum_tmoneyAmt}}</td>
         <td>{{vatMinus sum_cashbeeCnt}}</td>
+        <td>{{vatMinus sum_cashbeeCmt}}</td>
         <td>{{vatMinus sum_cashbeeAmt}}</td>
         <td>{{vatMinus sum_paycoCnt}}</td>
+        <td>{{vatMinus sum_paycoCmt}}</td>
         <td>{{vatMinus sum_paycoAmt}}</td>
         <td>{{vatMinus sum_kakaopayCnt}}</td>
+        <td>{{vatMinus sum_kakaopayCmt}}</td>
         <td>{{vatMinus sum_kakaopayAmt}}</td>
     </tr>
 </script>
@@ -392,31 +433,44 @@
             {{data.monthly}}월
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
+        <td>{{addComma totalCmt}}<br/>({{average totalCmt sum_totalCmt}}%)</td>
         <td style="font-weight:bold">{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</td>
         <td>{{addComma mcCnt}}</td>
+        <td>{{vatMinus mcCmt}}</td>
         <td>{{vatMinus mcAmt}}</td>
         <td>{{addComma cnCnt}}</td>
+        <td>{{vatMinus cnCmt}}</td>
         <td>{{vatMinus cnAmt}}</td>
         <td>{{addComma inappCnt}}</td>
+        <td>{{vatMinus inappCmt}}</td>
         <td>{{vatMinus inappAmt}}</td>
         <td>{{addComma vaCnt}}</td>
+        <td>{{vatMinus vaCmt}}</td>
         <td>{{vatMinus vaAmt}}</td>
         <td>{{addComma gmCnt}}</td>
+        <td>{{vatMinus gmCmt}}</td>
         <td>{{vatMinus gmAmt}}</td>
         <td>{{addComma hmCnt}}</td>
+        <td>{{vatMinus hmCmt}}</td>
         <td>{{vatMinus hmAmt}}</td>
         <%--<td>{{vatMinus ggCnt}}</td>--%>
+        <%--<td>{{vatMinus ggCmt}}</td>--%>
         <%--<td>{{vatMinus ggAmt}}</td>--%>
         <%--<td>{{vatMinus gcCnt}}</td>--%>
+        <%--<td>{{vatMinus gcCmt}}</td>--%>
         <%--<td>{{vatMinus gcAmt}}</td>--%>
 
         <td>{{vatMinus tmoneyCnt}}</td>
+        <td>{{vatMinus tmoneyCmt}}</td>
         <td>{{vatMinus tmoneyAmt}}</td>
         <td>{{vatMinus cashbeeCnt}}</td>
+        <td>{{vatMinus cashbeeCmt}}</td>
         <td>{{vatMinus cashbeeAmt}}</td>
         <td>{{vatMinus paycoCnt}}</td>
+        <td>{{vatMinus paycoCmt}}</td>
         <td>{{vatMinus paycoAmt}}</td>
         <td>{{vatMinus kakaopayCnt}}</td>
+        <td>{{vatMinus kakaopayCmt}}</td>
         <td>{{vatMinus kakaopayAmt}}</td>
 
     </tr>

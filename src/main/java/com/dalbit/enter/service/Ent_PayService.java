@@ -127,6 +127,7 @@ public class Ent_PayService {
                         outVo.setMonthly(j);
                         outVo.setSuccCnt(0);
                         outVo.setSuccAmt(0);
+                        outVo.setSuccCmt(0);
                         outVo.setAccumAmt(0);
 
                         detailList.add(outVo);
@@ -148,6 +149,7 @@ public class Ent_PayService {
                     sum[j].setHour(j);
                     sum[j].setDay(j);
                     sum[j].setSuccCnt(sum[j].getSuccCnt() + detailList.get(j).getSuccCnt());
+                    sum[j].setSuccCmt(sum[j].getSuccCmt() + detailList.get(j).getSuccCmt());
                     sum[j].setSuccAmt(sum[j].getSuccAmt() + detailList.get(j).getSuccAmt());
                     sum[j].setAccumAmt(sum[j].getAccumAmt() + detailList.get(j).getAccumAmt());
                 }else if(pPayTotalInPutVo.getSlctType() == 1) {
@@ -171,6 +173,7 @@ public class Ent_PayService {
                     }
                     if(zeroSw) {
                         sum[tmp_k].setSuccCnt(sum[tmp_k].getSuccCnt() + detailList.get(j).getSuccCnt());
+                        sum[tmp_k].setSuccCmt(sum[tmp_k].getSuccCmt() + detailList.get(j).getSuccCmt());
                         sum[tmp_k].setSuccAmt(sum[tmp_k].getSuccAmt() + detailList.get(j).getSuccAmt());
                         sum[tmp_k].setAccumAmt(sum[tmp_k].getAccumAmt() + detailList.get(j).getAccumAmt());
                     }
@@ -193,6 +196,7 @@ public class Ent_PayService {
                         sum[tmp_k].setDay(tmp_k);
                         sum[tmp_k].setMonthly(tmp_k);
                         sum[tmp_k].setSuccCnt(sum[tmp_k].getSuccCnt() + detailList.get(j).getSuccCnt());
+                        sum[tmp_k].setSuccCmt(sum[tmp_k].getSuccCmt() + detailList.get(j).getSuccCmt());
                         sum[tmp_k].setSuccAmt(sum[tmp_k].getSuccAmt() + detailList.get(j).getSuccAmt());
                         sum[tmp_k].setAccumAmt(sum[tmp_k].getAccumAmt() + detailList.get(j).getAccumAmt());
                     }else{
@@ -200,6 +204,7 @@ public class Ent_PayService {
                         sum[j].setDay(j);
                         sum[j].setMonthly(j);
                         sum[j].setSuccCnt(0);
+                        sum[j].setSuccCmt(0);
                         sum[j].setSuccAmt(0);
                         sum[j].setAccumAmt(0);
                     }
@@ -207,10 +212,13 @@ public class Ent_PayService {
             }
 
             sum_Total.setSum_succCnt(sum_Total.getSum_succCnt() + totalInfo.getSum_succCnt());
+            sum_Total.setSum_succCmt(sum_Total.getSum_succCmt() + totalInfo.getSum_succCmt());
             sum_Total.setSum_succAmt(sum_Total.getSum_succAmt() + totalInfo.getSum_succAmt());
             sum_Total.setSum_firstCnt(sum_Total.getSum_firstCnt() + totalInfo.getSum_firstCnt());
+            sum_Total.setSum_firstCmt(sum_Total.getSum_firstCmt() + totalInfo.getSum_firstCmt());
             sum_Total.setSum_firstAmt(sum_Total.getSum_firstAmt() + totalInfo.getSum_firstAmt());
             sum_Total.setSum_reCnt(sum_Total.getSum_reCnt() + totalInfo.getSum_reCnt());
+            sum_Total.setSum_reCmt(sum_Total.getSum_reCmt() + totalInfo.getSum_reCmt());
             sum_Total.setSum_reAmt(sum_Total.getSum_reAmt() + totalInfo.getSum_reAmt());
         }
         var result = new HashMap<String, Object>();

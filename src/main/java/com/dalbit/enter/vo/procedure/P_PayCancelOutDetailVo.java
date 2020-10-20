@@ -14,8 +14,11 @@ public class P_PayCancelOutDetailVo {
     private String hour;
     private int totalCnt;
     private int totalAmt;
+    private int totalCmt;
     private int maleCnt;
     private int maleAmt;
+    private int maleCmt;
     private int femaleCnt;
     private int femaleAmt;
+    private int femaleCmt;
 }

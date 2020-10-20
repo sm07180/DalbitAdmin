@@ -9,65 +9,75 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="0.5%"/>
-                <col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/>
-                <col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/>
-                <col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/>
-                <col width="3.5%"/><col width="3.5%"/>
-                <%----%>
-                <%--<col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>--%>
-                <%--<col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>--%>
-                <%--<col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>--%>
-                <%--<col width="4%"/><col width="4%"/>--%>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="0.1%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
             </colgroup>
             <thead>
             <tr>
-                <th colspan="9" class="_stateTopTh">성별</th>
+                <th colspan="13" class="_stateTopTh">성별</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="17" class="_stateTopTh">연령대별</th>
+                <th colspan="25" class="_stateTopTh">연령대별</th>
             </tr>
             <tr>
                 <th rowspan="2" class="_stateTopTh"></th>
-                <th colspan="2" class="_stateSubTh">총계</th>
-                <th colspan="2" class="_stateSubTh _sex_male"></th>
-                <th colspan="2" class="_stateSubTh _sex_female"></th>
-                <th colspan="2" class="_stateSubTh _sex_none"></th>
+                <th colspan="3" class="_stateSubTh">총계</th>
+                <th colspan="3" class="_stateSubTh _sex_male"></th>
+                <th colspan="3" class="_stateSubTh _sex_female"></th>
+                <th colspan="3" class="_stateSubTh _sex_none"></th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
                 <th rowspan="2" class="_stateTopTh"></th>
-                <th colspan="2" class="_stateSubTh">총계</th>
-                <th colspan="2" class="_stateSubTh">10대미만</th>
-                <th colspan="2" class="_stateSubTh">10대</th>
-                <th colspan="2" class="_stateSubTh">20대</th>
-                <th colspan="2" class="_stateSubTh">30대</th>
-                <th colspan="2" class="_stateSubTh">40대</th>
-                <th colspan="2" class="_stateSubTh">50대</th>
-                <th colspan="2" class="_stateSubTh">60대이상</th>
+                <th colspan="3" class="_stateSubTh">총계</th>
+                <th colspan="3" class="_stateSubTh">10대미만</th>
+                <th colspan="3" class="_stateSubTh">10대</th>
+                <th colspan="3" class="_stateSubTh">20대</th>
+                <th colspan="3" class="_stateSubTh">30대</th>
+                <th colspan="3" class="_stateSubTh">40대</th>
+                <th colspan="3" class="_stateSubTh">50대</th>
+                <th colspan="3" class="_stateSubTh">60대이상</th>
             </tr>
             <tr>
-                <th class="_stateSubTh">건(비율)</th>
-                <th class="_stateSubTh">금액(비율)</th>
+                <th class="_stateSubTh">건<br/>(비율)</th>
+                <th class="_stateSubTh">수량<br/>(비율)</th>
+                <th class="_stateSubTh">금액<br/>(비율)</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">건(비율)</th>
-                <th class="_stateSubTh">금액(비율)</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건<br/>(비율)</th>
+                <th class="_stateSubTh">수량<br/>(비율)</th>
+                <th class="_stateSubTh">금액<br/>(비율)</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
                 <th class="_stateSubTh">금액</th>
             </tr>
             </thead>
@@ -149,30 +159,42 @@
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
         <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{addComma sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
         <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td style="color: blue;">{{addComma sum_maleCnt}}</td>
+        <td style="color: blue;">{{vatMinus sum_maleCmt}}</td>
         <td style="color: blue;">{{vatMinus sum_maleAmt}}</td>
         <td style="color: red;">{{addComma sum_femaleCnt}}</td>
+        <td style="color: red;">{{vatMinus sum_femaleCmt}}</td>
         <td style="color: red;">{{vatMinus sum_femaleAmt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
+        <td>{{vatMinus sum_noneCmt}}</td>
         <td>{{vatMinus sum_noneAmt}}</td>
         <td style="background-color: white;border-bottom: hidden;"></td>
         <td>소계</td>
         <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{vatMinus sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
         <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_age00Cnt}}</td>
+        <td>{{vatMinus sum_age00Cmt}}</td>
         <td>{{vatMinus sum_age00Amt}}</td>
         <td>{{addComma sum_age10Cnt}}</td>
+        <td>{{vatMinus sum_age10Cmt}}</td>
         <td>{{vatMinus sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
+        <td>{{vatMinus sum_age20Cmt}}</td>
         <td>{{vatMinus sum_age20Amt}}</td>
         <td>{{addComma sum_age30Cnt}}</td>
+        <td>{{vatMinus sum_age30Cmt}}</td>
         <td>{{vatMinus sum_age30Amt}}</td>
         <td>{{addComma sum_age40Cnt}}</td>
+        <td>{{vatMinus sum_age40Cmt}}</td>
         <td>{{vatMinus sum_age40Amt}}</td>
         <td>{{addComma sum_age50Cnt}}</td>
+        <td>{{vatMinus sum_age50Cmt}}</td>
         <td>{{vatMinus sum_age50Amt}}</td>
         <td>{{addComma sum_age60Cnt}}</td>
+        <td>{{vatMinus sum_age60Cmt}}</td>
         <td>{{vatMinus sum_age60Amt}}</td>
     </tr>
 </script>
@@ -188,18 +210,22 @@
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}">
             <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a>
         </td>
+        <td><b>{{totalCmt}}<br/>({{average totalCmt sum_totalCmt}}%)</b></td>
         <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-gender="m" style="color: blue;">
             <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma maleCnt}}</span></a>
         </td>
+        <td style="color: blue;">{{maleCmt}}</td>
         <td style="color: blue;">{{vatMinus maleAmt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-gender="f" style="color: red;">
             <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma femaleCnt}}</span></a>
         </td>
+        <td style="color: red;">{{femaleCmt}}</td>
         <td style="color: red;">{{vatMinus femaleAmt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-gender="n" >
             <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma noneCnt}}</span></a>
         </td>
+        <td>{{noneCmt}}</td>
         <td>{{vatMinus noneAmt}}</td>
         <td style="border-bottom: hidden;"></td>
         <td class="font-bold _stateSubTh">
@@ -208,20 +234,28 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a></td>
+        <td><b>{{totalCmt}}<br/>({{average totalCmt sum_totalCmt}}%)</b></td>
         <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="00"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00Cnt}}</span></a></td>
+        <td>{{age00Cmt}}</td>
         <td>{{vatMinus age00Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="10"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10Cnt}}</span></a></td>
+        <td>{{age10Cmt}}</td>
         <td>{{vatMinus age10Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="20"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20Cnt}}</span></a></td>
+        <td>{{age20Cmt}}</td>
         <td>{{vatMinus age20Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="30"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30Cnt}}</span></a></td>
+        <td >{{age30Cmt}}</td>
         <td >{{vatMinus age30Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="40"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age40Cnt}}</span></a></td>
+        <td>{{age40Cmt}}</td>
         <td>{{vatMinus age40Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="50"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50Cnt}}</span></a></td>
+        <td>{{age50Cmt}}</td>
         <td>{{vatMinus age50Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="60"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60Cnt}}</span></a></td>
+        <td>{{age60Cmt}}</td>
         <td>{{vatMinus age60Amt}}</td>
     </tr>
     {{else}}
