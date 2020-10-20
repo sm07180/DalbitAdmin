@@ -17,7 +17,8 @@ public class Pay_PayOutputVo extends PagingVo {
     private String pay_ok_date;     // 결제완료일자
     private String pay_ok_time;     // 결제완료시간
     private String pay_slct;        // 결제구분
-    private int pay_amt;         // 결제금액
+    private int pay_amt;            // 결제금액
+    private int item_amt;           // 결제수량
     private String pay_code;        // 결제아이템정보
     private int count;              // 구매 횟수
     private int amount;             // 총 구매 금액

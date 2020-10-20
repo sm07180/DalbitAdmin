@@ -28,7 +28,7 @@
     </select>
 
     <update id="callServiceCenterQnaUpdate" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-        update rd_data.tb_service_center_qna_v25 set answer=#{answer},op_date=now(),op_name=#{opName} where idx = #{qnaIdx}
+        update rd_data.tb_service_center_qna_v25 set answer=#{answer},op_date=now(),op_name=#{opName},slct_type = #{slct_type} where idx = #{qnaIdx}
     </update>
 
     <select id="getFaqGroupList" resultType="com.dalbit.customer.vo.FaqVo">

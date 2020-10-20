@@ -48,6 +48,7 @@ var payDataTableSource = {
                     return common.addComma(data) + '원';
                 }}*/
             , {'title': '결제<br />아이템', 'data': 'pay_code', 'width':'60px'}
+            , {'title': '결제<br />수량', 'data': 'item_amt', 'width':'60px'}
             , {'title': '금액', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt) + '원' : row.pay_amt;
                     return tmp;
@@ -148,6 +149,7 @@ var payDataTableSource = {
                     return row.pay_yn == 'y' ? row.pay_ok_date + '<br/>' + row.pay_ok_time : '-';
                 }}
             , {'title': '결제<br />아이템', 'data': 'pay_code', 'width':'60px'}
+            , {'title': '결제<br />수량', 'data': 'item_amt', 'width':'60px'}
             , {'title': '금액', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt) + '원' : row.pay_amt;
                     return tmp;
@@ -254,6 +256,7 @@ var payDataTableSource = {
                     return common.addComma(data) + '원';
                 }}
             , {'title': '결제<br />아이템', 'data': 'pay_code', 'width':'60px'}
+            , {'title': '결제<br />수량', 'data': 'item_amt', 'width':'60px'}
             , {'title': '금액', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt) + '원' : row.pay_amt;
                     return tmp;
@@ -331,6 +334,7 @@ var payDataTableSource = {
                     return common.addComma(data) + '원';
                 }}
             , {'title': '결제<br />아이템', 'data': 'pay_code', 'width':'60px'}
+            , {'title': '결제<br />수량', 'data': 'item_amt', 'width':'60px'}
             , {'title': '금액', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt) + '원' : row.pay_amt;
                     return tmp;

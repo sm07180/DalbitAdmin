@@ -217,6 +217,7 @@
         data.fileName = fileName;
         data.qnaContent = $("textarea#question_contents").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
 
+        data.slct_type = $('select[name="question_type"]').find('option:selected').val();
         console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
@@ -414,7 +415,7 @@
                     <td>{{rowNum}}</td>
 
                     <th>문의유형</th>
-                    <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
+                    <td>{{{getCommonCodeSelect slct_type 'question_type'}}}</td>
 
                     <th>Browser</th>
                     <td>{{browser}}</td>
