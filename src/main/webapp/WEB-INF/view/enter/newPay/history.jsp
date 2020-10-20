@@ -380,7 +380,7 @@
             <th class="_bgColor" data-bgcolor="#F1E7FB">
                 <a href="javascript://" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제 연령대 별</a>
             </th>
-            <%--<th>10대미만</th>--%>
+            <th>10대미만</th>
             <th>10대</th>
             <th>20대</th>
             <th>30대</th>
@@ -399,7 +399,7 @@
             <td><b>{{addComma total_cnt}}</b></td>
             <td></td>
             <th>결제 건 수</th>
-            <%--<td onclick="click_popupAge('00')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00_cnt}}</span></a></td>--%>
+            <td onclick="click_popupAge('00')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00_cnt}}</span></a></td>
             <td onclick="click_popupAge('10')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10_cnt}}</span></a></td>
             <td onclick="click_popupAge('20')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20_cnt}}</span></a></td>
             <td onclick="click_popupAge('30')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30_cnt}}</span></a></td>
@@ -416,7 +416,7 @@
             <td><b>{{addComma total_amt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>부가세 포함 금액</th>
-            <%--<td>{{addComma age00_amt}}</td>--%>
+            <td>{{addComma age00_amt}}</td>
             <td>{{addComma age10_amt}}</td>
             <td>{{addComma age20_amt}}</td>
             <td>{{addComma age30_amt}}</td>
@@ -433,7 +433,7 @@
             <td><b>{{vatMinus total_amt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>부가세 제외 금액</th>
-            <%--<td>{{vatMinus age00_amt}}</td>--%>
+            <td>{{vatMinus age00_amt}}</td>
             <td>{{vatMinus age10_amt}}</td>
             <td>{{vatMinus age20_amt}}</td>
             <td>{{vatMinus age30_amt}}</td>
@@ -450,7 +450,7 @@
             <td>({{payRate total_cnt total_cnt}}%)<br><b>{{payRate total_amt total_amt}}%</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>결제 비율</th>
-            <%--<td>({{payRate age00_cnt total_cnt}}%)<br><b>{{payRate age00_amt total_amt}}%</b></td>--%>
+            <td>({{payRate age00_cnt total_cnt}}%)<br><b>{{payRate age00_amt total_amt}}%</b></td>
             <td>({{payRate age10_cnt total_cnt}}%)<br><b>{{payRate age10_amt total_amt}}%</b></td>
             <td>({{payRate age20_cnt total_cnt}}%)<br><b>{{payRate age20_amt total_amt}}%</b></td>
             <td>({{payRate age30_cnt total_cnt}}%)<br><b>{{payRate age30_amt total_amt}}%</b></td>
