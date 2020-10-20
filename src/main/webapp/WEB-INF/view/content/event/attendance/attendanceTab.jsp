@@ -10,7 +10,7 @@
             <a href="/content/event/attendance/calendar">출석체크</a>
         </li>
         <li class="${url eq '/content/event/attendance/bonusList' ? 'active' : ''}">
-            <a href="/content/event/attendance/bonusList">더줘</a>
+            <a href="/content/event/attendance/bonusList">보너스</a>
         </li>
         <li class="${url eq '/content/event/attendance/list' ? 'active' : ''}">
             <a href="/content/event/attendance/list">참여자목록</a>
