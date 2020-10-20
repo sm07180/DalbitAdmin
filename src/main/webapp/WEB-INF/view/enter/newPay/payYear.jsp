@@ -193,7 +193,7 @@
                 //상단
                 if (index == 1) {
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (1) + ")").html(common.addComma(succCnt));
-                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (2) + ")").html(common.vatMinus(succCmt));
+                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (2) + ")").html(common.addComma(succCmt));
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3) + ")").html(common.vatMinus(succAmt));
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (4) + ")").html(common.vatMinus(accumAmt));
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (5) + ")").html();
@@ -241,17 +241,17 @@
             if(i == 1){
                 //총합
                 $("#yearTableBody tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
-                $("#yearTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.vatMinus(sum_succCmt));
+                $("#yearTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(sum_succCmt));
                 $("#yearTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.vatMinus(sum_succAmt));
                 $("#yearTableBody tr:eq(0) td:eq(" + (4) + ")").html();
                 //첫구매
                 $("#yearTableBody tr:eq(1) td:eq(" + (1) + ")").html(common.addComma(sum_firstCnt));
-                $("#yearTableBody tr:eq(1) td:eq(" + (2) + ")").html(common.vatMinus(sum_firstCmt));
+                $("#yearTableBody tr:eq(1) td:eq(" + (2) + ")").html(common.addComma(sum_firstCmt));
                 $("#yearTableBody tr:eq(1) td:eq(" + (3) + ")").html(common.vatMinus(sum_firstAmt));
                 $("#yearTableBody tr:eq(1) td:eq(" + (4) + ")").html();
                 //재구매
                 $("#yearTableBody tr:eq(2) td:eq(" + (1) + ")").html(common.addComma(sum_reCnt));
-                $("#yearTableBody tr:eq(2) td:eq(" + (2) + ")").html(common.vatMinus(sum_reCmt));
+                $("#yearTableBody tr:eq(2) td:eq(" + (2) + ")").html(common.addComma(sum_reCmt));
                 $("#yearTableBody tr:eq(2) td:eq(" + (3) + ")").html(common.vatMinus(sum_reAmt));
                 $("#yearTableBody tr:eq(2) td:eq(" + (4) + ")").html();
             }
@@ -386,42 +386,44 @@
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
         <td style="font-weight:bold;color: #ff5600;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold;color: #ff5600;"><b>{{sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
+        <td style="font-weight:bold;color: #ff5600;"><b>{{addComma sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
         <td style="font-weight:bold;color: #ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_mcCnt}}</td>
-        <td>{{vatMinus sum_mcCmt}}</td>
+        <td>{{addComma sum_mcCmt}}</td>
         <td>{{vatMinus sum_mcAmt}}</td>
         <td>{{addComma sum_cnCnt}}</td>
-        <td>{{vatMinus sum_cnCmt}}</td>
+        <td>{{addComma sum_cnCmt}}</td>
         <td>{{vatMinus sum_cnAmt}}</td>
         <td>{{addComma sum_inappCnt}}</td>
-        <td>{{vatMinus sum_inappCmt}}</td>
+        <td>{{addComma sum_inappCmt}}</td>
         <td>{{vatMinus sum_inappAmt}}</td>
         <td>{{addComma sum_vaCnt}}</td>
-        <td>{{vatMinus sum_vaCmt}}</td>
+        <td>{{addComma sum_vaCmt}}</td>
         <td>{{vatMinus sum_vaAmt}}</td>
         <td>{{addComma sum_gmCnt}}</td>
-        <td>{{vatMinus sum_gmCmt}}</td>
+        <td>{{addComma sum_gmCmt}}</td>
         <td>{{vatMinus sum_gmAmt}}</td>
         <td>{{addComma sum_hmCnt}}</td>
-        <td>{{vatMinus sum_hmCmt}}</td>
+        <td>{{addComma sum_hmCmt}}</td>
         <td>{{vatMinus sum_hmAmt}}</td>
-        <%--<td>{{vatMinus sum_ggCnt}}</td>--%>
+        <%--<td>{{addComma sum_ggCnt}}</td>--%>
+        <%--<td>{{addComma sum_ggCmt}}</td>--%>
         <%--<td>{{vatMinus sum_ggAmt}}</td>--%>
-        <%--<td>{{vatMinus sum_gcCnt}}</td>--%>
+        <%--<td>{{addComma sum_gcCnt}}</td>--%>
+        <%--<td>{{addComma sum_gcCmt}}</td>--%>
         <%--<td>{{vatMinus sum_gcAmt}}</td>--%>
 
-        <td>{{vatMinus sum_tmoneyCnt}}</td>
-        <td>{{vatMinus sum_tmoneyCmt}}</td>
+        <td>{{addComma sum_tmoneyCnt}}</td>
+        <td>{{addComma sum_tmoneyCmt}}</td>
         <td>{{vatMinus sum_tmoneyAmt}}</td>
-        <td>{{vatMinus sum_cashbeeCnt}}</td>
-        <td>{{vatMinus sum_cashbeeCmt}}</td>
+        <td>{{addComma sum_cashbeeCnt}}</td>
+        <td>{{addComma sum_cashbeeCmt}}</td>
         <td>{{vatMinus sum_cashbeeAmt}}</td>
-        <td>{{vatMinus sum_paycoCnt}}</td>
-        <td>{{vatMinus sum_paycoCmt}}</td>
+        <td>{{addComma sum_paycoCnt}}</td>
+        <td>{{addComma sum_paycoCmt}}</td>
         <td>{{vatMinus sum_paycoAmt}}</td>
-        <td>{{vatMinus sum_kakaopayCnt}}</td>
-        <td>{{vatMinus sum_kakaopayCmt}}</td>
+        <td>{{addComma sum_kakaopayCnt}}</td>
+        <td>{{addComma sum_kakaopayCmt}}</td>
         <td>{{vatMinus sum_kakaopayAmt}}</td>
     </tr>
 </script>
@@ -436,41 +438,41 @@
         <td>{{addComma totalCmt}}<br/>({{average totalCmt sum_totalCmt}}%)</td>
         <td style="font-weight:bold">{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</td>
         <td>{{addComma mcCnt}}</td>
-        <td>{{vatMinus mcCmt}}</td>
+        <td>{{addComma mcCmt}}</td>
         <td>{{vatMinus mcAmt}}</td>
         <td>{{addComma cnCnt}}</td>
-        <td>{{vatMinus cnCmt}}</td>
+        <td>{{addComma cnCmt}}</td>
         <td>{{vatMinus cnAmt}}</td>
         <td>{{addComma inappCnt}}</td>
-        <td>{{vatMinus inappCmt}}</td>
+        <td>{{addComma inappCmt}}</td>
         <td>{{vatMinus inappAmt}}</td>
         <td>{{addComma vaCnt}}</td>
-        <td>{{vatMinus vaCmt}}</td>
+        <td>{{addComma vaCmt}}</td>
         <td>{{vatMinus vaAmt}}</td>
         <td>{{addComma gmCnt}}</td>
-        <td>{{vatMinus gmCmt}}</td>
+        <td>{{addComma gmCmt}}</td>
         <td>{{vatMinus gmAmt}}</td>
         <td>{{addComma hmCnt}}</td>
-        <td>{{vatMinus hmCmt}}</td>
+        <td>{{addComma hmCmt}}</td>
         <td>{{vatMinus hmAmt}}</td>
         <%--<td>{{vatMinus ggCnt}}</td>--%>
-        <%--<td>{{vatMinus ggCmt}}</td>--%>
+        <%--<td>{{addComma ggCmt}}</td>--%>
         <%--<td>{{vatMinus ggAmt}}</td>--%>
         <%--<td>{{vatMinus gcCnt}}</td>--%>
-        <%--<td>{{vatMinus gcCmt}}</td>--%>
+        <%--<td>{{addComma gcCmt}}</td>--%>
         <%--<td>{{vatMinus gcAmt}}</td>--%>
 
-        <td>{{vatMinus tmoneyCnt}}</td>
-        <td>{{vatMinus tmoneyCmt}}</td>
+        <td>{{addComma tmoneyCnt}}</td>
+        <td>{{addComma tmoneyCmt}}</td>
         <td>{{vatMinus tmoneyAmt}}</td>
-        <td>{{vatMinus cashbeeCnt}}</td>
-        <td>{{vatMinus cashbeeCmt}}</td>
+        <td>{{addComma cashbeeCnt}}</td>
+        <td>{{addComma cashbeeCmt}}</td>
         <td>{{vatMinus cashbeeAmt}}</td>
-        <td>{{vatMinus paycoCnt}}</td>
-        <td>{{vatMinus paycoCmt}}</td>
+        <td>{{addComma paycoCnt}}</td>
+        <td>{{addComma paycoCmt}}</td>
         <td>{{vatMinus paycoAmt}}</td>
-        <td>{{vatMinus kakaopayCnt}}</td>
-        <td>{{vatMinus kakaopayCmt}}</td>
+        <td>{{addComma kakaopayCnt}}</td>
+        <td>{{addComma kakaopayCmt}}</td>
         <td>{{vatMinus kakaopayAmt}}</td>
 
     </tr>
