@@ -48,6 +48,8 @@
         var context = response.data;
         var html = templateScript(context);
         $("#detailView").html(html);
+
+        ui.paintColor();
         showModal();
     }
 
@@ -89,14 +91,26 @@
                                         <th>예금주</th>
                                         <td>
                                             <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
-                                            <br />
-                                            {{detail.mem_name}}
                                         </td>
                                         <th>주민번호</th>
                                         <td>
                                             <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
                                             <br />
                                             [{{convertJumin detail.social_no}}]
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>세금신고<br />대상자</th>
+                                        <td>
+                                            {{#equal detail.prevAccountName ''}}
+                                                <span class="_fontColor" data-fontcolor="red">이전 환전승인내역이 없습니다.</span>
+                                            {{/equal}}
+                                            {{detail.prevAccountName}}
+                                        </td>
+                                        <th>세금신고<br />주민번호</th>
+                                        <td>
+                                            {{convertJumin detail.prevSocialNo}}
                                         </td>
                                     </tr>
 
