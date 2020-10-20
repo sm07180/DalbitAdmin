@@ -1,11 +1,9 @@
 package com.dalbit.money.service;
 
-import com.dalbit.common.code.Code;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.common.vo.SmsVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.enter.vo.procedure.P_StatVo;
@@ -302,6 +300,7 @@ public class Mon_ExchangeService {
 
         Mon_ExchangeOutputVo monExchangeOutputVo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
         monExchangeOutputVo.setSocial_no(AES.decrypt(monExchangeOutputVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
+        monExchangeOutputVo.setPrevSocialNo(AES.decrypt(monExchangeOutputVo.getPrevSocialNo(), DalbitUtil.getProperty("social.secret.key")));
         P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo = new P_MemberParentsAgreeInputVo();
         pMemberParentsAgreeInputVo.setMemNo(monExchangeOutputVo.getMem_no());
         P_MemberParentsAgreeOutputVo memberParentsAgreeOutputVo = mem_MemberDao.getParentsAgreeInfo(pMemberParentsAgreeInputVo);
@@ -438,8 +437,10 @@ public class Mon_ExchangeService {
 
             hm.put("no", i+1);
             hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
-            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
-            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
+            /*hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));*/
+            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getPrevAccountName()) ? exchangeVo.getAccount_name() : exchangeVo.getPrevAccountName());
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getPrevSocialNo()) ? DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))) : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getPrevSocialNo(), DalbitUtil.getProperty("social.secret.key"))));
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
 
             hm.put("cashBasic", exchangeVo.getCash_basic());
@@ -525,8 +526,10 @@ public class Mon_ExchangeService {
             HashMap hm = new LinkedHashMap();
 
             hm.put("no", i+1);
-            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
-            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
+            /*hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
+            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());*/
+            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getPrevAccountName()) ? "" : exchangeVo.getPrevAccountName());
+            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getPrevSocialNo()) ? "" : exchangeVo.getPrevSocialNo());
             hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
 
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
