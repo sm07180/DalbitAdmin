@@ -142,7 +142,7 @@
                     totalCnt = common.addComma(detail.totalCnt);
                 }
                 if(detail.age00Cnt != 0){
-                    age10Cnt = common.addComma(detail.age00Cnt);
+                    age00Cnt = common.addComma(detail.age00Cnt);
                 }
                 if(detail.age10Cnt != 0){
                     age10Cnt = common.addComma(detail.age10Cnt);
