@@ -19,7 +19,7 @@ var BroadcastDataTableSource = {
             {'title': '프로필', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
                     return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" />';
                 }},
-            {'title': '보유뱃지', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
+            {'title': '보유뱃지', 'data': 'tag','width' : '45px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     for(var i=0;i<row.fanBadgeList.length;i++){
                         tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
@@ -112,6 +112,11 @@ var BroadcastDataTableSource = {
             //         var tmp = common.addComma(data);
             //         return tmp + "명";
             //     }},
+
+            {'title': '게스트<br />여부', 'data': 'guestCnt','width' : '35px','render': function (data, type, row, meta) {
+                    return 0 < data ? 'Y' : 'N';
+                }},
+
             {'title': '사연', 'data': 'storyCnt','width' : '30px','render': function (data, type, row, meta) {
                     var url = "/broadcast/live/popup/storyPopup?roomNo=" + encodeURIComponent(row.room_no);
                     // var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'">' + 0 + '</a>';
