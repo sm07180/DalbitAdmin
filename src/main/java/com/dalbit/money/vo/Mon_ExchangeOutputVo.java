@@ -55,6 +55,9 @@ public class Mon_ExchangeOutputVo{
     private int last_reject;
     private String recant_yn;
 
+    private String prevAccountName; //최근 환전승인 이름
+    private String prevSocialNo;    //최근 환전승인 주민번호
+
     private String send_title;		// 발송 메시지 제목
     private String send_cont;		// 발송 메시지 내용
     private int send_type;		    //(0: 미선택, 1 증빙서류 화질문제, 2: 미비한 증빙서류 , 3: 입력정보 불일치, 4: 기타 직접작성)

@@ -22,7 +22,6 @@ public class Mon_EnableOutputVo {
     private int exchangeCnt;
     private int specialCnt;
 
-
     private int enableCnt;
     private int totalGold;
     private int totalSpecialCnt;

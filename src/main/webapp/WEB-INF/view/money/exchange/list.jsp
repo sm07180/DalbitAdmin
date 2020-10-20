@@ -360,9 +360,13 @@
                 }
             });
         }
+
+
         if(is_waring){
             $("#warning_desc").show();
-            alert('2일 이상된 미처리 데이터가 존재합니다.\n환전 완료여부를 한번 더 확인해주세요.');
+            if(${fn:contains("/dev/", cfn:getActiveProfile())}) {
+                alert('2일 이상된 미처리 데이터가 존재합니다.\n환전 완료여부를 한번 더 확인해주세요.');
+            }
         }
 
         exchangePagingInfo.totalCnt = response.data.exchangeCnt;
@@ -487,6 +491,7 @@
         var html = templateScript(context);
         $("#detailView").html(html);
 
+        ui.paintColor();
         showModal();
 
     }
@@ -928,7 +933,6 @@
             <th>성별</th>
             <th>가입시<br />생년월일</th>
             <th>미성년자<br />여부</th>
-            <th>회원이름</th>
             <th>예금주</th>
             <th>신청금액</th>
             <th>스페셜DJ<br />혜택</th>
@@ -990,7 +994,6 @@
         <td>{{data.birth}}</td>
         <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br /><span style='font-weight:bold'>[철회됨]</span>{{/equal}}</td>
 
-        <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
         <td>{{addComma data.benefit}}원</td>
@@ -1009,7 +1012,14 @@
 
     {{else}}
     <tr>
-        <td colspan="24">{{isEmptyData}}</td>
+        <c:choose>
+            <c:when test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
+                <td colspan="24">{{isEmptyData}}</td>
+            </c:when>
+            <c:otherwise>
+                <td colspan="23">{{isEmptyData}}</td>
+            </c:otherwise>
+        </c:choose>
     </tr>
     {{/each}}
 </script>
@@ -1051,13 +1061,26 @@
                                         <td>
                                             <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
                                             <br />
-                                            {{detail.mem_name}}
                                         </td>
                                         <th>주민번호</th>
                                         <td>
                                             <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
                                             <br />
                                             [{{convertJumin detail.social_no}}]
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>세금신고<br />대상자</th>
+                                        <td>
+                                            {{#equal detail.prevAccountName ''}}
+                                                <span class="_fontColor" data-fontcolor="red">이전 환전승인내역이 없습니다.</span>
+                                            {{/equal}}
+                                            {{detail.prevAccountName}}
+                                        </td>
+                                        <th>세금신고<br />주민번호</th>
+                                        <td>
+                                            {{convertJumin detail.prevSocialNo}}
                                         </td>
                                     </tr>
 
