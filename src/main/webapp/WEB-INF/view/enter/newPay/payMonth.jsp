@@ -228,7 +228,7 @@
                     }
                 } else if(index == 7) {     //평균
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
-                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma(succCmt/7));
+                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((succCmt/7).toFixed(1)));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 3) + ")").html(common.vatMinus(succAmt/7));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 4) + ")").html(common.vatMinus(accumAmt/7));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 5) + ")").html();

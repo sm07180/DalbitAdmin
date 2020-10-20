@@ -244,7 +244,7 @@
                     }
                 } else if(index == 7) {     // 평균
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
-                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma(succCmt/7));
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((succCmt/7).toFixed(1)));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 3) + ")").html(common.vatMinus(succAmt/7));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 4) + ")").html(common.vatMinus(accumAmt/7));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 5) + ")").html();
