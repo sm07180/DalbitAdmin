@@ -1060,7 +1060,6 @@
                                         <th>예금주</th>
                                         <td>
                                             <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
-                                            <br />
                                         </td>
                                         <th>주민번호</th>
                                         <td>
