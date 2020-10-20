@@ -360,7 +360,7 @@ var EventDataTableSource = {
                 }}
             , {'title': '참여 구분', 'data': 'the_day', 'render': function(data) {
                 if(data == 9) {
-                    return '더줘';
+                    return '보너스';
                 } else {
                     return '출석';
                 }
