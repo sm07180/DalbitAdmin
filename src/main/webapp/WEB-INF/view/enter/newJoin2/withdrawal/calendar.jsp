@@ -27,6 +27,11 @@
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type="text/javascript">
 
+    var accum_total_join_cnt = 0;
+    var accum_total_out_cnt = 0;
+    var accum_total_join_before_cnt = 0;
+    var accum_total_out_before_cnt = 0;
+
     $(function(){
         getCalendar();
     });
@@ -75,20 +80,29 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        var accum_total_out_cnt = 0;
+
+                        accum_total_join_cnt = 0;
+                        accum_total_out_cnt = 0;
+                        accum_total_join_before_cnt = 0;
+                        accum_total_out_before_cnt = 0;
+
                         if(!common.isEmpty(response.data.detailList)){
                             response.data.detailList.forEach(function(detail, detailIndex) {
 
                                 var sw = false;
-                                var total_join_before_cnt = 0;
+                                var total_out_before_cnt = 0;
                                 response.data.detailList2.forEach(function(detail2, detailIndex2) {
                                     if(detail.daily == detail2.daily){
                                         sw = true;
-                                        total_join_before_cnt = detail2.total_out_cnt;
+                                        total_join_before_cnt = detail2.total_join_cnt;
+                                        total_out_before_cnt = detail2.total_out_cnt;
+
+                                        accum_total_join_before_cnt = accum_total_join_before_cnt + total_join_before_cnt;
+                                        accum_total_out_before_cnt = accum_total_out_before_cnt + total_out_before_cnt;
                                     }
                                 });
                                 if(sw){
-                                    detail.total_inc_out_cnt = detail.total_out_cnt - total_join_before_cnt;
+                                    detail.total_inc_out_cnt = detail.total_out_cnt - total_out_before_cnt;
                                     accum_total_out_cnt = accum_total_out_cnt + detail.total_out_cnt;
                                     detail.accum_total_out_cnt = accum_total_out_cnt;
                                 }else{
@@ -174,6 +188,9 @@
             mode: 'lines',
             name: '<span>탈퇴</span>',
             type: 'bar',
+            text: total_out_cnt.map(String),
+            textposition: 'auto',
+            hoverinfo: 'none',
             marker: {
                 color: '#f8cbad'
             }

@@ -11,15 +11,21 @@
             <colgroup>
                 <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                 <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="0.5%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/>
+                <col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/>
+                <col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/><col width="3.5%"/>
+                <col width="3.5%"/><col width="3.5%"/>
+                <%----%>
+                <%--<col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>--%>
+                <%--<col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>--%>
+                <%--<col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>--%>
+                <%--<col width="4%"/><col width="4%"/>--%>
             </colgroup>
             <thead>
             <tr>
                 <th colspan="9" class="_stateTopTh">성별</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="15" class="_stateTopTh">연령대별</th>
+                <th colspan="17" class="_stateTopTh">연령대별</th>
             </tr>
             <tr>
                 <th rowspan="2" class="_stateTopTh"></th>
@@ -203,6 +209,8 @@
         </td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a></td>
         <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="00"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00Cnt}}</span></a></td>
+        <td>{{vatMinus age00Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="10"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10Cnt}}</span></a></td>
         <td>{{vatMinus age10Amt}}</td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="20"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20Cnt}}</span></a></td>

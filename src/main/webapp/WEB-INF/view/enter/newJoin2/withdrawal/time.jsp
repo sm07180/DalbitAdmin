@@ -98,6 +98,12 @@
     function fn_time_success(dst_id, response){
         dalbitLog("--------- fn_time_success ---------");
         dalbitLog(response);
+
+        accum_total_join_cnt = 0;
+        accum_total_join_before_cnt = 0;
+        accum_total_out_cnt = 0;
+        accum_total_out_before_cnt = 0;
+
         for(var i=0;i<response.data.detailList.length;i++){
 
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
@@ -113,6 +119,9 @@
                 ,response.data.detailList[i].pc_total_out_cnt
             ];
             response.data.detailList[i].total_out_cnt = common.getListSum(total_out_cnt);
+            accum_total_out_cnt = accum_total_out_cnt + common.getListSum(total_out_cnt);
+
+            accum_total_join_cnt = accum_total_join_cnt + response.data.detailList[i].total_join_cnt;
 
             for(var j=0;j<response.data.detailList2.length;j++){
                 if(response.data.detailList[i].the_hr == response.data.detailList2[j].the_hr){
@@ -123,6 +132,9 @@
                         ,response.data.detailList2[j].pc_total_out_cnt
                     ];
                     total_before_cnt = common.getListSum(total_out_cnt2);
+                    accum_total_out_before_cnt = accum_total_out_before_cnt + total_before_cnt;
+
+                    accum_total_join_before_cnt = accum_total_join_before_cnt + response.data.detailList2[j].total_join_cnt;
                 }
             }
             response.data.detailList[i].total_inc_cnt = response.data.detailList[i].total_out_cnt - total_before_cnt;
@@ -130,7 +142,7 @@
 
         response.data.totalInfo.sum_total_out_cnt = response.data.totalInfo.sum_pc_total_out_cnt + response.data.totalInfo.sum_aos_total_out_cnt + response.data.totalInfo.sum_ios_total_out_cnt
         response.data.totalInfo2.sum_total_out_cnt = response.data.totalInfo2.sum_pc_total_out_cnt + response.data.totalInfo2.sum_aos_total_out_cnt + response.data.totalInfo2.sum_ios_total_out_cnt
-        response.data.totalInfo.sum_inc_total_cnt = response.data.totalInfo.sum_total_out_cnt - response.data.totalInfo2.sum_total_out_cnt;
+        response.data.totalInfo.sum_inc_total_cnt = response.data.totalInfo.sum_total_out_cnt - accum_total_out_before_cnt;
 
         var template = $('#tmp_dummytime').html();
         var templateScript = Handlebars.compile(template);
@@ -138,6 +150,10 @@
         var html=templateScript(context);
         $("#timeTableBody").html(html);
 
+        var accum_total_join_cnt2 = 0;
+        var accum_total_join_before_cnt2 = 0;
+        var accum_total_out_cnt2 = 0;
+        var accum_total_out_before_cnt2 = 0;
 
         for(var i=0;i<response.data.detailList2.length;i++){
 
@@ -154,6 +170,9 @@
                 ,response.data.detailList2[i].pc_total_out_cnt
             ];
             response.data.detailList2[i].total_out_cnt = common.getListSum(total_out_cnt);
+            accum_total_out_cnt2 = accum_total_out_cnt2 + common.getListSum(total_out_cnt);
+
+            accum_total_join_cnt2 = accum_total_join_cnt2 + response.data.detailList2[i].total_join_cnt;
 
             for(var j=0;j<response.data.detailList3.length;j++){
                 if(response.data.detailList2[i].the_hr == response.data.detailList3[j].the_hr){
@@ -164,6 +183,10 @@
                         ,response.data.detailList3[j].pc_total_out_cnt
                     ];
                     total_before_cnt = common.getListSum(total_out_cnt2);
+                    accum_total_out_before_cnt2 = accum_total_out_before_cnt2 + common.getListSum(total_out_cnt2);
+
+                    accum_total_join_before_cnt2 = accum_total_join_before_cnt2 + response.data.detailList3[j].total_join_cnt;
+
                 }
             }
             response.data.detailList2[i].total_inc_cnt = response.data.detailList2[i].total_out_cnt - total_before_cnt;
@@ -171,7 +194,7 @@
 
         response.data.totalInfo2.sum_total_out_cnt = response.data.totalInfo2.sum_pc_total_out_cnt + response.data.totalInfo2.sum_aos_total_out_cnt + response.data.totalInfo2.sum_ios_total_out_cnt
         response.data.totalInfo3.sum_total_out_cnt = response.data.totalInfo3.sum_pc_total_out_cnt + response.data.totalInfo3.sum_aos_total_out_cnt + response.data.totalInfo3.sum_ios_total_out_cnt
-        response.data.totalInfo2.sum_inc_total_cnt = response.data.totalInfo2.sum_total_out_cnt - response.data.totalInfo3.sum_total_out_cnt;
+        response.data.totalInfo2.sum_inc_total_cnt = response.data.totalInfo2.sum_total_out_cnt - accum_total_out_before_cnt2;
 
         var template = $('#tmp_dummytime2').html();
         var templateScript = Handlebars.compile(template);
