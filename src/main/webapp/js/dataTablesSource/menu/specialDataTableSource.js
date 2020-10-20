@@ -24,8 +24,8 @@ var specialDataTableSource = {
             , {'title': '90분 이상<br />방송 횟수', 'data': 'broadcastCnt','render': function(data) {
                     return common.addComma(data)+' 회';
                 }}
-            , {'title': '좋아요', 'data': 'goodCnt', 'render': function(data) {
-                    return common.addComma(data)+' 회';
+            , {'title': '좋아요', 'data': 'goodCnt', 'render': function(data, type, row) {
+                    return common.addComma(data + row.boostGoodCnt)+' 회';
                 }}
             /*, {'title': '팬', 'data': 'fanCnt', 'render': function(data) {
                     return common.addComma(data)+' 명';

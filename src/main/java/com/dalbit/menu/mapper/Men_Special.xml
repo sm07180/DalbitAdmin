@@ -141,6 +141,12 @@
                         where dj_mem_no = basic.mem_no
                         and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
                         and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) goodCnt
+            , ifnull((select count(*) * 10
+                        from rd_data.tb_member_broadcast_item item
+                        where item.gifted_mem_no = basic.mem_no
+                        and item.item_type = 2
+                        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> item.last_upd_date
+                        and item.last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) boostGoodCnt
             /*, ifnull((select count(*)
                         from rd_data.tb_member_fanstar
                         where mem_no_star = basic.mem_no), 0) fanCnt*/
@@ -595,7 +601,7 @@
         CASE
             WHEN list.condition_code1 = 1 THEN list.condition_data1 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code1 = 2 THEN list.condition_data1 <![CDATA[<=]]> list.broadcastCnt
-            WHEN list.condition_code1 = 3 THEN list.condition_data1 <![CDATA[<=]]> list.goodCnt
+            WHEN list.condition_code1 = 3 THEN list.condition_data1 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code1 = 4 THEN list.condition_data1 <![CDATA[<=]]> list.level
             WHEN list.condition_code1 = 5 THEN list.condition_data1 <![CDATA[<=]]> list.fanCnt
             WHEN list.condition_code1 = 6 THEN list.condition_data1 <![CDATA[<=]]> list.allListenCnt
@@ -606,7 +612,7 @@
         CASE
             WHEN list.condition_code2 = 1 THEN list.condition_data2 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code2 = 2 THEN list.condition_data2 <![CDATA[<=]]> list.broadcastCnt
-            WHEN list.condition_code2 = 3 THEN list.condition_data2 <![CDATA[<=]]> list.goodCnt
+            WHEN list.condition_code2 = 3 THEN list.condition_data2 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code2 = 4 THEN list.condition_data2 <![CDATA[<=]]> list.level
             WHEN list.condition_code2 = 5 THEN list.condition_data2 <![CDATA[<=]]> list.fanCnt
             WHEN list.condition_code2 = 6 THEN list.condition_data2 <![CDATA[<=]]> list.allListenCnt
@@ -617,7 +623,7 @@
         CASE
             WHEN list.condition_code3 = 1 THEN list.condition_data3 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code3 = 2 THEN list.condition_data3 <![CDATA[<=]]> list.broadcastCnt
-            WHEN list.condition_code3 = 3 THEN list.condition_data3 <![CDATA[<=]]> list.goodCnt
+            WHEN list.condition_code3 = 3 THEN list.condition_data3 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code3 = 4 THEN list.condition_data3 <![CDATA[<=]]> list.level
             WHEN list.condition_code3 = 5 THEN list.condition_data3 <![CDATA[<=]]> list.fanCnt
             WHEN list.condition_code3 = 6 THEN list.condition_data3 <![CDATA[<=]]> list.allListenCnt
@@ -691,7 +697,7 @@
                                 and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
                                 and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) goodCnt
                     , ifnull((select count(*) * 10
-                                from rd_data.tb_broadcast_room_item item
+                                from rd_data.tb_member_broadcast_item item
                                 where item.gifted_mem_no = basic.mem_no
                                 and item.item_type = 2
                                 and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> item.last_upd_date
@@ -782,6 +788,12 @@
                                 where dj_mem_no = basic.mem_no
                                 and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> last_upd_date
                                 and last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) goodCnt
+                    , ifnull((select count(*) * 10
+                                from rd_data.tb_member_broadcast_item item
+                                where item.gifted_mem_no = basic.mem_no
+                                and item.item_type = 2
+                                and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> item.last_upd_date
+                                and item.last_upd_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) boostGoodCnt
                     , ifnull((select count(*)
                                 from rd_data.tb_member_fanstar
                                 where mem_no_star = basic.mem_no), 0) fanCnt
