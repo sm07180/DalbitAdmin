@@ -15,6 +15,8 @@ public class P_ItemAgeOutDetailVo {
     private String hour;
     private int totalCnt;
     private int totalAmt;
+    private int age00Cnt;
+    private int age00Amt;
     private int age10Cnt;
     private int age10Amt;
     private int age20Cnt;
