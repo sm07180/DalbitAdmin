@@ -277,7 +277,7 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><<td></td>
     </tr>
     {{/each}}
     <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">

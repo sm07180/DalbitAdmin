@@ -296,14 +296,17 @@
 
     function setSummary(response){
 
-        console.log("-------------- setSummary -----------------");
+        console.log("-------------- setSummary ----------------");
         console.log(response);
-
+        response.totalInfo.accum_total_join_cnt = accum_total_join_cnt;
+        response.totalInfo.accum_total_out_cnt = accum_total_out_cnt;
+        response.totalInfo.accum_total_join_before_cnt = accum_total_join_before_cnt;
+        response.totalInfo.accum_total_out_before_cnt = accum_total_out_before_cnt;
 
         response.totalInfo.sum_total_join_cnt = response.totalInfo.sum_pc_total_join_cnt + response.totalInfo.sum_aos_total_join_cnt + response.totalInfo.sum_ios_total_join_cnt;
         response.totalInfo2.sum_total_join_cnt = response.totalInfo2.sum_pc_total_join_cnt + response.totalInfo2.sum_aos_total_join_cnt + response.totalInfo2.sum_ios_total_join_cnt;
 
-        response.totalInfo.sum_inc_total_cnt = response.totalInfo.sum_total_join_cnt - response.totalInfo2.sum_total_join_cnt;
+        response.totalInfo.sum_inc_total_cnt = response.totalInfo.accum_total_join_cnt - response.totalInfo.accum_total_join_before_cnt;
 
         var template = $('#tmp_summary').html();
         var templateScript = Handlebars.compile(template);
