@@ -16,6 +16,8 @@ public class P_PayAgeOutVo {
     private int sum_noneAmt;
     private int sum_femaleCnt;
     private int sum_femaleAmt;
+    private int sum_age00Cnt;
+    private int sum_age00Amt;
     private int sum_age10Cnt;
     private int sum_age10Amt;
     private int sum_age20Cnt;

@@ -52,11 +52,11 @@
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">건(비율)</th>
+                <th class="_stateSubTh">금액(비율)</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건(비율)</th>
-                <th class="_stateSubTh">금액(비율)</th>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
