@@ -373,6 +373,19 @@ var event_winnerState = [
     , new COMMON_CODE('complete', '3', '완료')
 ];
 
+var event_contentType = [
+    new COMMON_CODE(null, 'content_type', '이벤트 컨텐츠 타입')
+    , new COMMON_CODE('image', 'image', '이미지')
+    , new COMMON_CODE('button', 'button', '버튼')
+]
+
+var event_content_button_type = [
+    new COMMON_CODE(null, 'button_type', '이벤트 컨텐츠 버튼 타입')
+    , new COMMON_CODE('link', 'link', '링크이동')
+    , new COMMON_CODE('popup', 'popup', '팝업')
+    , new COMMON_CODE('popup', 'popup', '팝업')
+]
+
 /** =------ Item ---------- */
 var item_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')

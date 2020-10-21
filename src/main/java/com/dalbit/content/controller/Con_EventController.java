@@ -59,4 +59,24 @@ public class Con_EventController {
     public String purchaseList(){
         return "content/event/chuseok/purchaseList";
     }
+
+    @GetMapping("roulette/list")
+    public String rouletteList() {
+        return "content/event/roulette/list";
+    }
+
+    @GetMapping("roulette/calendar")
+    public String rouletteCalendar() {
+        return "content/event/roulette/calendar";
+    }
+
+    @GetMapping("roulette/bonusList")
+    public String rouletteBonusList() {
+        return "content/event/roulette/bonusList";
+    }
+
+    @GetMapping("roulette/giftconList")
+    public String rouletteGiftconList() {
+        return "content/event/roulette/giftconList";
+    }
 }
