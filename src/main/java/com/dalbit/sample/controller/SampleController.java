@@ -108,6 +108,9 @@ public class SampleController {
     public String tree(){return "sample/tree";}
 
 
+    @GetMapping("push")
+    public String push(){return "sample/push";}
+
     @GetMapping("player")
     public String player(HttpServletRequest request){
         bro_broadcastService.callBroadcastSimpleInfo(request);
