@@ -15,8 +15,8 @@
         <li class="${url eq '/content/event/roulette/list' ? 'active' : ''}">
             <a href="/content/event/roulette/list">참여자목록</a>
         </li>
-        <li class="${url eq '/content/event/roulette/giftconList' ? 'active' : ''}">
-            <a href="/content/event/roulette/giftconList">선물지급관리</a>
+        <li class="${url eq '/content/event/roulette/giftManage' ? 'active' : ''}">
+            <a href="/content/event/roulette/giftManage">선물지급관리</a>
         </li>
     </ul>
 </div>

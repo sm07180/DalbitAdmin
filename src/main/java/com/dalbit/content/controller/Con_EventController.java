@@ -75,8 +75,8 @@ public class Con_EventController {
         return "content/event/roulette/bonusList";
     }
 
-    @GetMapping("roulette/giftconList")
+    @GetMapping("roulette/giftManage")
     public String rouletteGiftconList() {
-        return "content/event/roulette/giftconList";
+        return "content/event/roulette/giftManage";
     }
 }

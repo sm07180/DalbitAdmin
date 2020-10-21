@@ -14,8 +14,22 @@
                     <div class="widget-content mt10 no-padding ml10 mr10">
                         <table class="table table-bordered">
                             <colgroup>
-                                <col width="10%"><col width="10%"><col width="10%"><col width="10%"><col width="10%">
-                                <col width="10%"><col width="10%"><col width="10%"><col width="10%"><col width="10%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="5%">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -27,8 +41,14 @@
                                     <th>여성</th>
                                     <th>알 수 없음</th>
                                     <th>참여 건수</th>
-                                    <th>경험치</th>
-                                    <th>달</th>
+                                    <th>꽝</th>
+                                    <th>달 A</th>
+                                    <th>달 B</th>
+                                    <th>상품 A</th>
+                                    <th>상품 B</th>
+                                    <th>상품 C</th>
+                                    <th>상품 D</th>
+                                    <th>상품 E</th>
                                 </tr>
                             </thead>
                             <tbody id="loginLiveTableBody">
@@ -43,6 +63,12 @@
                                     <td class="joinSum">0건</td>
                                     <td class="expSum">0exp</td>
                                     <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
                                 </tr>
                                 <tr class="yesterday_summary">
                                     <th>전일</th>
@@ -54,6 +80,12 @@
                                     <td class="sex_unknown">0명</td>
                                     <td class="joinSum">0건</td>
                                     <td class="expSum">0exp</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
                                     <td class="dalSum">0달</td>
                                 </tr>
                                 <tr class="thisWeek_summary">
@@ -67,6 +99,12 @@
                                     <td class="joinSum">0건</td>
                                     <td class="expSum">0exp</td>
                                     <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
                                 </tr>
                                 <tr class="prevWeek_summary">
                                     <th>지난주</th>
@@ -78,6 +116,12 @@
                                     <td class="sex_unknown">0명</td>
                                     <td class="joinSum">0건</td>
                                     <td class="expSum">0exp</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
+                                    <td class="dalSum">0달</td>
                                     <td class="dalSum">0달</td>
                                 </tr>
                             </tbody>

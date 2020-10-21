@@ -781,8 +781,11 @@ public enum Status {
     테스트아이디달별지급목록조회_성공("0", "test.dal.byeol.list.success", "테스트 아이디 달/별 지급 목록 조회 성공 시"),
     테스트아이디달별지급목록조회_실패("C006", "test.dal.byeol.list.fail", "테스트 아이디 달/별 지급 목록 조회 실패 시"),
 
-    ;
+    //룰렛 이벤트
+    룰렛이벤트_파라메터없음("-1", "param.error", "editList 없음"),
+    룰렛이벤트_당청활률총합안맞음("-2", "validation.error", "당청활률 총합이 100*100 안맞음"),
 
+    ;
 
     final private String RESULT_SUCCESS = "success";
     final private String RESULT_FAIL = "fail";

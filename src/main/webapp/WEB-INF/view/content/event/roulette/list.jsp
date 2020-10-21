@@ -6,7 +6,7 @@
     <div id="page-wrapper">
         <div id="container-fluid">
 
-            <%@ include file="/WEB-INF/view/content/event/attendance/attendanceTab.jsp"%>
+            <%@ include file="/WEB-INF/view/content/event/roulette/rouletteTab.jsp"%>
             <!-- serachBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
