@@ -141,7 +141,7 @@
     var tmp_searchText;
     var tmp_searchType= -1;
     var tmp_slctState =-1;
-    var tmp_slctMember =-1;
+    var tmp_slctMember =1;
     var tmp_slctPlatform = null;
 
     if(!common.isEmpty(tabType)){
