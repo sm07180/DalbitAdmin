@@ -93,7 +93,7 @@ public class Mem_WalletService {
                     gubun = "아이템 선물";
                     break;
                 case "3" :
-                    gubun = "아이템 사용";
+                    gubun = "부스터사용";
                     break;
                 case "4" :
                     gubun = "달 선물 보내기";
@@ -110,8 +110,44 @@ public class Mem_WalletService {
                 case "8" :
                     gubun = "환불";
                     break;
+                case "9" :
+                    gubun = "퀵 메시지 구매/연장";
+                    break;
+                case "10" :
+                    gubun = "레벨업 보상";
+                    break;
+                case "11" :
+                    gubun = "출석체크 보상";
+                    break;
                 case "12" :
+                    gubun = "소실금액복구";
+                    break;
+                case "121" :
                     gubun = "운영자지급";
+                    break;
+                case "13" :
+                    gubun = "테스트지급및회수";
+                    break;
+                case "14" :
+                    gubun = "클립선물";
+                    break;
+                case "15" :
+                    gubun = "가입보상 달";
+                    break;
+                case "16" :
+                    gubun = "랭킹보상";
+                    break;
+                case "17" :
+                    gubun = "아이템비밀선물";
+                    break;
+                case "18" :
+                    gubun = "룰렛이벤트보상";
+                    break;
+                case "22" :
+                    gubun = "스페셜DJ혜택";
+                    break;
+                case "23" :
+                    gubun = "이벤트 지급(어드민)";
                     break;
                 default:
                     gubun = "?";

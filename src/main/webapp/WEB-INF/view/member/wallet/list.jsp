@@ -38,16 +38,19 @@
     var walletList_gubun="dal";
     var walletType = 0;
     var slct_type = 0;
+    var slct_typeTxt = '';
     var sDate;
     var eDate;
     function memberWalletList(tmp){
         walletType = 0;
         slct_type = 0;
+        slct_typeTxt = '';
         walletList_gubun = tmp;
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.walletType = walletType;
             data.slct_type = slct_type;
+            data.slct_typeTxt = slct_typeTxt;
             data.sDate = sDate;
             data.eDate = eDate;
             data.walletDataType = $("#slctWalletDateType").find("select").val();
@@ -135,6 +138,7 @@
     function wallet_sel_change(){
         walletType = $("#search_wallet_top").find("#walletType option:selected").val();
         slct_type = $("#search_wallet_dalbyeol_top").find("#slct_type option:selected").val();
+        slct_typeTxt = $("#search_wallet_dalbyeol_top").find("#slct_type option:selected").text();
 
         console.log(walletType);
         console.log(slct_type);
@@ -154,6 +158,7 @@
         formData.append("mem_no", memNo);
         formData.append("walletType", walletType);
         formData.append("slct_type", slct_type);
+        formData.append("slct_typeTxt", slct_typeTxt);
         formData.append("walletDataType", $("#slctWalletDateType").find("select").val());
         formData.append("sDate", sDate);
         formData.append("eDate", eDate);
