@@ -106,6 +106,7 @@ var dalPointEditStory = [
     ,new COMMON_CODE('13','13','직원 테스트')
     ,new COMMON_CODE('23','23','이벤트 지급')
     ,new COMMON_CODE('22','22','스페셜DJ 혜택')
+    ,new COMMON_CODE('12','12','운영자 지급')
 ];
 
 
