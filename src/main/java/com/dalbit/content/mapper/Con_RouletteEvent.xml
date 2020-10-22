@@ -10,4 +10,87 @@
         call rd_admin.sp_admin_event_roulette_rate_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <sql id="applyListCondition">
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    AND evtApply.mem_no like  concat ('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    AND (
+                        member.mem_userid like concat ('%', #{txt_search}, '%')
+                        or outMember.mem_userid like concat ('%', #{txt_search}, '%')
+                    )
+                </when>
+                <when test='searchType == "3"'>
+                    AND (
+                        member.mem_nick like concat ('%', #{txt_search}, '%')
+                        or outMember.mem_nick like concat ('%', #{txt_search}, '%')
+                    )
+                </when>
+                <otherwise>
+                    and (
+                        evtApply.mem_no like  concat ('%', #{txt_search}, '%')
+                        or member.mem_userid like concat ('%', #{txt_search}, '%')
+                        or outMember.mem_userid like concat ('%', #{txt_search}, '%')
+                        or member.mem_nick like concat ('%', #{txt_search}, '%')
+                        or outMember.mem_nick like concat ('%', #{txt_search}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+
+        <if test='startDate != null and startDate != ""'>
+            and DATE_FORMAT(evtApply.apply_date, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+
+        </if>
+        <if test='endDate != null and endDate != ""'>
+            and DATE_FORMAT(#{endDate}, '%Y-%m-%d') >= DATE_FORMAT(evtApply.apply_date, '%Y-%m-%d')
+        </if>
+
+        <if test='winType == 1'>
+            and evtApply.item_no in ('1', '2', '3')
+        </if>
+        <if test='winType == 2'>
+            and evtApply.item_no not in ('1', '2', '3')
+        </if>
+    </sql>
+
+    <select id="selectRouletteApplyList" parameterType="com.dalbit.content.vo.RouletteApplyVo" resultType="com.dalbit.content.vo.RouletteApplyVo">
+        /* Con_RouletteEvent.xml - selectRouletteApplyList */
+        select
+            evtApply.mem_no
+            , date_format(evtApply.apply_date, '%Y.%m.%d %H:%i:%s') apply_date
+            , evtApply.item_no
+            , date_format(win.win_date, '%Y.%m.%d %H:%i:%s') win_date
+            , date_format(win.last_upd_date, '%Y.%m.%d %H:%i:%s') last_upd_date
+            , win.phone
+            , profile.image_profile
+            , ifnull(member.mem_nick, outMember.mem_nick) mem_nick
+            , ifnull(member.mem_userid, outMember.mem_userid) mem_userid
+            , ifnull(member.mem_sex, outMember.mem_sex) mem_sex
+        from rd_data.tb_event_coupon_member_apply evtApply
+            left join rd_data.tb_event_coupon_winning win on evtApply.mem_no = win.mem_no and evtApply.apply_date = win.win_date and evtApply.item_no = win.item_no
+            left join rd_data.tb_member_basic member on evtApply.mem_no = member.mem_no
+            left join rd_data.tb_member_withdrawal_bak outMember on evtApply.mem_no = outMember.mem_no
+            left join rd_data.tb_member_profile profile on evtApply.mem_no = profile.mem_no
+
+        where 1=1
+            <include refid="applyListCondition" />
+        order by evtApply.idx desc
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectRouletteApplyCnt" parameterType="com.dalbit.content.vo.RouletteApplyVo" resultType="int">
+        /* Con_RouletteEvent.xml - selectRouletteApplyCnt */
+        select
+            count(*)
+        from rd_data.tb_event_coupon_member_apply evtApply
+            left join rd_data.tb_event_coupon_winning win on evtApply.mem_no = win.mem_no and evtApply.apply_date = win.win_date and evtApply.item_no = win.item_no
+            left join rd_data.tb_member_basic member on evtApply.mem_no = member.mem_no
+            left join rd_data.tb_member_withdrawal_bak outMember on evtApply.mem_no = outMember.mem_no
+        where 1=1
+            <include refid="applyListCondition" />
+    </select>
+
 </mapper>

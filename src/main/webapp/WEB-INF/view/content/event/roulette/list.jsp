@@ -13,7 +13,7 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 회원검색</h3>
-                            <span id="attendanceTypeArea"></span>
+                            <span id="winTypeArea"></span>
                             <span id="searchTypeArea"></span>
                             <div class="input-group date" id="rangeDatepicker">
                                 <label for="displayDate" class="input-group-addon">
@@ -44,7 +44,7 @@
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
                     <div class="widget-content">
-                        <table id="attendanceList" class="table table-sorting table-hover table-bordered">
+                        <table id="applyList" class="table table-sorting table-hover table-bordered">
                             <thead></thead>
                             <tbody id="tableBody"></tbody>
                         </table>
@@ -59,7 +59,7 @@
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
-<script type="text/javascript" src="/js/dataTablesSource/content/eventDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/dataTablesSource/content/eventRouletteDataTableSource.js?${dummyData}"></script>
 
 <script type="text/javascript">
 
@@ -130,21 +130,21 @@
 
     function init() {
         // 검색조건 불러오기
-        $('#attendanceTypeArea').html(util.getCommonCodeSelect('-1', attendance_dayType));
-        $('#searchTypeArea').html(util.getCommonCodeSelect('-1', attendance_searchType));
+        $('#winTypeArea').html(util.getCommonCodeSelect('-1', roulette_winType));
+        $('#searchTypeArea').html(util.getCommonCodeSelect('-1', roulette_searchType));
     }
 
     function getList() {
         var dtList_info;
         var dtList_info_data = function (data) {
-            data.attendanceType = $('#attendanceTypeArea').val();   // 참여 구분
+            data.attendanceType = $('#winTypeArea').val();   // 참여 구분
             data.searchType = $('#attendance_searchType').val();    // 검색 조건
             data.search = $('#txt_search').val();                   // 검색 창
             data.txt_startSel =  $("#startDate").val().replace(/\./gi,'');
             data.txt_endSel =  $("#endDate").val().replace(/\./gi,'');
         };
 
-        dtList_info = new DalbitDataTable($('#attendanceList'), dtList_info_data, EventDataTableSource.attendance, $('#searchForm'));
+        dtList_info = new DalbitDataTable($('#applyList'), dtList_info_data, EventRouletteDataTableSource.applyList, $('#searchForm'));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);

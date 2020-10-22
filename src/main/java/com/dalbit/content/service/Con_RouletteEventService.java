@@ -6,10 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_AttendEventDao;
 import com.dalbit.content.dao.Con_RouletteEventDao;
-import com.dalbit.content.vo.AttendanceBonusVo;
-import com.dalbit.content.vo.AttendanceCalendarVo;
-import com.dalbit.content.vo.AttendanceGiftconVo;
-import com.dalbit.content.vo.AttendanceVo;
+import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.P_RouletteRateVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.member.dao.Mem_MemberDao;
@@ -20,6 +17,7 @@ import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,4 +62,15 @@ public class Con_RouletteEventService {
 
         return result;
     }
+
+    public String selectRouletteApplyList(RouletteApplyVo rouletteApplyVo){
+
+        int totalCnt = con_rouletteEventDao.selectRouletteApplyCnt(rouletteApplyVo);
+        rouletteApplyVo.setTotalCnt(totalCnt);
+        ArrayList<RouletteApplyVo> list = con_rouletteEventDao.selectRouletteApplyList(rouletteApplyVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt, rouletteApplyVo.getPageStart(), rouletteApplyVo.getPageCnt())));
+        return result;
+    }
+
 }

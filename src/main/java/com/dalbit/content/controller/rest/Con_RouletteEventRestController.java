@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_RouletteEventService;
+import com.dalbit.content.vo.RouletteApplyVo;
 import com.dalbit.content.vo.procedure.P_RouletteRateVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,15 @@ public class Con_RouletteEventRestController {
     @PostMapping("/updateRouletteRate")
     public String updateRouletteRate(P_RouletteRateVo pRouletteRateVo) {
         String result = con_rouletteEventService.updateRouletteRate(pRouletteRateVo);
+        return result;
+    }
+
+    /**
+     * 참여자 목록
+     */
+    @PostMapping("/selectApplyList")
+    public String selectApplyList(RouletteApplyVo rouletteApplyVo){
+        String result = con_rouletteEventService.selectRouletteApplyList(rouletteApplyVo);
         return result;
     }
 

@@ -111,19 +111,34 @@
     }
 
     $(document).on('click', '#bt_update', function(){
-       console.log('click');
-       console.log($('#giftCntArea td input._data').length);
+        var isValid = true;
 
-       var editList = '';
-       var splitTxt = '|'
+        var editList = '';
+        var splitTxt = '|'
         $('#giftCntArea td input._data').each(function(index){
             var dalCnt = 0;
+            var giftRate = $('#giftRate td:eq('+index+') input').val();
+            var giftCnt = $('#giftCntArea td:eq('+index+') input').val();
+            if(common.isEmpty(giftCnt)){
+                alert('최대 당첨제한 명수를 입력해주세요.');
+                isValid = false;
+                $('#giftCntArea td:eq('+index+') input').focus();
+                return false;
+            }
+
+            if(common.isEmpty(giftRate)){
+                alert('확률을 입력해주세요.');
+                isValid = false;
+                $('#giftRate td:eq('+index+') input').focus();
+                return false;
+            }
+
             if(index == 1){
                 dalCnt = 1;
             }else if(index == 2){
                 dalCnt = 3;
             }
-            editList += index + 1 + ',' + dalCnt + ',' + $('#giftRate td:eq('+index+') input').val() * 100 + ',' + $('#giftCntArea td:eq('+index+') input').val();
+            editList += index + 1 + ',' + dalCnt + ',' + (giftRate * 100) + ',' + giftCnt;
             if(index != 7){
                 editList += splitTxt;
             }
@@ -132,17 +147,23 @@
         var param = {
             editList : editList
         }
-        util.getAjaxData("editRoulette" , "/rest/content/event/roulette/updateRouletteRate", param, function(dst_id, response){
-            if(response.code == -1){
-                alert('파라메터가 없습니다.');
-            }else if(response.code == -2){
-                alert('확률의 총 합이 100%가 아닙니다.');
-            }else{
-                alert(response.message);
-            }
 
-        });
+        if(!isValid){
+            return false;
+        }
 
+        if(confirm('수정하시겠습니까?')){
+            util.getAjaxData("editRoulette" , "/rest/content/event/roulette/updateRouletteRate", param, function(dst_id, response){
+                if(response.code == -1){
+                    alert('파라메터가 없습니다.');
+                }else if(response.code == -2){
+                    alert('확률의 총 합이 100%가 아닙니다.');
+                }else{
+                    alert(response.message);
+                }
+
+            });
+        }
     });
 
 </script>

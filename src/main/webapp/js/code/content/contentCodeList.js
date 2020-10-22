@@ -613,3 +613,19 @@ var broadTip_viewType = [
     , new COMMON_CODE('1', '1', 'On')
     , new COMMON_CODE('0', '0', 'Off')
 ];
+
+/* 룰렛 이벤트 */
+var roulette_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('memno', '1', '회원번호')
+    , new COMMON_CODE('memid', '2', 'UserID')
+    , new COMMON_CODE('memnick', '3', '닉네임')
+];
+
+var roulette_winType = [
+    new COMMON_CODE(null, 'winType', '검색구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('dal', '1', '달')
+    , new COMMON_CODE('gifticon', '2', '기프티콘')
+];
