@@ -311,12 +311,14 @@
         dalbitLog(response);
         alert(response.message);
 
-        // var obj ={};
-        // obj.qnaIdx = qnaIdx;
-        // util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
+        var obj ={};
+        obj.qnaIdx = qnaIdx;
+        util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 
     function adminMemoList(tmp){
+        console.log("--------------------------------");
+        console.log(tmp);
         if(!common.isEmpty(tmp)){
             qnaIdx = tmp;
         }

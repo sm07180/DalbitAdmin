@@ -60,8 +60,20 @@
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 1:1 문의</h3>
                     </div>
-                    <span id="question_summaryArea"></span>
-                    <span id="question_summaryArea2"></span>
+
+                    <div class="col-md-12 no-padding">
+                        <div class="col-md-6">
+                            <br/>
+                            <br/>
+                            <span name="question_status" id="question_status" onchange="question_status_change()"></span>
+                            <span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>
+                            <span name="question_platform" id="question_platform" onchange="question_status_change()"></span>
+                        </div>
+                        <div class="col-md-6 no-padding">
+                            <span id="question_summaryArea"></span>
+                            <span id="question_summaryArea2"></span>
+                        </div>
+                    </div>
                     <div class="widget-content" id="main_table">
                         <table id="list_info" class="table table-sorting table-hover table-bordered ">
                             <thead>
@@ -165,6 +177,9 @@
             $('.nav-tabs li:eq(4) a').tab('show');
             $("#question_summaryArea").show();
         }
+
+        $("#question_status").html(util.getCommonCodeSelect(-1, question_status));
+        $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
     $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
@@ -175,12 +190,14 @@
     var tmp_searchText;
     var tmp_searchType= -1;
     var tmp_slctState =-1;
-    var tmp_slctMember =-1;
+    var tmp_slctMember = 1;
     var tmp_slctPlatform = null;
 
     if(!common.isEmpty(tabType)){
         tmp_slctMember = tabType;
     }
+
+    var dtList_info_detail2;    // 비회원
 
     var dtList_info_detail;
     var dtList_info_detail_data = function ( data ) {
@@ -257,12 +274,15 @@
     // }
 
     questionDelEventInit();
-    initDataTableTop_select_question();
     // getUserInfo();
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
-        dtList_info_detail.reload(question_summary_table);
+        if(tmp_slctMember == 1){
+            dtList_info_detail.reload(question_summary_table);
+        }else{
+            dtList_info_detail2.reload(question_summary_table);
+        }
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
@@ -294,20 +314,15 @@
 
     }
 
-    function initDataTableTop_select_question(){
-        var topTable = '<br/><br/><span name="question_status" id="question_status" onchange="question_status_change()"></span>' +
-                                // '<span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>' +
-                                '<span name="question_platform" id="question_platform" onchange="question_status_change()"></span>';
-        $("#main_table").find(".top-left").addClass("no-padding").append(topTable);
-        $("#question_status").html(util.getCommonCodeSelect(-1, question_status));
-        // $("#question_mem_state").html(util.getCommonCodeSelect(-1, question_mem_state));
-        $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
-    }
     function question_status_change(){
         // tmp_slctMember = $("#question_mem_state").find("#question_mem_state option:selected").val();
         tmp_slctState = $("#question_status").find("#question_status option:selected").val();
         tmp_slctPlatform = $('#platform').val();
-        dtList_info_detail.reload(question_summary_table);
+        if(tmp_slctMember == 1) {
+            dtList_info_detail.reload(question_summary_table);
+        }else{
+            dtList_info_detail2.reload(question_summary_table);
+        }
     }
 
     $("#question_searchType").find("select").change( function() {
@@ -327,7 +342,11 @@
         clearInterval(storageTimer);
 
         $("#tab_qna").removeClass("hide");
-        var data = dtList_info_detail.getDataRow(index);
+        if(tmp_slctMember == 1){
+            var data = dtList_info_detail.getDataRow(index);
+        }else{
+            var data = dtList_info_detail2.getDataRow(index);
+        }
         var obj ={};
         obj.qnaIdx = data.qnaIdx;
         obj.answer = data.answer;
@@ -372,7 +391,11 @@
         });
     }
     function questionDelData(){
-        var checkDatas = dtList_info_detail.getCheckedData();
+        if(tmp_slctMember == 1) {
+            var checkDatas = dtList_info_detail.getCheckedData();
+        }else{
+            var checkDatas = dtList_info_detail2.getCheckedData();
+        }
         if(checkDatas.length <= 0){
             alert("삭제할 사연을 선택해 주십시오");
             return;
@@ -401,7 +424,11 @@
     }
 
     function questionDel_success(dst_id, response) {
-        dtList_info_detail.reload();
+        if(tmp_slctMember == 1) {
+            dtList_info_detail.reload();
+        }else{
+            dtList_info_detail2.reload();
+        }
 
         $("#tab_qna").addClass("hide");
     }
@@ -426,7 +453,6 @@
         $("#tab_qna").addClass("hide");
     }
     function nonMembers(){
-        var dtList_info_detail2;
         var dtList_info_detail_data2 = function ( data ) {
             data.searchText = $('#txt_search').val();
             data.searchType = tmp_searchType;
@@ -442,6 +468,7 @@
         dtList_info_detail2.useCheckBox(true);
         dtList_info_detail2.useIndex(true);
         dtList_info_detail2.createDataTable(question_summary_table);
+
     }
 
     /*==================================*/
@@ -512,7 +539,6 @@
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">비회원</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type3Cnt}}건</td>
@@ -520,11 +546,11 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7Cnt}}건</td>
-            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 답변</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalOpQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type3OpCnt}}건</td>
@@ -532,7 +558,8 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7OpCnt}}건</td>
-            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_type99OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type99OpCnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_totalOpQna}}건</td>
         </tr>
     </table>
 </script>
