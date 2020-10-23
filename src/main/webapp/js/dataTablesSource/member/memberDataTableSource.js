@@ -744,6 +744,11 @@ var MemberDataTableSource = {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '구분', 'data': 'gubun', 'render': function (data, type, row, meta) {
+                    if(data == 12){
+                        if(-1 < row.itemName.indexOf("운영자 지급")){
+                            return "운영자 지급"
+                        }
+                    }
                     return util.getCommonCodeLabel(data, mem_wallet_dal_code);
                 }},
             {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {

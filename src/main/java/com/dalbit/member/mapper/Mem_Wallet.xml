@@ -313,7 +313,20 @@
                     </choose>
                 </if>
                 <if test='slct_type != null and slct_type != ""'>
-                    AND a.gubun = #{slct_type}
+
+                    <if test='slct_type != 121'>
+                        AND a.gubun = #{slct_type}
+                    </if>
+                    <if test='slct_type == 121'>
+                        AND a.gubun = 12
+                    </if>
+
+                    <if test='slct_type == 12 or slct_type == 121'>
+                        AND (
+                            b.item_name like concat('%', #{slct_typeTxt}, '%')
+                            OR a.cont LIKE concat('%', #{slct_typeTxt}, '%')
+                        )
+                    </if>
                 </if>
                 <if test="walletDataType != 0">
                     and DATE_FORMAT(a.giftDate, '%Y.%m.%d') <![CDATA[>=]]> #{sDate}
