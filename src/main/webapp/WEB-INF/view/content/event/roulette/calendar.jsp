@@ -60,15 +60,15 @@
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
-                                    <td class="joinSum">0건</td>
-                                    <td class="expSum">0exp</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
+                                    <td class="itemCnt">0건</td>
+                                    <td class="itemNo1">0건</td>
+                                    <td class="itemNo2">0건</td>
+                                    <td class="itemNo3">0건</td>
+                                    <td class="itemNo4">0건</td>
+                                    <td class="itemNo5">0건</td>
+                                    <td class="itemNo6">0건</td>
+                                    <td class="itemNo7">0건</td>
+                                    <td class="itemNo8">0건</td>
                                 </tr>
                                 <tr class="yesterday_summary">
                                     <th>전일</th>
@@ -78,15 +78,15 @@
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
-                                    <td class="joinSum">0건</td>
-                                    <td class="expSum">0exp</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
+                                    <td class="itemCnt">0건</td>
+                                    <td class="itemNo1">0건</td>
+                                    <td class="itemNo2">0건</td>
+                                    <td class="itemNo3">0건</td>
+                                    <td class="itemNo4">0건</td>
+                                    <td class="itemNo5">0건</td>
+                                    <td class="itemNo6">0건</td>
+                                    <td class="itemNo7">0건</td>
+                                    <td class="itemNo8">0건</td>
                                 </tr>
                                 <tr class="thisWeek_summary">
                                     <th>이번주</th>
@@ -96,15 +96,15 @@
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
-                                    <td class="joinSum">0건</td>
-                                    <td class="expSum">0exp</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
+                                    <td class="itemCnt">0건</td>
+                                    <td class="itemNo1">0건</td>
+                                    <td class="itemNo2">0건</td>
+                                    <td class="itemNo3">0건</td>
+                                    <td class="itemNo4">0건</td>
+                                    <td class="itemNo5">0건</td>
+                                    <td class="itemNo6">0건</td>
+                                    <td class="itemNo7">0건</td>
+                                    <td class="itemNo8">0건</td>
                                 </tr>
                                 <tr class="prevWeek_summary">
                                     <th>지난주</th>
@@ -114,15 +114,15 @@
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
-                                    <td class="joinSum">0건</td>
-                                    <td class="expSum">0exp</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
-                                    <td class="dalSum">0달</td>
+                                    <td class="itemCnt">0건</td>
+                                    <td class="itemNo1">0건</td>
+                                    <td class="itemNo2">0건</td>
+                                    <td class="itemNo3">0건</td>
+                                    <td class="itemNo4">0건</td>
+                                    <td class="itemNo5">0건</td>
+                                    <td class="itemNo6">0건</td>
+                                    <td class="itemNo7">0건</td>
+                                    <td class="itemNo8">0건</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -160,14 +160,14 @@
     }
 
     function getSummary(){
-        util.getAjaxData("today_summary" , "/rest/content/event/attendance/calendar/week"
+        util.getAjaxData("today_summary" , "/rest/content/event/roulette/calendar/week"
             , {
                 search_startDate : moment(new Date()).format('YYYY-MM-DD')
                 , search_endDate : moment(new Date()).format('YYYY-MM-DD')
             }
             , getSummary_success);
 
-        util.getAjaxData("yesterday_summary" , "/rest/content/event/attendance/calendar/week"
+        util.getAjaxData("yesterday_summary" , "/rest/content/event/roulette/calendar/week"
             , {
                 search_startDate : moment(new Date()).add('days', -1).format('YYYY-MM-DD')
                 , search_endDate : moment(new Date()).add('days', -1).format('YYYY-MM-DD')
@@ -175,7 +175,7 @@
             , getSummary_success);
 
         var thisWeekStartDate = moment().startOf('week').add('days', 1).format('YYYY-MM-DD');
-        util.getAjaxData("thisWeek_summary" , "/rest/content/event/attendance/calendar/week"
+        util.getAjaxData("thisWeek_summary" , "/rest/content/event/roulette/calendar/week"
             , {
                 search_startDate : thisWeekStartDate
                 , search_endDate : moment(thisWeekStartDate).add('days', 6).format('YYYY-MM-DD')
@@ -183,7 +183,7 @@
             , getSummary_success);
 
         var prevWeekStartDate = moment().startOf('week').add('days', -6).format('YYYY-MM-DD')
-        util.getAjaxData("prevWeek_summary" , "/rest/content/event/attendance/calendar/week"
+        util.getAjaxData("prevWeek_summary" , "/rest/content/event/roulette/calendar/week"
             , {
                 search_startDate : moment().startOf('week').add('days', -6).format('YYYY-MM-DD')
                 , search_endDate : moment(prevWeekStartDate).add('days', 6).format('YYYY-MM-DD')
@@ -206,9 +206,15 @@
         target.find('.sex_man').html(common.addComma(data.sex_man) + '명');
         target.find('.sex_female').html(common.addComma(data.sex_female) + '명');
         target.find('.sex_unknown').html(common.addComma(data.sex_unknown) + '명');
-        target.find('.joinSum').html(common.addComma(data.joinSum) + '건');
-        target.find('.expSum').html(common.addComma(data.expSum) + 'exp');
-        target.find('.dalSum').html(common.addComma(data.dalSum) + '개');
+        target.find('.itemCnt').html(common.addComma(data.itemCnt) + '건');
+        target.find('.itemNo1').html(common.addComma(data.itemNo1) + '건');
+        target.find('.itemNo2').html(common.addComma(data.itemNo2) + '건');
+        target.find('.itemNo3').html(common.addComma(data.itemNo3) + '건');
+        target.find('.itemNo4').html(common.addComma(data.itemNo4) + '건');
+        target.find('.itemNo5').html(common.addComma(data.itemNo5) + '건');
+        target.find('.itemNo6').html(common.addComma(data.itemNo6) + '건');
+        target.find('.itemNo7').html(common.addComma(data.itemNo7) + '건');
+        target.find('.itemNo8').html(common.addComma(data.itemNo8) + '건');
     }
 
     function getAttendanceWeek(startDate, endDate, index){
@@ -217,7 +223,7 @@
             , search_endDate : endDate
             , index : index
         }
-        util.getAjaxData("getCalendarWeekSum", "/rest/content/event/attendance/calendar/week", data, getCalendarWeek_success);
+        util.getAjaxData("getCalendarWeekSum", "/rest/content/event/roulette/calendar/week", data, getCalendarWeek_success);
     }
 
     function getCalendarWeek_success(dst_id, response, param) {
@@ -234,9 +240,10 @@
             , sex_female : 0
             , sex_unknown : 0
             , joinCnt : 0
-            , joinSum : 0
-            , expSum : 0
+            , itemCnt : 0
+            , dal_0_Sum : 0
             , dalSum : 0
+            , giftConSum : 0
         }
 
         if(!common.isEmpty(response.data)){
@@ -245,9 +252,10 @@
             weekTotal.sex_man = response.data.sex_man;
             weekTotal.sex_female += response.data.sex_female;
             weekTotal.sex_unknown += response.data.sex_unknown;
-            weekTotal.joinSum += response.data.joinSum;
-            weekTotal.expSum += response.data.expSum;
-            weekTotal.dalSum += response.data.dalSum;
+            weekTotal.itemCnt += response.data.itemCnt;
+            weekTotal.dal_0_Sum += response.data.itemNo1;
+            weekTotal.dalSum += (response.data.itemNo2 + response.data.itemNo3 * 3);
+            weekTotal.giftConSum += (response.data.itemNo4 + response.data.itemNo5 + response.data.itemNo6 + response.data.itemNo7 + response.data.itemNo8);
         }
 
         var weekTarget = $('.fc-week:eq('+param.index+')').find('.fc-day-content:last');
@@ -273,7 +281,7 @@
 
         events: function(start, end, timezone, callback) {
             $.ajax({
-                url: '/rest/content/event/attendance/calendar/list',
+                url: '/rest/content/event/roulette/calendar/list',
                 type: 'post',
                 dataType: 'json',
                 data: {
@@ -283,9 +291,17 @@
                 success: function(response) {
 
                     response.data.forEach(function(info){
+
+                        /*<div>꽝 : {{addComma dal_0_Sum}} exp</div>
+                        <div>달 : {{addComma dalSum}} exp</div>
+                        <div>기프티콘 : {{addComma giftConSum}} 개</div>*/
+
                         var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
                         var template = $('#tmp_calendarData').html();
                         var templateScript = Handlebars.compile(template);
+
+                        info.dalSum = info.itemNo2 + info.itemNo3 * 3;
+                        info.giftConSum = info.itemNo4 + info.itemNo5 + info.itemNo6 + info.itemNo7 + info.itemNo8;
                         var context = info;
                         var html=templateScript(context);
                         dayTarget.append(html);
@@ -308,25 +324,26 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div>참여자 수 : {{addComma joinSum}} 명</div>
+    <div>참여자 수 : {{addComma itemCnt}} 명</div>
     <div>로그인 수 : {{addComma loginCnt}} 명</div>
     <div>남성 : {{addComma sex_man}} 명</div>
     <div>여성 : {{addComma sex_female}} 명</div>
     <div>알수없음 : {{addComma sex_unknown}} 명</div>
-    <div>참여건수 : {{addComma joinSum}} 건</div>
-    <div>경험치 : {{addComma expSum}} exp</div>
-    <div>달 : {{addComma dalSum}} 개</div>
+    <div>참여건수 : {{addComma itemCnt}} 건</div>
+    <div>꽝 : {{addComma itemNo1}} exp</div>
+    <div>달 : {{addComma dalSum}} exp</div>
+    <div>기프티콘 : {{addComma giftConSum}} 개</div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_weekCalendarData">
     <div style="font-weight:bold">{{month}}월 {{math index '+' 1}}주차</div>
-    <div>참여자 수 : {{addComma joinCnt}} 명</div>
+    <div>참여자 수 : {{addComma itemCnt}} 명</div>
     <div>로그인 수 : {{addComma loginCnt}} 명</div>
     <div>남성 : {{addComma sex_man}} 명</div>
     <div>여성 : {{addComma sex_female}} 명</div>
     <div>알수없음 : {{addComma sex_unknown}} 명</div>
-    <div>참여건수 : {{addComma joinSum}} 건</div>
-    <div>경험치 : {{addComma expSum}} exp</div>
+    <div>참여건수 : {{addComma itemCnt}} 건</div>
+    <div>꽝 : {{addComma dal_0_Sum}} 건</div>
     <div>달 : {{addComma dalSum}} 개</div>
+    <div>기프티콘 : {{addComma giftConSum}} 개</div>
 </script>
-
