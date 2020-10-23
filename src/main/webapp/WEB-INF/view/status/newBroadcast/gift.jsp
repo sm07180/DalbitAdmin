@@ -116,30 +116,30 @@
 <script type="text/x-handlebars-template" id="tmp_giftHistoryList">
     {{#each this as |data|}}
     <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
-        <td>
-            {{indexDesc ../totalCnt rowNum}}
-        </td>
-        <td>{{substr purchaseDate 0 19}}</td>
-        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>
-        <td>{{mem_nick}}</td>
-        <td><a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{title}}</a></td>
-        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_userid}}</a></td>
-        <td>{{gifted_mem_nick}}</td>
-        <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-        <td>
-            {{^equal item_thumbnail ''}}
-            <img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{data.webp_image}}"/>
-            {{else}}
-            {{#equal data.item_name '부스터'}}
-            <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
-            {{else}}
-            -
-            {{/equal}}
-            {{/equal}}
-        </td>
-        <td>{{item_name}}</td>
-        <td>{{addComma itemCnt}}개</td>
-        <td>{{addComma itemAmt}}개</td>
+    <td>
+        {{indexDesc ../totalCnt rowNum}}
+    </td>
+    <td>{{substr purchaseDate 0 19}}</td>
+    <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>
+    <td>{{mem_nick}}</td>
+    <td><a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{title}}</a></td>
+    <td><a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_userid}}</a></td>
+    <td>{{gifted_mem_nick}}</td>
+    <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+    <td>
+        {{^equal item_thumbnail ''}}
+        <img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{data.webp_image}}"/>
+        {{else}}
+        {{#equal data.item_name '부스터'}}
+        <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
+        {{else}}
+        -
+        {{/equal}}
+        {{/equal}}
+    </td>
+    <td>{{item_name}}</td>
+    <td>{{addComma itemCnt}}개</td>
+    <td>{{addComma itemAmt}}개</td>
     </tr>
     {{else}}
     <tr>

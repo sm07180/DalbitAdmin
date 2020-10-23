@@ -535,66 +535,27 @@
         </div>
         <table class="table table-bordered table-dalbit">
             <colgroup>
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
+                <col width="12.5%" /><col width="12.5%" /><col width="12.5%" /><col width="12.5%" /><col width="12.5%" />
+                <col width="12.5%" /><col width="12.5%" /><col width="12.5%" />
             </colgroup>
             <tbody>
             <tr class="align-middle">
-                <th rowspan="2">No</th>
-                <td rowspan="2" colspan="2">{{rowNum}}</td>
+                <th>No</th>
+                <td>{{rowNum}}</td>
 
-                <th rowspan="2">배너 제목</th>
-                <td colspan="5"  rowspan="2"><input type="text" class="form-control" id="banner-title" name="title" placeholder="배너 제목을 입력하세요." value="{{title}}"></td>
+                <th>배너 제목</th>
+                <td colspan="3"><input type="text" class="form-control" id="banner-title" name="title" placeholder="배너 제목을 입력하세요." value="{{title}}"></td>
 
-                <th>등록자/등록일시</th>
-                <td colspan="2">{{opName}} / {{moment reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-            </tr>
-            <tr>
-                <th>수정자/수정일시</th>
-                <td colspan="2">{{lastOpName}} / {{moment lastUpdDate 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <th><span style="color:red">노출상태</span><br />게시여부 + 노출기간</th>
+                <td>
+                    {{{isCurrentDisplay is_view start_datetime end_datetime}}}
+                </td>
             </tr>
             <tr>
                 <th>플랫폼</th>
-                <td colspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2'}}}</td>
-
-                <th>구분</th>
-                <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
-
-                <th>성별</th>
-                <td colspan="2">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
-
-                <th>페이지 전환</th>
-                <td colspan="2">{{{getCommonCodeRadio is_pop 'viewType' 'N' 'is_pop'}}}</td>
-            </tr>
-            <tr>
-                <th>노출 빈도</th>
-                <td colspan="5">{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
-
-                <th>배너위치</th>
-                <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
-            </tr>
-            <tr>
-
-                <th><span style="color:red">노출상태</span><br />게시여부 + 노출기간</th>
-                <td colspan="2">
-                    {{{isCurrentDisplay is_view start_datetime end_datetime}}}
-                </td>
-
-                <th>게시여부</th>
-                <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
-
+                <td>{{{getCommonCodeHorizontalCheck platform 'content_platform2'}}}</td>
                 <th>노출 기간</th>
-                <td colspan="2">
+                <td colspan="3">
                     <div>
                         {{{getCommonCodeRadio term_type 'banner_exposureType' 'N' 'term_type'}}}
                     </div>
@@ -616,79 +577,89 @@
                         </div>
                     </div>
                 </td>
+                <th>게시여부</th>
+                <td>{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
+            </tr>
+            <tr>
+                <th>배너위치</th>
+                <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
                 <th>IOS심사 중<br />노출여부</th>
-                <td colspan="2" class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
+                <td class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
+            </tr>
+            <tr>
+                <th>게시 스케쥴</th>
+                <td colspan="5">요일</td>
+                <th>페이지 전환</th>
+                <td>{{{getCommonCodeRadio is_pop 'viewType' 'N' 'is_pop'}}}</td>
             </tr>
             <tr class="_show_popup" style='display:none;'>
                 <th>팝업 구분</th>
-                <td colspan="5">{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
+                <td>{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
 
                 <th>오늘하루 열지않기</th>
-                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
-            </tr>
+                <td class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
 
-            <tr class="_show_popup _show_popup_text" style='display:none;'>
                 <th>제목 노출 여부</th>
-                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
+                <td class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
 
                 <th>버튼 노출 여부</th>
-                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
+                <td class="no-margin">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
             </tr>
 
-            <tr class="_show_popup _show_popup_text" style='display:none;'>
+            <tr class="_show_popup" style='display:none;'>
                 <th>배너문구</th>
-                <td colspan="11">
+                <td colspan="7">
                     <textarea name="contents" id="contents" style='width:100%;height:100%;' rows="10">{{contents}}</textarea>
                 </td>
             </tr>
-
             <tr class="_show_popup_image">
-                <th colspan="12">배너 이미지</th>
+                <th colspan="8">배너 이미지</th>
             </tr>
             <tr class="_show_popup_image">
                 <th>PC<br />(1618px x 000px)</th>
-                <td colspan="5">
+                <td colspan="3">
                     <input type="text" class="_trim" id="banner-pc_img_url" name="pc_img_url" style="width:70%" value="{{pc_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-pc_img_url')">
                 </td>
 
                 <th>Mobile<br />(1618px x 000px)</th>
-                <td colspan="5">
+                <td colspan="3">
                     <input type="text" class="_trim" id="banner-mobile_img_url" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-mobile_img_url')">
                 </td>
             </tr>
             <tr class="_show_popup_image">
-                <td colspan="6">
+                <td colspan="4">
                     <!--미리보기-->
                     <img id="banner-pc_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px; width:100%;" src="" alt="" /></a>
                 </td>
 
-                <td colspan="6">
+                <td colspan="4">
                     <!--미리보기-->
                     <img id="banner-mobile_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px; width:100%;" src="" alt="" /></a>
                 </td>
             </tr>
             <tr>
                 <th>PC 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{pc_link_url}}}"></td>
+                <td colspan="3"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{pc_link_url}}}"></td>
 
                 <th>Mobile 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{mobile_link_url}}}"></td>
+                <td colspan="3"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{mobile_link_url}}}"></td>
+            </tr>
+
+            <tr>
+                <th>등록자</th>
+                <td>{{opName}}</td>
+                <th>등록일시</th>
+                <td>{{moment reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <th>수정자</th>
+                <td>{{lastOpName}}</td>
+                <th>수정일시</th>
+                <td>{{moment lastUpdDate 'YYYY-MM-DD HH:mm:ss'}}</td>
             </tr>
             <tr>
-                <th>썸네일 (공통)</th>
-                <td colspan="4">
-                    <input type="text" class="_trim" id="banner-thumb_img_url" name="thumb_img_url" style="width:70%" value="{{thumb_img_url}}" >
-                    <input type="button" value="미리보기" onclick="getImg('banner-thumb_img_url')">
-                </td>
-                <td colspan="1">
-                    <!--미리보기-->
-                    <img id="banner-thumb_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="width:100px; border:0px; border-radius:0px;" src="" alt="" /></a>
-                </td>
-
                 <th>비고</th>
-                <td colspan="5">
+                <td colspan="7">
                     <textarea class="form-control" d="banner-desc" name="desc" irows="5" cols="30" placeholder="설명 및 메모를 입력해주세요." style="resize: none" maxlength="200" >{{desc}}</textarea>
                 </td>
             </tr>
