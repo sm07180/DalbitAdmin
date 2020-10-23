@@ -547,7 +547,7 @@
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6Cnt '!=' content.no_type6OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type6Cnt}}건</span>{{else}} {{content.no_type6Cnt}}건 {{/dalbit_if}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7Cnt '!=' content.no_type7OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type7Cnt}}건</span>{{else}} {{content.no_type7Cnt}}건 {{/dalbit_if}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99Cnt '!=' content.no_type99OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type99Cnt}}건</span>{{else}} {{content.no_type99Cnt}}건 {{/dalbit_if}}</td>
-            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}건</span>{{else}} {{content.totalQna}}건 {{/dalbit_if}}</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}건</span>{{else}} {{content.no_totalQna}}건 {{/dalbit_if}}</td>
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 처리</td>
