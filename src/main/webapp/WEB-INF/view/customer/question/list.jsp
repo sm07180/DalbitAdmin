@@ -70,6 +70,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="widget-content" id="main_table2">
+                        <table id="list_info2" class="table table-sorting table-hover table-bordered ">
+                            <thead>
+                            </thead>
+                            <tbody id="tableBody2">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- DATA TABLE END -->
@@ -81,6 +89,32 @@
         </div>
     </div>
 </div>
+
+
+<!-- 운영자메모 Modal -->
+<div class="modal fade" id="adminMemoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable>운영자메모</lable>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="widget-content">
+                    <table id="memo_list" class="table table-sorting table-hover table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝 -->
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
@@ -256,6 +290,7 @@
         $("#question_summaryArea2").html(html);
 
         clearInterval(storageTimer);
+        ui.paintColor();
 
     }
 
@@ -375,13 +410,38 @@
         tmp_slctMember = tmp;
         if(tmp == 1){
             $("#question_summaryArea").show();
+            $("#main_table").show();
             $("#question_summaryArea2").hide();
+            $("#main_table2").hide();
+            dtList_info_detail.reload();
         }else{
             $("#question_summaryArea").hide();
+            $("#main_table").hide();
             $("#question_summaryArea2").show();
+            $("#main_table2").show();
         }
-        dtList_info_detail.reload();
+        if(tmp == 2){
+            nonMembers();
+        }
         $("#tab_qna").addClass("hide");
+    }
+    function nonMembers(){
+        var dtList_info_detail2;
+        var dtList_info_detail_data2 = function ( data ) {
+            data.searchText = $('#txt_search').val();
+            data.searchType = tmp_searchType;
+            data.slctState = tmp_slctState;
+            data.slctPlatform = tmp_slctPlatform;
+            data.slctMember = tmp_slctMember;
+            data.startDate = $("#startDate").val();
+            data.endDate = $("#endDate").val();
+            data.slctDateType = $("#slctDateType").find("select").val();
+        };
+
+        dtList_info_detail2 = new DalbitDataTable($("#list_info2"), dtList_info_detail_data2, questionDataTableSource.questListNonMember);
+        dtList_info_detail2.useCheckBox(true);
+        dtList_info_detail2.useIndex(true);
+        dtList_info_detail2.createDataTable(question_summary_table);
     }
 
     /*==================================*/
@@ -389,20 +449,24 @@
 
 <script id="question_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right" style="width: 710px">
+        <colgroup>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
+            <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
+        </colgroup>
         <tr>
-            <th rowspan="2">회원</th>
-            <th>문의 총계</th>
-            <th>회원정보</th>
-            <th>방송정보</th>
-            <th>청취하기</th>
-            <th>결제</th>
-            <th>건의하기</th>
-            <th>장애/버그</th>
-            <th>선물/아이템</th>
-            <th>기타</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9"></th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">회원정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">방송정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">청취하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">결제</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">건의하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">장애/버그</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">선물/아이템</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">기타</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">총합</th>
         </tr>
         <tr>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalQna}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">회원</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type1Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type2Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type3Cnt}}건</td>
@@ -411,25 +475,43 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.type6Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type7Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.type99Cnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.totalQna}}건</td>
+        </tr>
+        <tr>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 답변</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type1OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type2OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type3OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type4OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type5OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type6OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type7OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type99OpCnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.totalOpQna}}건</td>
         </tr>
     </table>
 </script>
 
 <script id="question_tableSummary2" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right" style="width: 710px">
+        <colgroup>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
+            <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
+        </colgroup>
         <tr>
-            <th rowspan="2">비회원</th>
-            <th>문의 총계</th>
-            <th>회원정보</th>
-            <th>방송정보</th>
-            <th>청취하기</th>
-            <th>결제</th>
-            <th>건의하기</th>
-            <th>장애/버그</th>
-            <th>선물/아이템</th>
-            <th>기타</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9"></th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">회원정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">방송정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">청취하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">결제</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">건의하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">장애/버그</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">선물/아이템</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">기타</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">총합</th>
         </tr>
         <tr>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">비회원</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2Cnt}}건</td>
@@ -438,7 +520,19 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7Cnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+        </tr>
+        <tr>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 답변</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalOpQna}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type3OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type4OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7OpCnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_type99OpCnt}}건</td>
         </tr>
     </table>
 </script>

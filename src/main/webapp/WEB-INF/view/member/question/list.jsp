@@ -13,6 +13,32 @@
         </div>
     </div>
 </div>
+
+<!-- 운영자메모 Modal -->
+<div class="modal fade" id="adminMemoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable>운영자메모</lable>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="widget-content">
+                    <table id="memo_list" class="table table-sorting table-hover table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝 -->
+
 <div class="col-md-12 no-padding">
     <jsp:include page="questionTab.jsp"></jsp:include>
 </div>
@@ -35,7 +61,7 @@
             data.slctPlatform = tmp_slctPlatform;
             data.slctState = tmp_slctState;
         };
-        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, questionDataTableSource.memDetail_questList);
+        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, questionDataTableSource.questList);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(50);
@@ -69,12 +95,12 @@
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            header : question_summary
-            , content : response.data
-        }
+            content : response.data
+        };
         var html = templateScript(data);
         $("#question_summaryArea").html(html);
 
+        ui.paintColor();
         clearInterval(storageTimer);
     }
 
@@ -100,23 +126,49 @@
 
 <script id="question_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right">
+        <colgroup>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
+            <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
+        </colgroup>
         <thead>
         <tr>
-            {{#each this.header}}
-            <th>{{this.code}}</th>
-            {{/each}}
+            <th class="_bgColor" data-bgcolor="#d9d9d9"></th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">회원정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">방송정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">청취하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">결제</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">건의하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">장애/버그</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">선물/아이템</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">기타</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">총합</th>
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-        <td>{{#equal length '0'}}0{{/equal}}{{content.qnaCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type1Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type2Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type3Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type4Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type5Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type6Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type7Cnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.type99Cnt}}건</td>
+        <tr>
+            <td>회원</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type1Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type2Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type3Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type4Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type5Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type6Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type7Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type99Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.qnaCnt}}건</td>
+        </tr>
+        <tr>
+            <td>비회원</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type1OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type2OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type3OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type4OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type5OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type6OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type7OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type99OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.qnaOpCnt}}건</td>
+        </tr>
         </tbody>
     </table>
 </script>
