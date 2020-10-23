@@ -28,7 +28,7 @@
     </select>
 
     <update id="callServiceCenterQnaUpdate" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-        update rd_data.tb_service_center_qna_v25 set answer=#{answer},op_date=now(),op_name=#{opName} where idx = #{qnaIdx}
+        update rd_data.tb_service_center_qna_v25 set answer=#{answer},op_date=now(),op_name=#{opName},slct_type = #{slct_type} where idx = #{qnaIdx}
     </update>
 
     <select id="getFaqGroupList" resultType="com.dalbit.customer.vo.FaqVo">
@@ -55,6 +55,15 @@
               IFNULL(sum(if(slct_type = 6, 1, 0)),0)  as type6Cnt,
               IFNULL(sum(if(slct_type = 7, 1, 0)),0)  as type7Cnt,
               IFNULL(sum(if(slct_type = 99, 1, 0)),0) as type99Cnt
+              ,IFNULL(sum(if(state = 1,1,0)),0) as qnaOpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 1, 1, 0),0)),0) as type1OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 2, 1, 0),0)),0) as type2OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 3, 1, 0),0)),0) as type3OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 4, 1, 0),0)),0) as type4OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 5, 1, 0),0)),0) as type5OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 6, 1, 0),0)),0) as type6OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 7, 1, 0),0)),0) as type7OpCnt
+              ,IFNULL(sum(if(state = 1,if(slct_type = 99, 1, 0),0)),0) as  type99OpCnt
              from rd_data.tb_service_center_qna_v25
             where idx > 0
               and mem_no = #{mem_no}

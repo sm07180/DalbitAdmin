@@ -42,6 +42,15 @@ var question_summary = [
     , new COMMON_CODE('', 'type6Cnt', '장애/버그')
     , new COMMON_CODE('', 'type7Cnt', '선물/아이템')
     , new COMMON_CODE('', 'type99Cnt', '기타')
+    , new COMMON_CODE('', 'totalOpQna', '총 1:1문의')
+    , new COMMON_CODE('', 'type1OpCnt', '회원정보')
+    , new COMMON_CODE('', 'type2OpCnt', '방송정보')
+    , new COMMON_CODE('', 'type3OpCnt', '청취하기')
+    , new COMMON_CODE('', 'type4OpCnt', '결제')
+    , new COMMON_CODE('', 'type5OpCnt', '건의하기')
+    , new COMMON_CODE('', 'type6OpCnt', '장애/버그')
+    , new COMMON_CODE('', 'type7OpCnt', '선물/아이템')
+    , new COMMON_CODE('', 'type99OpCnt', '기타')
 ];
 
 var question_slctType = [

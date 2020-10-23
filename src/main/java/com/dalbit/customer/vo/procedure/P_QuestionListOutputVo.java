@@ -65,6 +65,16 @@ public class P_QuestionListOutputVo extends BaseVo {
     private int type7Cnt;
     private int type99Cnt;
 
+    private int totalOpQna;
+    private int type1OpCnt;
+    private int type2OpCnt;
+    private int type3OpCnt;
+    private int type4OpCnt;
+    private int type5OpCnt;
+    private int type6OpCnt;
+    private int type7OpCnt;
+    private int type99OpCnt;
+
     private int no_totalQna;
     private int no_type1Cnt;
     private int no_type2Cnt;
@@ -74,6 +84,16 @@ public class P_QuestionListOutputVo extends BaseVo {
     private int no_type6Cnt;
     private int no_type7Cnt;
     private int no_type99Cnt;
+
+    private int no_totalOpQna;
+    private int no_type1OpCnt;
+    private int no_type2OpCnt;
+    private int no_type3OpCnt;
+    private int no_type4OpCnt;
+    private int no_type5OpCnt;
+    private int no_type6OpCnt;
+    private int no_type7OpCnt;
+    private int no_type99OpCnt;
 
     public void setWrite_date(Date write_date) {
         this.write_date = write_date;

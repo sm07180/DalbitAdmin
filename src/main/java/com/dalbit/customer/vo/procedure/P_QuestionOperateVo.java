@@ -21,4 +21,5 @@ public class P_QuestionOperateVo extends SearchVo {
     private String qnaType;
     private String qnaContent;
     private String fileName;
+    private String slct_type;
 }

@@ -466,7 +466,7 @@
         <td>{{addComma tmoneyCmt}}</td>
         <td>{{vatMinus tmoneyAmt}}</td>
         <td>{{addComma cashbeeCnt}}</td>
-        <td>{{addComma cashbeeCmt}}</td>1
+        <td>{{addComma cashbeeCmt}}</td>
         <td>{{vatMinus cashbeeAmt}}</td>
         <td>{{addComma paycoCnt}}</td>
         <td>{{addComma paycoCmt}}</td>

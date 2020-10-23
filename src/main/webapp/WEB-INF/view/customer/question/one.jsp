@@ -27,31 +27,6 @@
 <!-- 이미지 원본 보기 -->
 <div id="fullSize_question"></div>
 
-<!-- 강제퇴장 Modal -->
-<div class="modal fade" id="adminMemoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 800px;display: table;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <lable>운영자메모</lable>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="widget-content">
-                    <table id="memo_list" class="table table-sorting table-hover table-bordered">
-                        <thead>
-                        </thead>
-                        <tbody id="tableBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal 끝 -->
-
 <script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/customerHelper.js?${dummyData}"></script>
 
@@ -217,6 +192,7 @@
         data.fileName = fileName;
         data.qnaContent = $("textarea#question_contents").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
 
+        data.slct_type = $('select[name="question_type"]').find('option:selected').val();
         console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
@@ -334,9 +310,18 @@
     function update_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
+
+        // var obj ={};
+        // obj.qnaIdx = qnaIdx;
+        // util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 
-    function adminMemoList(){
+    function adminMemoList(tmp){
+        console.log("--------------------------------");
+        console.log(tmp);
+        if(!common.isEmpty(tmp)){
+            qnaIdx = tmp;
+        }
         $('#adminMemoModal').modal('show');
         var dtMemo_List_info;
         var dtList_info_detail_data = function ( data ) {
@@ -414,7 +399,7 @@
                     <td>{{rowNum}}</td>
 
                     <th>문의유형</th>
-                    <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
+                    <td>{{{getCommonCodeSelect slct_type 'question_type'}}}</td>
 
                     <th>Browser</th>
                     <td>{{browser}}</td>
@@ -524,8 +509,8 @@
                         <button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button>
                     </td>
 
-                    <th>바로가기버튼</th>
-                    <td colspan="4">
+                    <th rowspan="2">바로가기버튼</th>
+                    <td colspan="4" rowspan="2">
                         <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url=" https://m.dalbitlive.com/store">달결제</button>
                         <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/money_exchange">별환전</button>
                         <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/mypage/{{mem_no}}/wallet">내지갑</button>
@@ -539,14 +524,15 @@
                 </tr>
                 <tr>
                     <th colspan="2">
-                        운영자 메모
+                        운영자 메모 ({{opMemoCnt}}건)<br>
+                        <button type="button" id="bt_adminMemoList" class="btn-sm btn btn-default" onclick="adminMemoList();">자세히</button>
                     </th>
-                    <td colspan="9">
+                    <td colspan="4">
                         <input type="text" class="form-control" id="txt_qnaAdminMemo" style="width: 100%">
                     </td>
-                    <td>
+
+                    <td style="text-align: center">
                         <button type="button" id="bt_adminMemo" class="btn-sm btn btn-default" onclick="adminMemoAdd();">등록</button>
-                        <button type="button" id="bt_adminMemoList" class="btn-sm btn btn-default" onclick="adminMemoList();">자세히</button>
                     </td>
                 </tr>
                 </tbody>
