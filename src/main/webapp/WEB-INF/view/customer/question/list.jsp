@@ -182,6 +182,8 @@
         tmp_slctMember = tabType;
     }
 
+    var dtList_info_detail2;    // 비회원
+
     var dtList_info_detail;
     var dtList_info_detail_data = function ( data ) {
         data.searchText = $('#txt_search').val();
@@ -327,7 +329,11 @@
         clearInterval(storageTimer);
 
         $("#tab_qna").removeClass("hide");
-        var data = dtList_info_detail.getDataRow(index);
+        if(tmp_slctMember == 1){
+            var data = dtList_info_detail.getDataRow(index);
+        }else{
+            var data = dtList_info_detail2.getDataRow(index);
+        }
         var obj ={};
         obj.qnaIdx = data.qnaIdx;
         obj.answer = data.answer;
@@ -426,7 +432,6 @@
         $("#tab_qna").addClass("hide");
     }
     function nonMembers(){
-        var dtList_info_detail2;
         var dtList_info_detail_data2 = function ( data ) {
             data.searchText = $('#txt_search').val();
             data.searchType = tmp_searchType;
