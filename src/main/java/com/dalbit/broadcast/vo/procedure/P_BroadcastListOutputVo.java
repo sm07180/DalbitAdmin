@@ -60,6 +60,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int liveBoostCnt;
     private int inner;
     private int freezeMsg;
+    private int guestCnt;
 
     /* 회원 배지 */
     private int day_badge;

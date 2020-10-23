@@ -106,6 +106,7 @@ var dalPointEditStory = [
     ,new COMMON_CODE('13','13','직원 테스트')
     ,new COMMON_CODE('23','23','이벤트 지급')
     ,new COMMON_CODE('22','22','스페셜DJ 혜택')
+    ,new COMMON_CODE('12','12','운영자 지급')
 ];
 
 
@@ -238,7 +239,8 @@ var mem_wallet_dal_code = [
     , new COMMON_CODE('9', '9', '퀵 메시지 구매/연장')
     , new COMMON_CODE('10', '10', '레벨업 보상')
     , new COMMON_CODE('11', '11', '출석체크 보상')
-    , new COMMON_CODE('12', '12', '소실금액복구')
+    , new COMMON_CODE('12', '12', '소실금액 복구')
+    , new COMMON_CODE('121', '121', '운영자 지급')
     , new COMMON_CODE('13', '13', '테스트지급및회수')
     , new COMMON_CODE('14', '14', '클립선물')
     , new COMMON_CODE('15', '15', '가입보상 달')
