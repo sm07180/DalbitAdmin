@@ -27,6 +27,9 @@ public class P_NewBroadcastGiftOutputVo extends BaseVo {
     private String gifted_mem_no;
     private String gifted_mem_userid;
     private String gifted_mem_nick;
+    private String gifted_mem_sex;
+    private String gifted_birth_year;
+
     private String inner;
     private String webp_image;
 
