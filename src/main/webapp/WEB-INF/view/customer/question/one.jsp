@@ -43,6 +43,9 @@
     var qnaContent;
     var fileName;
     var state;
+
+    var tmp_slctMember = 1;
+
     function quest_detail_success(data, response, params){
         noticeType = 0;
         $('#tab_customerQuestion').addClass("show");
@@ -205,7 +208,11 @@
         }else{
             alert(response.message);
         }
-        dtList_info_detail.reload();
+        if(tmp_slctMember == 1){
+            dtList_info_detail.reload();
+        }else{
+            dtList_info_detail2.reload();
+        }
         $('#tab_customerQuestion').removeClass("show");
     }
 
