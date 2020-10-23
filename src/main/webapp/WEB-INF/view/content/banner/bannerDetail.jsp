@@ -580,6 +580,7 @@
                 <th>게시여부</th>
                 <td>{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
             </tr>
+
             <tr>
                 <th>배너위치</th>
                 <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
@@ -662,6 +663,19 @@
                 <td colspan="7">
                     <textarea class="form-control" d="banner-desc" name="desc" irows="5" cols="30" placeholder="설명 및 메모를 입력해주세요." style="resize: none" maxlength="200" >{{desc}}</textarea>
                 </td>
+            </tr>
+
+
+            <!-- 가려달라고 해서 일단 여기에 모아둠.. -->
+            <tr style="display:none;">
+                <th>구분</th>
+                <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
+
+                <th>성별</th>
+                <td colspan="2">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
+
+                <th>노출 빈도</th>
+                <td>{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
             </tr>
             </tbody>
         </table>
