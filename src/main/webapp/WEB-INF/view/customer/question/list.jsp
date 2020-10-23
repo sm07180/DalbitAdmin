@@ -9,38 +9,44 @@
     <div id="page-wrapper">
         <div class="container-fluid no-padding">
             <!-- serachBox -->
-            <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
-                            <div>
-                                <span name="question_searchType" id="question_searchType"></span>
-                                <span name="question_selbox_type" id="question_selbox_type"></span>
-                                <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"></span>
+            <div class="col-md-7 no-padding">
+                <form id="searchForm">
+                    <div class="row col-lg-12 form-inline">
+                        <div class="widget widget-table searchBoxArea">
+                            <div class="widget-header searchBoxRow">
+                                <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
+                                <div>
+                                    <span name="question_searchType" id="question_searchType"></span>
+                                    <span name="question_selbox_type" id="question_selbox_type"></span>
+                                    <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"></span>
 
-                                <div class="input-group date" id="rangeDatepicker" style="display: none">
-                                    <label for="displayDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                    <div class="input-group date" id="rangeDatepicker" style="display: none">
+                                        <label for="displayDate" class="input-group-addon">
+                                            <span><i class="fa fa-calendar"></i></span>
+                                        </label>
+                                        <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                    </div>
+
+                                    <input type="hidden" name="startDate" id="startDate" />
+                                    <input type="hidden" name="endDate" id="endDate" />
+                                    <%--<input name="startDate" id="startDate" />--%>
+                                    <%--<input name="endDate" id="endDate" />--%>
+
+                                    <label><input type="text" class="form-control" id="txt_search"></label>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
                                 </div>
-
-                                <input type="hidden" name="startDate" id="startDate" />
-                                <input type="hidden" name="endDate" id="endDate" />
-                                <%--<input name="startDate" id="startDate" />--%>
-                                <%--<input name="endDate" id="endDate" />--%>
-
-                                <label><input type="text" class="form-control" id="txt_search"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="col-md-4 no-padding pull-right" style="margin-right: 30px">
+                <span id="question_summaryArea"></span>
+                <span id="question_summaryArea2"></span>
+            </div>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 15px;">
                 <div class="widget-content">
@@ -68,10 +74,6 @@
                             <span name="question_status" id="question_status" onchange="question_status_change()"></span>
                             <span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>
                             <span name="question_platform" id="question_platform" onchange="question_status_change()"></span>
-                        </div>
-                        <div class="col-md-6 no-padding">
-                            <span id="question_summaryArea"></span>
-                            <span id="question_summaryArea2"></span>
                         </div>
                     </div>
                     <div class="widget-content" id="main_table">
@@ -474,7 +476,7 @@
 </script>
 
 <script id="question_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="width: 710px">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 650px">
         <colgroup>
             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
             <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
@@ -519,7 +521,7 @@
 </script>
 
 <script id="question_tableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="width: 710px">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 650px">
         <colgroup>
             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
             <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
@@ -547,7 +549,7 @@
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6Cnt '!=' content.no_type6OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type6Cnt}}건</span>{{else}} {{content.no_type6Cnt}}건 {{/dalbit_if}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7Cnt '!=' content.no_type7OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type7Cnt}}건</span>{{else}} {{content.no_type7Cnt}}건 {{/dalbit_if}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99Cnt '!=' content.no_type99OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type99Cnt}}건</span>{{else}} {{content.no_type99Cnt}}건 {{/dalbit_if}}</td>
-            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}건</span>{{else}} {{content.totalQna}}건 {{/dalbit_if}}</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}건</span>{{else}} {{content.no_totalQna}}건 {{/dalbit_if}}</td>
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 처리</td>
