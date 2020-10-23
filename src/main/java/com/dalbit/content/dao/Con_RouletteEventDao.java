@@ -22,4 +22,10 @@ public interface Con_RouletteEventDao {
 
     @Transactional(readOnly = true)
     int selectRouletteApplyCnt(RouletteApplyVo rouletteApplyVo);
+
+    @Transactional(readOnly = true)
+    RouletteCalendarVo selectRouletteWeekCalendarList(RouletteCalendarVo rouletteCalendarVo);
+
+    @Transactional(readOnly = true)
+    List<RouletteCalendarVo> selectRouletteCalendarList(RouletteCalendarVo rouletteCalendarVo);
 }

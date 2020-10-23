@@ -73,4 +73,14 @@ public class Con_RouletteEventService {
         return result;
     }
 
+    public String selectRouletteWeekCalendarList(RouletteCalendarVo rouletteCalendarVo){
+        RouletteCalendarVo weekRouletteCalendarVo = con_rouletteEventDao.selectRouletteWeekCalendarList(rouletteCalendarVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, weekRouletteCalendarVo));
+    }
+
+    public String selectRouletteCalendarList(RouletteCalendarVo rouletteCalendarVo){
+        List<RouletteCalendarVo> rouletteCalendarList = con_rouletteEventDao.selectRouletteCalendarList(rouletteCalendarVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, rouletteCalendarList));
+    }
+
 }

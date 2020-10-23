@@ -1,7 +1,9 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_RouletteEventService;
+import com.dalbit.content.vo.AttendanceCalendarVo;
 import com.dalbit.content.vo.RouletteApplyVo;
+import com.dalbit.content.vo.RouletteCalendarVo;
 import com.dalbit.content.vo.procedure.P_RouletteRateVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +47,24 @@ public class Con_RouletteEventRestController {
     @PostMapping("/selectApplyList")
     public String selectApplyList(RouletteApplyVo rouletteApplyVo){
         String result = con_rouletteEventService.selectRouletteApplyList(rouletteApplyVo);
+        return result;
+    }
+
+    /**
+     * 이벤트 현황 summary
+     */
+    @PostMapping("/calendar/week")
+    public String attendanceCalendarWeek(RouletteCalendarVo rouletteCalendarVo) {
+        String result = con_rouletteEventService.selectRouletteWeekCalendarList(rouletteCalendarVo);
+        return result;
+    }
+
+    /**
+     * 룰렛이벤트 달력 조회
+     */
+    @PostMapping("/calendar/list")
+    public String attendanceCalendarList(RouletteCalendarVo rouletteCalendarVo) {
+        String result = con_rouletteEventService.selectRouletteCalendarList(rouletteCalendarVo);
         return result;
     }
 
