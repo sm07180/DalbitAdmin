@@ -51,9 +51,9 @@
                             <tbody id="loginLiveTableBody">
                                 <tr id="giftCntArea">
                                     <th>최대 당첨<br />제한 명수</th>
-                                    <td><input type="text" class="form-control _data" /></td>
-                                    <td><input type="text" class="form-control _data" /></td>
-                                    <td><input type="text" class="form-control _data" /></td>
+                                    <td>무제한<input type="hidden" class="form-control _data" /></td>
+                                    <td>무제한<input type="hidden" class="form-control _data" /></td>
+                                    <td>무제한<input type="hidden" class="form-control _data" /></td>
                                     <td><input type="text" class="form-control _data" /></td>
                                     <td><input type="text" class="form-control _data" /></td>
                                     <td><input type="text" class="form-control _data" /></td>

@@ -77,7 +77,11 @@
 
         where 1=1
             <include refid="applyListCondition" />
-        order by evtApply.item_no asc
+        order by
+        <if test='winType == 2'>
+            evtApply.item_no asc,
+        </if>
+            evtApply.apply_date desc
         limit #{pageStart}, #{pageCnt}
     </select>
 
