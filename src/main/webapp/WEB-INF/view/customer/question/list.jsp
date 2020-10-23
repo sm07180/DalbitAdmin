@@ -175,7 +175,7 @@
     var tmp_searchText;
     var tmp_searchType= -1;
     var tmp_slctState =-1;
-    var tmp_slctMember =-1;
+    var tmp_slctMember = 0;
     var tmp_slctPlatform = null;
 
     if(!common.isEmpty(tabType)){
@@ -512,7 +512,6 @@
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">비회원</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type3Cnt}}건</td>
@@ -520,11 +519,11 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6Cnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7Cnt}}건</td>
-            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type99Cnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_totalQna}}건</td>
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 답변</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.no_totalOpQna}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type1OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type2OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type3OpCnt}}건</td>
@@ -532,7 +531,8 @@
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type5OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type6OpCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.no_type7OpCnt}}건</td>
-            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_type99OpCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.no_type99OpCnt}}건</td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">{{#equal length '0'}}0{{/equal}}{{content.no_totalOpQna}}건</td>
         </tr>
     </table>
 </script>
