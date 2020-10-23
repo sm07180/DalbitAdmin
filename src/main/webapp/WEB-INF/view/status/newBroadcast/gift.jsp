@@ -5,10 +5,6 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <div class="col-md-12 no-padding mb5 mt5">
-
-            <div class="col-md-1 no-padding">
-                <span id="giftreceiverType" onchange="giftreceiverTypeChange();"></span>
-            </div>
             <div class="col-md-2 no-padding">
                 <span id="giftSort" onchange="giftSortChange();"></span>
             </div>
@@ -26,34 +22,25 @@
         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
         <table class="table table-bordered">
             <colgroup>
-                <col width="6.25%"/><col width="6.25%"/><col width="6.25%"/><col width="6.25%"/><col width="6.25%"/>
-                <col width="6.25%"/><col width="6.25%"/><col width="6.25%"/><col width="6.25%"/><col width="6.25%"/>
-                <col width="6.25%"/><col width="6.25%"/><col width="6.25%"/><col width="6.25%"/><col width="6.25%"/>
-                <col width="6.25%"/>
+                <col width="2%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
+                <col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
+                <col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">No</th>
-                <th rowspan="2">보낸 회원</th>
-                <th rowspan="2">성별 (나이)</th>
-                <th rowspan="2">선물 받은 일시</th>
-                <th rowspan="2">방송방 제목</th>
-                <th rowspan="2">구분</th>
-                <th rowspan="2">받은 회원</th>
-                <th rowspan="2">성별</th>
-                <th rowspan="2">이미지</th>
-                <th rowspan="2">아이템명</th>
-                <%--<th rowspan="2">받은 선물<br/>수량</th>--%>
-                <%--<th rowspan="2">누적<br/>받은 선물<br/>수량</th>--%>
-                <%--<th rowspan="2">받은 선물</th>--%>
-                <%--<th rowspan="2">누적 받은 선물</th>--%>
+                <th>NO</th>
+                <th>선물 일시</th>
+                <th>회원번호</th>
+                <th>닉네임</th>
+                <th>방송방 제목</th>
+                <th>DJ ID</th>
+                <th>닉네임</th>
+                <th>성별</th>
+                <th>아이템<br />이미지</th>
+                <th>아이템명</th>
+                <th>아이템 수량</th>
+                <th>아이템 달수</th>
             </tr>
-            <%--<tr>--%>
-                <%--<th>달</th>--%>
-                <%--<th>별</th>--%>
-                <%--<th>달</th>--%>
-                <%--<th>별</th>--%>
-            <%--</tr>--%>
             </thead>
             <tbody id="giftHistoryListArea"></tbody>
         </table>
@@ -68,11 +55,10 @@
 </div>
 
 <script type="text/javascript">
-    giftHistoryListPagingInfo = new PAGING_INFO(0, 1, 50);
+    giftHistoryListPagingInfo = new PAGING_INFO(0, 1, 20);
 
     $(function(){
         $("#giftSort").html(util.getCommonCodeSelect(-1, giftSort));
-        $("#giftreceiverType").html(util.getCommonCodeSelect(-1, giftreceiverType));
     });
 
     function getGiftHistoryList(){
@@ -85,7 +71,6 @@
         data.orderType = $("select[name='giftSort']").val();
         data.pageNo = giftHistoryListPagingInfo.pageNo;
         data.pageCnt = giftHistoryListPagingInfo.pageCnt;
-        data.recvType = $("select[name='giftreceiverType']").val();
 
         console.log(data);
 
@@ -124,9 +109,6 @@
     function giftSortChange(){
         getGiftHistoryList();
     }
-    function giftreceiverTypeChange(){
-        getGiftHistoryList();
-    }
 
 
 </script>
@@ -134,45 +116,30 @@
 <script type="text/x-handlebars-template" id="tmp_giftHistoryList">
     {{#each this as |data|}}
     <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
-        <td>
-            {{indexDesc ../totalCnt rowNum}}
-        </td>
-        <td>
-            <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a>
-            <br/>{{mem_nick}}
-        </td>
-        <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-        <td>{{substr purchaseDate 0 19}}</td>
-        <td>
-            <a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{room_no}}</a>
-            <br/>{{title}}
-        </td>
-        <td>
-            {{#dalbit_if item_type '==' 8}}
-                게스트
-            {{else}}
-                DJ
-            {{/dalbit_if}}
-        </td>
-        <td>
-            <a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_userid}}</a>
-            <br/>{{gifted_mem_nick}}
-        </td>
-        <td>{{{sexIcon gifted_mem_sex gifted_birth_year}}}</td>
-        <td>
-            {{^equal item_thumbnail ''}}
-            <img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{data.webp_image}}"/>
-            {{else}}
-            {{#equal data.item_name '부스터'}}
-            <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
-            {{else}}
-            -
-            {{/equal}}
-            {{/equal}}
-        </td>
-        <td>{{item_name}}</td>
-        <%--<td>{{addComma itemCnt}}개</td>--%>
-        <%--<td>{{addComma itemAmt}}개</td>--%>
+    <td>
+        {{indexDesc ../totalCnt rowNum}}
+    </td>
+    <td>{{substr purchaseDate 0 19}}</td>
+    <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>
+    <td>{{mem_nick}}</td>
+    <td><a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{title}}</a></td>
+    <td><a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_userid}}</a></td>
+    <td>{{gifted_mem_nick}}</td>
+    <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+    <td>
+        {{^equal item_thumbnail ''}}
+        <img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50" data-webpImage="{{data.webp_image}}"/>
+        {{else}}
+        {{#equal data.item_name '부스터'}}
+        <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
+        {{else}}
+        -
+        {{/equal}}
+        {{/equal}}
+    </td>
+    <td>{{item_name}}</td>
+    <td>{{addComma itemCnt}}개</td>
+    <td>{{addComma itemAmt}}개</td>
     </tr>
     {{else}}
     <tr>
