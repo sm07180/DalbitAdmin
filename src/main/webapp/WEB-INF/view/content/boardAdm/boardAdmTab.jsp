@@ -27,6 +27,8 @@
 <script type="text/javascript">
     var tabId = "tab_storyList" ;
     $("#tablist_con li a").on('click', function(){
+
+
         tabId = $(this).prop('id');
         if(tabId == "tab_storyList" ){
             storyList();
@@ -43,6 +45,7 @@
         }else if(tabId == "tab_clipReply" ){
             clipReplyList();
         }
+        tabCntSelect();
     });
     $('input[id="txt_search"]').keydown(function(e) {
         if(e.keyCode == 13) {
@@ -50,6 +53,7 @@
         }
     });
     $('#bt_search').on('click', function() {
+
         if(tabId == "tab_storyList" ){
             storyList();
         }else if(tabId == "tab_fanBoardList" ){
@@ -65,6 +69,31 @@
         }else if(tabId == "tab_clipReply" ){
             clipReplyList();
         }
+        tabCntSelect();
     });
 
+
+    function tabCntSelect(){
+        var data = {
+            'txt_search' : $('#txt_search').val()
+            , 'start_sel' : $("#startDate").val()
+            , 'end_sel' : $("#endDate").val()
+            ,'broState' : 0
+            ,'searchType' : 0
+            ,'boardType' : 1
+            ,'status' : 0
+        };
+        util.getAjaxData("storyList", "/rest/content/boardAdm/tab/count", data, fn_success_tabCntSelect);
+    }
+    function fn_success_tabCntSelect(dst_id, response){
+
+        console.log(response);
+        $("#tab_storyList").text("사연" + "(" + response.data.storyListCnt +")");
+        $("#tab_fanBoardList").text("팬보드" + "(" + response.data.fanBoardListCnt +")");
+        $("#tab_fanBoardReply").text("팬보드댓글" + "(" + response.data.fanBoardReplyCnt +")");
+        $("#tab_noticeList").text("방송방공지" + "(" + response.data.noticeListCnt +")");
+        $("#tab_broadNoticeList").text("회원공지" + "(" + response.data.broadNoticeListCnt +")");
+        $("#tab_profileMsgList").text("프로필 메시지" + "(" + response.data.profileMsgListCnt +")");
+        $("#tab_clipReply").text("클립댓글" + "(" + response.data.clipReplyCnt +")");
+    }
 </script>

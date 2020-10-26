@@ -153,4 +153,14 @@ public class Con_BoardAdmRestController {
     public String editList(P_MemberEditHistInputVo pMemberEditHistInputVo) {
         return conBoardAdmService.editList(pMemberEditHistInputVo);
     }
+
+
+
+    /**
+     * Tab Count Select
+     */
+    @PostMapping("/tab/count")
+    public String tabCount(BoardAdmTabCountVo boardAdmTabCountVo) {
+        return conBoardAdmService.tabCount(boardAdmTabCountVo);
+    }
 }
