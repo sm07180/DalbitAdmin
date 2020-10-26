@@ -28,7 +28,6 @@
     var tabId = "tab_storyList" ;
     $("#tablist_con li a").on('click', function(){
 
-        tabCntSelect();
 
         tabId = $(this).prop('id');
         if(tabId == "tab_storyList" ){
@@ -46,6 +45,7 @@
         }else if(tabId == "tab_clipReply" ){
             clipReplyList();
         }
+        tabCntSelect();
     });
     $('input[id="txt_search"]').keydown(function(e) {
         if(e.keyCode == 13) {
@@ -53,7 +53,6 @@
         }
     });
     $('#bt_search').on('click', function() {
-        tabCntSelect();
 
         if(tabId == "tab_storyList" ){
             storyList();
@@ -70,6 +69,7 @@
         }else if(tabId == "tab_clipReply" ){
             clipReplyList();
         }
+        tabCntSelect();
     });
 
 
