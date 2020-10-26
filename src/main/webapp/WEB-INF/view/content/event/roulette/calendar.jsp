@@ -292,10 +292,6 @@
 
                     response.data.forEach(function(info){
 
-                        /*<div>꽝 : {{addComma dal_0_Sum}} exp</div>
-                        <div>달 : {{addComma dalSum}} exp</div>
-                        <div>기프티콘 : {{addComma giftConSum}} 개</div>*/
-
                         var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
                         var template = $('#tmp_calendarData').html();
                         var templateScript = Handlebars.compile(template);
@@ -330,8 +326,8 @@
     <div>여성 : {{addComma sex_female}} 명</div>
     <div>알수없음 : {{addComma sex_unknown}} 명</div>
     <div>참여건수 : {{addComma itemCnt}} 건</div>
-    <div>꽝 : {{addComma itemNo1}} exp</div>
-    <div>달 : {{addComma dalSum}} exp</div>
+    <div>꽝 : {{addComma itemNo1}} 건</div>
+    <div>달 : {{addComma dalSum}} 건</div>
     <div>기프티콘 : {{addComma giftConSum}} 개</div>
 </script>
 
