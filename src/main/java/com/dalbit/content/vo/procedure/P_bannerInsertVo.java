@@ -36,5 +36,10 @@ public class P_bannerInsertVo extends BaseVo {
     private String lastOpName;        //수정자
     private String platform;			// 플랫폼(111: PC/AOS/IOS)
     private int iosJudgeViewOn;			// IOS 심사중 노출여부
+
+    private String dayOfTheWeek;        // 스케쥴 요일 선택
+    private String content_scheduleWeekTime;        // 스케쥴 시간 구분 선택
+    private String weekStartDatetime;   // 스케쥴 시작 시간
+    private String weekEndDatetime;     // 스케쥴 종료 시간
 }
 
