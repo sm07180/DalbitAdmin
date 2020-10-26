@@ -248,8 +248,8 @@
             where bas.mem_no = send_mem_no group by bas.mem_no) as send_birth_year,
             sto.write_date as send_date,
             sto.contents   as story_content,
-            (select count(*) from rd_data.tb_broadcast_room_story where room_no in (select room_no from rd_data.tb_broadcast_room where mem_no = bas.mem_no)) as storyCnt,
-            (select count(*) from rd_data.tb_broadcast_room_story where writer_no=sto.writer_no) as sendStoryCnt,
+            (select count(*) from rd_data.tb_broadcast_room_story where room_no = bro.room_no) as storyCnt,
+            (select count(*) from rd_data.tb_broadcast_room_story where writer_no = sto.writer_no) as sendStoryCnt,
             @RNUM := @RNUM + 1 as rowNum
         from rd_data.tb_broadcast_room bro
         inner join rd_data.tb_broadcast_room_story sto on sto.room_no = bro.room_no
@@ -383,7 +383,7 @@
 
 
     <sql id="clipReplyCondition">
-        select @RNUM := @RNUM +1 as rowNum
+        select  @RNUM := @RNUM +1 as rowNum
                 , a.title
                 , a.cast_no
                 , b.cast_mem_no
@@ -404,7 +404,7 @@
           join rd_data.tb_cast_room_board b on a.cast_no = b.cast_no
           left join rd_data.tb_member_basic castMem on b.cast_mem_no = castMem.mem_no
           left join rd_data.tb_member_basic writerMem on b.writer_mem_no = writerMem.mem_no
-          inner join (select @RNUM := 0) r
+          inner join (select @RNUM := #{searchStartNo}-1) r
         where ((castMem.mem_no like CONCAT('%',#{searchText},'%')
                 OR castMem.mem_userid like CONCAT('%',#{searchText},'%')
                 OR castMem.mem_nick like CONCAT('%',#{searchText},'%')
