@@ -1,12 +1,4 @@
 /** =------ Notice ---------- */
-var notice_platform = [
-    new COMMON_CODE(null, 'platform', '플랫폼')
-    , new COMMON_CODE('all', '111', '전체')
-    , new COMMON_CODE('title', '100', 'PC')
-    , new COMMON_CODE('content', '010', '안드로이드')
-    , new COMMON_CODE('opName', '3', '작성자')
-];
-
 var notice_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
@@ -157,7 +149,7 @@ var push_push_slct = [
     , new COMMON_CODE('60', '60', '1:1 문의 답변')
     , new COMMON_CODE('61', '61', '운영자 선물 수신')
     , new COMMON_CODE('62', '62', '환전 완료')
-    , new COMMON_CODE('63', '63', '환전 취소')
+    , new COMMON_CODE('63', '63', '환전 불가')
     , new COMMON_CODE('92', '92', '운영자(회원 + 비회원)')
     , new COMMON_CODE('93', '93', '운영자(회원)')
     , new COMMON_CODE('94', '94', '운영자(비회원)')
@@ -196,10 +188,6 @@ var banner_bannerType = [
     , new COMMON_CODE('endPopup', '8', '종료팝업')
     , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
     , new COMMON_CODE('clip', '10', '클립 Center')
-    , new COMMON_CODE('clipMain', '13', '클립 팝업')
-    , new COMMON_CODE('exchangePopup', '11', '환전팝업')
-    , new COMMON_CODE('storePopup', '12', '스토어팝업')
-    , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
 ];
 
 var banner_loginType = [
@@ -373,19 +361,6 @@ var event_winnerState = [
     , new COMMON_CODE('complete', '3', '완료')
 ];
 
-var event_contentType = [
-    new COMMON_CODE(null, 'content_type', '이벤트 컨텐츠 타입')
-    , new COMMON_CODE('image', 'image', '이미지')
-    , new COMMON_CODE('button', 'button', '버튼')
-]
-
-var event_content_button_type = [
-    new COMMON_CODE(null, 'button_type', '이벤트 컨텐츠 버튼 타입')
-    , new COMMON_CODE('link', 'link', '링크이동')
-    , new COMMON_CODE('popup', 'popup', '팝업')
-    , new COMMON_CODE('popup', 'popup', '팝업')
-]
-
 /** =------ Item ---------- */
 var item_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
@@ -513,7 +488,7 @@ var content_isUse = [
 var attendance_dayType = [
     new COMMON_CODE(null, 'the_day', '참여 구분')
     , new COMMON_CODE('all', '-1', '참여 구분(전체)')
-    , new COMMON_CODE('more', '1', '보너스')
+    , new COMMON_CODE('more', '1', '더줘')
     , new COMMON_CODE('yes', '2', '출석')
 ];
 
@@ -544,7 +519,6 @@ var inssaticon_category = [
 
 var fanBoard_status = [
   new COMMON_CODE(null, 'status', '게시글 상태')
-    , new COMMON_CODE('0', 0, '게시글 전체')
     , new COMMON_CODE('1', 1, '정상')
     , new COMMON_CODE('2', 2, '삭제')
 ];
@@ -628,4 +602,22 @@ var roulette_winType = [
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('dal', '1', '달')
     , new COMMON_CODE('gifticon', '2', '기프티콘')
+];
+
+var content_scheduleWeek = [
+    new COMMON_CODE(null, 'content_scheduleWeek', '요일')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('1', '1', '월')
+    , new COMMON_CODE('2', '2', '화')
+    , new COMMON_CODE('3', '3', '수')
+    , new COMMON_CODE('4', '4', '목')
+    , new COMMON_CODE('5', '5', '금')
+    , new COMMON_CODE('6', '6', '토')
+    , new COMMON_CODE('7', '7', '일')
+];
+
+var content_scheduleWeekTime = [
+    new COMMON_CODE(null, 'content_scheduleWeekTime', '시간')
+    , new COMMON_CODE('0', '0', '종일')
+    , new COMMON_CODE('1', '1', '시간 선택')
 ];

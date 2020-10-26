@@ -32,7 +32,7 @@ var questionDataTableSource = {
                        return '탈퇴회원';
                     }else{
                         return data;
-                    }
+                    }            
                 }},
             {'title': '성별', 'data': 'mem_sex', 'width':'55px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year, true);

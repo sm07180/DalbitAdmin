@@ -16,7 +16,7 @@
 
 
     var fnc_bannerDetail = {};
-    //=------------------------------ Init / Event / UI--------------------------------------------
+//=------------------------------ Init / Event / UI--------------------------------------------
     fnc_bannerDetail.targetId= "bannerDetail";
     fnc_bannerDetail.formId= "bannerDetailForm";
 
@@ -133,6 +133,31 @@
             }
         });
 
+        // 게시 스케쥴
+        fnc_bannerDetail.target.find("input[name='content_scheduleWeek']").change(function () {
+            if ($(this).attr("id").indexOf("-1") > -1) {
+                if ($(this).is(":checked")) {
+                    fnc_bannerDetail.target.find("input[name='content_scheduleWeek']").each(function () {
+                        this.checked = true;
+                    });
+                } else {
+                    fnc_bannerDetail.target.find("input[name='content_scheduleWeek']").each(function () {
+                        this.checked = false;
+                    });
+                }
+            } else {
+                if ($(this).is(":checked")) {
+                    var cntTotal = fnc_bannerDetail.target.find("input[name='content_scheduleWeek']").length;
+                    var cntChecked = fnc_bannerDetail.target.find("input[name='content_scheduleWeek']:checked").length;
+                    if ((cntTotal) == (cntChecked + 1)) {
+                        fnc_bannerDetail.target.find("input[name='content_scheduleWeek'][id='content_scheduleWeek-1']").prop("checked", true);
+                    }
+                } else {
+                    fnc_bannerDetail.target.find("input[name='content_scheduleWeek'][id='content_scheduleWeek-1']").prop("checked", false);
+                }
+            }
+        });
+
         //노출 기간
         fnc_bannerDetail.target.find("input[name='term_type']:radio").change(function () {
             var type = this.value;
@@ -141,6 +166,17 @@
                 fnc_bannerDetail.target.find("#banner-div-exposure").show();
             } else {    //상시
                 fnc_bannerDetail.target.find("#banner-div-exposure").hide();
+            }
+        });
+
+        //게시 시간 기간
+        fnc_bannerDetail.target.find("input[name='content_scheduleWeekTime']:radio").change(function () {
+            var type = this.value;
+
+            if (type == "1") {  //예약발송
+                fnc_bannerDetail.target.find("#banner-div-scheduleWeek").show();
+            } else {    //상시
+                fnc_bannerDetail.target.find("#banner-div-scheduleWeek").hide();
             }
         });
 
@@ -211,8 +247,8 @@
 
             //배너타입에 따른 display 변경 [이미지/텍스트]
             if($('input[name="popup_type"]:checked').val() == 0){
-                $('._show_popup_image').show();
-                $('._show_popup_text').hide();
+                    $('._show_popup_image').show();
+                    $('._show_popup_text').hide();
             }else{
                 $('._show_popup_image').hide();
                 $('._show_popup_text').show();
@@ -234,16 +270,36 @@
             fnc_bannerDetail.target.find("input[name='platform']").each(function () {
                 this.checked = true;
             });
-        }else{
+        }else {
             fnc_bannerDetail.target.find("input[name='platform']").each(function () {
                 this.checked = false;
             });
 
             var arrayPlatform = detailData.platform.split('');
-            for(var idx in arrayPlatform){
-                if(arrayPlatform[idx] == 1){
+            for (var idx in arrayPlatform) {
+                if (arrayPlatform[idx] == 1) {
                     var value = parseInt(idx) + 1;
-                    fnc_bannerDetail.target.find("input[name='platform'][id='platform"+ value +"']").prop("checked", true);
+                    fnc_bannerDetail.target.find("input[name='platform'][id='platform" + value + "']").prop("checked", true);
+                }
+            }
+        }
+
+        //OS 구분
+        if(detailData.dayOfTheWeek == "1111111"){
+            fnc_bannerDetail.target.find("input[name='content_scheduleWeek']").each(function () {
+                this.checked = true;
+            });
+        }else {
+            fnc_bannerDetail.target.find("input[name='content_scheduleWeek']").each(function () {
+                this.checked = false;
+            });
+
+            var arrayDayOfTheWeek = detailData.dayOfTheWeek.split('');
+            for (var idx in arrayDayOfTheWeek) {
+                if (arrayDayOfTheWeek[idx] == 1) {
+                    console.log("-------------------------------------- 1");
+                    var value = parseInt(idx) + 1;
+                    fnc_bannerDetail.target.find("input[name='content_scheduleWeek'][id='content_scheduleWeek" + value + "']").prop("checked", true);
                 }
             }
         }
@@ -266,6 +322,23 @@
             fnc_bannerDetail.target.find("#banner-div-endDate").find("#timeHour").val(eDate.hour().toString().length == 1?("0"+eDate.hour()):eDate.hour());
             fnc_bannerDetail.target.find("#banner-div-endDate").find("#timeMinute").val(eDate.minute().toString().length == 1?("0"+eDate.minute()):eDate.minute());
         }
+
+        $("input:radio[name='content_scheduleWeekTime'][value='"+detailData.content_scheduleWeekTime+"']").prop("checked", true);
+
+        if(detailData.content_scheduleWeekTime == "1"){
+            fnc_bannerDetail.target.find("#banner-div-scheduleWeek").show();
+
+            var sDate = detailData.weekStartDatetime;
+            var eDate = detailData.weekEndDatetime;
+
+            // 시간 Select CSS 적용
+            fnc_bannerDetail.target.find("#banner-div-scheduleWeek-startDate").find("#timeHour").val(sDate.substr(0,2));
+            fnc_bannerDetail.target.find("#banner-div-scheduleWeek-startDate").find("#timeMinute").val(sDate.substr(2,2));
+            fnc_bannerDetail.target.find("#banner-div-scheduleWeek-endDate").find("#timeHour").val(eDate.substr(0,2));
+            fnc_bannerDetail.target.find("#banner-div-scheduleWeek-endDate").find("#timeMinute").val(eDate.substr(2,2));
+        }
+
+
         fnc_bannerDetail.popupBannerDisplayChange();
     };
 
@@ -321,7 +394,7 @@
         util.scrollPostion(scrollPosition.top);
     };
 
-    //=------------------------------ Option --------------------------------------------
+//=------------------------------ Option --------------------------------------------
 
     // 상세 목록 조회 성공 시
     fnc_bannerDetail.fn_detail_success= function(dst_id, data, dst_params){
@@ -384,7 +457,7 @@
         console.log(data, textStatus, jqXHR);
     };
 
-    //=------------------------------ Data Handler ----------------------------------
+//=------------------------------ Data Handler ----------------------------------
 
     // 데이터 가져오기
     fnc_bannerDetail.getDetailData= function(){
@@ -427,7 +500,37 @@
             resultJson['end_datetime'] = "";
         }
 
-        dalbitLog(resultJson)
+        //게시스케쥴 Date 처리
+        if(fnc_bannerDetail.target.find("input[name='content_scheduleWeekTime']:radio:checked").val() == "1"){
+            var startDiv = fnc_bannerDetail.target.find("#banner-div-scheduleWeek-startDate");
+            resultJson['weekStartDatetime'] = startDiv.find("#timeHour").val() + startDiv.find("#timeMinute").val();
+            var endDiv = fnc_bannerDetail.target.find("#banner-div-scheduleWeek-endDate");
+            resultJson['weekEndDatetime'] = endDiv.find("#timeHour").val() + endDiv.find("#timeMinute").val();
+        }else{
+            resultJson['weekStartDatetime'] = "0000";
+            resultJson['weekEndDatetime'] = "2359";
+        }
+
+
+        //platform
+        if(fnc_bannerDetail.target.find("#content_scheduleWeek-1").is(":checked")){
+            resultJson['dayOfTheWeek'] = "1111111";
+        }else{
+            var content_scheduleWeekCnt = fnc_bannerDetail.target.find("input[name=content_scheduleWeek]").length;
+            var content_scheduleWeek = "";
+            for(var i = 1; i < content_scheduleWeekCnt; i++){
+                if(fnc_bannerDetail.target.find("#content_scheduleWeek"+(i)).is(":checked")){
+                    content_scheduleWeek += "1";
+                }else{
+                    content_scheduleWeek += "0";
+                }
+            }
+            resultJson['dayOfTheWeek'] = content_scheduleWeek;
+        }
+
+
+        dalbitLog(resultJson);
+
         return resultJson
     };
 
@@ -535,66 +638,27 @@
         </div>
         <table class="table table-bordered table-dalbit">
             <colgroup>
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
+                <col width="12.5%" /><col width="12.5%" /><col width="12.5%" /><col width="12.5%" /><col width="12.5%" />
+                <col width="12.5%" /><col width="12.5%" /><col width="12.5%" />
             </colgroup>
             <tbody>
             <tr class="align-middle">
-                <th rowspan="2">No</th>
-                <td rowspan="2" colspan="2">{{rowNum}}</td>
+                <th>No</th>
+                <td>{{rowNum}}</td>
 
-                <th rowspan="2">배너 제목</th>
-                <td colspan="5"  rowspan="2"><input type="text" class="form-control" id="banner-title" name="title" placeholder="배너 제목을 입력하세요." value="{{title}}"></td>
+                <th>배너 제목</th>
+                <td colspan="3"><input type="text" class="form-control" id="banner-title" name="title" placeholder="배너 제목을 입력하세요." value="{{title}}"></td>
 
-                <th>등록자/등록일시</th>
-                <td colspan="2">{{opName}} / {{moment reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-            </tr>
-            <tr>
-                <th>수정자/수정일시</th>
-                <td colspan="2">{{lastOpName}} / {{moment lastUpdDate 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <th><span style="color:red">노출상태</span><br />게시여부 + 노출기간</th>
+                <td>
+                    {{{isCurrentDisplay is_view start_datetime end_datetime}}}
+                </td>
             </tr>
             <tr>
                 <th>플랫폼</th>
-                <td colspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2'}}}</td>
-
-                <th>구분</th>
-                <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
-
-                <th>성별</th>
-                <td colspan="2">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
-
-                <th>페이지 전환</th>
-                <td colspan="2">{{{getCommonCodeRadio is_pop 'viewType' 'N' 'is_pop'}}}</td>
-            </tr>
-            <tr>
-                <th>노출 빈도</th>
-                <td colspan="5">{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
-
-                <th>배너위치</th>
-                <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
-            </tr>
-            <tr>
-
-                <th><span style="color:red">노출상태</span><br />게시여부 + 노출기간</th>
-                <td colspan="2">
-                    {{{isCurrentDisplay is_view start_datetime end_datetime}}}
-                </td>
-
-                <th>게시여부</th>
-                <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
-
+                <td>{{{getCommonCodeHorizontalCheck platform 'content_platform2'}}}</td>
                 <th>노출 기간</th>
-                <td colspan="2">
+                <td colspan="3">
                     <div>
                         {{{getCommonCodeRadio term_type 'banner_exposureType' 'N' 'term_type'}}}
                     </div>
@@ -616,81 +680,127 @@
                         </div>
                     </div>
                 </td>
+                <th>게시여부</th>
+                <td>{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
+            </tr>
+
+            <tr>
+                <th>배너위치</th>
+                <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
                 <th>IOS심사 중<br />노출여부</th>
-                <td colspan="2" class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
+                <td class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
+            </tr>
+            <tr>
+                <th>게시 스케쥴</th>
+                <td colspan="5">
+                    요일 : {{{getCommonCodeHorizontalCheck scheduleWeek 'content_scheduleWeek'}}}<br/>
+                    <div class="form-inline" >
+                        <div class="col-md-3 no-padding" style="width: 183px;">
+                            시간 : {{{getCommonCodeRadio 0 'content_scheduleWeekTime' '0' 'content_scheduleWeekTime'}}}
+                        </div>
+                        <div class="col-md-8 no-padding">
+                            <div id="banner-div-scheduleWeek" style="display: none;">
+                                <div class="col-md-1 no-padding" id="banner-div-scheduleWeek-startDate" style="width: 100px;">
+                                    {{{getCommonCodeSelect 00 'timeHour'}}}
+                                    <span> : </span>
+                                    {{{getCommonCodeSelect 00 'timeMinute'}}}
+                                    <span> ~ </span>
+                                </div>
+                                <div class="col-md-2 no-padding" id="banner-div-scheduleWeek-endDate">
+                                    {{{getCommonCodeSelect 00 'timeHour'}}}
+                                    <span> : </span>
+                                    {{{getCommonCodeSelect 00 'timeMinute'}}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <th>페이지 전환</th>
+                <td>{{{getCommonCodeRadio is_pop 'viewType' 'N' 'is_pop'}}}</td>
             </tr>
             <tr class="_show_popup" style='display:none;'>
                 <th>팝업 구분</th>
-                <td colspan="5">{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
+                <td>{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
 
                 <th>오늘하루 열지않기</th>
-                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
-            </tr>
+                <td class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
 
-            <tr class="_show_popup _show_popup_text" style='display:none;'>
                 <th>제목 노출 여부</th>
-                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
+                <td class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
 
                 <th>버튼 노출 여부</th>
-                <td colspan="5" class="no-margin">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
+                <td class="no-margin">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
             </tr>
 
             <tr class="_show_popup _show_popup_text" style='display:none;'>
                 <th>배너문구</th>
-                <td colspan="11">
+                <td colspan="7">
                     <textarea name="contents" id="contents" style='width:100%;height:100%;' rows="10">{{contents}}</textarea>
                 </td>
             </tr>
-
             <tr class="_show_popup_image">
-                <th colspan="12">배너 이미지</th>
+                <th colspan="8">배너 이미지</th>
             </tr>
             <tr class="_show_popup_image">
                 <th>PC<br />(1618px x 000px)</th>
-                <td colspan="5">
+                <td colspan="3">
                     <input type="text" class="_trim" id="banner-pc_img_url" name="pc_img_url" style="width:70%" value="{{pc_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-pc_img_url')">
                 </td>
 
                 <th>Mobile<br />(1618px x 000px)</th>
-                <td colspan="5">
+                <td colspan="3">
                     <input type="text" class="_trim" id="banner-mobile_img_url" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-mobile_img_url')">
                 </td>
             </tr>
             <tr class="_show_popup_image">
-                <td colspan="6">
+                <td colspan="4">
                     <!--미리보기-->
                     <img id="banner-pc_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px; width:100%;" src="" alt="" /></a>
                 </td>
 
-                <td colspan="6">
+                <td colspan="4">
                     <!--미리보기-->
                     <img id="banner-mobile_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px; width:100%;" src="" alt="" /></a>
                 </td>
             </tr>
             <tr>
                 <th>PC 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{pc_link_url}}}"></td>
+                <td colspan="3"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{pc_link_url}}}"></td>
 
                 <th>Mobile 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{mobile_link_url}}}"></td>
+                <td colspan="3"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{mobile_link_url}}}"></td>
+            </tr>
+
+            <tr>
+                <th>등록자</th>
+                <td>{{opName}}</td>
+                <th>등록일시</th>
+                <td>{{moment reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <th>수정자</th>
+                <td>{{lastOpName}}</td>
+                <th>수정일시</th>
+                <td>{{moment lastUpdDate 'YYYY-MM-DD HH:mm:ss'}}</td>
             </tr>
             <tr>
-                <th>썸네일 (공통)</th>
-                <td colspan="4">
-                    <input type="text" class="_trim" id="banner-thumb_img_url" name="thumb_img_url" style="width:70%" value="{{thumb_img_url}}" >
-                    <input type="button" value="미리보기" onclick="getImg('banner-thumb_img_url')">
-                </td>
-                <td colspan="1">
-                    <!--미리보기-->
-                    <img id="banner-thumb_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="width:100px; border:0px; border-radius:0px;" src="" alt="" /></a>
-                </td>
-
                 <th>비고</th>
-                <td colspan="5">
+                <td colspan="7">
                     <textarea class="form-control" d="banner-desc" name="desc" irows="5" cols="30" placeholder="설명 및 메모를 입력해주세요." style="resize: none" maxlength="200" >{{desc}}</textarea>
                 </td>
+            </tr>
+
+
+            <!-- 가려달라고 해서 일단 여기에 모아둠.. -->
+            <tr style="display:none;">
+                <th>구분</th>
+                <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
+
+                <th>성별</th>
+                <td colspan="2">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
+
+                <th>노출 빈도</th>
+                <td>{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
             </tr>
             </tbody>
         </table>

@@ -61,43 +61,43 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    $(document).on("click", "#insertBtn", function(){
+    <script type="text/javascript">
+        $(document).on("click", "#insertBtn", function(){
 
-        var sendURL = '/rest/content/push/insert';
-        console.log("SEND URL :", sendURL);
+            var sendURL = '/rest/content/push/insert';
+            console.log("SEND URL :", sendURL);
 
-        var sendData = {
-            server_slct : $("input:radio[name=server_slct]:checked").val()
-            ,platform : "111"
-            , status : "0"
-            , send_title : $("#push-send_title").val()
-            , send_cont : $("#push-send_cont").val()
-            , is_all : "7"
-            , mem_nos : $("#mem_nos").val()
-            , msg_type : "0"
-            , slct_push : $("#slct_push").val()
-            , is_direct : "0"
-            , send_cnt : "1"
-            // , send_datetime : "202010211053"
-            , send_type : "11"
-            , image_type : "101"
-        }
-
-        util.getAjaxData("push", sendURL, sendData,
-            function (data) {
-                console.log("[ajax 통신 결과]url : " + '/push/send');
-                console.log(data);
-                alert("PUSH 발송을 성공하였습니다.");
-            },function (data, textStatus, jqXHR) {
-                alert(data);
+            var sendData = {
+                server_slct : $("input:radio[name=server_slct]:checked").val()
+                ,platform : "111"
+                , status : "0"
+                , send_title : $("#push-send_title").val()
+                , send_cont : $("#push-send_cont").val()
+                , is_all : "7"
+                , mem_nos : $("#mem_nos").val()
+                , msg_type : "0"
+                , slct_push : $("#slct_push").val()
+                , is_direct : "0"
+                , send_cnt : "1"
+                // , send_datetime : "202010211053"
+                , send_type : "11"
+                , image_type : "101"
             }
-        );
 
-    })
+            util.getAjaxData("push", sendURL, sendData,
+                function (data) {
+                    console.log("[ajax 통신 결과]url : " + '/push/send');
+                    console.log(data);
+                    alert("PUSH 발송을 성공하였습니다.");
+                },function (data, textStatus, jqXHR) {
+                    alert(data);
+                }
+            );
 
-</script>
+        })
+
+    </script>

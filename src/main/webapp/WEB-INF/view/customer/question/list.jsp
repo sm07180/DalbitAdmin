@@ -476,7 +476,7 @@
 </script>
 
 <script id="question_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-margin">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 650px">
         <colgroup>
             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
             <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
@@ -521,7 +521,7 @@
 </script>
 
 <script id="question_tableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-margin">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 650px">
         <colgroup>
             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
             <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
