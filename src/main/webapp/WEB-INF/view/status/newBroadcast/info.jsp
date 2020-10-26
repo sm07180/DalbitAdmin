@@ -172,11 +172,10 @@
                 $("#monthDatepicker").show();
                 $("#yearDatepicker").hide();
 
-
                 $("#startDate").val(moment(dateTime).format("YYYY.MM.01"));
                 var monthLastDate = new Date($("#startDate").val().substr(0,4),$("#startDate").val().substr(5,7),-1);
                 $("#endDate").val($("#startDate").val().substr(0,8) +(monthLastDate.getDate() + 1));
-                $("#monthDate").val(monthLastDate.getFullYear() + "." + common.lpad(monthLastDate.getMonth(),0,"2"));
+                $("#monthDate").val(moment(dateTime).format("YYYY.MM"));
 
             }else{
                 // 월별 ----------------------------------
