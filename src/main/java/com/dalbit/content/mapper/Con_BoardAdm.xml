@@ -383,8 +383,7 @@
 
 
     <sql id="clipReplyCondition">
-        select  @RNUM := @RNUM +1 as rowNum
-                , a.title
+        select  a.title
                 , a.cast_no
                 , b.cast_mem_no
                 , castMem.mem_nick as cast_mem_nick
@@ -404,7 +403,7 @@
           join rd_data.tb_cast_room_board b on a.cast_no = b.cast_no
           left join rd_data.tb_member_basic castMem on b.cast_mem_no = castMem.mem_no
           left join rd_data.tb_member_basic writerMem on b.writer_mem_no = writerMem.mem_no
-          inner join (select @RNUM := #{searchStartNo}-1) r
+          inner join (select @RNUM := #{pageStart}) r
         where ((castMem.mem_no like CONCAT('%',#{searchText},'%')
                 OR castMem.mem_userid like CONCAT('%',#{searchText},'%')
                 OR castMem.mem_nick like CONCAT('%',#{searchText},'%')
@@ -438,11 +437,11 @@
 
     <select id="selectClipReplyList" parameterType="com.dalbit.content.vo.ClipReplyListVo" resultType="com.dalbit.content.vo.ClipReplyListVo">
         /* Con_BoardAdm.xml - selectClipReplyList */
-        select *
+        select *,  @RNUM := @RNUM +1 as rowNum
         from (
           <include refid="clipReplyCondition"/>
-        ) list
-        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+        ) list ,(select @RNUM := #{pageStart}) r
+        limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="clipReplyListSummary"  parameterType="com.dalbit.content.vo.ClipReplyListVo" resultType="com.dalbit.content.vo.ClipReplyListVo">
