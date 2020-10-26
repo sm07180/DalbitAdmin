@@ -19,6 +19,7 @@ public class RouletteCalendarVo extends PagingVo {
     private int loginCnt;
     private int joinCnt;
     private int itemCnt;
+    private int applyCnt;
     private int sex_man;
     private int sex_female;
     private int sex_unknown;
