@@ -94,7 +94,7 @@
         if(response.data.guestState == "NO")
             response.data["icon_guestState"] = response.data.guestState;
         else
-            response.data["icon_guestState"] = '<i class="fa fa-user" style="color: #a037d9;font-size:20px;"></i> ' + response.data.guestState + " / " + util.memNoLink(response.data.guest_userId + "( " + guest_nickName+ " )", response.data.guest_mem_no);
+            response.data["icon_guestState"] = '<i class="fa fa-user" style="color: #a037d9;font-size:20px;"></i> ' + response.data.guestState + " / " + util.memNoLink(response.data.guest_userId + "( " + response.data.guest_nickName +" )", response.data.guest_mem_no);
 
 
         if(response.data.broadcastState == "ON"){

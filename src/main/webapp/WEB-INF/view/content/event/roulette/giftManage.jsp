@@ -64,14 +64,14 @@
                                 </tr>
                                 <tr id="giftRate">
                                     <th>확률(100%)</th>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
-                                    <td><input type="text" class="form-control _data" style="width:50px; display:inherit" maxlength="3" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
+                                    <td><input type="text" class="form-control _data" style="width:60px; display:inherit" maxlength="5" /> %</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
