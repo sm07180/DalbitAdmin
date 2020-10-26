@@ -1,23 +1,20 @@
 package com.dalbit.content.service;
 
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
-import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BoardAdmDao;
 import com.dalbit.content.vo.*;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
-import com.dalbit.member.dao.Mem_NoticeDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -278,6 +275,21 @@ public class Con_BoardAdmService {
         List<P_MemberEditHistOutputVo> editList = conBoardAdmDao.editList(pMemberEditHistInputVo);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, editList, new PagingVo(editListCount)));
+        return result;
+    }
+
+
+
+    /**
+     * Tab Count Select
+     */
+    public String tabCount(BoardAdmTabCountVo boardAdmTabCountVo) {
+
+        BoardAdmTabCountVo outVo = conBoardAdmDao.tabCount(boardAdmTabCountVo);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.TabCount조회_성공, outVo, new PagingVo(0, 0,0)));
+
         return result;
     }
 }
