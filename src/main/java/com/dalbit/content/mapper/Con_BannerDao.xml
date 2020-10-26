@@ -36,6 +36,10 @@
             ,last_op_name       AS lastOpName
             ,`order`            AS `order`
             ,ios_judge_view_on  AS iosJudgeViewOn
+            ,day_of_the_week     AS dayOfTheWeek
+            ,week_time_type      AS content_scheduleWeekTime
+            ,week_start_datetime AS weekStartDatetime
+            ,week_end_datetime   AS weekEndDatetime
         FROM rd_admin.tb_admin_banner
     </sql>
 
@@ -130,6 +134,10 @@
                 ,op_name
                 ,last_upd_date
                 ,last_op_name
+                ,day_of_the_week
+                ,week_time_type
+                ,week_start_datetime
+                ,week_end_datetime
           )
           VALUES
           (
@@ -160,6 +168,10 @@
                 ,#{opName}
                 ,NOW()
                 ,#{opName}
+                ,#{dayOfTheWeek}
+                ,#{content_scheduleWeekTime}
+                ,concat(#{weekStartDatetime},'00')
+                ,concat(#{weekEndDatetime},'59')
           )
     </insert>
 
@@ -192,6 +204,10 @@
             ,ios_judge_view_on = IFNULL(#{iosJudgeViewOn}, ios_judge_view_on)
             ,last_upd_date = NOW()
             ,last_op_name = #{opName}
+            ,day_of_the_week = #{dayOfTheWeek}
+            ,week_time_type = #{content_scheduleWeekTime}
+            ,week_start_datetime = concat(#{weekStartDatetime},'00')
+            ,week_end_datetime = concat(#{weekEndDatetime},'59')
         WHERE
             idx = #{banner_idx}
     </update>
