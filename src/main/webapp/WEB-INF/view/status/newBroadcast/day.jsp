@@ -10,32 +10,31 @@
             <span class="font-bold">◈DJ/청취자 성별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="4.2%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
-                    <col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
-                    <col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
-                    <col width="5.1%"/>
+                    <%--<col width="4.2%"/>--%>
                 </colgroup>
                 <thead>
                 <tr>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
                     <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
-                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
-                    <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 건 수</th>
-                    <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">선물 달 수</th>
+                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">게스트</th>
+                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
                 </tr>
                 <tr>
                     <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <%--<th class="_bgColor" data-bgColor="#e9ebf5">누적 방송 총계</th>--%>
                     <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
                     <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
                     <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <%--<th class="_bgColor" data-bgColor="#e9ebf5">누적 청취 총계</th>--%>
+                    <th class="_bgColor" data-bgColor="#e9ebf5">최대 게스트 수</th>
+                    <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
+                    <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
+                    <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
+                    <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
                     <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
                 </tr>
                 </thead>
@@ -154,20 +153,6 @@
 
         tableBody.empty();
         if(!isDataEmpty){
-            var total_create_totalCnt = [
-                response.data.totalInfo.total_create_mCnt,
-                response.data.totalInfo.total_create_fCnt,
-                response.data.totalInfo.total_create_nCnt,
-            ];
-            response.data.totalInfo["total_create_totalCnt"] = common.getListSum(total_create_totalCnt);
-
-            var total_listener_totalCnt = [
-                response.data.totalInfo.total_listener_mCnt,
-                response.data.totalInfo.total_listener_fCnt,
-                response.data.totalInfo.total_listener_nCnt,
-            ];
-            response.data.totalInfo["total_listener_totalCnt"] = common.getListSum(total_listener_totalCnt);
-
             var template = $('#tmp_dayTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -176,8 +161,6 @@
         }
 
         for(var i=0;i<response.data.detailList.length;i++){
-            response.data.detailList[i].index = common.lpad(Number(moment().format("HH")),2,"0");
-
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
@@ -192,47 +175,6 @@
             }
             response.data.detailList[i].date = toDay;
         }
-
-        //현재 객체 배열을 정렬
-        response.data.detailList.sort(function (a, b) {
-            return a.index < b.index ? 1 : -1;
-        });
-
-        var tmp_create_totalCnt = 0;
-        var tmp_listener_totalCnt = 0;
-        for(var i=0;i<response.data.detailList.length;i++){
-            var create_totalCnt = [
-                response.data.detailList[i].create_mCnt,
-                response.data.detailList[i].create_fCnt,
-                response.data.detailList[i].create_nCnt,
-            ];
-            if(common.getListSum(create_totalCnt) != 0 ){
-                response.data.detailList[i].create_totalCnt = common.getListSum(create_totalCnt);
-                response.data.detailList[i].create_accuTotalCnt = tmp_create_totalCnt + common.getListSum(create_totalCnt);
-                tmp_create_totalCnt = tmp_create_totalCnt + common.getListSum(create_totalCnt);
-            }else{
-                response.data.detailList[i].create_totalCnt = 0;
-                response.data.detailList[i].create_accuTotalCnt = 0;
-            }
-            var listener_totalCnt = [
-                response.data.detailList[i].listener_mCnt,
-                response.data.detailList[i].listener_fCnt,
-                response.data.detailList[i].listener_nCnt,
-            ];
-            if(common.getListSum(listener_totalCnt) != 0){
-                response.data.detailList[i].listener_totalCnt = common.getListSum(listener_totalCnt);
-                response.data.detailList[i].listener_accuTotalCnt = tmp_listener_totalCnt + common.getListSum(listener_totalCnt);
-                tmp_listener_totalCnt = tmp_listener_totalCnt + common.getListSum(listener_totalCnt);
-            }else{
-                response.data.detailList[i].listener_accuTotalCnt = 0;
-                response.data.detailList[i].listener_totalCnt = 0;
-            }
-        }
-        //현재 객체 배열을 정렬
-        response.data.detailList.sort(function (a, b) {
-            return a.index < b.index ? 1 : -1;
-        });
-
 
         var template = $('#tmp_dayDetailList').html();
         var templateScript = Handlebars.compile(template);
@@ -405,17 +347,18 @@
         <td class="_fontColor" data-fontColor="red">{{addComma total_create_fCnt}} ({{addComma total_unique_dj_fCnt}})</td>
         <td>{{addComma total_create_nCnt}} ({{addComma total_unique_dj_nCnt}})</td>
         <td>{{addComma total_create_totalCnt}} ({{addComma total_unique_dj_Cnt}})</td>
-        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma total_create_totalCnt}}</td>--%>
         <td>{{addComma total_create_max_Cnt}}</td>
+        <td style="text-align: right">{{timeStampDay total_airtime}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma total_guest_mCnt}} ({{addComma total_guest_unique_mCnt}})</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma total_guest_fCnt}} ({{addComma total_guest_unique_fCnt}})</td>
+        <td>{{addComma total_guest_nCnt}} ({{addComma total_guest_unique_nCnt}})</td>
+        <td>{{addComma total_guest_totalCnt}} ({{addComma total_guest_UniqueCnt}})</td>
+        <td>{{addComma total_guest_max_Cnt}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma total_listener_mCnt}} ({{addComma total_unique_listener_mCnt}})</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}} ({{addComma total_unique_listener_fCnt}})</td>
         <td>{{addComma total_listener_nCnt}} ({{addComma total_unique_listener_nCnt}})</td>
         <td>{{addComma total_listener_totalCnt}} ({{addComma total_unique_listener_Cnt}})</td>
-        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma total_listener_totalCnt}}</td>--%>
         <td>{{addComma total_listener_max_Cnt}}</td>
-        <td style="text-align: right">{{timeStampDay total_airtime}}</td>
-        <td>{{addComma total_gift_Cnt}}</td>
-        <td>{{addComma total_gift_Amt}}</td>
     </tr>
 </script>
 
@@ -428,18 +371,19 @@
         <td class="_fontColor" data-fontColor="blue">{{#dalbit_if create_mCnt '!=' 0}}{{addComma create_mCnt 'Y'}} ({{addComma unique_dj_mCnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="red">{{#dalbit_if create_fCnt '!=' 0}}{{addComma create_fCnt 'Y'}} ({{addComma unique_dj_fCnt}}){{/dalbit_if}}</td>
         <td>{{#dalbit_if create_nCnt '!=' 0}}{{addComma create_nCnt 'Y'}} ({{addComma unique_dj_nCnt}}){{/dalbit_if}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if create_totalCnt '!=' 0}}{{addComma create_totalCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
-        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma create_accuTotalCnt 'Y'}}</td>--%>
+        <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if create_totalCnt '!=' 0}}{{addComma create_totalCnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td>{{addComma create_max_Cnt 'Y'}}</td>
+        <td style="text-align: right">{{timeStampDay airtime}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{#dalbit_if guest_mCnt '!=' 0}}{{addComma guest_mCnt 'Y'}} ({{addComma guest_unique_mCnt}}){{/dalbit_if}}</td>
+        <td class="_fontColor" data-fontColor="red">{{#dalbit_if guest_fCnt '!=' 0}}{{addComma guest_fCnt 'Y'}} ({{addComma guest_unique_fCnt}}){{/dalbit_if}}</td>
+        <td>{{#dalbit_if guest_nCnt '!=' 0}}{{addComma guest_nCnt 'Y'}} ({{addComma guest_unique_nCnt}}){{/dalbit_if}}</td>
+        <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if guest_Cnt '!=' 0}}{{addComma guest_Cnt 'Y'}} ({{addComma guest_unique_Cnt}}){{/dalbit_if}}</td>
+        <td>{{addComma guest_max_Cnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{#dalbit_if listener_mCnt '!=' 0}}{{addComma listener_mCnt 'Y'}} ({{addComma unique_listener_mCnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="red">{{#dalbit_if listener_fCnt '!=' 0}}{{addComma listener_fCnt 'Y'}} ({{addComma unique_listener_fCnt}}){{/dalbit_if}}</td>
         <td>{{#dalbit_if listener_nCnt '!=' 0}}{{addComma listener_nCnt 'Y'}} ({{addComma unique_listener_nCnt}}){{/dalbit_if}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if listener_totalCnt '!=' 0}}{{addComma listener_totalCnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
-        <%--<td class="_fontColor" data-fontColor="#ff3300">{{addComma listener_accuTotalCnt 'Y'}}</td>--%>
+        <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if listener_totalCnt '!=' 0}}{{addComma listener_totalCnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
-        <td style="text-align: right">{{timeStampDay airtime}}</td>
-        <td>{{addComma gift_Cnt 'Y'}}</td>
-        <td>{{addComma gift_Amt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
