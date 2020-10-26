@@ -103,8 +103,7 @@
             (select count(distinct mem_no)
                 from rd_data.stat_member_login_day
                 where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
-                and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
-            ) loginCnt
+                and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')) loginCnt
             , itemCnt
             , itemNo1
             , itemNo2
@@ -115,6 +114,10 @@
             , itemNo7
             , itemNo8
             , (select count(distinct mem_no)
+                from rd_data.tb_event_coupon_member_apply apply
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
+                and date_format(apply.apply_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')) applyCnt
+            , (select count(mem_no)
                 from rd_data.tb_event_coupon_member_apply apply
                 where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
                 and date_format(apply.apply_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')) joinCnt
@@ -179,6 +182,7 @@
         /* Con_Event.xml - selectRouletteCalendarList */
         select date_format(apply.apply_date, '%Y-%m-%d') the_date
             , (select count(*) from rd_data.stat_member_login_day where the_date = date_format(apply.apply_date, '%Y%m%d')) loginCnt
+            , (select count(distinct mem_no) from rd_data.tb_event_coupon_member_apply where  date_format(apply_date, '%Y%m%d') = date_format(apply_date, '%Y%m%d')) applyCnt
             , count(apply.apply_date)  itemCnt
             , sum(sex_man)  sex_man
             , sum(sex_female) sex_female
