@@ -51,30 +51,40 @@ public class Bro_GiftService {
         if(!DalbitUtil.isEmpty(GiftList)) {
             for (int i = 0; i < GiftList.size(); i++) {
                 P_GiftListOutputVo outVo = new P_GiftListOutputVo();
-                outVo.setRowNum(GiftList.get(i).getRowNum());
-                outVo.setMem_no(GiftList.get(i).getMem_no());
-                outVo.setUserId(GiftList.get(i).getUserId());
-                outVo.setNickName(GiftList.get(i).getNickName());
-                outVo.setLevel(GiftList.get(i).getLevel());
-                outVo.setGrade(GiftList.get(i).getGrade());
-                outVo.setGiftDateFormat(GiftList.get(i).getGiftDateFormat());
-                outVo.setItemImage(GiftList.get(i).getItemImage());
-                outVo.setItemName(GiftList.get(i).getItemName());
-                outVo.setInner(GiftList.get(i).getInner());
-                outVo.setItem_thumbnail(GiftList.get(i).getItem_thumbnail());
-                outVo.setAccumCnt(GiftList.get(i).getAccumCnt());
-                outVo.setItem_thumbnail(GiftList_thumbnail.get(i).getItem_thumbnail());
-                outVo.setItemCnt(GiftList_thumbnail.get(i).getItemCnt());
-                outVo.setSecret(GiftList_thumbnail.get(i).getSecret());
-                outVo.setByeolCnt(GiftList.get(i).getByeolCnt());
-                outVo.setAccumByeolCnt(GiftList.get(i).getAccumByeolCnt());
+                outVo.setRowNum(DalbitUtil.isEmpty(GiftList.get(i).getRowNum()) ? 0 : GiftList.get(i).getRowNum());
+                outVo.setMem_no(DalbitUtil.isEmpty(GiftList.get(i).getMem_no()) ? "-" : GiftList.get(i).getMem_no());
+                outVo.setUserId(DalbitUtil.isEmpty(GiftList.get(i).getUserId()) ? "-" : GiftList.get(i).getUserId());
+                outVo.setNickName(DalbitUtil.isEmpty(GiftList.get(i).getNickName()) ? "-" : GiftList.get(i).getNickName());
+                outVo.setLevel(DalbitUtil.isEmpty(GiftList.get(i).getLevel()) ? 0 : GiftList.get(i).getLevel());
+                outVo.setGrade(DalbitUtil.isEmpty(GiftList.get(i).getGrade()) ? "-" : GiftList.get(i).getGrade());
+                outVo.setGiftDateFormat(DalbitUtil.isEmpty(GiftList.get(i).getGiftDateFormat()) ? "-" : GiftList.get(i).getGiftDateFormat());
+                outVo.setItemImage(DalbitUtil.isEmpty(GiftList.get(i).getItemImage()) ? "-" : GiftList.get(i).getItemImage());
+                outVo.setItemName(DalbitUtil.isEmpty(GiftList.get(i).getItemName()) ? "-" : GiftList.get(i).getItemName());
+                outVo.setInner(DalbitUtil.isEmpty(GiftList.get(i).getInner()) ? 0 : GiftList.get(i).getInner());
+                outVo.setItem_thumbnail(DalbitUtil.isEmpty(GiftList.get(i).getItem_thumbnail()) ? "-" : GiftList.get(i).getItem_thumbnail());
+                outVo.setAccumCnt(DalbitUtil.isEmpty(GiftList.get(i).getAccumCnt()) ? 0 : GiftList.get(i).getAccumCnt());
+
+                outVo.setByeolCnt(DalbitUtil.isEmpty(GiftList.get(i).getByeolCnt()) ? 0 : GiftList.get(i).getByeolCnt());
+                outVo.setAccumByeolCnt(DalbitUtil.isEmpty(GiftList.get(i).getAccumByeolCnt()) ? 0 : GiftList.get(i).getAccumByeolCnt());
+
+                try {
+                    GiftList_thumbnail.stream().filter(gift_thumb -> gift_thumb.getItemCode().equals(outVo.getItemCode())).forEach(thumbs -> {
+                        outVo.setItem_thumbnail(thumbs.getItem_thumbnail());
+                        outVo.setItemCnt(thumbs.getItemCnt());
+                        outVo.setSecret(thumbs.getSecret());
+                    });
+                }catch (Exception e){
+                    outVo.setItem_thumbnail("-");
+                    outVo.setItemCnt(0);
+                    outVo.setSecret(0);
+                }
 
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(GiftList.get(i).getMem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
-                    outVo.setMem_sex(memInfoOutVo.getMem_sex());
-                    outVo.setMem_birth_year(memInfoOutVo.getMem_birth_year());
-                    outVo.setMem_birth_month(memInfoOutVo.getMem_birth_month());
-                    outVo.setMem_birth_day(memInfoOutVo.getMem_birth_day());
+                    outVo.setMem_sex(DalbitUtil.isEmpty(memInfoOutVo.getMem_sex()) ? "n" : memInfoOutVo.getMem_sex());
+                    outVo.setMem_birth_year(DalbitUtil.isEmpty(memInfoOutVo.getMem_birth_year()) ? "-" : memInfoOutVo.getMem_birth_year());
+                    outVo.setMem_birth_month(DalbitUtil.isEmpty(memInfoOutVo.getMem_birth_month()) ? "-" : memInfoOutVo.getMem_birth_month());
+                    outVo.setMem_birth_day(DalbitUtil.isEmpty(memInfoOutVo.getMem_birth_day()) ? "-" : memInfoOutVo.getMem_birth_day());
                 }
 
                 list.add(outVo);
