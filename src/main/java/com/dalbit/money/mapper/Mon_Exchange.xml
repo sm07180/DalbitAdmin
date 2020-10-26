@@ -149,10 +149,13 @@
                         </choose>
                     </otherwise>
                 </choose>
-            <if test="exchange_sort == 0"> order by exchange.idx desc </if>
-            <if test="exchange_sort == 1"> order by exchange.byeol desc </if>
-            <if test="exchange_sort == 2"> order by wallet.gold desc </if>
-            <if test="exchange_sort == 3"> order by exchange.op_date desc </if>
+            order by
+            <if test="exchange_sort == 0"> exchange.idx desc,  </if>
+            <if test="exchange_sort == 1"> exchange.byeol desc,  </if>
+            <if test="exchange_sort == 2"> wallet.gold desc,  </if>
+            <if test="exchange_sort == 3"> exchange.op_date desc,  </if>
+            <if test="exchange_sort == 4"> exchange.cash_real desc,  </if>
+            exchange.idx desc
         ) a
         left join
         (

@@ -41,6 +41,8 @@ var search_exchange_state = [
 var exchange_sort = [
     new COMMON_CODE(null, 'exchange_sort', '환전내역정렬')
     , new COMMON_CODE('0', '0', '최근 환전 신청 순으로')
+    , new COMMON_CODE('4', '4', '실수령액이 많은 순으로')
+    , new COMMON_CODE('5', '5', '환전 누적금액이 많은 순으로')
     , new COMMON_CODE('1', '1', '신청 별 수 많은 순으로')
     , new COMMON_CODE('2', '2', '보유 별 수 많은 순으로')
     , new COMMON_CODE('3', '3', '최근 처리일 순으로')
