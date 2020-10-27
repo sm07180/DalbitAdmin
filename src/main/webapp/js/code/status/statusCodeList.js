@@ -16,8 +16,8 @@ var giftSort = [
     , new COMMON_CODE('1', '1', '아이템 선물 달 많은 순으로')
 ];
 
-var giftreceiverType = [
-    new COMMON_CODE(null, 'giftreceiverType', '선물받은 사람 구분')
+var recvType = [
+    new COMMON_CODE(null, 'recvType', 'DJ/게스트 구분')
     , new COMMON_CODE('0', '0', '전체')
     , new COMMON_CODE('1', '1', 'DJ')
     , new COMMON_CODE('2', '2', '게스트')
