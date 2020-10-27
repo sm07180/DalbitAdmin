@@ -495,7 +495,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
                     <h4 class="modal-title" id="_layerTitle">상세보기</h4>
                 </div>
-                <div class="modal-body" style="height: 600px; width: 400px;">
+                <div class="modal-body" style="height: 500px; width: 400px;">
                     <form id="winnerDetailForm">
                         <div class="row col-lg-12 form-inline">
                             <div class="widget-content">
@@ -505,14 +505,14 @@
                                         <th>실명</th>
                                         <td>{{winnerName}}</td>
                                     </tr>
-                                    <tr>
-                                        <th>주민번호</th>
-                                        <td>
-                                            <input type="text" class="form-control" style="width:100%;" maxlength="13" value="{{winnerSocialNo}}"/>
-                                            <br/>
-                                            [{{winnerSocialNo}}]
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <th>주민번호</th>-->
+<!--                                        <td>-->
+<!--                                            <input type="text" class="form-control" style="width:100%;" maxlength="13" value="{{winnerSocialNo}}"/>-->
+<!--                                            <br/>-->
+<!--                                            [{{winnerSocialNo}}]-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
                                     <tr>
                                         <th>휴대폰 번호</th>
                                         <td>
@@ -560,7 +560,11 @@
                                     <tr>
                                         <th>가족관계 증명서</th>
                                         <td>
-                                            <img src="{{renderImage winnerAddFile2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                        {{^equal winnerAddFile2 ''}}
+                                            <img src="{{renderImage ../winnerAddFile2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                        {{else}}
+                                            -
+                                        {{/equal}}
                                             <%--<input id="file2" type="file" onchange="photoSubmit($(this))">--%>
                                             <%--<input type="hidden" class="_hidden_filename" name="winnerAddFile2" id="winnerAddFile2" value="" />--%>
                                         </td>
