@@ -88,6 +88,13 @@
     }
 
     function validationCheck(){
+        var round_no = $("#round_no");
+        if(common.isEmpty(round_no.val())){
+            alert('기수를 선택해주세요.');
+            return false;
+        }
+
+
         var title = $("#title");
         if(common.isEmpty(title.val())){
             alert('제목을 입력해주세요.');
@@ -251,6 +258,9 @@
 
     $(document).on('click', '#updateBtn, #insertBtn', function(){
 
+        if(!validationCheck()){
+            return false;
+        }
         if(confirm('저장하시겠습니까?')){
 
             var me = $(this);
@@ -297,12 +307,10 @@
             var formData = util.serializeToJson($("#reqManageDetail"))
             formData.contentList = contentList;
 
-            if(validationCheck()){
-                var json = {
-                    jsonData : JSON.stringify(formData)
-                }
-                util.getAjaxData(distId, saveUrl, json, fn_success_insertManageInfo);
+            var json = {
+                jsonData : JSON.stringify(formData)
             }
+            util.getAjaxData(distId, saveUrl, json, fn_success_insertManageInfo);
         }
     });
 
@@ -448,7 +456,7 @@
                     </colgroup>
                     <tr>
                         <th>선정기간</th>
-                        <td colspan="3">
+                        <td>
                             {{#equal this.specialDjManageInfo.select_year ''}}
                                 {{{getCommonCodeSelect '2020' 'special_selectYears' 'N' 'content_select_year'}}}
                                 {{{getCommonCodeSelect '08' 'special_selectMonths' 'N' 'content_select_month'}}}
@@ -457,6 +465,11 @@
                             {{/equal}}
                             <input type="hidden" name="select_year" id="select_year" value="{{this.specialDjManageInfo.select_year}}" />
                             <input type="hidden" name="select_month" id="select_month" value="{{this.specialDjManageInfo.select_month}}" />
+                        </td>
+
+                        <th>기수</th>
+                        <td>
+                            {{{getCommonCodeSelect this.specialDjManageInfo.round_no 'special_roundNos'}}}
                         </td>
                     </tr>
                     <tr>

@@ -143,6 +143,7 @@ var specialDataTableSource = {
         , 'columns': [
             {'title': '년', 'data': 'select_year','width':'70px'},
             {'title': '월', 'data': 'select_month','width':'70px'},
+            {'title': '기수', 'data': 'round_no','width':'70px'},
             {'title': '제목', 'data': 'title','width':'200px', 'render' : function(data, type, row, meta){
                     return '<a href="javascript://" class="_detail" data-year="'+row.select_year+'" data-month="'+row.select_month+'">' + data + '</a>'
                 }},

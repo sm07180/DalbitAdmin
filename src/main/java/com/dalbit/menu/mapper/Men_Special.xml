@@ -243,9 +243,11 @@
     <insert id="reqOk" parameterType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - reqOk */
         insert into
-          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, is_force, `order`, select_year, select_month)
+          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, is_force, `order`, select_year, select_month
+          , round_no)
         values
-        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj), #{select_year}, #{select_month})
+        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj), #{select_year}, #{select_month}
+        , (select round_no from rd_admin.tb_req_special_dj_manage where select_year = #{select_year} and select_month = #{select_month}))
     </insert>
 
     <insert id="opLastUpdDate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
@@ -440,6 +442,7 @@
             , op_name
             , DATE_FORMAT(last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
             , last_op_name
+            , round_no
         from rd_admin.tb_req_special_dj_manage
         where select_year = #{select_year}
             and select_month = #{select_month}
@@ -483,6 +486,7 @@
             , platform
             , reg_date
             , op_name
+            , round_no
         ) values (
             #{title}
             , #{select_year}
@@ -501,6 +505,7 @@
             , #{platform}
             , now()
             , #{op_name}
+            , #{round_no}
         )
     </insert>
 
@@ -522,6 +527,7 @@
             , platform = #{platform}
             , last_upd_date = now()
             , last_op_name = #{op_name}
+            , round_no = #{round_no}
         where select_year = #{select_year}
             and select_month = #{select_month}
     </update>
@@ -592,6 +598,7 @@
             , op_name
             , last_upd_date
             , last_op_name
+            , round_no
         from rd_admin.tb_req_special_dj_manage
         order by select_year desc, select_month desc
     </select>

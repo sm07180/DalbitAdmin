@@ -35,6 +35,7 @@ var special_searchType = [
 
 var special_selectYears = [
     new COMMON_CODE(null, 'select_year', '년')
+    , new COMMON_CODE('2022', '2022', '2022년')
     , new COMMON_CODE('2021', '2021', '2021년')
     , new COMMON_CODE('2020', '2020', '2020년')
 ];
@@ -53,6 +54,23 @@ var special_selectMonths = [
     , new COMMON_CODE('3', '03', '3월')
     , new COMMON_CODE('2', '02', '2월')
     , new COMMON_CODE('1', '01', '1월')
+];
+
+var special_roundNos = [
+    new COMMON_CODE(null, 'round_no', '기수')
+    , new COMMON_CODE('all', '', '기수'),
+    , new COMMON_CODE('1', '1', '1기'),
+    , new COMMON_CODE('2', '2', '2기'),
+    , new COMMON_CODE('3', '3', '3기'),
+    , new COMMON_CODE('4', '4', '4기'),
+    , new COMMON_CODE('5', '5', '5기'),
+    , new COMMON_CODE('7', '7', '7기'),
+    , new COMMON_CODE('8', '8', '8기'),
+    , new COMMON_CODE('9', '9', '9기'),
+    , new COMMON_CODE('6', '6', '6기')
+    , new COMMON_CODE('10', '10', '10기')
+    , new COMMON_CODE('11', '11', '11기')
+    , new COMMON_CODE('12', '12', '12기')
 ];
 
 var special_manage_contentType = [
