@@ -72,7 +72,6 @@
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <br/>
-                            <br/>
                             <span name="question_status" id="question_status" onchange="question_status_change()"></span>
                             <span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>
                             <span name="question_platform" id="question_platform" onchange="question_status_change()"></span>
