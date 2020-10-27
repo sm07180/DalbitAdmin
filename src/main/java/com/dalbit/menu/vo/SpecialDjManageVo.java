@@ -36,6 +36,7 @@ public class SpecialDjManageVo extends PagingVo {
     private String op_name;
     private String last_upd_date;
     private String last_op_name;
+    private int round_no;
 
     private List<SpecialDjContentVo> contentList;
 }
