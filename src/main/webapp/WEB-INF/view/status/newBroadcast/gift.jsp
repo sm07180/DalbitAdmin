@@ -34,38 +34,20 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">NO</th>
-                <th rowspan="2">보낸 회원</th>
-                <th rowspan="2">성별(나이)</th>
-                <th rowspan="2">선물 받은 일시</th>
-                <th rowspan="2">방송방 제목</th>
-                <th rowspan="2">구분</th>
-                <th rowspan="2">받은 회원</th>
-                <th rowspan="2">성별</th>
-                <th rowspan="2">이미지</th>
-                <th rowspan="2">아이템명</th>
-                <th rowspan="2">받은선물<br/>수량</th>
-                <th rowspan="2">누적 받은 선물 수량</th>
-                <th colspan="2">받은선물</th>
-                <th colspan="2">누적 받은 선물</th>
-
-                <%--<th>선물 일시</th>--%>
-                <%--<th>회원번호</th>--%>
-                <%--<th>닉네임</th>--%>
-                <%--<th>방송방 제목</th>--%>
-                <%--<th>DJ ID</th>--%>
-                <%--<th>닉네임</th>--%>
-                <%--<th>성별</th>--%>
-                <%--<th>아이템<br />이미지</th>--%>
-                <%--<th>아이템명</th>--%>
-                <%--<th>아이템 수량</th>--%>
-                <%--<th>아이템 달수</th>--%>
-            </tr>
-            <tr>
-                <th>달</th>
-                <th>별</th>
-                <th>달</th>
-                <th>별</th>
+                <th>NO</th>
+                <th>보낸 회원</th>
+                <th>성별(나이)</th>
+                <th>받은 시간</th>
+                <th>제목</th>
+                <th>구분</th>
+                <th>받은 회원</th>
+                <th>성별</th>
+                <th>이미지</th>
+                <th>아이템명</th>
+                <th>선물<br/>수</th>
+                <th>누적 선물 수</th>
+                <th>선물 별</th>
+                <th>누적 선물 별</th>
             </tr>
             </thead>
             <tbody id="giftHistoryListArea"></tbody>
@@ -163,7 +145,7 @@
         </td>
         <td>{{djguest}}</td>
         <td>
-            <a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}"></a>{{gifted_mem_no}}<br/>
+            <a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_no}}</a><br/>
             {{gifted_mem_nick}}
         </td>
         <td>{{{sexIcon gifted_mem_sex gifted_birth_year}}}</td>
@@ -182,9 +164,7 @@
         <td>{{item_name}}</td>
         <td>{{addComma itemCnt}}개</td>
         <td>{{addComma total_itemCnt}}개</td>
-        <td>{{addComma dalCnt}}개</td>
         <td>{{addComma byeolCnt}}개</td>
-        <td>{{addComma total_dalCnt}}개</td>
         <td>{{addComma total_byeolCnt}}개</td>
     </tr>
     {{else}}
