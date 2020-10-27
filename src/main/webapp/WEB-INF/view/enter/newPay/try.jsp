@@ -3,7 +3,7 @@
 
 <!-- 결제환불 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="divTry">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
@@ -72,12 +72,15 @@
         </span>
     </div>
 </div>
+<a id='tryExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divTry', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
 
 <script type="text/javascript">
     $(function() {
     });
 
     function getPayTryList(){
+        $("#tryExcel").attr('download' , "결제현황_결제성공_시도_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+
         var slctType_date = [];
         for(i = 23; -1 < i; i-- ){
             slctType_date.push(i + " 시");
