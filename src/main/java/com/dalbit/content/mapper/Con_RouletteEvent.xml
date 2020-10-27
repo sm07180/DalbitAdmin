@@ -182,7 +182,7 @@
         /* Con_Event.xml - selectRouletteCalendarList */
         select date_format(apply.apply_date, '%Y-%m-%d') the_date
             , (select count(*) from rd_data.stat_member_login_day where the_date = date_format(apply.apply_date, '%Y%m%d')) loginCnt
-            , (select count(distinct mem_no) from rd_data.tb_event_coupon_member_apply where  date_format(apply_date, '%Y%m%d') = date_format(apply_date, '%Y%m%d')) applyCnt
+            , (select count(distinct mem_no) from rd_data.tb_event_coupon_member_apply where  date_format(apply_date, '%Y%m%d') = date_format(apply.apply_date, '%Y%m%d')) applyCnt
             , count(apply.apply_date)  itemCnt
             , (select count(distinct apply.mem_no)
                 from rd_data.tb_event_coupon_member_apply apply
