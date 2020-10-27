@@ -11,13 +11,13 @@
             <!-- serachBox -->
             <div class="col-md-7 no-padding">
                 <form id="searchForm">
-                    <div class="row col-lg-12 form-inline">
+                    <div class="row col-lg-10 form-inline">
                         <div class="widget widget-table searchBoxArea">
                             <div class="widget-header searchBoxRow">
                                 <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                                 <div>
-                                    <span name="question_searchType" id="question_searchType"></span>
-                                    <span name="question_selbox_type" id="question_selbox_type"></span>
+                                    <span name="question_searchType" id="question_searchType" style="display: none"></span>
+                                    <span name="question_selbox_type" id="question_selbox_type" style="display: none"></span>
                                     <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"></span>
 
                                     <div class="input-group date" id="rangeDatepicker" style="display: none">
@@ -32,7 +32,7 @@
                                     <%--<input name="startDate" id="startDate" />--%>
                                     <%--<input name="endDate" id="endDate" />--%>
 
-                                    <label><input type="text" class="form-control" id="txt_search"></label>
+                                    <label><input type="text" class="form-control" id="txt_search" style="width: 130px"></label>
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                     <a href="javascript://" class="_prevSearch">[이전]</a>
                                     <a href="javascript://" class="_todaySearch">[오늘]</a>
@@ -44,6 +44,7 @@
                 </form>
             </div>
             <div class="col-md-4 no-padding pull-right" style="margin-right: 30px">
+                <span id="question_summaryArea0"></span>
                 <span id="question_summaryArea"></span>
                 <span id="question_summaryArea2"></span>
             </div>
@@ -55,8 +56,9 @@
                         <li><a href="/status/question/info?tabType=2" id="tab_typeDetail">유형별</a></li>
                         <li><a href="/status/question/info?tabType=3" id="tab_platformDetail">플랫폼별</a></li>
                         <li><a href="/status/question/info?tabType=4" id="tab_untreatedDetail">미처리</a></li>
-                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(1)" >(회원)1:1문의내역</a></li>
-                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(2)">(비회원)1:1문의내역</a></li>
+                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(0)" >전체 문의</a></li>
+                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(1)" >회원 문의</a></li>
+                        <li><a href="" role="tab" data-toggle="tab" onclick="tab_questionClick(2)">비회원 문의</a></li>
                     </ul>
                 </div>
             </div>
@@ -75,6 +77,14 @@
                             <span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>
                             <span name="question_platform" id="question_platform" onchange="question_status_change()"></span>
                         </div>
+                    </div>
+                    <div class="widget-content" id="main_table0">
+                        <table id="list_info0" class="table table-sorting table-hover table-bordered ">
+                            <thead>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
                     </div>
                     <div class="widget-content" id="main_table">
                         <table id="list_info" class="table table-sorting table-hover table-bordered ">
@@ -142,6 +152,11 @@
     setTimeDate(dateTime);
 
     var storageTimer;
+
+    var dtList_info_detail0;     // 전체회원
+    var dtList_info_detail;     // 회원
+    var dtList_info_detail2;    // 비회원
+
     $(document).ready(function() {
 
         $("#displayDate").statsDaterangepicker(
@@ -165,23 +180,28 @@
         <!-- 버튼 끝 -->
 
 
+        $("#question_summaryArea0").hide();
         $("#question_summaryArea").hide();
         $("#question_summaryArea2").hide();
         if(!common.isEmpty(tabType)){
-            if(tabType == 1){
+            if(tabType == 0){
                 $('.nav-tabs li:eq(4) a').tab('show');
+                $("#question_summaryArea0").show();
+            }else if(tabType == 1){
+                $('.nav-tabs li:eq(5) a').tab('show');
                 $("#question_summaryArea").show();
             }else if(tabType == 2){
-                $('.nav-tabs li:eq(5) a').tab('show');
+                $('.nav-tabs li:eq(6) a').tab('show');
                 $("#question_summaryArea2").show();
             }
         }else{
             $('.nav-tabs li:eq(4) a').tab('show');
-            $("#question_summaryArea").show();
+            $("#question_summaryArea0").show();
         }
 
         $("#question_status").html(util.getCommonCodeSelect(-1, question_status));
         $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
+        tab_questionClick(0);
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
     $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
@@ -197,31 +217,6 @@
     if(!common.isEmpty(tabType)){
         tmp_slctMember = tabType;
     }
-
-    var dtList_info_detail2;    // 비회원
-
-    var dtList_info_detail;
-    var dtList_info_detail_data = function ( data ) {
-        data.searchText = $('#txt_search').val();
-        data.searchType = tmp_searchType;
-        data.slctState = tmp_slctState;
-        data.slctPlatform = tmp_slctPlatform;
-        data.slctMember = tmp_slctMember;
-        data.startDate = $("#startDate").val();
-        data.endDate = $("#endDate").val();
-        data.slctDateType = $("#slctDateType").find("select").val();
-    };
-
-    dtList_info_detail = new DalbitDataTable($("#list_info"), dtList_info_detail_data, questionDataTableSource.questList);
-    dtList_info_detail.useCheckBox(true);
-    dtList_info_detail.useIndex(true);
-    dtList_info_detail.createDataTable(question_summary_table);
-
-    var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
-    $("#main_table").find(".footer-left").append(questionDelBtn);
-
-    var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#main_table").find(".footer-right").append(excel);
 
     function setTimeDate(dateTime){
         $("#startDate").val(dateTime);
@@ -274,12 +269,13 @@
     //     getUserInfo();
     // }
 
-    questionDelEventInit();
     // getUserInfo();
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
-        if(tmp_slctMember == 1){
+        if(tmp_slctMember == 0){
+            dtList_info_detail0.reload(question_summary_table);
+        }else if(tmp_slctMember == 1){
             dtList_info_detail.reload(question_summary_table);
         }else{
             dtList_info_detail2.reload(question_summary_table);
@@ -292,6 +288,15 @@
     }
 
     function question_summary_table(json){
+        var template = $("#question_tableSummary0").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        }
+        var html = templateScript(data);
+        $("#question_summaryArea0").html(html);
+
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
@@ -319,7 +324,9 @@
         // tmp_slctMember = $("#question_mem_state").find("#question_mem_state option:selected").val();
         tmp_slctState = $("#question_status").find("#question_status option:selected").val();
         tmp_slctPlatform = $('#platform').val();
-        if(tmp_slctMember == 1) {
+        if(tmp_slctMember == 0) {
+            dtList_info_detail0.reload(question_summary_table);
+        }if(tmp_slctMember == 1) {
             dtList_info_detail.reload(question_summary_table);
         }else{
             dtList_info_detail2.reload(question_summary_table);
@@ -341,9 +348,11 @@
     var rowNum;
     function getQuestDetail(index){
         clearInterval(storageTimer);
-
         $("#tab_qna").removeClass("hide");
-        if(tmp_slctMember == 1){
+
+        if(tmp_slctMember == 0){
+            var data = dtList_info_detail0.getDataRow(index);
+        }else if(tmp_slctMember == 1){
             var data = dtList_info_detail.getDataRow(index);
         }else{
             var data = dtList_info_detail2.getDataRow(index);
@@ -360,15 +369,6 @@
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 
-    /*=============엑셀==================*/
-    $('#excelDownBtn').on('click', function(){
-        var formElement = document.querySelector("form");
-        var formData = new FormData(formElement);
-        formData.append("slctState", -1);
-        util.excelDownload($(this), "/rest/customer/question/listExcel", formData, fn_success_excel,fn_fail_excel);
-
-    });
-
     function fn_success_excel(){
         console.log("fn_success_excel");
     }
@@ -384,15 +384,10 @@
     //     }
     // });
 
-    function questionDelEventInit(){
-        $("#btn_questionDelBtn").on("click", function () { //선택삭제
-            if (confirm("선택한 1:1문의를 삭제하시겠습니까?")) {
-                questionDelData();
-            }
-        });
-    }
     function questionDelData(){
-        if(tmp_slctMember == 1) {
+        if(tmp_slctMember == 0) {
+            var checkDatas = dtList_info_detail0.getCheckedData();
+        }else if(tmp_slctMember == 1) {
             var checkDatas = dtList_info_detail.getCheckedData();
         }else{
             var checkDatas = dtList_info_detail2.getCheckedData();
@@ -425,7 +420,9 @@
     }
 
     function questionDel_success(dst_id, response) {
-        if(tmp_slctMember == 1) {
+        if(tmp_slctMember == 0) {
+            dtList_info_detail0.reload();
+        }else if(tmp_slctMember == 1) {
             dtList_info_detail.reload();
         }else{
             dtList_info_detail2.reload();
@@ -434,25 +431,90 @@
         $("#tab_qna").addClass("hide");
     }
 
-    function tab_questionClick(tmp){
+    function tab_questionClick(tmp) {
         tmp_slctMember = tmp;
-        if(tmp == 1){
+        if(tmp == 0){
+            $("#question_summaryArea0").show();
+            $("#main_table0").show();
+            $("#question_summaryArea").hide();
+            $("#main_table").hide();
+            $("#question_summaryArea2").hide();
+            $("#main_table2").hide();
+        }else if(tmp == 1){
+            $("#question_summaryArea0").hide();
+            $("#main_table0").hide();
             $("#question_summaryArea").show();
             $("#main_table").show();
             $("#question_summaryArea2").hide();
             $("#main_table2").hide();
-            dtList_info_detail.reload();
-        }else{
+        }else if(tmp == 2){
+            $("#question_summaryArea0").hide();
+            $("#main_table0").hide();
             $("#question_summaryArea").hide();
             $("#main_table").hide();
             $("#question_summaryArea2").show();
             $("#main_table2").show();
         }
-        if(tmp == 2){
+        if(tmp == 0){
+            allMembers();
+        }else if(tmp == 1){
+            members();
+        }else if(tmp == 2){
             nonMembers();
         }
+
+        var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
+        $("#main_table0").find(".footer-left").append(questionDelBtn);
+        $("#main_table").find(".footer-left").append(questionDelBtn);
+        $("#main_table2").find(".footer-left").append(questionDelBtn);
+
+        var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+        $("#main_table0").find(".footer-right").append(excel);
+        $("#main_table").find(".footer-right").append(excel);
+        $("#main_table2").find(".footer-right").append(excel);
+
+        questionDelEventInit();
+        questionExcelEventInit();
+
         $("#tab_qna").addClass("hide");
     }
+    function allMembers(){
+        console.log("--------------------");
+        var dtList_info_detail_data0 = function ( data ) {
+            data.searchText = $('#txt_search').val();
+            data.searchType = tmp_searchType;
+            data.slctState = tmp_slctState;
+            data.slctPlatform = tmp_slctPlatform;
+            data.slctMember = tmp_slctMember;
+            data.startDate = $("#startDate").val();
+            data.endDate = $("#endDate").val();
+            data.slctDateType = $("#slctDateType").find("select").val();
+        };
+
+        dtList_info_detail0 = new DalbitDataTable($("#list_info0"), dtList_info_detail_data0, questionDataTableSource.questList);
+        dtList_info_detail0.useCheckBox(true);
+        dtList_info_detail0.useIndex(true);
+        dtList_info_detail0.createDataTable(question_summary_table);
+    }
+
+    function members(){
+        var dtList_info_detail_data = function ( data ) {
+            data.searchText = $('#txt_search').val();
+            data.searchType = tmp_searchType;
+            data.slctState = tmp_slctState;
+            data.slctPlatform = tmp_slctPlatform;
+            data.slctMember = tmp_slctMember;
+            data.startDate = $("#startDate").val();
+            data.endDate = $("#endDate").val();
+            data.slctDateType = $("#slctDateType").find("select").val();
+        };
+
+        dtList_info_detail = new DalbitDataTable($("#list_info"), dtList_info_detail_data, questionDataTableSource.questList);
+        dtList_info_detail.useCheckBox(true);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable(question_summary_table);
+    }
+
     function nonMembers(){
         var dtList_info_detail_data2 = function ( data ) {
             data.searchText = $('#txt_search').val();
@@ -472,11 +534,130 @@
 
     }
 
+
+    function questionDelEventInit(){
+        $("#btn_questionDelBtn").on("click", function () { //선택삭제
+            if (confirm("선택한 1:1문의를 삭제하시겠습니까?")) {
+                questionDelData();
+            }
+        });
+    }
+
+    function questionExcelEventInit() {
+        /*=============엑셀==================*/
+        $('#excelDownBtn').on('click', function () {
+            var formElement = document.querySelector("form");
+            var formData = new FormData(formElement);
+            formData.append("slctState", -1);
+            util.excelDownload($(this), "/rest/customer/question/listExcel", formData, fn_success_excel, fn_fail_excel);
+
+        });
+    }
+
     /*==================================*/
 </script>
 
+<script id="question_tableSummary0" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 820px;">
+        <colgroup>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
+            <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
+        </colgroup>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#d9d9d9"></th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">회원정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">방송정보</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">청취하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">결제</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">건의하기</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">장애/버그</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">선물/아이템</th>
+            <th class="_bgColor" data-bgcolor="#b4c7e7">기타</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">총합</th>
+        </tr>
+        <tr>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">회원 / 비회원</td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type1Cnt '!=' content.type1OpCnt}} <span class="font-bold" style="color: red;">{{content.type1Cnt}}건</span>{{else}} {{content.type1Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1Cnt '!=' content.no_type1OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type1Cnt}}건</span>{{else}} {{content.no_type1Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type2Cnt '!=' content.type2OpCnt}} <span class="font-bold" style="color: red;">{{content.type2Cnt}}건</span>{{else}} {{content.type2Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2Cnt '!=' content.no_type2OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type2Cnt}}건</span>{{else}} {{content.no_type2Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type3Cnt '!=' content.type3OpCnt}} <span class="font-bold" style="color: red;">{{content.type3Cnt}}건</span>{{else}} {{content.type3Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3Cnt '!=' content.no_type3OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type3Cnt}}건</span>{{else}} {{content.no_type3Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type4Cnt '!=' content.type4OpCnt}} <span class="font-bold" style="color: red;">{{content.type4Cnt}}건</span>{{else}} {{content.type4Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type4Cnt '!=' content.no_type4OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type4Cnt}}건</span>{{else}} {{content.no_type4Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type5Cnt '!=' content.type5OpCnt}} <span class="font-bold" style="color: red;">{{content.type5Cnt}}건</span>{{else}} {{content.type5Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type5Cnt '!=' content.no_type5OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type5Cnt}}건</span>{{else}} {{content.no_type5Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type6Cnt '!=' content.type6OpCnt}} <span class="font-bold" style="color: red;">{{content.type6Cnt}}건</span>{{else}} {{content.type6Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6Cnt '!=' content.no_type6OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type6Cnt}}건</span>{{else}} {{content.no_type6Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type7Cnt '!=' content.type7OpCnt}} <span class="font-bold" style="color: red;">{{content.type7Cnt}}건</span>{{else}} {{content.type7Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7Cnt '!=' content.no_type7OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type7Cnt}}건</span>{{else}} {{content.no_type7Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type99Cnt '!=' content.type99OpCnt}} <span class="font-bold" style="color: red;">{{content.type99Cnt}}건</span>{{else}} {{content.type99Cnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99Cnt '!=' content.no_type99OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type99Cnt}}건</span>{{else}} {{content.no_type99Cnt}}건 {{/dalbit_if}}
+            </td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.totalQna '!=' content.totalOpQna}} <span class="font-bold" style="color: red;">{{content.totalQna}}건</span>{{else}} {{content.totalQna}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}건</span>{{else}} {{content.no_totalQna}}건 {{/dalbit_if}}
+            </td>
+        </tr>
+        <tr>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 처리</td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type1OpCnt '!=' content.type1Cnt}} <span class="font-bold" style="color: red;">{{content.type1OpCnt}}건</span>{{else}} {{content.type1OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1OpCnt '!=' content.no_type1Cnt}} <span class="font-bold" style="color: red;">{{content.no_type1OpCnt}}건</span>{{else}} {{content.no_type1OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type2OpCnt '!=' content.type2Cnt}} <span class="font-bold" style="color: red;">{{content.type2OpCnt}}건</span>{{else}} {{content.type2OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2OpCnt '!=' content.no_type2Cnt}} <span class="font-bold" style="color: red;">{{content.no_type2OpCnt}}건</span>{{else}} {{content.no_type2OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type3OpCnt '!=' content.type3Cnt}} <span class="font-bold" style="color: red;">{{content.type3OpCnt}}건</span>{{else}} {{content.type3OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3OpCnt '!=' content.no_type3Cnt}} <span class="font-bold" style="color: red;">{{content.no_type3OpCnt}}건</span>{{else}} {{content.no_type3OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type4OpCnt '!=' content.type4Cnt}} <span class="font-bold" style="color: red;">{{content.type4OpCnt}}건</span>{{else}} {{content.type4OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type4OpCnt '!=' content.no_type4Cnt}} <span class="font-bold" style="color: red;">{{content.no_type4OpCnt}}건</span>{{else}} {{content.no_type4OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type5OpCnt '!=' content.type5Cnt}} <span class="font-bold" style="color: red;">{{content.type5OpCnt}}건</span>{{else}} {{content.type5OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type5OpCnt '!=' content.no_type5Cnt}} <span class="font-bold" style="color: red;">{{content.no_type5OpCnt}}건</span>{{else}} {{content.no_type5OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type6OpCnt '!=' content.type6Cnt}} <span class="font-bold" style="color: red;">{{content.type6OpCnt}}건</span>{{else}} {{content.type6OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6OpCnt '!=' content.no_type6Cnt}} <span class="font-bold" style="color: red;">{{content.no_type6OpCnt}}건</span>{{else}} {{content.no_type6OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type7OpCnt '!=' content.type7Cnt}} <span class="font-bold" style="color: red;">{{content.type7OpCnt}}건</span>{{else}} {{content.type7OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7OpCnt '!=' content.no_type7Cnt}} <span class="font-bold" style="color: red;">{{content.no_type7OpCnt}}건</span>{{else}} {{content.no_type7OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td>
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type99OpCnt '!=' content.type99Cnt}} <span class="font-bold" style="color: red;">{{content.type99OpCnt}}건</span>{{else}} {{content.type99OpCnt}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99OpCnt '!=' content.no_type99Cnt}} <span class="font-bold" style="color: red;">{{content.no_type99OpCnt}}건</span>{{else}} {{content.no_type99OpCnt}}건 {{/dalbit_if}}
+            </td>
+            <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.totalOpQna '!=' content.totalQna}} <span class="font-bold" style="color: red;">{{content.totalOpQna}}건</span>{{else}} {{content.totalOpQna}}건 {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalOpQna '!=' content.no_totalQna}} <span class="font-bold" style="color: red;">{{content.no_totalOpQna}}건</span>{{else}} {{content.no_totalOpQna}}건 {{/dalbit_if}}
+            </td>
+        </tr>
+    </table>
+</script>
+
 <script id="question_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-margin" style="width: 650px">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 820px;">
         <colgroup>
             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
             <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
@@ -521,7 +702,7 @@
 </script>
 
 <script id="question_tableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-margin" style="width: 650px">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 820px;">
         <colgroup>
             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/>
             <col width="10%"/><col width="10%"/><col width="12%"/><col width="10%"/><col width="10%"/>
@@ -540,7 +721,7 @@
         </tr>
 
         <tr>
-            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">회원</td>
+            <td class="_bgColor font-bold" data-bgcolor="#dae3f3">비회원</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1Cnt '!=' content.no_type1OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type1Cnt}}건</span>{{else}} {{content.no_type1Cnt}}건 {{/dalbit_if}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2Cnt '!=' content.no_type2OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type2Cnt}}건</span>{{else}} {{content.no_type2Cnt}}건 {{/dalbit_if}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3Cnt '!=' content.no_type3OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type3Cnt}}건</span>{{else}} {{content.no_type3Cnt}}건 {{/dalbit_if}}</td>

@@ -53,7 +53,6 @@
         }
     });
     $('#bt_search').on('click', function() {
-        tabCntSelect();
 
         if(tabId == "tab_storyList" ){
             storyList();

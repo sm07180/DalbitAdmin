@@ -539,6 +539,7 @@ var searchType_board = [
     , new COMMON_CODE('3', 3, '삭제글만 보기')
 ];
 
+
 var searchType_story = [
   new COMMON_CODE(null, 'searchType_story', '사연')
     , new COMMON_CODE('0', 0, '최근 등록 순으로 보기')

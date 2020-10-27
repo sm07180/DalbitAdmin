@@ -32,6 +32,7 @@ public class P_ResourceDetailDalOutVo {
     private long testout_Cnt;
     private long increaseCnt;
     private long decreaseCnt;
+    private long roulette_Cnt;
 
 
 

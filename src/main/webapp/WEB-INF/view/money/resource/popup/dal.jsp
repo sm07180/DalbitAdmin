@@ -60,6 +60,8 @@
             $("#sp_type").text("탈퇴");
         }else if(type == "15"){
             $("#sp_type").text("테스트 회수");
+        }else if(type == "19"){
+            $("#sp_type").text("룰렛 이벤트");
         }
 
         var dtList_info_data = function(data) {
@@ -88,6 +90,7 @@
         // data-type="13"       영구정지
         // data-type="14"       탈퇴
         // data-type="15"       테스트 회수
+        // data-type="15"       룰렛 이벤트
 
         if(type == "1"){            // 달결제
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.dalInc_payDetail);
@@ -97,7 +100,7 @@
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.dalInc_dalChange);
         }else if(type == "4" || type == "5" || type == "6" || type == "7"               // 가입보상, 레벨보상, 랭킹보상, 출석이벤트,
                 || type == "8" || type == "9-1" || type == "9-2"  || type == "10"       // 소실금액 복구(운영자지급), 이벤트 지급(자동/운영자지급), 테스트 지급
-                || type == "15"        ){                                               // 테스트 회수
+                || type == "15" || type == "19" ){                                               // 테스트 회수,  룰렛 이벤트
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.dalInc_joinReward);
         }else if(type == "11"){     // 아이템 사용
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.dalDec_gift);
