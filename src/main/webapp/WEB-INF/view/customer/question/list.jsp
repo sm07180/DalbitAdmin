@@ -577,79 +577,79 @@
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">회원 / 비회원</td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type1Cnt '!=' content.type1OpCnt}} <span class="font-bold" style="color: red;">{{content.type1Cnt}}건</span>{{else}} {{content.type1Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1Cnt '!=' content.no_type1OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type1Cnt}}건</span>{{else}} {{content.no_type1Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type1Cnt '!=' content.type1OpCnt}} <span class="font-bold" style="color: red;">{{content.type1Cnt}}</span>{{else}} {{content.type1Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1Cnt '!=' content.no_type1OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type1Cnt}}</span>{{else}} {{content.no_type1Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type2Cnt '!=' content.type2OpCnt}} <span class="font-bold" style="color: red;">{{content.type2Cnt}}건</span>{{else}} {{content.type2Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2Cnt '!=' content.no_type2OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type2Cnt}}건</span>{{else}} {{content.no_type2Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type2Cnt '!=' content.type2OpCnt}} <span class="font-bold" style="color: red;">{{content.type2Cnt}}</span>{{else}} {{content.type2Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2Cnt '!=' content.no_type2OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type2Cnt}}</span>{{else}} {{content.no_type2Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type3Cnt '!=' content.type3OpCnt}} <span class="font-bold" style="color: red;">{{content.type3Cnt}}건</span>{{else}} {{content.type3Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3Cnt '!=' content.no_type3OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type3Cnt}}건</span>{{else}} {{content.no_type3Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type3Cnt '!=' content.type3OpCnt}} <span class="font-bold" style="color: red;">{{content.type3Cnt}}</span>{{else}} {{content.type3Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3Cnt '!=' content.no_type3OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type3Cnt}}</span>{{else}} {{content.no_type3Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type4Cnt '!=' content.type4OpCnt}} <span class="font-bold" style="color: red;">{{content.type4Cnt}}건</span>{{else}} {{content.type4Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type4Cnt '!=' content.no_type4OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type4Cnt}}건</span>{{else}} {{content.no_type4Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type4Cnt '!=' content.type4OpCnt}} <span class="font-bold" style="color: red;">{{content.type4Cnt}}</span>{{else}} {{content.type4Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type4Cnt '!=' content.no_type4OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type4Cnt}}</span>{{else}} {{content.no_type4Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type5Cnt '!=' content.type5OpCnt}} <span class="font-bold" style="color: red;">{{content.type5Cnt}}건</span>{{else}} {{content.type5Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type5Cnt '!=' content.no_type5OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type5Cnt}}건</span>{{else}} {{content.no_type5Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type5Cnt '!=' content.type5OpCnt}} <span class="font-bold" style="color: red;">{{content.type5Cnt}}</span>{{else}} {{content.type5Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type5Cnt '!=' content.no_type5OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type5Cnt}}</span>{{else}} {{content.no_type5Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type6Cnt '!=' content.type6OpCnt}} <span class="font-bold" style="color: red;">{{content.type6Cnt}}건</span>{{else}} {{content.type6Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6Cnt '!=' content.no_type6OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type6Cnt}}건</span>{{else}} {{content.no_type6Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type6Cnt '!=' content.type6OpCnt}} <span class="font-bold" style="color: red;">{{content.type6Cnt}}</span>{{else}} {{content.type6Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6Cnt '!=' content.no_type6OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type6Cnt}}</span>{{else}} {{content.no_type6Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type7Cnt '!=' content.type7OpCnt}} <span class="font-bold" style="color: red;">{{content.type7Cnt}}건</span>{{else}} {{content.type7Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7Cnt '!=' content.no_type7OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type7Cnt}}건</span>{{else}} {{content.no_type7Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type7Cnt '!=' content.type7OpCnt}} <span class="font-bold" style="color: red;">{{content.type7Cnt}}</span>{{else}} {{content.type7Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7Cnt '!=' content.no_type7OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type7Cnt}}</span>{{else}} {{content.no_type7Cnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type99Cnt '!=' content.type99OpCnt}} <span class="font-bold" style="color: red;">{{content.type99Cnt}}건</span>{{else}} {{content.type99Cnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99Cnt '!=' content.no_type99OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type99Cnt}}건</span>{{else}} {{content.no_type99Cnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type99Cnt '!=' content.type99OpCnt}} <span class="font-bold" style="color: red;">{{content.type99Cnt}}</span>{{else}} {{content.type99Cnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99Cnt '!=' content.no_type99OpCnt}} <span class="font-bold" style="color: red;">{{content.no_type99Cnt}}</span>{{else}} {{content.no_type99Cnt}} {{/dalbit_if}}건
             </td>
             <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">
-                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.totalQna '!=' content.totalOpQna}} <span class="font-bold" style="color: red;">{{content.totalQna}}건</span>{{else}} {{content.totalQna}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}건</span>{{else}} {{content.no_totalQna}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.totalQna '!=' content.totalOpQna}} <span class="font-bold" style="color: red;">{{content.totalQna}}</span>{{else}} {{content.totalQna}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalQna '!=' content.no_totalOpQna}} <span class="font-bold" style="color: red;">{{content.no_totalQna}}</span>{{else}} {{content.no_totalQna}} {{/dalbit_if}}건
             </td>
         </tr>
         <tr>
             <td class="_bgColor font-bold" data-bgcolor="#dae3f3">운영자 처리</td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type1OpCnt '!=' content.type1Cnt}} <span class="font-bold" style="color: red;">{{content.type1OpCnt}}건</span>{{else}} {{content.type1OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1OpCnt '!=' content.no_type1Cnt}} <span class="font-bold" style="color: red;">{{content.no_type1OpCnt}}건</span>{{else}} {{content.no_type1OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type1OpCnt '!=' content.type1Cnt}} <span class="font-bold" style="color: red;">{{content.type1OpCnt}}</span>{{else}} {{content.type1OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type1OpCnt '!=' content.no_type1Cnt}} <span class="font-bold" style="color: red;">{{content.no_type1OpCnt}}</span>{{else}} {{content.no_type1OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type2OpCnt '!=' content.type2Cnt}} <span class="font-bold" style="color: red;">{{content.type2OpCnt}}건</span>{{else}} {{content.type2OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2OpCnt '!=' content.no_type2Cnt}} <span class="font-bold" style="color: red;">{{content.no_type2OpCnt}}건</span>{{else}} {{content.no_type2OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type2OpCnt '!=' content.type2Cnt}} <span class="font-bold" style="color: red;">{{content.type2OpCnt}}</span>{{else}} {{content.type2OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type2OpCnt '!=' content.no_type2Cnt}} <span class="font-bold" style="color: red;">{{content.no_type2OpCnt}}</span>{{else}} {{content.no_type2OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type3OpCnt '!=' content.type3Cnt}} <span class="font-bold" style="color: red;">{{content.type3OpCnt}}건</span>{{else}} {{content.type3OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3OpCnt '!=' content.no_type3Cnt}} <span class="font-bold" style="color: red;">{{content.no_type3OpCnt}}건</span>{{else}} {{content.no_type3OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type3OpCnt '!=' content.type3Cnt}} <span class="font-bold" style="color: red;">{{content.type3OpCnt}}</span>{{else}} {{content.type3OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type3OpCnt '!=' content.no_type3Cnt}} <span class="font-bold" style="color: red;">{{content.no_type3OpCnt}}</span>{{else}} {{content.no_type3OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type4OpCnt '!=' content.type4Cnt}} <span class="font-bold" style="color: red;">{{content.type4OpCnt}}건</span>{{else}} {{content.type4OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type4OpCnt '!=' content.no_type4Cnt}} <span class="font-bold" style="color: red;">{{content.no_type4OpCnt}}건</span>{{else}} {{content.no_type4OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type4OpCnt '!=' content.type4Cnt}} <span class="font-bold" style="color: red;">{{content.type4OpCnt}}</span>{{else}} {{content.type4OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type4OpCnt '!=' content.no_type4Cnt}} <span class="font-bold" style="color: red;">{{content.no_type4OpCnt}}</span>{{else}} {{content.no_type4OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type5OpCnt '!=' content.type5Cnt}} <span class="font-bold" style="color: red;">{{content.type5OpCnt}}건</span>{{else}} {{content.type5OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type5OpCnt '!=' content.no_type5Cnt}} <span class="font-bold" style="color: red;">{{content.no_type5OpCnt}}건</span>{{else}} {{content.no_type5OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type5OpCnt '!=' content.type5Cnt}} <span class="font-bold" style="color: red;">{{content.type5OpCnt}}</span>{{else}} {{content.type5OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type5OpCnt '!=' content.no_type5Cnt}} <span class="font-bold" style="color: red;">{{content.no_type5OpCnt}}</span>{{else}} {{content.no_type5OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type6OpCnt '!=' content.type6Cnt}} <span class="font-bold" style="color: red;">{{content.type6OpCnt}}건</span>{{else}} {{content.type6OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6OpCnt '!=' content.no_type6Cnt}} <span class="font-bold" style="color: red;">{{content.no_type6OpCnt}}건</span>{{else}} {{content.no_type6OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type6OpCnt '!=' content.type6Cnt}} <span class="font-bold" style="color: red;">{{content.type6OpCnt}}</span>{{else}} {{content.type6OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type6OpCnt '!=' content.no_type6Cnt}} <span class="font-bold" style="color: red;">{{content.no_type6OpCnt}}</span>{{else}} {{content.no_type6OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type7OpCnt '!=' content.type7Cnt}} <span class="font-bold" style="color: red;">{{content.type7OpCnt}}건</span>{{else}} {{content.type7OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7OpCnt '!=' content.no_type7Cnt}} <span class="font-bold" style="color: red;">{{content.no_type7OpCnt}}건</span>{{else}} {{content.no_type7OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type7OpCnt '!=' content.type7Cnt}} <span class="font-bold" style="color: red;">{{content.type7OpCnt}}</span>{{else}} {{content.type7OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type7OpCnt '!=' content.no_type7Cnt}} <span class="font-bold" style="color: red;">{{content.no_type7OpCnt}}</span>{{else}} {{content.no_type7OpCnt}} {{/dalbit_if}}건
             </td>
             <td>
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type99OpCnt '!=' content.type99Cnt}} <span class="font-bold" style="color: red;">{{content.type99OpCnt}}건</span>{{else}} {{content.type99OpCnt}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99OpCnt '!=' content.no_type99Cnt}} <span class="font-bold" style="color: red;">{{content.no_type99OpCnt}}건</span>{{else}} {{content.no_type99OpCnt}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.type99OpCnt '!=' content.type99Cnt}} <span class="font-bold" style="color: red;">{{content.type99OpCnt}}</span>{{else}} {{content.type99OpCnt}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_type99OpCnt '!=' content.no_type99Cnt}} <span class="font-bold" style="color: red;">{{content.no_type99OpCnt}}</span>{{else}} {{content.no_type99OpCnt}} {{/dalbit_if}}건
             </td>
             <td class="_bgColor font-bold" data-bgcolor="#f2f2f2">
-                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.totalOpQna '!=' content.totalQna}} <span class="font-bold" style="color: red;">{{content.totalOpQna}}건</span>{{else}} {{content.totalOpQna}}건 {{/dalbit_if}} /
-                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalOpQna '!=' content.no_totalQna}} <span class="font-bold" style="color: red;">{{content.no_totalOpQna}}건</span>{{else}} {{content.no_totalOpQna}}건 {{/dalbit_if}}
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.totalOpQna '!=' content.totalQna}} <span class="font-bold" style="color: red;">{{content.totalOpQna}}</span>{{else}} {{content.totalOpQna}} {{/dalbit_if}} /
+                {{#equal length '0'}}0{{/equal}}{{#equal length '0'}}0{{/equal}}{{#dalbit_if content.no_totalOpQna '!=' content.no_totalQna}} <span class="font-bold" style="color: red;">{{content.no_totalOpQna}}</span>{{else}} {{content.no_totalOpQna}} {{/dalbit_if}}건
             </td>
         </tr>
     </table>
