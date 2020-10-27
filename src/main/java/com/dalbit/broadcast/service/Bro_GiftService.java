@@ -44,7 +44,6 @@ public class Bro_GiftService {
         pGiftListInputVo.setPageNo(pGiftListInputVo.getPageNo() -1);
         pGiftListInputVo.setPageNo(pGiftListInputVo.getPageNo() * pGiftListInputVo.getPageCnt());
 
-        ArrayList<P_GiftListOutputVo> GiftList_thumbnail = bro_GiftDao.callGiftList_thumbnail(pGiftListInputVo);
         P_GiftListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_GiftListOutputVo.class);
 
         List list = new ArrayList();
@@ -67,17 +66,9 @@ public class Bro_GiftService {
                 outVo.setByeolCnt(DalbitUtil.isEmpty(GiftList.get(i).getByeolCnt()) ? 0 : GiftList.get(i).getByeolCnt());
                 outVo.setAccumByeolCnt(DalbitUtil.isEmpty(GiftList.get(i).getAccumByeolCnt()) ? 0 : GiftList.get(i).getAccumByeolCnt());
 
-                try {
-                    GiftList_thumbnail.stream().filter(gift_thumb -> gift_thumb.getItemCode().equals(outVo.getItemCode())).forEach(thumbs -> {
-                        outVo.setItem_thumbnail(thumbs.getItem_thumbnail());
-                        outVo.setItemCnt(thumbs.getItemCnt());
-                        outVo.setSecret(thumbs.getSecret());
-                    });
-                }catch (Exception e){
-                    outVo.setItem_thumbnail("-");
-                    outVo.setItemCnt(0);
-                    outVo.setSecret(0);
-                }
+                outVo.setItem_thumbnail(DalbitUtil.isEmpty(GiftList.get(i).getItem_thumbnail()) ? "-" : GiftList.get(i).getItem_thumbnail());
+                outVo.setItemCnt(DalbitUtil.isEmpty(GiftList.get(i).getItemCnt()) ? 0 : GiftList.get(i).getItemCnt());
+                outVo.setSecret(DalbitUtil.isEmpty(GiftList.get(i).getSecret()) ? 0 : GiftList.get(i).getSecret());
 
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(GiftList.get(i).getMem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
