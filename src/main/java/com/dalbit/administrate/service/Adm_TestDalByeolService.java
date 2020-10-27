@@ -41,15 +41,6 @@ public class Adm_TestDalByeolService {
         testIdVo.setPageStart(testIdVo.getPageStart() * testIdVo.getPageCnt());
         ArrayList<TestDalByeolListVo> list = adm_TestDalByeolDao.getTestDalByeolList(testIdVo);
         int totalCnt = adm_TestDalByeolDao.getTestDalByeolList_totalCnt(testIdVo);
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).getType().equals("1")){      // 달
-                list.get(i).setDalSend(list.get(i).getSend());
-                list.get(i).setDalRecv(list.get(i).getRecv());
-            }else{
-                list.get(i).setByeolSend(list.get(i).getSend());
-                list.get(i).setByeolRecv(list.get(i).getRecv());
-            }
-        }
 
         TestDalByeolListVo summary1 = adm_TestDalByeolDao.getTestDalByeolSummary1(testIdVo);
         TestDalByeolListVo summary2 = adm_TestDalByeolDao.getTestDalByeolSummary2(testIdVo);

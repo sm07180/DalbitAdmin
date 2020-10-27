@@ -195,10 +195,10 @@
         var data = response.data;
         var target = $("#loginLiveTableBody").find('.'+dst_id);
         target.find('.loginCnt').html(common.addComma(data.loginCnt) + '명');
-        target.find('.joinCnt').html(common.addComma(data.joinCnt) + '명');
+        target.find('.joinCnt').html(common.addComma(data.applyCnt) + '명');
 
         var loginCnt = common.isEmpty(data.loginCnt) ? 0 : data.loginCnt;
-        var joinCnt = common.isEmpty(data.joinCnt) ? 0 : data.joinCnt;
+        var joinCnt = common.isEmpty(data.applyCnt) ? 0 : data.applyCnt;
 
         var joinRate = joinCnt == 0 ? 0 : (joinCnt / loginCnt * 100).toFixed(1);
 
@@ -248,6 +248,7 @@
 
         if(!common.isEmpty(response.data)){
             weekTotal.loginCnt = response.data.loginCnt;
+            weekTotal.applyCnt = response.data.applyCnt;
             weekTotal.joinCnt = response.data.joinCnt;
             weekTotal.sex_man = response.data.sex_man;
             weekTotal.sex_female += response.data.sex_female;
@@ -320,7 +321,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div>참여자 수 : {{addComma itemCnt}} 명</div>
+    <div>참여자 수 : {{addComma applyCnt}} 명</div>
     <div>로그인 수 : {{addComma loginCnt}} 명</div>
     <div>남성 : {{addComma sex_man}} 명</div>
     <div>여성 : {{addComma sex_female}} 명</div>
@@ -333,7 +334,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_weekCalendarData">
     <div style="font-weight:bold">{{month}}월 {{math index '+' 1}}주차</div>
-    <div>참여자 수 : {{addComma itemCnt}} 명</div>
+    <div>참여자 수 : {{addComma applyCnt}} 명</div>
     <div>로그인 수 : {{addComma loginCnt}} 명</div>
     <div>남성 : {{addComma sex_man}} 명</div>
     <div>여성 : {{addComma sex_female}} 명</div>

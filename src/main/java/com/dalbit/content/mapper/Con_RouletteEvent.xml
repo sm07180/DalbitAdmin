@@ -103,8 +103,7 @@
             (select count(distinct mem_no)
                 from rd_data.stat_member_login_day
                 where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
-                and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
-            ) loginCnt
+                and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')) loginCnt
             , itemCnt
             , itemNo1
             , itemNo2
@@ -117,22 +116,26 @@
             , (select count(distinct mem_no)
                 from rd_data.tb_event_coupon_member_apply apply
                 where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
+                and date_format(apply.apply_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')) applyCnt
+            , (select count(mem_no)
+                from rd_data.tb_event_coupon_member_apply apply
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
                 and date_format(apply.apply_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')) joinCnt
-            , (select count(*)
+            , (select count(distinct apply.mem_no)
                 from rd_data.tb_event_coupon_member_apply apply
                 left join rd_data.tb_member_basic mem on apply.mem_no = mem.mem_no
                 left join rd_data.tb_member_withdrawal_bak withdrawal on apply.mem_no = withdrawal.mem_no
                 where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
                 and date_format(apply.apply_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
                 and (mem.mem_sex = 'm' or withdrawal.mem_sex = 'm')) sex_man
-            , (select count(*)
+            , (select count(distinct apply.mem_no)
                 from rd_data.tb_event_coupon_member_apply apply
                 left join rd_data.tb_member_basic mem on apply.mem_no = mem.mem_no
                 left join rd_data.tb_member_withdrawal_bak withdrawal on apply.mem_no = withdrawal.mem_no
                 where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
                 and date_format(apply.apply_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
                 and (mem.mem_sex = 'f' or withdrawal.mem_sex = 'f')) sex_female
-            , (select count(*)
+            , (select count(distinct apply.mem_no)
                 from rd_data.tb_event_coupon_member_apply apply
                 left join rd_data.tb_member_basic mem on apply.mem_no = mem.mem_no
                 left join rd_data.tb_member_withdrawal_bak withdrawal on apply.mem_no = withdrawal.mem_no
@@ -179,10 +182,26 @@
         /* Con_Event.xml - selectRouletteCalendarList */
         select date_format(apply.apply_date, '%Y-%m-%d') the_date
             , (select count(*) from rd_data.stat_member_login_day where the_date = date_format(apply.apply_date, '%Y%m%d')) loginCnt
+            , (select count(distinct mem_no) from rd_data.tb_event_coupon_member_apply where  date_format(apply_date, '%Y%m%d') = date_format(apply_date, '%Y%m%d')) applyCnt
             , count(apply.apply_date)  itemCnt
-            , sum(sex_man)  sex_man
-            , sum(sex_female) sex_female
-            , sum(sex_unknown) sex_unknown
+            , (select count(distinct apply.mem_no)
+                from rd_data.tb_event_coupon_member_apply apply
+                left join rd_data.tb_member_basic mem on apply.mem_no = mem.mem_no
+                left join rd_data.tb_member_withdrawal_bak withdrawal on apply.mem_no = withdrawal.mem_no
+                where the_date = date_format(apply.apply_date, '%Y-%m-%d')
+                and (mem.mem_sex = 'm' or withdrawal.mem_sex = 'm')) sex_man
+            , (select count(distinct apply.mem_no)
+                from rd_data.tb_event_coupon_member_apply apply
+                left join rd_data.tb_member_basic mem on apply.mem_no = mem.mem_no
+                left join rd_data.tb_member_withdrawal_bak withdrawal on apply.mem_no = withdrawal.mem_no
+                where the_date = date_format(apply.apply_date, '%Y-%m-%d')
+                and (mem.mem_sex = 'f' or withdrawal.mem_sex = 'f')) sex_female
+            , (select count(distinct apply.mem_no)
+                from rd_data.tb_event_coupon_member_apply apply
+                left join rd_data.tb_member_basic mem on apply.mem_no = mem.mem_no
+                left join rd_data.tb_member_withdrawal_bak withdrawal on apply.mem_no = withdrawal.mem_no
+                where the_date = date_format(apply.apply_date, '%Y-%m-%d')
+                and (mem.mem_sex = 'n' or withdrawal.mem_sex = 'n')) sex_unknown
             , sum(item_no_1) itemNo1
             , sum(item_no_2) itemNo2
             , sum(item_no_3) itemNo3
@@ -194,9 +213,6 @@
         from (
             select
                 apply.apply_date
-                , if(basic.mem_sex = 'm', 1, 0)    sex_man
-                , if(basic.mem_sex = 'f', 1, 0)    sex_female
-                , if(basic.mem_sex = 'n', 1, 0)    sex_unknown
                 , if(apply.item_no = 1, 1, 0) item_no_1
                 , if(apply.item_no = 2, 1, 0) item_no_2
                 , if(apply.item_no = 3, 1, 0) item_no_3

@@ -57,6 +57,8 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
+
+        tabCntSelect();
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){

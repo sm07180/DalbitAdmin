@@ -785,6 +785,10 @@ public enum Status {
     룰렛이벤트_파라메터없음("-1", "param.error", "editList 없음"),
     룰렛이벤트_당청활률총합안맞음("-2", "validation.error", "당청활률 총합이 100*100 안맞음"),
 
+    //Tab Count
+    TabCount조회_성공("0", "tab.count.success", "TabCount조회 성공 시"),
+    TabCount조회_실패("C006", "tab.count.fail", "TabCount조회 실패 시"),
+
     ;
 
     final private String RESULT_SUCCESS = "success";

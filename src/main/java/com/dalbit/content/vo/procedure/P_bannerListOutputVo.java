@@ -36,6 +36,11 @@ public class P_bannerListOutputVo extends BaseVo {
     private String platform;			// 플랫폼(111: PC/AOS/IOS)
     private int iosJudgeViewOn;			// IOS 심사중 노출여부
 
+    private String dayOfTheWeek;        // 스케쥴 요일 선택
+    private String content_scheduleWeekTime;        // 스케쥴 시간 구분 선택
+    private String weekStartDatetime;   // 스케쥴 시작 시간
+    private String weekEndDatetime;     // 스케쥴 종료 시간
+
     //Summary
     private int pcCnt;                           //pc게시 건수
     private int androidCnt;                     //android 게시 건수

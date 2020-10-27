@@ -39,6 +39,10 @@
                         , (select emp_name from rd_admin.tb_admin_test_account a where a.mem_no = ruby.mem_no) as emp_name
                         , if(ruby <![CDATA[>]]> 0,ruby,0) as send
                         , if(ruby <![CDATA[<]]> 0,ruby,0) as recv
+                        , if(ruby <![CDATA[>]]> 0,ruby,0) as dalSend
+                        , if(ruby <![CDATA[<]]> 0,ruby,0) as dalRecv
+                        , 0 AS byeolSend
+                        , 0 AS byeolRecv
                         , op_name
                         , mem_no as memNo
                         , (select ruby From rd_data.tb_member_wallet a where a.mem_no = ruby.mem_no) as dal
@@ -59,6 +63,10 @@
                     , (select emp_name from rd_admin.tb_admin_test_account a where a.mem_no = gold.mem_no) as emp_name
                     , if(gold <![CDATA[>]]> 0,gold,0) as send
                     , if(gold <![CDATA[<]]> 0,gold,0) as recv
+                    , 0 as dalSend
+                    , 0 as dalRecv
+                    , if(gold <![CDATA[>]]> 0,gold,0) as byeolSend
+                    , if(gold <![CDATA[<]]> 0,gold,0) as byeolRecv
                     , op_name
                     , mem_no as memNo
                     , (select ruby From rd_data.tb_member_wallet a where a.mem_no = gold.mem_no) as dal
@@ -74,8 +82,15 @@
               <if test='sDate != null and sDate != ""'>
                and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[>=]]> #{sDate} and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]>  #{eDate}
               </if>
+
            ) a, (select @rownum := #{pageStart}) r
-         order by last_upd_date desc
+        <if test='listSort == "0"'> order by last_upd_date desc </if>
+        <if test='listSort == "1"'> order by dalSend desc </if>
+        <if test='listSort == "2"'> order by byeolSend desc </if>
+        <if test='listSort == "3"'> order by dalRecv asc </if>
+        <if test='listSort == "4"'> order by byeolRecv asc </if>
+        <if test='listSort == "5"'> order by lastUpdDate desc </if>
+
          limit #{pageStart}, #{pageCnt}
     </select>
 

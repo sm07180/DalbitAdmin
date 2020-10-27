@@ -629,3 +629,21 @@ var roulette_winType = [
     , new COMMON_CODE('dal', '1', '달')
     , new COMMON_CODE('gifticon', '2', '기프티콘')
 ];
+
+var content_scheduleWeek = [
+    new COMMON_CODE(null, 'content_scheduleWeek', '요일')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('1', '1', '월')
+    , new COMMON_CODE('2', '2', '화')
+    , new COMMON_CODE('3', '3', '수')
+    , new COMMON_CODE('4', '4', '목')
+    , new COMMON_CODE('5', '5', '금')
+    , new COMMON_CODE('6', '6', '토')
+    , new COMMON_CODE('7', '7', '일')
+];
+
+var content_scheduleWeekTime = [
+    new COMMON_CODE(null, 'content_scheduleWeekTime', '시간')
+    , new COMMON_CODE('0', '0', '종일')
+    , new COMMON_CODE('1', '1', '시간 선택')
+];
