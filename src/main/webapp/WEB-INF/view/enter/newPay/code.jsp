@@ -3,7 +3,7 @@
 
 <!-- 결제환불 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="divCode">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
@@ -162,12 +162,16 @@
         </span>
     </div>
 </div>
+<a id='codeExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divCode', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
 
 <script type="text/javascript">
     $(function(){
     });
 
     function getPayCodeList (){
+
+        $("#codeExcel").attr('download' , "결제현황_결제상품별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" +  moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+
         util.getAjaxData("code", "/rest/enter/pay/code", $("#searchForm").serialize(), fn_codePay_success);
     }
 

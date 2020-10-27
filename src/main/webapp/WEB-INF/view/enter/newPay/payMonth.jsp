@@ -3,7 +3,7 @@
 
 <!-- 결제환불 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="divMonth">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
@@ -117,12 +117,15 @@
         </span>
     </div>
 </div>
+<a id='monthExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divMonth', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
 
 <script type="text/javascript">
     $(function() {
     });
 
     function getPayMonthList(){
+
+        $("#monthExcel").attr('download' , "결제현황_월간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
         var slctType_date = [];
         for(i = 31; 0 < i; i-- ){

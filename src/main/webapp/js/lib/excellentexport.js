@@ -120,7 +120,7 @@ var ExcellentExport = (function() {
             table = get(table);
             var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
             var b64 = base64(format(template.excel, ctx));
-            return createDownloadLink(anchor, b64, 'application/vnd.ms-excel', name);
+            return createDownloadLink(anchor, b64, 'application/vnd.ms-excel','export.xls');
         },
         /** @export */
         csv: function(anchor, table, delimiter, newLine) {
