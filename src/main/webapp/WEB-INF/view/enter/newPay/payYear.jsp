@@ -3,7 +3,7 @@
 
 <!-- 결제환불 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="divYear">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
@@ -120,6 +120,8 @@
     </div>
 </div>
 
+<a id='yearExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divYear', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
+
 <script src='/js/lib/plotly-latest.min.js'></script>
 
 <script type="text/javascript">
@@ -127,6 +129,8 @@
     });
 
     function getPayYearList(){
+        $("#yearExcel").attr('download' , "결제현황_년간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+
         $("#year_th_1").text(moment($("#startDate").val()).add('years', -1).format('YYYY'));
         $("#year_th_0").text(moment($("#startDate").val()).add('years', 0).format('YYYY'));
 

@@ -3,7 +3,7 @@
 
 <!-- 결제환불 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="divTime">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
@@ -113,16 +113,21 @@
     </div>
     <div class="widget-footer">
         <span>
-            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>
+<a id='payTimeExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divTime', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
+
+<script src="/js/lib/excellentexport.js"></script>
 
 <script type="text/javascript">
     $(function() {
     });
 
     function getPayTimeList(){
+
+        $("#payTimeExcel").attr('download' , "결제현황_시간대별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+
         var slctType_date = [];
         for(i = 23; -1 < i; i-- ){
             slctType_date.push(i + " 시");
@@ -429,6 +434,7 @@
             alert('데이터가 없습니다.');
         }
     }
+
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_timeTableBody">

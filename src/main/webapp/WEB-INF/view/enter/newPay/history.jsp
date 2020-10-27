@@ -12,7 +12,7 @@
 <!-- 결제/환불 > 결제내역 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10" id="div_payY">
-        <div class="row form-inline">
+        <div class="row form-inline" id="divHisroty">
             <div class="widget widget-table mb10">
                 <div class="widget-header">
                     <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
@@ -29,6 +29,7 @@
                 </div>
             </div>
         </div>
+        <a id='historyExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divHisroty', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
 
         <div class="top-left pull-left dataTable-div col-md-6 no-padding">
             <span class="_searchDate"></span><br/>
@@ -60,6 +61,7 @@
     </div>
 </div>
 
+<script src="/js/lib/excellentexport.js"></script>
 <script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
@@ -71,6 +73,8 @@
     var tmp_payWay = "all";
 
     function getStatPayInfo(){
+        $("#historyExcel").attr('download' , "결제현황_일간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+
         var data = {};
         data.slctType = 1;
         data.startDate = $("#startDate").val();
