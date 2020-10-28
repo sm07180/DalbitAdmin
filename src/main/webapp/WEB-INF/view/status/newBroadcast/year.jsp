@@ -3,7 +3,10 @@
 
 <!-- 방송현황 > 시간대별 -->
 <span class="_searchDate font-bold"></span>
-<span class="" style="font-size: 11px;color: red;">* 총 수치(비중복 수치)로 표기된 현황입니다.</span>
+<span class="" style="font-size: 11px;color: red;">
+    * 총 수치(비중복 수치)로 표기된 현황입니다.<br/>
+    * 게스트 수치는 청취자 수치에 포함됩니다.
+</span>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <div class="col-md-12 no-padding">
@@ -13,28 +16,29 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
+                    <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
                     <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">DJ (방송개설)</th>
-                    <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
-                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">게스트</th>
-                    <th colspan="5" class="_bgColor" data-bgColor="#b4c7e7">청취자</th>
+                    <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
+                    <th colspan="6" class="_bgColor" data-bgColor="#f8cbad">청취자</th>
+                    <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">선물 수</th>
+                    <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">선물 달</th>
                 </tr>
                 <tr>
-                    <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <th class="_bgColor" data-bgColor="#e9ebf5">최대 개설 수</th>
-                    <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <th class="_bgColor" data-bgColor="#e9ebf5">최대 게스트 수</th>
-                    <th class="_bgColor _sex_male" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor _sex_female" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor _sex_none" data-bgColor="#e9ebf5"></th>
-                    <th class="_bgColor" data-bgColor="#bfbfbf">소계</th>
-                    <th class="_bgColor" data-bgColor="#e9ebf5">최대 청취 수</th>
+                    <th colspan="3" class="_bgColor" data-bgcolor="#dae3f3">DJ 성별</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">최대 개설</th>
+                    <th colspan="3" class="_bgColor" data-bgcolor="#fbe5d6">청취자 성별</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">게스트</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
+                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">최대 청취자</th>
+                </tr>
+                <tr>
+                    <th class="_bgColor _sex_male" data-bgColor="#b4c7e7"></th>
+                    <th class="_bgColor _sex_female" data-bgColor="#b4c7e7"></th>
+                    <th class="_bgColor _sex_none" data-bgColor="#b4c7e7"></th>
+                    <th class="_bgColor _sex_male" data-bgColor="#f8cbad"></th>
+                    <th class="_bgColor _sex_female" data-bgColor="#f8cbad"></th>
+                    <th class="_bgColor _sex_none" data-bgColor="#f8cbad"></th>
                 </tr>
                 </thead>
                 <tbody id="yearTableBody"></tbody>
@@ -50,13 +54,21 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">구분</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">총 선물 달수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">일반선물 달수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 건수</th>
-                    <th class="_bgColor" data-bgColor="#b4c7e7">비밀선물 달수</th>
+                    <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
+                    <th colspan="2" class="_bgColor" data-bgColor="#b4c7e7">DJ<br/>일반(비밀)</th>
+                    <th colspan="2" class="_bgColor" data-bgColor="#f8cbad">게스트<br/>일반(비밀</th>
+                    <th colspan="2" class="_bgColor _fontColor" data-bgColor="#000000" data-fontcolor="#ffc000" id="giftTotalCnt">
+                        총 합<br/>
+                        <span>(일반 + 비밀) 총 건수 / 달 수</span>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="_bgColor" data-bgColor="#dae3f3">건 수</th>
+                    <th class="_bgColor" data-bgColor="#dae3f3">달 수</th>
+                    <th class="_bgColor" data-bgColor="#fbe5d6">건 수</th>
+                    <th class="_bgColor" data-bgColor="#fbe5d6">달 수</th>
+                    <th class="_bgColor" data-bgColor="#f2f2f2">건 수</th>
+                    <th class="_bgColor" data-bgColor="#f2f2f2">달 수</th>
                 </tr>
                 </thead>
                 <tbody  id="giftYearListBody">
@@ -309,16 +321,14 @@
         <td>{{addComma total_create_totalCnt}} ({{addComma total_unique_dj_Cnt}})</td>
         <td>{{addComma total_create_max_Cnt}}</td>
         <td style="text-align: right">{{timeStampDay total_airtime}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma total_guest_mCnt}} ({{addComma total_guest_unique_mCnt}})</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma total_guest_fCnt}} ({{addComma total_guest_unique_fCnt}})</td>
-        <td>{{addComma total_guest_nCnt}} ({{addComma total_guest_unique_nCnt}})</td>
-        <td>{{addComma total_guest_totalCnt}} ({{addComma total_guest_UniqueCnt}})</td>
-        <td>{{addComma total_guest_max_Cnt}}</td>
         <td class="_fontColor" data-fontColor="blue">{{addComma total_listener_mCnt}} ({{addComma total_unique_listener_mCnt}})</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_listener_fCnt}} ({{addComma total_unique_listener_fCnt}})</td>
         <td>{{addComma total_listener_nCnt}} ({{addComma total_unique_listener_nCnt}})</td>
+        <td>{{addComma total_guest_totalCnt}} ({{addComma total_guest_UniqueCnt}})</td>
         <td>{{addComma total_listener_totalCnt}} ({{addComma total_unique_listener_Cnt}})</td>
         <td>{{addComma total_listener_max_Cnt}}</td>
+        <td>{{addComma total_gift_Cnt}}</td>
+        <td>{{addComma total_gift_Amt}}</td>
     </tr>
 </script>
 
@@ -335,16 +345,14 @@
         <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if create_Cnt '!=' 0}}{{addComma create_Cnt 'Y'}} ({{addComma unique_dj_Cnt}}){{/dalbit_if}}</td>
         <td>{{addComma create_max_Cnt 'Y'}}</td>
         <td style="text-align: right">{{timeStampDay airtime}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{#dalbit_if guest_mCnt '!=' 0}}{{addComma guest_mCnt 'Y'}} ({{addComma guest_unique_mCnt}}){{/dalbit_if}}</td>
-        <td class="_fontColor" data-fontColor="red">{{#dalbit_if guest_fCnt '!=' 0}}{{addComma guest_fCnt 'Y'}} ({{addComma guest_unique_fCnt}}){{/dalbit_if}}</td>
-        <td>{{#dalbit_if guest_nCnt '!=' 0}}{{addComma guest_nCnt 'Y'}} ({{addComma guest_unique_nCnt}}){{/dalbit_if}}</td>
-        <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if guest_Cnt '!=' 0}}{{addComma guest_Cnt 'Y'}} ({{addComma guest_unique_Cnt}}){{/dalbit_if}}</td>
-        <td>{{addComma guest_max_Cnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="blue">{{#dalbit_if listener_mCnt '!=' 0}}{{addComma listener_mCnt 'Y'}} ({{addComma unique_listener_mCnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="red">{{#dalbit_if listener_fCnt '!=' 0}}{{addComma listener_fCnt 'Y'}} ({{addComma unique_listener_fCnt}}){{/dalbit_if}}</td>
         <td>{{#dalbit_if listener_nCnt '!=' 0}}{{addComma listener_nCnt 'Y'}} ({{addComma unique_listener_nCnt}}){{/dalbit_if}}</td>
+        <td>{{#dalbit_if guest_Cnt '!=' 0}}{{addComma guest_Cnt 'Y'}} ({{addComma guest_unique_Cnt}}){{/dalbit_if}}</td>
         <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if listener_Cnt '!=' 0}}{{addComma listener_Cnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
+        <td>{{addComma gift_Cnt 'Y'}}</td>
+        <td>{{addComma gift_Amt 'Y'}}</td>
     </tr>
     {{else}}
     <tr>
@@ -356,28 +364,28 @@
 <script type="text/x-handlebars-template" id="tmp_giftYear">
     <tr class="font-bold _bgColor" data-bgColor="#d0cece">
         <td>총합</td>
-        <td>{{addComma sum_totalGiftCnt}}</td>
-        <td>{{addComma sum_totalGiftAmount}}</td>
-        <td>{{addComma sum_normalGiftCnt}}</td>
-        <td>{{addComma sum_normalGiftAmount}}</td>
-        <td>{{addComma sum_secretGiftCnt}}</td>
-        <td>{{addComma sum_secretGiftAmount}}</td>
+        <td>{{addComma sum_normalGiftCnt}} ({{addComma sum_secretGiftCnt}})</td>
+        <td>{{addComma sum_normalGiftAmount}} ({{addComma sum_secretGiftAmount}})</td>
+        <td>{{addComma sum_guest_normalGiftCnt}} ({{addComma sum_guest_secretGiftCnt}})</td>
+        <td>{{addComma sum_guest_normalGiftAmount}} ({{addComma sum_guest_secretGiftAmount}})</td>
+        <td>{{addComma sum_totalGiftCnt}} ({{addComma sum_totalSecretGiftCnt}})</td>
+        <td>{{addComma sum_totalGiftAmount}} ({{addComma sum_totalSecretGiftAmount}})</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_giftYearDetailList">
     {{#each this as |data|}}
     <tr {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-    <td {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
-    {{#dalbit_if nowMonth '!=' month}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
-    {{{the_date}}}
-    </td>
-    <td>{{addComma totalGiftCnt 'Y'}}</td>
-    <td>{{addComma totalGiftAmount 'Y'}}</td>
-    <td>{{addComma normalGiftCnt 'Y'}}</td>
-    <td>{{addComma normalGiftAmount 'Y'}}</td>
-    <td>{{addComma secretGiftCnt 'Y'}}</td>
-    <td>{{addComma secretGiftAmount 'Y'}}</td>
+        <td {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}
+        {{#dalbit_if nowMonth '!=' month}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
+        {{{the_date}}}
+        </td>
+        <td>{{addComma normalGiftCnt}} ({{addComma secretGiftCnt}})</td>
+        <td>{{addComma normalGiftAmount}} ({{addComma secretGiftAmount}})</td>
+        <td>{{addComma guest_normalGiftCnt}} ({{addComma guest_secretGiftCnt}})</td>
+        <td>{{addComma guest_normalGiftAmount}} ({{addComma guest_secretGiftAmount}})</td>
+        <td>{{addComma totalGiftCnt}} ({{addComma totalSecretGiftCnt}})</td>
+        <td>{{addComma totalGiftAmount}} ({{addComma totalSecretGiftAmount}})</td>
     </tr>
     {{else}}
     <tr>

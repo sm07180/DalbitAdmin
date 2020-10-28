@@ -3,7 +3,10 @@
 
 <!-- 방송현황 > 시간대별 -->
 <span class="_searchDate font-bold"></span>
-<span class="" style="font-size: 11px;color: red;">* 총 수치(비중복 수치)로 표기된 현황입니다.</span>
+<span class="" style="font-size: 11px;color: red;">
+    * 총 수치(비중복 수치)로 표기된 현황입니다.<br/>
+    * 게스트 수치는 청취자 수치에 포함됩니다.
+</span>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <div class="col-md-12 no-padding">
@@ -385,7 +388,7 @@
         <td class="_fontColor" data-fontColor="blue">{{#dalbit_if listener_mCnt '!=' 0}}{{addComma listener_mCnt 'Y'}} ({{addComma unique_listener_mCnt}}){{/dalbit_if}}</td>
         <td class="_fontColor" data-fontColor="red">{{#dalbit_if listener_fCnt '!=' 0}}{{addComma listener_fCnt 'Y'}} ({{addComma unique_listener_fCnt}}){{/dalbit_if}}</td>
         <td>{{#dalbit_if listener_nCnt '!=' 0}}{{addComma listener_nCnt 'Y'}} ({{addComma unique_listener_nCnt}}){{/dalbit_if}}</td>
-        <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if guest_Cnt '!=' 0}}{{addComma guest_Cnt 'Y'}} ({{addComma guest_unique_Cnt}}){{/dalbit_if}}</td>
+        <td>{{#dalbit_if guest_Cnt '!=' 0}}{{addComma guest_Cnt 'Y'}} ({{addComma guest_unique_Cnt}}){{/dalbit_if}}</td>
         <td {{#dalbit_if nowHour '!=' the_hr}} class="_bgColor" data-bgColor="#d0cece" {{/dalbit_if}}>{{#dalbit_if listener_Cnt '!=' 0}}{{addComma listener_Cnt 'Y'}} ({{addComma unique_listener_Cnt}}){{/dalbit_if}}</td>
         <td>{{addComma listener_max_Cnt 'Y'}}</td>
         <td>{{addComma gift_Cnt 'Y'}}</td>
