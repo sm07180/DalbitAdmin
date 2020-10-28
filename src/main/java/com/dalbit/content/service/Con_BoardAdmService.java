@@ -232,6 +232,10 @@ public class Con_BoardAdmService {
      * 클립댓글 조회
      */
     public String selectClipReplyList(ClipReplyListVo clipReplyListVo) {
+
+        clipReplyListVo.setPageStart(clipReplyListVo.getPageStart() -1);
+        clipReplyListVo.setPageStart(clipReplyListVo.getPageStart() * clipReplyListVo.getPageCnt());
+
         int clipReplyListCount = conBoardAdmDao.selectClipReplyListCnt(clipReplyListVo);
         clipReplyListVo.setTotalCnt(clipReplyListCount);
         List<ClipReplyListVo> clipReplyList = conBoardAdmDao.selectClipReplyList(clipReplyListVo);
