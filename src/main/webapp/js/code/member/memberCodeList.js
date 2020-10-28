@@ -263,6 +263,7 @@ var mem_wallet_byeol_code = [
     , new COMMON_CODE('6', '6', '소실금액복구')
     , new COMMON_CODE('7', '7', '테스트지급및회수')
     , new COMMON_CODE('8', '8', '환전취소')
+    , new COMMON_CODE('14', '14', '클립선물')
     , new COMMON_CODE('21', '21', '출석체크 보상')
     , new COMMON_CODE('22', '22', '스페셜DJ혜택')
     , new COMMON_CODE('23', '23', '이벤트 지급(어드민)')

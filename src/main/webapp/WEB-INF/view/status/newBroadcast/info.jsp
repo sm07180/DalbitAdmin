@@ -2,6 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
+
+<style>
+    .divTable{
+        display: table;
+    }
+    .divTable span{
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
+
+
 <div id="wrapper">
     <div id="page-wrapper" class="col-lg-12 no-padding">
         <div class="container-fluid">

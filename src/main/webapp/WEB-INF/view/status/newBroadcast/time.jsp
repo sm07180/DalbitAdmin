@@ -2,11 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 방송현황 > 시간대별 -->
-<span class="_searchDate font-bold"></span>
-<span class="" style="font-size: 11px;color: red;">
-    * 총 수치(비중복 수치)로 표기된 현황입니다.<br/>
-    * 게스트 수치는 청취자 수치에 포함됩니다.
-</span>
+<div class="col-md-12 no-padding divTable">
+    <span class="_searchDate font-bold " style="width: 144px"></span>
+    <label class="" style="font-size: 11px;color: red;">
+        * 총 수치(비중복 수치)로 표기된 현황입니다.<br/>
+        * 게스트 수치는 청취자 수치에 포함됩니다.
+    </label>
+</div>
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <div class="col-md-12 no-padding">
@@ -59,7 +61,7 @@
                 <tr>
                     <th rowspan="2" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
                     <th colspan="2" class="_bgColor" data-bgColor="#b4c7e7">DJ<br/>일반(비밀)</th>
-                    <th colspan="2" class="_bgColor" data-bgColor="#f8cbad">게스트<br/>일반(비밀</th>
+                    <th colspan="2" class="_bgColor" data-bgColor="#f8cbad">게스트<br/>일반(비밀)</th>
                     <th colspan="2" class="_bgColor _fontColor" data-bgColor="#000000" data-fontcolor="#ffc000" id="giftTotalCnt">
                         총 합<br/>
                         <span>(일반 + 비밀) 총 건수 / 달 수</span>
