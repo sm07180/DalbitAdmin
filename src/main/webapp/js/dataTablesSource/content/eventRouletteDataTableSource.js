@@ -20,7 +20,7 @@ var EventRouletteDataTableSource = {
             {'title': '참여일시', 'data' : 'apply_date', 'render' : function(data) {
                     return data;
                 }},
-            {'title': '접수일시', 'data' : 'last_upd_date', 'render' : function(data) {
+            {'title': '접수일시', 'data' : 'win_date', 'render' : function(data) {
                 if(common.isEmpty(data)){
                     return '-';
                 }
