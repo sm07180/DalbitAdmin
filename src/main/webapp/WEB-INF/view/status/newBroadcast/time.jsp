@@ -63,8 +63,7 @@
                     <th colspan="2" class="_bgColor" data-bgColor="#b4c7e7">DJ<br/>일반(비밀)</th>
                     <th colspan="2" class="_bgColor" data-bgColor="#f8cbad">게스트<br/>일반(비밀)</th>
                     <th colspan="2" class="_bgColor _fontColor" data-bgColor="#000000" data-fontcolor="#ffc000" id="giftTotalCnt">
-                        총 합<br/>
-                        <span>(일반 + 비밀) 총 건수 / 달 수</span>
+                        총 합<br/>(일반 + 비밀)
                     </th>
                 </tr>
                 <tr>
@@ -248,6 +247,7 @@
             response.data.detailList[i].totalSecretGiftCnt = response.data.detailList[i].secretGiftCnt + response.data.detailList[i].guest_secretGiftCnt;
             response.data.detailList[i].totalSecretGiftCmt = response.data.detailList[i].secretGiftCmt + response.data.detailList[i].guest_secretGiftCmt;
             response.data.detailList[i].totalSecretGiftAmount = response.data.detailList[i].secretGiftAmount + response.data.detailList[i].guest_secretGiftAmount;
+
         }
 
         var template = $('#tmp_giftDetailList').html();
@@ -422,12 +422,85 @@
         {{#dalbit_if nowHour '!=' hour}} class="font-bold _bgColor" data-bgColor="#d8e2f3"  {{/dalbit_if}}>
         {{data.hour}}시
         </td>
-        <td>{{addComma normalGiftCnt}} ({{addComma secretGiftCnt}})</td>
-        <td>{{addComma normalGiftAmount}} ({{addComma secretGiftAmount}})</td>
-        <td>{{addComma guest_normalGiftCnt}} ({{addComma guest_secretGiftCnt}})</td>
-        <td>{{addComma guest_normalGiftAmount}} ({{addComma guest_secretGiftAmount}})</td>
-        <td>{{addComma totalGiftCnt}} ({{addComma totalSecretGiftCnt}})</td>
-        <td>{{addComma totalGiftAmount}} ({{addComma totalSecretGiftAmount}})</td>
+        <td>
+            {{#dalbit_if normalGiftCnt '!=' 0}}
+                {{#dalbit_if secretGiftCnt '!=' 0}}
+                    {{addComma normalGiftCnt}} ({{addComma secretGiftCnt}})
+                {{else}}
+                    {{addComma normalGiftCnt}} (0)
+                {{/dalbit_if}}
+            {{else}}
+                {{#dalbit_if secretGiftCnt '!=' 0}}
+                    0 ({{addComma secretGiftCnt}})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if normalGiftAmount '!=' 0}}
+                {{#dalbit_if secretGiftAmount '!=' 0}}
+                    {{addComma normalGiftAmount}} ({{addComma secretGiftAmount}})
+                {{else}}
+                    {{addComma normalGiftAmount}} (0)
+                {{/dalbit_if}}
+            {{else}}
+                {{#dalbit_if secretGiftAmount '!=' 0}}
+                    0 ({{addComma secretGiftAmount}})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if guest_normalGiftCnt '!=' 0}}
+                {{#dalbit_if guest_secretGiftCnt '!=' 0}}
+                    {{addComma guest_normalGiftCnt}} ({{addComma guest_secretGiftCnt}})
+                {{else}}
+                    {{addComma guest_normalGiftCnt}} (0)
+                {{/dalbit_if}}
+            {{else}}
+                {{#dalbit_if guest_secretGiftCnt '!=' 0}}
+                    0 ({{addComma guest_secretGiftCnt}})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+
+        </td>
+        <td>
+            {{#dalbit_if guest_normalGiftAmount '!=' 0}}
+                {{#dalbit_if guest_secretGiftAmount '!=' 0}}
+                    {{addComma guest_normalGiftAmount}} ({{addComma guest_secretGiftAmount}})
+                {{else}}
+                    {{addComma guest_normalGiftAmount}} (0)
+                {{/dalbit_if}}
+            {{else}}
+                {{#dalbit_if guest_secretGiftAmount '!=' 0}}
+                    0 ({{addComma guest_secretGiftAmount}})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if totalGiftCnt '!=' 0}}
+                {{#dalbit_if totalSecretGiftCnt '!=' 0}}
+                    {{addComma totalGiftCnt}} ({{addComma totalSecretGiftCnt}})
+                {{else}}
+                    {{addComma totalGiftCnt}} (0)
+                {{/dalbit_if}}
+            {{else}}
+                {{#dalbit_if totalSecretGiftCnt '!=' 0}}
+                    0 ({{addComma totalSecretGiftCnt}})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
+        <td>
+            {{#dalbit_if totalGiftAmount '!=' 0}}
+                {{#dalbit_if totalSecretGiftAmount '!=' 0}}
+                    {{addComma totalGiftAmount}} ({{addComma totalSecretGiftAmount}})
+                {{else}}
+                    {{addComma totalGiftAmount}} (0)
+                {{/dalbit_if}}
+            {{else}}
+                {{#dalbit_if totalSecretGiftAmount '!=' 0}}
+                    0 ({{addComma totalSecretGiftAmount}})
+                {{/dalbit_if}}
+            {{/dalbit_if}}
+        </td>
     </tr>
     {{else}}
     <tr>

@@ -81,6 +81,7 @@ public class P_ResourceTotalDalOutVo {
     private long eventauto_fCnt;
     private long eventauto_nCnt;
     private long eventauto_tCnt;
+
     private long roulette_mCnt;
     private long roulette_fCnt;
     private long roulette_nCnt;
