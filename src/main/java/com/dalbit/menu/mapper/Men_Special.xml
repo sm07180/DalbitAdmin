@@ -247,7 +247,7 @@
           , round_no)
         values
         (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj), #{select_year}, #{select_month}
-        , (select round_no from rd_admin.tb_req_special_dj_manage where select_year = #{select_year} and select_month = #{select_month}))
+        , (select round_no + 1 from rd_admin.tb_req_special_dj_manage where date_format(concat(select_year, select_month, '01'), '%Y-%m') = (select date_format(DATE_SUB(date_format(concat(#{select_year}, #{select_month}, '01'), '%Y-%m-%d'), interval 1 month),  '%Y-%m')))
     </insert>
 
     <insert id="opLastUpdDate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
