@@ -19,7 +19,7 @@
                     <when test='walletType == "2"'>
                         AND
                         (
-                          `type` IN (2, 3, 4, 9, 7, 14, 17)
+                          `type` IN (2, 3, 4, 9, 7, 14, 17, 19, 20)
                         OR
                           (`type` IN (7, 8, 12, 13, 22, 23) AND  0 > (ruby_new - ruby_old))
                         )
@@ -41,7 +41,7 @@
         (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby  where `type` = 1  <include refid="condition_dal"/>) AS sum_charge_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 5  <include refid="condition_dal"/>) AS sum_input_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (7, 8, 9, 10, 11, 12, 13, 22, 23)  <include refid="condition_dal"/>) AS sum_event_cnt
-        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2, 3, 4, 14, 17) <include refid="condition_dal"/>) AS sum_output_cnt
+        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2, 3, 4, 14, 17, 19, 20) <include refid="condition_dal"/>) AS sum_output_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 6 <include refid="condition_dal"/>) AS sum_change_cnt
         ,IFNULL((SELECT IFNULL(ruby_new, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} and `type`=15),0) AS start_cnt
         ,IFNULL(ruby, 0) AS sum_own_cnt
@@ -57,10 +57,10 @@
         FROM
         (
             SELECT
-                (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 ELSE item_type END) AS gubun
+                (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS gubun
                 ,ruby
                 ,room_no
-                ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 ELSE item_type END) AS item_type
+                ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS item_type
                 ,gifted_mem_no AS mem_no
                 ,mem_level AS `level`
                 ,mem_grade AS grade
@@ -131,7 +131,7 @@
             WHERE
                 mem_no =#{mem_no}
                 /*and type in (1, 7, 8, 9, 10, 11, 12, 13, 22, 23, 15)*/
-                and type not in (2, 3, 4, 5, 6, 14, 17)
+                and type not in (2, 3, 4, 5, 6, 14, 17, 19, 20)
         ) a
         LEFT JOIN
             rd_data.tbl_gift_item AS b
@@ -209,10 +209,10 @@
             FROM
             (
                 SELECT
-                    (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 ELSE item_type END) AS gubun
+                    (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 WHEN 8 THEN 2  ELSE item_type END) AS gubun
                     ,ruby
                     ,room_no
-                    ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 ELSE item_type END) AS item_type
+                    ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 9 WHEN 5 THEN 6 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS item_type
                     ,gifted_mem_no AS mem_no
                     ,mem_level AS `level`
                     ,mem_grade AS grade
@@ -283,7 +283,7 @@
                 WHERE
                     mem_no =#{mem_no}
                     /*and type in (1,7,8, 9, 10, 11, 12, 13, 22, 23,15)*/
-                    and type not in (2, 3, 4, 5, 6, 14, 17)
+                    and type not in (2, 3, 4, 5, 6, 14, 17, 19, 20)
             ) a
             LEFT JOIN
                 rd_data.tbl_gift_item AS b
@@ -358,7 +358,7 @@
                 <when test='walletType == "1"'>
                     AND
                     (
-                      `type`  in (2, 14, 17)
+                      `type`  in (2, 14, 17, 19, 20)
                     OR
                       (`type`  IN (3, 6, 22, 23) AND (gold_new - gold_old) > 0)
                     )
@@ -386,7 +386,7 @@
 
     <select id="getResultByeolSummary" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="java.util.HashMap">
         SELECT
-            (SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` in ('2', '14', '17') AND mem_no = #{mem_no} <include refid="condition_byeol"/>) AS sum_input_cnt
+            (SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` in ('2', '14', '17', 19, 20) AND mem_no = #{mem_no} <include refid="condition_byeol"/>) AS sum_input_cnt
             ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` in (4,5,6,7,8,21,22,23) AND mem_no = #{mem_no} <include refid="condition_byeol"/>) AS sum_event_cnt
             ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 3 AND mem_no = #{mem_no} <include refid="condition_byeol"/>) AS sum_exchange_cnt
             ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 1 AND mem_no = #{mem_no} <include refid="condition_byeol"/>) AS sum_change_cnt
@@ -405,10 +405,10 @@
         FROM
         (
             SELECT
-                (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 ELSE item_type END) AS gubun
+                (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS gubun
                 ,gold
                 ,room_no
-                ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 ELSE item_type END) AS item_type
+                ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS item_type
                 ,mem_no AS mem_no
                 ,mem_level AS `level`
                 ,mem_grade AS grade
@@ -421,7 +421,7 @@
                 rd_data.tb_member_broadcast_item
             WHERE
                 gifted_mem_no = #{mem_no}
-                and item_type in ('1', '2', '7')
+                and item_type in ('1', '2', '7', 8)
             UNION ALL
             select
                 `type` AS gubun
@@ -440,7 +440,7 @@
                 rd_data.tb_member_wallet_gold
             where
                 mem_no = #{mem_no}
-                and type not in ( '2', '14', '17')
+                and type not in ( '2', '14', '17', 19, 20)
         ) a
         LEFT JOIN
             rd_data.tbl_gift_item AS b
@@ -514,10 +514,10 @@
             FROM
             (
                 SELECT
-                    (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 ELSE item_type END) AS gubun
+                    (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS gubun
                     ,gold
                     ,room_no
-                    ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 ELSE item_type END) AS item_type
+                    ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 7 THEN 14 WHEN 8 THEN 2 ELSE item_type END) AS item_type
                     ,mem_no AS mem_no
                     ,mem_level AS `level`
                     ,mem_grade AS grade
@@ -530,7 +530,7 @@
                     rd_data.tb_member_broadcast_item
                 WHERE
                     gifted_mem_no = #{mem_no}
-                    and item_type in ('1', '2', '7')
+                    and item_type in ('1', '2', '7', 8)
                 UNION ALL
                 select
                     `type` AS gubun
@@ -549,7 +549,7 @@
                     rd_data.tb_member_wallet_gold
                 where
                     mem_no = #{mem_no}
-                    and type not in ( '2', '14', '17')
+                    and type not in ( '2', '14', '17', 19, 20 )
             ) a
             LEFT JOIN
                 rd_data.tbl_gift_item AS b
