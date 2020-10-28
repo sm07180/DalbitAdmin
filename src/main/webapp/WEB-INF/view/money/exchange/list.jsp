@@ -743,7 +743,14 @@
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
     <div class="col-md-12 no-padding">
         <div class="col-md-12 no-padding">
-            <div class="col-lg-6 no-padding">
+            <div class="col-lg-12 no-padding mt10">
+                <label>ㆍ환전완료 정보를 확인하고, 환전 취소 회원에 대한 응대를 할 수 있습니다.</label><br/>
+                <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
+                <div id="warning_desc" style="display:none;">
+                    <label style="color:red"><h2>2일 이상 된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
+                </div>
+            </div>
+            <div class="col-lg-12 no-padding">
                 <table class="table table-bordered table-summary pull-left">
                     <colgroup>
                         <col width="80px"/>
@@ -846,15 +853,6 @@
                     </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="col-lg-6 no-padding">
-                <label>ㆍ환전완료 정보를 확인하고, 환전 취소 회원에 대한 응대를 할 수 있습니다.</label><br/>
-                <label>ㆍ경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</label><br/>
-                <label>ㆍ[SMS발송] 후 [최종완료], [환전취소] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
-                <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
-                <div id="warning_desc" style="display:none;">
-                    <label style="color:red"><h2>2일 이상 된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
-                </div>
             </div>
         </div>
         <div class="col-md-12">
