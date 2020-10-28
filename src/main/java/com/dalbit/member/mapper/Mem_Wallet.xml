@@ -68,7 +68,7 @@
                 ,item_code
                 ,item_cnt AS itemCnt
                 ,secret
-                ,'' AS cont
+                ,if(item_type=5,concat('교환 ', ruby),'') AS cont
             FROM
                 rd_data.tb_member_broadcast_item
             WHERE
@@ -87,7 +87,7 @@
                 ,item_code
                 ,item_cnt AS itemCnt
                 ,secret
-                ,'' AS cont
+                ,concat('보낸 달 ',ruby) AS cont
             FROM
                 rd_data.tb_member_broadcast_item
             WHERE
@@ -106,7 +106,7 @@
                 ,item_code
                 ,item_cnt AS itemCnt
                 ,secret
-                ,'' AS cont
+                ,concat('받은 달 ',ruby) AS cont
             FROM
                 rd_data.tb_member_broadcast_item
             WHERE
@@ -220,7 +220,7 @@
                     ,item_code
                     ,item_cnt AS itemCnt
                     ,secret
-                    ,'' AS cont
+                    ,if(item_type=5,concat('교환 ', ruby),'') AS cont
                 FROM
                     rd_data.tb_member_broadcast_item
                 WHERE
@@ -239,7 +239,7 @@
                     ,item_code
                     ,item_cnt AS itemCnt
                     ,secret
-                    ,'' AS cont
+                    ,concat('보낸 달 ',ruby) AS cont
                 FROM
                     rd_data.tb_member_broadcast_item
                 WHERE
@@ -258,7 +258,7 @@
                     ,item_code
                     ,item_cnt AS itemCnt
                     ,secret
-                    ,'' AS cont
+                    ,concat('받은 달 ',ruby) AS cont
                 FROM
                     rd_data.tb_member_broadcast_item
                 WHERE
