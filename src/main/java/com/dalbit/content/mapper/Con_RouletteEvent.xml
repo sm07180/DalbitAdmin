@@ -62,7 +62,7 @@
             evtApply.mem_no
             , date_format(evtApply.apply_date, '%Y.%m.%d %H:%i:%s') apply_date
             , evtApply.item_no
-            , date_format(win.win_date, '%Y.%m.%d %H:%i:%s') win_date
+            , date_format(win.phone_date, '%Y.%m.%d %H:%i:%s') win_date
             , date_format(win.last_upd_date, '%Y.%m.%d %H:%i:%s') last_upd_date
             , win.phone
             , profile.image_profile
@@ -70,7 +70,7 @@
             , ifnull(member.mem_userid, outMember.mem_userid) mem_userid
             , ifnull(member.mem_sex, outMember.mem_sex) mem_sex
         from rd_data.tb_event_coupon_member_apply evtApply
-            left join rd_data.tb_event_coupon_winning win on evtApply.mem_no = win.mem_no and evtApply.apply_date = win.win_date and evtApply.item_no = win.item_no
+            left join rd_data.tb_event_coupon_winning win on evtApply.mem_no = win.mem_no and date_format(evtApply.apply_date, '%Y%m%d') = date_format(win.win_date, '%Y%m%d') and evtApply.item_no = win.item_no
             left join rd_data.tb_member_basic member on evtApply.mem_no = member.mem_no
             left join rd_data.tb_member_withdrawal_bak outMember on evtApply.mem_no = outMember.mem_no
             left join rd_data.tb_member_profile profile on evtApply.mem_no = profile.mem_no
