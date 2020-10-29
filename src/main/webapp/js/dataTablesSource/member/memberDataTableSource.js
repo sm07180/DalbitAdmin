@@ -855,17 +855,17 @@ var MemberDataTableSource = {
             {'title': '청취수', 'width':'60px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '좋아요 수', 'width':'60px', 'data': 'countGood', 'render': function (data, type, row, meta) {
+            {'title': '좋아요', 'width':'60px', 'data': 'countGood', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '받은선물<br>건수', 'width':'60px', 'data': 'countGift', 'render': function (data, type, row, meta) {
+            {'title': '선물 건', 'width':'60px', 'data': 'countGift', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '받은선물<br>별 수', 'width':'60px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
+            {'title': '받은 별', 'width':'60px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
             {'title': '댓글', 'width':'50px', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
-                    return data + ' <a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'">[댓글]</a>';
+                    return data + ' <a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'"> ' + data + '</a>';
                 }},
             {'title': '숨기기', 'width':'50px', 'data': 'hide', 'render': function (data, type, row, meta) {
                     if(row.state == 4 || row.state == 5){
