@@ -5,9 +5,6 @@
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
     <div class="col-md-12 no-padding">
-        <div class="col-md-4 no-padding pull-right">
-            <span id="login_summaryArea"></span>
-        </div>
         <div class="col-md-12 no-padding pull-right mt5">
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
@@ -26,12 +23,6 @@
             <tbody id="tableBody_detail">
             </tbody>
         </table>
-    </div>
-    </span>
-    <div class="widget-footer">
-        <span>
-            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
-        </span>
     </div>
 </div>
 
@@ -70,13 +61,20 @@
         };
         var html = templateScript(data);
         $("#login_summaryArea").html(html);
-
     }
 
     function getLoginUserList_tabClick(tmp){
         $("#selJoinDate").hide();
         liveState = tmp;
+        if(liveState == 4){
+            $("#divLive").hide();
+            $("#divLiveListen").hide();
+            $("#divLiveGuest").hide();
+            $("#divLivelogin").show();
+            $("#seldate").hide();
+        }
         dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_guest.reload(liveGuest_summary);
         dtList_info_loginUser.reload(loginNextFunc);
         dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
@@ -85,7 +83,7 @@
 
 
 <script id="loginUser_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-margin" style="width: 80%">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 100%">
         <tr>
             <th colspan="6" style="background-color: #2f5597;color: white">방송방 외 접속회원</th>
         </tr>

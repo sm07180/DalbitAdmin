@@ -477,4 +477,21 @@ public class Bro_BroadcastService {
         }
         return result;
     }
+
+    /**
+     * 실시간 게스트 list 목록
+     */
+    public String callLiveGuestList(P_BroadcastListInputVo pBroadcastListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
+        ArrayList<P_LiveGuestListOutputVo> liveGuestList = bro_BroadcastDao.callLiveGuestList(procedureVo);
+        P_LiveGuestListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_LiveGuestListOutputVo.class);
+
+        String result;
+        if(liveGuestList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송게스트목록보기_성공, liveGuestList, new PagingVo(procedureVo.getRet()),summary));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송게스트목록보기_실패));
+        }
+        return result;
+    }
 }

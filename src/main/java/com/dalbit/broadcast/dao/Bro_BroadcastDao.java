@@ -45,4 +45,7 @@ public interface Bro_BroadcastDao {
     @Transactional(readOnly = true)
     ArrayList<P_LiveListenerListOutputVo> callLiveListenerList(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_LiveGuestListOutputVo> callLiveGuestList(ProcedureVo procedureVo);
+
 }

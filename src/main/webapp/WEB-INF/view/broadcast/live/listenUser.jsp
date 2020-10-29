@@ -8,12 +8,6 @@
         <div class="col-md-2 no-padding">
             <span name="listenUserType" id="listenUserType" onchange="listenUserType_sel_change()"></span>
         </div>
-        <div class="col-md-4 no-padding pull-right">
-            <span id="live_summaryArea2"></span>
-        </div>
-        <div class="col-md-3 no-padding pull-right">
-            <span id="liveListener_summaryArea"></span>
-        </div>
         <div class="col-md-12 no-padding pull-right mt5">
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
@@ -32,12 +26,6 @@
             <tbody id="tableBody_detail">
             </tbody>
         </table>
-    </div>
-    </span>
-    <div class="widget-footer">
-        <span>
-            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
-        </span>
     </div>
 </div>
 
@@ -94,13 +82,22 @@
     function getListenUserList_tabClick(tmp){
         $("#selJoinDate").hide();
         liveState = tmp;
+        if(liveState == 3){
+            $("#divLive").hide();
+            $("#divLiveListen").show();
+            $("#divLivelogin").hide();
+            $("#divLiveGuest").hide();
+            $("#seldate").hide();
+        }
         dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_guest.reload(liveGuest_summary);
         dtList_info_loginUser.reload(loginNextFunc);
         dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
     function listenUserType_sel_change(){
         $("#selJoinDate").hide();
         dtList_info_lisetnUser.reload(liveNextFunc);
+        dtList_info_guest.reload(liveGuest_summary);
         dtList_info_loginUser.reload(loginNextFunc);
         dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
@@ -148,15 +145,14 @@
 
 </script>
 
-
 <script id="liveListener_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right no-margin" style="width: 80%">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 100%">
         <tr>
             <th colspan="7" style="background-color: #2f5597;color: white">청취자</th>
         </tr>
         <tr>
             <th colspan="3" style="background-color: #d9d9d9;color: black">플랫폼</th>
-            <th colspan="4" style="background-color: #d9d9d9;color: black">성별</th>
+            <th colspan="3" style="background-color: #d9d9d9;color: black">성별</th>
         </tr>
         <tr>
             <td style="background-color: #dae3f3" class="font-bold">Android</td>
@@ -165,7 +161,6 @@
             <td style="background-color: #dae3f3">{{{sexIcon 'm'}}}</td>
             <td style="background-color: #dae3f3">{{{sexIcon 'f'}}}</td>
             <td style="background-color: #dae3f3">{{{sexIcon 'n'}}}</td>
-            <th style="background-color: #dae3f3;">비회원</th>
         </tr>
         <tr>
             <td>{{addComma content.aosCnt}}</td>
@@ -174,7 +169,6 @@
             <td>{{addComma content.maleCnt}}</td>
             <td>{{addComma content.femaleCnt}}</td>
             <td>{{addComma content.noneCnt}}</td>
-            <td>{{addComma content.noneMemberCnt}}</td>
         </tr>
         <tr>
             <td colspan="7" class="font-bold" style="background-color: #7f7f7f;color: white">총 수 {{addComma content.totalCnt}}</td>
@@ -213,8 +207,8 @@
             <td>{{content.broadNoneCnt}}</td>
         </tr>
         <tr>
-            <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #d8d8d8;" colspan="4">총 수 (방송중/끊김)</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="4">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
         </tr>
     </table>
 </script>

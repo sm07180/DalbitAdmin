@@ -43,7 +43,7 @@ var ClipHistoryDataTableSource = {
             {'title': '운영자<br>메모', 'width':'40px', 'data': 'opMemoCnt', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="bt_detail_memo">' + common.addComma(data) + '</a>';
                 }},
-            {'title': '청취수 자', 'width':'50px', 'data': 'countPlayMemberCnt', 'render': function (data, type, row, meta) {
+            {'title': '청취자', 'width':'50px', 'data': 'countPlayMemberCnt', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {

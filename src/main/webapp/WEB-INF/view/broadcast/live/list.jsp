@@ -6,26 +6,50 @@
 <!-- serachBox -->
 <form id="searchForm">
     <div class="row col-lg-12 form-inline">
-        <div class="widget widget-table searchBoxArea">
-            <div class="widget-header searchBoxRow">
-                <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
-                <div>
-                    <span id="searchRadio"></span>
-                    <span id="searchType_broad"></span>
+        <div class="col-md-7 no-padding">
+            <div class="widget widget-table searchBoxArea">
+                <div class="widget-header searchBoxRow">
+                    <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
+                    <div>
+                        <span id="searchRadio"></span>
+                        <span id="searchType_broad"></span>
 
-                    <span id="selJoinDate" style="padding-left: 10px;display: none"></span>
-                    <div class="input-group date" id="seldate">
-                        <label for="onedayDate" class="input-group-addon">
-                            <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
-                        </label>
-                        <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                        <div class="input-group date" id="seldate" style="display: none;">
+                            <label for="onedayDate" class="input-group-addon">
+                                <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
+                            </label>
+                            <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                        </div>
+
+                        <label><input type="text" class="form-control" id="txt_search"></label>
+                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
                     </div>
-
-                    <label><input type="text" class="form-control" id="txt_search"></label>
-                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
                 </div>
             </div>
         </div>
+        <div class="col-md-5 pull-right no-padding" id="divLive">
+            <span id="live_summaryArea"></span>
+            <%--<span id="dj_typeSummaryArea"></span>--%>
+            <%--<span id="platform_summaryArea"></span>--%>
+        </div>
+
+        <div class="col-md-5 pull-right no-padding" id="divLiveListen" style="display: none">
+            <div class="col-md-7 no-padding pull-right">
+                <span id="live_summaryArea2"></span>
+            </div>
+            <div class="col-md-5 no-padding pull-right">
+                <span id="liveListener_summaryArea"></span>
+            </div>
+        </div>
+
+        <div class="col-md-5 pull-right no-padding" id="divLivelogin" style="display: none">
+            <span id="login_summaryArea"></span>
+        </div>
+
+        <div class="col-md-5 pull-right no-padding" id="divLiveGuest" style="display: none">
+            <span id="liveGuest_summaryArea"></span>
+        </div>
+
     </div>
 </form>
 <!-- //serachBox -->
@@ -36,6 +60,7 @@
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
         <li class="active"><a href="#liveList" role="tab" data-toggle="tab" id="tab_liveList" onclick="liveList(1);" >실시간 방송</a></li>
         <li><a href="#liveListener" role="tab" data-toggle="tab" id="tab_liveListener" onclick="getListenUserList_tabClick(3);">실시간 청취자</a></li>
+        <li><a href="#liveGuest" role="tab" data-toggle="tab" id="tab_liveGuest" onclick="getliveGuest_tabClick(5);">실시간/종료 게스트</a></li>
         <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser" onclick="getLoginUserList_tabClick(4);">방송 외 접속 회원</a></li>
         <li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>
     </ul>
@@ -54,11 +79,6 @@
                     <br/>
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
-                </div>
-                <div class="col-md-6 pull-right no-padding">
-                    <span id="live_summaryArea"></span>
-                    <%--<span id="dj_typeSummaryArea"></span>--%>
-                    <%--<span id="platform_summaryArea"></span>--%>
                 </div>
                 <div class="col-md-12 no-padding pull-right">
                     <div class="col-md-2 no-padding pull-right mr10">
@@ -82,6 +102,7 @@
             </div>
         </div>
         <div class="tab-pane fade" id="liveListener"><jsp:include page="listenUser.jsp"/></div>
+        <div class="tab-pane fade" id="liveGuest"><jsp:include page="liveGuest.jsp"/></div>
         <div class="tab-pane fade" id="loginUserList"><jsp:include page="loginUser.jsp"/></div>
     </div>
 </div>
@@ -93,7 +114,6 @@
 <script>
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
-    $("#selJoinDate").html(util.getCommonCodeRadio(3, joinDate));
 
     $("#liveSort").html(util.getCommonCodeSelect(0, liveSort));
     $("#endSort").html(util.getCommonCodeSelect(0, endSort));
@@ -137,37 +157,7 @@
             getLoginUserList();
     });
 
-
-    $("#seldate").addClass('hide');
-    $('#selJoinDate').change(function() {
-        sDate = "";
-        eDate = "";
-        $("#seldate").addClass('hide');
-
-
-        if($('input[name="joinDate"]:checked').val() == "0"){               // 월
-            sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth(),2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        // 한달전
-            eDate = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);           // 하루 + (프로시져에서 안해주신데요..)
-            eDate = eDate.getFullYear()  +"-"+ common.lpad(eDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(eDate.getDate(),2,"0");         // 오늘
-
-        }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
-            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
-            sDate = sDate.getFullYear()  +"-"+ common.lpad(sDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
-            eDate = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);           // 하루
-            eDate = eDate.getFullYear()  +"-"+ common.lpad(eDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(eDate.getDate(),2,"0");         // 오늘
-
-        }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
-            eDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");      // 어제
-            sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate()-1,2,"0");      //어제
-        }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
-            sDate = date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
-        }else if($('input[name="joinDate"]:checked').val() == "4"){               // 당일
-            $("#seldate").removeClass('hide');
-        }
-        $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
-        getSearch();
-    });
-
+    $("#seldate").hide();
 
     var liveState = 1;
     var room_liveType = 1;
@@ -204,7 +194,6 @@
         *   정렬 부분
         */
         if(liveState == 1) {
-            $("#selJoinDate").hide();
             if($("select[name='liveSort']").val() != 0){
                 if ($("select[name='liveSort']").val() == 1)
                     data.sortStartDate = 1;
@@ -220,7 +209,6 @@
                     data.sortByeol = 1;
             }
         }else if(liveState == 2) {
-            $("#selJoinDate").show();
             if($("select[name='endSort']").val() != 0){
                 if ($("select[name='endSort']").val() == 2)
                     data.sortAirTime = 1;
@@ -234,17 +222,8 @@
                     data.sortByeol = 1;
             }
         }
-        //---------------------------------------------------
-
-        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-            data.startDate = sDate;
-            data.endDate = eDate;
-        }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            data.startDate = sDate;
-        }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.startDate = $("#onedayDate").val() + ' 00:00:00';
-            data.endDate = $("#onedayDate").val() + ' 23:59:59';
-        }
+        data.startDate = $("#onedayDate").val() + ' 00:00:00';
+        data.endDate = $("#onedayDate").val() + ' 23:59:59';
     };
     if(liveState == 1){
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
@@ -263,12 +242,20 @@
             $("#liveTitle").html("ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.");
             $("#liveSort").show();
             $("#endSort").hide();
+            $("#seldate").hide();
         }else if(tmp == 2){
             $("#liveTitle").html("ㆍ종료된 방송은 방송종료일을 기준으로 최상위 누적되어 보여집니다.<br/>" +
                 "ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 추가됩니다.");
             $("#liveSort").hide();
             $("#endSort").show();
+            $("#seldate").show();
         }
+
+        $("#divLive").show();
+        $("#divLiveListen").hide();
+        $("#divLivelogin").hide();
+        $("#divLiveGuest").hide();
+
         room_liveType = tmp;
 
 
@@ -277,6 +264,7 @@
         }
         if(liveState == 1){
             dtList_info_lisetnUser.reload(liveNextFunc);
+            dtList_info_guest.reload(liveGuest_summary);
             dtList_info_loginUser.reload(loginNextFunc);
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
         }
@@ -296,16 +284,10 @@
         $("#live_summaryArea").html(html);
 
         if(liveState == 1) {
-            $("#selJoinDate").hide();
             if(json.code != "C006"){
                 $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
             }else{
                 $("#tab_liveList").text("실시간 방송(0)");
-            }
-        }else{
-            $("#selJoinDate").hide();
-            if(liveState == 2){
-                $("#selJoinDate").show();
             }
         }
     }
@@ -363,30 +345,29 @@
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="width: 100%">
+    <table class="table table-bordered table-summary pull-right no-margin" style="width: 100%">
         <tr>
-            <th colspan="8" style="background-color: #bf9000;color: white">방송방</th>
-            <th colspan="4" style="background-color: #2f5496;color: white">청취자</th>
+            <th colspan="8" style="background-color: #8faadc">방송방</th>
+            <th colspan="3" style="background-color: #f4b183">청취자</th>
         </tr>
         <tr>
-            <th colspan="3" style="background-color: #fff2cc;">플랫폼</th>
-            <th colspan="2" style="background-color: #fff2cc;">DJ구분</th>
-            <th colspan="3" style="background-color: #fff2cc;">DJ성별</th>
-            <th colspan="3" style="background-color: #cdd4ea;">청취자성별</th>
-            <th rowspan="2" style="background-color: #cdd4ea;">비회원</th>
+            <th colspan="3" style="background-color: #dae3f3;">플랫폼</th>
+            <th colspan="2" style="background-color: #dae3f3;">DJ구분</th>
+            <th colspan="3" style="background-color: #dae3f3;">DJ성별</th>
+            <th colspan="3" style="background-color: #fbe5d6;">청취자(게스트)성별</th>
         </tr>
         <tr>
-            <th style="background-color: #f2f2f2;">Android</th>
-            <th style="background-color: #f2f2f2;">IOS</th>
-            <th style="background-color: #f2f2f2;">PC</th>
-            <th style="background-color: #fee599;">일반(스페셜DJ)</th>
-            <th style="background-color: #fee599;">신입</th>
-            <th style="background-color: #f2f2f2;">{{{sexIcon 'm'}}}</th>
-            <th style="background-color: #f2f2f2;">{{{sexIcon 'f'}}}</th>
-            <th style="background-color: #f2f2f2;">{{{sexIcon 'n'}}}</th>
-            <th style="background-color: #f2f2f2;">{{{sexIcon 'm'}}}</th>
-            <th style="background-color: #f2f2f2;">{{{sexIcon 'f'}}}</th>
-            <th style="background-color: #f2f2f2;">{{{sexIcon 'n'}}}</th>
+            <th style="background-color: #b4c7e7">Android</th>
+            <th style="background-color: #b4c7e7">IOS</th>
+            <th style="background-color: #b4c7e7">PC</th>
+            <th style="background-color: #b4c7e7">일반(스페셜DJ)</th>
+            <th style="background-color: #b4c7e7">신입</th>
+            <th style="background-color: #b4c7e7">{{{sexIcon 'm'}}}</th>
+            <th style="background-color: #b4c7e7">{{{sexIcon 'f'}}}</th>
+            <th style="background-color: #b4c7e7">{{{sexIcon 'n'}}}</th>
+            <th style="background-color: #f8cbad">{{{sexIcon 'm'}}}</th>
+            <th style="background-color: #f8cbad">{{{sexIcon 'f'}}}</th>
+            <th style="background-color: #f8cbad">{{{sexIcon 'n'}}}</th>
         </tr>
         <tr>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}</td>
@@ -397,16 +378,15 @@
             <td>{{content.broadMaleCnt}}</td>
             <td>{{content.broadFemaleCnt}}</td>
             <td>{{content.broadNoneCnt}}</td>
-            <td>{{content.liveListenMaleCnt}}</td>
-            <td>{{content.liveListenFemaleCnt}}</td>
-            <td>{{content.liveListenNoneCnt}}</td>
-            <td>{{content.liveNoneMemberCnt}}</td>
+            <td>{{content.liveListenMaleCnt}} ({{content.guestMaleCnt}})</td>
+            <td>{{content.liveListenFemaleCnt}} ({{content.guestFemaleCnt}})</td>
+            <td>{{content.liveListenNoneCnt}} ({{content.guestNoneCnt}})</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
-            <td class="font-bold" style="background-color: #d8d8d8;" colspan="2">총 수</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="2">{{content.liveListenerCnt}}</td>
+            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #d8d8d8;" >총 수</td>
+            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="2">{{content.liveListenerCnt}} ({{content.totalGuestCnt}})</td>
         </tr>
     </table>
 </script>
