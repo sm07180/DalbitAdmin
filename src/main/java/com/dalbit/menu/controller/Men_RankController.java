@@ -23,4 +23,9 @@ public class Men_RankController {
     public String addDjPoint(){
         return "menu/rank/addDjPoint";
     }
+
+    @RequestMapping("goodRank")
+    public String goodRank(){
+        return "menu/rank/goodRank";
+    }
 }
