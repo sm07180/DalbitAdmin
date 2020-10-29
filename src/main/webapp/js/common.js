@@ -226,6 +226,44 @@ common.timeStampDay = function(time){
     }
 }
 
+common.timeStampAll = function(time){
+    if(!common.isEmpty(time) && time != 0){
+        time = parseInt(time);
+        var day = Math.floor(time / 60 / 60 / 24);
+        var day_s = day * 60 * 60 * 24;
+        var hours_s = time - (day_s);
+        var hours = Math.floor(hours_s / 60 / 60);
+        var minutes_s = time - (day_s + (hours * 60 * 60));
+        var minutes = Math.floor(minutes_s / 60);
+        var seconds = time - ((day * 60 * 60 * 24) + (hours * 60 * 60) + (minutes * 60) );
+
+        if(day > 0){
+            return day + " " + hours  + ":" + minutes + ":" + seconds;
+        }else{
+            return hours  + ":" + minutes + ":" + seconds;
+        }
+    }else{
+        return "";
+    }
+}
+
+common.timeStampAllKor = function(time){
+    if(!common.isEmpty(time) && time != 0){
+        time = parseInt(time);
+        var day = Math.floor(time / 60 / 60 / 24);
+        var day_s = day * 60 * 60 * 24;
+        var hours_s = time - (day_s);
+        var hours = Math.floor(hours_s / 60 / 60);
+        var minutes_s = time - (day_s + (hours * 60 * 60));
+        var minutes = Math.floor(minutes_s / 60);
+        var seconds = time - ((day * 60 * 60 * 24) + (hours * 60 * 60) + (minutes * 60) );
+
+        return day + "일 " + hours  + "시 " + minutes + "분 " + seconds + "초";
+    }else{
+        return "";
+    }
+}
+
 common.profileImage = function(PHOTO_SERVER_URL, path, gender){
     var image;
     if(common.isEmpty(path)){

@@ -189,6 +189,14 @@ Handlebars.registerHelper("timeStampDay", function(value) {
     return common.timeStampDay(value);
 });
 
+Handlebars.registerHelper("timeStampAll", function(value) {
+    return common.timeStampAll(value);
+});
+
+Handlebars.registerHelper("timeStampAllKor", function(value) {
+    return common.timeStampAllKor(value);
+});
+
 Handlebars.registerHelper("replaceEnter", function(value) {
    return common.replaceEnter(value);
 });
