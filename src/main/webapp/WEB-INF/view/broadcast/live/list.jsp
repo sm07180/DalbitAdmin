@@ -370,23 +370,23 @@
             <th style="background-color: #f8cbad">{{{sexIcon 'n'}}}</th>
         </tr>
         <tr>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}} ({{content.specialDjCnt}})</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
-            <td>{{content.broadMaleCnt}}</td>
-            <td>{{content.broadFemaleCnt}}</td>
-            <td>{{content.broadNoneCnt}}</td>
-            <td>{{content.liveListenMaleCnt}} ({{content.guestMaleCnt}})</td>
-            <td>{{content.liveListenFemaleCnt}} ({{content.guestFemaleCnt}})</td>
-            <td>{{content.liveListenNoneCnt}} ({{content.guestNoneCnt}})</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalAosCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalIosCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalPcCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.normalDjCnt}} ({{addComma content.specialDjCnt}})</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.newDjCnt}}명</td>
+            <td>{{addComma content.broadMaleCnt}}</td>
+            <td>{{addComma content.broadFemaleCnt}}</td>
+            <td>{{addComma content.broadNoneCnt}}</td>
+            <td>{{addComma content.liveListenMaleCnt}} ({{addComma content.guestMaleCnt}})</td>
+            <td>{{addComma content.liveListenFemaleCnt}} ({{addComma content.guestFemaleCnt}})</td>
+            <td>{{addComma content.liveListenNoneCnt}} ({{addComma content.guestNoneCnt}})</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
-            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="5">{{addComma content.totalBroadCastCnt}} ({{addComma content.broadStateNomal}}/{{addComma content.broadBreak}})</td>
             <td class="font-bold" style="background-color: #d8d8d8;" >총 수</td>
-            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="2">{{content.liveListenerCnt}} ({{content.totalGuestCnt}})</td>
+            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="2">{{addComma content.liveListenerCnt}} ({{addComma content.totalGuestCnt}})</td>
         </tr>
     </table>
 </script>

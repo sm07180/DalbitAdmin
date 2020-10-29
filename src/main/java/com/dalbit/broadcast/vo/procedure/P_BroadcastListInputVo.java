@@ -18,6 +18,7 @@ public class P_BroadcastListInputVo extends PagingVo {
     private int room_liveType;
     private String room_no;
     private int sortState;
+    private int orderType;
 
     private String startDate;
     private String endDate;

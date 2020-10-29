@@ -197,18 +197,18 @@
             <th style="background-color: #f2f2f2;">{{{sexIcon 'n'}}}</th>
         </tr>
         <tr>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}} ({{content.specialDjCnt}})</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
-            <td>{{content.broadMaleCnt}}</td>
-            <td>{{content.broadFemaleCnt}}</td>
-            <td>{{content.broadNoneCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalAosCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalIosCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalPcCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.normalDjCnt}} ({{addComma content.specialDjCnt}})</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.newDjCnt}}명</td>
+            <td>{{addComma content.broadMaleCnt}}</td>
+            <td>{{addComma content.broadFemaleCnt}}</td>
+            <td>{{addComma content.broadNoneCnt}}</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="4">총 수 (방송중/끊김)</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="4">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="4">{{addComma content.totalBroadCastCnt}} ({{addCommaaddComma content.broadStateNomal}}/{{addComma content.broadBreak}})</td>
         </tr>
     </table>
 </script>

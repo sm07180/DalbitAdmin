@@ -5,10 +5,10 @@
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
     <div class="col-md-12 no-padding">
-        <div class="col-md-2 no-padding">
-            <span name="guestType" id="guestType" onchange="guestType_sel_change()"></span>
-        </div>
+        <%--<div class="col-md-2 no-padding">--%>
+        <%--</div>--%>
         <div class="col-md-12 no-padding pull-right mt5">
+            <span name="guestType" id="guestType" onchange="guestType_sel_change()"></span>
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -31,10 +31,10 @@
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-    $("#guestType").html(util.getCommonCodeSelect(0, liveGuest));
 
     $(function(){
         getGuestList();
+        $("#guestType").html(util.getCommonCodeSelect(0, liveGuest));
     });
 
     var dtList_info_guest;
