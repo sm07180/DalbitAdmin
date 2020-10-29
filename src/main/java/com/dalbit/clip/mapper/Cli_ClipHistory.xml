@@ -472,10 +472,57 @@
           AND idx = #{replyIdx}
     </update>
 
-
-
     <!-- 클립 플레이 이력 조회 -->
     <select id="callClipHistoryPlayList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.clip.vo.ClipHistoryListenVo">
         call rd_admin.sp_admin_clip_play_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="getClipMemberSummary" parameterType="com.dalbit.clip.vo.ClipMemberSummaryVo" resultType="com.dalbit.clip.vo.ClipMemberSummaryVo">
+        select sum(listenerCnt) as listenerCnt
+        , sum(countPlay) as countPlay
+        , sum(countGood) as countGood
+        , sum(countGift) as countGift
+        , sum(countByeol) as countByeol
+          From ( SELECT (select count(*) From rd_data.tb_cast_room_member where cast_no = clip.cast_no and mem_no != clip.mem_no) as listenerCnt
+                      , clip.subject_type AS subjectType
+                      , clip.count_play AS countPlay
+                      , clip.count_good AS countGood
+                      , clip.count_gift AS countGift
+                      , clip.count_byeol AS countByeol
+                   FROM rd_data.tb_cast_room clip
+                   LEFT JOIN rd_data.tb_member_basic clipInfo ON clipInfo.mem_no = clip.mem_no
+                   LEFT JOIN rd_data.tb_member_withdrawal_bak clipWdInfo ON clipWdInfo.mem_no = clip.mem_no
+                   LEFT JOIN rd_data.tbl_code_define code ON code.type = 'clip_type' AND clip.subject_type = code.value
+                  WHERE  clip.mem_no = #{memNo}
+                  <if test="subjectType != -1">
+                      and clip.subject_type = lpad(#{subjectType},2,'0')
+                  </if>
+          ) a
+    </select>
+
+    <select id="getClipListenMemberSummary" parameterType="com.dalbit.clip.vo.ClipMemberSummaryVo" resultType="com.dalbit.clip.vo.ClipMemberSummaryVo">
+       select sum(listenerCnt) AS listenerCnt
+            , sum(listenPlayCnt) AS countPlay
+            , sum(listenGoodCnt) AS countGood
+            , sum(listenGiftCnt) AS countGift
+            , sum(listenGiftDalCnt) AS countDal
+          from (
+                SELECT listen.play_cnt AS listenPlayCnt
+                      , listen.gift_cnt AS listenGiftCnt
+                      , listen.gift_dal AS listenGiftDalCnt
+                      , listen.good AS listenGoodCnt
+                      , clip.subject_type AS subjectType
+                      , (select count(*) from rd_data.tb_cast_room_member a where cast_no=clip.cast_no and cast_mem_no != mem_no) as listenerCnt
+                 FROM rd_data.tb_cast_room_member listen
+                 LEFT JOIN rd_data.tb_cast_room clip ON clip.cast_no = listen.cast_no
+                 LEFT JOIN rd_data.tb_member_basic listenInfo ON listenInfo.mem_no = listen.mem_no
+                 LEFT JOIN rd_data.tb_member_withdrawal_bak listenWdInfo ON listenWdInfo.mem_no = listen.mem_no
+                 LEFT JOIN rd_data.tb_member_basic clipInfo ON clipInfo.mem_no = clip.mem_no
+                 LEFT JOIN rd_data.tb_member_withdrawal_bak clipWdInfo ON clipWdInfo.mem_no = clip.mem_no
+                 LEFT JOIN rd_data.tbl_code_define code ON code.type = 'clip_type' AND clip.subject_type = code.value
+                 LEFT JOIN rd_data.tb_member_wallet wallet ON listen.cast_mem_no = wallet.mem_no
+                WHERE listen.mem_no != clip.mem_no
+                  AND listen.mem_no = #{memNo}
+          ) a
     </select>
 </mapper>

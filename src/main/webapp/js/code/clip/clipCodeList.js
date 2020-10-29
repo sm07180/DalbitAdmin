@@ -53,8 +53,8 @@ var clip_orderByType_memberDetail = [
 
 var clip_platformType = [
     new COMMON_CODE(null, 'clipPlatformType', '플랫폼')
-    , new COMMON_CODE('1', '1', 'Android')
-    , new COMMON_CODE('2', '2', 'iOS')
+    , new COMMON_CODE('1', '1', 'AOS')
+    , new COMMON_CODE('2', '2', 'IOS')
     , new COMMON_CODE('3', '3', 'PC')
 ]
 

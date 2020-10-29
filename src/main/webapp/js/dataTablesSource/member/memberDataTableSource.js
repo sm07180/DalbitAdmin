@@ -160,23 +160,26 @@ var MemberDataTableSource = {
             {'title': '진행시간', 'data': 'airtime', 'width':'100px','render' : function(data){
                     return common.timeStamp(data);
                 }},
+            {'title': '청취 수', 'data': 'listenCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data);
+                }},
             {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "명";
+                    return common.addComma(data);
                 }},
-            {'title': '방송 중<br/>매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "명";
+            {'title': '매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data);
                 }},
-            {'title': '선물<br/>주고/받음', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+            {'title': '선물 수', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data);
                 }},
             {'title': '받은 별', 'data': 'byeolCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+                    return common.addComma(data);
                 }},
-            {'title': '받은 좋아요', 'data': 'goodCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+            {'title': '좋아요', 'data': 'goodCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data);
                 }},
-            {'title': '받은 부스터', 'data': 'boosterCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+            {'title': '부스터', 'data': 'boosterCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data);
                 }},
         ]
         ,'comments': 'ㆍ회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
@@ -194,7 +197,7 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.dj_mem_no);
                 }},
             {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
-            {'title': '성별', 'data': 'dj_mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+            {'title': '성별', 'data': 'dj_mem_sex', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data,row.dj_birth_year);
                 }},
             {'title': '청취방주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
@@ -205,22 +208,27 @@ var MemberDataTableSource = {
                 }},
             {'title': '청취시작시간', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '청취종료시간', 'data': 'endDateFormat', 'width':'120px'},
-            {'title': '청취진행시간', 'data': 'listentime', 'width':'120px', 'render': function (data) {
+            {'title': '청취진행시간', 'data': 'listentime', 'width':'80px', 'render': function (data) {
                     return common.timeStamp(data);
                 }},
-            {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'80px'},
-            {'title': '보낸 별', 'data': 'giftByeol', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "개";
+            {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'60px', 'render': function (data) {
+                    return common.addComma(data);
                 }},
-            {'title': '보낸 좋아요', 'data': 'goodCnt', 'width':'80px', 'render': function (data) {
+            {'title': '선물 건', 'data': 'giftCnt', 'width':'50px', 'render': function (data) {
+                    return common.addComma(data);
+                }},
+            {'title': '보낸 달', 'data': 'giftDal', 'width':'50px', 'render': function (data) {
+                    return common.addComma(data);
+                }},
+            {'title': '좋아요', 'data': 'goodCnt', 'width':'50px', 'render': function (data) {
                     if(data == "1"){
                         return "Y";
                     }else{
                         return "N";
                     }
                 }},
-            {'title': '보낸 부스터', 'data': 'boosterCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+            {'title': '부스터', 'data': 'boosterCnt', 'width':'50px', 'render': function (data) {
+                    return common.addComma(data);
                 }},
         ]
         ,'comments': 'ㆍ회원이 청취한 방송기록을 확인할 수 있습니다.'
@@ -934,13 +942,19 @@ var MemberDataTableSource = {
             {'title': '등록일시', 'width':'70px', 'data': 'startDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
+            {'title': '청취자 수', 'width':'60px', 'data': 'listenerCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
             {'title': '청취 수', 'width':'60px', 'data': 'listenPlayCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '보낸<br>달 수', 'width':'60px', 'data': 'listenGiftDalCnt', 'render': function (data, type, row, meta) {
+            {'title': '선물 건', 'width':'60px', 'data': 'listenGiftCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
-            {'title': '보낸<br>좋아요 수', 'width':'60px', 'data': 'listenGoodCnt', 'render': function (data, type, row, meta) {
+            {'title': '선물 달', 'width':'60px', 'data': 'listenGiftDalCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '좋아요', 'width':'60px', 'data': 'listenGoodCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }}
         ],

@@ -33,6 +33,9 @@ public class P_MemberListenOutputVo extends SearchVo {
     private int boosterCnt;
     private int inner;
 
+    private int giftCnt;
+    private int giftDal;
+
     private String mem_nick;
 
     //summary
@@ -40,6 +43,8 @@ public class P_MemberListenOutputVo extends SearchVo {
     private int totalByeol;
     private int totalGood;
     private int totalBooster;
+    private int totalGift;
+    private int totalDal;
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;
