@@ -182,6 +182,8 @@ var banner_searchType = [
     , new COMMON_CODE('content', '2', '메시지 내용')
 ];
 
+
+//배너타입 추가 시 하단에 banner_bannerType_popup이나 banner_bannerType_banner에도 추가해주세요.
 var banner_bannerType = [
     new COMMON_CODE(null, 'bannerType', '배너구분')
     , new COMMON_CODE('all', '-1', '전체')
@@ -200,6 +202,29 @@ var banner_bannerType = [
     , new COMMON_CODE('exchangePopup', '11', '환전팝업')
     , new COMMON_CODE('storePopup', '12', '스토어팝업')
     , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
+];
+
+var banner_bannerType_popup = [
+    new COMMON_CODE(null, 'bannerType', '배너구분')
+    , new COMMON_CODE('popup', '6', '팝업')
+    , new COMMON_CODE('startPopup', '7', '시작팝업')
+    , new COMMON_CODE('endPopup', '8', '종료팝업')
+    , new COMMON_CODE('clipMain', '13', '클립 팝업')
+    , new COMMON_CODE('exchangePopup', '11', '환전팝업')
+    , new COMMON_CODE('storePopup', '12', '스토어팝업')
+    , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
+];
+
+var banner_bannerType_banner = [
+    new COMMON_CODE(null, 'bannerType', '배너구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('gnb', '0', 'GNB')
+    , new COMMON_CODE('top', '1', 'MainTop')
+    , new COMMON_CODE('dj', '3', 'DJ랭킹')
+    , new COMMON_CODE('store', '4', '스토어')
+    , new COMMON_CODE('center', '5', '고객센터')
+    , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
+    , new COMMON_CODE('clip', '10', '클립 Center')
 ];
 
 var banner_loginType = [

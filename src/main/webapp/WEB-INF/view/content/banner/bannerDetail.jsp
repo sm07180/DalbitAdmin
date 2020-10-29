@@ -658,7 +658,7 @@
                 <th>플랫폼</th>
                 <td>{{{getCommonCodeHorizontalCheck platform 'content_platform2'}}}</td>
                 <th>노출 기간</th>
-                <td colspan="3">
+                <td>
                     <div>
                         {{{getCommonCodeRadio term_type 'banner_exposureType' 'N' 'term_type'}}}
                     </div>
@@ -682,13 +682,19 @@
                 </td>
                 <th>게시여부</th>
                 <td>{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
+
+                <th>IOS심사 중<br />노출여부</th>
+                <td class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
             </tr>
 
             <tr>
-                <th>배너위치</th>
-                <td colspan="5">{{{getCommonCodeRadio '1' 'banner_bannerType' 'Y' 'position'}}}</td>
-                <th>IOS심사 중<br />노출여부</th>
-                <td class="no-margin">{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
+                <th rowspan="2">배너위치</th>
+                <th>팝업</th>
+                <td colspan="6">{{{getCommonCodeRadio '1' 'banner_bannerType_popup' 'Y' 'position'}}}</td>
+            </tr>
+            <tr>
+                <th>배너</th>
+                <td colspan="6">{{{getCommonCodeRadio '1' 'banner_bannerType_banner' 'Y' 'position'}}}</td>
             </tr>
             <tr>
                 <th>게시 스케쥴</th>
