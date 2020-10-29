@@ -5,10 +5,11 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate" style="display: none;"></span>
-        <span class="pull-right">
-            <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
-            <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
-        </span>
+        <%--<span class="pull-right">--%>
+            <%--<div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>--%>
+            <%--<div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>--%>
+        <%--</span>--%>
+        <span id="clipListen_summaryArea"></span>
         <table id="clip_history_listen_list_info" class="table table-sorting table-hover table-bordered">
             <thead>
             </thead>
@@ -71,6 +72,24 @@
 
         $("#headerInfo").html(text);
         $("#headerInfo").show();
+
+        var data = {
+            memNo : memNo
+        };
+        util.getAjaxData("selectReply", "/rest/clip/history/listen/member/list/summary", data, clipListen_tableSummary_table);
+
+    }
+
+    function clipListen_tableSummary_table(dst_id, response){
+        var template = $("#clipListen_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : response.data
+        };
+        var html = templateScript(data);
+        $("#clipListen_summaryArea").html(html);
+
+        ui.paintColor();
     }
 
 </script>
@@ -82,4 +101,28 @@
         <option value="{{sub.value}}">{{sub.code}}</option>
         {{/each}}
     </select>
+</script>
+
+<script id="clipListen_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" id="declarationSummary" style="width: 500px;">
+        <thead>
+        <tr>
+            <th colspan="5" class="_bgColor" data-bgcolor="#8faadc">총 합</th>
+        </tr>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#dae3f3">청취자</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">청취수</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">선물 건</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">보낸 달</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">좋아요</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>{{addComma content.listenerCnt}} 명</td>
+        <td>{{addComma content.countPlay}} 건</td>
+        <td>{{addComma content.countGift}} 건</td>
+        <td>{{addComma content.countDal}} 달</td>
+        <td>{{addComma content.countGood}} 개</td>
+        </tbody>
+    </table>
 </script>

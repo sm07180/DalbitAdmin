@@ -167,4 +167,23 @@ public class Cli_ClipHistoryRestController {
         return cliClipHistoryService.callClipHistoryPlayList(clipHistoryListenVo);
     }
 
+
+    /**
+     * 회원 클립 관리 등록 내역 통계
+     */
+    @PostMapping("member/list/summary")
+    public String getClipMemberSummary(ClipMemberSummaryVo clipMemberSummaryVo){
+        String result = cliClipHistoryService.getClipMemberSummary(clipMemberSummaryVo);
+        return result;
+    }
+
+    /**
+     * 회원 클립 청취 관리 내역 통계
+     */
+    @PostMapping("listen/member/list/summary")
+    public String getClipListenMemberSummary(ClipMemberSummaryVo clipMemberSummaryVo){
+        String result = cliClipHistoryService.getClipListenMemberSummary(clipMemberSummaryVo);
+        return result;
+    }
+
 }

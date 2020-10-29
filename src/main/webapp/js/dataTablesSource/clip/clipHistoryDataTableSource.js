@@ -29,7 +29,7 @@ var ClipHistoryDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br>' + row.memNick;
                 }},
 			{'title': '성별(나이)', 'width':'70px', 'data': 'memSex', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data,row.memBirthYear);
+                    return common.sexIcon(data,row.memBirthYear,true);
                 }},
 			{'title': '등록일시', 'width':'70px', 'data': 'startDate', 'render': function (data, type, row, meta) {
                     return data;
@@ -43,23 +43,26 @@ var ClipHistoryDataTableSource = {
             {'title': '운영자<br>메모', 'width':'40px', 'data': 'opMemoCnt', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="bt_detail_memo">' + common.addComma(data) + '</a>';
                 }},
+            {'title': '청취수 자', 'width':'50px', 'data': 'countPlayMemberCnt', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
+                }},
 			{'title': '청취수', 'width':'50px', 'data': 'countPlay', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '최다<br>청취수', 'width':'50px', 'data': 'countMaxPlay', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_listen" data-orderby="3">' + common.addComma(data) + '</a>';
                 }},
-			{'title': '좋아요 수', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
+			{'title': '좋아요', 'width':'50px', 'data': 'countGood', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_good">' + common.addComma(data) + '</a>';
                 }},
-			{'title': '받은선물<br>건수', 'width':'50px', 'data': 'countGift', 'render': function (data, type, row, meta) {
+			{'title': '선물 건', 'width':'50px', 'data': 'countGift', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_gift">' + common.addComma(data) + '</a>';
                 }},
-			{'title': '받은선물<br>별 수', 'width':'55px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
+			{'title': '선물 별', 'width':'55px', 'data': 'countByeol', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '" data-tabid="tab_gift">' + common.addComma(data) + '</a>';
                 }},
 			{'title': '댓글', 'width':'45px', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
-                    return data + ' <a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'">[댓글]</a>';
+                    return '<a href="javascript://" class="_selectReply" data-reply="' + data +  '" data-cast_no="' + row.castNo +'">' + data + '</a>';
                 }},
 			{'title': '숨기기', 'width':'45px', 'data': 'hide', 'render': function (data, type, row, meta) {
                     if(row.state == 4 || row.state == 5){

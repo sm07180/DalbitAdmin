@@ -60,4 +60,10 @@ public interface Cli_ClipHistoryDao {
 
     @Transactional(readOnly = true)
     ArrayList<ClipHistoryListenVo> callClipHistoryPlayList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ClipMemberSummaryVo getClipMemberSummary(ClipMemberSummaryVo clipMemberSummaryVo);
+
+    @Transactional(readOnly = true)
+    ClipMemberSummaryVo getClipListenMemberSummary(ClipMemberSummaryVo clipMemberSummaryVo);
 }

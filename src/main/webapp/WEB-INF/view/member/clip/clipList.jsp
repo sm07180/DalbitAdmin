@@ -7,10 +7,11 @@
         <span class="_searchDate" style="display: none;"></span>
         <select id="clipSubjectType" name="clipSubjectType" class="form-control pull-left"></select>
         <span id="select_clipOrderByType" name="select_clipOrderByType" class="pull-left ml5"></span>
-        <span class="pull-right">
-            <div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>
-            <div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>
-        </span>
+        <%--<span class="pull-right">--%>
+            <%--<div class="pull-left" style="width:30px; height:30px; background-color: #dae3f3; border:1px solid #cccccc;"></div>--%>
+            <%--<div class="pull-left pl10 pt5" style="width:105px; height:30px; border:1px solid #cccccc; border-left-width: 0px;">테스트 아이디</div>--%>
+        <%--</span>--%>
+        <span id="clip_summaryArea"></span>
         <table id="clip_history_list_info" class="table table-sorting table-hover table-bordered">
             <thead>
             </thead>
@@ -94,6 +95,12 @@
             "<span style='color: black; font-weight: bold; '>알수없음 : " +  common.addComma(data.summary.unknownTotalCnt) + " 건</span>";
         $("#headerInfo").html(text);
         $("#headerInfo").show();
+
+        var data = {
+            subjectType : Number(common.isEmpty($("#clipSubjectType").val()) ? "-1" : $("#clipSubjectType").val())
+            ,memNo : memNo
+        };
+        util.getAjaxData("selectReply", "/rest/clip/history/member/list/summary", data, clip_tableSummary_table);
     }
 
     function getClipSubjectTypeCodeDefine(){
@@ -278,7 +285,19 @@
 
             $('#clipReplyModal').modal("show");
         }
+    }
 
+
+    function clip_tableSummary_table(dst_id, response){
+        var template = $("#clip_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : response.data
+        };
+        var html = templateScript(data);
+        $("#clip_summaryArea").html(html);
+
+        ui.paintColor();
     }
 
 </script>
@@ -290,4 +309,29 @@
         <option value="{{sub.value}}">{{sub.code}}</option>
         {{/each}}
     </select>
+</script>
+
+
+<script id="clip_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" id="declarationSummary" style="width: 500px;">
+        <thead>
+        <tr>
+            <th colspan="5" class="_bgColor" data-bgcolor="#8faadc">총 합</th>
+        </tr>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#dae3f3">청취자</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">청취수</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">선물 건</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">받은 별</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">좋아요</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td>{{addComma content.listenerCnt}} 명</td>
+            <td>{{addComma content.countPlay}} 건</td>
+            <td>{{addComma content.countGift}} 건</td>
+            <td>{{addComma content.countByeol}} 별</td>
+            <td>{{addComma content.countGood}} 개</td>
+        </tbody>
+    </table>
 </script>

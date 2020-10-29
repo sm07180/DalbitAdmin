@@ -20,6 +20,7 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
     private Date end_date;
     private String endDateFormat;
     private String airtime;
+    private int listenCnt;
     private int listenerCnt;
     private int managerCnt;
     private int giftCnt;
@@ -30,6 +31,7 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
     private int inner;
 
     //summary
+    private int totalListenCnt;
     private int totalListenerCnt;
     private int totalGiftCnt;
     private int totalByeol;
