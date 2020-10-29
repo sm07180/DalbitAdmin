@@ -55,6 +55,12 @@
     }
 
     function liveGuest_summary(json){
+
+        json.summary.guestTotal = json.summary.guestMcnt  + json.summary.guestFcnt + json.summary.guestNcnt;
+        json.summary.uniqueTotal = json.summary.uniqueMcnt  + json.summary.uniqueFcnt + json.summary.uniqueNcnt;
+        json.summary.totalCnt = json.summary.normalCnt  + json.summary.secretCnt;
+        json.summary.totalByeol = json.summary.normalByeol  + json.summary.secretByeol;
+
         var template = $("#liveGuest_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
@@ -64,7 +70,6 @@
         var html = templateScript(data);
         $("#liveGuest_summaryArea").html(html);
 
-        console.log("----------------------------------------------------------  / " + json.recordsTotal);
         $("#tab_liveGuest").text("실시간/종료 게스트(" + json.recordsTotal + ")");
 
     }
@@ -136,16 +141,16 @@
             <td style="background-color: #dae3f3" class="font-bold">일/시/분/초</td>
         </tr>
         <tr>
-            <td>{{addComma content.aosCnt}}</td>
-            <td>{{addComma content.iosCnt}}</td>
-            <td>{{addComma content.pcCnt}}</td>
-            <td>{{addComma content.maleCnt}}</td>
-            <td>{{addComma content.femaleCnt}}</td>
-            <td>{{addComma content.noneCnt}}</td>
+            <td>{{addComma content.guestMcnt}} ({{addComma content.uniqueMcnt}})</td>
+            <td>{{addComma content.guestFcnt}} ({{addComma content.uniqueFcnt}})</td>
+            <td>{{addComma content.guestNcnt}} ({{addComma content.uniqueNcnt}})</td>
+            <td>{{addComma content.normalCnt}}({{addComma content.secretCnt}})</td>
+            <td>{{addComma content.normalByeol}}({{addComma content.secretByeol}})</td>
+            <td>{{timeStampAll content.totalConnect}}</td>
         </tr>
         <tr>
-            <td colspan="3" class="font-bold" style="background-color: #7f7f7f;color: white">총 연결 수 : 중복(비중복)</td>
-            <td colspan="3" class="font-bold" style="background-color: #7f7f7f;color: white">총 받은 선물 : 00건/00별</td>
+            <td colspan="3" class="font-bold" style="background-color: #7f7f7f;color: white">총 연결 수 : {{content.guestTotal}} ({{content.uniqueTotal}})</td>
+            <td colspan="3" class="font-bold" style="background-color: #7f7f7f;color: white">총 받은 선물 : {{content.totalCnt}}건/{{content.totalByeol}}별</td>
         </tr>
     </table>
 </script>

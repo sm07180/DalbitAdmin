@@ -33,13 +33,18 @@ public class P_LiveGuestListOutputVo extends PagingVo {
     private String ip;
 
     /* summary */
-    private int aosCnt;
-    private int iosCnt;
-    private int pcCnt;
-    private int maleCnt;
-    private int femaleCnt;
-    private int noneCnt;
-    private int noneMemberCnt;
+    private int guestMcnt;
+    private int guestFcnt;
+    private int guestNcnt;
+    private int uniqueMcnt;
+    private int uniqueFcnt;
+    private int uniqueNcnt;
+    private int normalCnt;
+    private int secretCnt;
+    private int secretByeol;
+    private int normalByeol;
+    private int totalConnect;
+
 }
 
 
