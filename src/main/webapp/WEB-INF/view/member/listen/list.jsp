@@ -45,26 +45,31 @@
             header : member_listen_summary
             , content : json.summary
             , length : json.recordsTotal
-        }
+        };
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
+        ui.paintColor();
     }
 </script>
 
 <script id="listen_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" id="declarationSummary">
+    <table class="table table-bordered table-summary pull-right" id="declarationSummary" style="width: 500px;">
         <thead>
         <tr>
+            <th colspan="5" class="_bgColor" data-bgcolor="#8faadc">총 합</th>
+        </tr>
+        <tr>
             {{#each this.header}}
-                <th>{{this.code}}</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">{{this.code}}</th>
             {{/each}}
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalforcedCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalByeol}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGood}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBooster}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalforcedCnt}} 명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalGift}} 건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalDal}} 달</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalGood}} 건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.totalBooster}} 개</td>
         </tbody>
     </table>
 </script>

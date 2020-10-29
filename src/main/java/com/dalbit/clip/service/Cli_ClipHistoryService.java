@@ -423,4 +423,22 @@ public class Cli_ClipHistoryService {
             return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
     }
+
+    /**
+     * 회원 클립 관리 등록 내역 통계
+     */
+    public String getClipMemberSummary(ClipMemberSummaryVo clipMemberSummaryVo) {
+        ClipMemberSummaryVo outVo = cliClipHistoryDao.getClipMemberSummary(clipMemberSummaryVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+    }
+
+    /**
+     * 회원 클립 관리 등록 내역 통계
+     */
+    public String getClipListenMemberSummary(ClipMemberSummaryVo clipMemberSummaryVo) {
+        ClipMemberSummaryVo outVo = cliClipHistoryDao.getClipListenMemberSummary(clipMemberSummaryVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+    }
 }
