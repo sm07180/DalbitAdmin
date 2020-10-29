@@ -363,7 +363,8 @@
             </tr>
             <tr style="background-color: white">
                 <td>{{addComma content.enableCnt}} 명</td>
-                <td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>
+                <!--<td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>-->
+                <td>{{addComma content.totalGold}}원</td>
             </tr>
             <tr>
                 <th colspan="2">

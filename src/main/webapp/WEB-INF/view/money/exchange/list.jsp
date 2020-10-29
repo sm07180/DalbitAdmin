@@ -85,7 +85,7 @@
                         <div>
                             <div class="row col-lg-12 no-padding" style="margin-left: 0px">
                                 <div id="summaryTable"></div>
-                                <div class="col-md-2 no-padding pull-right">
+                                <%--<div class="col-md-2 no-padding pull-right">
                                     <table class="table table-sorting table-hover table-bordered mt5" style="margin-bottom: 0px">
                                         <colgroup>
                                             <col width="15%"/><col width="65%"/>
@@ -94,7 +94,7 @@
                                             <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
                                         </tr>
                                     </table>
-                                </div>
+                                </div>--%>
 
                                 <div class="col-md-12 no-padding">
                                     <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
@@ -392,9 +392,9 @@
         util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
         util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
 
-        var exchangeAmt = common.exchangeAmt(response.data.totalGold,response.data.specialCnt).replace(/,/gi,"");
+        //var exchangeAmt = common.exchangeAmt(response.data.totalGold,response.data.specialCnt).replace(/,/gi,"");
         var totalSuccAmt = common.vatMinus(response.data.totalSuccAmt).replace(/,/gi,"");
-        response.data.netProfit = Number(totalSuccAmt)-(Number(exchangeAmt) + Number(response.data.totalExchangeAmt));
+        response.data.netProfit = Number(totalSuccAmt)-Number(response.data.totalExchangeAmt);
 
         var template = $("#tmp_enableSummary").html();
         var templateScript = Handlebars.compile(template);
@@ -750,7 +750,7 @@
                     <label style="color:red"><h2>2일 이상 된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
                 </div>
             </div>
-            <div class="col-lg-12 no-padding">
+            <div class="col-lg-7 no-padding">
                 <table class="table table-bordered table-summary pull-left">
                     <colgroup>
                         <col width="80px"/>
@@ -854,36 +854,51 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div>
-                <button class="btn btn-sm btn-primary print-btn pull-right ml5 mr5" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
-                <button class="btn btn-sm btn-success print-btn pull-right ml5 mr5" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="pull-right">
-                <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
-
-                <div class="input-group date" id="rangeDatepicker" style="display:none;">
-                    <label for="rangeDate" class="input-group-addon">
-                        <span><i class="fa fa-calendar"></i></span>
-                    </label>
-                    <input id="rangeDate" type="text" class="form-control"/>
+            <div class="col-lg-5">
+                <div class="col-md-12">
+                    <div>
+                        <button class="btn btn-sm btn-primary print-btn pull-right ml5 mr5" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
+                        <button class="btn btn-sm btn-success print-btn pull-right ml5 mr5" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
+                    </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
 
-                <input type="hidden" name="startDate" id="startDate">
-                <input type="hidden" name="endDate" id="endDate" />
+                        <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                            <label for="rangeDate" class="input-group-addon">
+                                <span><i class="fa fa-calendar"></i></span>
+                            </label>
+                            <input id="rangeDate" type="text" class="form-control"/>
+                        </div>
 
-                <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
+                        <input type="hidden" name="startDate" id="startDate">
+                        <input type="hidden" name="endDate" id="endDate" />
+
+                        <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-6 no-padding">
-            <span id="searchStateArea" onchange="searchStateArea_click();"></span>
-            <span id="exchangeSort" onchange="exchangeSort_click();"></span>
-            <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <span id="selGender" onchange="gender_click();"></span>
-            </c:if>
+        <div class="col-md-12 no-padding">
+            <div class="col-md-6 no-padding">
+                <span id="searchStateArea" onchange="searchStateArea_click();"></span>
+                <span id="exchangeSort" onchange="exchangeSort_click();"></span>
+                <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
+                    <span id="selGender" onchange="gender_click();"></span>
+                </c:if>
+            </div>
+
+            <div class="col-md-2 no-padding pull-right">
+                <table class="table table-sorting table-hover table-bordered mt5" style="margin-bottom: 0px">
+                    <colgroup>
+                        <col width="15%"/><col width="65%"/>
+                    </colgroup>
+                    <tr>
+                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </script>
@@ -1314,7 +1329,8 @@
                 </tr>
                 <tr style="background-color: white">
                     <td>{{addComma content.enableCnt}} 명</td>
-                    <td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>
+                    <!--<td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>-->
+                    <td>{{addComma content.totalExchangeAmt}}원</td>
                     <td class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}원</td>
                 </tr>
             </table>

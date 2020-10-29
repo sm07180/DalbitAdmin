@@ -31,6 +31,10 @@ public interface Mon_ExchangeDao {
 
     @Transactional(readOnly = true)
     Mon_EnableOutputVo selectEnableCnt(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
+    Mon_EnableOutputVo selectExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);
+
     @Transactional(readOnly = true)
     Mon_EnableOutputVo totalExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);
 

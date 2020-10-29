@@ -72,14 +72,29 @@ public class Mon_ExchangeService {
                 P_StatVo pStatVo = new P_StatVo();
                 Pay_PaySumOutputVo outTotalPay = pay_PayDao.getTotalPaySum(pStatVo);
 
-                Mon_EnableOutputVo outExchangeVo = monExchangeDao.totalExchangeCash(monExchangeInputVo);
+                //Mon_EnableOutputVo outExchangeVo = monExchangeDao.totalExchangeCash(monExchangeInputVo);
 
-                resultMap.put("enableCnt", outVo.getEnableCnt());
-                resultMap.put("totalGold", outVo.getTotalGold());
-                resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
+                monExchangeInputVo.setIsSpecial(0);
+                Mon_EnableOutputVo generalMember = monExchangeDao.selectExchangeCash(monExchangeInputVo);
+                long generalTotal = 0;
+                if(0 < generalMember.getTotalGold()){
+                    generalTotal = DalbitUtil.computeExchangeAmt(generalMember.getTotalGold(), 0);
+                }
+
+                monExchangeInputVo.setIsSpecial(1);
+                Mon_EnableOutputVo specialMember = monExchangeDao.selectExchangeCash(monExchangeInputVo);
+                long specialTotal = 0;
+                if(0 < specialMember.getTotalGold()){
+                    specialTotal = DalbitUtil.computeExchangeAmt(specialMember.getTotalGold(), 1);
+                }
+
+
+                resultMap.put("enableCnt", generalMember.getEnableCnt() + specialMember.getEnableCnt());
+                resultMap.put("totalGold", generalMember.getTotalGold() + specialMember.getTotalGold());
+                //resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
                 resultMap.put("enableList", enableList);
                 resultMap.put("totalSuccAmt", outTotalPay.getTotalSuccAmt());
-                resultMap.put("totalExchangeAmt", outExchangeVo.getTotalExchangeAmt());
+                resultMap.put("totalExchangeAmt", generalTotal + specialTotal);
                 return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
 
                 //}else if(monExchangeInputVo.getViewName().equals("rejectList")){
