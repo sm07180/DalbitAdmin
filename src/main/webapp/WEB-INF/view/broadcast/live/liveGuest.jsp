@@ -145,12 +145,12 @@
             <td style="background-color: #dae3f3" class="font-bold">일/시/분/초</td>
         </tr>
         <tr>
-            <td>{{addComma content.guestMcnt}} ({{addComma content.uniqueMcnt}})</td>
-            <td>{{addComma content.guestFcnt}} ({{addComma content.uniqueFcnt}})</td>
-            <td>{{addComma content.guestNcnt}} ({{addComma content.uniqueNcnt}})</td>
-            <td>{{addComma content.normalCnt}}({{addComma content.secretCnt}})</td>
-            <td>{{addComma content.normalByeol}}({{addComma content.secretByeol}})</td>
-            <td>{{timeStampAll content.totalConnect}}</td>
+            <td>{{addComma content.guestMcnt}} ({{addComma content.uniqueMcnt}}) 명</td>
+            <td>{{addComma content.guestFcnt}} ({{addComma content.uniqueFcnt}}) 명</td>
+            <td>{{addComma content.guestNcnt}} ({{addComma content.uniqueNcnt}}) 명</td>
+            <td>{{addComma content.normalCnt}}({{addComma content.secretCnt}}) 건</td>
+            <td>{{addComma content.normalByeol}}({{addComma content.secretByeol}}) 별</td>
+            <td>{{timeStampDay content.totalConnect}}</td>
         </tr>
         <tr>
             <td colspan="3" class="font-bold" style="background-color: #7f7f7f;color: white">총 연결 수 : {{content.guestTotal}} ({{content.uniqueTotal}})</td>

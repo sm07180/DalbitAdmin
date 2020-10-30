@@ -136,15 +136,172 @@ public class Sta_ExchangeService {
      */
     public String callExchangeGender(P_StatVo pStatVo){
         ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-        ArrayList<P_ExchangeGenderOutDetailVo> detailList = sta_ExchangeDao.callExchangeGender(procedureVo);
+        ArrayList<P_ExchangeGenderOutDetailVo> detailList_n = sta_ExchangeDao.callExchangeGender(procedureVo);
         P_ExchangeGenderOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ExchangeGenderOutVo.class);
         if(Integer.parseInt(procedureVo.getRet()) <= 0){
             return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
         }
 
+        pStatVo.setStartDate(pStatVo.getBeforStartDate());
+        pStatVo.setEndDate(pStatVo.getBeforEndDate());
+        ProcedureVo procedureVo2 = new ProcedureVo(pStatVo);
+        ArrayList<P_ExchangeGenderOutDetailVo> detailList_b = sta_ExchangeDao.callExchangeGender(procedureVo2);
+        P_ExchangeGenderOutVo totalInfo_b = new Gson().fromJson(procedureVo2.getExt(), P_ExchangeGenderOutVo.class);
+        if(Integer.parseInt(procedureVo2.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        totalInfo.setB_tot_specialdj_succ_mCnt(totalInfo_b.getTot_specialdj_succ_mCnt());
+        totalInfo.setB_tot_specialdj_succ_mAmt(totalInfo_b.getTot_specialdj_succ_mAmt());
+        totalInfo.setB_tot_specialdj_succ_byeol_mCnt(totalInfo_b.getTot_specialdj_succ_byeol_mCnt());
+        totalInfo.setB_tot_specialdj_succ_fcnt(totalInfo_b.getTot_specialdj_succ_fcnt());
+        totalInfo.setB_tot_specialdj_succ_fAmt(totalInfo_b.getTot_specialdj_succ_fAmt());
+        totalInfo.setB_tot_specialdj_succ_byeol_fCnt(totalInfo_b.getTot_specialdj_succ_byeol_fCnt());
+        totalInfo.setB_tot_specialdj_succ_nCnt(totalInfo_b.getTot_specialdj_succ_nCnt());
+        totalInfo.setB_tot_specialdj_succ_nAmt(totalInfo_b.getTot_specialdj_succ_nAmt());
+        totalInfo.setB_tot_specialdj_succ_byeol_nCnt(totalInfo_b.getTot_specialdj_succ_byeol_nCnt());
+        totalInfo.setB_tot_succ_mCnt(totalInfo_b.getTot_succ_mCnt());
+        totalInfo.setB_tot_succ_mAmt(totalInfo_b.getTot_succ_mAmt());
+        totalInfo.setB_tot_succ_byeol_mCnt(totalInfo_b.getTot_succ_byeol_mCnt());
+        totalInfo.setB_tot_succ_fCnt(totalInfo_b.getTot_succ_fCnt());
+        totalInfo.setB_tot_succ_fAmt(totalInfo_b.getTot_succ_fAmt());
+        totalInfo.setB_tot_succ_byeol_fCnt(totalInfo_b.getTot_succ_byeol_fCnt());
+        totalInfo.setB_tot_succ_nCnt(totalInfo_b.getTot_succ_nCnt());
+        totalInfo.setB_tot_succ_nAmt(totalInfo_b.getTot_succ_nAmt());
+        totalInfo.setB_tot_succ_byeol_nCnt(totalInfo_b.getTot_succ_byeol_nCnt());
+
+        List list = new ArrayList();
+        for (int i=30; -1 < i; i --){
+            P_ExchangeGenderOutDetailVo outVo = new P_ExchangeGenderOutDetailVo();
+            outVo.setDay(Integer.toString(i+1));
+            if(detailList_n.size() >= i+1) {
+                if (detailList_n.get(i).getThe_date().substring(8).equals(DalbitUtil.lpad(Integer.toString(i+1),2,"0"))) {
+                    outVo.setSpecialdj_succ_mCnt(detailList_n.get(i).getSpecialdj_succ_mCnt());
+                    outVo.setSpecialdj_succ_mAmt(detailList_n.get(i).getSpecialdj_succ_mAmt());
+                    outVo.setSpecialdj_succ_byeol_mCnt(detailList_n.get(i).getSpecialdj_succ_byeol_mCnt());
+                    outVo.setSpecialdj_succ_fcnt(detailList_n.get(i).getSpecialdj_succ_fcnt());
+                    outVo.setSpecialdj_succ_fAmt(detailList_n.get(i).getSpecialdj_succ_fAmt());
+                    outVo.setSpecialdj_succ_byeol_fCnt(detailList_n.get(i).getSpecialdj_succ_byeol_fCnt());
+                    outVo.setSpecialdj_succ_nCnt(detailList_n.get(i).getSpecialdj_succ_nCnt());
+                    outVo.setSpecialdj_succ_nAmt(detailList_n.get(i).getSpecialdj_succ_nAmt());
+                    outVo.setSpecialdj_succ_byeol_nCnt(detailList_n.get(i).getSpecialdj_succ_byeol_nCnt());
+                    outVo.setSucc_mCnt(detailList_n.get(i).getSucc_mCnt());
+                    outVo.setSucc_mAmt(detailList_n.get(i).getSucc_mAmt());
+                    outVo.setSucc_byeol_mCnt(detailList_n.get(i).getSucc_byeol_mCnt());
+                    outVo.setSucc_fCnt(detailList_n.get(i).getSucc_fCnt());
+                    outVo.setSucc_fAmt(detailList_n.get(i).getSucc_fAmt());
+                    outVo.setSucc_byeol_fCnt(detailList_n.get(i).getSucc_byeol_fCnt());
+                    outVo.setSucc_nCnt(detailList_n.get(i).getSucc_nCnt());
+                    outVo.setSucc_nAmt(detailList_n.get(i).getSucc_nAmt());
+                    outVo.setSucc_byeol_nCnt(detailList_n.get(i).getSucc_byeol_nCnt());
+                }else{
+                    outVo.setSpecialdj_succ_mCnt(0);
+                    outVo.setSpecialdj_succ_mAmt(0);
+                    outVo.setSpecialdj_succ_byeol_mCnt(0);
+                    outVo.setSpecialdj_succ_fcnt(0);
+                    outVo.setSpecialdj_succ_fAmt(0);
+                    outVo.setSpecialdj_succ_byeol_fCnt(0);
+                    outVo.setSpecialdj_succ_nCnt(0);
+                    outVo.setSpecialdj_succ_nAmt(0);
+                    outVo.setSpecialdj_succ_byeol_nCnt(0);
+                    outVo.setSucc_mCnt(0);
+                    outVo.setSucc_mAmt(0);
+                    outVo.setSucc_byeol_mCnt(0);
+                    outVo.setSucc_fCnt(0);
+                    outVo.setSucc_fAmt(0);
+                    outVo.setSucc_byeol_fCnt(0);
+                    outVo.setSucc_nCnt(0);
+                    outVo.setSucc_nAmt(0);
+                    outVo.setSucc_byeol_nCnt(0);
+                }
+            }else{
+                outVo.setSpecialdj_succ_mCnt(0);
+                outVo.setSpecialdj_succ_mAmt(0);
+                outVo.setSpecialdj_succ_byeol_mCnt(0);
+                outVo.setSpecialdj_succ_fcnt(0);
+                outVo.setSpecialdj_succ_fAmt(0);
+                outVo.setSpecialdj_succ_byeol_fCnt(0);
+                outVo.setSpecialdj_succ_nCnt(0);
+                outVo.setSpecialdj_succ_nAmt(0);
+                outVo.setSpecialdj_succ_byeol_nCnt(0);
+                outVo.setSucc_mCnt(0);
+                outVo.setSucc_mAmt(0);
+                outVo.setSucc_byeol_mCnt(0);
+                outVo.setSucc_fCnt(0);
+                outVo.setSucc_fAmt(0);
+                outVo.setSucc_byeol_fCnt(0);
+                outVo.setSucc_nCnt(0);
+                outVo.setSucc_nAmt(0);
+                outVo.setSucc_byeol_nCnt(0);
+            }
+
+            if(detailList_b.size() >= i+1) {
+                if (detailList_b.get(i).getThe_date().substring(8).equals(DalbitUtil.lpad(Integer.toString(i+1),2,"0"))) {
+                    outVo.setB_specialdj_succ_mCnt(detailList_b.get(i).getSpecialdj_succ_mCnt());
+                    outVo.setB_specialdj_succ_mAmt(detailList_b.get(i).getSpecialdj_succ_mAmt());
+                    outVo.setB_specialdj_succ_byeol_mCnt(detailList_b.get(i).getSpecialdj_succ_byeol_mCnt());
+                    outVo.setB_specialdj_succ_fcnt(detailList_b.get(i).getSpecialdj_succ_fcnt());
+                    outVo.setB_specialdj_succ_fAmt(detailList_b.get(i).getSpecialdj_succ_fAmt());
+                    outVo.setB_specialdj_succ_byeol_fCnt(detailList_b.get(i).getSpecialdj_succ_byeol_fCnt());
+                    outVo.setB_specialdj_succ_nCnt(detailList_b.get(i).getSpecialdj_succ_nCnt());
+                    outVo.setB_specialdj_succ_nAmt(detailList_b.get(i).getSpecialdj_succ_nAmt());
+                    outVo.setB_specialdj_succ_byeol_nCnt(detailList_b.get(i).getSpecialdj_succ_byeol_nCnt());
+                    outVo.setB_succ_mCnt(detailList_b.get(i).getSucc_mCnt());
+                    outVo.setB_succ_mAmt(detailList_b.get(i).getSucc_mAmt());
+                    outVo.setB_succ_byeol_mCnt(detailList_b.get(i).getSucc_byeol_mCnt());
+                    outVo.setB_succ_fCnt(detailList_b.get(i).getSucc_fCnt());
+                    outVo.setB_succ_fAmt(detailList_b.get(i).getSucc_fAmt());
+                    outVo.setB_succ_byeol_fCnt(detailList_b.get(i).getSucc_byeol_fCnt());
+                    outVo.setB_succ_nCnt(detailList_b.get(i).getSucc_nCnt());
+                    outVo.setB_succ_nAmt(detailList_b.get(i).getSucc_nAmt());
+                    outVo.setB_succ_byeol_nCnt(detailList_b.get(i).getSucc_byeol_nCnt());
+                }else{
+                    outVo.setB_specialdj_succ_mCnt(0);
+                    outVo.setB_specialdj_succ_mAmt(0);
+                    outVo.setB_specialdj_succ_byeol_mCnt(0);
+                    outVo.setB_specialdj_succ_fcnt(0);
+                    outVo.setB_specialdj_succ_fAmt(0);
+                    outVo.setB_specialdj_succ_byeol_fCnt(0);
+                    outVo.setB_specialdj_succ_nCnt(0);
+                    outVo.setB_specialdj_succ_nAmt(0);
+                    outVo.setB_specialdj_succ_byeol_nCnt(0);
+                    outVo.setB_succ_mCnt(0);
+                    outVo.setB_succ_mAmt(0);
+                    outVo.setB_succ_byeol_mCnt(0);
+                    outVo.setB_succ_fCnt(0);
+                    outVo.setB_succ_fAmt(0);
+                    outVo.setB_succ_byeol_fCnt(0);
+                    outVo.setB_succ_nCnt(0);
+                    outVo.setB_succ_nAmt(0);
+                    outVo.setB_succ_byeol_nCnt(0);
+                }
+            }else{
+                outVo.setB_specialdj_succ_mCnt(0);
+                outVo.setB_specialdj_succ_mAmt(0);
+                outVo.setB_specialdj_succ_byeol_mCnt(0);
+                outVo.setB_specialdj_succ_fcnt(0);
+                outVo.setB_specialdj_succ_fAmt(0);
+                outVo.setB_specialdj_succ_byeol_fCnt(0);
+                outVo.setB_specialdj_succ_nCnt(0);
+                outVo.setB_specialdj_succ_nAmt(0);
+                outVo.setB_specialdj_succ_byeol_nCnt(0);
+                outVo.setB_succ_mCnt(0);
+                outVo.setB_succ_mAmt(0);
+                outVo.setB_succ_byeol_mCnt(0);
+                outVo.setB_succ_fCnt(0);
+                outVo.setB_succ_fAmt(0);
+                outVo.setB_succ_byeol_fCnt(0);
+                outVo.setB_succ_nCnt(0);
+                outVo.setB_succ_nAmt(0);
+                outVo.setB_succ_byeol_nCnt(0);
+            }
+            list.add(outVo);
+        }
+
+
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);
-        result.put("detailList", detailList);
+        result.put("detailList", list);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }

@@ -817,11 +817,11 @@ var BroadcastDataTableSource = {
                     return common.substr(data,0,19);
                 }},
             {'title': '연결 시간', 'data': 'connect_time', 'render': function (data, type, row, meta) {
-                    return common.substr(data,0,8);
+                    return common.timeStampDay(data,0,8);
                 }},
-            {'title': '참여형태', 'data': 'join_form', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
+            // {'title': '참여형태', 'data': 'join_form', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
             {'title': '방송참여', 'data': 'total_cnt', 'render': function (data, type, row, meta) {
                     return data + ' 번';
                 }},

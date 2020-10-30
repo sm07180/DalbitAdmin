@@ -47,27 +47,41 @@
         </table>
     </div>
 
-    <div class="widget-content col-md-10">
+    <div class="widget-content col-md-12">
         <span class="font-bold">◈ 성별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="6%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
-                <col width="7.5%"/><col width="7.5%"/>
-                <col width="0.1%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
-                <col width="7.5%"/><col width="7.5%"/>
+                <col width="6%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
+                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
+                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="0.1%"/><col width="3.7%"/>
+                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
+                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
+                <col width="3.7%"/>
+
 
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="3" style="background-color: #dae3f3"></th>
-                <th colspan="6" style="background-color: #ff9933">스페셜</th>
+                <th rowspan="4" style="background-color: #dae3f3"></th>
+                <th colspan="12" style="background-color: #b4c7e7" id="beforGender"></th>
                 <th class="_noBorder"></th>
+                <th colspan="12" style="background-color: #ffe699" id="nowGender"></th>
+            </tr>
+            <tr>
+                <th colspan="6" style="background-color: #ff9933">스페셜</th>
+                <th colspan="6" style="background-color: #548235">일반</th>
+                <th class="_noBorder"></th>
+                <th colspan="6" style="background-color: #ff9933">스페셜</th>
                 <th colspan="6" style="background-color: #548235">일반</th>
             </tr>
             <tr>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
+                <th class="_sex_male" colspan="3"></th>
+                <th class="_sex_female" colspan="3"></th>
                 <th class="_noBorder"></th>
+                <th class="_sex_male" colspan="3"></th>
+                <th class="_sex_female" colspan="3"></th>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
             </tr>
@@ -78,7 +92,19 @@
                 <th style="color: red">건수</th>
                 <th style="color: red">금액</th>
                 <th style="color: red">요청 별</th>
+                <th style="color: blue">건수</th>
+                <th style="color: blue">금액</th>
+                <th style="color: blue">요청 별</th>
+                <th style="color: red">건수</th>
+                <th style="color: red">금액</th>
+                <th style="color: red">요청 별</th>
                 <th class="_noBorder"></th>
+                <th style="color: blue">건수</th>
+                <th style="color: blue">금액</th>
+                <th style="color: blue">요청 별</th>
+                <th style="color: red">건수</th>
+                <th style="color: red">금액</th>
+                <th style="color: red">요청 별</th>
                 <th style="color: blue">건수</th>
                 <th style="color: blue">금액</th>
                 <th style="color: blue">요청 별</th>
@@ -131,6 +157,8 @@
     function getMonthList(){
         $("#beforMonth").text(moment($("#startDate").val()).add('months', -1).format('YYYY.MM'));
         $("#nowMonth").text(moment($("#startDate").val()).add('months', 0).format('YYYY.MM'));
+        $("#beforGender").text(moment($("#startDate").val()).add('months', -1).format('YYYY.MM'));
+        $("#nowGender").text(moment($("#startDate").val()).add('months', 0).format('YYYY.MM'));
         $("#nowWeek").text(moment($("#startDate").val()).add('months', 0).format('YYYY.MM'));
         var data = {
             slctType : 1,
@@ -238,6 +266,17 @@
         response.data.totalInfo.total_succ_sp = "환전금액 총 : " + total_succ_spCnt + "건 / 금액 : " +  total_succ_spAmt + " / " + total_succ_spByeol + " 개";
         response.data.totalInfo.total_succ_no = "환전금액 총 : " + total_succ_noCnt + "건 / 금액 : " +  total_succ_noAmt + " / " + total_succ_noByeol + " 개";
 
+        var b_total_succ_spCnt =  response.data.totalInfo.b_tot_specialdj_succ_mCnt + response.data.totalInfo.b_tot_specialdj_succ_fcnt + response.data.totalInfo.b_tot_specialdj_succ_nCnt;
+        var b_total_succ_spAmt = response.data.totalInfo.b_tot_specialdj_succ_mAmt + response.data.totalInfo.b_tot_specialdj_succ_fAmt + response.data.totalInfo.b_tot_specialdj_succ_nAmt;
+        var b_total_succ_spByeol = response.data.totalInfo.b_tot_specialdj_succ_byeol_mCnt + response.data.totalInfo.b_tot_specialdj_succ_byeol_fCnt + response.data.totalInfo.b_tot_specialdj_succ_byeol_nCnt;
+
+        var b_total_succ_noCnt = response.data.totalInfo.b_tot_succ_mCnt + response.data.totalInfo.b_tot_succ_fCnt + response.data.totalInfo.b_tot_succ_nCnt;
+        var b_total_succ_noAmt = response.data.totalInfo.b_tot_succ_mAmt + response.data.totalInfo.b_tot_succ_fAmt + response.data.totalInfo.b_tot_succ_nAmt;
+        var b_total_succ_noByeol = response.data.totalInfo.b_tot_succ_byeol_mCnt + response.data.totalInfo.b_tot_succ_byeol_fCnt + response.data.totalInfo.b_tot_succ_byeol_nCnt;
+
+        response.data.totalInfo.b_total_succ_sp = "환전금액 총 : " + b_total_succ_spCnt + "건 / 금액 : " +  b_total_succ_spAmt + " / " + b_total_succ_spByeol + " 개";
+        response.data.totalInfo.b_total_succ_no = "환전금액 총 : " + b_total_succ_noCnt + "건 / 금액 : " +  b_total_succ_noAmt + " / " + b_total_succ_noByeol + " 개";
+
         if(!isDataEmpty){
             var template = $('#tmp_gender_total').html();
             var templateScript = Handlebars.compile(template);
@@ -260,7 +299,8 @@
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
-            response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
+
+            response.data.detailList[i].the_date = moment($("#startDate").val()).add('months', 0).format('YYYY.MM') + "." +common.lpad(response.data.detailList[i].day,2,"0");
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi,".")).add('days', 0).day()];
             if(toDay == "토"){
                 toDay = '<span class="_fontColor" data-fontColor="blue">' + response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")" + '</span>';
@@ -443,8 +483,10 @@
 <script type="text/x-handlebars-template" id="tmp_gender_total">
     <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
         <td>총계</td>
-        <td colspan="6">{{addComma total_succ_sp}}</td>
+        <td colspan="6">{{addComma b_total_succ_sp}}</td>
+        <td colspan="6">{{addComma b_total_succ_no}}</td>
         <td class="_noBorder"></td>
+        <td colspan="6">{{addComma total_succ_sp}}</td>
         <td colspan="6">{{addComma total_succ_no}}</td>
     </tr>
 </script>
@@ -452,13 +494,25 @@
 <script type="text/x-handlebars-template" id="tmp_gender">
     <tr class="font-bold" style="background-color: #f2f2f2;color: #fb782d;">
         <td>총합</td>
+        <td>{{addComma b_tot_specialdj_succ_mCnt}}</td>
+        <td>{{addComma b_tot_specialdj_succ_mAmt}}</td>
+        <td>{{addComma b_tot_specialdj_succ_byeol_mCnt}}</td>
+        <td>{{addComma b_tot_specialdj_succ_fcnt}}</td>
+        <td>{{addComma b_tot_specialdj_succ_fAmt}}</td>
+        <td>{{addComma b_tot_specialdj_succ_byeol_fCnt}}</td>
+        <td>{{addComma b_tot_succ_mCnt}}</td>
+        <td>{{addComma b_tot_succ_mAmt}}</td>
+        <td>{{addComma b_tot_succ_byeol_mCnt}}</td>
+        <td>{{addComma b_tot_succ_fCnt}}</td>
+        <td>{{addComma b_tot_succ_fAmt}}</td>
+        <td>{{addComma b_tot_succ_byeol_fCnt}}</td>
+        <td class="_noBorder"></td>
         <td>{{addComma tot_specialdj_succ_mCnt}}</td>
         <td>{{addComma tot_specialdj_succ_mAmt}}</td>
         <td>{{addComma tot_specialdj_succ_byeol_mCnt}}</td>
         <td>{{addComma tot_specialdj_succ_fcnt}}</td>
         <td>{{addComma tot_specialdj_succ_fAmt}}</td>
         <td>{{addComma tot_specialdj_succ_byeol_fCnt}}</td>
-        <td class="_noBorder"></td>
         <td>{{addComma tot_succ_mCnt}}</td>
         <td>{{addComma tot_succ_mAmt}}</td>
         <td>{{addComma tot_succ_byeol_mCnt}}</td>
@@ -474,13 +528,25 @@
         <td class="font-bold" style="background-color: #dae3f3">
             {{{date}}}
         </td>
+        <td>{{addComma b_specialdj_succ_mCnt 'Y'}}</td>
+        <td>{{addComma b_specialdj_succ_mAmt 'Y'}}</td>
+        <td>{{addComma b_specialdj_succ_byeol_mCnt 'Y'}}</td>
+        <td>{{addComma b_specialdj_succ_fcnt 'Y'}}</td>
+        <td>{{addComma b_specialdj_succ_fAmt 'Y'}}</td>
+        <td>{{addComma b_specialdj_succ_byeol_fCnt 'Y'}}</td>
+        <td>{{addComma b_succ_mCnt 'Y'}}</td>
+        <td>{{addComma b_succ_mAmt 'Y'}}</td>
+        <td>{{addComma b_succ_byeol_mCnt 'Y'}}</td>
+        <td>{{addComma b_succ_fCnt 'Y'}}</td>
+        <td>{{addComma b_succ_fAmt 'Y'}}</td>
+        <td>{{addComma b_succ_byeol_fCnt 'Y'}}</td>
+        <td class="_noBorder"></td>
         <td>{{addComma specialdj_succ_mCnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_mAmt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_mCnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_fcnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_fAmt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_fCnt 'Y'}}</td>
-        <td class="_noBorder"></td>
         <td>{{addComma succ_mCnt 'Y'}}</td>
         <td>{{addComma succ_mAmt 'Y'}}</td>
         <td>{{addComma succ_byeol_mCnt 'Y'}}</td>
