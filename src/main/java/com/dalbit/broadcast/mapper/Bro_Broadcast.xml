@@ -18,13 +18,13 @@
           </if>
           <if test="room_liveType == 2">
             where state=4
+              and DATE_FORMAT(start_date, '%Y-%m-%d %H:%i:%s') >= #{startDate}
           </if>
-          <if test="endDate != null">
-              and DATE_FORMAT(start_date, '%Y-%m-%d') >= #{startDate} and DATE_FORMAT(start_date, '%Y-%m-%d')  <![CDATA[<=]]>  #{endDate}
-          </if>
-          <if test="endDate == null">
-              and DATE_FORMAT(start_date, '%Y-%m-%d') >= #{startDate}
-          </if>
+          <!--<if test="endDate != null">-->
+              <!--and DATE_FORMAT(start_date, '%Y-%m-%d') >= #{startDate} and DATE_FORMAT(start_date, '%Y-%m-%d')  <![CDATA[<=]]>  #{endDate}-->
+          <!--</if>-->
+          <!--<if test="endDate == null">-->
+          <!--</if>-->
     </select>
 
     <select id="callBroadcastInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastDetailOutputVo">
@@ -150,6 +150,10 @@
 
     <select id="callLiveListenerList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_LiveListenerListOutputVo">
         call rd_admin.sp_admin_broadcast_room_listener(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callLiveGuestList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_LiveGuestListOutputVo">
+        call rd_admin.sp_admin_broadcast_room_guest_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
 </mapper>

@@ -69,6 +69,7 @@ public class Bro_GiftService {
                 outVo.setItem_thumbnail(DalbitUtil.isEmpty(GiftList.get(i).getItem_thumbnail()) ? "-" : GiftList.get(i).getItem_thumbnail());
                 outVo.setItemCnt(DalbitUtil.isEmpty(GiftList.get(i).getItemCnt()) ? 0 : GiftList.get(i).getItemCnt());
                 outVo.setSecret(DalbitUtil.isEmpty(GiftList.get(i).getSecret()) ? 0 : GiftList.get(i).getSecret());
+                outVo.setItem_type(DalbitUtil.isEmpty(GiftList.get(i).getItem_type()) ? 0 : GiftList.get(i).getItem_type());
 
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(GiftList.get(i).getMem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {

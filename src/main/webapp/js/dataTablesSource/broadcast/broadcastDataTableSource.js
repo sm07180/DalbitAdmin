@@ -10,6 +10,10 @@ var BroadcastDataTableSource = {
                     }
                     return tmp + util.getCommonCodeLabel(data, os_type);
                 }},
+            {'title': '게스트<br />여부', 'data': 'guestCnt','width' : '35px','render': function (data, type, row, meta) {
+                    var tmp = 0 < data ? 'Y' : 'N';
+                    return '<a href="javascript://" onclick="broadCastLivePopUp( ' + row.room_no + ', ' + 2 + ');">' + tmp + '</a>';
+                }},
             {'title': '주제<br/>제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
                     return row.subject_name + '<br/>' + util.roomNoLink(data, row.room_no);
                 }},
@@ -112,11 +116,6 @@ var BroadcastDataTableSource = {
             //         var tmp = common.addComma(data);
             //         return tmp + "명";
             //     }},
-
-            {'title': '게스트<br />여부', 'data': 'guestCnt','width' : '35px','render': function (data, type, row, meta) {
-                    return 0 < data ? 'Y' : 'N';
-                }},
-
             {'title': '사연', 'data': 'storyCnt','width' : '30px','render': function (data, type, row, meta) {
                     var url = "/broadcast/live/popup/storyPopup?roomNo=" + encodeURIComponent(row.room_no);
                     // var tmp = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ 1250 +'" data-height="'+ 700 +'">' + 0 + '</a>';
@@ -493,6 +492,14 @@ var BroadcastDataTableSource = {
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
+            {'title': '게스트선물', 'data': 'item_type', 'render': function (data, type, row, meta) {
+                    if(data == 8){
+                        var tmp = "게스트 선물";
+                    }else{
+                        var tmp = "DJ선물";
+                    }
+                    return tmp;
+                }},
             {'title': '보낸 일시', 'data': 'giftDateFormat'},
             {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
                     if(data == 1) var tmp = "O";
@@ -775,6 +782,66 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '보유 달', 'data': 'dal', 'render': function (data, type, row, meta) {
                     return common.addComma(data) + " 달";
+                }},
+        ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+
+
+    'liveGuestList': {
+        'url': '/rest/broadcast/broadcast/live/guest/list'
+        , 'columns': [
+            {'title': '상태', 'data': 'now_state'},
+            {'title': '참여 방송', 'data': 'room_title', 'render': function (data, type, row, meta) {
+                    return util.roomNoLink(data, row.room_no);
+                }},
+            {'title': '프로필', 'data': 'image_profile', 'width' : '50px', 'render' : function(data, type, row){
+                    return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.mem_sex) +'" width="65px" height="65px" />';
+                }},
+            {'title': '회원번호<br/>닉네임', 'data': 'mem_nick','width' : '75px','render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(row.mem_no, row.mem_no);
+                    return tmp + '<br/>' + data;
+                }},
+            {'title': '성별', 'data': 'mem_sex', 'width':'55px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year, true);
+                }},
+            {'title': '연결시작', 'data': 'start_date', 'render': function (data, type, row, meta) {
+                    return common.substr(data,0,19);
+                }},
+            {'title': '종료 시간', 'data': 'end_date', 'render': function (data, type, row, meta) {
+                    return common.substr(data,0,19);
+                }},
+            {'title': '연결 시간', 'data': 'connect_time', 'render': function (data, type, row, meta) {
+                    return common.timeStampDay(data,0,8);
+                }},
+            // {'title': '참여형태', 'data': 'join_form', 'render': function (data, type, row, meta) {
+            //         return data;
+            //     }},
+            {'title': '방송참여', 'data': 'total_cnt', 'render': function (data, type, row, meta) {
+                    return data + ' 번';
+                }},
+            {'title': '중복참여', 'data': 'duplicate_cnt', 'render': function (data, type, row, meta) {
+                    return data + ' 번';
+                }},
+            {'title': '선물 수', 'data': 'gift_cnt', 'render': function (data, type, row, meta) {
+                    return data + ' 개';
+                }},
+            {'title': '선물 별', 'data': 'byeol_cnt', 'render': function (data, type, row, meta) {
+                    return data + ' 별';
+                }},
+            {'title': '[강제 종료]<br/>[경고/정지]', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    if(row.now_state == "종료"){
+                        var tmp = '<button type="button" class="btn btn-default btn-xs" onclick="reportPopup( ' + meta.row + ' );">경고/정지</button>';
+                    }else{
+                        var tmp =  '<button type="button" class="btn btn-danger btn-xs" onclick="guestOut( ' + meta.row + ' );" style="width: 75px;margin-bottom: 1px" >강제 종료</button><br/>';
+                        tmp = tmp + '<button type="button" class="btn btn-default btn-xs" onclick="reportPopup( ' + meta.row + ' );">경고/정지</button>';
+                    }
+                    return tmp;
                 }},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {

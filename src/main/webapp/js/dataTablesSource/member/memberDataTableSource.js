@@ -169,7 +169,7 @@ var MemberDataTableSource = {
             {'title': '매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data);
                 }},
-            {'title': '선물 수', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
+            {'title': '선물 건', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data);
                 }},
             {'title': '받은 별', 'data': 'byeolCnt', 'width':'80px', 'render': function (data) {
@@ -299,7 +299,7 @@ var MemberDataTableSource = {
                     return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
+            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data) {
                     return common.addComma(data) + " 개"
                 }},
             {'title': '선물 달', 'data': 'ruby', 'render': function (data) {
@@ -767,7 +767,7 @@ var MemberDataTableSource = {
                     return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
+            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data) {
                     return common.addComma(data) + " 개"
                 }},
             {'title': '선물 달', 'data': 'ruby', 'render': function (data) {
@@ -804,7 +804,7 @@ var MemberDataTableSource = {
                     return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
+            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data) {
                     return common.addComma(data) + " 개"
                 }},
             {'title': '선물 별', 'data': 'gold', 'render': function (data) {
@@ -942,7 +942,7 @@ var MemberDataTableSource = {
             {'title': '등록일시', 'width':'70px', 'data': 'startDate', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '청취자 수', 'width':'60px', 'data': 'listenerCnt', 'render': function (data, type, row, meta) {
+            {'title': '청취자', 'width':'60px', 'data': 'listenerCnt', 'render': function (data, type, row, meta) {
                     return common.addComma(data);
                 }},
             {'title': '청취 수', 'width':'60px', 'data': 'listenPlayCnt', 'render': function (data, type, row, meta) {

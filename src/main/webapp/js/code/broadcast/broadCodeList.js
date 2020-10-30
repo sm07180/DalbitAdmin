@@ -134,6 +134,15 @@ var liveListenSort = [
     , new COMMON_CODE('7', '7', '게스트만')
 ];
 
+var liveGuest = [
+    new COMMON_CODE(null, 'liveGuest', '실시간/종료게스트')
+    , new COMMON_CODE('0', '0', '최근 게스트 참여 순')
+    , new COMMON_CODE('1', '1', '연결시간 많은 순')
+    , new COMMON_CODE('2', '2', '게스트 참여 오래된 순')
+    , new COMMON_CODE('3', '3', '선물 수 많은 순')
+    , new COMMON_CODE('4', '4', '선물 별 많은 순')
+];
+
 // ------------------------- table -----------------------------
 var listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')

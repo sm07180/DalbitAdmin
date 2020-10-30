@@ -107,6 +107,11 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int broadStateNomal;
     private int broadBreak;
 
+    private int totalGuestCnt;
+    private int guestMaleCnt;
+    private int guestFemaleCnt;
+    private int guestNoneCnt;
+
     public void setStart_date(Date start_date){
         this.start_date = start_date;
         this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH:mm:ss");

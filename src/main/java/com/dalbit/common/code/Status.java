@@ -114,6 +114,10 @@ public enum Status {
     생방송청취자목록보기_성공("0", "broadcast.listener.list.success", "생방송청취자목록보기_성공"),
     생방송청취자목록보기_실패("C006", "broadcast.listener.list.fail", "생방송청취자목록보기_실패"),
 
+    //생방송 게스트 목록
+    생방송게스트목록보기_성공("0", "broadcast.guest.list.success", "생방송게스트목록보기 성공 시"),
+    생방송게스트목록보기_실패("C006", "broadcast.guest.list.fail", "생방송게스트목록보기 실패 시"),
+
     //청취기록보기
     청취기록보기성공("0", "listen.list.view.success", "청취기록 보기 성공 시"),
     청취기록보기실패("C006", "listen.list.view.fail", "청취기록 보기 실패 시"),
@@ -692,6 +696,10 @@ public enum Status {
     //DJ 가산점 조회
     DJ가산점조회_성공("C001", "add.dj.point.list.success", "DJ가산점 조회 성공 시"),
     DJ가산점조회_실패("C006", "add.dj.point.list.fail", "DJ가산점 조회 실패 시"),
+
+    //좋아요랭킹 조회
+    좋아요랭킹_성공("C001", "add.good.rank.list.success", "좋아요랭킹 조회 성공 시"),
+    좋아요랭킹_실패("C006", "add.good.rank.list.fail", "좋아요랭킹 조회 실패 시"),
 
 
     // 통계 ------------------------------------------------------------------------------------
