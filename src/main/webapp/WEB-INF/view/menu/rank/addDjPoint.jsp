@@ -52,6 +52,7 @@
                     <li><a href="/menu/rank/djRankList?tabType=0" id="tab_rankList"><i class="fa fa-home"></i> DJ랭킹</a></li>
                     <li><a href="/menu/rank/djRankList?tabType=1" id="tab_rankFanList"><i class="fa fa-user"></i> Fan랭킹</a></li>
                     <li class="active"><a href="#addDjPointList"><i class="fa fa-user"></i>DJ가산점</a></li>
+                    <li><a href="/menu/rank/goodRank" id="tab_goodRank">좋아요랭킹</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active " id="addDjPointList">

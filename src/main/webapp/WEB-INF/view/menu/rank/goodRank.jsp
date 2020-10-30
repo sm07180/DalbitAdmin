@@ -80,25 +80,13 @@
             <div class="row col-lg-12 form-inline">
 
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="rankTab">
-                    <li class="active">
-                        <a href="#djRankList" role="tab" data-toggle="tab" data-rank="djRankList"><i class="fa fa-home"></i> DJ랭킹</a>
-                    </li>
-                    <li>
-                        <a href="#djRankList" role="tab" data-toggle="tab" data-rank="fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
-                    </li>
+                    <li><a href="/menu/rank/djRankList?tabType=0" id="tab_rankList"><i class="fa fa-home"></i> DJ랭킹</a></li>
+                    <li><a href="/menu/rank/djRankList?tabType=1" id="tab_rankFanList"><i class="fa fa-user"></i> Fan랭킹</a></li>
                     <li><a href="/menu/rank/addDjPoint" id="tab_addDjPoint">DJ가산점</a></li>
-                    <li><a href="/menu/rank/goodRank" id="tab_goodRank">좋아요 랭킹</a></li>
+                    <li class="active"><a href="#goodRank"><i class="fa fa-user"></i>좋아요랭킹</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade in active " id="djRankList">
-                        <div class="row col-lg-12 form-inline">
-                            <div class="col-md-7 no-padding mt10">
-                                <span id="tab_title">ㆍDJ 랭킹 점수 산출 방법<br/>
-                                                        : 받은 별(부스터 제외) 1점 + 누적 청취자 2점 + 받은 좋아요(부스터 제외) 1점 + 부스터 횟수 20점
-                                </span>
-                            </div>
-                        </div>
-
+                    <div class="tab-pane fade in active " id="goodRankList">
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
 
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
@@ -106,33 +94,6 @@
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
                 </div>     <!-- 상세 -->
-
-
-                    <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate">--%>
-                        <%--<ul class="pagination borderless">
-                            <li class="paginate_button first" aria-controls="list_info" tabindex="0"
-                                id="list_info_first"><a href="#">처음</a></li>
-                            <li class="paginate_button previous" aria-controls="list_info" tabindex="0"
-                                id="list_info_previous"><a href="#">이전</a></li>
-                            <li class="paginate_button active" aria-controls="list_info" tabindex="0"><a href="#">1</a>
-                            </li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">2</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">3</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">4</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">5</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">6</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">7</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">8</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">9</a></li>
-                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">10</a></li>
-                            <li class="paginate_button next" aria-controls="list_info" tabindex="0" id="list_info_next">
-                                <a href="#">다음</a></li>
-                            <li class="paginate_button last" aria-controls="list_info" tabindex="0" id="list_info_last">
-                                <a href="#">마지막</a></li>
-                        </ul>--%>
-                    <%--</div>--%>
-
-                </div>
             </div>
             <!-- DATA TABLE END -->
         </div>
@@ -140,7 +101,7 @@
 </div>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-     djRankListPagingInfo = new PAGING_INFO(0, 1, 50);
+     goodRankListPagingInfo = new PAGING_INFO(0, 1, 50);
 
      var dateTime = new Date();
      dateTime = moment(dateTime).format("YYYY.MM.DD");
@@ -151,18 +112,8 @@
     $(function(){
         $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
 
-        if(!common.isEmpty(tabType)){
-            $('#rankTab li:eq(' + tabType + ') a').tab('show');
-            if(tabType == 0){
-                var tmp = "djRankList";
-            }else if(tabType == 1){
-                var tmp = "fanRankList";
-            }
-            init(tmp);
-        }else{
-            init();
-        }
-
+        rankTypeChange();
+        init();
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -222,20 +173,18 @@
         $("#yearDate").val(moment(new Date()).format('YYYY'));
     });
 
-    function init(tabName){
-        var rank = common.isEmpty(tabName) ? $('#rankTab li.active a').data('rank') : tabName;
-
+    function init(){
         var data = {
             rankType : $('input:radio[name="rankType"]:checked').val()
-            , pageStart : djRankListPagingInfo.pageNo
-            , pageCnt : djRankListPagingInfo.pageCnt
+            , pageStart : goodRankListPagingInfo.pageNo
+            , pageCnt : goodRankListPagingInfo.pageCnt
             , selectGubun : $('#searchArea').val()
             , txt_search : $("#txt_search").val()
             , sDate : $("#startDate").val()
             , eDate : $("#endDate").val()
             , onedayDate : $("#onedayDate").val()
         }
-        util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
+        util.getAjaxData("goodRank", "/rest/menu/rank/goodRank", data, fn_succ_list);
     }
 
      function setTimeDate(dateTime){
@@ -250,31 +199,18 @@
 
         response.data.rankType = $('input:radio[name="rankType"]:checked').val();
 
-        if(dst_id == "djRankList"){
-            for(var i=0;i<response.data.length;i++){
-                response.data[i]["recByeol"] = response.data[i].itemCnt + Number(response.data[i].boostByeol);
-                response.data[i]["totalGoodCnt"] = response.data[i].goodCnt + (response.data[i].boostCnt * 10);
-            }
-        }else if(dst_id == "fanRankList"){
-            for(var i=0;i<response.data.length;i++){
-                response.data[i]["giftDal"] = response.data[i].itemCnt + Number(response.data[i].boostDal);
-                response.data[i]["totalGoodCnt"] = response.data[i].goodCnt + (response.data[i].boostCnt * 10);
-            }
-        }
-
-        var template = $('#tmp_'+dst_id).html();
+        var template = $('#tmp_tmp_goodRankList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
         $("#list_info").html(html);
 
         var pagingInfo = response.pagingVo;
-        djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
-        util.renderPagingNavigation('list_info_paginate_top', djRankListPagingInfo);
-        util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
+        goodRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation('list_info_paginate_top', goodRankListPagingInfo);
+        util.renderPagingNavigation('list_info_paginate', goodRankListPagingInfo);
     }
 
-    rankTypeChange();
     $('input[name="rankType"]').on('change', function(){
         rankTypeChange();
     });
@@ -307,7 +243,7 @@
                 setMonday();
             }
         }
-        djRankListPagingInfo.pageNo = 1;
+        goodRankListPagingInfo.pageNo = 1;
         init();
     }
 
@@ -422,37 +358,23 @@
          $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
      }
 
-
-
-    $('#rankTab li').on('click', function(){
-        var rank = $(this).find('a').data('rank');
-        if(rank == "djRankList"){
-            $("#tab_title").text("DJ 랭킹 점수는 받은 별(부스터 제외) 1점, 누적 청취자 2점, 받은 좋아요 1점, 부스터 횟수 20점으로 반영됩니다.");
-        }else if(rank == "fanRankList"){
-            $("#tab_title").text("FAN 랭킹 점수는 보낸 달 1점, 1분 좋아요 1점으로 반영 됩니다.");
-        }
-
-        djRankListPagingInfo.pageNo = 1;
-        init(rank);
-    });
-
     $('#bt_search').on('click', function() {
-        init($('#rankTab li.active a').data('rank'));
+        init();
     });
 
     $('input[id="txt_search"]').on('keydown', function(e) {
         if(e.keyCode == 13) {
-            init($('#rankTab li.active a').data('rank'));
+            init();
         };
     });
 
     function handlebarsPaging(targetId, pagingInfo){
-        djRankListPagingInfo = pagingInfo;
+        goodRankListPagingInfo = pagingInfo;
         init();
     }
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_djRankList">
+<script type="text/x-handlebars-template" id="tmp_goodRankList">
     <thead id="djtableTop">
     <tr>
         <th>순위</th>
@@ -463,15 +385,13 @@
         <th style="width: 110px">보상 배지</th>
         <th>배지 시작일</th>
         <th>배지 종료일</th>
-        <th>랭킹 점수</th>
-        <th style="background-color: #4472c4;color: white">받은 별<br/>(부스터 제외)<br/>x1점</th>
-        <th style="background-color: #4472c4;color: white">누적 청취자<br/>x2점</th>
-        <th style="background-color: #4472c4;color: white">받은 좋아요<br/>(부스터 제외)<br/>x1점</th>
-        <th style="background-color: #4472c4;color: white">부스터 횟수<br/>x20점</th>
-        <th>방송진행 시간</th>
+        <th>좋아요 총합</th>
+        <th>1분 좋아요</th>
+        <th>부스터 좋아요</th>
+        <th>부스터 횟수</th>
     </tr>
     </thead>
-    <tbody id="djRankListBody">
+    <tbody id="goodRankListBody">
     {{#each this as |rank|}}
     <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
             <td>
@@ -518,90 +438,16 @@
                     {{#dalbit_if ../rankType '==' '2'}} (일요일 23:59:59){{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
-            <td>{{addComma rankPoint}}점</td>
-            <td>{{addComma recByeol}}개<br/>({{addComma itemCnt}}개)</td>
-            <td>{{addComma listenCnt}}명</td>
-            <td>{{addComma totalGoodCnt}}<br/>({{addComma goodCnt}}개)</td>
-            <td>{{addComma boostCnt}}개</td>
-            <td>{{timeStamp airTime}}</td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
         </tr>
 
         {{else}}
             <tr>
-                <td colspan="15">{{isEmptyData}}</td>
+                <td colspan="11">{{isEmptyData}}</td>
             </tr>
         {{/each}}
-    </tbody>
-</script>
-
-<script type="text/x-handlebars-template" id="tmp_fanRankList">
-    <thead id="tableTop">
-    <tr>
-        <th>순위</th>
-        <th>프로필<br/>이미지</th>
-        <th>회원번호</th>
-        <th>닉네임</th>
-        <th>성별</th>
-        <th style="width: 110px">보상 배지</th>
-        <th>배지 시작일</th>
-        <th>배지 종료일</th>
-        <th>랭킹 점수</th>
-        <th style="background-color: #4472c4;color: white">보낸 달<br/>x1점</th>
-        <th style="background-color: #4472c4;color: white">1분 좋아요<br/>x1점</th>
-        <th>부스터 횟수</th>
-        <th>청취 시간</th>
-    </tr>
-    </thead>
-    <tbody id="fanRankListBody">
-    {{#each this as |fan|}}
-        <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
-            <td>
-                {{fanRank}}
-            </td>
-            <td style="width: 50px">
-                <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
-            </td>
-            <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a> <br /> <br />
-                레벨 : {{level}} <br />
-                등급 : {{grade}}
-            </td>
-            <td>{{mem_nick}}</td>
-            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-            <td>
-                {{#dalbit_if badgeImage '==' ''}}
-                {{else}}
-                    <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                    {{#dalbit_if ../rankType '==' '1'}} 일간 FAN TOP {{reward_rank}} {{/dalbit_if}}
-                    {{#dalbit_if ../rankType '==' '2'}} 주간 FAN TOP {{reward_rank}} {{/dalbit_if}}
-                {{/dalbit_if}}
-            </td>
-            <td>
-                {{#dalbit_if badgeImage '==' ''}}
-                {{else}}
-                    {{rewardStartDate}}<br/>
-                    보상 달 : {{addComma reward_dal}}<br/>
-                    보상 경험치 : {{addComma reward_exp}}<br/>
-                {{/dalbit_if}}
-            </td>
-            <td>
-                {{#dalbit_if rewardEndDate '!=' ''}}
-                    {{rewardEndDate}}<br/>
-                    {{#dalbit_if ../rankType '==' '1'}} (23:59:59) {{/dalbit_if}}
-                    {{#dalbit_if ../rankType '==' '2'}} (일요일 23:59:59) {{/dalbit_if}}
-                {{/dalbit_if}}
-            </td>
-            <td>{{addComma rankPoint}}점</td>
-            <td>{{addComma giftDal}}개</td>
-            <td>{{addComma goodCnt}}개</td>
-            <td>{{addComma boostCnt}}개</td>
-            <td>{{timeStamp airTime}}</td>
-        </tr>
-
-    {{else}}
-        <tr>
-            <td colspan="15">{{isEmptyData}}</td>
-        </tr>
-    {{/each}}
     </tbody>
 </script>

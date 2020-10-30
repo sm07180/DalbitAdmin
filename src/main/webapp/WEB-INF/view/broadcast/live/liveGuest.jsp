@@ -5,10 +5,10 @@
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
     <div class="col-md-12 no-padding">
-        <div class="col-md-2 no-padding">
-            <span name="guestType" id="guestType" onchange="guestType_sel_change()"></span>
-        </div>
+        <%--<div class="col-md-2 no-padding">--%>
+        <%--</div>--%>
         <div class="col-md-12 no-padding pull-right mt5">
+            <span name="guestType" id="guestType" onchange="guestType_sel_change()"></span>
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -31,10 +31,10 @@
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-    $("#guestType").html(util.getCommonCodeSelect(0, liveGuest));
 
     $(function(){
         getGuestList();
+        $("#guestType").html(util.getCommonCodeSelect(0, liveGuest));
     });
 
     var dtList_info_guest;
@@ -56,22 +56,26 @@
 
     function liveGuest_summary(json){
 
-        json.summary.guestTotal = json.summary.guestMcnt  + json.summary.guestFcnt + json.summary.guestNcnt;
-        json.summary.uniqueTotal = json.summary.uniqueMcnt  + json.summary.uniqueFcnt + json.summary.uniqueNcnt;
-        json.summary.totalCnt = json.summary.normalCnt  + json.summary.secretCnt;
-        json.summary.totalByeol = json.summary.normalByeol  + json.summary.secretByeol;
+        if(json.result == "success"){
+            json.summary.guestTotal = json.summary.guestMcnt  + json.summary.guestFcnt + json.summary.guestNcnt;
+            json.summary.uniqueTotal = json.summary.uniqueMcnt  + json.summary.uniqueFcnt + json.summary.uniqueNcnt;
+            json.summary.totalCnt = json.summary.normalCnt  + json.summary.secretCnt;
+            json.summary.totalByeol = json.summary.normalByeol  + json.summary.secretByeol;
 
-        var template = $("#liveGuest_tableSummary").html();
-        var templateScript = Handlebars.compile(template);
-        var data = {
-            content : json.summary
-            , length : json.recordsTotal
-        };
-        var html = templateScript(data);
-        $("#liveGuest_summaryArea").html(html);
+            var template = $("#liveGuest_tableSummary").html();
+            var templateScript = Handlebars.compile(template);
+            var data = {
+                content : json.summary
+                , length : json.recordsTotal
+            };
+            var html = templateScript(data);
+            $("#liveGuest_summaryArea").html(html);
 
-        $("#tab_liveGuest").text("실시간/종료 게스트(" + json.recordsTotal + ")");
+            $("#tab_liveGuest").text("실시간/종료 게스트(" + json.recordsTotal + ")");
+        }else{
+            $("#tab_liveGuest").text("실시간/종료 게스트(0)");
 
+        }
     }
 
     function getliveGuest_tabClick(tmp){
