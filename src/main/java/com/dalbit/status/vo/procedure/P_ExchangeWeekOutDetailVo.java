@@ -13,12 +13,19 @@ public class P_ExchangeWeekOutDetailVo extends SearchVo {
     private String weekNo;
     private String week_startDate;
     private String week_endDate;
+    private String month;
+    private String monthWeek;
     private int specialdj_succ_Cnt;
     private int specialdj_succ_Amt;
     private int specialdj_succ_byeol_Cnt;
     private int succ_Cnt;
     private int succ_Amt;
     private int succ_byeol_Cnt;
+
+    private int month_succ_Cnt;
+    private int month_succ_Amt;
+    private int month_succ_byeol_Cnt;
+
 
 }
 

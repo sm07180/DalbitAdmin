@@ -617,4 +617,9 @@
         ) b
     </select>
 
+
+    <select id="callGetGoodRank" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.menu.vo.GoodRankVo">
+        call rd_admin.sp_admin_good_ranking_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
 </mapper>

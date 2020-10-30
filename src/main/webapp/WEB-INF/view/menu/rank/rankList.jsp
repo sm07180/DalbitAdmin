@@ -61,7 +61,7 @@
                             <%--<input name="endDate" id="endDate" style="width: 100px">--%>
 
 
-                            <span id="searchArea"></span>
+                            <span id="searchArea" style="display: none"></span>
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             <a href="javascript://" class="_prevSearch">[이전]</a>

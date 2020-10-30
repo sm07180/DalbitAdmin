@@ -14,7 +14,7 @@
                 <input type="hidden" name="pageCnt" id="pageCnt">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i> 좋아요랭킹</h3>
                         <div>
                             <label class="control-inline fancy-radio custom-color-green">
                                 <input type="radio" name="rankType" value='1' checked="checked" />
@@ -24,14 +24,14 @@
                                 <input type="radio" name="rankType" value='2' />
                                 <span><i></i>주간</span>
                             </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" name="rankType" value='3' />
-                                <span><i></i>월간</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" name="rankType" value='4' />
-                                <span><i></i>연간</span>
-                            </label>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" name="rankType" value='3' />--%>
+                                <%--<span><i></i>월간</span>--%>
+                            <%--</label>--%>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" name="rankType" value='4' />--%>
+                                <%--<span><i></i>연간</span>--%>
+                            <%--</label>--%>
 
                             <div class="input-group date" id="oneDayDatePicker">
                                 <label for="onedayDate" class="input-group-addon">
@@ -61,7 +61,7 @@
                             <%--<input name="endDate" id="endDate" style="width: 100px">--%>
 
 
-                            <span id="searchArea"></span>
+                            <span id="searchArea" style="display: none"></span>
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             <a href="javascript://" class="_prevSearch">[이전]</a>
@@ -113,7 +113,6 @@
         $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
 
         rankTypeChange();
-        init();
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -175,15 +174,13 @@
 
     function init(){
         var data = {
-            rankType : $('input:radio[name="rankType"]:checked').val()
+             slctType : $('input:radio[name="rankType"]:checked').val()
+            , searchType : 0
             , pageStart : goodRankListPagingInfo.pageNo
             , pageCnt : goodRankListPagingInfo.pageCnt
-            , selectGubun : $('#searchArea').val()
-            , txt_search : $("#txt_search").val()
-            , sDate : $("#startDate").val()
-            , eDate : $("#endDate").val()
-            , onedayDate : $("#onedayDate").val()
-        }
+            , searchText : $("#txt_search").val()
+            , rankingDate : $("#startDate").val()
+        };
         util.getAjaxData("goodRank", "/rest/menu/rank/goodRank", data, fn_succ_list);
     }
 
@@ -194,12 +191,11 @@
      }
 
     function fn_succ_list(dst_id, response, params) {
-        dalbitLog(dst_id);
         dalbitLog(response);
 
         response.data.rankType = $('input:radio[name="rankType"]:checked').val();
 
-        var template = $('#tmp_tmp_goodRankList').html();
+        var template = $('#tmp_goodRankList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
@@ -395,53 +391,51 @@
     {{#each this as |rank|}}
     <tr {{#dalbit_if inner '==' 1}} class="bg-testMember" {{/dalbit_if}}>
             <td>
-                {{djRank}}
+                {{rank.rank}}
             </td>
             <td style="width: 50px">
-                <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
+                <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.profileImage rank.memSex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
-                <br /> <br />
-                레벨 : {{level}} <br />
-                등급 : {{grade}}
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a>
+                <%--<br /> <br />--%>
+                <%--레벨 : {{level}} <br />--%>
+                <%--등급 : {{grade}}--%>
             </td>
             <td>
-                {{#equal mem_nick ''}}
+                {{#equal nickName ''}}
                     {{{fontColor '탈퇴회원 입니다.' 0 'red'}}}
                 {{else}}
-                    {{rank.mem_nick}}
+                    {{rank.nickName}}
                 {{/equal}}
             </td>
-            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+            <td>{{{sexIcon memSex mem_birth_year}}}</td>
             <td>
-                {{#dalbit_if badgeImage '==' ''}}
-                {{else}}
-                    <img class="" src="{{badgeImage}}" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
-                    {{#dalbit_if ../rankType '==' '1'}} 일간 DJ TOP {{reward_rank}} {{/dalbit_if}}
-                    {{#dalbit_if ../rankType '==' '2'}} 주간 DJ TOP {{reward_rank}} {{/dalbit_if}}
-                    {{#dalbit_if ../rankType '==' '3'}} 월간 DJ TOP {{reward_rank}} {{/dalbit_if}}
+                {{#dalbit_if rank.rewardDal '>' 0}}
+                    {{#dalbit_if rank.rank '<' 4}}
+                        <img class="" src="https://image.dalbitlive.com/badge/201020/heartr0{{rank.rank}}_s_3x.png" style='width:42px; height:26px; margin-bottom: 0px;'/><br/>
+                        {{#dalbit_if ../rankType '==' '1'}} 일간 좋아요 {{rank.rank}} {{reward_rank}} {{/dalbit_if}}
+                        {{#dalbit_if ../rankType '==' '2'}} 주간 좋아요 {{rank.rank}} {{reward_rank}} {{/dalbit_if}}
+                    {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
             <td>
-                {{#dalbit_if badgeImage '==' ''}}
-                {{else}}
-                    {{rewardStartDate}}<br/>
-                    보상 달 : {{addComma reward_dal}}<br/>
-                    보상 경험치 : {{addComma reward_exp}}<br/>
+                {{#dalbit_if rank.rewardDal '>' 0}}
+                    {{substr startBadge 0 19}}<br/>
+                    보상 달 : {{addComma rewardDal}}<br/>
                 {{/dalbit_if}}
             </td>
             <td>
-                {{#dalbit_if rewardEndDate '!=' ''}}
-                    {{rewardEndDate}}<br />
+                {{#dalbit_if rank.rewardDal '>' 0}}
+                    {{substr endBadge 0 19}}<br />
                     {{#dalbit_if ../rankType '==' '1'}} (23:59:59){{/dalbit_if}}
                     {{#dalbit_if ../rankType '==' '2'}} (일요일 23:59:59){{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
+           <td>{{totalPoint}}</td>
+           <td>{{goodPoint}}</td>
+           <td>{{boosterPoint}}</td>
+           <td>{{boosterCnt}}</td>
         </tr>
 
         {{else}}

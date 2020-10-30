@@ -59,4 +59,10 @@ public class Men_RankRestController {
     public String addDjPoint(AddDjPointVo addDjPointVo) {
         return menRankService.getAddDjPointList(addDjPointVo);
     }
+
+    @RequestMapping("goodRank")
+    public String goodRank(GoodRankVo goodRankVo) {
+        return menRankService.getGoodRank(goodRankVo);
+    }
+
 }

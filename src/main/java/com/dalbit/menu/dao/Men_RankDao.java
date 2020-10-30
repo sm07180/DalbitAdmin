@@ -4,6 +4,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.menu.vo.AddDjPointVo;
 import com.dalbit.menu.vo.DjRankingVo;
 import com.dalbit.menu.vo.FanRankingVo;
+import com.dalbit.menu.vo.GoodRankVo;
 import com.dalbit.menu.vo.procedure.P_MainDjRankingVo;
 import com.dalbit.menu.vo.procedure.P_MainFanRankingVo;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,8 @@ public interface Men_RankDao {
 
     @Transactional(readOnly = true)
     List<AddDjPointVo> getAddDjPointList(AddDjPointVo addDjPointVo);
+
+    @Transactional(readOnly = true)
+    List<GoodRankVo> callGetGoodRank(ProcedureVo procedureVo);
 
 }

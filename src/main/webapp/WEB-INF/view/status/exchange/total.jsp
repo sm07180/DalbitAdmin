@@ -47,31 +47,29 @@
         </table>
     </div>
 
-    <div class="widget-content col-md-12">
+    <div class="widget-content col-md-10">
         <span class="font-bold">◈ 성별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="6%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
-                <col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
-                <col width="0.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
-                <col width="5.1%"/><col width="5.1%"/><col width="5.1%"/><col width="5.1%"/>
+                <col width="6%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
+                <col width="7.5%"/><col width="7.5%"/>
+                <col width="0.1%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/><col width="7.5%"/>
+                <col width="7.5%"/><col width="7.5%"/>
 
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="3" style="background-color: #dae3f3"></th>
-                <th colspan="9" style="background-color: #ff9933">스페셜</th>
+                <th colspan="6" style="background-color: #ff9933">스페셜</th>
                 <th class="_noBorder"></th>
-                <th colspan="9" style="background-color: #548235">일반</th>
+                <th colspan="6" style="background-color: #548235">일반</th>
             </tr>
             <tr>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
-                <th class="_sex_none" colspan="3"></th>
                 <th class="_noBorder"></th>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
-                <th class="_sex_none" colspan="3"></th>
             </tr>
             <tr>
                 <th style="color: blue">건수</th>
@@ -80,9 +78,6 @@
                 <th style="color: red">건수</th>
                 <th style="color: red">금액</th>
                 <th style="color: red">요청 별</th>
-                <th>건수</th>
-                <th>금액</th>
-                <th>요청 별</th>
                 <th class="_noBorder"></th>
                 <th style="color: blue">건수</th>
                 <th style="color: blue">금액</th>
@@ -90,31 +85,29 @@
                 <th style="color: red">건수</th>
                 <th style="color: red">금액</th>
                 <th style="color: red">요청 별</th>
-                <th>건수</th>
-                <th>금액</th>
-                <th>요청 별</th>
             </tr>
             </thead>
             <tbody id="genderTableBody"></tbody>
         </table>
     </div>
 
-    <div class="widget-content col-md-6">
+    <div class="widget-content col-md-10">
         <span class="font-bold">◈ 주간별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
-                <col width="14.2%"/><col width="14.2%"/>
+                <col width="5%"/><col width="15.2%"/><col width="11.2%"/><col width="11.2%"/><col width="11.2%"/><col width="11.2%"/>
+                <col width="11.2%"/><col width="11.2%"/><col width="11.2%"/>
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="3" style="background-color: #dae3f3"></th>
-                <th colspan="6" style="background-color: #b4c7e7" id="nowWeek"></th>
+                <th rowspan="3" colspan="2" style="background-color: #dae3f3"></th>
+                <th colspan="7" style="background-color: #b4c7e7" id="nowWeek"></th>
             </tr>
 
             <tr>
                 <th colspan="3" style="background-color: #ff9933">스페셜</th>
                 <th colspan="3" style="background-color: #548235">일반</th>
+                <th rowspan="2">총합</th>
             </tr>
             <tr>
                 <th>건수</th>
@@ -306,11 +299,11 @@
         response.data.totalInfo.total_succ = "환전금액 총 : " + total_succ_Cnt + "건 / 금액 : " +  total_succ_Amt + " / " + total_succ_Byeol + " 개";
 
         if(!isDataEmpty){
-            var template = $('#tmp_week_total').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data.totalInfo;
-            var totalHtml = templateScript(totalContext);
-            $("#weekTableBody").append(totalHtml);
+            // var template = $('#tmp_week_total').html();
+            // var templateScript = Handlebars.compile(template);
+            // var totalContext = response.data.totalInfo;
+            // var totalHtml = templateScript(totalContext);
+            // $("#weekTableBody").append(totalHtml);
 
             var template = $('#tmp_week').html();
             var templateScript = Handlebars.compile(template);
@@ -320,6 +313,42 @@
 
             response.data.detailList.slctType = slctType;
         }
+
+        for(var i=0;i<response.data.detailList.length;i++) {
+            var tmpMonth;
+            var tmpTCnt = 0;
+            var tmpTAmt = 0;
+
+            if (common.isEmpty(tmpMonth)) {
+                tmpMonth = response.data.detailList[i].month;
+                tmpTCnt = tmpTCnt + response.data.detailList[i].specialdj_succ_Cnt + response.data.detailList[i].succ_Cnt;
+                tmpTAmt = tmpTAmt + response.data.detailList[i].specialdj_succ_Amt + response.data.detailList[i].succ_Amt;
+            } else {
+                if (tmpMonth == response.data.detailList[i].month) {
+                    tmpTCnt = tmpTCnt + response.data.detailList[i].specialdj_succ_Cnt + response.data.detailList[i].succ_Cnt;
+                } else {
+                    tmpMonth = response.data.detailList[i].month;
+                    tmpTCnt = 0;
+                    tmpTAmt = 0;
+                }
+                tmpTAmt = tmpTAmt + response.data.detailList[i].specialdj_succ_Amt + response.data.detailList[i].succ_Amt;
+            }
+
+            response.data.detailList[i].totalCnt = tmpTCnt;
+            response.data.detailList[i].totalAmt = tmpTAmt;
+
+            var tmpDay = Number(moment().format("MM") + common.lpad(Number(moment().format("DD")), 2, "0"));
+            var tmpStartDay = Number(response.data.detailList[i].week_startDate.substr(5).replace("-",""));
+            var tmpEndDay = Number(response.data.detailList[i].week_endDate.substr(5).replace("-",""));
+
+            if (tmpStartDay <= tmpDay && tmpEndDay >= tmpDay) {
+                response.data.detailList[i].color = 1;
+            } else {
+                response.data.detailList[i].color = 0;
+            }
+        }
+        console.log("---------------------------------");
+        console.log(response);
 
         var template = $('#tmp_weekDetailList').html();
         var templateScript = Handlebars.compile(template);
@@ -333,9 +362,31 @@
             $("#weekTableBody").append(totalHtml);
         }
 
+        monthRowspan("month");
+        totalRowspan("total");
         ui.paintColor();
         ui.tableHeightSet();
     }
+
+    function monthRowspan(className){
+        $("." + className).each(function() {
+            var rows = $("." + className + ":contains('" + $(this).text() + "')");
+            if (rows.length > 1) {
+                rows.eq(0).attr("rowspan", rows.length);
+                rows.not(":eq(0)").remove();
+            }
+        });
+    }
+    function totalRowspan(className){
+        $("." + className).each(function() {
+            var rows = $("." + className + ":contains('" + $(this).text() + "')");
+            if (rows.length > 1) {
+                rows.eq(0).attr("rowspan", rows.length);
+                rows.not(":eq(0)").remove();
+            }
+        });
+    }
+
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_month_total">
@@ -392,9 +443,9 @@
 <script type="text/x-handlebars-template" id="tmp_gender_total">
     <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
         <td>총계</td>
-        <td colspan="9">{{addComma total_succ_sp}}</td>
+        <td colspan="6">{{addComma total_succ_sp}}</td>
         <td class="_noBorder"></td>
-        <td colspan="9">{{addComma total_succ_no}}</td>
+        <td colspan="6">{{addComma total_succ_no}}</td>
     </tr>
 </script>
 
@@ -407,9 +458,6 @@
         <td>{{addComma tot_specialdj_succ_fcnt}}</td>
         <td>{{addComma tot_specialdj_succ_fAmt}}</td>
         <td>{{addComma tot_specialdj_succ_byeol_fCnt}}</td>
-        <td>{{addComma tot_specialdj_succ_nCnt}}</td>
-        <td>{{addComma tot_specialdj_succ_nAmt}}</td>
-        <td>{{addComma tot_specialdj_succ_byeol_nCnt}}</td>
         <td class="_noBorder"></td>
         <td>{{addComma tot_succ_mCnt}}</td>
         <td>{{addComma tot_succ_mAmt}}</td>
@@ -417,9 +465,6 @@
         <td>{{addComma tot_succ_fCnt}}</td>
         <td>{{addComma tot_succ_fAmt}}</td>
         <td>{{addComma tot_succ_byeol_fCnt}}</td>
-        <td>{{addComma tot_succ_nCnt}}</td>
-        <td>{{addComma tot_succ_nAmt}}</td>
-        <td>{{addComma tot_succ_byeol_nCnt}}</td>
     </tr>
 </script>
 
@@ -435,9 +480,6 @@
         <td>{{addComma specialdj_succ_fcnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_fAmt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_fCnt 'Y'}}</td>
-        <td>{{addComma specialdj_succ_nCnt 'Y'}}</td>
-        <td>{{addComma specialdj_succ_nAmt 'Y'}}</td>
-        <td>{{addComma specialdj_succ_byeol_nCnt 'Y'}}</td>
         <td class="_noBorder"></td>
         <td>{{addComma succ_mCnt 'Y'}}</td>
         <td>{{addComma succ_mAmt 'Y'}}</td>
@@ -445,37 +487,36 @@
         <td>{{addComma succ_fCnt 'Y'}}</td>
         <td>{{addComma succ_fAmt 'Y'}}</td>
         <td>{{addComma succ_byeol_fCnt 'Y'}}</td>
-        <td>{{addComma succ_nCnt 'Y'}}</td>
-        <td>{{addComma succ_nAmt 'Y'}}</td>
-        <td>{{addComma succ_byeol_nCnt 'Y'}}</td>
     </tr>
     {{/each}}
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_week_total">
-    <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
-        <td>총계</td>
-        <td colspan="6">{{addComma total_succ}}</td>
-    </tr>
-</script>
+<%--<script type="text/x-handlebars-template" id="tmp_week_total">--%>
+    <%--<tr class="font-bold" style="background-color: #f2f2f2;color: black;">--%>
+        <%--<td colspan="2">총계</td>--%>
+        <%--<td colspan="6">{{addComma total_succ}}</td>--%>
+    <%--</tr>--%>
+<%--</script>--%>
 
 <script type="text/x-handlebars-template" id="tmp_week">
     <tr class="font-bold" style="background-color: #f2f2f2;color: #fb782d;">
-        <td>총합</td>
+        <td colspan="2">총합</td>
         <td>{{addComma tot_specialdj_succ_Cnt}}</td>
         <td>{{addComma tot_specialdj_succ_Amt}}</td>
         <td>{{addComma tot_specialdj_succ_byeol_Cnt}}</td>
         <td>{{addComma tot_succ_Cnt}}</td>
         <td>{{addComma tot_succ_Amt}}</td>
         <td>{{addComma tot_succ_byeol_Cnt}}</td>
+        <td>{{addComma tot_month_succ_Cnt}}건 / {{addComma tot_month_succ_Amt}}원</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_weekDetailList">
     {{#each this as |data|}}
-    <tr>
-        <td class="font-bold" style="background-color: #dae3f3">
-            {{substr week_startDate 5}} ~ {{substr week_endDate 5}}
+    <tr {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{/dalbit_if}} >
+        <td class="font-bold month" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #b4c7e7" {{/dalbit_if}}> {{month}}월 </td>
+        <td class="font-bold" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #dae3f3" {{/dalbit_if}} >
+            {{monthWeek}}주({{substr week_startDate 5}} ~ {{substr week_endDate 5}})
         </td>
         <td>{{addComma specialdj_succ_Cnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
@@ -483,6 +524,10 @@
         <td>{{addComma succ_Cnt  'Y'}}</td>
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
+        <td class="total" data-month="{{month}}">
+            <span style="display: none">{{month}}</span>
+            {{addComma month_succ_Cnt}}건 / {{addComma month_succ_Amt}}원
+        </td>
     </tr>
     {{/each}}
 </script>
