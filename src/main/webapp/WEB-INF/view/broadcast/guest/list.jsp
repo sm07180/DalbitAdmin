@@ -129,7 +129,7 @@
             <td>{{content.totalAirTime}}</td>
             <td>
                 {{addComma content.totalGiftCnt}}건<br />
-                {{addComma content.totalGiftCnt}}별
+                {{addComma content.totalGiftGold}}별
             </td>
         </tbody>
     </table>

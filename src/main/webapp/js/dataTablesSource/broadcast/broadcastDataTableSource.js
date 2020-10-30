@@ -492,6 +492,14 @@ var BroadcastDataTableSource = {
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
+            {'title': '게스트선물', 'data': 'item_type', 'render': function (data, type, row, meta) {
+                    if(data == 8){
+                        var tmp = "게스트 선물";
+                    }else{
+                        var tmp = "DJ선물";
+                    }
+                    return tmp;
+                }},
             {'title': '보낸 일시', 'data': 'giftDateFormat'},
             {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
                     if(data == 1) var tmp = "O";
