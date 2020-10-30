@@ -208,7 +208,7 @@
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="4">총 수 (방송중/끊김)</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="4">{{addComma content.totalBroadCastCnt}} ({{addCommaaddComma content.broadStateNomal}}/{{addComma content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="4">{{addComma content.totalBroadCastCnt}} ({{addComma content.broadStateNomal}}/{{addComma content.broadBreak}})</td>
         </tr>
     </table>
 </script>
