@@ -207,7 +207,7 @@
             ,day_of_the_week = #{dayOfTheWeek}
             ,week_time_type = #{content_scheduleWeekTime}
             ,week_start_datetime = concat(#{weekStartDatetime},'00')
-            ,week_end_datetime = concat(#{weekEndDatetime},'59')
+            ,week_end_datetime = concat(#{weekEndDatetime},'00')
         WHERE
             idx = #{banner_idx}
     </update>
