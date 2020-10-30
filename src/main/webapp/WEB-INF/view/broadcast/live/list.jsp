@@ -145,16 +145,18 @@
 
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
-                getSearch();
-                getListenUserList();
-                getLoginUserList();
+            getSearch();
+            getListenUserList();
+            getLoginUserList();
+            getGuestList();
         };
     });
 
     $('#bt_search').on('click', function(){
-            getSearch();
-            getListenUserList();
-            getLoginUserList();
+        getSearch();
+        getListenUserList();
+        getLoginUserList();
+        getGuestList();
     });
 
     $("#seldate").hide();
