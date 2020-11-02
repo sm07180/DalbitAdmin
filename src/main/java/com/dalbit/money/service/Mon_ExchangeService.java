@@ -88,13 +88,60 @@ public class Mon_ExchangeService {
                     specialTotal = DalbitUtil.computeExchangeAmt(specialMember.getTotalGold(), 1);
                 }
 
+                ArrayList<Mon_EnableOutputVo> specialMember2 = monExchangeDao.selectExchangeCash2(monExchangeInputVo);
 
+                int notExchangeMemberCnt = 0;
+                long notExchangeMemberByeol = 0;
+                long notExchangeMemberAmt = 0;
+                int monthNot3ExchangeMemberCnt = 0;
+                long monthNot3ExchangeMemberByeol = 0;
+                long monthNot3ExchangeMemberAmt = 0;
+                int month3ExchangeMemberCnt = 0;
+                long month3ExchangeMemberByeol = 0;
+                long month3ExchangeMemberAmt = 0;
+                for(int i=0;i<specialMember2.size();i++){
+                    if(specialMember2.get(i).getType() == 1){ // 1회도 신청하지 않은 회원
+                        notExchangeMemberCnt = notExchangeMemberCnt + specialMember2.get(i).getEnableCnt();
+                        notExchangeMemberByeol = notExchangeMemberByeol + specialMember2.get(i).getTotalGold();
+                        if(specialMember2.get(i).getMemtype().equals("no")){
+                            notExchangeMemberAmt = notExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
+                        }else if(specialMember2.get(i).getMemtype().equals("sp")){
+                            notExchangeMemberAmt = notExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
+                        }
+                    }else if(specialMember2.get(i).getType() == 2){     //3개월 이상 환전 하지 않은 회원
+                        monthNot3ExchangeMemberCnt = monthNot3ExchangeMemberCnt + specialMember2.get(i).getEnableCnt();
+                        monthNot3ExchangeMemberByeol = monthNot3ExchangeMemberByeol + specialMember2.get(i).getTotalGold();
+                        if(specialMember2.get(i).getMemtype().equals("no")){
+                            monthNot3ExchangeMemberAmt = monthNot3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
+                        }else if(specialMember2.get(i).getMemtype().equals("sp")){
+                            monthNot3ExchangeMemberAmt = monthNot3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
+                        }
+                    }else if(specialMember2.get(i).getType() == 3){     //3대월 내 환전한 회원
+                        month3ExchangeMemberCnt = month3ExchangeMemberCnt + specialMember2.get(i).getEnableCnt();
+                        month3ExchangeMemberByeol = month3ExchangeMemberByeol + specialMember2.get(i).getTotalGold();
+                        if(specialMember2.get(i).getMemtype().equals("no")){
+                            month3ExchangeMemberAmt = month3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
+                        }else if(specialMember2.get(i).getMemtype().equals("sp")){
+                            month3ExchangeMemberAmt = month3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
+                        }
+                    }
+                }
                 resultMap.put("enableCnt", generalMember.getEnableCnt() + specialMember.getEnableCnt());
                 resultMap.put("totalGold", generalMember.getTotalGold() + specialMember.getTotalGold());
                 //resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
                 resultMap.put("enableList", enableList);
                 resultMap.put("totalSuccAmt", outTotalPay.getTotalSuccAmt());
                 resultMap.put("totalExchangeAmt", generalTotal + specialTotal);
+                resultMap.put("notExchangeMemberCnt", notExchangeMemberCnt);
+                resultMap.put("notExchangeMemberByeol", notExchangeMemberByeol);
+                resultMap.put("notExchangeMemberAmt", notExchangeMemberAmt);
+                resultMap.put("monthNot3ExchangeMemberCnt", monthNot3ExchangeMemberCnt);
+                resultMap.put("monthNot3ExchangeMemberByeol", monthNot3ExchangeMemberByeol);
+                resultMap.put("monthNot3ExchangeMemberAmt", monthNot3ExchangeMemberAmt);
+                resultMap.put("month3ExchangeMemberCnt", month3ExchangeMemberCnt);
+                resultMap.put("month3ExchangeMemberByeol", month3ExchangeMemberByeol);
+                resultMap.put("month3ExchangeMemberAmt", month3ExchangeMemberAmt);
+
                 return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
 
                 //}else if(monExchangeInputVo.getViewName().equals("rejectList")){

@@ -872,7 +872,7 @@
                 , wallet.gold
                 , (select count(mem_no) from rd_data.tb_member_exchange exchange where exchange.mem_no = member.mem_no and exchange.state = 1) exchangeCnt
             from rd_data.tb_member_basic member
-            inner join rd_data.tb_member_wallet wallet on member.mem_no = wallet.mem_no
+            inner join rd_data.tb_member_wallet wallet on member.mem_no = wallet.mem_no and gold <![CDATA[>=]]> 570
             inner join rd_data.tb_member_profile profile on member.mem_no = profile.mem_no
             where 1=1
             <if test='search_testId == 1'>
@@ -885,6 +885,75 @@
         where 1=1
             <if test='search_exchangeYn == "Y"'>
                 and 0 <![CDATA[<]]> exchangeCnt
+            </if>
+    </select>
+
+
+    <select id="selectExchangeCash2" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_EnableOutputVo">
+        /* Mon_Exchange.xml - selectExchangeCash2 */
+         select '1' type ,count(*) AS enableCnt, sum(a.gold) AS totalGold, 'sp' AS memtype
+           from ( select mem_no, gold from rd_data.tb_member_wallet where gold <![CDATA[>=]]> 570 ) a
+      left join rd_data.tb_member_basic basic on a.mem_no = basic.mem_no
+     inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+          where a.mem_no not in (select mem_no from rd_data.tb_member_exchange where mem_no = a.mem_no)
+            and profile.specialdj_badge = 1
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+          union
+         select '2' type ,count(*) AS enableCnt, sum(a.gold) AS totalGold, 'sp' AS memtype
+           from ( select mem_no, gold from rd_data.tb_member_wallet where gold <![CDATA[>=]]> 570 ) a
+      left join rd_data.tb_member_basic basic on a.mem_no = basic.mem_no
+     inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+          where a.mem_no in (select mem_no from rd_data.tb_member_exchange where mem_no = a.mem_no)
+            and a.mem_no not in (select mem_no From rd_data.tb_member_exchange where reg_date > (SELECT DATE_ADD(NOW(), INTERVAL -3 MONTH)))
+            and profile.specialdj_badge = 1
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+          union
+         select '3' type ,count(*) AS enableCnt, sum(a.gold) AS totalGold, 'sp' AS memtype
+           from ( select mem_no, gold from rd_data.tb_member_wallet where gold <![CDATA[>=]]> 570 ) a
+      left join rd_data.tb_member_basic basic on a.mem_no = basic.mem_no
+     inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+          where a.mem_no in (select mem_no from rd_data.tb_member_exchange where mem_no = a.mem_no)
+            and a.mem_no in (select mem_no From rd_data.tb_member_exchange where reg_date > (SELECT DATE_ADD(NOW(), INTERVAL -3 MONTH)))
+            and profile.specialdj_badge = 1
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+
+          union
+         select '1' type ,count(*) AS enableCnt, sum(a.gold) AS totalGold, 'no' AS memtype
+           from ( select mem_no, gold from rd_data.tb_member_wallet where gold <![CDATA[>=]]> 570 ) a
+      left join rd_data.tb_member_basic basic on a.mem_no = basic.mem_no
+     inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+          where a.mem_no not in (select mem_no from rd_data.tb_member_exchange where mem_no = a.mem_no)
+            and profile.specialdj_badge = 0
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+          union
+         select '2' type ,count(*) AS enableCnt, sum(a.gold) AS totalGold, 'no' AS memtype
+           from ( select mem_no, gold from rd_data.tb_member_wallet where gold <![CDATA[>=]]> 570 ) a
+      left join rd_data.tb_member_basic basic on a.mem_no = basic.mem_no
+     inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+          where a.mem_no in (select mem_no from rd_data.tb_member_exchange where mem_no = a.mem_no)
+            and a.mem_no not in (select mem_no From rd_data.tb_member_exchange where reg_date > (SELECT DATE_ADD(NOW(), INTERVAL -3 MONTH)))
+            and profile.specialdj_badge = 0
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+          union
+         select '3' type ,count(*) AS enableCnt, sum(a.gold) AS totalGold, 'no' AS memtype
+           from ( select mem_no, gold from rd_data.tb_member_wallet where gold <![CDATA[>=]]> 570 ) a
+      left join rd_data.tb_member_basic basic on a.mem_no = basic.mem_no
+     inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+          where a.mem_no in (select mem_no from rd_data.tb_member_exchange where mem_no = a.mem_no)
+            and a.mem_no in (select mem_no From rd_data.tb_member_exchange where reg_date > (SELECT DATE_ADD(NOW(), INTERVAL -3 MONTH)))
+            and profile.specialdj_badge = 0
+            <if test='search_testId == 1'>
+                and basic.inner = 0
             </if>
     </select>
 </mapper>

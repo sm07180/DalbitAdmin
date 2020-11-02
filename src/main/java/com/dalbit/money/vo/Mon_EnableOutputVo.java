@@ -21,6 +21,8 @@ public class Mon_EnableOutputVo {
     private int gold;
     private int exchangeCnt;
     private int specialCnt;
+    private int type;
+    private String memtype;
 
     private int enableCnt;
     private long totalGold;

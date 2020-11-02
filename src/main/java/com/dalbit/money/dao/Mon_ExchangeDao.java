@@ -36,6 +36,9 @@ public interface Mon_ExchangeDao {
     Mon_EnableOutputVo selectExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);
 
     @Transactional(readOnly = true)
+    ArrayList<Mon_EnableOutputVo> selectExchangeCash2(Mon_ExchangeInputVo monExchangeInputVo);     // 1회도 신청하지 않은 회원, 1회 이상신청회원중 3개월 이상 환전하지 않은 회원, 3개월 이내 회원
+
+    @Transactional(readOnly = true)
     Mon_EnableOutputVo totalExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);
 
     @Transactional(readOnly = true)
