@@ -72,6 +72,10 @@ public class Bro_ListenerService {
                 outVo.setListenTime(broadList.get(i).getListenTime());
                 outVo.setAuthStartDateFormat(broadList.get(i).getAuthStartDateFormat());
                 outVo.setAuthEndDateFormat(broadList.get(i).getAuthEndDateFormat());
+
+                outVo.setGoodCnt(broadList.get(i).getGoodCnt());
+                outVo.setBoosterCnt(broadList.get(i).getBoosterCnt());
+                outVo.setGiftCnt(broadList.get(i).getGiftCnt());
                 if(DalbitUtil.isEmpty(broadList.get(i).getUserID())){
                     ArrayList<P_ListenListOutputVo> withdrawal = bro_ListenerDao.callListenerList_withdrawal(broadList.get(i).getMem_no());
                     if(withdrawal.size() > 0) {
