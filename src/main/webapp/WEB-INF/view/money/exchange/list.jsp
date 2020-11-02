@@ -866,11 +866,30 @@
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary2">
     <div class="col-md-12 no-padding">
         <div class="col-md-12 no-padding">
-            <div class="col-lg-12 no-padding mt10">
+            <div class="col-lg-6 no-padding mt10">
                 <label>ㆍ환전완료 정보를 확인하고, 환전 취소 회원에 대한 응대를 할 수 있습니다.</label><br/>
                 <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
                 <div id="warning_desc" style="display:none;">
                     <label style="color:red"><h2>2일 이상 된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
+                </div>
+            </div>
+            <div class="col-md-6 mt10">
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-success print-btn ml5 mr5 no-margin" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
+                    <button class="btn btn-sm btn-primary print-btn ml5 mr5 no-margin" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
+                    <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
+
+                    <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                        <label for="rangeDate" class="input-group-addon">
+                            <span><i class="fa fa-calendar"></i></span>
+                        </label>
+                        <input id="rangeDate" type="text" class="form-control"/>
+                    </div>
+
+                    <input type="hidden" name="startDate" id="startDate">
+                    <input type="hidden" name="endDate" id="endDate" />
+
+                    <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
                 </div>
             </div>
         </div>
@@ -878,25 +897,6 @@
             <%--<div>--%>
             <%--</div>--%>
         <%--</div>--%>
-        <div class="col-md-12">
-            <div class="pull-right">
-                <button class="btn btn-sm btn-success print-btn ml5 mr5 no-margin" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
-                <button class="btn btn-sm btn-primary print-btn ml5 mr5 no-margin" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
-                <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
-
-                <div class="input-group date" id="rangeDatepicker" style="display:none;">
-                    <label for="rangeDate" class="input-group-addon">
-                        <span><i class="fa fa-calendar"></i></span>
-                    </label>
-                    <input id="rangeDate" type="text" class="form-control"/>
-                </div>
-
-                <input type="hidden" name="startDate" id="startDate">
-                <input type="hidden" name="endDate" id="endDate" />
-
-                <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
-            </div>
-        </div>
         <div class="col-md-6 no-padding">
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
