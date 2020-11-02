@@ -201,10 +201,12 @@
         var html = templateScript(context);
         $("#list_info").html(html);
 
-        var pagingInfo = response.pagingVo;
-        goodRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
-        util.renderPagingNavigation('list_info_paginate_top', goodRankListPagingInfo);
-        util.renderPagingNavigation('list_info_paginate', goodRankListPagingInfo);
+        if(response.result == "success"){
+            var pagingInfo = response.pagingVo;
+            goodRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
+            util.renderPagingNavigation('list_info_paginate_top', goodRankListPagingInfo);
+            util.renderPagingNavigation('list_info_paginate', goodRankListPagingInfo);
+        }
     }
 
     $('input[name="rankType"]').on('change', function(){

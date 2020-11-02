@@ -134,10 +134,12 @@
         var html = templateScript(context);
         $("#list_info").html(html);
 
-        var pagingInfo = response.pagingVo;
-        djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
-        util.renderPagingNavigation('list_info_paginate_top', djRankListPagingInfo);
-        util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
+        if(response.result == "success") {
+            var pagingInfo = response.pagingVo;
+            djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
+            util.renderPagingNavigation('list_info_paginate_top', djRankListPagingInfo);
+            util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
+        }
     }
 
     $(document).on('click', '._prevSearch', function(){

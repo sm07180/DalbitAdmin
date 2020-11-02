@@ -226,6 +226,9 @@
                 toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
             }
             response.data.detailList[i].date = toDay;
+
+            response.data.detailList[i].beforMonth = $("#beforMonth").text();
+            response.data.detailList[i].afterMonth = $("#nowMonth").text();
         }
 
         for(var i=0;i<response.data.detailList.length;i++) {
@@ -310,6 +313,9 @@
                 toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
             }
             response.data.detailList[i].date = toDay;
+
+            response.data.detailList[i].beforMonth = $("#beforMonth").text();
+            response.data.detailList[i].afterMonth = $("#nowMonth").text();
         }
 
         var template = $('#tmp_genderDetailList').html();
@@ -426,6 +432,16 @@
             }
         });
     }
+    function exchangeTotalClick(tmp){
+        var month;
+        if(tmp.month == "now"){
+            month = tmp.aftermonth;
+        }else{
+            month = tmp.beformonth;
+        }
+        var popupUrl = "/status/exchange/popup/exchangeList?month=" +month + "&day=" + tmp.day + "&user=" + tmp.user + "&gender=" + tmp.gender;
+        util.windowOpen(popupUrl,"1600","550","환전내역");
+    }
 
 </script>
 
@@ -463,22 +479,23 @@
         <td class="font-bold" style="background-color: #dae3f3">
             {{{date}}}
         </td>
-        <td>{{addComma specialdj_succ_Cnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="special" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma specialdj_succ_Cnt 'Y'}}</a></td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_Cnt 'Y'}}</td>
-        <td>{{addComma succ_Cnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="normal" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma succ_Cnt 'Y'}}</a></td>
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Cnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="special" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nSpecialdj_succ_Cnt 'Y'}}</a></td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_byeol_Cnt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Cnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="normal" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nSucc_Cnt 'Y'}}</a></td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
     </tr>
     {{/each}}
 </script>
+
 
 <script type="text/x-handlebars-template" id="tmp_gender_total">
     <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
@@ -528,29 +545,29 @@
         <td class="font-bold" style="background-color: #dae3f3">
             {{{date}}}
         </td>
-        <td>{{addComma b_specialdj_succ_mCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="special" data-month="befor" data-gender="m" ><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_specialdj_succ_mCnt 'Y'}}</a></td>
         <td>{{addComma b_specialdj_succ_mAmt 'Y'}}</td>
         <td>{{addComma b_specialdj_succ_byeol_mCnt 'Y'}}</td>
-        <td>{{addComma b_specialdj_succ_fcnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="special" data-month="befor" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_specialdj_succ_fcnt 'Y'}}</a></td>
         <td>{{addComma b_specialdj_succ_fAmt 'Y'}}</td>
         <td>{{addComma b_specialdj_succ_byeol_fCnt 'Y'}}</td>
-        <td>{{addComma b_succ_mCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="normal" data-month="befor" data-gender="m"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_succ_mCnt 'Y'}}</a></td>
         <td>{{addComma b_succ_mAmt 'Y'}}</td>
         <td>{{addComma b_succ_byeol_mCnt 'Y'}}</td>
-        <td>{{addComma b_succ_fCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="normal" data-month="befor" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_succ_fCnt 'Y'}}</a></td>
         <td>{{addComma b_succ_fAmt 'Y'}}</td>
         <td>{{addComma b_succ_byeol_fCnt 'Y'}}</td>
         <td class="_noBorder"></td>
-        <td>{{addComma specialdj_succ_mCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="special" data-month="now" data-gender="m"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma specialdj_succ_mCnt 'Y'}}</a></td>
         <td>{{addComma specialdj_succ_mAmt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_mCnt 'Y'}}</td>
-        <td>{{addComma specialdj_succ_fcnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="special" data-month="now" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma specialdj_succ_fcnt 'Y'}}</a></td>
         <td>{{addComma specialdj_succ_fAmt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_fCnt 'Y'}}</td>
-        <td>{{addComma succ_mCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="normal" data-month="now" data-gender="m"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma succ_mCnt 'Y'}}</a></td>
         <td>{{addComma succ_mAmt 'Y'}}</td>
         <td>{{addComma succ_byeol_mCnt 'Y'}}</td>
-        <td>{{addComma succ_fCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="normal" data-month="now" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma succ_fCnt 'Y'}}</a></td>
         <td>{{addComma succ_fAmt 'Y'}}</td>
         <td>{{addComma succ_byeol_fCnt 'Y'}}</td>
     </tr>
