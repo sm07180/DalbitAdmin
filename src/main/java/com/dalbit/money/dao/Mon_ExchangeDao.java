@@ -1,10 +1,7 @@
 package com.dalbit.money.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.money.vo.Mon_EnableOutputVo;
-import com.dalbit.money.vo.Mon_ExchangeInputVo;
-import com.dalbit.money.vo.Mon_ExchangeOutputVo;
-import com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo;
+import com.dalbit.money.vo.*;
 import com.dalbit.payment.vo.Pay_CancelVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,5 +56,8 @@ public interface Mon_ExchangeDao {
 
     @Transactional(readOnly = true)
     int testid_historyCnt(String mem_no);
+
+    @Transactional(readOnly = true)
+    ArrayList<Mon_EnableSummaryVo> selectEnableSummary(Mon_EnableSummaryVo monEnableSummaryVo);
 
 }

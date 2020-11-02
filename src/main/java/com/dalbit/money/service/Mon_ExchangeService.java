@@ -15,10 +15,7 @@ import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberParentsAgreeOutputVo;
 import com.dalbit.money.dao.Mon_ExchangeDao;
-import com.dalbit.money.vo.Mon_EnableOutputVo;
-import com.dalbit.money.vo.Mon_ExchangeInputVo;
-import com.dalbit.money.vo.Mon_ExchangeOutputVo;
-import com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo;
+import com.dalbit.money.vo.*;
 import com.dalbit.money.vo.procedure.P_ExchangeCancelInputVo;
 import com.dalbit.payment.dao.Pay_PayDao;
 import com.dalbit.payment.vo.Pay_PaySumOutputVo;
@@ -88,7 +85,12 @@ public class Mon_ExchangeService {
                     specialTotal = DalbitUtil.computeExchangeAmt(specialMember.getTotalGold(), 1);
                 }
 
-                ArrayList<Mon_EnableOutputVo> specialMember2 = monExchangeDao.selectExchangeCash2(monExchangeInputVo);
+
+                var monEnableSummaryVo = new Mon_EnableSummaryVo();
+                monEnableSummaryVo.setSearch_testId(monExchangeInputVo.getSearch_testId());
+                monEnableSummaryVo.setSearch_exchangeYn(monExchangeInputVo.getSearch_exchangeYn());
+
+                ArrayList<Mon_EnableSummaryVo> summaryList = monExchangeDao.selectEnableSummary(monEnableSummaryVo);
 
                 int notExchangeMemberCnt = 0;
                 long notExchangeMemberByeol = 0;
@@ -99,39 +101,36 @@ public class Mon_ExchangeService {
                 int month3ExchangeMemberCnt = 0;
                 long month3ExchangeMemberByeol = 0;
                 long month3ExchangeMemberAmt = 0;
-                for(int i=0;i<specialMember2.size();i++){
-                    if(specialMember2.get(i).getType() == 1){ // 1회도 신청하지 않은 회원
-                        notExchangeMemberCnt = notExchangeMemberCnt + specialMember2.get(i).getEnableCnt();
-                        notExchangeMemberByeol = notExchangeMemberByeol + specialMember2.get(i).getTotalGold();
-                        if(specialMember2.get(i).getMemtype().equals("no")){
-                            notExchangeMemberAmt = notExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
-                        }else if(specialMember2.get(i).getMemtype().equals("sp")){
-                            notExchangeMemberAmt = notExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
-                        }
-                    }else if(specialMember2.get(i).getType() == 2){     //3개월 이상 환전 하지 않은 회원
-                        monthNot3ExchangeMemberCnt = monthNot3ExchangeMemberCnt + specialMember2.get(i).getEnableCnt();
-                        monthNot3ExchangeMemberByeol = monthNot3ExchangeMemberByeol + specialMember2.get(i).getTotalGold();
-                        if(specialMember2.get(i).getMemtype().equals("no")){
-                            monthNot3ExchangeMemberAmt = monthNot3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
-                        }else if(specialMember2.get(i).getMemtype().equals("sp")){
-                            monthNot3ExchangeMemberAmt = monthNot3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
-                        }
-                    }else if(specialMember2.get(i).getType() == 3){     //3대월 내 환전한 회원
-                        month3ExchangeMemberCnt = month3ExchangeMemberCnt + specialMember2.get(i).getEnableCnt();
-                        month3ExchangeMemberByeol = month3ExchangeMemberByeol + specialMember2.get(i).getTotalGold();
-                        if(specialMember2.get(i).getMemtype().equals("no")){
-                            month3ExchangeMemberAmt = month3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
-                        }else if(specialMember2.get(i).getMemtype().equals("sp")){
-                            month3ExchangeMemberAmt = month3ExchangeMemberAmt + DalbitUtil.computeExchangeAmt(specialMember2.get(i).getTotalGold(), 1);
-                        }
+                int exchangeTotal = 0;
+                long exchangeByeolTotal = 0;
+                long exchangeAmtTotal = 0;
+
+                for(int i=0; i < summaryList.size(); i++){
+                    exchangeTotal += summaryList.get(i).getCount();
+                    exchangeByeolTotal += summaryList.get(i).getGeneral() + summaryList.get(i).getSpecial();
+                    exchangeAmtTotal += 0 < summaryList.get(i).getGeneral() ? DalbitUtil.computeExchangeAmt(summaryList.get(i).getGeneral(), 0): 0;
+                    if(i == 0){
+                        notExchangeMemberCnt = summaryList.get(i).getCount();
+                        notExchangeMemberByeol = summaryList.get(i).getGeneral() + summaryList.get(i).getSpecial();
+                        notExchangeMemberAmt = 0 < summaryList.get(i).getGeneral() ? DalbitUtil.computeExchangeAmt(summaryList.get(i).getGeneral(), 0): 0;
+                    }else if(i == 1){
+                        monthNot3ExchangeMemberCnt = summaryList.get(i).getCount();
+                        monthNot3ExchangeMemberByeol = summaryList.get(i).getGeneral() + summaryList.get(i).getSpecial();
+                        monthNot3ExchangeMemberAmt = 0 < summaryList.get(i).getGeneral() ? DalbitUtil.computeExchangeAmt(summaryList.get(i).getGeneral(), 0): 0;
+                    }else if(i == 2){
+                        month3ExchangeMemberCnt = summaryList.get(i).getCount();
+                        month3ExchangeMemberByeol = summaryList.get(i).getGeneral() + summaryList.get(i).getSpecial();
+                        month3ExchangeMemberAmt = 0 < summaryList.get(i).getGeneral() ? DalbitUtil.computeExchangeAmt(summaryList.get(i).getGeneral(), 0): 0;
                     }
                 }
-                resultMap.put("enableCnt", generalMember.getEnableCnt() + specialMember.getEnableCnt());
+
+                resultMap.put("enableCnt", outVo.getEnableCnt());
                 resultMap.put("totalGold", generalMember.getTotalGold() + specialMember.getTotalGold());
                 //resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
                 resultMap.put("enableList", enableList);
                 resultMap.put("totalSuccAmt", outTotalPay.getTotalSuccAmt());
                 resultMap.put("totalExchangeAmt", generalTotal + specialTotal);
+
                 resultMap.put("notExchangeMemberCnt", notExchangeMemberCnt);
                 resultMap.put("notExchangeMemberByeol", notExchangeMemberByeol);
                 resultMap.put("notExchangeMemberAmt", notExchangeMemberAmt);
@@ -141,6 +140,9 @@ public class Mon_ExchangeService {
                 resultMap.put("month3ExchangeMemberCnt", month3ExchangeMemberCnt);
                 resultMap.put("month3ExchangeMemberByeol", month3ExchangeMemberByeol);
                 resultMap.put("month3ExchangeMemberAmt", month3ExchangeMemberAmt);
+                resultMap.put("exchangeTotal", exchangeTotal);
+                resultMap.put("exchangeByeolTotal", exchangeByeolTotal);
+                resultMap.put("exchangeAmtTotal", exchangeAmtTotal);
 
                 return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
 
@@ -656,5 +658,27 @@ public class Mon_ExchangeService {
         }
 
         return bodies;
+    }
+
+    public String selectEnableSummary(Mon_EnableSummaryVo monEnableSummaryVo){
+
+        ArrayList<Mon_EnableSummaryVo> summaryList = monExchangeDao.selectEnableSummary(monEnableSummaryVo);
+
+        Mon_EnableSummaryVo total = new Mon_EnableSummaryVo();
+        summaryList.forEach(summary ->{
+            summary.setGeneralAmt(0 < summary.getGeneral() ? DalbitUtil.computeExchangeAmt(summary.getGeneral(), 0): 0);
+            summary.setSpecialAmt(0 < summary.getSpecial() ? DalbitUtil.computeExchangeAmt(summary.getSpecial(), 1): 0);
+            summary.setTotalAmt(summary.getGeneralAmt() + summary.getSpecialAmt());
+
+            total.setCount(total.getCount() + summary.getCount());
+            total.setGeneral(total.getGeneral() + summary.getGeneral());
+            total.setGeneralAmt(total.getGeneralAmt() + summary.getGeneralAmt());
+            total.setSpecial(total.getSpecial() + summary.getSpecial());
+            total.setSpecialAmt(total.getSpecialAmt() + summary.getSpecialAmt());
+        });
+
+        summaryList.add(total);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, summaryList));
     }
 }

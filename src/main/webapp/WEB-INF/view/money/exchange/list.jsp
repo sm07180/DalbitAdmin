@@ -353,7 +353,7 @@
             }
             limitDay = moment(new Date()).add('days', prevDay).format('YYYYMMDD');
         }else{*/
-            limitDay = moment(new Date()).format('YYYYMMDD');
+        limitDay = moment(new Date()).format('YYYYMMDD');
         /*}*/
 
         response.data.limitDay = limitDay;
@@ -615,7 +615,7 @@
             $("#label_send_title").text(title);
 
             var text = "환전신청 시 첨부하여주신 파일이 명확하게 확인되지 않아 승인이 거부되었습니다.\n" +
-                        "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시(캡쳐 또는 사진을 찍어) 첨부한 후 신청해주시기 바랍니다.";
+                "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시(캡쳐 또는 사진을 찍어) 첨부한 후 신청해주시기 바랍니다.";
             $("#send_cont").val(text);
             util.textareaResize(document.getElementById("send_cont"), 90)
         }
@@ -638,7 +638,7 @@
             $("#label_send_title").text(title);
 
             var text = "환전신청 시 입력하신 정보와 첨부파일 정보가 일치하지 않습니다.\n" +
-                        "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시 캡쳐 또는 사진을 찍어 첨부하여 신청해주시기 바랍니다.";
+                "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시 캡쳐 또는 사진을 찍어 첨부하여 신청해주시기 바랍니다.";
             $("#send_cont").val(text);
             util.textareaResize(document.getElementById("send_cont"), 90)
         }
@@ -758,8 +758,8 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
-    <div class="col-lg-12 no-padding" style="height: 144px">
-        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" style="width: 48%" data-height="24">
+    <div class="col-lg-12 no-padding">
+        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" style="width: 48%;font: message-box;" data-height="24">
             <colgroup>
                 <col width="80px"/>
                 <col width="80px"/>
@@ -901,8 +901,8 @@
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
             <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <span id="selGender" onchange="gender_click();"></span>
-            </c:if>
+    <span id="selGender" onchange="gender_click();"></span>
+</c:if>
         </div>
     </div>
 </script>
@@ -943,8 +943,8 @@
             <th><input type="checkbox" id="allChk"></th>
             <th>프로필</th>
             <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <th>신분증</th>
-            </c:if>
+    <th>신분증</th>
+</c:if>
             <th>회원번호</th>
             <th>닉네임</th>
             <th>성별</th>
@@ -1000,10 +1000,10 @@
             </form>
         </td>
         <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-        <td >
-            <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
-        </td>
-        </c:if>
+    <td >
+    <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
+    </td>
+</c:if>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
@@ -1030,13 +1030,13 @@
     {{else}}
     <tr>
         <c:choose>
-            <c:when test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <td colspan="24">{{isEmptyData}}</td>
-            </c:when>
-            <c:otherwise>
-                <td colspan="23">{{isEmptyData}}</td>
-            </c:otherwise>
-        </c:choose>
+    <c:when test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
+        <td colspan="24">{{isEmptyData}}</td>
+    </c:when>
+    <c:otherwise>
+        <td colspan="23">{{isEmptyData}}</td>
+    </c:otherwise>
+</c:choose>
     </tr>
     {{/each}}
 </script>
@@ -1320,8 +1320,8 @@
 
 <!-- 환전신청 가능회원 -->
 <script type="text/x-handlebars-template" id="tmp_enableSummary">
-    <div class="col-lg-12 no-padding" style="height: 122px">
-        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" data-height="24">
+    <div class="col-lg-12 no-padding">
+        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" data-height="24" style="font:message-box;">
             <colgroup>
                 <col width="25%"/><col width="28%"/><col width="12%"/><col width="15%"/><col width="20%"/>
             </colgroup>
@@ -1355,9 +1355,9 @@
             </tr>
             <tr>
                 <th colspan="2">총계</th>
-                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.enableCnt}} 명</td>
-                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.totalGold}} 별</td>
-                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.netProfit}} 원</td>
+                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.exchangeTotal}} 명</td>
+                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.exchangeByeolTotal}} 별</td>
+                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.exchangeAmtTotal}} 원</td>
             </tr>
         </table>
     </div>
@@ -1402,28 +1402,28 @@
 
 <script type="text/x-handlebars-template" id="tmp_enableList">
     {{#each this.enableList as |data|}}
-    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
-        <td>
-            {{indexDesc ../enableCnt data.rowNum}}
-        </td>
-        <td>
-            {{{getMemStateName data.mem_state}}}
-        </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
-        <td>{{data.mem_userid}}</td>
-        <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
-        <td>{{addComma data.gold}}별</td>
-        <td>{{math data.gold "*" 60}}원</td>
-        <td>{{specialBenefit data.gold data.specialCnt}}원</td>
-        <td>{{exchangeAmt data.gold data.specialCnt}}원</td>
-        <td>{{addComma data.exchangeCnt}}번</td>
-    </tr>
+        <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
+            <td>
+                {{indexDesc ../enableCnt data.rowNum}}
+            </td>
+            <td>
+                {{{getMemStateName data.mem_state}}}
+            </td>
+            <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
+            <td>{{data.mem_userid}}</td>
+            <td>{{data.mem_nick}}</td>
+            <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
+            <td>{{addComma data.gold}}별</td>
+            <td>{{math data.gold "*" 60}}원</td>
+            <td>{{specialBenefit data.gold data.specialCnt}}원</td>
+            <td>{{exchangeAmt data.gold data.specialCnt}}원</td>
+            <td>{{addComma data.exchangeCnt}}번</td>
+        </tr>
 
     {{else}}
-    <tr>
-        <td colspan="12">{{isEmptyData}}</td>
-    </tr>
+        <tr>
+            <td colspan="12">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>
 
@@ -1486,46 +1486,46 @@
 
 <script type="text/x-handlebars-template" id="tmp_rejectList">
     {{#each this.rejectList as |data|}}
-    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
-        <td>
-            {{indexDesc ../rejectCnt data.rowNum}}
-        </td>
-        <td>
-            {{{getMemStateName data.mem_state}}}
-        </td>
-        <td>
-            {{^equal data.benefit 0}}
-            <span class="label" style="background-color:red">스페셜DJ</span>
-            {{/equal}}
-        </td>
-        <td >
-            <form id="profileImg" method="post" enctype="multipart/form-data">
-                <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
-                     style="width: 50px;height: 50px;margin-bottom: 0px;" />
-            </form>
-        </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
-        <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
-        <td>{{data.mem_name}}</td>
-        <td>{{data.account_name}}</td>
-        <td>{{addComma data.cash_basic}}원</td>
-        <td>{{addComma data.benefit}}원</td>
-        <td>{{addComma data.cash_real}}원</td>
-        <td>{{addComma data.byeol}}별</td>
-        <td>{{addComma data.gold}}별</td>
-        <td>{{data.testid_history}}</td>
-        <td>{{addComma data.exchangeCnt}}번</td>
-        <td>{{addComma data.totalCashReal}}번</td>
-        <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td>{{data.op_name}}</td>
-        <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
-    </tr>
+        <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
+            <td>
+                {{indexDesc ../rejectCnt data.rowNum}}
+            </td>
+            <td>
+                {{{getMemStateName data.mem_state}}}
+            </td>
+            <td>
+                {{^equal data.benefit 0}}
+                    <span class="label" style="background-color:red">스페셜DJ</span>
+                {{/equal}}
+            </td>
+            <td >
+                <form id="profileImg" method="post" enctype="multipart/form-data">
+                    <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
+                         style="width: 50px;height: 50px;margin-bottom: 0px;" />
+                </form>
+            </td>
+            <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
+            <td>{{data.mem_nick}}</td>
+            <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
+            <td>{{data.mem_name}}</td>
+            <td>{{data.account_name}}</td>
+            <td>{{addComma data.cash_basic}}원</td>
+            <td>{{addComma data.benefit}}원</td>
+            <td>{{addComma data.cash_real}}원</td>
+            <td>{{addComma data.byeol}}별</td>
+            <td>{{addComma data.gold}}별</td>
+            <td>{{data.testid_history}}</td>
+            <td>{{addComma data.exchangeCnt}}번</td>
+            <td>{{addComma data.totalCashReal}}번</td>
+            <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{data.op_name}}</td>
+            <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
+        </tr>
 
     {{else}}
-    <tr>
-        <td colspan="21">{{isEmptyData}}</td>
-    </tr>
+        <tr>
+            <td colspan="21">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>

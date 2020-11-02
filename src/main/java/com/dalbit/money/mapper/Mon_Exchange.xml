@@ -792,7 +792,7 @@
             inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no and 570 <![CDATA[<=]]> wallet.gold
             left outer join (select idx, mem_no, count(*) exchangeCnt from rd_data.tb_member_exchange where state = 1 group by mem_no) exchange on basic.mem_no = exchange.mem_no
 
-            where 1 = 1
+            where 570 <![CDATA[<=]]> wallet.gold
             <if test='search_value != null and search_value != ""'>
                 <choose>
                     <when test="search_type == 'mem_no'">
@@ -872,9 +872,9 @@
                 , wallet.gold
                 , (select count(mem_no) from rd_data.tb_member_exchange exchange where exchange.mem_no = member.mem_no and exchange.state = 1) exchangeCnt
             from rd_data.tb_member_basic member
-            inner join rd_data.tb_member_wallet wallet on member.mem_no = wallet.mem_no and gold <![CDATA[>=]]> 570
+            inner join rd_data.tb_member_wallet wallet on member.mem_no = wallet.mem_no and 570 <![CDATA[<=]]> wallet.gold
             inner join rd_data.tb_member_profile profile on member.mem_no = profile.mem_no
-            where 1=1
+            where 570 <![CDATA[<=]]> wallet.gold
             <if test='search_testId == 1'>
                 and member.inner = 0
             </if>
@@ -955,5 +955,86 @@
             <if test='search_testId == 1'>
                 and basic.inner = 0
             </if>
+    </select>
+
+    <select id="selectEnableSummary" parameterType="com.dalbit.money.vo.Mon_EnableSummaryVo" resultType="com.dalbit.money.vo.Mon_EnableSummaryVo">
+        /*환전내역이 없는 사람*/
+        select count(gold) count
+            , ifnull(sum(general), 0) general
+            , ifnull(sum(special), 0) special
+        from(
+            select wallet.gold,
+                ifnull(case when profile.specialdj_badge = 0 then wallet.gold end,0) general,
+                ifnull(case when profile.specialdj_badge = 1 then wallet.gold end,0) special
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no and 570 <![CDATA[<=]]> wallet.gold
+                left outer join (select mem_no, max(op_date) lastOpDate
+                                    from rd_data.tb_member_exchange
+                                    where state = 1
+                                    group by mem_no) exchange on basic.mem_no = exchange.mem_no
+            where lastOpDate is null
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+            <if test='search_exchangeYn == "Y"'>
+                and lastOpDate is not null
+            </if>
+        ) sum
+
+        union all
+
+        /*3개월 이상 환전하지 않은사람*/
+        select count(gold) count
+            , ifnull(sum(general), 0) general
+            , ifnull(sum(special), 0) special
+        from(
+            select wallet.gold,
+                ifnull(case when profile.specialdj_badge = 0 then wallet.gold end,0) general,
+                ifnull(case when profile.specialdj_badge = 1 then wallet.gold end,0) special
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no and 570 <![CDATA[<=]]> wallet.gold
+                left outer join (select mem_no, max(op_date) lastOpDate
+                                    from rd_data.tb_member_exchange
+                                    where state = 1
+                                    group by mem_no) exchange on basic.mem_no = exchange.mem_no
+                where lastOpDate is not null
+                and lastOpDate <![CDATA[>]]> DATE_SUB(now(), interval 3 month)
+                <if test='search_testId == 1'>
+                    and basic.inner = 0
+                </if>
+                <if test='search_exchangeYn == "Y"'>
+                    and lastOpDate is not null
+                </if>
+        ) sum
+
+
+        union all
+
+        /*3개월 내 환전한 회원*/
+        select count(gold) count
+            , ifnull(sum(general), 0) general
+            , ifnull(sum(special), 0) special
+        from(
+            select wallet.gold,
+                ifnull(case when profile.specialdj_badge = 0 then wallet.gold end,0) general,
+                ifnull(case when profile.specialdj_badge = 1 then wallet.gold end,0) special
+            from rd_data.tb_member_basic basic
+                inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no and 570 <![CDATA[<=]]> wallet.gold
+                left outer join (select mem_no, max(op_date) lastOpDate
+                                    from rd_data.tb_member_exchange
+                                    where state = 1
+                                    group by mem_no) exchange on basic.mem_no = exchange.mem_no
+                where lastOpDate is not null
+                and lastOpDate <![CDATA[<=]]> DATE_SUB(now(), interval 3 month)
+                <if test='search_testId == 1'>
+                    and basic.inner = 0
+                </if>
+                <if test='search_exchangeYn == "Y"'>
+                    and lastOpDate is not null
+                </if>
+        ) sum
     </select>
 </mapper>
