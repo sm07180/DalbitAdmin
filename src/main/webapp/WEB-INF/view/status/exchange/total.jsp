@@ -440,7 +440,7 @@
             month = tmp.beformonth;
         }
         var popupUrl = "/status/exchange/popup/exchangeList?month=" +month + "&day=" + tmp.day + "&user=" + tmp.user + "&gender=" + tmp.gender;
-        util.windowOpen(popupUrl,"1600","550","환전내역");
+        util.windowOpen(popupUrl,"1600","800","환전내역");
     }
 
 </script>

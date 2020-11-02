@@ -1,4 +1,12 @@
 /** =------ Notice ---------- */
+var notice_platform = [
+    new COMMON_CODE(null, 'platform', '플랫폼')
+    , new COMMON_CODE('all', '111', '전체')
+    , new COMMON_CODE('title', '100', 'PC')
+    , new COMMON_CODE('content', '010', '안드로이드')
+    , new COMMON_CODE('opName', '3', '작성자')
+];
+
 var notice_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
@@ -149,7 +157,7 @@ var push_push_slct = [
     , new COMMON_CODE('60', '60', '1:1 문의 답변')
     , new COMMON_CODE('61', '61', '운영자 선물 수신')
     , new COMMON_CODE('62', '62', '환전 완료')
-    , new COMMON_CODE('63', '63', '환전 불가')
+    , new COMMON_CODE('63', '63', '환전 취소')
     , new COMMON_CODE('92', '92', '운영자(회원 + 비회원)')
     , new COMMON_CODE('93', '93', '운영자(회원)')
     , new COMMON_CODE('94', '94', '운영자(비회원)')
@@ -174,6 +182,8 @@ var banner_searchType = [
     , new COMMON_CODE('content', '2', '메시지 내용')
 ];
 
+
+//배너타입 추가 시 하단에 banner_bannerType_popup이나 banner_bannerType_banner에도 추가해주세요.
 var banner_bannerType = [
     new COMMON_CODE(null, 'bannerType', '배너구분')
     , new COMMON_CODE('all', '-1', '전체')
@@ -186,6 +196,33 @@ var banner_bannerType = [
     , new COMMON_CODE('popup', '6', '팝업')
     , new COMMON_CODE('startPopup', '7', '시작팝업')
     , new COMMON_CODE('endPopup', '8', '종료팝업')
+    , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
+    , new COMMON_CODE('clip', '10', '클립 Center')
+    , new COMMON_CODE('clipMain', '13', '클립 팝업')
+    , new COMMON_CODE('exchangePopup', '11', '환전팝업')
+    , new COMMON_CODE('storePopup', '12', '스토어팝업')
+    , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
+];
+
+var banner_bannerType_popup = [
+    new COMMON_CODE(null, 'bannerType', '배너구분')
+    , new COMMON_CODE('popup', '6', '팝업')
+    , new COMMON_CODE('startPopup', '7', '시작팝업')
+    , new COMMON_CODE('endPopup', '8', '종료팝업')
+    , new COMMON_CODE('clipMain', '13', '클립 팝업')
+    , new COMMON_CODE('exchangePopup', '11', '환전팝업')
+    , new COMMON_CODE('storePopup', '12', '스토어팝업')
+    , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
+];
+
+var banner_bannerType_banner = [
+    new COMMON_CODE(null, 'bannerType', '배너구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('gnb', '0', 'GNB')
+    , new COMMON_CODE('top', '1', 'MainTop')
+    , new COMMON_CODE('dj', '3', 'DJ랭킹')
+    , new COMMON_CODE('store', '4', '스토어')
+    , new COMMON_CODE('center', '5', '고객센터')
     , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
     , new COMMON_CODE('clip', '10', '클립 Center')
 ];
@@ -360,6 +397,19 @@ var event_winnerState = [
     , new COMMON_CODE('send wait', '2', '발송 대기 중')
     , new COMMON_CODE('complete', '3', '완료')
 ];
+
+var event_contentType = [
+    new COMMON_CODE(null, 'content_type', '이벤트 컨텐츠 타입')
+    , new COMMON_CODE('image', 'image', '이미지')
+    , new COMMON_CODE('button', 'button', '버튼')
+]
+
+var event_content_button_type = [
+    new COMMON_CODE(null, 'button_type', '이벤트 컨텐츠 버튼 타입')
+    , new COMMON_CODE('link', 'link', '링크이동')
+    , new COMMON_CODE('popup', 'popup', '팝업')
+    , new COMMON_CODE('popup', 'popup', '팝업')
+]
 
 /** =------ Item ---------- */
 var item_searchType = [

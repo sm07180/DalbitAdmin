@@ -1088,4 +1088,32 @@ public class DalbitUtil {
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
+
+    /**
+     * 스페셜DJ 환전 실수령액 계산
+     * @param amt
+     * @param isSpecial
+     * @return
+     */
+    public static long computeExchangeAmt(long star, int isSpecial){
+
+        long cashBasic = star * 60;
+        long specialBenefit = 0;
+
+        //스페셜DJ 혜택
+        if(isSpecial == 1){
+            specialBenefit = (long) (Math.floor(cashBasic * 0.005) * 10);
+        }
+
+        long sum = cashBasic + specialBenefit;
+
+        long incomeTax = (long) (Math.floor(sum * 0.003) * 10);
+        long residentTax = (long) (Math.floor(incomeTax * 0.01) * 10);
+        long taxCash = incomeTax + residentTax; //원천징수세액
+        long feeCash = 500; //이체수수료
+
+        long total = sum - taxCash - feeCash;
+
+        return total;
+    }
 }

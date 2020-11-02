@@ -1,10 +1,7 @@
 package com.dalbit.money.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.money.vo.Mon_EnableOutputVo;
-import com.dalbit.money.vo.Mon_ExchangeInputVo;
-import com.dalbit.money.vo.Mon_ExchangeOutputVo;
-import com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo;
+import com.dalbit.money.vo.*;
 import com.dalbit.payment.vo.Pay_CancelVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +28,13 @@ public interface Mon_ExchangeDao {
 
     @Transactional(readOnly = true)
     Mon_EnableOutputVo selectEnableCnt(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
+    Mon_EnableOutputVo selectExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<Mon_EnableOutputVo> selectExchangeCash2(Mon_ExchangeInputVo monExchangeInputVo);     // 1회도 신청하지 않은 회원, 1회 이상신청회원중 3개월 이상 환전하지 않은 회원, 3개월 이내 회원
+
     @Transactional(readOnly = true)
     Mon_EnableOutputVo totalExchangeCash(Mon_ExchangeInputVo monExchangeInputVo);
 
@@ -52,5 +56,8 @@ public interface Mon_ExchangeDao {
 
     @Transactional(readOnly = true)
     int testid_historyCnt(String mem_no);
+
+    @Transactional(readOnly = true)
+    ArrayList<Mon_EnableSummaryVo> selectEnableSummary(Mon_EnableSummaryVo monEnableSummaryVo);
 
 }

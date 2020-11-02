@@ -819,9 +819,9 @@ var BroadcastDataTableSource = {
             {'title': '연결 시간', 'data': 'connect_time', 'render': function (data, type, row, meta) {
                     return common.timeStampDay(data,0,8);
                 }},
-            // {'title': '참여형태', 'data': 'join_form', 'render': function (data, type, row, meta) {
-            //         return data;
-            //     }},
+            {'title': '참여형태', 'data': 'join_form', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
             {'title': '방송참여', 'data': 'total_cnt', 'render': function (data, type, row, meta) {
                     return data + ' 번';
                 }},
@@ -829,10 +829,10 @@ var BroadcastDataTableSource = {
                     return data + ' 번';
                 }},
             {'title': '선물 수', 'data': 'gift_cnt', 'render': function (data, type, row, meta) {
-                    return data + ' 개';
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo=' + row.mem_no + ' data-tabid="tab_walletDetail">' + data + ' 개</a>';
                 }},
             {'title': '선물 별', 'data': 'byeol_cnt', 'render': function (data, type, row, meta) {
-                    return data + ' 별';
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo=' + row.mem_no + ' data-tabid="tab_walletDetail">' + data + ' 별</a>';
                 }},
             {'title': '[강제 종료]<br/>[경고/정지]', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     if(row.now_state == "종료"){

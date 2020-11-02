@@ -12,36 +12,41 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
-            <form id="searchForm">
-                <div class="row col-lg-12 form-inline no-padding">
-                    <%--<input type="hidden" name="pageStart" id="pageStart">
-                    <input type="hidden" name="pageCnt" id="pageCnt">--%>
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 환전 검색</h3>
-                            <div>
-                                <span id="searchYearArea"></span>
-                                <span id="searchMonthArea"></span>
+            <div class="col-md-12 no-padding">
+                <form id="searchForm">
+                    <div class="row col-lg-7 form-inline no-padding">
+                        <%--<input type="hidden" name="pageStart" id="pageStart">
+                        <input type="hidden" name="pageCnt" id="pageCnt">--%>
+                        <div class="widget widget-table searchBoxArea">
+                            <div class="widget-header searchBoxRow">
+                                <h3 class="title"><i class="fa fa-search"></i> 환전 검색</h3>
+                                <div>
+                                    <span id="searchYearArea"></span>
+                                    <span id="searchMonthArea"></span>
 
-                                <span id="searchTypeArea" class="ml10"></span>
-                                <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <span id="searchTypeArea" class="ml10"></span>
+                                    <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
-                                <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>--%>
-                                <label class="control-inline fancy-checkbox custom-color-green">
-                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                                    <span>테스트 아이디 제외</span>
-                                </label>
+                                    <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>--%>
+                                    <label class="control-inline fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                        <span>테스트 아이디 제외</span>
+                                    </label>
 
-                                <label class="control-inline fancy-checkbox custom-color-green" id="exchangeCheckArea">
-                                    <input type="checkbox" name="search_exchangeYn" id="search_exchangeYn" value="1">
-                                    <span>1회 이상 환전 회원</span>
-                                </label>
+                                    <label class="control-inline fancy-checkbox custom-color-green" id="exchangeCheckArea">
+                                        <input type="checkbox" name="search_exchangeYn" id="search_exchangeYn" value="1">
+                                        <span>1회 이상 환전 회원</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </form>
+                <div class="col-md-5 no-padding pull-right">
+                    <div id="summaryArea"></div>
                 </div>
-            </form>
+            </div>
             <!-- //serachBox -->
 
             <div class="row widget-content">
@@ -56,10 +61,10 @@
                     <li class="active"><a href="#exchange" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
                 </ul>
             </div>
-            <div class="tab-content">
+            <div class="row tab-content">
                 <div class="tab-pane fade in active" id="exchange" >
                     <!-- DATA TABLE -->
-                    <div class="row col-lg-12 form-inline block no-padding" id="topBotton">
+                    <div class="col-lg-12 form-inline no-padding" id="topBotton">
                         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                             <li class="_tab">
                                 <a href="/status/exchange/info">총계</a>
@@ -223,6 +228,7 @@
             $("#searchYearArea").show();
             $("#searchMonthArea").show();
             $("#searchStateArea").show();
+            $("#summaryArea").show();
 
             exchangeList(tmp);
         }else if(targetAnchor.prop('id') == 'rejectList'){
@@ -231,6 +237,7 @@
             $("#searchYearArea").show();
             $("#searchMonthArea").show();
             $("#searchStateArea").show();
+            $("#summaryArea").hide();
 
             rejectList();
 
@@ -240,6 +247,7 @@
             $("#searchYearArea").hide();
             $("#searchMonthArea").hide();
             $("#searchStateArea").hide();
+            $("#summaryArea").show();
 
             enableList();
         }
@@ -250,11 +258,18 @@
             var template = $('#tmp_exchangeSummary').html();
             var templateScript = Handlebars.compile(template);
             var html = templateScript();
+            $("#summaryArea").html(html);
+
+            var template = $('#tmp_exchangeSummary2').html();
+            var templateScript = Handlebars.compile(template);
+            var html = templateScript();
             $("#summaryTable").html(html);
 
             $("#searchStateArea").html(util.getCommonCodeSelect('', search_exchange_state));
             $("#exchangeSort").html(util.getCommonCodeSelect('', exchange_sort));
             $("#selGender").html(util.getCommonCodeSelect('', gender));
+
+            ui.tableHeightSet();
         }
 
         var template = $('#tmp_exchangeTable').html();
@@ -273,7 +288,7 @@
         var template = $('#tmp_enableSummary').html();
         var templateScript = Handlebars.compile(template);
         var html = templateScript();
-        $("#summaryTable").html(html);
+        $("#summaryArea").html(html);
 
         var template = $('#tmp_enableTable').html();
         var templateScript = Handlebars.compile(template);
@@ -281,7 +296,6 @@
         $("#listTable").html(html);
 
         util.getAjaxData("select", "/rest/money/exchange/list", getParameter('enableList'), fn_succ_enable_list);
-
     }
 
     function rejectList(){
@@ -339,7 +353,7 @@
             }
             limitDay = moment(new Date()).add('days', prevDay).format('YYYYMMDD');
         }else{*/
-            limitDay = moment(new Date()).format('YYYYMMDD');
+        limitDay = moment(new Date()).format('YYYYMMDD');
         /*}*/
 
         response.data.limitDay = limitDay;
@@ -402,7 +416,10 @@
             content : response.data
         };
         var html = templateScript(data);
-        $("#summaryTable").html(html);
+        $("#summaryArea").html(html);
+
+        ui.paintColor();
+        ui.tableHeightSet();
 
     }
 
@@ -598,7 +615,7 @@
             $("#label_send_title").text(title);
 
             var text = "환전신청 시 첨부하여주신 파일이 명확하게 확인되지 않아 승인이 거부되었습니다.\n" +
-                        "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시(캡쳐 또는 사진을 찍어) 첨부한 후 신청해주시기 바랍니다.";
+                "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시(캡쳐 또는 사진을 찍어) 첨부한 후 신청해주시기 바랍니다.";
             $("#send_cont").val(text);
             util.textareaResize(document.getElementById("send_cont"), 90)
         }
@@ -621,7 +638,7 @@
             $("#label_send_title").text(title);
 
             var text = "환전신청 시 입력하신 정보와 첨부파일 정보가 일치하지 않습니다.\n" +
-                        "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시 캡쳐 또는 사진을 찍어 첨부하여 신청해주시기 바랍니다.";
+                "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시 캡쳐 또는 사진을 찍어 첨부하여 신청해주시기 바랍니다.";
             $("#send_cont").val(text);
             util.textareaResize(document.getElementById("send_cont"), 90)
         }
@@ -741,149 +758,151 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
+    <div class="col-lg-12 no-padding">
+        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" style="width: 48%;font: message-box;" data-height="24">
+            <colgroup>
+                <col width="80px"/>
+                <col width="80px"/>
+                <col width="100px"/>
+                <col width="80px"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#66a449" data-fontcolor="white">일반회원</th>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <th>건 수</th>
+                <th>금액</th>
+                <th>요청 별</th>
+            </tr>
+            </thead>
+            <tbody id="tb_user_summary">
+            <tr>
+                <th>미처리</th>
+                <td><span class="_summary_user_0">0</span>건</td>
+                <td><span class="_summary_user_1">0</span>원</td>
+                <td><span class="_summary_user_2">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리완료</th>
+                <td><span class="_summary_user_3">0</span>건</td>
+                <td><span class="_summary_user_4">0</span>원</td>
+                <td><span class="_summary_user_5">0</span>별</td>
+            </tr>
+            <tr class="_fontColor" data-fontcolor="#ff5600">
+                <th>총계</th>
+                <th><span class="_summary_total_user_cnt">0</span>건</th>
+                <th><span class="_summary_total_user_amount">0</span>원</th>
+                <th><span class="_summary_total_user_star">0</span>별</th>
+            </tr>
+            <tr style="border-left: hidden;border-right: hidden; height: 5px;">
+                <td colspan="4" style="height: 5px;"></td>
+            </tr>
+            <tr>
+                <th>환전취소</th>
+                <td><span class="_summary_user_6">0</span>건</td>
+                <!-- 양과장님 요청으로 수치 표현 안함 -->
+                <!--<td><span class="_summary_special_7">0</span>원</td>
+                <td><span class="_summary_special_8">0</span>별</td>-->
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" style="width: 48%" data-height="24">
+            <colgroup>
+                <col width="80px"/>
+                <col width="80px"/>
+                <col width="100px"/>
+                <col width="80px"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ffa100" data-fontcolor="white">스페셜DJ</th>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <th>건 수</th>
+                <th>금액</th>
+                <th>요청 별</th>
+            </tr>
+            </thead>
+            <tbody id="tb_special_summary">
+            <tr>
+                <th>미처리</th>
+                <td><span class="_summary_special_0">0</span>건</td>
+                <td><span class="_summary_special_1">0</span>원</td>
+                <td><span class="_summary_special_2">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리완료</th>
+                <td><span class="_summary_special_3">0</span>건</td>
+                <td><span class="_summary_special_4">0</span>원</td>
+                <td><span class="_summary_special_5">0</span>별</td>
+            </tr>
+            <tr class="_fontColor" data-fontcolor="#ff5600">
+                <th>총계</th>
+                <th><span class="_summary_total_special_cnt">0</span>건</th>
+                <th><span class="_summary_total_special_amount">0</span>원</th>
+                <th><span class="_summary_total_special_star">0</span>별</th>
+            </tr>
+            <tr style="border-left: hidden;border-right: hidden; height: 5px;">
+                <td colspan="4" style="height: 5px;"></td>
+            </tr>
+            <tr>
+                <th>환전취소</th>
+                <td><span class="_summary_special_6">0</span>건</td>
+                <!-- 양과장님 요청으로 수치 표현 안함 -->
+                <!--<td><span class="_summary_special_7">0</span>원</td>
+                <td><span class="_summary_special_8">0</span>별</td>-->
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="tmp_exchangeSummary2">
     <div class="col-md-12 no-padding">
         <div class="col-md-12 no-padding">
-            <div class="col-lg-12 no-padding mt10">
+            <div class="col-lg-6 no-padding mt10">
                 <label>ㆍ환전완료 정보를 확인하고, 환전 취소 회원에 대한 응대를 할 수 있습니다.</label><br/>
                 <label>ㆍ환전 취소처리 시 신청한 환전별은 환불처리 됩니다.</label>
                 <div id="warning_desc" style="display:none;">
                     <label style="color:red"><h2>2일 이상 된 미처리 데이터가 존재합니다.<br />환전 완료여부를 한번 더 확인해주세요.</h2></label>
                 </div>
             </div>
-            <div class="col-lg-12 no-padding">
-                <table class="table table-bordered table-summary pull-left">
-                    <colgroup>
-                        <col width="80px"/>
-                        <col width="80px"/>
-                        <col width="100px"/>
-                        <col width="80px"/>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ffa100" data-fontcolor="white">스페셜DJ</th>
-                    </tr>
-                    <tr>
-                        <th>상태</th>
-                        <th>건 수</th>
-                        <th>금액</th>
-                        <th>요청 별</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tb_special_summary">
-                    <tr>
-                        <th>미처리</th>
-                        <td><span class="_summary_special_0">0</span>건</td>
-                        <td><span class="_summary_special_1">0</span>원</td>
-                        <td><span class="_summary_special_2">0</span>별</td>
-                    </tr>
-                    <tr>
-                        <th>처리완료</th>
-                        <td><span class="_summary_special_3">0</span>건</td>
-                        <td><span class="_summary_special_4">0</span>원</td>
-                        <td><span class="_summary_special_5">0</span>별</td>
-                    </tr>
-                    <tr class="_fontColor" data-fontcolor="#ff5600">
-                        <th>총계</th>
-                        <th><span class="_summary_total_special_cnt">0</span>건</th>
-                        <th><span class="_summary_total_special_amount">0</span>원</th>
-                        <th><span class="_summary_total_special_star">0</span>별</th>
-                    </tr>
-                    <tr style="border-left: hidden;border-right: hidden; height: 5px;">
-                        <td colspan="4" style="height: 5px;"></td>
-                    </tr>
-                    <tr>
-                        <th>환전취소</th>
-                        <td><span class="_summary_special_6">0</span>건</td>
-                        <!-- 양과장님 요청으로 수치 표현 안함 -->
-                        <!--<td><span class="_summary_special_7">0</span>원</td>
-                        <td><span class="_summary_special_8">0</span>별</td>-->
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-summary pull-left" style="margin-right: 0px">
-                    <colgroup>
-                        <col width="80px"/>
-                        <col width="80px"/>
-                        <col width="100px"/>
-                        <col width="80px"/>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#66a449" data-fontcolor="white">일반회원</th>
-                    </tr>
-                    <tr>
-                        <th>상태</th>
-                        <th>건 수</th>
-                        <th>금액</th>
-                        <th>요청 별</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tb_user_summary">
-                    <tr>
-                        <th>미처리</th>
-                        <td><span class="_summary_user_0">0</span>건</td>
-                        <td><span class="_summary_user_1">0</span>원</td>
-                        <td><span class="_summary_user_2">0</span>별</td>
-                    </tr>
-                    <tr>
-                        <th>처리완료</th>
-                        <td><span class="_summary_user_3">0</span>건</td>
-                        <td><span class="_summary_user_4">0</span>원</td>
-                        <td><span class="_summary_user_5">0</span>별</td>
-                    </tr>
-                    <tr class="_fontColor" data-fontcolor="#ff5600">
-                        <th>총계</th>
-                        <th><span class="_summary_total_user_cnt">0</span>건</th>
-                        <th><span class="_summary_total_user_amount">0</span>원</th>
-                        <th><span class="_summary_total_user_star">0</span>별</th>
-                    </tr>
-                    <tr style="border-left: hidden;border-right: hidden; height: 5px;">
-                        <td colspan="4" style="height: 5px;"></td>
-                    </tr>
-                    <tr>
-                        <th>환전취소</th>
-                        <td><span class="_summary_user_6">0</span>건</td>
-                        <!-- 양과장님 요청으로 수치 표현 안함 -->
-                        <!--<td><span class="_summary_special_7">0</span>원</td>
-                        <td><span class="_summary_special_8">0</span>별</td>-->
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div>
-                <button class="btn btn-sm btn-primary print-btn pull-right ml5 mr5" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
-                <button class="btn btn-sm btn-success print-btn pull-right ml5 mr5" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="pull-right">
-                <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
+            <div class="col-md-6 mt10">
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-success print-btn ml5 mr5 no-margin" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
+                    <button class="btn btn-sm btn-primary print-btn ml5 mr5 no-margin" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
+                    <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
 
-                <div class="input-group date" id="rangeDatepicker" style="display:none;">
-                    <label for="rangeDate" class="input-group-addon">
-                        <span><i class="fa fa-calendar"></i></span>
-                    </label>
-                    <input id="rangeDate" type="text" class="form-control"/>
+                    <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                        <label for="rangeDate" class="input-group-addon">
+                            <span><i class="fa fa-calendar"></i></span>
+                        </label>
+                        <input id="rangeDate" type="text" class="form-control"/>
+                    </div>
+
+                    <input type="hidden" name="startDate" id="startDate">
+                    <input type="hidden" name="endDate" id="endDate" />
+
+                    <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
                 </div>
-
-                <input type="hidden" name="startDate" id="startDate">
-                <input type="hidden" name="endDate" id="endDate" />
-
-                <button class="btn btn-sm btn-success print-btn" type="button" id="completeExcelDownBtn" style="display:none;"><i class="fa fa-print"></i>Down</button>
             </div>
         </div>
+        <%--<div class="col-md-12">--%>
+            <%--<div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <div class="col-md-6 no-padding">
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
             <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <span id="selGender" onchange="gender_click();"></span>
-            </c:if>
+    <span id="selGender" onchange="gender_click();"></span>
+</c:if>
         </div>
     </div>
 </script>
@@ -924,8 +943,8 @@
             <th><input type="checkbox" id="allChk"></th>
             <th>프로필</th>
             <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <th>신분증</th>
-            </c:if>
+    <th>신분증</th>
+</c:if>
             <th>회원번호</th>
             <th>닉네임</th>
             <th>성별</th>
@@ -981,10 +1000,10 @@
             </form>
         </td>
         <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-        <td >
-            <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
-        </td>
-        </c:if>
+    <td >
+    <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
+    </td>
+</c:if>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
@@ -1011,13 +1030,13 @@
     {{else}}
     <tr>
         <c:choose>
-            <c:when test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-                <td colspan="24">{{isEmptyData}}</td>
-            </c:when>
-            <c:otherwise>
-                <td colspan="23">{{isEmptyData}}</td>
-            </c:otherwise>
-        </c:choose>
+    <c:when test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
+        <td colspan="24">{{isEmptyData}}</td>
+    </c:when>
+    <c:otherwise>
+        <td colspan="23">{{isEmptyData}}</td>
+    </c:otherwise>
+</c:choose>
     </tr>
     {{/each}}
 </script>
@@ -1302,23 +1321,45 @@
 <!-- 환전신청 가능회원 -->
 <script type="text/x-handlebars-template" id="tmp_enableSummary">
     <div class="col-lg-12 no-padding">
-        <label>ㆍ570별 이상을 보유하고 있는 환전신청이 가능한 회원 리스트입니다.</label>
-        <div class="col-lg-6 no-padding pull-right">
-            <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 450px">
-                <colgroup>
-                    <col width="25%"/><col width="25%"/><col width="50%"/>
-                </colgroup>
-                <tr>
-                    <th colspan="2">총 환전 가능금액</th>
-                    <th><label class="font-bold" style="padding-top: 9px;width: 170px;">(환전가능 금액/부가세 제외)<br/>총 예상 순 매출</label></th>
-                </tr>
-                <tr style="background-color: white">
-                    <td>{{addComma content.enableCnt}} 명</td>
-                    <td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>
-                    <td class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}원</td>
-                </tr>
-            </table>
-        </div>
+        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" data-height="24" style="font:message-box;">
+            <colgroup>
+                <col width="25%"/><col width="28%"/><col width="12%"/><col width="15%"/><col width="20%"/>
+            </colgroup>
+            <tr>
+                <th colspan="5" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">환전 신청 가능 (570별) 이상 회원 중</th>
+            </tr>
+            <tr>
+                <th colspan="2">구분</th>
+                <th>회원 수</th>
+                <th>요청 가능 별</th>
+                <th>환전 가능 금액</th>
+            </tr>
+            <tr>
+                <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">1회도 신청하지 않은 회원</th>
+                <td>{{addComma content.notExchangeMemberCnt}} 명</td>
+                <td>{{addComma content.notExchangeMemberByeol}} 별</td>
+                <td>{{addComma content.notExchangeMemberAmt}} 월</td>
+            </tr>
+            <tr>
+                <th rowspan="2" class="_bgColor" data-bgcolor="#e2f0d9">1회 이상 환전 신청 회원 중</th>
+                <th class="_bgColor" data-bgcolor="#e2f0d9">3개월 이상 환전하지 않은 회원</th>
+                <td>{{addComma content.monthNot3ExchangeMemberCnt}} 명</td>
+                <td>{{addComma content.monthNot3ExchangeMemberByeol}} 별</td>
+                <td>{{addComma content.monthNot3ExchangeMemberAmt}} 월</td>
+            </tr>
+            <tr>
+                <th class="_bgColor" data-bgcolor="#e2f0d9">3개월 내 환전 한 회원 잔여</th>
+                <td>{{addComma content.month3ExchangeMemberCnt}} 명</td>
+                <td>{{addComma content.month3ExchangeMemberByeol}} 별</td>
+                <td>{{addComma content.month3ExchangeMemberAmt}} 월</td>
+            </tr>
+            <tr>
+                <th colspan="2">총계</th>
+                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.exchangeTotal}} 명</td>
+                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.exchangeByeolTotal}} 별</td>
+                <td class="_fontColor font-bold" data-fontcolor="#ff6600">{{addComma content.exchangeAmtTotal}} 원</td>
+            </tr>
+        </table>
     </div>
 </script>
 
@@ -1361,28 +1402,28 @@
 
 <script type="text/x-handlebars-template" id="tmp_enableList">
     {{#each this.enableList as |data|}}
-    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
-        <td>
-            {{indexDesc ../enableCnt data.rowNum}}
-        </td>
-        <td>
-            {{{getMemStateName data.mem_state}}}
-        </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
-        <td>{{data.mem_userid}}</td>
-        <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
-        <td>{{addComma data.gold}}별</td>
-        <td>{{math data.gold "*" 60}}원</td>
-        <td>{{specialBenefit data.gold data.specialCnt}}원</td>
-        <td>{{exchangeAmt data.gold data.specialCnt}}원</td>
-        <td>{{addComma data.exchangeCnt}}번</td>
-    </tr>
+        <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
+            <td>
+                {{indexDesc ../enableCnt data.rowNum}}
+            </td>
+            <td>
+                {{{getMemStateName data.mem_state}}}
+            </td>
+            <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
+            <td>{{data.mem_userid}}</td>
+            <td>{{data.mem_nick}}</td>
+            <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
+            <td>{{addComma data.gold}}별</td>
+            <td>{{math data.gold "*" 60}}원</td>
+            <td>{{specialBenefit data.gold data.specialCnt}}원</td>
+            <td>{{exchangeAmt data.gold data.specialCnt}}원</td>
+            <td>{{addComma data.exchangeCnt}}번</td>
+        </tr>
 
     {{else}}
-    <tr>
-        <td colspan="12">{{isEmptyData}}</td>
-    </tr>
+        <tr>
+            <td colspan="12">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>
 
@@ -1445,46 +1486,46 @@
 
 <script type="text/x-handlebars-template" id="tmp_rejectList">
     {{#each this.rejectList as |data|}}
-    <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
-        <td>
-            {{indexDesc ../rejectCnt data.rowNum}}
-        </td>
-        <td>
-            {{{getMemStateName data.mem_state}}}
-        </td>
-        <td>
-            {{^equal data.benefit 0}}
-            <span class="label" style="background-color:red">스페셜DJ</span>
-            {{/equal}}
-        </td>
-        <td >
-            <form id="profileImg" method="post" enctype="multipart/form-data">
-                <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
-                     style="width: 50px;height: 50px;margin-bottom: 0px;" />
-            </form>
-        </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
-        <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
-        <td>{{data.mem_name}}</td>
-        <td>{{data.account_name}}</td>
-        <td>{{addComma data.cash_basic}}원</td>
-        <td>{{addComma data.benefit}}원</td>
-        <td>{{addComma data.cash_real}}원</td>
-        <td>{{addComma data.byeol}}별</td>
-        <td>{{addComma data.gold}}별</td>
-        <td>{{data.testid_history}}</td>
-        <td>{{addComma data.exchangeCnt}}번</td>
-        <td>{{addComma data.totalCashReal}}번</td>
-        <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td>{{data.op_name}}</td>
-        <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
-    </tr>
+        <tr {{#dalbit_if inner '==' 1}} style="background-color: #dae3f3" {{/dalbit_if}}>
+            <td>
+                {{indexDesc ../rejectCnt data.rowNum}}
+            </td>
+            <td>
+                {{{getMemStateName data.mem_state}}}
+            </td>
+            <td>
+                {{^equal data.benefit 0}}
+                    <span class="label" style="background-color:red">스페셜DJ</span>
+                {{/equal}}
+            </td>
+            <td >
+                <form id="profileImg" method="post" enctype="multipart/form-data">
+                    <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
+                         style="width: 50px;height: 50px;margin-bottom: 0px;" />
+                </form>
+            </td>
+            <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
+            <td>{{data.mem_nick}}</td>
+            <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
+            <td>{{data.mem_name}}</td>
+            <td>{{data.account_name}}</td>
+            <td>{{addComma data.cash_basic}}원</td>
+            <td>{{addComma data.benefit}}원</td>
+            <td>{{addComma data.cash_real}}원</td>
+            <td>{{addComma data.byeol}}별</td>
+            <td>{{addComma data.gold}}별</td>
+            <td>{{data.testid_history}}</td>
+            <td>{{addComma data.exchangeCnt}}번</td>
+            <td>{{addComma data.totalCashReal}}번</td>
+            <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{data.op_name}}</td>
+            <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
+        </tr>
 
     {{else}}
-    <tr>
-        <td colspan="21">{{isEmptyData}}</td>
-    </tr>
+        <tr>
+            <td colspan="21">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>

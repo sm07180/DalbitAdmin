@@ -208,7 +208,8 @@
         }else{
             alert(response.message);
         }
-        if(tmp_slctMember == 1){
+
+        if(tmp_slctMember == 1 || tmp_slctMember == 0){
             dtList_info_detail.reload();
         }else{
             dtList_info_detail2.reload();

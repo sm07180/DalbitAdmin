@@ -21,6 +21,7 @@ public class P_LiveGuestListOutputVo extends PagingVo {
     private String mem_nick;
     private String mem_sex;
     private String mem_age;
+    private String mem_userid;
     private String start_date;
     private String end_date;
     private String connect_time;

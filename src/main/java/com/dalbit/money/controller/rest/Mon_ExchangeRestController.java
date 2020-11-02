@@ -6,6 +6,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.money.service.Mon_ExchangeService;
+import com.dalbit.money.vo.Mon_EnableSummaryVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.util.GsonUtil;
@@ -94,6 +95,12 @@ public class Mon_ExchangeRestController {
         String[] intArr = monExchangeInputVo.getIdxs().split("@");
         monExchangeInputVo.setIdxArr(intArr);
         String result = monExchangeService.updateExchangeMultiComplete(monExchangeInputVo);
+        return result;
+    }
+
+    @PostMapping("enable/summary")
+    public String enableSummary(Mon_EnableSummaryVo monEnableSummaryVo) throws GlobalException {
+        String result = monExchangeService.selectEnableSummary(monEnableSummaryVo);
         return result;
     }
 }
