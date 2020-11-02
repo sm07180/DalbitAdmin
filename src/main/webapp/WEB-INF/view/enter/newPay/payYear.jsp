@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-12 no-padding">
             <label class="font-bold" style="color: blue">※결제 수단 별</label>
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="font:message-box;">
                 <colgroup>
                     <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
                     <col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/><col width="2.9%"/>
