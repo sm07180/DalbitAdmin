@@ -15,5 +15,10 @@ public class Sta_ExchangeController {
         return "status/exchange/info";
     }
 
+    @GetMapping("popup/exchangeList")
+    public String exchangeList() {
+        return "status/exchange/popup/exchangeList";
+    }
+
 
 }

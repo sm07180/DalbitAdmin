@@ -66,7 +66,25 @@
         left join rd_data.tb_member_withdrawal_bak withdrawal on exchange.mem_no = withdrawal.mem_no
         inner join (select @RNUM := 0) r
         where
-        concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')
+        <if test='baseDay == null'>
+            <if test="end_year == null">
+                DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
+            <if test="end_year != null">
+                concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+                and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+            </if>
+        </if>
+        <if test='baseDay == "opdate"'>
+            <if test="end_year == null">
+                DATE_FORMAT(exchange.op_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
+            <if test="end_year != null">
+                concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.op_date, '%Y%m%d')
+                and DATE_FORMAT(exchange.op_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+            </if>
+        </if>
+        <!--concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')-->
 
         <if test='search_value != null and search_value != ""'>
             <choose>

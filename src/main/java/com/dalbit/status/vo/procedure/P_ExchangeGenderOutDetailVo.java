@@ -11,6 +11,31 @@ import lombok.ToString;
 public class P_ExchangeGenderOutDetailVo extends SearchVo {
 
     private String the_date;
+    private String date;
+    private String hour;
+    private String daily;
+    private String monthly;
+    private String day;
+
+    private int b_specialdj_succ_mCnt;
+    private int b_specialdj_succ_mAmt;
+    private int b_specialdj_succ_byeol_mCnt;
+    private int b_specialdj_succ_fcnt;
+    private int b_specialdj_succ_fAmt;
+    private int b_specialdj_succ_byeol_fCnt;
+    private int b_specialdj_succ_nCnt;
+    private int b_specialdj_succ_nAmt;
+    private int b_specialdj_succ_byeol_nCnt;
+    private int b_succ_mCnt;
+    private int b_succ_mAmt;
+    private int b_succ_byeol_mCnt;
+    private int b_succ_fCnt;
+    private int b_succ_fAmt;
+    private int b_succ_byeol_fCnt;
+    private int b_succ_nCnt;
+    private int b_succ_nAmt;
+    private int b_succ_byeol_nCnt;
+
     private int specialdj_succ_mCnt;
     private int specialdj_succ_mAmt;
     private int specialdj_succ_byeol_mCnt;
