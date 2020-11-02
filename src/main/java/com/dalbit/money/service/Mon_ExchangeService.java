@@ -389,7 +389,7 @@ public class Mon_ExchangeService {
 
         //최근 불가 모두 0으로 업데이트
         monExchangeDao.updateLastReject(monExchangeOutputVo);
-        
+
         monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
         if(monExchangeOutputVo.getState().equals("1")) {
             var message = new StringBuffer();
