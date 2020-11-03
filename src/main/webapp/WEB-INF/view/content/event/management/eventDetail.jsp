@@ -89,12 +89,12 @@
     });
 
     $(document).on('change', '#addInfoSlct', function() {
-       if($(this).val() == 9) {
-           $('#etcUrl').attr('readonly', false);
-       } else {
-           $('#etcUrl').attr('readonly', true);
-           $('#etcUrl').val("");
-       }
+        if($(this).val() == 9) {
+            $('#etcUrl').attr('readonly', false);
+        } else {
+            $('#etcUrl').attr('readonly', true);
+            $('#etcUrl').val("");
+        }
     });
 
     function inputValidation() {
@@ -321,8 +321,8 @@
                 eventIdx : $('#eventidx').val()
             };
             util.getAjaxData("eventDeleteOne", "/rest/content/event/management/delete", data, function fn_eventDeleteOne_success(dst_id, response) {
-               alert(response.message);
-               location.reload();
+                alert(response.message);
+                location.reload();
             });
         }
     });
@@ -496,9 +496,9 @@
                 <th>당첨자 발표</th>
                 <td>
                     {{#equal prizeWinner '1'}}
-                    {{{getCommonCodeRadio ../announceYn 'event_announceYn_radio'}}}
+                        {{{getCommonCodeRadio ../announceYn 'event_announceYn_radio'}}}
                     {{else}}
-                    (당첨자 집계 중)
+                        (당첨자 집계 중)
                     {{/equal}}
                 </td>
             </tr>

@@ -22,6 +22,7 @@ public class P_PayTotalOutVo {
     private int sum_cancCnt;
     private int sum_cancAmt;
     private int sum_cancCmt;
+    private int sum_failCnt;
 
     private int inc_sum_succCnt;
     private int inc_sum_succAmt;
