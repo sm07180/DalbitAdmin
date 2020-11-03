@@ -166,6 +166,9 @@ var EventDataTableSource = {
             {'title': '입금 확인', 'data' : 'depositConfirm', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, event_depositYn);
                 }},
+            {'title': '상태', 'data' : 'state', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, event_winnerState);
+                }},
             {'title': '상세 정보', 'data' : 'addIdx', 'render': function(data, type, row, meta) {
                 return '<a href="javascript://" class="_getWinnerAddInfoDetail" data-addidx="' + data + '" data-prizeidx="' + row.prizeIdx + '" data-memno="' + row.mem_no + '">상세 정보</a>';
                 }},

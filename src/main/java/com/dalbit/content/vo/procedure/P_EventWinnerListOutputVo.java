@@ -21,6 +21,7 @@ public class P_EventWinnerListOutputVo extends BaseVo {
     private int addInfo;
     private int depositConfirm;
     private int addIdx;
+    private int state;
 
     /* 추가한 것 */
     private int prizeIdx;
