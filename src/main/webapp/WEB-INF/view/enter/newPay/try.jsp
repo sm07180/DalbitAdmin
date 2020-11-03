@@ -26,26 +26,26 @@
             <tr style="background-color: #dae3f3">
                 <th>성공</th>
                 <th>시도</th>
-                <th>실패</th>
                 <th>취소</th>
+                <th>실패</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>실패</th>
                 <th>취소</th>
+                <th>실패</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th style="background-color: #fff2cc">성공</th>
                 <th style="background-color: #fff2cc">시도</th>
-                <th style="background-color: #fff2cc">실패</th>
                 <th style="background-color: #fff2cc">취소</th>
+                <th style="background-color: #fff2cc">실패</th>
                 <th style="background-color: #fff2cc">성공률</th>
                 <td class="_noBorder"></td>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">성공</th>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">시도</th>
-                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">실패</th>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">취소</th>
+                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">실패</th>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">성공률</th>
             </tr>
             </thead>
@@ -71,26 +71,26 @@
             <tr style="background-color: #dae3f3">
                 <th>성공</th>
                 <th>시도</th>
-                <th>실패</th>
                 <th>취소</th>
+                <th>실패</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>실패</th>
                 <th>취소</th>
+                <th>실패</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>실패</th>
                 <th>취소</th>
+                <th>실패</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>실패</th>
                 <th>취소</th>
+                <th>실패</th>
                 <th>성공률</th>
             </tr>
             </thead>
