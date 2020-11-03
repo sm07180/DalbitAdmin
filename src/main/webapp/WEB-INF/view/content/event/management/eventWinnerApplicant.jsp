@@ -288,7 +288,6 @@
         });
 
         if($(this).prop('id') == 'bt_depositComplete') {
-            alert(Idxs);
             if(confirm(checked.length + "건의 사항을 입금 확인 처리하시겠습니까?")) {
                var data = {
                    eventIdx : $('#eventidx').val()
@@ -495,7 +494,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
                     <h4 class="modal-title" id="_layerTitle">상세보기</h4>
                 </div>
-                <div class="modal-body" style="height: 600px; width: 400px;">
+                <div class="modal-body" style="height: 500px; width: 400px;">
                     <form id="winnerDetailForm">
                         <div class="row col-lg-12 form-inline">
                             <div class="widget-content">
@@ -506,14 +505,6 @@
                                         <td>{{winnerName}}</td>
                                     </tr>
                                     <tr>
-                                        <th>주민번호</th>
-                                        <td>
-                                            <input type="text" class="form-control" style="width:100%;" maxlength="13" value="{{winnerSocialNo}}"/>
-                                            <br/>
-                                            [{{winnerSocialNo}}]
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <th>휴대폰 번호</th>
                                         <td>
                                             {{winnerPhone}}
@@ -522,7 +513,7 @@
                                     <tr>
                                         <th>이메일</th>
                                         <td>
-                                            <input type="text" class="form-control" style="width:100%;" value="{{winnerEmail}}"/>
+                                            <input type="text" class="form-control" style="width:100%; text-align: center;" value="{{winnerEmail}}"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -552,15 +543,19 @@
                                     <tr>
                                         <th>신분증 사본</th>
                                         <td>
-                                            <img src="{{renderImage winnerAddFile1}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                            <img src="{{renderImage winnerAddFile1}}" style="max-width:100px; max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
                                             <%--<input id="file1" type="file" onchange="photoSubmit($(this))">--%>
                                             <%--<input type="hidden" class="_hidden_filename" name="winnerAddFile1" id="winnerAddFile1" value="" />--%>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>가족관계 증명서</th>
-                                        <td>
-                                            <img src="{{renderImage winnerAddFile2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                         <td>
+                                        {{^equal winnerAddFile2 ''}}
+                                            <img src="{{renderImage ../winnerAddFile2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                        {{else}}
+                                            -
+                                        {{/equal}}
                                             <%--<input id="file2" type="file" onchange="photoSubmit($(this))">--%>
                                             <%--<input type="hidden" class="_hidden_filename" name="winnerAddFile2" id="winnerAddFile2" value="" />--%>
                                         </td>
