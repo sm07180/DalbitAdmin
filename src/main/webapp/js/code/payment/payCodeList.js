@@ -4,6 +4,7 @@ var payStatus = [
     , new COMMON_CODE('pay', '1', '결제완료')
     , new COMMON_CODE('cancel', '2', '취소완료')
     , new COMMON_CODE('block', '3', '취소실패')
+    , new COMMON_CODE('fail', '4', '결제실패')
 ];
 
 var payPlatform = [

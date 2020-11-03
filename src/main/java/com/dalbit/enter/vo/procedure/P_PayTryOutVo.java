@@ -11,4 +11,6 @@ public class P_PayTryOutVo {
     private int sum_succCnt;
     private int sum_tryCnt;
     private int sum_succRate;
+    private int sum_cancCnt;
+    private int sum_failCnt;
 }

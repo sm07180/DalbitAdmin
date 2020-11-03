@@ -40,6 +40,9 @@
                 <if test="searchPayStatus == 3"> <!-- 취소 불가 -->
                     and cancel_state = 'F'
                 </if>
+                <if test="searchPayStatus == 4">  <!-- 결제 실패 -->
+                    and pay_yn ='F'
+                </if>
             </if>
             <if test="ostype != -1">
                 and os = #{ostype}
@@ -228,12 +231,16 @@
     <select id="getPaySummary" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="com.dalbit.payment.vo.Pay_PayOutputVo">
         /* Pay_Pay.xml - getPaySummary */
         SELECT
-			count(case when pay_yn = 'Y' then 1 end) as totalPayCnt
-            ,sum(case when pay_yn = 'Y' then pay_amt end) as totalPayAmt
-            ,count(case when cancel_state = 'Y' then 1 end) as totalPayCancelCnt
-            ,sum(case when cancel_state = 'Y' then pay_amt end) as totalPayCancelAmt
-            ,count(case when cancel_state = 'F' then 1 end) as totalPayCancelCannotCnt
-            ,sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt
+            count(case when pay_yn = 'Y' then 1 end)       as totalPayCnt,
+            count(*)  AS totalTryCnt,
+            count(case when pay_yn = 'F' then 1 end)       as totalFailCnt,
+            sum(case when pay_yn = 'Y' then pay_amt end) as totalPayAmt,
+            count(case when cancel_state = 'Y' then 1 end)       as totalPayCancelCnt,
+            sum(case when cancel_state = 'Y' then pay_amt end) as totalPayCancelAmt,
+            count(case when cancel_state = 'F' then 1 end)       as totalPayCancelCannotCnt,
+            sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt
+            ,count(case when pay_yn = 'Y' then 1 end) - count(case when cancel_state = 'Y' then 1 end) AS totalRealPayCnt
+            ,sum(case when pay_yn = 'Y' then pay_amt end) - sum(case when cancel_state = 'Y' then pay_amt end) AS totalRealPayAmt
         FROM (SELECT pay.order_id,
                    pay.mem_no,
                    pay.pay_way,

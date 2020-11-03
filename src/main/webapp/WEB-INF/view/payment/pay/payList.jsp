@@ -5,7 +5,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="top-left pull-left dataTable-div col-md-8 no-padding">
+        <div class="top-left pull-left dataTable-div col-md-6 no-padding">
             <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
             <div class="col-md-12 no-padding">
                 <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
@@ -24,27 +24,27 @@
                 <button type="button" class="btn btn-success" id="bt_searchMember" style="display: none">검색</button>
             </div>
         </div>
-
-        <div class="col-md-4 no-padding pull-right mb5">
-            <div class="pull-right">
-                <span id="pay_summaryArea2"></span>
-            </div>
-            <div class="mr10 pull-right">
-                <span id="pay_summaryArea"></span>
-            </div>
-        </div>
-
         <div class="col-md-12 no-padding pull-right">
-            <div class="col-md-2 no-padding pull-right">
-                <table class="table table-sorting table-hover table-bordered">
+                <table class="pull-right _tableHeight" style="text-align: left;width: 587px;border: 1px solid black" data-height="23px">
                     <colgroup>
-                        <col width="15%"/><col width="65%"/>
+                        <col width="8%"><col width="48%"><col width="8%"><col width="36%">
                     </colgroup>
                     <tr>
-                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                        <td rowspan="3" style="text-align: left" class="font-bold"><span style="font-size: 9px">결제상태</span></td>
+                        <td style="text-align: left"><span style="font-size: 9px"><span style="color: blue" class="font-bold">Y (성공)</span> : 결제 성공</span></td>
+                        <td rowspan="3"  style="text-align: left" class="font-bold"><span style="font-size: 9px">취소상태</td>
+                        <td style="text-align: left"><span style="font-size: 9px"><span style="color: blue" class="font-bold">O (성공)</span> : 취소 성공</span></td>
                     </tr>
+                    <tr>
+                        <td style="text-align: left"><span style="font-size: 9px"><span style="color: black" class="font-bold">N (시도)</span> : 결제 시도 했으나 결제창에 이르지 못하여 실패</span></td>
+                        <td style="text-align: left"><span style="font-size: 9px"><span style="color: red" class="font-bold">X (불가)</span> : 취소 불가</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left"><span style="font-size: 9px"><span style="color: red" class="font-bold">F (실패)</span> : 결제창까지 이르렀으나 완료 실패</span></td>
+                        <td style="text-align: left"><span style="font-size: 9px"><span style="color: black" class="font-bold">F (실패)</span> : 취소 시도후 사유로 인한 실패</span></td>
+                    </tr>
+
                 </table>
-            </div>
         </div>
 
         <table id="list_info" class="table table-sorting table-hover table-bordered">
@@ -138,14 +138,18 @@
         var html = templateScript(data);
         $("#pay_summaryArea").html(html);
 
-        var template = $("#pay_tableSummary2").html();
-        var templateScript = Handlebars.compile(template);
-        var data = {
-            content : json.summary
-            , length : json.recordsTotal
-        };
-        var html = templateScript(data);
-        $("#pay_summaryArea2").html(html);
+
+        ui.tableHeightSet();
+        ui.paintColor();
+
+        // var template = $("#pay_tableSummary2").html();
+        // var templateScript = Handlebars.compile(template);
+        // var data = {
+        //     content : json.summary
+        //     , length : json.recordsTotal
+        // };
+        // var html = templateScript(data);
+        // $("#pay_summaryArea2").html(html);
     }
 
     /* 취소버튼 클릭 */
@@ -259,46 +263,52 @@
 </script>
 
 <script id="pay_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px;width: 227px">
+    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
         <colgroup>
-            <col width="35%"/><col width="65%"/>
+            <%--<col width="35%"/><col width="65%"/>--%>
         </colgroup>
+
         <tr>
-            <th colspan="2">결제 취소(부가세 포함)</th>
+            <th class="_bgColor" data-bgcolor="#bfbfbf">구분</th>
+            <th colspan="5" class="_bgColor" data-bgcolor="#8faadc">총 결제</th>
+            <th colspan="2" class="_bgColor" data-bgcolor="#f8cbad">결제 취소</th>
+            <th colspan="2" class="_bgColor _fontColor" data-bgcolor="#000000" data-fontcolor="#ffff00">(취소 제외) 순 결제 금액</th>
         </tr>
-        <tr class="font-bold" style="color: #66a449;">
+        <tr>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">부가세</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">성공</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">시도</th>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">실패</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">금액</th>
+            <th class="_bgColor" data-bgcolor="#dae3f3">성공율</th>
+            <th class="_bgColor" data-bgcolor="#fbe5d6">건</th>
+            <th class="_bgColor" data-bgcolor="#fbe5d6">금액</th>
+            <th class="_bgColor _fontColor" data-bgcolor="#595959" data-fontcolor="white">건</th>
+            <th class="_bgColor _fontColor" data-bgcolor="#595959" data-fontcolor="white">금액</th>
+        </tr>
+        <tr>
+            <td>포함</td>
+            <td>{{addComma content.totalPayCnt}}건</td>
+            <td>{{addComma content.totalTryCnt}}건</td>
+            <td>{{addComma content.totalFailCnt}}건</td>
+            <td>{{addComma content.totalPayAmt}}원</td>
+            <td>{{average content.totalPayCnt content.totalTryCnt}}%</td>
             <td>{{addComma content.totalPayCancelCnt}}건</td>
             <td>{{addComma content.totalPayCancelAmt}}원</td>
+            <td>{{addComma content.totalRealPayCnt}}건</td>
+            <td>{{addComma content.totalRealPayAmt}}원</td>
         </tr>
         <tr>
-            <th colspan="2">결제 취소(부가세 제외)</th>
-        </tr>
-        <tr class="font-bold" style="color: #ff5600;">
+            <td class="_fontColor font-bold" data-fontcolor="red">제외</td>
+            <td>{{addComma content.totalPayCnt}}건</td>
+            <td>{{addComma content.totalTryCnt}}건</td>
+            <td>{{addComma content.totalFailCnt}}건</td>
+            <td>{{vatMinus content.totalPayAmt}}원</td>
+            <td>{{average content.totalPayCnt content.totalTryCnt}}%</td>
             <td>{{addComma content.totalPayCancelCnt}}건</td>
             <td>{{vatMinus content.totalPayCancelAmt}}원</td>
+            <td class="_fontColor font-bold" data-fontcolor="red">{{addComma content.totalRealPayCnt}}건</td>
+            <td class="_fontColor font-bold" data-fontcolor="red">{{vatMinus content.totalRealPayAmt}}원</td>
         </tr>
     </table>
 </script>
-
-<script id="pay_tableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0" style="width: 227px;">
-        <colgroup>
-            <col width="35%"/><col width="65%"/>
-        </colgroup>
-        <tr>
-            <th colspan="2">총 결제 건/(부가세 포함) 매출</th>
-        </tr>
-        <tr style="color: #66a449;">
-            <td><b>{{content.totalPayCnt}} 건</b></td>
-            <td><b>{{addComma content.totalPayAmt}} 원</b></td>
-        </tr>
-        <tr>
-            <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
-        </tr>
-        <tr style="color: #ff5600;">
-            <td><b>{{content.totalPayCnt}} 건</b></td>
-            <td><b>{{vatMinus content.totalPayAmt}} 원</b></td>
-        </tr>
-    </table>
-</script>
-
