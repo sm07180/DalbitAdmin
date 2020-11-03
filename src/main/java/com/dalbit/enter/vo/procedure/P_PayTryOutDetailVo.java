@@ -18,5 +18,7 @@ public class P_PayTryOutDetailVo {
     private int succCnt;
     private int tryCnt;
     private int succRate;
+    private int cancCnt;
+    private int failCnt;
 
 }

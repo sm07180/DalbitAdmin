@@ -129,6 +129,10 @@ public class Ent_PayService {
                         outVo.setSuccAmt(0);
                         outVo.setSuccCmt(0);
                         outVo.setAccumAmt(0);
+                        outVo.setCancCnt(0);
+                        outVo.setCancCmt(0);
+                        outVo.setCancAmt(0);
+                        outVo.setFailCnt(0);
 
                         detailList.add(outVo);
                     }
@@ -152,6 +156,10 @@ public class Ent_PayService {
                     sum[j].setSuccCmt(sum[j].getSuccCmt() + detailList.get(j).getSuccCmt());
                     sum[j].setSuccAmt(sum[j].getSuccAmt() + detailList.get(j).getSuccAmt());
                     sum[j].setAccumAmt(sum[j].getAccumAmt() + detailList.get(j).getAccumAmt());
+                    sum[j].setCancCnt(sum[j].getCancCnt() + detailList.get(j).getCancCnt());
+                    sum[j].setCancCmt(sum[j].getCancCmt() + detailList.get(j).getCancCmt());
+                    sum[j].setCancAmt(sum[j].getCancAmt() + detailList.get(j).getCancAmt());
+                    sum[j].setFailCnt(sum[j].getFailCnt() + detailList.get(j).getFailCnt());
                 }else if(pPayTotalInPutVo.getSlctType() == 1) {
                     zeroSw = false;
                     int tmp_k = 0;
@@ -176,6 +184,10 @@ public class Ent_PayService {
                         sum[tmp_k].setSuccCmt(sum[tmp_k].getSuccCmt() + detailList.get(j).getSuccCmt());
                         sum[tmp_k].setSuccAmt(sum[tmp_k].getSuccAmt() + detailList.get(j).getSuccAmt());
                         sum[tmp_k].setAccumAmt(sum[tmp_k].getAccumAmt() + detailList.get(j).getAccumAmt());
+                        sum[tmp_k].setCancCnt(sum[tmp_k].getCancCnt() + detailList.get(j).getCancCnt());
+                        sum[tmp_k].setCancCmt(sum[tmp_k].getCancCmt() + detailList.get(j).getCancCmt());
+                        sum[tmp_k].setCancAmt(sum[tmp_k].getCancAmt() + detailList.get(j).getCancAmt());
+                        sum[tmp_k].setFailCnt(sum[tmp_k].getFailCnt() + detailList.get(j).getFailCnt());
                     }
                 }else if(pPayTotalInPutVo.getSlctType() == 2) {
                     zeroSw = false;
@@ -199,6 +211,10 @@ public class Ent_PayService {
                         sum[tmp_k].setSuccCmt(sum[tmp_k].getSuccCmt() + detailList.get(j).getSuccCmt());
                         sum[tmp_k].setSuccAmt(sum[tmp_k].getSuccAmt() + detailList.get(j).getSuccAmt());
                         sum[tmp_k].setAccumAmt(sum[tmp_k].getAccumAmt() + detailList.get(j).getAccumAmt());
+                        sum[tmp_k].setCancCnt(sum[tmp_k].getCancCnt() + detailList.get(j).getCancCnt());
+                        sum[tmp_k].setCancCmt(sum[tmp_k].getCancCmt() + detailList.get(j).getCancCmt());
+                        sum[tmp_k].setCancAmt(sum[tmp_k].getCancAmt() + detailList.get(j).getCancAmt());
+                        sum[tmp_k].setFailCnt(sum[tmp_k].getFailCnt() + detailList.get(j).getFailCnt());
                     }else{
                         sum[j].setHour(j);
                         sum[j].setDay(j);
@@ -207,6 +223,10 @@ public class Ent_PayService {
                         sum[j].setSuccCmt(0);
                         sum[j].setSuccAmt(0);
                         sum[j].setAccumAmt(0);
+                        sum[tmp_k].setCancCnt(0);
+                        sum[tmp_k].setCancCmt(0);
+                        sum[tmp_k].setCancAmt(0);
+                        sum[tmp_k].setFailCnt(0);
                     }
                 }
             }
@@ -220,6 +240,10 @@ public class Ent_PayService {
             sum_Total.setSum_reCnt(sum_Total.getSum_reCnt() + totalInfo.getSum_reCnt());
             sum_Total.setSum_reCmt(sum_Total.getSum_reCmt() + totalInfo.getSum_reCmt());
             sum_Total.setSum_reAmt(sum_Total.getSum_reAmt() + totalInfo.getSum_reAmt());
+            sum_Total.setSum_cancCnt(sum_Total.getSum_cancCnt() + totalInfo.getSum_cancCnt());
+            sum_Total.setSum_cancCmt(sum_Total.getSum_cancCmt() + totalInfo.getSum_cancCmt());
+            sum_Total.setSum_cancAmt(sum_Total.getSum_cancAmt() + totalInfo.getSum_cancAmt());
+            sum_Total.setSum_failCnt(sum_Total.getSum_failCnt() + totalInfo.getSum_failCnt());
         }
         var result = new HashMap<String, Object>();
         result.put("totalInfo", sum_Total);

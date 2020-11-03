@@ -23,7 +23,7 @@
                     <th>수량</th>
                     <th>결제</th>
                     <th>누적</th>
-                    <th>환불</th>
+                    <th>취소</th>
                 </tr>
                 </thead>
                 <tbody id="yearTableBody"></tbody>
@@ -185,6 +185,7 @@
                 var succCmt = detail.succCmt;
                 var succAmt = detail.succAmt;
                 var accumAmt = detail.accumAmt;
+                var cancAmt = detail.cancAmt;
                 if(succCnt == 0)
                     succCnt = "null";
                 if(succCmt == 0)
@@ -193,6 +194,8 @@
                     succAmt = "null";
                 if(accumAmt == 0)
                     accumAmt = "null";
+                if(cancAmt == 0)
+                    cancAmt = "null";
 
                 //상단
                 if (index == 1) {
@@ -200,7 +203,7 @@
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (2) + ")").html(common.addComma(succCmt));
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3) + ")").html(common.vatMinus(succAmt));
                     $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (4) + ")").html(common.vatMinus(accumAmt));
-                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (5) + ")").html();
+                    $("#yearTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (5) + ")").html(common.vatMinus(cancAmt));
 
                     if(Number(tmp_day.split(".")[1]) == detail.monthly) {
                         for (var i = 1; i < 6; i++) {
@@ -222,6 +225,7 @@
             var sum_reCnt = totalInfo.sum_reCnt;
             var sum_reCmt = totalInfo.sum_reCmt;
             var sum_reAmt = totalInfo.sum_reAmt;
+            var sum_cancAmt = totalInfo.sum_cancAmt;
 
             if(sum_succCnt == 0)
                 sum_succCnt = "null";
@@ -241,13 +245,15 @@
                 sum_reCmt = "null";
             if(sum_reAmt == 0)
                 sum_reAmt = "null";
+            if(sum_cancAmt == 0)
+                sum_cancAmt = "null";
 
             if(i == 1){
                 //총합
                 $("#yearTableBody tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
                 $("#yearTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(sum_succCmt));
                 $("#yearTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#yearTableBody tr:eq(0) td:eq(" + (4) + ")").html();
+                $("#yearTableBody tr:eq(0) td:eq(" + (4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#yearTableBody tr:eq(1) td:eq(" + (1) + ")").html(common.addComma(sum_firstCnt));
                 $("#yearTableBody tr:eq(1) td:eq(" + (2) + ")").html(common.addComma(sum_firstCmt));

@@ -20,7 +20,7 @@
         <label id="payWayArea" onchange="sel_change_pay_cancel();"></label>
         <label id="payInnerArea" onchange="sel_change_pay_cancel();" style="border: 1px solid #632beb"></label>
 
-        <div class="pull-right mb5" style="width: 227px">
+        <div class="pull-right mb5 col-md-3">
             <span id="pay_cancel_summaryArea"></span>
         </div>
 
@@ -91,6 +91,9 @@
         };
         var html = templateScript(data);
         $("#pay_cancel_summaryArea").html(html);
+
+        ui.tableHeightSet();
+        ui.paintColor();
     }
 
     function sel_change_pay_cancel(){
@@ -134,19 +137,25 @@
 <script id="pay_cancel_tableSummary" type="text/x-handlebars-template">
     <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
         <colgroup>
-            <col width="35%"/><col width="65%"/>
+            <%--<col width="35%"/><col width="65%"/>--%>
         </colgroup>
+
         <tr>
-            <th colspan="2">결제 취소(부가세 포함)</th>
+            <th class="_bgColor" data-bgcolor="#bfbfbf">구분</th>
+            <th colspan="2" class="_bgColor" data-bgcolor="#f8cbad">결제 취소</th>
         </tr>
-        <tr class="font-bold" style="color: #66a449;">
+        <tr>
+            <th class="_bgColor" data-bgcolor="#d9d9d9">부가세</th>
+            <th class="_bgColor" data-bgcolor="#fbe5d6">건</th>
+            <th class="_bgColor" data-bgcolor="#fbe5d6">금액</th>
+        </tr>
+        <tr>
+            <td>포함</td>
             <td>{{addComma content.totalPayCancelCnt}}건</td>
             <td>{{addComma content.totalPayCancelAmt}}원</td>
         </tr>
         <tr>
-            <th colspan="2">결제 취소(부가세 제외)</th>
-        </tr>
-        <tr class="font-bold" style="color: #ff5600;">
+            <td class="_fontColor font-bold" data-fontcolor="red">제외</td>
             <td>{{addComma content.totalPayCancelCnt}}건</td>
             <td>{{vatMinus content.totalPayCancelAmt}}원</td>
         </tr>

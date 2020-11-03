@@ -75,10 +75,22 @@ var payDataTableSource = {
                     return !common.isEmpty(row.op_name) ? row.op_name : '-';
                 }}
             , {'title': '결제<br />상태', 'data': 'pay_yn', 'width':'30px', 'render': function(data, type, row) {
-                    return '<label style="color: #ee0648; font-weight: bold">'+data.toUpperCase()+'</label>';
+                    if(data.toUpperCase() == "Y"){
+                        return '<label style="color: blue; font-weight: bold;margin-bottom: 0px">'+data.toUpperCase()+'</label>';
+                    }else if(data.toUpperCase() == "N"){
+                        return '<label style="font-weight: bold">'+data.toUpperCase()+'</label>';
+                    }else if(data.toUpperCase() == "F"){
+                        return '<label style="color: #ee0648; font-weight: bold">'+data.toUpperCase()+'</label>';
+                    }
                 }}
             , {'title': '취소<br />상태', 'data': 'cancel_state', 'width':'30px', 'render': function(data, type, row) {
-                    return '<label style="color: #0b38aa; font-weight: bold">'+data.toUpperCase()+'</label>';
+                    if(data.toUpperCase() == "Y") {
+                        return '<label style="color: blue; font-weight: bold">O</label>';
+                    }else if(row.tot_dal_cnt < row.dal_cnt) {
+                        return '<label style="color: red; font-weight: bold">X</label>';
+                    }else if(data.toUpperCase() == "F") {
+                        return '<label style="font-weight: bold">' + data.toUpperCase() + '</label>';
+                    }
                 }}
             , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
 

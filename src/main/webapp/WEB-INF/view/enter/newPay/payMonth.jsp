@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 결제환불 > 총계 -->
+<!-- 결제취소 > 총계 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10" id="divMonth">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
@@ -31,28 +31,28 @@
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th style="background-color: #fff2cc">건수</th>
                 <th style="background-color: #fff2cc">수량</th>
                 <th style="background-color: #fff2cc">결제</th>
                 <th style="background-color: #fff2cc">누적</th>
-                <th style="background-color: #fff2cc">환불</th>
+                <th style="background-color: #fff2cc">취소</th>
                 <td class="_noBorder"></td>
 
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">건수</th>
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">수량</th>
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">결제</th>
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">누적</th>
-                <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">환불</th>
+                <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">취소</th>
 
             </tr>
             </thead>
@@ -83,28 +83,28 @@
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
 
             </tr>
             </thead>
@@ -199,6 +199,7 @@
                 var succCmt = detail.succCmt;
                 var succAmt = detail.succAmt;
                 var accumAmt = detail.accumAmt;
+                var cancAmt = detail.cancAmt;
                 if(succCnt == 0)
                     succCnt = "null";
                 if(succCmt == 0)
@@ -207,6 +208,8 @@
                     succAmt = "null";
                 if(accumAmt == 0)
                     accumAmt = "null";
+                if(cancAmt == 0)
+                    cancAmt = "null";
 
                 //상단
                 if (index == 0) {
@@ -214,7 +217,7 @@
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.addComma(succCmt));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(common.vatMinus(succAmt));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 5) + ")").html();
+                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 5) + ")").html(common.vatMinus(cancAmt));
                     for (var i = 1; i < 6; i++) {
                         $("#monthTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index + i) + ")").css("background-color", "#e3ecfb");
                         $("#monthTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index + i) + ")").css("font-weight", "bold");
@@ -224,7 +227,7 @@
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 2) + ")").html(common.addComma(succCmt));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 3) + ")").html(common.vatMinus(succAmt));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 5) + ")").html();
+                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 5) + ")").html(common.vatMinus(cancAmt));
                     for (var i = 1; i < 6; i++) {
                         $("#monthTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index * 6 + i) + ")").css("background-color", "#e3ecfb");
                         $("#monthTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index * 6 + i) + ")").css("font-weight", "bold");
@@ -234,7 +237,7 @@
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((succCmt/7).toFixed(1)));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 3) + ")").html(common.vatMinus(succAmt/7));
                     $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 4) + ")").html(common.vatMinus(accumAmt/7));
-                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 5) + ")").html();
+                    $("#monthTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 6 + 5) + ")").html(common.vatMinus(cancAmt/7));
                     for (var i = 1; i < 6; i++) {
                         $("#monthTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (3 * 6 + i) + ")").css("background-color", "#e3ecfb");
                         $("#monthTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (3 * 6 + i) + ")").css("font-weight", "bold");
@@ -246,7 +249,7 @@
                     $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 2) + ")").html(common.addComma(succCmt));
                     $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(succAmt));
                     $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 5) + ")").html();
+                    $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 5) + ")").html(common.vatMinus(cancAmt));
                     for (var i = 1; i < 6; i++) {
                         $("#monthTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index + i) + ")").css("background-color", "#e3ecfb");
                         $("#monthTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index + i) + ")").css("font-weight", "bold");
@@ -256,7 +259,7 @@
                     $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(succCmt));
                     $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 3) + ")").html(common.vatMinus(succAmt));
                     $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 5) + ")").html();
+                    $("#monthTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 5) + ")").html(common.vatMinus(cancAmt));
                     for (var i = 1; i < 6; i++) {
                         $("#monthTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index * 6 + i) + ")").css("background-color", "#e3ecfb");
                         $("#monthTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index * 6+ i) + ")").css("font-weight", "bold");
@@ -282,6 +285,9 @@
             var sum_reCnt = totalInfo.sum_reCnt;
             var sum_reCmt = totalInfo.sum_reCmt;
             var sum_reAmt = totalInfo.sum_reAmt;
+            var sum_cancCnt = totalInfo.sum_cancCnt;
+            var sum_cancCmt = totalInfo.sum_cancCmt;
+            var sum_cancAmt = totalInfo.sum_cancAmt;
 
             if(sum_succCnt == 0)
                 sum_succCnt = "null";
@@ -301,13 +307,19 @@
                 sum_reCmt = "null";
             if(sum_reAmt == 0)
                 sum_reAmt = "null";
+            if(sum_cancCnt == 0)
+                sum_cancCnt = "null";
+            if(sum_cancCmt == 0)
+                sum_cancCmt = "null";
+            if(sum_cancAmt == 0)
+                sum_cancAmt = "null";
 
             if(i == 0){
                 //총합
                 $("#monthTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#monthTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#monthTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#monthTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html();
+                $("#monthTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#monthTableBody tr:eq(1) td:eq(" + (i + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#monthTableBody tr:eq(1) td:eq(" + (i + 2) + ")").html(common.addComma(sum_firstCmt));
@@ -323,7 +335,7 @@
                 $("#monthTableBody tr:eq(0) td:eq(" + (i * 5 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#monthTableBody tr:eq(0) td:eq(" + (i * 5 + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#monthTableBody tr:eq(0) td:eq(" + (i * 5 + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#monthTableBody tr:eq(0) td:eq(" + (i * 5 + 4) + ")").html();
+                $("#monthTableBody tr:eq(0) td:eq(" + (i * 5 + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#monthTableBody tr:eq(1) td:eq(" + (i * 5 + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#monthTableBody tr:eq(1) td:eq(" + (i * 5 + 2) + ")").html(common.addComma(sum_firstCmt));
@@ -339,7 +351,7 @@
                 $("#monthTableBody tr:eq(0) td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
                 $("#monthTableBody tr:eq(0) td:eq(" + (3 * 5 + 2) + ")").html(common.addComma((sum_succCmt/7).toFixed(1)));
                 $("#monthTableBody tr:eq(0) td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(sum_succAmt/7));
-                $("#monthTableBody tr:eq(0) td:eq(" + (3 * 5 + 4) + ")").html();
+                $("#monthTableBody tr:eq(0) td:eq(" + (3 * 5 + 4) + ")").html(common.vatMinus(sum_cancAmt/7));
                 //첫구매
                 $("#monthTableBody tr:eq(1) td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((sum_firstCnt/7).toFixed(1)));
                 $("#monthTableBody tr:eq(1) td:eq(" + (3 * 5 + 2) + ")").html(common.addComma((sum_firstCmt/7).toFixed(1)));
@@ -357,7 +369,7 @@
                 $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index + 4) + ")").html();
+                $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#monthTableBody2 tr:eq(1) td:eq(" + (tmp_index + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#monthTableBody2 tr:eq(1) td:eq(" + (tmp_index + 2) + ")").html(common.addComma(sum_firstCmt));
@@ -373,7 +385,7 @@
                 $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 4) + ")").html();
+                $("#monthTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#monthTableBody2 tr:eq(1) td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#monthTableBody2 tr:eq(1) td:eq(" + (tmp_index * 5 + 2) + ")").html(common.addComma(sum_firstCmt));
