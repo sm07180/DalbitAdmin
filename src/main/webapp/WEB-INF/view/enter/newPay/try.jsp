@@ -26,26 +26,26 @@
             <tr style="background-color: #dae3f3">
                 <th>성공</th>
                 <th>시도</th>
-                <th>취소</th>
                 <th>실패</th>
+                <th>취소</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>취소</th>
                 <th>실패</th>
+                <th>취소</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th style="background-color: #fff2cc">성공</th>
                 <th style="background-color: #fff2cc">시도</th>
-                <th style="background-color: #fff2cc">취소</th>
                 <th style="background-color: #fff2cc">실패</th>
+                <th style="background-color: #fff2cc">취소</th>
                 <th style="background-color: #fff2cc">성공률</th>
                 <td class="_noBorder"></td>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">성공</th>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">시도</th>
-                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">취소</th>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">실패</th>
+                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">취소</th>
                 <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">성공률</th>
             </tr>
             </thead>
@@ -71,26 +71,26 @@
             <tr style="background-color: #dae3f3">
                 <th>성공</th>
                 <th>시도</th>
-                <th>취소</th>
                 <th>실패</th>
+                <th>취소</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>취소</th>
                 <th>실패</th>
+                <th>취소</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>취소</th>
                 <th>실패</th>
+                <th>취소</th>
                 <th>성공률</th>
                 <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
-                <th>취소</th>
                 <th>실패</th>
+                <th>취소</th>
                 <th>성공률</th>
             </tr>
             </thead>
@@ -191,8 +191,8 @@
                 if (index == 4) {
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (1) + ")").html(common.addComma(succCnt,'Y'));
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (2) + ")").html(common.addComma(tryCnt,'Y'));
-                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3) + ")").html(common.addComma(cancCnt,'Y'));
-                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (4) + ")").html(common.addComma(tryCnt - (succCnt + cancCnt),'Y'));
+                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3) + ")").html(common.addComma(failCnt,'Y'));
+                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (4) + ")").html(common.addComma(cancCnt,'Y'));
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (5) + ")").html(common.addComma(succRate,'Y'));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
@@ -203,8 +203,8 @@
                 } else if (index == 7) {    // 평균
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1),'Y'));
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((tryCnt/7).toFixed(1),'Y'));
-                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 3) + ")").html(common.addComma((cancCnt/7).toFixed(1),'Y'));
-                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 4) + ")").html(common.addComma((tryCnt - (succCnt + cancCnt)/7).toFixed(1),'Y'));
+                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 3) + ")").html(common.addComma((failCnt / 7).toFixed(1),'Y'));
+                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 4) + ")").html(common.addComma((cancCnt/7).toFixed(1),'Y'));
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 5) + ")").html(tmp);
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
@@ -219,8 +219,8 @@
                     }
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 1) + ")").html(common.addComma(succCnt,'Y'));
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 2) + ")").html(common.addComma(tryCnt,'Y'));
-                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 3) + ")").html(common.addComma(cancCnt,'Y'));
-                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 4) + ")").html(common.addComma(tryCnt - (succCnt + cancCnt),'Y'));
+                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 3) + ")").html(common.addComma(failCnt ,'Y'));
+                    $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 4) + ")").html(common.addComma(cancCnt,'Y'));
                     $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (tmpIndex * 6 + 5) + ")").html(common.addComma(succRate,'Y'));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
@@ -233,8 +233,8 @@
                 if (index == 0) {
                     $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (1) + ")").html(common.addComma(succCnt,'Y'));
                     $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (2) + ")").html(common.addComma(tryCnt,'Y'));
-                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (3) + ")").html(common.addComma(cancCnt,'Y'));
-                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (4) + ")").html(common.addComma(tryCnt - (succCnt + cancCnt),'Y'));
+                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (3) + ")").html(common.addComma(failCnt,'Y'));
+                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (4) + ")").html(common.addComma(cancCnt,'Y'));
                     $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (5) + ")").html(common.addComma(succRate,'Y'));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
@@ -245,8 +245,8 @@
                 } else if (index == 1 || index == 2 || index == 3) {
                     $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 1) + ")").html(common.addComma(succCnt,'Y'));
                     $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 2) + ")").html(common.addComma(tryCnt,'Y'));
-                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").html(common.addComma(cancCnt,'Y'));
-                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").html(common.addComma(tryCnt - (succCnt + cancCnt),'Y'));
+                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").html(common.addComma(failCnt,'Y'));
+                    $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").html(common.addComma(cancCnt,'Y'));
                     $("#tryTableBody_bottom tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").html(common.addComma(succRate,'Y'));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
@@ -282,24 +282,24 @@
             if(i == 4){
                 $("#tryTableBody tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody tr:eq(0) td:eq(" + (3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody tr:eq(0) td:eq(" + (5) + ")").html(sum_succRate);
                 $("#tryTableBody tr:eq(25) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody tr:eq(25) td:eq(" + (2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody tr:eq(25) td:eq(" + (3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody tr:eq(25) td:eq(" + (4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody tr:eq(25) td:eq(" + (3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody tr:eq(25) td:eq(" + (4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody tr:eq(25) td:eq(" + (5) + ")").html(sum_succRate);
             }else if(i == 7){
                 $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
                 $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
-                $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 3) + ")").html(common.addComma((sum_cancCnt/7).toFixed(1)));
-                $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 4) + ")").html(common.addComma((sum_tryCnt - (sum_succCnt + sum_cancCnt)/7).toFixed(1)));
+                $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 3) + ")").html(common.addComma((sum_failCnt/7).toFixed(1)));
+                $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 4) + ")").html(common.addComma((sum_cancCnt/7).toFixed(1)));
                 $("#tryTableBody tr:eq(0) td:eq(" + (3 * 6 + 5) + ")").html(tmp);
                 $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
                 $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
-                $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 3) + ")").html(common.addComma((sum_cancCnt/7).toFixed(1)));
-                $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 4) + ")").html(common.addComma((sum_tryCnt - (sum_succCnt + sum_cancCnt)/7).toFixed(1)));
+                $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 3) + ")").html(common.addComma((sum_failCnt/7).toFixed(1)));
+                $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 4) + ")").html(common.addComma((sum_cancCnt/7).toFixed(1)));
                 $("#tryTableBody tr:eq(25) td:eq(" + (3 * 6 + 5) + ")").html(tmp);
             }else if(i == 5 || i == 6){
                 var tmpIndex=1;
@@ -308,13 +308,13 @@
                 }
                 $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody tr:eq(0) td:eq(" + (tmpIndex * 6 + 5) + ")").html(tmp);
                 $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody tr:eq(25) td:eq(" + (tmpIndex * 6 + 5) + ")").html(tmp);
             }
 
@@ -322,24 +322,24 @@
             if(i == 0){
                 $("#tryTableBody_bottom tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody_bottom tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody_bottom tr:eq(0) td:eq(" + (5) + ")").html(sum_succRate);
                 $("#tryTableBody_bottom tr:eq(25) td:eq(" + (1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody_bottom tr:eq(25) td:eq(" + (2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody_bottom tr:eq(25) td:eq(" + (5) + ")").html(sum_succRate);
             }else if(i == 1 || i == 2 || i == 3){
                 $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody_bottom tr:eq(0) td:eq(" + (i * 6 + 5) + ")").html(tmp);
                 $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 2) + ")").html(common.addComma(sum_tryCnt));
-                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 3) + ")").html(common.addComma(sum_cancCnt));
-                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(sum_tryCnt - (sum_succCnt + sum_cancCnt)));
+                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 3) + ")").html(common.addComma(sum_failCnt));
+                $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(sum_cancCnt));
                 $("#tryTableBody_bottom tr:eq(25) td:eq(" + (i * 6 + 5) + ")").html(tmp);
             }
         }
