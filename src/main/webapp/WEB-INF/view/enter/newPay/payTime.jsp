@@ -31,28 +31,28 @@
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th style="background-color: #fff2cc">건수</th>
                 <th style="background-color: #fff2cc">수량</th>
                 <th style="background-color: #fff2cc">결제</th>
                 <th style="background-color: #fff2cc">누적</th>
-                <th style="background-color: #fff2cc">환불</th>
+                <th style="background-color: #fff2cc">취소</th>
                 <td class="_noBorder"></td>
 
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">건수</th>
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">수량</th>
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">결제</th>
                 <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">누적</th>
-                <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">환불</th>
+                <th title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">취소</th>
 
             </tr>
             </thead>
@@ -83,28 +83,28 @@
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
                 <td class="_noBorder"></td>
 
                 <th>건수</th>
                 <th>수량</th>
                 <th>결제</th>
                 <th>누적</th>
-                <th>환불</th>
+                <th>취소</th>
 
             </tr>
             </thead>
@@ -201,6 +201,7 @@
                 var succCmt = detail.succCmt;
                 var succAmt = detail.succAmt;
                 var accumAmt = detail.accumAmt;
+                var cancAmt = detail.cancAmt;
                 if(succCnt == 0)
                     succCnt = "null";
                 if(succCmt == 0)
@@ -209,6 +210,8 @@
                     succAmt = "null";
                 if(accumAmt == 0)
                     accumAmt = "null";
+                if(cancAmt == 0)
+                    cancAmt = "null";
 
                 if (index == 0) {
                     // $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").attr("onclick",hourClick(detail.hour));
@@ -216,7 +219,7 @@
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.addComma(succCmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 5) + ")").html();
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 5) + ")").html(common.vatMinus(cancAmt));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
                             $("#timeTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index + i) + ")").css("background-color", "#e3ecfb");
@@ -232,7 +235,7 @@
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 2) + ")").html(common.addComma(succCmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").html();
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").html(common.vatMinus(cancAmt));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
                             $("#timeTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index * 6 + i) + ")").css("background-color", "#e3ecfb");
@@ -252,7 +255,7 @@
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 2) + ")").html(common.addComma((succCmt/7).toFixed(1)));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 3) + ")").html(common.vatMinus(succAmt/7));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 4) + ")").html(common.vatMinus(accumAmt/7));
-                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 5) + ")").html();
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 6 + 5) + ")").html(common.vatMinus(cancAmt/7));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
                             $("#timeTableBody tr._tr_" + (detail.hour) + " td:eq(" + (3 * 6 + i) + ")").css("background-color", "#e3ecfb");
@@ -266,7 +269,7 @@
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 2) + ")").html(common.addComma(succCmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 5) + ")").html();
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 5) + ")").html(common.vatMinus(cancAmt));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
                             $("#timeTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index + i) + ")").css("background-color", "#e3ecfb");
@@ -281,7 +284,7 @@
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(succCmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 3) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 4) + ")").html(common.vatMinus(accumAmt));
-                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 5) + ")").html();
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 5) + ")").html(common.vatMinus(cancAmt));
                     if(Number(tmp_time.split(":")[0]) == detail.hour) {
                         for(var i = 1; i < 6 ; i ++){
                             $("#timeTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index * 6 + i) + ")").css("background-color", "#e3ecfb");
@@ -318,6 +321,9 @@
             var sum_reCnt = totalInfo.sum_reCnt;
             var sum_reCmt = totalInfo.sum_reCmt;
             var sum_reAmt = totalInfo.sum_reAmt;
+            var sum_cancCnt = totalInfo.sum_cancCnt;
+            var sum_cancCmt = totalInfo.sum_cancCmt;
+            var sum_cancAmt = totalInfo.sum_cancAmt;
 
             if(sum_succCnt == 0)
                 sum_succCnt = "null";
@@ -337,13 +343,19 @@
                 sum_reCmt = "null";
             if(sum_reAmt == 0)
                 sum_reAmt = "null";
+            if(sum_cancCnt == 0)
+                sum_cancCnt = "null";
+            if(sum_cancCmt == 0)
+                sum_cancCmt = "null";
+            if(sum_cancAmt == 0)
+                sum_cancAmt = "null";
 
             if(i == 0){
                 //총합
                 $("#timeTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#timeTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#timeTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#timeTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html();
+                $("#timeTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#timeTableBody tr:eq(1) td:eq(" + (i + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#timeTableBody tr:eq(1) td:eq(" + (i + 2) + ")").html(common.addComma(sum_firstCmt));
@@ -359,7 +371,7 @@
                 $("#timeTableBody tr:eq(0) td:eq(" + (i * 5 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#timeTableBody tr:eq(0) td:eq(" + (i * 5 + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#timeTableBody tr:eq(0) td:eq(" + (i * 5 + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#timeTableBody tr:eq(0) td:eq(" + (i * 5 + 4) + ")").html();
+                $("#timeTableBody tr:eq(0) td:eq(" + (i * 5 + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#timeTableBody tr:eq(1) td:eq(" + (i * 5 + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#timeTableBody tr:eq(1) td:eq(" + (i * 5 + 2) + ")").html(common.addComma(sum_firstCmt));
@@ -375,7 +387,7 @@
                 $("#timeTableBody tr:eq(0) td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
                 $("#timeTableBody tr:eq(0) td:eq(" + (3 * 5 + 2) + ")").html(common.addComma((sum_succCmt/7).toFixed(1)));
                 $("#timeTableBody tr:eq(0) td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(sum_succAmt/7));
-                $("#timeTableBody tr:eq(0) td:eq(" + (3 * 5 + 4) + ")").html();
+                $("#timeTableBody tr:eq(0) td:eq(" + (3 * 5 + 4) + ")").html(common.vatMinus(sum_cancAmt/7));
                 //첫구매
                 $("#timeTableBody tr:eq(1) td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((sum_firstCnt/7).toFixed(1)));
                 $("#timeTableBody tr:eq(1) td:eq(" + (3 * 5 + 2) + ")").html(common.addComma((sum_firstCmt/7).toFixed(1)));
@@ -393,7 +405,7 @@
                 $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index + 4) + ")").html();
+                $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#timeTableBody2 tr:eq(1) td:eq(" + (tmp_index + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#timeTableBody2 tr:eq(1) td:eq(" + (tmp_index + 2) + ")").html(common.addComma(sum_firstCmt));
@@ -409,7 +421,7 @@
                 $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(sum_succCnt));
                 $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 2) + ")").html(common.addComma(sum_succCmt));
                 $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 3) + ")").html(common.vatMinus(sum_succAmt));
-                $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 4) + ")").html();
+                $("#timeTableBody2 tr:eq(0) td:eq(" + (tmp_index * 5 + 4) + ")").html(common.vatMinus(sum_cancAmt));
                 //첫구매
                 $("#timeTableBody2 tr:eq(1) td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(sum_firstCnt));
                 $("#timeTableBody2 tr:eq(1) td:eq(" + (tmp_index * 5 + 2) + ")").html(common.addComma(sum_firstCmt));

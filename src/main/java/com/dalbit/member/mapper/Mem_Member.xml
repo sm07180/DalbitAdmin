@@ -407,11 +407,6 @@
         call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
-    <select id="callMemConnect_deviceToken" parameterType="com.dalbit.member.vo.procedure.P_MemberConnectInputVo" resultType="String">
-        /* M_Member.xml - callMemConnect_deviceToken */
-        SELECT device_token FROM rd_data.tb_member_session_history where mem_no=#{mem_no} and LENGTH(device_token) > 100 ORDER BY last_upd_date DESC LIMIT 1
-    </select>
-
     <select id="callMemManagerList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberManagerListOutputVo">
         /* M_Member.xml - callMemManagerList */
         <!--call rd_admin.sp_admin_member_info_manager(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
@@ -477,6 +472,7 @@
         /* M_Member.xml - memberLoginHistory */
         SELECT a.ip
               ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = a.mem_no AND last_upd_date <![CDATA[<=]]> a.last_upd_date  ORDER BY last_upd_date DESC LIMIT 1) AS device_uuid
+              ,(SELECT device_model FROM rd_data.tb_member_session_history WHERE mem_no = a.mem_no AND last_upd_date <![CDATA[<=]]> a.last_upd_date  ORDER BY last_upd_date DESC LIMIT 1) AS device_model
           FROM rd_data.tb_member_connect_state AS a
          where mem_no = #{mem_no}
          ORDER BY last_upd_date DESC LIMIT 1

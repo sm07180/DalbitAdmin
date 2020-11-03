@@ -577,7 +577,10 @@ var MemberDataTableSource = {
             {'title': 'Device', 'data': 'Device', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
                 }},
-            {'title': 'DeviceToken', 'data': 'device_token','render' : function(data){
+            {'title': 'DeviceModel', 'data': 'deviceModel', 'render': function (data) {
+                    return data;
+                }},
+            {'title': 'DeviceToken', 'data': 'deviceToken','render' : function(data){
                     return '<label class="word-break">' + data +'</label>';
                 }},
             {'title': 'Mobile Device ID', 'data': 'deviceUUID'},

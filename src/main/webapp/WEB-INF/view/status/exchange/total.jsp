@@ -590,7 +590,7 @@
         <td>{{addComma tot_succ_Cnt}}</td>
         <td>{{addComma tot_succ_Amt}}</td>
         <td>{{addComma tot_succ_byeol_Cnt}}</td>
-        <td>{{addComma tot_month_succ_Cnt}}건 / {{addComma tot_month_succ_Amt}}원</td>
+        <td>{{addComma tot_month_succ_Cnt}}건<br/>/ {{addComma tot_month_succ_Amt}}원</td>
     </tr>
 </script>
 
@@ -599,7 +599,7 @@
     <tr {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{/dalbit_if}} >
         <td class="font-bold month" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #b4c7e7" {{/dalbit_if}}> {{month}}월 </td>
         <td class="font-bold" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #dae3f3" {{/dalbit_if}} >
-            {{monthWeek}}주({{substr week_startDate 5}} ~ {{substr week_endDate 5}})
+            {{monthWeek}}주 ({{substr week_startDate 5}} ~ {{substr week_endDate 5}})
         </td>
         <td>{{addComma specialdj_succ_Cnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
@@ -609,7 +609,7 @@
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
         <td class="total" data-month="{{month}}">
             <span style="display: none">{{month}}</span>
-            {{addComma month_succ_Cnt}}건 / {{addComma month_succ_Amt}}원
+            {{addComma month_succ_Cnt}}건<br/>/ {{addComma month_succ_Amt}}원
         </td>
     </tr>
     {{/each}}

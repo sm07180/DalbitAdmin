@@ -19,7 +19,8 @@ public class P_MemberConnectOutputVo extends SearchVo {
     private String deviceUUID;
     private String adID;
     private String ip;
-    private String device_token;
+    private String deviceToken;
+    private String deviceModel;
     private int connectType;
 
     public void setConnectDate(Date connectDate){

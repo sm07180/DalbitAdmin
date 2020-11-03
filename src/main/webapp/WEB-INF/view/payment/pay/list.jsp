@@ -5,10 +5,10 @@
     <div id="page-wrapper">
         <!-- serachBox -->
         <form id="searchForm">
-            <div class="col-lg-12 form-inline no-padding">
+            <div class="col-lg-7 form-inline no-padding">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 결제내역 검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i> 검색</h3>
                         <div>
 
                             <span id="searchFormRadio"></span>
@@ -35,6 +35,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-5 no-padding pull-right mb5">
+                <span id="pay_summaryArea"></span>
             </div>
             <!-- //serachBox -->
         </form>

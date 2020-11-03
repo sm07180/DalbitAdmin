@@ -28,6 +28,8 @@ public class P_PayTotalOutDetailVo {
     private int succRate;
     private int cancCnt;
     private int cancCmt;
+    private int cancAmt;
+    private int failCnt;
 
 
     private int inc_succCnt;

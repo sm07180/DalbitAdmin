@@ -59,5 +59,9 @@ public class Pay_PayOutputVo extends PagingVo {
     private int totalPayCancelAmt;
     private int totalPayCancelCannotCnt;
     private int totalPayCancelCannotAmt;
+    private int totalTryCnt;
+    private int totalFailCnt;
+    private int totalRealPayCnt;
+    private int totalRealPayAmt;
 
 }
