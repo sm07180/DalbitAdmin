@@ -107,9 +107,6 @@ public interface Mem_MemberDao {
     ArrayList<P_MemberConnectOutputVo> callMemConnect(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
-    P_MemberConnectOutputVo callMemConnect_deviceToken(P_MemberConnectInputVo pMemberConnectInputVo);
-
-    @Transactional(readOnly = true)
     ArrayList<P_MemberManagerListOutputVo> callMemManagerList(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)

@@ -688,35 +688,13 @@ public class Mem_MemberService {
      */
     public String getMemberConnect(P_MemberConnectInputVo pMemberConnectInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pMemberConnectInputVo);
-        ArrayList<P_MemberConnectOutputVo> memberConnect = mem_MemberDao.callMemConnect(procedureVo);
+        ArrayList<P_MemberConnectOutputVo> memberConnectList = mem_MemberDao.callMemConnect(procedureVo);
 
-        List list = new ArrayList();
-        if(!DalbitUtil.isEmpty(memberConnect)){
-            P_MemberConnectOutputVo getConnectDeviceInfo = mem_MemberDao.callMemConnect_deviceToken(pMemberConnectInputVo);
-            for (int i=0; i < memberConnect.size(); i++){
-                P_MemberConnectOutputVo outVo = new P_MemberConnectOutputVo();
-                outVo.setDevice_token(getConnectDeviceInfo.getDevice_token());
-                outVo.setDevice_model(getConnectDeviceInfo.getDevice_model());
-                outVo.setRowNum(memberConnect.get(i).getRowNum());
-                outVo.setDevice(memberConnect.get(i).getDevice());
-                outVo.setDeviceUUID(memberConnect.get(i).getDeviceUUID());
-                outVo.setAdID(memberConnect.get(i).getAdID());
-                outVo.setAppVersion(memberConnect.get(i).getAppVersion());
-                outVo.setBrowser(memberConnect.get(i).getBrowser());
-                outVo.setConnectDate(memberConnect.get(i).getConnectDate());
-                outVo.setConnectDateFormat(memberConnect.get(i).getConnectDateFormat());
-                outVo.setIp(memberConnect.get(i).getIp());
-                outVo.setConnectType(memberConnect.get(i).getConnectType());
-                list.add(outVo);
-            }
-        }
-        String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_성공, list, new PagingVo(procedureVo.getRet())));
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_성공, memberConnectList, new PagingVo(procedureVo.getRet())));
         }else{
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_실패));
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_실패));
         }
-        return result;
     }
     /**
      * 회원 매니저 목록
