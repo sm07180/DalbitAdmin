@@ -1417,7 +1417,13 @@
             <td>{{math data.gold "*" 60}}원</td>
             <td>{{specialBenefit data.gold data.specialCnt}}원</td>
             <td>{{exchangeAmt data.gold data.specialCnt}}원</td>
-            <td>{{addComma data.exchangeCnt}}번</td>
+            <td>
+                {{#dalbit_if data.exchangeCnt '!=' 0}}
+                    <a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}" data-tabid="tab_exchangeDetail">{{addComma data.exchangeCnt}}번</a>
+                {{else}}
+                    {{addComma data.exchangeCnt}}번
+                {{/dalbit_if}}
+            </td>
         </tr>
 
     {{else}}
