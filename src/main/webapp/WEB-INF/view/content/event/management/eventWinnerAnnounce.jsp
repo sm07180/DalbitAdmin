@@ -95,14 +95,14 @@
             <div class="widget-content no-padding">
                 <div class="_editor" id="announcement_editor" name="announcement_editor">
                     {{{replaceHtml winnerContents.winnerContents}}}
-                    {{#equal winnerContents.winnerContents ''}}
+<!--                    {{#equal winnerContents.winnerContents ''}}-->
                         {{#each ../this.defaultList as |data|}}
                         <div class="form-inline">
                             < {{data.prizeRank}}등 ({{data.prizeCnt}}명) : {{data.prizeName}} > <br />
                             {{data.nickName}} <br />
                         </div>
                         {{/each}}
-                    {{/equal}}
+<!--                    {{/equal}}-->
                 </div>
             </div>
         </div>
