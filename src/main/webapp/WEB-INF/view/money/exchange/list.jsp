@@ -50,7 +50,7 @@
             <!-- //serachBox -->
 
             <div class="row widget-content">
-                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" style="width: 932px">
                     <li><a href="/money/resource/info?tabType=0">시간대별</a></li>
                     <li><a href="/money/resource/info?tabType=1">월간별</a></li>
                     <li><a href="/money/resource/info?tabType=2">연간별</a></li>
@@ -88,23 +88,25 @@
                         </ul>
 
                         <div>
-                            <div class="row col-lg-12 no-padding" style="margin-left: 0px">
+                            <div class="col-lg-12 no-padding" style="margin-left: 0px">
                                 <div id="summaryTable"></div>
-                                <div class="col-md-2 no-padding pull-right">
-                                    <table class="table table-sorting table-hover table-bordered mt5" style="margin-bottom: 0px">
-                                        <colgroup>
-                                            <col width="15%"/><col width="65%"/>
-                                        </colgroup>
-                                        <tr>
-                                            <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
-                                        </tr>
-                                    </table>
-                                </div>
 
                                 <div class="col-md-12 no-padding">
-                                    <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
-                                    <div class="col-lg-12 no-padding" id="listTable"></div>
-                                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                                    <div class="col-md-2 no-padding pull-right" id="div_testIdTable">
+                                        <table class="table table-sorting table-hover table-bordered mt5" style="margin-bottom: 0px">
+                                            <colgroup>
+                                                <col width="15%"/><col width="65%"/>
+                                            </colgroup>
+                                            <tr>
+                                                <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12 no-padding">
+                                        <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
+                                        <div class="col-lg-12 no-padding" id="listTable"></div>
+                                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -223,31 +225,31 @@
         var targetAnchor = $('._tab.active').find('a');
 
         if(targetAnchor.data('specialdj') != null){
-
             $("#exchangeCheckArea").attr('style', 'display:none !important;');
             $("#searchYearArea").show();
             $("#searchMonthArea").show();
             $("#searchStateArea").show();
             $("#summaryArea").show();
+            $("#div_testIdTable").hide();
 
             exchangeList(tmp);
         }else if(targetAnchor.prop('id') == 'rejectList'){
-
             $("#exchangeCheckArea").attr('style', 'display:none !important;');
             $("#searchYearArea").show();
             $("#searchMonthArea").show();
             $("#searchStateArea").show();
             $("#summaryArea").hide();
+            $("#div_testIdTable").show();
 
             rejectList();
 
         }else if(targetAnchor.prop('id') == 'enableList') {
-
             $("#exchangeCheckArea").show();
             $("#searchYearArea").hide();
             $("#searchMonthArea").hide();
             $("#searchStateArea").hide();
             $("#summaryArea").show();
+            $("#div_testIdTable").show();
 
             enableList();
         }
@@ -285,6 +287,8 @@
     }
 
     function enableList(){
+        $('#summaryTable').empty();
+
         var template = $('#tmp_enableSummary').html();
         var templateScript = Handlebars.compile(template);
         var html = templateScript();
@@ -758,7 +762,7 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
-    <div class="col-lg-12 no-padding">
+    <div class="col-lg-12 no-padding" style="height: 106px;">
         <table class="table table-bordered table-summary pull-right no-margin _tableHeight" style="width: 48%;font: message-box;" data-height="24">
             <colgroup>
                 <col width="80px"/>
@@ -874,7 +878,18 @@
                 </div>
             </div>
             <div class="col-md-6 mt10">
+
                 <div class="pull-right">
+                    <table class="table table-sorting table-hover table-bordered mt5" style="margin-bottom: 0px">
+                        <colgroup>
+                            <col width="15%"/><col width="65%"/>
+                        </colgroup>
+                        <tr>
+                            <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
                     <button class="btn btn-sm btn-success print-btn ml5 mr5 no-margin" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
                     <button class="btn btn-sm btn-primary print-btn ml5 mr5 no-margin" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
                     <button class="btn btn-sm btn-success print-btn" type="button" id="completeListBtn"><i class="fa fa-print"></i>완료내역 받기</button>
@@ -1320,7 +1335,7 @@
 
 <!-- 환전신청 가능회원 -->
 <script type="text/x-handlebars-template" id="tmp_enableSummary">
-    <div class="col-lg-12 no-padding">
+    <div class="col-lg-12 no-padding" style="height: 75px;">
         <table class="table table-bordered table-summary pull-right no-margin _tableHeight" data-height="24" style="font:message-box;">
             <colgroup>
                 <col width="25%"/><col width="28%"/><col width="12%"/><col width="15%"/><col width="20%"/>
@@ -1417,7 +1432,13 @@
             <td>{{math data.gold "*" 60}}원</td>
             <td>{{specialBenefit data.gold data.specialCnt}}원</td>
             <td>{{exchangeAmt data.gold data.specialCnt}}원</td>
-            <td>{{addComma data.exchangeCnt}}번</td>
+            <td>
+                {{#dalbit_if data.exchangeCnt '!=' 0}}
+                    <a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}" data-tabid="tab_exchangeDetail">{{addComma data.exchangeCnt}}번</a>
+                {{else}}
+                    {{addComma data.exchangeCnt}}번
+                {{/dalbit_if}}
+            </td>
         </tr>
 
     {{else}}
