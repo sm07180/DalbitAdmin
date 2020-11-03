@@ -238,9 +238,9 @@
             count(case when cancel_state = 'Y' then 1 end)       as totalPayCancelCnt,
             sum(case when cancel_state = 'Y' then pay_amt end) as totalPayCancelAmt,
             count(case when cancel_state = 'F' then 1 end)       as totalPayCancelCannotCnt,
-            sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt
-            ,count(case when pay_yn = 'Y' then 1 end) - count(case when cancel_state = 'Y' then 1 end) AS totalRealPayCnt
-            ,sum(case when pay_yn = 'Y' then pay_amt end) - sum(case when cancel_state = 'Y' then pay_amt end) AS totalRealPayAmt
+            sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt,
+            ifnull(count(case when pay_yn = 'Y' then 1 end),0) - ifnull(count(case when cancel_state = 'Y' then 1 end),0)       AS totalRealPayCnt,
+            ifnull(sum(case when pay_yn = 'Y' then pay_amt end),0) - ifnull(sum(case when cancel_state = 'Y' then pay_amt end),0) AS totalRealPayAmt
         FROM (SELECT pay.order_id,
                    pay.mem_no,
                    pay.pay_way,
