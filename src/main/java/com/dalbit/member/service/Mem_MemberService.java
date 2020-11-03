@@ -241,6 +241,7 @@ public class Mem_MemberService {
         if(!DalbitUtil.isEmpty(loginHostory)){
             memberInfo.setIp(loginHostory.getIp());
             memberInfo.setDeviceUuid(loginHostory.getDevice_uuid());
+            memberInfo.setDeviceModel(loginHostory.getDevice_model());
         }
 
         String result;
@@ -691,10 +692,11 @@ public class Mem_MemberService {
 
         List list = new ArrayList();
         if(!DalbitUtil.isEmpty(memberConnect)){
-            String deviceToken = mem_MemberDao.callMemConnect_deviceToken(pMemberConnectInputVo);
+            P_MemberConnectOutputVo getConnectDeviceInfo = mem_MemberDao.callMemConnect_deviceToken(pMemberConnectInputVo);
             for (int i=0; i < memberConnect.size(); i++){
                 P_MemberConnectOutputVo outVo = new P_MemberConnectOutputVo();
-                outVo.setDevice_token(deviceToken);
+                outVo.setDevice_token(getConnectDeviceInfo.getDevice_token());
+                outVo.setDevice_model(getConnectDeviceInfo.getDevice_model());
                 outVo.setRowNum(memberConnect.get(i).getRowNum());
                 outVo.setDevice(memberConnect.get(i).getDevice());
                 outVo.setDeviceUUID(memberConnect.get(i).getDeviceUUID());

@@ -960,7 +960,7 @@
             <td colspan="5" style="text-align: left;">
                 <span>
                     * MobileID : {{deviceUuid}} <br>
-                    * IP : {{ip}}<br>
+                    * IP : {{ip}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * 접속기기 : {{deviceModel}}<br>
                     * 접속상태 : {{connectState}}
                 </span>
             </td>
