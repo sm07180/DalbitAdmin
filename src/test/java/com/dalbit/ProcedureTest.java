@@ -1,3 +1,4 @@
+/*
 package com.dalbit;
 
 import com.dalbit.sample.service.NotificationManager;
@@ -31,3 +32,4 @@ public class ProcedureTest {
         notificationManager.sendNotification();
     }
 }
+*/
