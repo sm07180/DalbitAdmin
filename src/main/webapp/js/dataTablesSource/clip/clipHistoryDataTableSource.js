@@ -10,7 +10,7 @@ var ClipHistoryDataTableSource = {
                     return data;
                 }},
 			{'title': '클립', 'width':'180px', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + row.castNo + '</a><br>' + data;
+                    return '<a href="javascript://" class="_openClipInfoPop" data-clipNo="' + row.castNo + '">' + data + '</a>';
                 }},
 			{'title': '이미지', 'width':'50px', 'data': 'imageBackground', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
