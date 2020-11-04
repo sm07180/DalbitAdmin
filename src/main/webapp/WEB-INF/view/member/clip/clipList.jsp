@@ -217,6 +217,19 @@
         }
     }
 
+    //클립 운영자 인증 요청
+    function editClipConfirm(clipNo, confirmData){
+        if(confirm("운영자 관리 여부를 수정 하시겠습니까?")) {
+            var data = Object();
+            data.cast_no = clipNo;
+            data.editSlct = 8;
+            data.confirm = confirmData === 1 ? 0 : 1;
+            data.sendNoti = 0;
+
+            editClipDetailData(data);
+        }
+    }
+
     //클립 수정
     var isAlertShow = true;
     function editClipDetailData(data, isAlert){

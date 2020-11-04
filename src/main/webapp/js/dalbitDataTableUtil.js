@@ -73,6 +73,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                     json.recordsFiltered = totalCnt;
                     json.data = data;
 
+                    console.log("[DataTable ajax 통신 결과]url : " + url);
                     console.log(json);
 
                     return JSON.stringify( json ); // return JSON string
