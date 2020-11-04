@@ -26,8 +26,10 @@ public interface CommonDao {
 
     ProcedureVo saveErrorLog(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
     List<FanBadgeVo> callMemberBadgeSelect(HashMap param);
 
+    @Transactional(readOnly = true)
     List<FanBadgeVo> callLiveBadgeSelect(HashMap param);
 
     int updateCodeDefine(CodeListVo codeListVo);
