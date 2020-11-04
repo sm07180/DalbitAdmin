@@ -94,8 +94,8 @@
         }else if(tabId == 'tab_listen'){    // 클립 청취
             $("#search_aria").html(util.getCommonCodeSelect(-1, clip_listen_searchType));
             $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='-1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").show();
+            $("input:radio[name='isChoiceDate']:radio[value='1']").prop('checked', true);  // 날짜 전체, 선택 여부
+            $("#isChoiceDateArea").hide();
             $("#div_searchArea").show();
             $("#div_stepButtonArea").show();
         }else if(tabId == 'tab_gift'){      // 클립 선물
