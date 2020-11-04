@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div>
+<div class="col-md-12" style="padding-right: 0px;">
     <jsp:include page="../../money/item/changeList.jsp"/>
 </div>
 <script>
