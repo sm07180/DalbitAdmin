@@ -590,10 +590,8 @@ public class Mon_ExchangeService {
             HashMap hm = new LinkedHashMap();
 
             hm.put("no", i+1);
-            /*hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
-            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());*/
-            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getPrevAccountName()) ? "" : exchangeVo.getPrevAccountName());
-            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getPrevSocialNo()) ? "" : exchangeVo.getPrevSocialNo());
+            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
+            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
             hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
 
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
