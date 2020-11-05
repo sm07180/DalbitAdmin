@@ -725,7 +725,24 @@
         bank_code = #{bank_code}
         , account_name = #{account_name}
         , account_no = #{account_no}
-        <!--, social_no = #{social_no} 양과장 요청 update 할때 주민번호는 하지 않도록-->
+        <!--, social_no = #{social_no} 양과장 요청 완료처리시 update 할때 주민번호는 하지 않도록-->
+        , address_1 = #{address_1}
+        , address_2 = #{address_2}
+        , add_file1 = #{add_file1}
+        , add_file2 = #{add_file2}
+        , op_msg = #{op_msg}
+        , op_name = #{op_name}
+        , send_title = #{send_title}
+        , send_cont = #{send_cont}
+        , send_type = #{send_type}
+        , last_upd_date = now()
+    </sql>
+
+    <sql id="baseUpdate">
+        bank_code = #{bank_code}
+        , account_name = #{account_name}
+        , account_no = #{account_no}
+        , social_no = #{social_no}
         , address_1 = #{address_1}
         , address_2 = #{address_2}
         , add_file1 = #{add_file1}
@@ -741,7 +758,7 @@
     <update id="updateExchangeDetail" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
         /* Mon_Exchange.xml - updateExchangeDetail */
         update rd_data.tb_member_exchange
-        set <include refid="baseUpdateColumn" />
+        set <include refid="baseUpdate" />
         where idx = #{idx}
     </update>
 
