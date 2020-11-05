@@ -9,44 +9,39 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
-                            <div>
-                                <%--<span id="slctTypeArea"></span>--%>
-
-                                <div class="input-group date" id="oneDayDatePicker">
-                                    <label for="onedayDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
-                                    </label>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17"><i class="fa fa-search"></i> 검색조건</th>
+                                <th>
+                                    <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                    <div>
+                                        <div id="div_dayButton"><jsp:include page="../../searchArea/daySearchArea.jsp"/></div>
+                                        <div id="div_monthButton" style="display: none"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
+                                        <div id="div_yearButton" style="display: none"><jsp:include page="../../searchArea/yearSearchArea.jsp"/></div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
                                     <input type="text" class="form-control" id="onedayDate" name="onedayDate">
-                                </div>
 
-                                <div class="input-group date" id="rangeDatepicker" style="display:none;">
-                                    <label for="displayDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="displayDate" type="text" class="form-control" style="width: 196px;"/>
-                                </div>
+                                    <input id="displayDate" type="text" class="form-control" style="width: 196px;display: none"/>
 
-                                <div class="input-group date" id="yearDatepicker" style="display:none;">
-                                    <label for="yearDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
-                                </div>
+                                    <input id="yearDate" type="text" class="form-control" style="width: 196px;display: none"/>
 
-                                <input class="hide" name="startDate" id="startDate" style="width: 100px">
-                                <input class="hide" name="endDate" id="endDate" style="width: 100px">
-                                <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                <%--<input name="endDate" id="endDate" style="width: 100px">--%>
-                                <label><input type="text" class="form-control hide" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <label><input type="text" class="form-control hide" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
 
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                <a href="javascript://" class="_nextSearch">[다음]</a>
-                            </div>
-                        </div>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>
@@ -94,6 +89,7 @@
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
     var dateTime = new Date();
@@ -102,55 +98,30 @@
     var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
 
+    var year;
+    var month = moment(dateTime).format("MM");
+    var day = moment(dateTime).format("DD");
+
     $(function() {
-        // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
-
-        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
-            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-            $("#displayDate").val(selectDate + ' - ' + selectDate);
-            $("#startDate").val(selectDate);
-            $("#endDate").val(selectDate);
+        $(".search_exchange_years").append(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
+        year = $("#search_year").val();
+        $(document).on('change', '#search_year', function() {
+            if(me == 0) {
+                monthClick("", $("#div_dayButton").find("#search_year").val(), month, day);
+            }else if(me == 1){
+                monthClick("", $("#div_monthButton").find("#search_year").val(), month, day);
+            }else if(me == 2){
+                monthClick("", $("#div_yearButton").find("#search_year").val(), month, day);
+            }
         });
-
-        // 월 선택 -------------------------------------
-        $('#displayDate').datepicker({
-            minViewMode: 'months',
-            format: 'yyyy.mm',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-
-        $("#displayDate").on('change', function () {
-            var monthLastDate = new Date($("#displayDate").val().substr(0,4),$("#displayDate").val().substr(5,6),-1);
-            $("#startDate").val($("#displayDate").val() + '.01');
-            $("#endDate").val($("#displayDate").val() + "." +  (monthLastDate.getDate() + 1));
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        });
-
-        // 년 선택 --------------------------------
-        $('#yearDate').datepicker({
-            minViewMode: 'years',
-            format: 'yyyy',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-        $("#yearDate").on('change', function () {
-            $("#startDate").val($("#yearDate").val() + '.01.01');
-            $("#endDate").val($("#yearDate").val() + ".12.31");
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-        });
-
-        // getStatJoinInfo();
+        setDayButton();
     });
 
     function setTimeDate(dateTime){
         $("#onedayDate").val(dateTime);
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
+        toDay = week[moment($("#startDate").val()).add('days', 0).day()];
         $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
@@ -197,25 +168,27 @@
             slctType = "2";
             me = 2;
         }
-        setTimeDate(dateTime);
-        radioChange();
-        $("#bt_search").click();
+
+        dateType();
+
     });
 
     var me = 0;
     function radioChange(){
+        dateType(me);
         if(me == 0){
-            $("#oneDayDatePicker").show();
-            $("#rangeDatepicker").hide();
-            $("#yearDatepicker").hide();
+            // 시간대별 ----------------------------
+            $("#onedayDate").show();
+            $("#displayDate").hide();
+            $("#yearDate").hide();
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
         }else{
             if(me == 1){
-                // 일별 -----------------------------------
-                $("#oneDayDatePicker").hide();
-                $("#rangeDatepicker").show();
-                $("#yearDatepicker").hide();
+                // 일자 -----------------------------------
+                $("#onedayDate").hide();
+                $("#displayDate").show();
+                $("#yearDate").hide();
 
                 var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
                 $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
@@ -230,9 +203,9 @@
                 $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
             }else{
                 // 월별 ----------------------------------
-                $("#oneDayDatePicker").hide();
-                $("#rangeDatepicker").hide();
-                $("#yearDatepicker").show();
+                $("#onedayDate").hide();
+                $("#displayDate").hide();
+                $("#yearDate").show();
 
                 var yearDate = new Date();
                 $("#startDate").val(yearDate.getFullYear() + '.01.01');
@@ -245,25 +218,17 @@
 
     var slctType = 0;
     function prevNext(isPrev){
-
         var targetDate = statUtil.getStatTimeDate($("#startDate").val(), stat_searchType, slctType, isPrev);
         var addDate = isPrev ? -1 : 1;
 
-        toDay = week[moment($("#startDate").val()).add('days', addDate).day()];
+        if(slctType == 0) {
+            dayButtonPrev(addDate);
+        }else if(slctType == 1) {
+            monthButtonPrev(addDate);
+        }else if(slctType == 2) {
+            yearButtonPrev(addDate);
 
-        if(slctType == 0){
-            setTimeDate(targetDate);
-        }else if(slctType == 1){
-            $("#startDate").val(moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD'));
-            var monthLastDate = new Date($("#startDate").val().substr(0,4),$("#startDate").val().substr(5,7),-1);
-            $("#endDate").val($("#startDate").val().substr(0,8) +(monthLastDate.getDate() + 1));
-            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
-        }else if(slctType == 2){
-            $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
-            $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
-            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
         }
-        $("#bt_search").click();
     }
 </script>
 

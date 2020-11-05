@@ -13780,6 +13780,12 @@ fieldset {
 .btn-default .caret {
     border-top-color: #fff; }
 
+.btn-search:active, .btn-search.active {
+    color: #fff;
+    background-color: #8556f6;
+    border-color: #555555;
+}
+
 fieldset[disabled] .btn-default,
 fieldset[disabled] .btn-default:hover,
 fieldset[disabled] .open .dropdown-toggle.btn-default,
