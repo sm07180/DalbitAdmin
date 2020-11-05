@@ -84,7 +84,6 @@ public class Cus_ImageService {
     /**
      * profile 이미지 초기화 조회
      */
-    @Transactional(readOnly = true)
     public String getMemberReset(P_MemberReportVo pMemberReportVo) throws GlobalException {
         try {
             //이미지 초기화
@@ -154,7 +153,6 @@ public class Cus_ImageService {
     /**
      * broadcast 이미지 초기화 조회
      */
-    @Transactional(readOnly = true)
     public String getBroadcastReset(P_MemberReportVo pMemberReportVo, String room_no) throws GlobalException {
 
         try {

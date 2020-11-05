@@ -476,6 +476,7 @@
         var hiddenData = '';
         hiddenData += hidden.replace('{name}', 'startDate').replace('{value}', $("#startDate").val());
         hiddenData += hidden.replace('{name}', 'endDate').replace('{value}', $("#endDate").val());
+        hiddenData += hidden.replace('{name}', 'search_testId').replace('{value}', $('input[name="search_testId"]').prop('checked') ? 1 : 0);
 
         $("#excelForm").html(hiddenData).attr({
             method : 'post'
