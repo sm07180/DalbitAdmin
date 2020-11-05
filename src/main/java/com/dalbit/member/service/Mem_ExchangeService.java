@@ -53,6 +53,7 @@ public class Mem_ExchangeService {
     public String getExchangeHistory_detail(P_MemberExchangeInputVo pMemberExchangeInputVo){
         Mon_ExchangeOutputVo exchangeInfo = mem_ExchangeDao.getExchangeHistory_detail(pMemberExchangeInputVo);
         exchangeInfo.setSocial_no(AES.decrypt(exchangeInfo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
+        exchangeInfo.setPrevSocialNo(AES.decrypt(exchangeInfo.getPrevSocialNo(), DalbitUtil.getProperty("social.secret.key")));
 
         P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo = new P_MemberParentsAgreeInputVo();
         pMemberParentsAgreeInputVo.setMemNo(pMemberExchangeInputVo.getMem_no());
