@@ -170,8 +170,11 @@ public class Mon_ExchangeService {
 
         }else{  //환전내역
 
-            monExchangeInputVo.setEnd_day(monExchangeInputVo.getEnd_day().length() == 1 ? "0"+monExchangeInputVo.getEnd_day() : monExchangeInputVo.getEnd_day());
-            monExchangeInputVo.setSearch_day(monExchangeInputVo.getSearch_day().length() == 1 ? "0"+monExchangeInputVo.getSearch_day() : monExchangeInputVo.getSearch_day());
+            if(!DalbitUtil.isEmpty(monExchangeInputVo.getBaseDay())){
+                monExchangeInputVo.setEnd_day(monExchangeInputVo.getEnd_day().length() == 1 ? "0"+monExchangeInputVo.getEnd_day() : monExchangeInputVo.getEnd_day());
+                monExchangeInputVo.setSearch_day(monExchangeInputVo.getSearch_day().length() == 1 ? "0"+monExchangeInputVo.getSearch_day() : monExchangeInputVo.getSearch_day());
+            }
+
             monExchangeInputVo.setLast_reject(1);
 
             int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
