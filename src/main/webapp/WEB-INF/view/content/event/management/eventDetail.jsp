@@ -566,7 +566,7 @@
             {{#state}}<button class="btn btn-danger btn-sm" type="button" id="bt_deleteOneEvent">이벤트 삭제</button>{{/state}}
         </div>
         <div class="form-inline pull-right">
-            <button type="button" class="btn btn-warning btn-sm" id="addContentBtn"><i class="fa fa-plus"></i>컨텐츠 추가</button>
+            <!--<button type="button" class="btn btn-warning btn-sm" id="addContentBtn"><i class="fa fa-plus"></i>컨텐츠 추가</button>-->
             {{^state}}<button class="btn btn-default btn-sm" type="button" id="bt_registerEvent">등록하기</button>{{/state}}
             {{#state}}<button class="btn btn-default btn-sm" type="button" id="bt_updateEvent">수정하기</button>{{/state}}
         </div>
