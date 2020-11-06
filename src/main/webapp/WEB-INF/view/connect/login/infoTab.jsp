@@ -58,8 +58,6 @@
         }
 
         $("#searchForm").show();
-        console.log("---------------");
-        console.log(tabId);
         if(tabId == 'tab_timeOver'){
             getTimeOver();
         }else if(tabId == 'tab_timeNonOver') {

@@ -217,28 +217,33 @@
     <select id="selectCompleteExchangeList" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
         /* Mon_Exchange.xml - selectCompleteExchangeList */
         SELECT
-            mem_no
-            , (select mem_userid from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_userid
-            , (select mem_name from rd_data.tb_member_basic where mem_no = EXCHANGE.mem_no) as mem_name
-            , account_name
-            , cash_basic
-            , benefit
-            , income_tax
-            , resident_tax
-            , transfer_fee
-            , cash_real
-            , social_no
-            , phone_no
-            , bank_code
+            exchange.mem_no
+            , ifnull(basic.mem_userid, withdrawal.mem_userid)  as mem_userid
+            , ifnull(basic.mem_name, withdrawal.mem_name)  as mem_name
+            , exchange.account_name
+            , exchange.cash_basic
+            , exchange.benefit
+            , exchange.income_tax
+            , exchange.resident_tax
+            , exchange.transfer_fee
+            , exchange.cash_real
+            , exchange.social_no
+            , exchange.phone_no
+            , exchange.bank_code
             , (select code from rd_data.tbl_code_define where `type` = 'exchange_bank_code' and `value` = bank_code) bank_name
-            , account_no
-            , address_1
-            , address_2
-            , date_format(reg_date,'%Y-%m-%d %H:%i:%s') AS reg_date
-        FROM rd_data.tb_member_exchange EXCHANGE
+            , exchange.account_no
+            , exchange.address_1
+            , exchange.address_2
+            , date_format(exchange.reg_date,'%Y-%m-%d %H:%i:%s') AS reg_date
+        FROM rd_data.tb_member_exchange exchange
+        left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
+        left join rd_data.tb_member_withdrawal_bak withdrawal on exchange.mem_no = withdrawal.mem_no
         WHERE DATE_FORMAT(#{startDate},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> op_date
             AND op_date <![CDATA[<=]]> DATE_FORMAT(#{endDate},'%Y-%m-%d 23:59:59')
             and state = 1
+        <if test='search_testId == 1'>
+            and (basic.inner = 0 or withdrawal.inner = 0)
+        </if>
     </select>
 
     <select id="selectExchangeDetail" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
@@ -720,6 +725,23 @@
         bank_code = #{bank_code}
         , account_name = #{account_name}
         , account_no = #{account_no}
+        <!--, social_no = #{social_no} 양과장 요청 완료처리시 update 할때 주민번호는 하지 않도록-->
+        , address_1 = #{address_1}
+        , address_2 = #{address_2}
+        , add_file1 = #{add_file1}
+        , add_file2 = #{add_file2}
+        , op_msg = #{op_msg}
+        , op_name = #{op_name}
+        , send_title = #{send_title}
+        , send_cont = #{send_cont}
+        , send_type = #{send_type}
+        , last_upd_date = now()
+    </sql>
+
+    <sql id="baseUpdate">
+        bank_code = #{bank_code}
+        , account_name = #{account_name}
+        , account_no = #{account_no}
         , social_no = #{social_no}
         , address_1 = #{address_1}
         , address_2 = #{address_2}
@@ -736,7 +758,7 @@
     <update id="updateExchangeDetail" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
         /* Mon_Exchange.xml - updateExchangeDetail */
         update rd_data.tb_member_exchange
-        set <include refid="baseUpdateColumn" />
+        set <include refid="baseUpdate" />
         where idx = #{idx}
     </update>
 
