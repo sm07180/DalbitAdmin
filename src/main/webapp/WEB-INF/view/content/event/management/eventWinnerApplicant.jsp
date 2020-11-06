@@ -254,6 +254,7 @@
                $('#tab_eventWinnerAnnounce').removeAttr('disabled');
                initWinnerApplicant();
                $('#tab_eventWinnerApplicant').click();
+               initDetail();
            });
        }
     });
@@ -270,6 +271,7 @@
                 $('#tab_eventWinnerAnnounce').attr('disabled', true);
                 initWinnerApplicant();
                 $('#tab_eventWinnerApplicant').click();
+                initDetail();
             });
         }
     });
