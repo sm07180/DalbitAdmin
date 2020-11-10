@@ -135,7 +135,10 @@
         $('#bt_img').click(function() {                     // 배경이미지 초기화
             bt_click(this.id);
         });
-        $('#bt_freezing').click(function() {                // 얼리기 변경
+        $('#bt_freezing_on').click(function() {                // 얼리기 변경
+            bt_click(this.id);
+        });
+        $('#bt_freezing_off').click(function() {                // 얼리기 해제 변경
             bt_click(this.id);
         });
         $('#bt_forcedExit').click(function() {              // 방 강제종료
