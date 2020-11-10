@@ -135,7 +135,10 @@
         $('#bt_img').click(function() {                     // 배경이미지 초기화
             bt_click(this.id);
         });
-        $('#bt_freezing').click(function() {                // 얼리기 변경
+        $('#bt_freezing_on').click(function() {                // 얼리기 변경
+            bt_click(this.id);
+        });
+        $('#bt_freezing_off').click(function() {                // 얼리기 해제 변경
             bt_click(this.id);
         });
         $('#bt_forcedExit').click(function() {              // 방 강제종료
@@ -202,8 +205,13 @@
         obj.mem_no = mem_no;
         obj.backgroundImage = "";
         obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
-        obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
+        //obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
         obj.forceExit = 0;
+
+        obj.notiContents = broadCastMessage.notiContents;
+        obj.sendNoti = '1';
+        obj.subjectType = broadCast_responseData.subjectType;
+        obj.beforBackgroundImage = broadCast_responseData.backgroundImage;
 
         if(tmp == "bt_adminMemo") {            //운영자 메모 변경
             if ($("#txt_adminMemo").val() == "" || $("#txt_adminMemo").val() == null) {
@@ -249,11 +257,23 @@
                         obj.title = dj_nickName + " 님의 방송입니다.";
                     } else return;
                 }
-            } else if (tmp == "bt_freezing") {
-                editEntry = tmp;
-                $("#broadCast_Message").html(util.getCommonCodeCheck(-1, freezeMsg_Message, "Y"));
-                $('#entryModal').modal('show');
-                return;
+            } else if (tmp == 'bt_freezing_on' || tmp == 'bt_freezing_off') {
+
+                var confirmMsg = '방송방 얼리기를 하시겠습니까?';
+                obj.freezeMsg = 2;
+
+                if(tmp == 'bt_freezing_off'){
+                    confirmMsg = '방송방 얼리기를 해제하시겠습니까?';
+                    obj.freezeMsg = 0;
+                }
+
+                if(!confirm(confirmMsg)){
+                    return;
+                }
+
+                obj.sendNoti = '0';
+                obj.notiContents = '';
+
             } else if (tmp == "bt_forcedExit") {
                 editEntry = tmp;
                 if ($('input:radio[name="forcedExit"]:checked').val() != 1) {
@@ -264,10 +284,10 @@
                 $('#entryModal').modal('show');
                 return;
             }
-            obj.notiContents = broadCastMessage.notiContents;
-            obj.sendNoti = "1";
+            /*obj.notiContents = broadCastMessage.notiContents;
+            obj.sendNoti = '1';
             obj.subjectType = broadCast_responseData.subjectType;
-            obj.beforBackgroundImage = broadCast_responseData.backgroundImage;
+            obj.beforBackgroundImage = broadCast_responseData.backgroundImage;*/
 
             util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
         }
@@ -311,9 +331,9 @@
 
         if(editEntry == "bt_freezing"){
 
-            alert("준비중입니다.");
-            return;
-            // tmp_msg = "방송방을 얼리시겠습니까?";
+            /*alert("준비중입니다.");
+            return;*/
+            tmp_msg = "방송방을 얼리시겠습니까?";
         }else if(editEntry == "bt_forcedExit"){
             tmp_msg = "방송을 강제종료 하시겠습니까?";
         }
@@ -332,11 +352,20 @@
             if(editEntry == "bt_forcedExit"){
                 memoDetail = broadCastMessage.forceExit;
                 title = broadCastMessage.forceExitTitle;
+                memo = broadCastMessage.forceExitMsg;
             }else if(editEntry == "bt_freezing"){
                 memoDetail = broadCastMessage.freezing;
                 title = broadCastMessage.freezingTitle;
+
+                if($('input:radio[name="freezing"]:checked').val() == 1){
+                    memo = broadCastMessage.freezeStartMsg;
+                }else{
+                    memo = broadCastMessage.freezeEndMsg;
+                    sendNoti = 0;
+                }
+
             }
-            memo = broadCastMessage.forceExitMsg;
+            //memo = broadCastMessage.forceExitMsg;
             memoDetail = memoDetail.replace("{{name}}",ADMIN_NICKNAME)
                         .replace("{{nickName}}",detailData.dj_nickName)
                         .replace("{{message}}",entryMessage)
@@ -467,11 +496,12 @@
             </td>
         </tr>
         <tr>
-            <%--<th>얼리기</th>--%>
-            <%--<td style="text-align: left">--%>
-                <%--{{{freezing}}}--%>
-                <%--{{#equal broadcastState 'ON'}}<button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}--%>
-            <%--</td>--%>
+            <!--<th>얼리기</th>
+            <td style="text-align: left">
+                &lt;!&ndash;{{{freezing}}}&ndash;&gt;
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_freezing_on" class="btn btn-default btn-sm pull-right">얼리기</button>{{/equal}}
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_freezing_off" class="btn btn-default btn-sm pull-right">얼리기 해제</button>{{/equal}}
+            </td>-->
         </tr>
         <tr>
             <th rowspan="3">환영 인사말</th>
@@ -488,6 +518,13 @@
                 {{/equal}}
                 {{#equal roomHide '1'}}
                     <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right" onclick="broadCastHide(0);">방송방 숨김 해제</button>
+                {{/equal}}
+
+                {{#equal freezeMsg '0'}}
+                    <button type="button" id="bt_freezing_on" class="btn btn-default btn-sm pull-right">얼리기</button>
+                {{/equal}}
+                {{^equal freezeMsg '0'}}
+                    <button type="button" id="bt_freezing_off" class="btn btn-default btn-sm pull-right">얼리기 해제</button>
                 {{/equal}}
             </td>
         </tr>
