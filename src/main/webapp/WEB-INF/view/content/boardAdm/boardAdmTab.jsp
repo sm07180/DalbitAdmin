@@ -10,6 +10,7 @@
     <li><a href="#fanBoardReply" role="tab" data-toggle="tab" id="tab_fanBoardReply">팬보드댓글</a></li>
     <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">방송방공지</a></li>
     <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">회원공지</a></li>   <!-- 2020.10.06 방송공지 -> 회원공지 텍스트 변경(이상훈 과장님 요청) -->
+    <li><a href="#broadNoticeReply" role="tab" data-toggle="tab" id="tab_broadNoticeReply">회원공지댓글</a></li>   <!-- 2020.11.10 추가 -->
     <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
     <li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->
 </ul>
@@ -19,6 +20,7 @@
     <div class="tab-pane fade" id="fanBoardReply"><jsp:include page="fanBoardReply.jsp"/></div>
     <div class="tab-pane fade" id="noticeList"><jsp:include page="noticeList.jsp"/></div>
     <div class="tab-pane fade" id="broadNoticeList"><jsp:include page="broadNoticeList.jsp"/></div>
+    <div class="tab-pane fade" id="broadNoticeReply"><jsp:include page="broadNoticeReply.jsp"/></div>
     <div class="tab-pane fade" id="profileMsgList"><jsp:include page="profileMsgList.jsp"/></div>
     <div class="tab-pane fade" id="clipReply"><jsp:include page="clipReply.jsp"/></div>
 </div>
@@ -38,8 +40,10 @@
             fanBoardReply();
         }else if(tabId == "tab_noticeList" ){
             noticeList();
-        }else if(tabId == "tab_broadNoticeList" ){
+        }else if(tabId == "tab_broadNoticeList" ) {
             broadNoticeList();
+        }else if(tabId == "tab_broadNoticeReply") {
+            broadNoticeReply();
         }else if(tabId == "tab_profileMsgList" ){
             profileMsgList();
         }else if(tabId == "tab_clipReply" ){
@@ -64,6 +68,8 @@
             noticeList();
         }else if(tabId == "tab_broadNoticeList" ){
             broadNoticeList();
+        }else if(tabId == "tab_broadNoticeReply") {
+            broadNoticeReply();
         }else if(tabId == "tab_profileMsgList" ){
             profileMsgList();
         }else if(tabId == "tab_clipReply" ){
@@ -93,6 +99,7 @@
         $("#tab_fanBoardReply").text("팬보드댓글" + "(" + response.data.fanBoardReplyCnt +")");
         $("#tab_noticeList").text("방송방공지" + "(" + response.data.noticeListCnt +")");
         $("#tab_broadNoticeList").text("회원공지" + "(" + response.data.broadNoticeListCnt +")");
+        $("#tab_broadNoticeReply").text("회원공지댓글" + "(" + response.data.broadNoticeReplyCnt + ")");
         $("#tab_profileMsgList").text("프로필 메시지" + "(" + response.data.profileMsgListCnt +")");
         $("#tab_clipReply").text("클립댓글" + "(" + response.data.clipReplyCnt +")");
     }

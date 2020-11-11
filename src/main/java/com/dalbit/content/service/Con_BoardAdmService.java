@@ -165,6 +165,49 @@ public class Con_BoardAdmService {
     }
 
     /**
+     * 회원공지 리플 조회 (회원공지 탭 목록에서의 리플 조회)
+     */
+    public String selectNoticeReply(BoardAdmNoticeReplyVo boardAdmNoticeReplyVo) {
+        ArrayList<BoardAdmNoticeReplyVo> reply = mem_NoticeDao.selectNoticeReply(boardAdmNoticeReplyVo);
+        int replyCnt=0;
+        for(int i=0; i<reply.size(); i++) {
+            if(reply.get(i).getDepthType() == 1) {
+                replyCnt++;
+            }
+        }
+
+        if(replyCnt > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.공지댓글조회_성공, reply));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.공지댓글조회_실패, reply));
+        }
+    }
+
+    /**
+     * 회원공지댓글 조회 (회원공지댓글 탭)
+     */
+    public String selectNoticeReplyList(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo) {
+        int totalCnt = mem_NoticeDao.selectNoticeReplyListCnt(boardAdmNoticeReplyListInputVo);
+        boardAdmNoticeReplyListInputVo.setTotalCnt(totalCnt);
+        ArrayList<BoardAdmNoticeReplyListOutputVo> replyList = mem_NoticeDao.selectNoticeReplyList(boardAdmNoticeReplyListInputVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.공지댓글조회_성공, replyList, new PagingVo(boardAdmNoticeReplyListInputVo.getTotalCnt(), boardAdmNoticeReplyListInputVo.getPageStart(), boardAdmNoticeReplyListInputVo.getPageCnt())));
+    }
+
+    /**
+     * 회원공지댓글 삭제
+     */
+    public String deleteNoticeReplyList(BoardAdmNoticeReplyDeleteVo boardAdmNoticeReplyDeleteVo) {
+        boardAdmNoticeReplyDeleteVo.setOpName(MemberVo.getMyMemNo());
+        int result = mem_NoticeDao.deleteNoticeReplyList(boardAdmNoticeReplyDeleteVo);
+        if(result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.공지댓글삭제_성공));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.공지댓글삭제_실패));
+        }
+    }
+
+    /**
      * 공지 통계
      */
     public String selectNoticeSummary(P_MemberNoticeInputVo pMemberNoticeInputVo) {
@@ -173,6 +216,14 @@ public class Con_BoardAdmService {
         result = gsonUtil.toJson(new JsonOutputVo(Status.조회, noticeSummaryList));
 
         return result;
+    }
+
+    /**
+     * 공지댓글 통계
+     */
+    public String selectNoticeReplyListSummary(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo) {
+        BoardAdmNoticeReplyListOutputVo replySummary = mem_NoticeDao.selectNoticeReplyListSummary(boardAdmNoticeReplyListInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, replySummary));
     }
 
     /**

@@ -86,6 +86,30 @@ public class Con_BoardAdmRestController {
     }
 
     /**
+     * 회원공지 리플 조회 (회원공지 탭 목록에서의 리플 조회)
+     */
+    @PostMapping("/selectNoticeReply")
+    public String noticeReply(BoardAdmNoticeReplyVo boardAdmNoticeReplyVo) {
+        return conBoardAdmService.selectNoticeReply(boardAdmNoticeReplyVo);
+    }
+
+    /**
+     * 회원공지댓글 조회 (회원공지댓글 탭)
+     */
+    @PostMapping("/noticeReplyList")
+    public String noticeReplyList(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo) {
+        return conBoardAdmService.selectNoticeReplyList(boardAdmNoticeReplyListInputVo);
+    }
+
+    /**
+     * 회원공지댓글 삭제
+     */
+    @PostMapping("/noticeReplyList/delete")
+    public String noticeReplyListDelete(BoardAdmNoticeReplyDeleteVo boardAdmNoticeReplyDeleteVo) {
+        return conBoardAdmService.deleteNoticeReplyList(boardAdmNoticeReplyDeleteVo);
+    }
+
+    /**
      * 공지 통계
      * @param pMemberNoticeInputVo
      * @return
@@ -93,6 +117,14 @@ public class Con_BoardAdmRestController {
     @PostMapping("/noticeList/summary")
     public String noticeListSummary(P_MemberNoticeInputVo pMemberNoticeInputVo) {
         return conBoardAdmService.selectNoticeSummary(pMemberNoticeInputVo);
+    }
+
+    /**
+     * 공지댓글 통계
+     */
+    @PostMapping("/noticeReplyList/summary")
+    public String noticeReplyListSummary(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo) {
+        return conBoardAdmService.selectNoticeReplyListSummary(boardAdmNoticeReplyListInputVo);
     }
 
     /**

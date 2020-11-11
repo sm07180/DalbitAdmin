@@ -166,6 +166,14 @@ public enum Status {
     공지보기성공("0", "notice.list.view.success", "공지보기 성공 시"),
     공지보기실패("C006", "notice.list.view.fail", "공지보기 실패 시"),
 
+    //공지 reply 보기
+    공지댓글조회_성공("0", "notice.reply.view.success", "공지 댓글 보기 성공 시"),
+    공지댓글조회_실패("C006", "notice.reply.view.fail", "공지 댓글 보기 실패 시"),
+
+    //공지 reply 삭제
+    공지댓글삭제_성공("0", "notice.reply.delete.success", "공지 댓글 삭제 성공 시"),
+    공지댓글삭제_실패("C006", "notice.reply.delete.fail", "공지 댓글 삭제 실패 시"),
+
     //금지어
     금지어목록보기성공("0", "banword.list.view.success", "금지어목록보기 성공 시"),
     금지어목록보기실패("C006", "banword.list.view.fail", "금지어목록보기 실패 시"),
