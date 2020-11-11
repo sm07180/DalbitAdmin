@@ -34,6 +34,9 @@ public class P_MemberNoticeOutputVo extends SearchVo {
     private int femaleCnt;    // 총합 여자
     private int noneCnt;      // 총합 알수없음
 
+    // 2020.11.10 댓글 수 추가 (강다인)
+    private int replyCnt;
+
     public void setLast_upd_date(Date last_upd_date){
         this.last_upd_date = last_upd_date;
         this.lastUpdDateFormat = DalbitUtil.convertDateFormat(last_upd_date, "yyyy.MM.dd HH:mm:ss");

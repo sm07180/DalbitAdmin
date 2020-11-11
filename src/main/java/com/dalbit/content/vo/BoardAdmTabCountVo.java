@@ -27,5 +27,6 @@ public class BoardAdmTabCountVo extends PagingVo {
     private int broadNoticeListCnt;
     private int profileMsgListCnt;
     private int clipReplyCnt;
+    private int broadNoticeReplyCnt;
 
 }
