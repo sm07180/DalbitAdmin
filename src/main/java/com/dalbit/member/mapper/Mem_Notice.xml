@@ -23,6 +23,14 @@
                 , a.image_path
                 , a.status
                 , a.op_name
+                , (select count(*)
+                    from rd_data.tb_member_broadcast_notice_reply rep
+                    where rep.mem_no = a.mem_no and a.idx = rep.notice_no and rep.`status` = 0
+                        and a.writer_mem_no not in
+                    (select bla.black_mem_no
+                        from rd_data.tb_member_broadcast_black bla
+                        where bla.mem_no = a.mem_no and bla.black_mem_no <![CDATA[<>]]> rep.writer_no)
+                ) as replyCnt
           From rd_data.tb_member_broadcast_notice a
           left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
          where (b.mem_no like CONCAT('%',#{mem_no},'%') OR b.mem_userid like CONCAT('%',#{mem_no},'%') OR b.mem_nick like CONCAT('%',#{mem_no},'%'))
@@ -80,6 +88,125 @@
             ) a
     </select>
 
+    <select id="selectNoticeReply" parameterType="com.dalbit.content.vo.BoardAdmNoticeReplyVo" resultType="com.dalbit.content.vo.BoardAdmNoticeReplyVo">
+        select
+            '0' as depthType
+             , a.idx as idx
+             , ifnull(bas.mem_nick, bak.mem_nick) as memNick
+             , ifnull(bas.mem_sex, bak.mem_sex) as memSex
+             , ifnull(bas.mem_userid, bak.mem_userid) as memUserId
+             , a.writer_mem_no as memNo
+             , a.contents as contents
+             , pro.image_profile as profileImage
+             , a.last_upd_date as writeDate
+        from rd_data.tb_member_broadcast_notice a
+            left outer join rd_data.tb_member_basic bas on a.writer_mem_no = bas.mem_no
+            left outer join rd_data.tb_member_withdrawal_bak bak on a.writer_mem_no = bak.mem_no
+            inner join rd_data.tb_member_profile pro on a.writer_mem_no = pro.mem_no
+        where a.writer_mem_no = #{memNo}
+          and a.idx = #{idx}
+        union
+        select
+            '1' as depthType
+             , b.notice_no as idx
+             , ifnull(bas.mem_nick, bak.mem_nick) as memNick
+             , ifnull(bas.mem_sex, bak.mem_sex) as memSex
+             , ifnull(bas.mem_userid, bak.mem_userid) as memUserId
+             , b.writer_no as memNo
+             , b.contents as contents
+             , pro.image_profile as profileImage
+             , b.last_upd_date as writeDate
+        from rd_data.tb_member_broadcast_notice_reply b
+             left outer join rd_data.tb_member_basic bas on b.writer_no = bas.mem_no
+             left outer join rd_data.tb_member_withdrawal_bak bak on b.writer_no = bak.mem_no
+             inner join rd_data.tb_member_profile pro on b.writer_no = pro.mem_no
+        where b.writer_no = #{memNo}
+           and b.notice_no = #{idx}
+        order by writeDate desc
+    </select>
+
+    <sql id="noticeReplyCondition">
+        <where>
+            <if test='start_sel != null and start_sel != ""'>
+                nore.last_upd_date  <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
+            </if>
+            <if test='end_sel != null and end_sel != ""'>
+                and nore.last_upd_date  <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
+            </if>
+            <if test='txt_search != null and txt_search != ""'>
+                and (
+                noti.writer_mem_no like CONCAT('%',#{txt_search},'%') or
+                bas.mem_nick like CONCAT('%',#{txt_search},'%') or bak.mem_nick like CONCAT('%',#{txt_search},'%') or
+                bas.mem_userid like CONCAT('%',#{txt_search},'%') or bak.mem_userid like CONCAT('%',#{txt_search},'%') or
+                nore.writer_no like CONCAT('%',#{txt_search},'%') or
+                reba.mem_nick like CONCAT('%',#{txt_search},'%') or rebak.mem_nick like CONCAT('%',#{txt_search},'%') or
+                reba.mem_userid like CONCAT('%',#{txt_search},'%') or rebak.mem_userid like CONCAT('%',#{txt_search},'%')
+                )
+            </if>
+            <if test='replyStatus == 1'>
+                and nore.`status` = 0
+            </if>
+            <if test='replyStatus == 2'>
+                and nore.`status` = 1
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectNoticeReplyList" parameterType="com.dalbit.content.vo.BoardAdmNoticeReplyListInputVo" resultType="com.dalbit.content.vo.BoardAdmNoticeReplyListOutputVo">
+        select
+            @rownum := @rownum + 1 as rowNum
+            , a.*
+            from (
+                select
+                noti.idx as idx
+                , noti.writer_mem_no as memNo
+                , ifnull(bas.mem_nick, bak.mem_nick) as memNick
+                , ifnull(bas.mem_sex, bak.mem_sex) as memSex
+                , ifnull(bas.mem_userid, bak.mem_userid) as memUserId
+                , ifnull(bas.mem_birth_year, bak.mem_birth_year) as memBirthYear
+                , noti.contents as contents
+                , noti.`status` as status
+                , nore.idx as replyIdx
+                , nore.writer_no as replyMemNo
+                , ifnull(reba.mem_nick, rebak.mem_nick) as replyMemNick
+                , ifnull(reba.mem_sex, rebak.mem_sex) as replyMemSex
+                , ifnull(reba.mem_userid, rebak.mem_userid) as replyMemUserId
+                , ifnull(reba.mem_birth_year, rebak.mem_birth_year) as replyMemBirthYear
+                , nore.contents as replyContents
+                , nore.`status` as replyStatus
+                , nore.last_upd_date as writeDate
+                , ifnull(reba.inner, rebak.inner) as replyInner
+                from rd_data.tb_member_broadcast_notice noti
+                inner join rd_data.tb_member_broadcast_notice_reply nore on noti.idx = nore.notice_no
+                left outer join rd_data.tb_member_basic bas on noti.writer_mem_no = bas.mem_no
+                left outer join rd_data.tb_member_withdrawal_bak bak on noti.writer_mem_no = bak.mem_no
+                left outer join rd_data.tb_member_basic reba on nore.writer_no = reba.mem_no
+                left outer join rd_data.tb_member_withdrawal_bak rebak on nore.writer_no = rebak.mem_no
+                <include refid="noticeReplyCondition"/>
+            ) as a, (select @rownum := #{pageNo}) as b
+        order by a.writeDate desc
+        limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="selectNoticeReplyListCnt" parameterType="com.dalbit.content.vo.BoardAdmNoticeReplyListInputVo" resultType="integer">
+        select
+            count (*)
+        from rd_data.tb_member_broadcast_notice noti
+            inner join rd_data.tb_member_broadcast_notice_reply nore on noti.idx = nore.notice_no
+            left outer join rd_data.tb_member_basic bas on noti.writer_mem_no = bas.mem_no
+            left outer join rd_data.tb_member_withdrawal_bak bak on noti.writer_mem_no = bak.mem_no
+            left outer join rd_data.tb_member_basic reba on nore.writer_no = reba.mem_no
+            left outer join rd_data.tb_member_withdrawal_bak rebak on nore.writer_no = rebak.mem_no
+            <include refid="noticeReplyCondition"/>
+    </select>
+
+    <update id="deleteNoticeReplyList" parameterType="com.dalbit.content.vo.BoardAdmNoticeReplyDeleteVo">
+        update rd_data.tb_member_broadcast_notice_reply
+            set status = #{status}
+                , opName = #{opName}
+            where idx = #{replyIdx}
+    </update>
+
     <select id="selectNoticeSummary" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
         select count(*) totalCnt
                 ,sum(if(mem_sex = 'm',1,0)) as maleCnt
@@ -90,6 +217,20 @@
             ) a
     </select>
 
+    <select id="selectNoticeReplyListSummary" parameterType="com.dalbit.content.vo.BoardAdmNoticeReplyListInputVo" resultType="com.dalbit.content.vo.BoardAdmNoticeReplyListOutputVo">
+        select count(*) as summaryTotalCnt
+            , sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = nore.writer_no) = 'm', 1, 0)) as maleCnt
+            , sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = nore.writer_no) = 'f', 1, 0)) as femaleCnt
+            , sum(if((select mem_sex from rd_data.tb_member_basic where mem_no = nore.writer_no) = 'n', 1, 0)) as noneCnt
+        from rd_data.tb_member_broadcast_notice noti
+            inner join rd_data.tb_member_broadcast_notice_reply nore on noti.idx = nore.notice_no
+            left outer join rd_data.tb_member_basic bas on noti.writer_mem_no = bas.mem_no
+            left outer join rd_data.tb_member_withdrawal_bak bak on noti.writer_mem_no = bak.mem_no
+            left outer join rd_data.tb_member_basic reba on nore.writer_no = reba.mem_no
+            left outer join rd_data.tb_member_withdrawal_bak rebak on nore.writer_no = rebak.mem_no
+        <include refid="noticeReplyCondition"/>
+    </select>
+
     <update id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
          update rd_data.tb_member_broadcast_notice set status=#{noticeType}, op_name = #{opName} where idx=#{noticeIdx}
     </update>
@@ -98,6 +239,7 @@
     <select id="callBroadBeforNotice" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
         select notice as contents FROM rd_data.tb_broadcast_room WHERE room_no = #{roomNo}
     </select>
+
     <update id="callBroadNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
          update rd_data.tb_broadcast_room set notice='', last_upd_date = now() where idx=#{noticeIdx}
     </update>

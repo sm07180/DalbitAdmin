@@ -71,7 +71,7 @@
 
     var memNo;
     function clipReplyList() {
-
+        $('#title').html('클립검색');
         if(!common.isEmpty(memNo) && memNo != null){
             txt_search = memNo;
         }else{

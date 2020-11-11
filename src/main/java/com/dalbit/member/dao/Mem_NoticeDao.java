@@ -1,5 +1,9 @@
 package com.dalbit.member.dao;
 
+import com.dalbit.content.vo.BoardAdmNoticeReplyDeleteVo;
+import com.dalbit.content.vo.BoardAdmNoticeReplyListInputVo;
+import com.dalbit.content.vo.BoardAdmNoticeReplyListOutputVo;
+import com.dalbit.content.vo.BoardAdmNoticeReplyVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
@@ -17,7 +21,21 @@ public interface Mem_NoticeDao {
     ArrayList<P_MemberNoticeOutputVo> callNoticeHistory(P_MemberNoticeInputVo pMemberNoticeInputVo);
 
     @Transactional(readOnly = true)
+    ArrayList<BoardAdmNoticeReplyVo> selectNoticeReply(BoardAdmNoticeReplyVo boardAdmNoticeReplyVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<BoardAdmNoticeReplyListOutputVo> selectNoticeReplyList(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo);
+
+    @Transactional(readOnly = true)
+    int selectNoticeReplyListCnt(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo);
+
+    int deleteNoticeReplyList(BoardAdmNoticeReplyDeleteVo boardAdmNoticeReplyDeleteVo);
+
+    @Transactional(readOnly = true)
     P_MemberNoticeOutputVo selectNoticeSummary(P_MemberNoticeInputVo pMemberNoticeInputVo);
+
+    @Transactional(readOnly = true)
+    BoardAdmNoticeReplyListOutputVo selectNoticeReplyListSummary(BoardAdmNoticeReplyListInputVo boardAdmNoticeReplyListInputVo);
 
     @Transactional(readOnly = true)
     int callNoticeHistory_totalCnt(P_MemberNoticeInputVo pMemberNoticeInputVo);
