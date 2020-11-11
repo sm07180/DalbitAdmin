@@ -998,6 +998,35 @@ public class DalbitUtil {
         }
     }
 
+    /**
+     *  방송방 얼리기
+     */
+    public static String broadcastFreeze(P_BroadcastEditInputVo pBroadcastEditInputVo){
+
+        String authMemNo = adm_MenuDao.getMobileAuth(pBroadcastEditInputVo.getOpName());
+        if(DalbitUtil.isEmpty(authMemNo)){
+            return "noAuth";
+        }
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        RequestBody formBody = new FormBody.Builder()
+                .add("room_no", pBroadcastEditInputVo.getRoom_no())
+                .add("mem_no", pBroadcastEditInputVo.getMem_no())
+                .add("freezeMsg", pBroadcastEditInputVo.getFreezeMsg())
+                .build();
+
+        String inforexLoginResult;
+        try{
+            String url = SERVER_API_URL + "/admin/freeze";
+            Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
+            inforexLoginResult = response.body().string();
+            log.debug(inforexLoginResult);
+            return inforexLoginResult;
+        }catch (IOException | GlobalException e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
     /*
      * 게스트 종료
      */

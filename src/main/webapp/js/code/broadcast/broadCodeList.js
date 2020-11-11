@@ -38,7 +38,7 @@ var searchRadio = [
 
 var freezing = [
     new COMMON_CODE(null, 'freezing', '얼리기')
-    , new COMMON_CODE('freezing', '1', '얼리기')
+    , new COMMON_CODE('freezing', '2', '얼리기')
     , new COMMON_CODE('release', '0', '해제')
 ];
 

@@ -290,6 +290,12 @@ public class Bro_BroadcastService {
      * 방송방 정보수정
      */
     public String callBroadcastEdit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
+
+        //수정 전 방송정보 조회
+        ProcedureVo pBroadcastDetailInputProcedureVo = new ProcedureVo(pBroadcastEditInputVo);
+        bro_BroadcastDao.callBroadcastInfo(pBroadcastDetailInputProcedureVo);
+        P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(pBroadcastDetailInputProcedureVo.getExt(), P_BroadcastDetailOutputVo.class);
+
         pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
         pBroadcastEditInputVo.setMemLogin(1);
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastEditInputVo);
@@ -306,7 +312,7 @@ public class Bro_BroadcastService {
                 bro_BroadcastDao.callBroadcastRoomExit(procedureVo);
                 // 방송 시작시간
                 bro_BroadcastDao.callBroadcastInfo(procedureVo);
-                P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
+                //P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
 
                 // 방송 강제종료 api 호출
                 pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
@@ -318,36 +324,42 @@ public class Bro_BroadcastService {
                     return gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_권한없음));
                 }
 //            }else if(pBroadcastEditInputVo.getForceExit().equals("0") && pBroadcastEditInputVo.getSendNoti().equals("1")){
-            }else if(pBroadcastEditInputVo.getForceExit().equals("0")){
-
-                //option
-                HashMap<String, Object> param = new HashMap<>();
-                param.put("roomNo", pBroadcastEditInputVo.getRoom_no());
-                param.put("memNo", pBroadcastEditInputVo.getMem_no());
-                param.put("memNk", "");
-                param.put("ctrlRole", "ctrlRole");
-                param.put("recvType","chat");
-                param.put("recvPosition","chat");
-                param.put("recvLevel", 0);
-                param.put("recvTime", 0);
-
-                // message set
-                Gson gson = new Gson();
-                HashMap<String,Object> tmp = new HashMap();
-                tmp.put("roomType", pBroadcastEditInputVo.getSubjectType());
-                tmp.put("title", pBroadcastEditInputVo.getTitle());
-                tmp.put("welcomMsg", pBroadcastEditInputVo.getWelcomMsg());
-
-                if(DalbitUtil.isEmpty(pBroadcastEditInputVo.getBackgroundImage())){
-                    tmp.put("bgImg", new ImageVo(pBroadcastEditInputVo.getBeforBackgroundImage(), DalbitUtil.getProperty("server.photo.url")));
-                }else{
-                    tmp.put("bgImg", new ImageVo(pBroadcastEditInputVo.getBackgroundImage(), DalbitUtil.getProperty("server.photo.url")));
-                }
-                tmp.put("bgImgRacy", 5);
-                String message =  gson.toJson(tmp);
-
-                socketUtil.setSocket(param, "reqRoomChangeInfo", message, jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
             }
+
+
+            //얼리기
+            if(!broadcastDetail.getFreezeMsg().equals(pBroadcastEditInputVo.getFreezeMsg())){
+                DalbitUtil.broadcastFreeze(pBroadcastEditInputVo);
+            }
+
+            //option
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("roomNo", pBroadcastEditInputVo.getRoom_no());
+            param.put("memNo", pBroadcastEditInputVo.getMem_no());
+            param.put("memNk", "");
+            param.put("ctrlRole", "ctrlRole");
+            param.put("recvType","chat");
+            param.put("recvPosition","chat");
+            param.put("recvLevel", 0);
+            param.put("recvTime", 0);
+
+            // message set
+            Gson gson = new Gson();
+            HashMap<String,Object> tmp = new HashMap();
+            tmp.put("roomType", pBroadcastEditInputVo.getSubjectType());
+            tmp.put("title", pBroadcastEditInputVo.getTitle());
+            tmp.put("welcomMsg", pBroadcastEditInputVo.getWelcomMsg());
+
+            if(DalbitUtil.isEmpty(pBroadcastEditInputVo.getBackgroundImage())){
+                tmp.put("bgImg", new ImageVo(pBroadcastEditInputVo.getBeforBackgroundImage(), DalbitUtil.getProperty("server.photo.url")));
+            }else{
+                tmp.put("bgImg", new ImageVo(pBroadcastEditInputVo.getBackgroundImage(), DalbitUtil.getProperty("server.photo.url")));
+            }
+            tmp.put("bgImgRacy", 5);
+            String message =  gson.toJson(tmp);
+
+            socketUtil.setSocket(param, "reqRoomChangeInfo", message, jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
+
         } else if(Status.방송방정보수정_방번호없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_방번호없음));
         } else if(Status.방송방정보수정_종료된방.getMessageCode().equals(procedureVo.getRet())) {

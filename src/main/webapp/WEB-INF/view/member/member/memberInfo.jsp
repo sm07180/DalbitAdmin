@@ -162,7 +162,7 @@
             getInfoDetail(this.id,"(내가 등록한) 매니저");
         });
         $('#bt_black').click(function() {               //블랙리스트 자세히
-            getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
+            getInfoDetail(this.id,"(내가 등록한) 블랙리스트");
         });
         $('#bt_editHistory').click(function() {         //최근정보 내역
             // getInfoDetail(this.id,"정보수정내역");
@@ -532,6 +532,8 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
+
+        console.log(tmp);
 
         if(tmp == "manager" || tmp == "black"){
             $('#detail2').addClass("show");
@@ -1283,16 +1285,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="memberInfoDetail2">
-            <div class="widget widget-table">
-                <div class="widget-content">
-                    <table id="info_detail2" class="table table-sorting table-hover table-bordered datatable">
-                        <thead id="tableTop_detail2">
-                        </thead>
-                        <tbody id="tableBody_detail2">
-                        </tbody>
-                    </table>
+            <div class="tab-pane fade" id="memberInfoDetail2">
+                <div class="widget widget-table">
+                    <div class="widget-content">
+                        <table id="info_detail2" class="table table-sorting table-hover table-bordered datatable">
+                            <thead id="tableTop_detail2">
+                            </thead>
+                            <tbody id="tableBody_detail2">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
