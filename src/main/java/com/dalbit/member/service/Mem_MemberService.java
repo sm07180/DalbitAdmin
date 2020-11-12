@@ -988,4 +988,48 @@ public class Mem_MemberService {
         return result;
 
     }
+
+    /**
+     * 아이템 수정하기
+     */
+    public String boostItemChange(P_MemberItemVo pMemberItemVo){
+        pMemberItemVo.setOpName(MemberVo.getMyMemNo());
+
+        ProcedureVo procedureVo = new ProcedureVo(pMemberItemVo);
+        mem_MemberDao.boostItemChange(procedureVo);
+
+        String result = "";
+        if(Status.회원아이템수정_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공));
+
+            P_MemberItemVo changeItemVo = new Gson().fromJson(procedureVo.getExt(), P_MemberItemVo.class);
+
+            String ediContents = "";
+            if (pMemberItemVo.getSlctType() == 1) {
+                int prevItemCnt = changeItemVo.getItemCnt() - pMemberItemVo.getItemCnt();
+                ediContents = "부스터 아이템 지급 : " + pMemberItemVo.getItemCnt() + "개 | " + prevItemCnt + "개 > " + changeItemVo.getItemCnt() + "개";
+            }else {
+                int prevItemCnt = changeItemVo.getItemCnt() + pMemberItemVo.getItemCnt();
+                ediContents = "부스터 아이템 차감 : " + pMemberItemVo.getItemCnt() + "개 | " + prevItemCnt + "개 > " + changeItemVo.getItemCnt() + "개";
+            }
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(pMemberItemVo.getMem_no());
+            pMemberEditorVo.setEditContents(ediContents);
+            pMemberEditorVo.setType(0);
+            pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+            mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        } else if(Status.회원아이템수정_실패_회원없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원아이템수정_실패_회원없음));
+
+        } else if(Status.회원아이템수정_실패_회수시보유개수부족.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원아이템수정_실패_회수시보유개수부족));
+
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
+        return result;
+    }
 }

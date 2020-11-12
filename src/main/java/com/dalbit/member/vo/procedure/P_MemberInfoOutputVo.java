@@ -66,6 +66,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private int clipListenCnt;      //청취 클립 건수 (비중복)
     private int clipPlayCnt;         // 클립 재생 횟수
     private int clipCnt;         // 클립 등록건수
+    private int boostCnt;         // 부스터 아이템 보유 갯수
 
     private String certification;
     private String comm_company;

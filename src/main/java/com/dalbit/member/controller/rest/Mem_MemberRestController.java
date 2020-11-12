@@ -304,4 +304,13 @@ public class Mem_MemberRestController {
     public String insertAuth(P_AuthVo pAuthVo){
         return mem_MemberService.insertAuth(pAuthVo);
     }
+
+    /**
+     * 아이템 수정
+     */
+    @PostMapping("boostItemChange")
+    public String boostItemChange(P_MemberItemVo pMemberItemVo){
+        String result = mem_MemberService.boostItemChange(pMemberItemVo);
+        return result;
+    }
 }

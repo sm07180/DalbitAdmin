@@ -828,4 +828,8 @@
             , 'n'
         )
     </insert>
+
+    <select id="boostItemChange" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberItemVo">
+        call rd_admin.sp_admin_member_item_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

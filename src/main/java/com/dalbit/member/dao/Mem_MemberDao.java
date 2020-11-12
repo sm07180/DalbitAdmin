@@ -159,4 +159,6 @@ public interface Mem_MemberDao {
     P_MemberAccumOutputVo getMemberAccumData(P_MemberInfoInputVo pMemberInfoInputVo);
 
     int insertAuth(P_AuthVo pAuthVo);
+
+    P_MemberItemVo boostItemChange(ProcedureVo procedureVo);
 }
