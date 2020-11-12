@@ -36,7 +36,6 @@
     var memberInfo_responseDate;
     var withdrawal;
     function info_sel_success(dst_id, response) {
-        dalbitLog(response);
         if(response.result == "fail"){
             alert("회원정보 없음");
             return;
@@ -191,6 +190,10 @@
         });
         $('#bt_state').click(function() {           // 상태 정상으로 변경
             stateEdit();
+        });
+
+        $('#bt_boostAdd').click(function(){
+           boostAdd(this);
         });
 
         $('#bt_dalAdd').click(function() {           // 달변경
@@ -650,6 +653,55 @@
         }
     });
 
+    function boostAdd(btn){
+        var boostCnt = $('#txt_boostAddCnt');
+
+        if(common.isEmpty(boostCnt.val())){
+            alert('부스터 갯수를 입력해주세요.');
+            boostCnt.focus();
+            return;
+        }else if(isNaN(boostCnt.val())){
+            alert('부스터 갯수는 숫자로만 입력해주세요.');
+            boostCnt.focus();
+            return;
+        }
+
+        if($('#boostPlusMinus').val() == '3' && $(btn).data('boostcnt') < Number(boostCnt.val())){
+            alert('보유수량보다 많은 수량을 차감할 수 없습니다.');
+            return;
+        }
+
+        if($('#boostPlusMinus').val() == '1' && 9999 < Number($(btn).data('boostcnt')) + Number(boostCnt.val())){
+            alert('아이템 갯수는 9999까지만 가능합니다.');
+            return;
+        }
+
+        var msg = '부스터 ' + boostCnt.val() +'개를 지급하시겠습니까?';
+        var dst_id = 'boostAdd';
+        if($('#boostPlusMinus').val() == '3'){
+            msg = '부스터 ' + boostCnt.val() +'개를 차감하시겠습니까?';
+            dst_id = 'boostSubtract';
+        }
+
+        if(confirm(msg)){
+            var data = {
+                mem_no : $(btn).data('memno')
+                , itemType : 1
+                , slctType : $('#boostPlusMinus').val()
+                , itemCnt : boostCnt.val()
+            }
+
+            util.getAjaxData(dst_id, "/rest/member/member/boostItemChange", data, function(dst_id, response){
+                var responseMsg = '부스터 ' + boostCnt.val() + '개를 지급하였습니다.';
+                if($('#boostPlusMinus').val() == '3'){
+                    responseMsg = '부스터 ' + boostCnt.val() + '개를 차감하였습니다.';
+                }
+                alert(responseMsg);
+                location.reload();
+            });
+        }
+    }
+
     function dalbyeolAdd(tmp){
         var data = new Object();
         data.mem_no = memNo;
@@ -981,9 +1033,9 @@
         </tr>
         <tr>
             <th>최초<br>방송일시</th>
-            <td colspan="4" style="text-align: left">{{firstBroadcastDate}}</td>
+            <td colspan="3" style="text-align: left">{{firstBroadcastDate}}</td>
             <th>최근<br>방송일시</th>
-            <td colspan="2" style="text-align: left">{{lastBroadcastDate}}</td>
+            <td colspan="3" style="text-align: left">{{lastBroadcastDate}}</td>
         </tr>
         <tr>
             <th rowspan="2">프로필<br>메시지</th>
@@ -993,14 +1045,14 @@
                 <button type="button" id="bt_profileMsg_del" class="btn btn-default btn-sm pull-right " style="background-color: #46B0CF; border-color: #46B0CF">삭제</button>
             </td>
             <th>방송상태</th>
-            <td colspan="4" style="text-align: left">
+            <td colspan="3" style="text-align: left">
                 {{{icon_broadcastState}}}
                 {{#equal broadcastState 'ON'}}
                 - 방송제목 : {{{roomNoLink ../title ../room_no}}}
                 {{/equal}}
             </td>
             <th>마이크</th>
-            <td style="border-right-color:white;border-right-width:0px;">
+            <td colspan="2" style="border-right-color:white;border-right-width:0px;">
                 {{#dalbit_if micState '==' 'ON'}}
                     <i class="fa fa-microphone" style="color: #a037d9;font-size:20px;"></i>{{micState}}
                 {{else}}
@@ -1138,18 +1190,36 @@
                 </div>
             </td>
             <td colspan="2"></td>
+
+            <th>부스터</th>
+            <td colspan="3" style="text-align: left">
+                <span class="col-md-3 no-padding" style="text-align: left">
+                    {{addComma boostCnt}} 개
+                </span>
+                <c:if test="${insertYn eq 'Y'}">
+                    <span class="col-md-9 no-padding" id="">
+                        <select id="boostPlusMinus" name="boostPlusMinus" class="form-control searchType">
+                            <option value="1">+</option>
+                            <option value="3">-</option>
+                        </select>
+                        <input type="text" class="form-control" id="txt_boostAddCnt" style="width: 100px" maxlength="4">
+                        <button type="button" id="bt_boostAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-boostcnt="{{boostCnt}}">변경</button>
+                    </span>
+                </c:if>
+            </td>
+
             <th>매니저</th>
-            <td colspan="4" style="text-align: left">
+            <td style="text-align: left">
                 <%--{{addComma managerICnt}} 명 / {{addComma managerMeCnt}} 명--%>
                 {{#equal memWithdrawal '0'}}
-                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-left">상세</button>
+                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">상세</button>
                 {{/equal}}
             </td>
             <th>블랙리스트</th>
-            <td colspan="2" style="text-align: left">
+            <td style="text-align: left">
                 <%--{{addComma blackICnt}} 명 / {{addComma blackMeCnt}} 명--%>
                 {{#equal memWithdrawal '0'}}
-                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-left">상세</button>
+                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">상세</button>
                 {{/equal}}
             </td>
         </tr>
@@ -1163,9 +1233,9 @@
             </td>
             <td colspan="2"></td>
             <th>회원<br>가입일시</th>
-            <td colspan="4" style="text-align: left">{{joinDate}} <label class="no-margin" id="memSlct"></label></td>
+            <td colspan="3" style="text-align: left">{{joinDate}} <label class="no-margin" id="memSlct"></label></td>
             <th>회원<br>탈퇴일시</th>
-            <td colspan="2" style="text-align: left">
+            <td colspan="3" style="text-align: left">
                 {{#equal memWithdrawal '1'}}
                 {{../last_upd_date}}
                 {{/equal}}
@@ -1199,9 +1269,9 @@
                 {{/equal}}
             </td>
             <th>최근정보<br/>수정일시</th>
-            <td colspan="4" style="text-align: left">{{lastOpDate}}</td>
+            <td colspan="3" style="text-align: left">{{lastOpDate}}</td>
             <th>최근정보<br/>수정자</th>
-            <td colspan="1" style="text-align: left;border-right-color:white;border-right-width:0px;">{{lastOpName}}</td>
+            <td colspan="2" style="text-align: left;border-right-color:white;border-right-width:0px;">{{lastOpName}}</td>
             <td>
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
             </td>
