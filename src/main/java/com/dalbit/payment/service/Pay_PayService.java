@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.*;
 
 @Slf4j
@@ -158,5 +160,29 @@ public class Pay_PayService {
         model.addAttribute("workbookName", "쿠콘 현금영수증 발행내역");
 
         return model;
+    }
+
+    /**
+     *  결제내역 추가
+     */
+    public String payAdd(Pay_PayAddVo pay_PayAddVo, HttpServletRequest request) throws ParseException {
+        pay_PayAddVo.setOrder_id(DalbitUtil.getTradeId(String.valueOf(System.currentTimeMillis()).substring(0,12)));
+        pay_PayAddVo.setPay_ok_date(DalbitUtil.stringToDatePattern(pay_PayAddVo.getOkDate(), "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd"));
+        pay_PayAddVo.setPay_ok_time(DalbitUtil.stringToDatePattern(pay_PayAddVo.getOkDate(), "yyyy-MM-dd HH:mm:ss", "HH:mm:ss"));
+        pay_PayAddVo.setPay_ip(DalbitUtil.getIp(request));
+
+        String result;
+        int insertSuccess = payPayDao.payAdd(pay_PayAddVo);
+        if(insertSuccess > 0){
+            int updateSuccess = payPayDao.payUpdate(pay_PayAddVo);
+            if(updateSuccess > 0){
+                result = gsonUtil.toJson(new JsonOutputVo(Status.생성));
+            }else{
+                result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+            }
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+        return result;
     }
 }
