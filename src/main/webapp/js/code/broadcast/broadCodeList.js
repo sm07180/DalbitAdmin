@@ -244,4 +244,32 @@ var guestProposeState = [
     ,new COMMON_CODE('5', '5', '게스트 지정 취소')
 ];
 
+var inAppItem = [
+    new COMMON_CODE(null, 'payItem', '아이템구분')
+    , new COMMON_CODE(-1, '-1', '아이템 ▽')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.9', 'com.dalbitlive.inapp.dal.9', '달 9')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.45', 'com.dalbitlive.inapp.dal.45', '달 45')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.92', 'com.dalbitlive.inapp.dal.92', '달 92')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.100', 'com.dalbitlive.inapp.dal.100', '달 200')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.420', 'com.dalbitlive.inapp.dal.420', '달 500')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.838', 'com.dalbitlive.inapp.dal.838', '달 838')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.1531', 'com.dalbitlive.inapp.dal.1531', '달 1530')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.2300', 'com.dalbitlive.inapp.dal.2300', '달 2300')
+    , new COMMON_CODE('com.dalbitlive.inapp.dal.3770', 'com.dalbitlive.inapp.dal.3770', '달 3770')
+];
+
+var elseItem = [
+    new COMMON_CODE(null, 'payItem', '아이템구분')
+    , new COMMON_CODE(-1, '-1', '아이템 ▽')
+    , new COMMON_CODE('A1070', 'A1070', '달 10')
+    , new COMMON_CODE('A1865', 'A1865', '달 50')
+    , new COMMON_CODE('A1335', 'A1335', '달 100')
+    , new COMMON_CODE('A1555', 'A1555', '달 300')
+    , new COMMON_CODE('A1227', 'A1227', '달 500')
+    , new COMMON_CODE('A1738', 'A1738', '달 1000')
+    , new COMMON_CODE('A1233', 'A1233', '달 3000')
+    , new COMMON_CODE('A1999', 'A1999', '달 5000')
+    , new COMMON_CODE('A1342', 'A1342', '달 10000')
+];
+
 

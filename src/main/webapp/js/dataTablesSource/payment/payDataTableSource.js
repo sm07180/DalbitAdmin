@@ -172,9 +172,9 @@ var payDataTableSource = {
             , {'title': '보유 달', 'data': 'tot_dal_cnt', 'width':'55px', 'render': function(data, type, row) {
                     return common.addComma(data);
                 }}
-            , {'title': '직원<br/>여부', 'data': 'chrgr_yn', 'width':'30px', 'render': function(data, type, row) {
+            /*, {'title': '직원<br/>여부', 'data': 'chrgr_yn', 'width':'30px', 'render': function(data, type, row) {
                     return row.chrgr_yn == '1' ? 'Y' : 'N';
-                }}
+                }}*/
             , {'title': '플랫폼', 'data': 'os', 'width':'40px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payPlatform);
                 }}

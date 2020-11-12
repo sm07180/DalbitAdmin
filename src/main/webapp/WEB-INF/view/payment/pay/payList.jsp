@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
@@ -24,29 +25,65 @@
                 <button type="button" class="btn btn-success" id="bt_searchMember" style="display: none">검색</button>
             </div>
         </div>
-        <div class="col-md-12 no-padding pull-right">
-                <table class="pull-right _tableHeight" style="text-align: left;width: 600px;border: 1px solid black" data-height="23px">
-                    <colgroup>
-                        <col width="8%"><col width="48%"><col width="8%"><col width="36%">
-                    </colgroup>
-                    <tr>
-                        <td rowspan="3" style="text-align: left" class="font-bold"><span style="font-size: 9px">결제상태</span></td>
-                        <td style="text-align: left"><span style="font-size: 11px"><span style="color: blue" class="font-bold">Y (성공)</span> : 결제 성공</span></td>
-                        <td rowspan="3"  style="text-align: left" class="font-bold"><span style="font-size: 11px">취소상태</td>
-                        <td style="text-align: left"><span style="font-size: 11px"><span style="color: blue" class="font-bold">O (성공)</span> : 취소 성공</span></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left"><span style="font-size: 11px"><span style="color: black" class="font-bold">N (시도)</span> : 결제 시도를 했으나 창을 닫거나 멈춘경우</span></td>
-                        <td style="text-align: left"><span style="font-size: 11px"><span style="color: red" class="font-bold">X (불가)</span> : 취소 불가</span></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left"><span style="font-size: 11px"><span style="color: red" class="font-bold">F (실패)</span> : 결제창까지 이르렀으나 완료 실패</span></td>
-                        <td style="text-align: left"><span style="font-size: 11px"><span style="color: black" class="font-bold">F (실패)</span> : 취소 시도후 사유로 인한 실패</span></td>
-                    </tr>
+        <div class="col-md-12 no-padding">
+            <c:set var="url" value="${requestScope['javax.servlet.forward.request_uri']}" />
+            <c:if test="${fn:contains(url, 'memberPopup')}">
+                <div class="col-md-6 no-padding">
+                    <span id="payInsertDisplay" style="cursor: hand; font-size: 13px" onclick="fnDisplay()" >IOS 내역추가 ▽</span>
+                    <span id="exampleDate" style="margin-left: 17%">일시 ex) 2020-01-01 11:11:11</span>
+                    <div class="payInsertInfo hide" id="payInsert">
+                        <input class="form-control" name="memberNumber" id="memNo" placeholder="회원번호" style="width: 17%">
+                        <select class="form-control" id="payWayInfo" onchange="fnPayway(this.value)">
+                            <option selected value="">결제수단 ▽</option>
+                            <option value="InApp">InApp</option>
+                            <%--<option value="kakaopay">카카오페이</option>
+                            <option value="payco">페이코</option>
+                            <option value="tmoney">티머니</option>--%>
+                        </select>
+                        <input class="form-control" name="comDate" id="comDate" placeholder="시도일시" style="width: 20%">
+                        <input class="form-control" name="okDate" id="okDate" placeholder="완료일시" style="width: 20%">
+                        <span id="payItemArea">
+                        </span>
+                        <select class="form-control" id="itemCnt">
+                            <option selected value="">수량 ▽</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <button type="button" class="btn btn-success" id="btnPayInsert">추가</button>
+                    </div>
+                </div>
+            </c:if>
+            <div class="col-md-6 no-padding pull-right">
+                    <table class="pull-right _tableHeight" style="text-align: left;width: 600px;border: 1px solid black" data-height="23px">
+                        <colgroup>
+                            <col width="8%"><col width="48%"><col width="8%"><col width="36%">
+                        </colgroup>
+                        <tr>
+                            <td rowspan="3" style="text-align: left" class="font-bold"><span style="font-size: 9px">결제상태</span></td>
+                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: blue" class="font-bold">Y (성공)</span> : 결제 성공</span></td>
+                            <td rowspan="3"  style="text-align: left" class="font-bold"><span style="font-size: 11px">취소상태</td>
+                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: blue" class="font-bold">O (성공)</span> : 취소 성공</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: black" class="font-bold">N (시도)</span> : 결제 시도를 했으나 창을 닫거나 멈춘경우</span></td>
+                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: red" class="font-bold">X (불가)</span> : 취소 불가</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: red" class="font-bold">F (실패)</span> : 결제창까지 이르렀으나 완료 실패</span></td>
+                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: black" class="font-bold">F (실패)</span> : 취소 시도후 사유로 인한 실패</span></td>
+                        </tr>
 
-                </table>
+                    </table>
+            </div>
         </div>
-
         <table id="list_info" class="table table-sorting table-hover table-bordered">
             <thead></thead>
             <tbody></tbody>
@@ -80,6 +117,7 @@
                 $("#endMemberDate").val(end.format('YYYY.MM.DD'));
             }
         );
+        $('#exampleDate').hide();
     });
 
 
@@ -258,6 +296,85 @@
         memberDataType = $("#slctDateType").find("select").val();
         dtList_info_pay.reload(pay_listSummary);
     });
+
+    function fnDisplay(){
+        if($('#payInsert').hasClass('show')){
+            $('#payInsert').removeClass('show');
+            $('#payInsert').addClass('hide');
+            $('#payInsertDisplay').text("IOS 내역추가 ▽");
+            $('#exampleDate').hide();
+            $('#payInsert').hide();
+        }else{
+            $('#payInsert').removeClass('hide');
+            $('#payInsert').addClass('show');
+            $('#payInsertDisplay').text("IOS 내역추가 △");
+            $('#exampleDate').show();
+            $('#payInsert').show();
+        }
+    }
+
+    function fnPayway(id){
+        if(id == 'InApp'){
+            $("#payItemArea").html(util.getCommonCodeSelect(-1, inAppItem));
+        }else{
+            $("#payItemArea").html(util.getCommonCodeSelect(-1, elseItem));
+        }
+    }
+
+    $('#btnPayInsert').click( function() {
+        var memNo = $('#memNo').val();
+        var payWayInfo = $('#payWayInfo').val();
+        var comDate = $('#comDate').val();
+        var okDate = $('#okDate').val();
+        var payItem = $('#payItem').val();
+        var itemCnt = $('#itemCnt').val();
+
+        //벨리데이션 체크
+        if(common.isEmpty(memNo)) {
+            alert("회원번호를 입력해주세요.");
+            $('#memNo').focus();
+            return false;
+        }else if(common.isEmpty(payWayInfo)){
+            alert("결제수단을 선택해주세요.");
+            $('#payWayInfo').focus();
+            return false;
+        }else if(common.isEmpty(comDate)){
+            alert("시도일시를 입력해주세요.");
+            $('#comDate').focus();
+            return false;
+        }else if(common.isEmpty(okDate)){
+            alert("완료일시 입력해주세요.");
+            $('#okDate').focus();
+            return false;
+        }else if(payItem == -1){
+            alert("결제아이템을 선택해주세요.");
+            $('#payItem').focus();
+            return false;
+        }else if(common.isEmpty(itemCnt)){
+            alert("결제수량을 선택해주세요.");
+            $('#itemCnt').focus();
+            return false;
+        }
+
+        var data = {
+            mem_no : memNo
+            , pay_way : payWayInfo
+            , pay_dt_comein : comDate
+            , okDate : okDate
+            , item_code : payItem
+            , item_amt : itemCnt
+        };
+
+        util.getAjaxData("payAdd", "/rest/payment/pay/add/", data, payAddSuccess);
+
+    });
+
+    function payAddSuccess(response){
+        dalbitLog(response);
+        alert("결제내역 추가되었습니다.");
+        dtList_info_pay.reload(pay_listSummary);
+    }
+
 
 
 </script>
