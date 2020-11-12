@@ -26,13 +26,12 @@
                 <div class="widget-header">
                     <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
                 </div>
-                <div class="col-md-6 no-padding">
-                    <div class="widget-content mt10 no-padding mr10">
+                <div class="col-md-9 no-padding">
+                    <div class="widget-content no-padding mt10 mr10 ml10">
                         <jsp:include page="total.jsp"/>
                     </div>
-                </div>
-                <div class="col-md-6 no-padding">
-                    <div class="widget-content mt10 no-padding mr10">
+
+                    <div class="widget-content no-padding mt10 mr10 ml10">
                         <table class="table table-bordered">
                             <colgroup>
                                 <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
@@ -53,6 +52,23 @@
                             </tr>
                             </thead>
                             <tbody id="loginLiveTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3 no-padding">
+                    <div class="widget-content no-padding mt10 mr10 ml10">
+                        <table style="width:100%">
+                            <colgroup>
+                                <col width="70%"/>
+                                <col width="30%"/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="_bgColor" data-bgColor="#dae3f3">IP</th>
+                                    <th class="_bgColor" data-bgColor="#dae3f3">접속자 수</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ipTableInfo"></tbody>
                         </table>
                     </div>
                 </div>
@@ -84,11 +100,23 @@
 
         var template = $('#tmp_loginLive').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data;
+        var context = response.data.loginLive;
         var html=templateScript(context);
         $("#loginLiveTableBody").append(html);
 
+
+        var template = $('#tmp_ipTableInfo').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.currentDuplIpInfo;
+        var html=templateScript(context);
+        $("#ipTableInfo").append(html);
+
     }
+
+    $(document).on('click', '._ipSearch', function(){
+       $("#txt_search").val($(this).text());
+       $("#bt_search").click();
+    });
 
 </script>
 
@@ -141,4 +169,13 @@
         <td>{{addComma t_bmonth_cnt}}</td>
         <td class="{{upAndDownClass t_month_inc_cnt}}"><i class="fa {{upAndDownIcon t_month_inc_cnt}}"></i> {{addComma t_month_inc_cnt}}</td>
     </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_ipTableInfo">
+    {{#each this}}
+        <tr>
+            <td><a href="javascript://" class="_ipSearch">{{ip}}</a></td>
+            <td>{{ipCnt}}</td>
+        </tr>
+    {{/each}}
 </script>

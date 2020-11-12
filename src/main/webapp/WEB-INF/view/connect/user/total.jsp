@@ -6,12 +6,12 @@
 <!-- 로그인 현황 > 총계 -->
 <table class="table table-bordered _tableHeight no-margin" data-height="23px">
     <colgroup>
-        <col width="1%"/><col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
+        <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
         <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
     </colgroup>
     <thead>
     <tr>
-        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <%--<th class="_noBorder" style="width: 5px; border-left: hidden"></th>--%>
         <th style="background-color: #ebccd1; color:red;">◈ 연령대 별</th>
         <th>10대미만</th>
         <th>10대</th>
@@ -61,7 +61,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_userDetailList">
     <tr>
-        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <!--<th class="_noBorder" style="width: 5px; border-left: hidden"></th>-->
         <th>{{{sexIcon 'm'}}}</th>
         <td style="color: blue">{{addComma age00_male_cnt}}</td>
         <td style="color: blue">{{addComma age10_male_cnt}}</td>
@@ -73,7 +73,7 @@
         <td style="color: blue">{{addComma total_male_cnt}}</td>
     </tr>
     <tr>
-        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+       <!-- <th class="_noBorder" style="width: 5px; border-left: hidden"></th>-->
         <th>{{{sexIcon 'f'}}}</th>
         <td style="color: red">{{addComma age00_female_cnt}}</td>
         <td style="color: red">{{addComma age10_female_cnt}}</td>
@@ -85,7 +85,7 @@
         <td style="color: red">{{addComma total_female_cnt}}</td>
     </tr>
     <tr>
-        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <!--<th class="_noBorder" style="width: 5px; border-left: hidden"></th>-->
         <th>알수없음</th>
         <td>{{addComma age00_none_cnt}}</td>
         <td>{{addComma age10_none_cnt}}</td>
@@ -97,7 +97,7 @@
         <td>{{addComma total_none_cnt}}</td>
     </tr>
     <tr>
-        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <!--<th class="_noBorder" style="width: 5px; border-left: hidden"></th>-->
         <th>합계</th>
         <td>{{addComma age00_total_cnt}}</td>
         <td>{{addComma age10_total_cnt}}</td>

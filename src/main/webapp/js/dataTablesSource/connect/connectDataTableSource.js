@@ -29,6 +29,7 @@ var connectDataTableSource = {
                     return common.addComma(data) + " 개";
                 }},
             {'title': '가입일시', 'data': 'memJoinDateFormat'},
+            {'title': 'ip', 'data': 'ip'},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
