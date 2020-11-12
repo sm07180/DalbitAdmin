@@ -2,6 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
+<style>
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+    .modal-body {
+        height: 100%;
+        overflow-y: auto;
+    }
+</style>
 <!-- table -->
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
@@ -27,7 +36,7 @@
         <table id="broadNoticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
                 <col width="4%"/><col width="10%"/><col width="5%"/><col width="50%"/><col width="10%"/>
-                <col width="5%"/><col width="5%"/>
+                <col width="5%"/><col width="5%"/><col width="5%"/>
             </colgroup>
             <thead>
             <tr>
@@ -38,6 +47,7 @@
                 <th>이미지</th>
                 <th>등록일자</th>
                 <th>상태</th>
+                <th>댓글 수</th>
                 <th>관리</th>
             </tr>
             </thead>
@@ -48,6 +58,22 @@
     </div>
 </div>
 <!-- //table -->
+
+<!-- 공지 댓글 보기 -->
+<div class="modal fade" id="NoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 no-padding" id="div_notice" style="margin-bottom: 7px"></div><br/>
+                <div class="col-md-12 no-padding" id="div_noticeReply"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝-->
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
@@ -142,6 +168,50 @@
         broadNoticeList();
     });
 
+    $(document).on('click', '._noticeReply', function() {
+        var me = $(this);
+        if(me.data('replycnt') == 0) {
+            alert('해당 공지사항의 댓글이 없습니다.');
+        } else if (me.data('replycnt') >  0) {
+            var data = {
+                idx : me.data('idx')
+                , memNo : me.data('memno')
+            }
+            util.getAjaxData("selectNoticeReply", "/rest/content/boardAdm/selectNoticeReply", data, fn_success_selectNoticeReply);
+        }
+    });
+
+    function fn_success_selectNoticeReply(dst_id, response) {
+        $('#div_notice').empty();
+        $('#div_noticeReply').empty();
+        for(var i=0; i<response.data.length; i++) {
+            var tmp = '<div class="col-md-12 no-padding" style="margin-bottom: 10px;">';
+            tmp += '<div class="col-md-2">';
+            tmp +=      '<form id="profileImg' + i + '" method="post" enctype="multipart/form-data">';
+            tmp +=          '<img class="pull-right" id="image_section' + i + '" src="" alt="your image" style="width: 60px;height: 60px"/>';
+            tmp +=      '</form>';
+            tmp +=     '</div>';
+            tmp +=     '<div class="col-md-10">';
+            tmp +=      '<label id="nickName' + i + '"></label>';
+            tmp +=      ' <label id="userId' + i + '" style="color: #6e696e"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
+            tmp +=      '<lable id="contents' + i + '"></label><br>';
+            tmp +=     '</div>';
+            tmp +=     '</div>';
+            if(response.data[i].depthType == "0"){          // notice
+                $('#div_notice').append(tmp + "<br/>");
+            }else{                                      // notice reply
+                $('#div_noticeReply').append(tmp);
+                $('#image_section' + i).attr('style', "width: 40px;height: 40px");
+            }
+            $('#nickName' + i).text(response.data[i].memNick);
+            $('#userId' + i).text(response.data[i].memUserId);
+            $('#writeDateFormat' + i).text(response.data[i].writeDateFormat);
+            $('#contents' + i).text(response.data[i].contents);
+            $('#image_section' + i).prop("src" ,common.profileImage(PHOTO_SERVER_URL,response.data[i].profileImage,memSex));
+
+            $('#NoticeModal').modal("show");
+        }
+    }
 </script>
 
 <script id="tmp_broadNoticeTable" type="text/x-handlebars-template">
@@ -169,6 +239,10 @@
                 {{else}}
                     삭제 ({{op_name}})
                 {{/dalbit_if}}
+            </td>
+            <td>
+                {{addComma replyCnt}}
+                <a href="javascript://" class="_noticeReply" data-idx="{{idx}}" data-replycnt="{{replyCnt}}" data-memno="{{mem_no}}">[댓글]</a>
             </td>
             <td><a href="javascript://" class="_broadNoticeDelBtn" data-broadnoticeidx="{{idx}}" data-type="{{type}}">[삭제]</a></td>
         </tr>
