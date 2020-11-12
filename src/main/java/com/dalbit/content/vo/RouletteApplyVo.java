@@ -12,6 +12,7 @@ public class RouletteApplyVo extends PagingVo {
     private String apply_date;
     private String item_no;
     private String item_name;
+    private String image_url;
     private String win_date;
     private String last_upd_date;
     private String phone;

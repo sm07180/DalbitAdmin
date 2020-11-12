@@ -52,7 +52,10 @@ var EventRouletteDataTableSource = {
                         return "E";
                     }
                 }},
-            {'title': '아이템명', 'data' : 'item_name', 'render' : function(data) {
+            {'title': '아이템명', 'data' : 'item_name', 'render' : function(data, type, row) {
+                    if(!common.isEmpty(row.image_url)){
+                        return '<img src="'+row.image_url+'" width="50px;" height="50px;" />' + data;
+                    }
                     return data;
                 }},
             {'title': '휴대폰 번호', 'data' : 'phone', 'render' : function(data) {
