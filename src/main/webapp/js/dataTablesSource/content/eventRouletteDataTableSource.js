@@ -52,6 +52,9 @@ var EventRouletteDataTableSource = {
                         return "E";
                     }
                 }},
+            {'title': '아이템명', 'data' : 'item_name', 'render' : function(data) {
+                    return data;
+                }},
             {'title': '휴대폰 번호', 'data' : 'phone', 'render' : function(data) {
                     return common.phoneNumHyphen(data);
                 }},

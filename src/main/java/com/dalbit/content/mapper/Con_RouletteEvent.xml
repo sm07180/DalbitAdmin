@@ -69,6 +69,7 @@
             , ifnull(member.mem_nick, outMember.mem_nick) mem_nick
             , ifnull(member.mem_userid, outMember.mem_userid) mem_userid
             , ifnull(member.mem_sex, outMember.mem_sex) mem_sex
+            , (select item_name from rd_data.tbl_roulette_rel where evtApply.item_no = item_no) item_name
         from rd_data.tb_event_coupon_member_apply evtApply
             left join rd_data.tb_event_coupon_winning win on evtApply.mem_no = win.mem_no and date_format(evtApply.apply_date, '%Y%m%d') = date_format(win.win_date, '%Y%m%d') and evtApply.item_no = win.item_no
             left join rd_data.tb_member_basic member on evtApply.mem_no = member.mem_no
