@@ -27,9 +27,7 @@
                         exchange.cash_real,
                         exchange.account_name,
                         exchange.bank_code,
-                        (select code
-                         FROM rd_data.tbl_code_define
-                         WHERE `type` = 'exchange_bank_code' and `value` = exchange.bank_code) bank_name,
+                        (select code FROM rd_data.tbl_code_define WHERE `type` = 'exchange_bank_code' and `value` = exchange.bank_code) bank_name,
                         exchange.account_no,
                         exchange.social_no,
                         exchange.phone_no,
@@ -54,8 +52,8 @@
                         ifnull(basic.mem_birth_year,withdrawal.mem_birth_year) as mem_birth_year,
                         lpad(ifnull(basic.mem_birth_month,withdrawal.mem_birth_month),2,'0') as mem_birth_month,
                         lpad(ifnull(basic.mem_birth_day,withdrawal.mem_birth_day),2,'0') as mem_birth_day,
-                        (select account_name from rd_data.tb_member_exchange where idx = exchange.latest_idx) prevAccountName,
-                        (select social_no from rd_data.tb_member_exchange where idx = exchange.latest_idx) prevSocialNo
+                        (select account_name from rd_data.tb_member_exchange where mem_no = ifnull(basic.mem_no,withdrawal.mem_no) and latest_idx = 0 order by idx desc limit 1) prevAccountName,
+                        (select social_no from rd_data.tb_member_exchange where mem_no = ifnull(basic.mem_no,withdrawal.mem_no) and latest_idx = 0 order by idx desc limit 1) prevSocialNo
                  FROM rd_data.tb_member_exchange exchange
                 INNER JOIN rd_data.tb_member_profile profile
                    ON exchange.mem_no = profile.mem_no
