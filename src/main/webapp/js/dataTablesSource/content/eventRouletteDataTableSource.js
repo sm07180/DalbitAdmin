@@ -40,15 +40,15 @@ var EventRouletteDataTableSource = {
             {'title': '기프티콘', 'data' : 'item_no', 'render' : function(data) {
                     if(-1 < '|1|2|3|'.indexOf(data)){
                         return '없음';
-                    }else if(data == 4){
+                    }else if(data == 4 || data == 14 || data == 24){
                         return "A";
-                    }else if(data == 5){
+                    }else if(data == 5 || data == 15 || data == 25){
                         return "B";
-                    }else if(data == 6){
+                    }else if(data == 6 || data == 26 || data == 26){
                         return "C";
-                    }else if(data == 7){
+                    }else if(data == 7 || data == 27 || data == 27){
                         return "D";
-                    }else if(data == 8){
+                    }else if(data == 8 || data == 28 || data == 28){
                         return "E";
                     }
                 }},
