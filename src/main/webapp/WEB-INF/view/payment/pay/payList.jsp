@@ -30,6 +30,7 @@
             <c:if test="${fn:contains(url, 'memberPopup')}">
                 <div class="col-md-6 no-padding">
                     <span id="payInsertDisplay" style="cursor: hand; font-size: 13px" onclick="fnDisplay()" >IOS 내역추가 ▽</span>
+                    <span id="exampleDate" style="margin-left: 17%">일시 ex) 2020-01-01 11:11:11</span>
                     <div class="payInsertInfo hide" id="payInsert">
                         <input class="form-control" name="memberNumber" id="memNo" placeholder="회원번호" style="width: 17%">
                         <select class="form-control" id="payWayInfo" onchange="fnPayway(this.value)">
@@ -116,6 +117,7 @@
                 $("#endMemberDate").val(end.format('YYYY.MM.DD'));
             }
         );
+        $('#exampleDate').hide();
     });
 
 
@@ -300,11 +302,13 @@
             $('#payInsert').removeClass('show');
             $('#payInsert').addClass('hide');
             $('#payInsertDisplay').text("IOS 내역추가 ▽");
+            $('#exampleDate').hide();
             $('#payInsert').hide();
         }else{
             $('#payInsert').removeClass('hide');
             $('#payInsert').addClass('show');
             $('#payInsertDisplay').text("IOS 내역추가 △");
+            $('#exampleDate').show();
             $('#payInsert').show();
         }
     }
