@@ -369,9 +369,8 @@
 
     });
 
-    function payAddSuccess(response){
-        dalbitLog(response);
-        alert("결제내역 추가되었습니다.");
+    function payAddSuccess(dst_id, response){
+        alert(response.message);
         dtList_info_pay.reload(pay_listSummary);
     }
 
