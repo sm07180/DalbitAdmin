@@ -40,7 +40,15 @@ public class Con_LoginService {
         ProcedureVo procedureVo = new ProcedureVo();
         con_LoginDao.callLoginLive(procedureVo);
         P_LoginLiveOutVo loginLive = new Gson().fromJson(procedureVo.getExt(), P_LoginLiveOutVo.class);
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, loginLive));
+
+        //ip 접속자 수 조회
+        List<HashMap> currentDuplIpInfo = con_LoginDao.currentIpDuplInfo();
+
+        HashMap resultMap = new HashMap();
+        resultMap.put("loginLive", loginLive);
+        resultMap.put("currentDuplIpInfo", currentDuplIpInfo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }
 
     /**
