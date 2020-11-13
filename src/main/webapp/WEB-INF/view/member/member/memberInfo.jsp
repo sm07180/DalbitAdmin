@@ -1143,7 +1143,8 @@
 
             <th>보유뱃지</th>
             <td style="text-align: left">
-                {{{getBadgeList fanBadgeList '100px' '20px' 10 '15px' '15px'}}}
+                <!--팬뱃지 : {{{getBadgeList fanBadgeList '100px' '20px' 10 '15px' '15px'}}}<br />-->
+
                 {{{getBadgeList liveBadgeList '100px' '20px' 10 '15px' '15px'}}}
 
                 {{#dalbit_if recomm_badge '==' '1'}}

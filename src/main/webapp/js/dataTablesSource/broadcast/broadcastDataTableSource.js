@@ -25,9 +25,9 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '보유뱃지', 'data': 'tag','width' : '45px', 'render': function (data, type, row, meta) {
                     var tmp = "";
-                    for(var i=0;i<row.fanBadgeList.length;i++){
+                    /*for(var i=0;i<row.fanBadgeList.length;i++){
                         tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
-                    }
+                    }*/
                     for(var i=0;i<row.liveBadgeList.length;i++) {
                         tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
@@ -164,9 +164,9 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '보유뱃지', 'data': 'tag','width' : '80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
-                    for(var i=0;i<row.fanBadgeList.length;i++){
+                    /*for(var i=0;i<row.fanBadgeList.length;i++){
                         tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
-                    }
+                    }*/
                     for(var i=0;i<row.liveBadgeList.length;i++) {
                         tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
@@ -660,9 +660,9 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '보유뱃지', 'data': 'tag','width' : '80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
-                    for(var i=0;i<row.fanBadgeList.length;i++){
+                    /*for(var i=0;i<row.fanBadgeList.length;i++){
                         tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
-                    }
+                    }*/
                     for(var i=0;i<row.liveBadgeList.length;i++) {
                         tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
@@ -742,9 +742,9 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '보유뱃지', 'data': 'tag','width' : '80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
-                    for(var i=0;i<row.fanBadgeList.length;i++){
+                    /*for(var i=0;i<row.fanBadgeList.length;i++){
                         tmp = tmp + util.getMemberBadge(row.fanBadgeList[i].startColor, row.fanBadgeList[i].endColor, null, row.fanBadgeList[i].text , "100%", "20px", 10, "15px", "15px" );
-                    }
+                    }*/
                     for(var i=0;i<row.liveBadgeList.length;i++) {
                         tmp = tmp + util.getMemberBadge(row.liveBadgeList[i].startColor, row.liveBadgeList[i].endColor, null, row.liveBadgeList[i].text, "100%", "20px", 10, "15px", "15px");
                     }
