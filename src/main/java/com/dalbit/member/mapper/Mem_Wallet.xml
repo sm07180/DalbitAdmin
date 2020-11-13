@@ -40,7 +40,7 @@
         SELECT
         (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby  where `type` = 1  <include refid="condition_dal"/>) AS sum_charge_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 5  <include refid="condition_dal"/>) AS sum_input_cnt
-        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (7, 8, 9, 10, 11, 12, 13, 22, 23)  <include refid="condition_dal"/>) AS sum_event_cnt
+        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (7, 8, 9, 10, 11, 12, 13, 16, 18, 22, 23)  <include refid="condition_dal"/>) AS sum_event_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2, 3, 4, 14, 17, 19, 20) <include refid="condition_dal"/>) AS sum_output_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 6 <include refid="condition_dal"/>) AS sum_change_cnt
         ,IFNULL((SELECT IFNULL(ruby_new, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} and `type`=15),0) AS start_cnt
