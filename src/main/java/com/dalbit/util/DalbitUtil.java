@@ -1145,4 +1145,23 @@ public class DalbitUtil {
 
         return total;
     }
+
+    /**
+     *  unique한 거래번호를 위한 거래일시 (밀리세컨드까지 조회)
+     */
+    public static String getTradeId(String serviceId){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
+        String appr_dtm =serviceId + "_" + dateFormat.format(new Date());
+        return appr_dtm;
+    }
+
+    /**
+     * String to Date 패턴변경
+     */
+    public static String stringToDatePattern(String str, String beforePattern, String afterPattern) throws ParseException{
+        SimpleDateFormat beForeFormat = new SimpleDateFormat(beforePattern);
+        Date beforeDate = beForeFormat.parse(str);
+        SimpleDateFormat afterFormat = new SimpleDateFormat(afterPattern);
+        return afterFormat.format(beforeDate);
+    }
 }
