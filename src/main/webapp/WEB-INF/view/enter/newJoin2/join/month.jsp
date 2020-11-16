@@ -24,7 +24,7 @@
                 <th class="_bgColor _naver" data-bgColor="#dae3f3">네이버</th>
                 <th class="_bgColor _fbook" data-bgColor="#dae3f3">페이스북</th>
                 <th class="_bgColor _apple" data-bgColor="#dae3f3">애플</th>
-                <th class="_bgColor _google" data-bgColor="#dae3f3">구글</th>g
+                <th class="_bgColor _google" data-bgColor="#dae3f3">구글</th>
                 <th class="_noBorder"></th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">AOS</th>
                 <th class="_bgColor" data-bgColor="#fbe5d6">IOS</th>

@@ -11,7 +11,9 @@
                     <div class="widget widget-table searchBoxArea">
                         <table>
                             <tr>
-                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17"><i class="fa fa-search"></i> 검색조건</th>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
                                 <th>
                                     <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
                                     <div>
@@ -25,7 +27,7 @@
                                 <td style="text-align: left">
                                     <input type="text" class="form-control" id="onedayDate" name="onedayDate">
 
-                                    <input id="displayDate" type="text" class="form-control" style="width: 196px;display: none"/>
+                                    <input id="monthDate" type="text" class="form-control" style="width: 196px;display: none"/>
 
                                     <input id="yearDate" type="text" class="form-control" style="width: 196px;display: none"/>
 
@@ -89,7 +91,7 @@
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
-<script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
+
 
 <script type="text/javascript">
     var dateTime = new Date();
@@ -103,17 +105,7 @@
     var day = moment(dateTime).format("DD");
 
     $(function() {
-        $(".search_exchange_years").append(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
-        year = $("#search_year").val();
-        $(document).on('change', '#search_year', function() {
-            if(me == 0) {
-                monthClick("", $("#div_dayButton").find("#search_year").val(), month, day);
-            }else if(me == 1){
-                monthClick("", $("#div_monthButton").find("#search_year").val(), month, day);
-            }else if(me == 2){
-                monthClick("", $("#div_yearButton").find("#search_year").val(), month, day);
-            }
-        });
+
         setDayButton();
     });
 
@@ -130,7 +122,7 @@
         $("#startDate").val(startDate);
         $("#endDate").val(endDate);
         $("._searchDate").html(displayDate);
-        $("#displayDate").val(startDate.substr(0,7));
+        $("#monthDate").val(startDate.substr(0,7));
         $("#yearDate").val(startDate.substr(0,4));
     }
 
@@ -159,13 +151,13 @@
 
     $(document).on('click', '._todaySearch', function(){
         if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory' || tabId == 'tab_timeOver'){
-            slctType = "0";
+            slctType = 0;
             me = 0;
         }else if(tabId == 'tab_monthNonOver' || tabId == 'tab_loAgeDetail' || tabId == 'tab_loBrowserDetail') {
-            slctType = "1";
+            slctType = 1;
             me = 1;
         }else if(tabId == 'tab_yearNonOver'){
-            slctType = "2";
+            slctType = 2;
             me = 2;
         }
 
@@ -175,11 +167,11 @@
 
     var me = 0;
     function radioChange(){
-        dateType(me);
+        dateType(slctType);
         if(me == 0){
             // 시간대별 ----------------------------
             $("#onedayDate").show();
-            $("#displayDate").hide();
+            $("#monthDate").hide();
             $("#yearDate").hide();
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
@@ -187,15 +179,15 @@
             if(me == 1){
                 // 일자 -----------------------------------
                 $("#onedayDate").hide();
-                $("#displayDate").show();
+                $("#monthDate").show();
                 $("#yearDate").hide();
 
                 var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
                 $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
                 $("#endDate").val($("#onedayDate").val().substr(0,8) + (monthLastDate.getDate() + 1));
-                $("#displayDate").val($("#onedayDate").val().substr(0,7));
+                $("#monthDate").val($("#onedayDate").val().substr(0,7));
 
-                var rangeDate = $("#displayDate").val().split(' - ');
+                var rangeDate = $("#monthDate").val().split(' - ');
                 if(-1 < rangeDate.indexOf(' - ')){
                     $("#startDate").val(rangeDate[0]);
                     $("#endDate").val(rangeDate[1]);
@@ -204,7 +196,7 @@
             }else{
                 // 월별 ----------------------------------
                 $("#onedayDate").hide();
-                $("#displayDate").hide();
+                $("#monthDate").hide();
                 $("#yearDate").show();
 
                 var yearDate = new Date();
