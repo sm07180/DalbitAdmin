@@ -322,4 +322,10 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.setChangeAutoSetting(pMemberInfoInputVo);
         return result;
     }
+
+    @PostMapping("boost/hist")
+    public String boostHist(P_MemberItemVo pMemberItemVo){
+        String result = mem_MemberService.boostItemHist(pMemberItemVo);
+        return result;
+    }
 }

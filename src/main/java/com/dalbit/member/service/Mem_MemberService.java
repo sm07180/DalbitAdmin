@@ -1047,4 +1047,14 @@ public class Mem_MemberService {
             return gsonUtil.toJson(new JsonOutputVo(Status.달자동교환설정상태변경_실패));
         }
     }
+
+    public String boostItemHist(P_MemberItemVo pMemberItemVo){
+
+        int totalCnt = mem_MemberDao.boostItemHistCnt(pMemberItemVo);
+
+        pMemberItemVo.setTotalCnt(totalCnt);
+        List<P_MemberItemVo> itemHistoryList = mem_MemberDao.boostItemHist(pMemberItemVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, itemHistoryList, new PagingVo(totalCnt)));
+    }
 }
