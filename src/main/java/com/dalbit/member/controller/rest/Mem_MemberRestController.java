@@ -313,4 +313,13 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.boostItemChange(pMemberItemVo);
         return result;
     }
+
+    /**
+     * 자동 교환 설정 변경하기
+     */
+    @PostMapping("setChangeAutoSetting")
+    public String setChangeAutoSetting(P_MemberInfoInputVo pMemberInfoInputVo){
+        String result = mem_MemberService.setChangeAutoSetting(pMemberInfoInputVo);
+        return result;
+    }
 }

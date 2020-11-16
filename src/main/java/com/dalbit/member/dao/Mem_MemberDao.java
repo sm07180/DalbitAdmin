@@ -161,4 +161,6 @@ public interface Mem_MemberDao {
     int insertAuth(P_AuthVo pAuthVo);
 
     P_MemberItemVo boostItemChange(ProcedureVo procedureVo);
+
+    P_MemberEditorVo setChangeAutoSetting(ProcedureVo procedureVo);
 }

@@ -1,5 +1,6 @@
 package com.dalbit.money.dao;
 
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.money.vo.Mon_ItemInputVo;
 import com.dalbit.money.vo.Mon_ItemOutputVo;
 import org.springframework.stereotype.Repository;

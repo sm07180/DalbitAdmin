@@ -3,6 +3,9 @@ package com.dalbit.money.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.procedure.P_MemberSetting;
 import com.dalbit.money.dao.Mon_ItemDao;
 import com.dalbit.money.vo.Mon_ItemInputVo;
 import com.dalbit.money.vo.Mon_ItemOutputVo;
@@ -27,6 +30,8 @@ public class Mon_ItemService {
 
     @Autowired
     SmsService smsService;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     public String selectChangeItemList(Mon_ItemInputVo monItemInputVo){
         monItemInputVo.setPageStart(monItemInputVo.getPageStart() -1);
@@ -37,10 +42,13 @@ public class Mon_ItemService {
         ArrayList<Mon_ItemOutputVo> changeItemList = monItemDao.selectChangeItemList(monItemInputVo);
         Mon_ItemOutputVo outVo = monItemDao.selectChangeItemSummary(monItemInputVo);
 
+        P_MemberSetting setting =  mem_MemberDao.getMemberSetting(changeItemList.get(0).getMem_no());
+
         var resultMap = new HashMap<>();
         resultMap.put("changeItemCnt", changeItemCnt);
         resultMap.put("changeItemList", changeItemList);
         resultMap.put("changeItemSummary", outVo);
+        resultMap.put("setting", setting);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }

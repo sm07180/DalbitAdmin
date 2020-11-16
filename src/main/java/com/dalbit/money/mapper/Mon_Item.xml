@@ -15,16 +15,18 @@
                 ,(select grade From rd_data.tb_member_level where mem_no = a.mem_no) as mem_grade
                 ,(select `level` From rd_data.tb_member_level where mem_no = a.mem_no) as mem_level
                 ,(select count(*) from rd_data.tb_member_wallet_ruby where mem_no=a.mem_no and type=6) as changeCnt
+                ,(select count(*) from rd_data.tb_member_wallet_ruby where mem_no=a.mem_no and type=31) as changeAutoCnt
                 ,b.gold as gold
                 ,a.ruby as ruby
                 ,a.ruby_old as ruby_old
                 ,b.gold_old as gold_old
                 ,a.ruby_new as ruby_new
                 ,b.gold_new as gold_new
+                ,a.type
            from rd_data.tb_member_wallet_ruby a join rd_data.tb_member_wallet_gold b on a.mem_no = b.mem_no
           inner join rd_data.tb_member_basic c on a.mem_no = c.mem_no
                 ,(select @rownum := #{pageStart}) r
-          where a.type=6 and b.type=1
+          where a.type in (6,31) and b.type in (1,31)
             and a.last_upd_date = b.last_upd_date
             <if test='sDate != null and eDate != ""'>
                 and DATE_FORMAT(a.last_upd_date, '%Y.%m.%d') >= #{sDate}
@@ -84,7 +86,6 @@
         <if test='orderType == "5"'> order by ruby_new desc </if>
         <if test='orderType == "6"'> order by last_upd_date asc </if>
 
-
         limit #{pageStart}, #{pageCnt}
     </select>
 
@@ -98,18 +99,23 @@
         ,(testByeolCnt * 60) - (TRUNCATE((testByeolCnt * 60) * 0.03, -1) + TRUNCATE( (TRUNCATE((testByeolCnt * 60) * 0.03, -1)) * 0.1, -1 )) - 500 as testExchangeAmt
         From
         ( SELECT  count(*)                                            as totalCnt,
+                    sum(if(`type` = 31, 1, 0))    as totalAutoCnt,
                     sum(gold)                                           as sumTotalByeol,
                     sum(ruby)                                           as sumTotalDal,
                     sum(if(`inner` = 0, if(mem_sex = 'm', 1, 0), 0))    as maleCnt,
+                    sum(if(`inner` = 0, if(mem_sex = 'm', if(`type` = 31, 1, 0), 0), 0))    as maleAutoCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'm', gold, 0), 0)) as maleByeolCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'm', ruby, 0), 0)) as maleDalCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'f', 1, 0), 0))    as femaleCnt,
+                    sum(if(`inner` = 0, if(mem_sex = 'f', if(`type` = 31, 1, 0), 0), 0))    as femaleAutoCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'f', gold, 0), 0)) as femaleByeolCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'f', ruby, 0), 0)) as femaleDalCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'n', 1, 0), 0))    as noneCnt,
+                    sum(if(`inner` = 0, if(mem_sex = 'n', if(`type` = 31, 1, 0), 0), 0))    as noneAutoCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'n', gold, 0), 0)) as noneByeolCnt,
                     sum(if(`inner` = 0, if(mem_sex = 'n', ruby, 0), 0)) as noneDalCnt,
                     sum(if(`inner` = 1, 1, 0))                          as testCnt,
+                    sum(if(`inner` = 1, if(`type` = 31, 1, 0), 0))      as testAutoCnt,
                     sum(if(`inner` = 1, gold, 0))                       as testByeolCnt,
                     sum(if(`inner` = 1, ruby, 0))                       as testDalCnt
             from(
@@ -117,5 +123,4 @@
             )a
         ) summary
     </select>
-
 </mapper>

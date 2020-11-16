@@ -15,6 +15,7 @@ public class P_ResourceDetailDalOutVo {
     private long charge_Cnt;
     private long dalgiftget_Cnt;
     private long change_Cnt;
+    private long autochange_Cnt;
     private long join_Cnt;
     private long levelup_Cnt;
     private long ranking_Cnt;

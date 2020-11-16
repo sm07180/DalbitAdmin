@@ -127,7 +127,6 @@ var changeList_searchType = [
     , new COMMON_CODE('6', '6', '교환 오래된 순으로')
 ]
 
-
 var gender = [
     new COMMON_CODE(null, 'gender', '성별')
     , new COMMON_CODE('0', '0', '전체')

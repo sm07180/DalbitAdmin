@@ -39,7 +39,7 @@
                   , cancel_dt as cancelDt
              From rd_data.tb_payment_succ a
         </if>
-        <if test='type == "3" or type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
+        <if test='type == "3" or type == "3-1" or type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
                      or type == "9-1" or type == "9-2" or type == "10" or type == "15" or type == "19"'>
            select  ifnull(base.mem_no,withdrawal.mem_no) as memNo
                   , ifnull(base.mem_nick,withdrawal.mem_nick) as memNick
@@ -48,7 +48,7 @@
                   , ifnull(base.inner,withdrawal.inner) as `inner`
                   , b.gold as byeolCnt
                   , a.last_upd_date as lastUpdDate
-                <if test='type == "3"'>
+                <if test='type == "3" or type == "3-1"'>
                   , a.ruby as dalCnt
                   , a.ruby_old as dalOldCnt
                   , a.ruby_new as dalNewCnt
@@ -104,6 +104,10 @@
             where a.type='6'
               and b.type='1'
         </if>
+        <if test='type == "3-1"'>
+            where a.type='31'
+              and b.type='31'
+        </if>
         <if test='type == "4"'>
             where a.type='15'
               and ruby <![CDATA[>]]> 0
@@ -154,7 +158,7 @@
         <if test='type == "12"'>
           order by cancelDt desc
         </if>
-        <if test='type == "3" or type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
+        <if test='type == "3" or type == "31" or type == "4" or type == "5" or type == "6" or type == "7" or type == "8"
                 or type == "9-1" or type == "9-2" or type == "10" or type == "15" or type == "19"'>
             order by lastUpdDate desc
         </if>
@@ -347,10 +351,10 @@
                 ,(select count(*) from rd_data.tb_member_exchange where state = 1 and mem_no= b.mem_no) as exchagneCnt
                 , op_date lastUpdDate
             </if>
-        <if test='type == "5" or type == "9-1" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
+        <if test='type == "5" or type == "9-1" or type == "9" or type == "8" or type == "10" or type == "3" or type == "3-1" or type == "15"'>
             , b.last_upd_date as lastUpdDate
             , b.gold as byeolCnt
-            <if test='type == "3"'>
+            <if test='type == "3" or type == "3-1"'>
                 , b.gold_new as newByeolCnt
             </if>
         from rd_data.tb_member_wallet_gold b
@@ -385,7 +389,10 @@
         <if test='type == "3"'>
             where b.type='1'
         </if>
-        <if test='type == "5" or type == "9-1" or type == "9" or type == "8" or type == "10" or type == "3" or type == "15"'>
+        <if test='type == "3-1"'>
+            where b.type='31'
+        </if>
+        <if test='type == "5" or type == "9-1" or type == "9" or type == "8" or type == "10" or type == "3" or type == "3-1" or type == "15"'>
               and date_format(b.last_upd_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate} and date_format(b.last_upd_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate}
         </if>
         <if test='type == "16" or type == "17"'>

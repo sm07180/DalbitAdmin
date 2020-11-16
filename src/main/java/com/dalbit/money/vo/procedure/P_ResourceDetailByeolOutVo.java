@@ -21,6 +21,7 @@ public class P_ResourceDetailByeolOutVo {
     private long testin_Cnt;
     private long exchange_Cnt;
     private long change_Cnt;
+    private long autochange_Cnt;
     private long block_Cnt;
     private long withdrawal_Cnt;
     private long testout_Cnt;
