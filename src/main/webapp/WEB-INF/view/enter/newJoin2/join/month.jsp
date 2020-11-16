@@ -114,7 +114,7 @@
 
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8, 2);
             response.data.detailList[i].month = response.data.detailList[i].the_date.substr(5, 2);
-            month = response.data.detailList[i].month;
+            // month = response.data.detailList[i].month;
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi, ".")).add('days', 0).day()];
             if (toDay == "토") {
@@ -174,7 +174,7 @@
 
             response.data.detailList2[i].day = response.data.detailList2[i].the_date.substr(8, 2);
             response.data.detailList2[i].month = response.data.detailList2[i].the_date.substr(5, 2);
-            month = response.data.detailList2[i].month;
+            // month = response.data.detailList2[i].month;
 
             toDay = week[moment(response.data.detailList2[i].the_date.replace(/-/gi, ".")).add('days', 0).day()];
             if (toDay == "토") {

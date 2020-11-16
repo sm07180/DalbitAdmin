@@ -35,10 +35,10 @@
 
                                     <input id="monthDate" type="text" class="form-control" style="width: 196px;"/>
 
-                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
-                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
-                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <%--<input class="hide" name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input class="hide" name="endDate" id="endDate" style="width: 100px">--%>
+                                    <input name="startDate" id="startDate" style="width: 100px">
+                                    <input name="endDate" id="endDate" style="width: 100px">
                                     <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." style="display: none"></label>
 
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -159,17 +159,7 @@
                 $("#onedayDate").hide();
                 $("#monthDate").show();
                 $("#rangeDatepicker").hide();
-                // $("#rangeDatepicker").hide();
-                var monthLastDate = new Date($("#onedayDate").val().substr(0, 4), $("#onedayDate").val().substr(5, 7), -1);
-                $("#startDate").val($("#onedayDate").val().substr(0, 8) + "01");
-                $("#endDate").val($("#onedayDate").val().substr(0, 8) + (monthLastDate.getDate() + 1));
-                $("#monthDate").val($("#onedayDate").val().substr(0, 7));
-                var rangeDate = $("#monthDate").val().split(' - ');
-                if (-1 < rangeDate.indexOf(' - ')) {
-                    $("#startDate").val(rangeDate[0]);
-                    $("#endDate").val(rangeDate[1]);
-                }
-                ;
+
             }else if(slctType == 3){
                 // 목록 ----------------------------------
                 $("#onedayDate").hide();
