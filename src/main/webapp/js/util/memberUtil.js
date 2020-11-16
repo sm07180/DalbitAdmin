@@ -19,8 +19,11 @@ memberUtil.convertEditHistory = function(text){
                 result += ' ' + txt;
             }
         }
-    })
+    });
 
+    if(result.indexOf("달 자동교환") > 0){
+        result = result.replace("ON","<span class='font-bold' style='color: #6f49d1'>ON</span>");
+    }
     return result;
 }
 

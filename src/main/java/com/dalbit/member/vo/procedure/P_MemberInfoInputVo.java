@@ -9,4 +9,5 @@ import lombok.Setter;
 public class P_MemberInfoInputVo extends SearchVo {
     private String mem_no;
     private String memWithdrawal;
+    private String auto_change;
 }

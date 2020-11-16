@@ -1033,6 +1033,21 @@ public class Mem_MemberService {
         return result;
     }
 
+    /**
+     * 갈 자동교환 설정상태 변경
+     */
+    public String setChangeAutoSetting(P_MemberInfoInputVo pMemberInfoInputVo){
+        pMemberInfoInputVo.setOpName(MemberVo.getMyMemNo());
+        ProcedureVo procedureVo = new ProcedureVo(pMemberInfoInputVo);
+        mem_MemberDao.setChangeAutoSetting(procedureVo);
+
+        if(Integer.parseInt(procedureVo.getRet()) == 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.달자동교환설정상태변경_성공));
+        }else{
+            return gsonUtil.toJson(new JsonOutputVo(Status.달자동교환설정상태변경_실패));
+        }
+    }
+
     public String boostItemHist(P_MemberItemVo pMemberItemVo){
 
         int totalCnt = mem_MemberDao.boostItemHistCnt(pMemberItemVo);

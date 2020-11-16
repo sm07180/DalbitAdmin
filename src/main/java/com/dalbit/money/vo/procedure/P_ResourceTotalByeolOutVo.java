@@ -59,5 +59,10 @@ public class P_ResourceTotalByeolOutVo {
     private long withdrawal_tcnt;
     private long test_out_tcnt;
 
+    private long autochange_mcnt;
+    private long autochange_fcnt;
+    private long autochange_ncnt;
+    private long autochange_tcnt;
+
 
 }
