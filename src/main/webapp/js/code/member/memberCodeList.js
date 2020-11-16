@@ -277,3 +277,15 @@ var slctWalletDateType = [
     , new COMMON_CODE('0', '0', '기간선택(전체)')
     , new COMMON_CODE('1', '1', '선물 일시')
 ];
+
+var member_item_type = [
+    new COMMON_CODE('', 'item_type', '회원 아이템코드')
+    , new COMMON_CODE('1', '1', '부스터')
+];
+
+var member_item_state = [
+    new COMMON_CODE('', 'state', '회원 아이템상태코드')
+    , new COMMON_CODE('1', '1', '지급')
+    , new COMMON_CODE('2', '2', '사용')
+    , new COMMON_CODE('3', '3', '차감')
+];

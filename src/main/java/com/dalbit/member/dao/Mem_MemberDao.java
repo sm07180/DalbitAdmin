@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public interface Mem_MemberDao {
@@ -161,4 +162,8 @@ public interface Mem_MemberDao {
     int insertAuth(P_AuthVo pAuthVo);
 
     P_MemberItemVo boostItemChange(ProcedureVo procedureVo);
+
+    int boostItemHistCnt(P_MemberItemVo pMemberItemVo);
+
+    List<P_MemberItemVo> boostItemHist(P_MemberItemVo pMemberItemVo);
 }
