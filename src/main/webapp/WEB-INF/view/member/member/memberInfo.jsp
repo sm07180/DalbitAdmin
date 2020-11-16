@@ -192,8 +192,12 @@
             stateEdit();
         });
 
-        $('#bt_boostAdd').click(function(){
+        $('#bt_boostAdd').click(function(){         //부스터 변경
            boostAdd(this);
+        });
+
+        $('#boostHist').click(function(){         //부스터 상세
+            getInfoDetail('bt_boostHist',"부스터 사용내역");
         });
 
         $('#bt_dalAdd').click(function() {           // 달변경
@@ -514,6 +518,7 @@
     }
 
     function getInfoDetail(tmp,tmp1) {     // 상세보기
+
         var template = $('#tmp_member_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#member_detailFrm").html(templateScript);
@@ -1201,8 +1206,9 @@
                             <option value="1">+</option>
                             <option value="3">-</option>
                         </select>
-                        <input type="text" class="form-control" id="txt_boostAddCnt" style="width: 100px" maxlength="4">
+                        <input type="text" class="form-control" id="txt_boostAddCnt" style="width:50px" maxlength="4">
                         <button type="button" id="bt_boostAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-boostcnt="{{boostCnt}}">변경</button>
+                        <button type="button" id="boostHist" class="btn btn-default btn-sm pull-right">상세</button>
                     </span>
                 </c:if>
             </td>

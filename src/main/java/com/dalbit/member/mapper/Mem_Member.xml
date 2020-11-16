@@ -832,4 +832,35 @@
     <select id="boostItemChange" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberItemVo">
         call rd_admin.sp_admin_member_item_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="boostItemHistCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberItemVo" resultType="int">
+        select count(*)
+        from rd_data.tb_member_item_history
+        where mem_no = #{mem_no}
+    </select>
+
+    <select id="boostItemHist" parameterType="com.dalbit.member.vo.procedure.P_MemberItemVo" resultType="com.dalbit.member.vo.procedure.P_MemberItemVo">
+        /* Mem_Member.xml - boostItemHist */
+        select *
+        from(
+            select idx
+                , mem_no
+                , item_type as itemType
+                , state
+                , use_cnt as useCnt
+                , item_cnt as itemCnt
+                , op_name as opName
+                , date_format(last_upd_date, '%Y.%m.%d %H:%i:%s') as lastUpdDate
+                , @RNUM := @RNUM + 1 as rowNum
+            from rd_data.tb_member_item_history
+                , (select @RNUM := 0) r
+            where mem_no = #{mem_no}
+            order by idx desc
+        )a
+        LIMIT #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="setChangeAutoSetting" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        call rd_admin.sp_admin_member_auto_change_setting_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

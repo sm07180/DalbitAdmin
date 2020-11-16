@@ -966,6 +966,42 @@ var MemberDataTableSource = {
             if(data.inner == 1){    // 테스트계정 row 색상 표시
                 $(row).addClass("bg-testMember");
             }
-        }
+        },
+    },
+
+    'boostHist': {
+        'url': '/rest/member/member/boost/hist'
+        , 'columns': [
+            /*{'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},*/
+            {'title': '아이템종류', 'data': 'itemType', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, member_item_type);
+                }},
+            {'title': '상태', 'data': 'state', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, member_item_state);
+                }},
+            {'title': '사용/지급 수', 'data': 'useCnt', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '아이템 수', 'data': 'itemCnt', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '사용/지급 일시', 'data': 'lastUpdDate', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            /*{'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg" : data;
+                    return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
+                }},
+            {'title': '아이템명', 'data': 'itemName'},
+            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data) {
+                    return common.addComma(data) + " 개"
+                }},
+            {'title': '선물 별', 'data': 'gold', 'render': function (data) {
+                    return common.addComma(data) + " 별"
+                }},
+            {'title': '선물 일시', 'data': 'giftDateFormat'},*/
+        ]
     },
 }

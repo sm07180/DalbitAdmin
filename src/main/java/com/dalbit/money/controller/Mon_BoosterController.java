@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("money/booster")
 public class Mon_BoosterController {
 
-    @GetMapping("info")
+    @GetMapping("list")
     public String info() {
-        return "money/booster/info";
+        return "money/booster/list";
     }
 
 

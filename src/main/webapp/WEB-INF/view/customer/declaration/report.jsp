@@ -408,10 +408,10 @@
             </tr>
             <tr>
                 <th colspan="2">총 신고</th>
-                <td colspan="2">프로시저에 없음</td>
+                <td colspan="2">{{addComma report_cnt}}건</td>
 
                 <th colspan="2">총 신고/조치</th>
-                <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
+                <td colspan="2">{{addComma reported_cnt}}건<br />/{{addComma reported_ok_cnt}}건</td>
             </tr>
 
             {{#if room_no}}

@@ -1032,4 +1032,14 @@ public class Mem_MemberService {
 
         return result;
     }
+
+    public String boostItemHist(P_MemberItemVo pMemberItemVo){
+
+        int totalCnt = mem_MemberDao.boostItemHistCnt(pMemberItemVo);
+
+        pMemberItemVo.setTotalCnt(totalCnt);
+        List<P_MemberItemVo> itemHistoryList = mem_MemberDao.boostItemHist(pMemberItemVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, itemHistoryList, new PagingVo(totalCnt)));
+    }
 }
