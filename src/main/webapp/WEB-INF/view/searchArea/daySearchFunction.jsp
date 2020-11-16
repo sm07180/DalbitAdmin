@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
+
 <script type="text/javascript">
     $(function() {
+        $(".search_exchange_years").append(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
+        year = $("#search_year").val();
+        $(document).on('change', '#search_year', function() {
+            if(slctType == 0) {
+                monthClick("", $("#div_dayButton").find("#search_year").val(), month, day);
+            }else if(slctType == 1){
+                monthClick("", $("#div_monthButton").find("#search_year").val(), month, day);
+            }else if(slctType == 2){
+                monthClick("", $("#div_yearButton").find("#search_year").val(), month, day);
+            }
+        });
     });
 
     function setDayButton(today){
@@ -31,6 +44,13 @@
     }
 
     function monthClick(id, paramYear, paramMonth, paramDay){
+        console.log("----------------- monthClick");
+        console.log(id);
+        console.log(paramYear);
+        console.log(paramMonth);
+        console.log(paramDay);
+
+
          $(".dayButton").empty();
         year = paramYear;
         month = paramMonth;
@@ -58,6 +78,13 @@
     }
 
     function dayClick(id, paramYear, paramMonth, paramDay){
+        console.log("----------------- dayClick");
+        console.log(id);
+        console.log(paramYear);
+        console.log(paramMonth);
+        console.log(paramDay);
+        console.log(day);
+
         var lastDay = new Date(paramYear,paramMonth,-1).getDate() + 1;
 
         for(var i=1; i<lastDay + 1;i++){
@@ -73,14 +100,14 @@
         }
         var selectDate = paramYear + "." + common.lpad(paramMonth,2,"0") + "." + common.lpad(day,2,"0");
 
-        if(me == 0){
+        if(slctType == 0){
             setTimeDate(selectDate);
-        }else if(me == 1){
-            $("#displayDate").val(selectDate.substr(0,7));
+        }else if(slctType == 1){
+            $("#monthDate").val(selectDate.substr(0,7));
             $("#startDate").val(selectDate.substr(0,8) + "01");
             $("#endDate").val(selectDate.substr(0,8) + lastDay);
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        }else if(me == 2){
+        }else if(slctType == 2){
             $("#yearDate").val(selectDate.substr(0,4));
             $("#startDate").val(selectDate.substr(0,5) + "01.01");
             $("#endDate").val(selectDate.substr(0,5) + "12.31");
@@ -90,23 +117,39 @@
         $("#bt_search").click();
     }
 
-    function dateType(paramMe){
-        if(paramMe == 0){
+    function dateType(paramSlctType){
+        if(paramSlctType == 0){
             setDayButton("day");
             $("#div_dayButton").show();
             $("#div_monthButton").hide();
             $("#div_yearButton").hide();
-        }else if(paramMe == 1){
+            $("#th_bottonList").show();
+            $("#rangeDatepicker").hide();
+
+        }else if(paramSlctType == 1){
             setDayButton("month");
             $("#div_dayButton").hide();
             $("#div_monthButton").show();
             $("#div_yearButton").hide();
-        }else if(paramMe == 2){
+            $("#th_bottonList").show();
+            $("#rangeDatepicker").hide();
+
+        }else if(paramSlctType == 2){
             setDayButton("year");
             $("#div_dayButton").hide();
             $("#div_monthButton").hide();
             $("#div_yearButton").show();
-        }else if(common.isEmpty(paramMe)){
+            $("#th_bottonList").show();
+            $("#rangeDatepicker").hide();
+
+        }else if(paramSlctType == 3){
+            setDateRange();
+            $("#div_dayButton").hide();
+            $("#div_monthButton").hide();
+            $("#div_yearButton").hide();
+            $("#th_bottonList").hide();
+            $("#rangeDatepicker").show();
+        }else if(common.isEmpty(paramSlctType)){
             setDayButton();
         }
 
@@ -159,6 +202,13 @@
         $(".search_exchange_years").find("#search_year").css("height","100%");
 
         monthClick("", $("#div_yearButton").find("#search_year").val(), month, day);
+    }
+
+    function setDateRange(){
+
+    }
+    function dateRangePrev(isPrev){
+
     }
 
 </script>
