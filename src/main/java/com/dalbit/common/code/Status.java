@@ -805,6 +805,11 @@ public enum Status {
     TabCount조회_성공("0", "tab.count.success", "TabCount조회 성공 시"),
     TabCount조회_실패("C006", "tab.count.fail", "TabCount조회 실패 시"),
 
+
+    회원아이템수정_성공("0", "update.success", "수정성공"),
+    회원아이템수정_실패_회원없음("-1", "no.data", "회원없음"),
+    회원아이템수정_실패_회수시보유개수부족("-2", "no.data", "회수 시 보유 개수 부족"),
+
     ;
 
     final private String RESULT_SUCCESS = "success";
