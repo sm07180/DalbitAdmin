@@ -337,6 +337,7 @@
             response.data.totalInfo.charge_mCnt,
             response.data.totalInfo.dalgiftget_mCnt,
             response.data.totalInfo.change_mCnt,
+            response.data.totalInfo.autochange_mCnt,
             response.data.totalInfo.join_mCnt,
             response.data.totalInfo.levelup_mCnt,
             response.data.totalInfo.ranking_mCnt,
@@ -346,6 +347,7 @@
             response.data.totalInfo.eventdirect_mCnt,
             response.data.totalInfo.specialdj_mCnt,
             response.data.totalInfo.testin_mCnt,
+            response.data.totalInfo.roulette_mCnt,
         ];
         response.data.totalInfo["dalInc_total_mCnt"] = common.getListSum(dalInc_total_mCnt);
 
@@ -353,6 +355,7 @@
             response.data.totalInfo.charge_fCnt,
             response.data.totalInfo.dalgiftget_fCnt,
             response.data.totalInfo.change_fCnt,
+            response.data.totalInfo.autochange_fCnt,
             response.data.totalInfo.join_fCnt,
             response.data.totalInfo.levelup_fCnt,
             response.data.totalInfo.ranking_fCnt,
@@ -362,6 +365,7 @@
             response.data.totalInfo.eventdirect_fCnt,
             response.data.totalInfo.specialdj_fCnt,
             response.data.totalInfo.testin_fCnt,
+            response.data.totalInfo.roulette_fCnt,
         ];
         response.data.totalInfo["dalInc_total_fCnt"] = common.getListSum(dalInc_total_fCnt);
 
@@ -369,6 +373,7 @@
             response.data.totalInfo.charge_nCnt,
             response.data.totalInfo.dalgiftget_nCnt,
             response.data.totalInfo.change_nCnt,
+            response.data.totalInfo.autochange_nCnt,
             response.data.totalInfo.join_nCnt,
             response.data.totalInfo.levelup_nCnt,
             response.data.totalInfo.ranking_nCnt,
@@ -378,6 +383,7 @@
             response.data.totalInfo.eventdirect_nCnt,
             response.data.totalInfo.specialdj_nCnt,
             response.data.totalInfo.testin_nCnt,
+            response.data.totalInfo.roulette_nCnt,
         ];
         response.data.totalInfo["dalInc_total_nCnt"] = common.getListSum(dalInc_total_nCnt);
 
@@ -385,6 +391,7 @@
             response.data.totalInfo.charge_tCnt,
             response.data.totalInfo.dalgiftget_tCnt,
             response.data.totalInfo.change_tCnt,
+            response.data.totalInfo.autochange_tCnt,
             response.data.totalInfo.join_tCnt,
             response.data.totalInfo.levelup_tCnt,
             response.data.totalInfo.ranking_tCnt,
@@ -394,6 +401,7 @@
             response.data.totalInfo.eventdirect_tCnt,
             response.data.totalInfo.specialdj_tCnt,
             response.data.totalInfo.testin_tCnt,
+            response.data.totalInfo.roulette_tCnt,
         ];
         response.data.totalInfo["dalInc_total_tCnt"] = common.getListSum(dalInc_total_tCnt);
 
@@ -407,6 +415,7 @@
         response.data.totalInfo["charge_total_Cnt"] = response.data.totalInfo.charge_mCnt + response.data.totalInfo.charge_fCnt + response.data.totalInfo.charge_nCnt + response.data.totalInfo.charge_tCnt;
         response.data.totalInfo["dalgiftget_total_Cnt"] = response.data.totalInfo.dalgiftget_mCnt + response.data.totalInfo.dalgiftget_fCnt + response.data.totalInfo.dalgiftget_nCnt + response.data.totalInfo.dalgiftget_tCnt;
         response.data.totalInfo["change_total_Cnt"] = response.data.totalInfo.change_mCnt + response.data.totalInfo.change_fCnt + response.data.totalInfo.change_nCnt + response.data.totalInfo.change_tCnt;
+        response.data.totalInfo["autochange_total_Cnt"] = response.data.totalInfo.autochange_mCnt + response.data.totalInfo.autochange_fCnt + response.data.totalInfo.autochange_nCnt + response.data.totalInfo.autochange_tCnt;
         response.data.totalInfo["join_total_Cnt"] = response.data.totalInfo.join_mCnt + response.data.totalInfo.join_fCnt + response.data.totalInfo.join_nCnt + response.data.totalInfo.join_tCnt;
         response.data.totalInfo["levelup_total_Cnt"] = response.data.totalInfo.levelup_mCnt + response.data.totalInfo.levelup_fCnt + response.data.totalInfo.levelup_nCnt + response.data.totalInfo.levelup_tCnt;
         response.data.totalInfo["ranking_total_Cnt"] = response.data.totalInfo.ranking_mCnt + response.data.totalInfo.ranking_fCnt + response.data.totalInfo.ranking_nCnt + response.data.totalInfo.ranking_tCnt;
@@ -494,8 +503,10 @@
         response.data.detailList.nowHour = Number(moment().format("HH"));
 
         var total_charge_Cnt = 0;
+        var total_autochange_Cnt = 0;
         var total_dalgiftget_Cnt = 0;
         var total_change_Cnt = 0;
+        var total_changeAuto_Cnt = 0;
         var total_join_Cnt = 0;
         var total_levelup_Cnt = 0;
         var total_ranking_Cnt = 0;
@@ -531,6 +542,7 @@
 
             var sub_incTotal_Cnt = [
                 response.data.detailList[i].charge_Cnt,
+                response.data.detailList[i].autochange_Cnt,
                 response.data.detailList[i].dalgiftget_Cnt,
                 response.data.detailList[i].change_Cnt,
                 response.data.detailList[i].join_Cnt,
@@ -561,6 +573,7 @@
             total_charge_Cnt = total_charge_Cnt + response.data.detailList[i].charge_Cnt;
             total_dalgiftget_Cnt = total_dalgiftget_Cnt + response.data.detailList[i].dalgiftget_Cnt;
             total_change_Cnt = total_change_Cnt + response.data.detailList[i].change_Cnt;
+            total_changeAuto_Cnt = total_changeAuto_Cnt + response.data.detailList[i].autochange_Cnt;
             total_join_Cnt = total_join_Cnt + response.data.detailList[i].join_Cnt;
             total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
             total_ranking_Cnt = total_ranking_Cnt + response.data.detailList[i].ranking_Cnt;
@@ -583,6 +596,7 @@
         response.data.totalInfo.total_charge_Cnt = total_charge_Cnt;
         response.data.totalInfo.total_dalgiftget_Cnt = total_dalgiftget_Cnt;
         response.data.totalInfo.total_change_Cnt = total_change_Cnt;
+        response.data.totalInfo.total_changeAuto_Cnt = total_changeAuto_Cnt;
         response.data.totalInfo.total_join_Cnt = total_join_Cnt;
         response.data.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
         response.data.totalInfo.total_ranking_Cnt = total_ranking_Cnt;
@@ -664,6 +678,7 @@
         var byeolDec_total_mCnt = [
             response.data.totalInfo.exchange_mcnt,
             response.data.totalInfo.change_mcnt,
+            response.data.totalInfo.autochange_mcnt,
             response.data.totalInfo.block_mcnt,
             response.data.totalInfo.withdrawal_mcnt,
             response.data.totalInfo.test_out_mcnt,
@@ -673,6 +688,7 @@
         var byeolDec_total_fCnt = [
             response.data.totalInfo.exchange_fcnt,
             response.data.totalInfo.change_fcnt,
+            response.data.totalInfo.autochange_fcnt,
             response.data.totalInfo.block_fcnt,
             response.data.totalInfo.withdrawal_fcnt,
             response.data.totalInfo.test_out_fcnt,
@@ -682,6 +698,7 @@
         var byeolDec_total_nCnt = [
             response.data.totalInfo.exchange_ncnt,
             response.data.totalInfo.change_ncnt,
+            response.data.totalInfo.autochange_ncnt,
             response.data.totalInfo.block_ncnt,
             response.data.totalInfo.withdrawal_ncnt,
             response.data.totalInfo.test_out_ncnt,
@@ -691,6 +708,7 @@
         var byeolDec_total_tCnt = [
             response.data.totalInfo.exchange_tcnt,
             response.data.totalInfo.change_tcnt,
+            response.data.totalInfo.autochange_tcnt,
             response.data.totalInfo.block_tcnt,
             response.data.totalInfo.withdrawal_tcnt,
             response.data.totalInfo.test_out_tcnt,
@@ -721,6 +739,7 @@
 
         response.data.totalInfo["exchange_total_cnt"] = response.data.totalInfo.exchange_mcnt + response.data.totalInfo.exchange_fcnt + response.data.totalInfo.exchange_ncnt + response.data.totalInfo.exchange_tcnt;
         response.data.totalInfo["change_total_cnt"] = response.data.totalInfo.change_mcnt + response.data.totalInfo.change_fcnt + response.data.totalInfo.change_ncnt + response.data.totalInfo.change_tcnt ;
+        response.data.totalInfo["autochange_total_cnt"] = response.data.totalInfo.autochange_mcnt + response.data.totalInfo.autochange_fcnt + response.data.totalInfo.autochange_mcnt + response.data.totalInfo.autochange_tcnt ;
         response.data.totalInfo["block_total_cnt"] = response.data.totalInfo.block_mcnt + response.data.totalInfo.block_fcnt + response.data.totalInfo.block_ncnt + response.data.totalInfo.block_tcnt;
         response.data.totalInfo["withdrawal_total_cnt"] = response.data.totalInfo.withdrawal_mcnt + response.data.totalInfo.withdrawal_fcnt + response.data.totalInfo.withdrawal_ncnt + response.data.totalInfo.withdrawal_tcnt;
         response.data.totalInfo["test_out_total_cnt"] = response.data.totalInfo.test_out_mcnt + response.data.totalInfo.test_out_fcnt + response.data.totalInfo.test_out_ncnt + response.data.totalInfo.test_out_tcnt;
@@ -747,6 +766,7 @@
         var total_testin_Cnt = 0;
         var total_exchange_Cnt = 0;
         var total_change_Cnt = 0;
+        var total_autochange_Cnt = 0;
         var total_block_Cnt = 0;
         var total_withdrawal_Cnt = 0;
         var total_testout_Cnt = 0;
@@ -798,6 +818,7 @@
             total_testin_Cnt = total_testin_Cnt + response.data.detailList[i].testin_Cnt;
             total_exchange_Cnt = total_exchange_Cnt + response.data.detailList[i].exchange_Cnt;
             total_change_Cnt = total_change_Cnt + response.data.detailList[i].change_Cnt;
+            total_autochange_Cnt = total_autochange_Cnt + response.data.detailList[i].autochange_Cnt;
             total_block_Cnt = total_block_Cnt + response.data.detailList[i].block_Cnt;
             total_withdrawal_Cnt = total_withdrawal_Cnt + response.data.detailList[i].withdrawal_Cnt;
             total_testout_Cnt = total_testout_Cnt + response.data.detailList[i].testout_Cnt;
@@ -811,12 +832,13 @@
         response.data.totalInfo.total_testin_Cnt = total_testin_Cnt;
         response.data.totalInfo.total_exchange_Cnt = total_exchange_Cnt;
         response.data.totalInfo.total_change_Cnt = total_change_Cnt;
+        response.data.totalInfo.total_autochange_Cnt = total_autochange_Cnt;
         response.data.totalInfo.total_block_Cnt = total_block_Cnt;
         response.data.totalInfo.total_withdrawal_Cnt = total_withdrawal_Cnt;
         response.data.totalInfo.total_testout_Cnt = total_testout_Cnt;
 
-        response.data.totalInfo.total_incbyeol_Cnt = total_byeolgift_Cnt + total_levelup_Cnt + total_eventdirect_Cnt + total_cancel_Cnt + total_recovery_Cnt + total_testin_Cnt;
-        response.data.totalInfo.total_decbyeol_Cnt = total_exchange_Cnt + total_change_Cnt + total_block_Cnt + total_withdrawal_Cnt + total_testout_Cnt;
+        response.data.totalInfo.total_incbyeol_Cnt = total_byeolgift_Cnt + total_levelup_Cnt + total_eventauto_Cnt + total_eventdirect_Cnt + total_cancel_Cnt + total_testin_Cnt + total_recovery_Cnt;
+        response.data.totalInfo.total_decbyeol_Cnt = total_exchange_Cnt + total_change_Cnt + total_autochange_Cnt + total_block_Cnt + total_withdrawal_Cnt + total_testout_Cnt;
 
         var template = $('#tmp_byeolListTable').html();
         var templateScript = Handlebars.compile(template);
@@ -856,7 +878,7 @@
 
     function resourceDalClick(data){
         var popupUrl = "/money/resource/popup/dal?sDate=" + $("#startDate").val() + "&eDate=" + $("#endDate").val() + "&type=" + data.type + "&gender=" + data.gender +"&slctType="+ _datePicker;
-        if(data.type == "1" || data.type == "3" || data.type == "4" || data.type == "5" || data.type == "6"
+        if(data.type == "1" || data.type == "3" || data.type == "3-1" || data.type == "4" || data.type == "5" || data.type == "6"
             || data.type == "7" || data.type == "8" || data.type == "9-1" || data.type == "9-2" || data.type == "10"
             || data.type == "12" || data.type == "13" || data.type == "14" || data.type == "15" || data.type == "19"
         ){
@@ -881,7 +903,7 @@
     <div class="col-md-12 no-padding">
         <table class="table table-bordered mb10 mt5 _tableHeight" data-height="23px">
             <colgroup>
-                <col width="3%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="3%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                 <col width="4%"/><col width="3%"/><col width="3%"/><col width="5%"/><col width="3%"/>
                 <col width="3%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                 <col width="5%"/><col width="5%"/><col width="5%"/>
@@ -892,7 +914,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 결제</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입 보상</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">레벨 보상</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">랭킹 보상</th>
@@ -906,6 +928,8 @@
                 <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="#000000" data-fontcolor="white" style="border:solid 2px black">총 합</th>
             </tr>
             <tr>
+                <th class="_bgColor" data-bgcolor="#dae3f3">일반</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">자동</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">출석</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">룰렛</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">기타 자동</th>
@@ -916,6 +940,7 @@
                 <td onclick="resourceDalClick($(this).data())" data-type="1"   data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma charge_mCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="2-1" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma dalgiftget_mCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="3"   data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_mCnt 'Y'}}</span></a></td>
+                <td onclick="resourceDalClick($(this).data())" data-type="3-1" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_mCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="4"   data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma join_mCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="5"   data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_mCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="6"   data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma ranking_mCnt 'Y'}}</span></a></td>
@@ -939,6 +964,7 @@
                 <td onclick="resourceDalClick($(this).data())" data-type="1"   data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma charge_fCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="2-1" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma dalgiftget_fCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="3"   data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_fCnt 'Y'}}</span></a></td>
+                <td onclick="resourceDalClick($(this).data())" data-type="3-1" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_fCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="4"   data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma join_fCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="5"   data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_fCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="6"   data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma ranking_fCnt 'Y'}}</span></a></td>
@@ -956,6 +982,7 @@
                 <td onclick="resourceDalClick($(this).data())" data-type="1"   data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma charge_nCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="2-1" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma dalgiftget_nCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="3"   data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_nCnt 'Y'}}</span></a></td>
+                <td onclick="resourceDalClick($(this).data())" data-type="3-1" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_nCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="4"   data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma join_nCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="5"   data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_nCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="6"   data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma ranking_nCnt 'Y'}}</span></a></td>
@@ -973,6 +1000,7 @@
                 <td onclick="resourceDalClick($(this).data())" data-type="1"   data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma charge_tCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="2-1" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma dalgiftget_tCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="3"   data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_tCnt 'Y'}}</span></a></td>
+                <td onclick="resourceDalClick($(this).data())" data-type="3-1" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_tCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="4"   data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma join_tCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="5"   data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_tCnt 'Y'}}</span></a></td>
                 <td onclick="resourceDalClick($(this).data())" data-type="6"   data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma ranking_tCnt 'Y'}}</span></a></td>
@@ -990,6 +1018,7 @@
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="1"   data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma charge_total_Cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="2-1" data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma dalgiftget_total_Cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="3"   data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_total_Cnt 'Y'}}</span></a></td>
+                <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="3"   data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_total_Cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="4"   data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma join_total_Cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="5"   data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma levelup_total_Cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceDalClick($(this).data())" data-type="6"   data-gender="a" ><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma ranking_total_Cnt 'Y'}}</span></a></td>
@@ -1172,7 +1201,7 @@
                 <th rowspan="7" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
                 <td rowspan="7"></td>
@@ -1182,12 +1211,14 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad" style="border:solid 2px black">감소 합</th>
             </tr>
             <tr>
-
+                <th class="_bgColor" data-bgcolor="#fbe5d6">일반</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">자동</th>
             </tr>
             <tr>
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'm'}}}</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_mcnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="3-1"data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_mcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="m"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_mcnt 'Y'}}</span></a></td>
@@ -1199,6 +1230,7 @@
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'f'}}}</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_fcnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="3-1"data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_fcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="f"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_fcnt 'Y'}}</span></a></td>
@@ -1209,6 +1241,7 @@
                 <th class="_bgColor" data-bgcolor="#f8cbad">{{{sexIcon 'n'}}}</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_ncnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="3-1"data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_ncnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="n"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_ncnt 'Y'}}</span></a></td>
@@ -1219,6 +1252,7 @@
                 <th class="_bgColor" data-bgcolor="#f8cbad">테스트</th>
                 <td onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_tcnt 'Y'}}</span></a></td>
+                <td onclick="resourceByeolClick($(this).data())" data-type="3-1"data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_tcnt 'Y'}}</span></a></td>
                 <td onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="t"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_tcnt 'Y'}}</span></a></td>
@@ -1229,6 +1263,7 @@
                 <th class="_bgColor" data-bgcolor="#dad9d7">총합</th>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="17" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma exchange_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="3"  data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma change_total_cnt 'Y'}}</span></a></td>
+                <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="3-1"data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma autochange_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="13" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma block_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="18" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma withdrawal_total_cnt 'Y'}}</span></a></td>
                 <td class="_bgColor" data-bgcolor="#dad9d7" onclick="resourceByeolClick($(this).data())" data-type="15" data-gender="a"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555">{{addComma test_out_total_cnt 'Y'}}</span></a></td>
@@ -1250,7 +1285,7 @@
             <%--</colgroup>--%>
             <thead>
             <tr>
-                <th colspan="15" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
+                <th colspan="16" class="_bgColor" data-bgcolor="#8faadc">달 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th colspan="9" class="_bgColor" data-bgcolor="#f4b183">달 감소</th>
             </tr>
@@ -1258,7 +1293,7 @@
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 결제</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 직접 선물</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#dae3f3">달 교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">가입보상</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">레벨 보상</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">랭킹 보상</th>
@@ -1280,6 +1315,8 @@
                 <th rowspan="3" class="_bgColor" data-bgcolor="#d9d9d9">증감</th>
             </tr>
             <tr>
+                <th class="_bgColor" data-bgcolor="#dae3f3">일반</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">자동</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">출석</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">룰렛</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">기타 자동</th>
@@ -1290,6 +1327,7 @@
                 <td>{{addComma totalInfo.total_charge_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_dalgiftget_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_changeAuto_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_join_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_ranking_Cnt 'Y'}}</td>
@@ -1327,6 +1365,7 @@
                     <td>{{addComma charge_Cnt 'Y'}}</td>
                     <td>{{addComma dalgiftget_Cnt 'Y'}}</td>
                     <td>{{addComma change_Cnt 'Y'}}</td>
+                    <td>{{addComma autochange_Cnt 'Y'}}</td>
                     <td>{{addComma join_Cnt 'Y'}}</td>
                     <td>{{addComma levelup_Cnt 'Y'}}</td>
                     <td>{{addComma ranking_Cnt 'Y'}}</td>
@@ -1360,6 +1399,7 @@
                     <td>{{addComma totalInfo.total_charge_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_dalgiftget_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_changeAuto_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_join_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_levelup_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_ranking_Cnt 'Y'}}</td>
@@ -1400,7 +1440,7 @@
             <tr>
                 <th colspan="10" class="_bgColor" data-bgcolor="#8faadc">별 증가</th>
                 <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
-                <th colspan="8" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
+                <th colspan="9" class="_bgColor" data-bgcolor="#f4b183">별 감소</th>
             </tr>
             <tr>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#b4c7e7">구분</th>
@@ -1415,7 +1455,7 @@
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#f8cbad">구분</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">환전 승인</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
+                <th colspan="2" class="_bgColor" data-bgcolor="#fbe5d6">교환</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">영구정지</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">탈퇴</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">테스트 회수</th>
@@ -1425,6 +1465,8 @@
             <tr>
                 <th class="_bgColor" data-bgcolor="#dae3f3">(자동)</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">(운영자 지급)</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">일반</th>
+                <th class="_bgColor" data-bgcolor="#fbe5d6">자동</th>
             </tr>
             <tr class="font-bold" style="background-color: #d9d9d9">
                 <td>총합</td>
@@ -1440,6 +1482,7 @@
                 <td>총합</td>
                 <td>{{addComma totalInfo.total_exchange_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                <td>{{addComma totalInfo.total_autochange_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                 <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>
@@ -1475,6 +1518,7 @@
                     </td>
                     <td>{{addComma exchange_Cnt 'Y'}}</td>
                     <td>{{addComma change_Cnt 'Y'}}</td>
+                    <td>{{addComma autochange_Cnt 'Y'}}</td>
                     <td>{{addComma block_Cnt 'Y'}}</td>
                     <td>{{addComma withdrawal_Cnt 'Y'}}</td>
                     <td>{{addComma testout_Cnt 'Y'}}</td>
@@ -1497,6 +1541,7 @@
                     <td>총합</td>
                     <td>{{addComma totalInfo.total_exchange_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_change_Cnt 'Y'}}</td>
+                    <td>{{addComma totalInfo.total_autochange_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_block_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_withdrawal_Cnt 'Y'}}</td>
                     <td>{{addComma totalInfo.total_testout_Cnt 'Y'}}</td>

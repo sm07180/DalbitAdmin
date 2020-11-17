@@ -35,7 +35,6 @@ public class Con_LoginService {
     /**
      * 로그인 총계
      */
-
     public String callLoginLive(){
         ProcedureVo procedureVo = new ProcedureVo();
         con_LoginDao.callLoginLive(procedureVo);

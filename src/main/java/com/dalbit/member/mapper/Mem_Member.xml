@@ -623,7 +623,7 @@
 
     <select id="getMemberSetting" parameterType="java.lang.String" resultType="com.dalbit.member.vo.procedure.P_MemberSetting">
         /* M_Member.xml - getMemberSetting */
-        SELECT idx, mem_no, all_ok, set_1, set_2, set_3, set_4, set_5, set_6, set_7, alim_slct, last_upd_date FROM rd_data.tb_member_setting WHERE mem_no = #{mem_no}
+        SELECT * FROM rd_data.tb_member_setting WHERE mem_no = #{mem_no}
     </select>
 
     <delete id="deleteCert_back" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">

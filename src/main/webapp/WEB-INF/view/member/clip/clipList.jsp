@@ -26,6 +26,21 @@
     </div>
 </div>
 
+<!-- 팬보드 댓글 보기 -->
+<div class="modal fade" id="clipReplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" style="display: table">
+                <div class="col-md-12 no-padding" id="div_reply">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/js/dataTablesSource/clip/clipHistoryDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/clip/clipCodeList.js?${dummyData}"></script>
 
@@ -261,13 +276,14 @@
             alert('해당 클립에는 등록된 댓글이 없습니다.');
         } else if($(this).data('reply') > 0) {
             var data = {
-                'castNo' : $(this).data('cast_no')
+                'targetClipNo' : $(this).data('cast_no')
             };
             util.getAjaxData("selectReply", "/rest/clip/history/reply/list", data, fn_success_selectReply);
         }
     });
 
     function fn_success_selectReply(dst_id, response) {
+
         $('#div_reply').empty();
         for(var i=0 ; i<response.data.length; i++){
             var tmp = '<div class="col-md-12 no-padding" style="margin-bottom: 10px;">';

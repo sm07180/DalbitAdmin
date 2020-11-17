@@ -163,6 +163,8 @@ public interface Mem_MemberDao {
 
     P_MemberItemVo boostItemChange(ProcedureVo procedureVo);
 
+    P_MemberEditorVo setChangeAutoSetting(ProcedureVo procedureVo);
+
     int boostItemHistCnt(P_MemberItemVo pMemberItemVo);
 
     List<P_MemberItemVo> boostItemHist(P_MemberItemVo pMemberItemVo);

@@ -32,6 +32,8 @@
             $("#sp_type").text("달 직접 선물");
         }else if(type == "3"){
             $("#sp_type").text("달 교환");
+        }else if(type == "3-1"){
+            $("#sp_type").text("달 교환(자동)");
         }else if(type == "4"){
             $("#sp_type").text("가입보상");
         }else if(type == "5"){

@@ -314,6 +314,15 @@ public class Mem_MemberRestController {
         return result;
     }
 
+    /**
+     * 자동 교환 설정 변경하기
+     */
+    @PostMapping("setChangeAutoSetting")
+    public String setChangeAutoSetting(P_MemberInfoInputVo pMemberInfoInputVo){
+        String result = mem_MemberService.setChangeAutoSetting(pMemberInfoInputVo);
+        return result;
+    }
+
     @PostMapping("boost/hist")
     public String boostHist(P_MemberItemVo pMemberItemVo){
         String result = mem_MemberService.boostItemHist(pMemberItemVo);

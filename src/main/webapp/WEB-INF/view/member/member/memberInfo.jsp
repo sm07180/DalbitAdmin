@@ -8,7 +8,7 @@
 
 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
     <c:forEach var="twoDepth" items="${menu.twoDepth}">
-        <c:if test="${twoDepth.idx eq 52}">
+        <c:if test="${twoDepth.idx eq 123}">
             <c:set var="readYn" value="${twoDepth.is_read eq 0 ? 'N' : 'Y'}" />
             <c:set var="insertYn" value="${twoDepth.is_insert eq 0 ? 'N' : 'Y'}" />
             <c:set var="deleteYn" value="${twoDepth.is_delete eq 0 ? 'N' : 'Y'}" />
@@ -527,7 +527,10 @@
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
 
+        console.log(tmp);
+
         var source = MemberDataTableSource[tmp];
+        console.log(source);
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             if(tmp == "connectState"){
@@ -536,6 +539,8 @@
                 data.slctType = "1";
             }
         }
+        console.log(dtList_info_detail_data)
+        console.log(source)
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
@@ -580,11 +585,14 @@
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
 
+        console.log(tmp);
+
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.memoSlct = inputSearchMemoSlct;
         };
+        console.log(source)
         dtMemoList = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtMemoList.useCheckBox(true);
         dtMemoList.useIndex(true);

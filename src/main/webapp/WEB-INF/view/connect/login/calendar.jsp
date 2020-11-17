@@ -25,7 +25,9 @@
 
     function getCalendarInfo(){
         $("#summary_today").html(moment(new Date()).format('YYYY-MM-DD'));
-        renderCalendar();
+        setTimeout(function(){
+            renderCalendar();
+        },160)
     }
 
     function renderCalendar(){

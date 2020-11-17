@@ -27,6 +27,8 @@
     function getByeolist() {
         if(type == "3"){
             $("#sp_type").text("별 교환");
+        }else if(type == "3-1"){
+            $("#sp_type").text("별 교환(자동)");
         }else if(type == "5"){
             $("#sp_type").text("레벨 보상");
         }else if(type == "8"){
@@ -77,7 +79,7 @@
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_giftList);
         } else if(type == "16" || type == "17" ){       // 환전 취소, 환전 승인
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolInc_exchange);
-        } else if(type == "3" ){                        // 교환
+        } else if(type == "3" || type == "3-1" ){                        // 교환
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.byeolDec_change);
         } else if(type == "13" || type == "18"){        // 영구정지, 탈퇴회원
             dtList_info = new DalbitDataTable($("#list"), dtList_info_data, resourceDataTableSource.dalDec_memState);

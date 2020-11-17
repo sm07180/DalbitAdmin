@@ -3,10 +3,16 @@ package com.dalbit.money.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.procedure.P_MemberSetting;
 import com.dalbit.money.dao.Mon_ItemDao;
+import com.dalbit.money.vo.Mon_AutoChangeOutputVo;
 import com.dalbit.money.vo.Mon_ItemInputVo;
 import com.dalbit.money.vo.Mon_ItemOutputVo;
+import com.dalbit.money.vo.procedure.P_memberDataListOutVo;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +33,32 @@ public class Mon_ItemService {
 
     @Autowired
     SmsService smsService;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     public String selectChangeItemList(Mon_ItemInputVo monItemInputVo){
-        monItemInputVo.setPageStart(monItemInputVo.getPageStart() -1);
-        monItemInputVo.setPageStart(monItemInputVo.getPageStart() * monItemInputVo.getPageCnt());
-        int changeItemCnt = monItemDao.selectChangeItemCnt(monItemInputVo);
+        ProcedureVo procedureVo = new ProcedureVo(monItemInputVo);
+        ArrayList<Mon_ItemOutputVo> listOutVo = monItemDao.callSelectChangeItemList(procedureVo);
+        Mon_ItemOutputVo totalInfo = new Gson().fromJson(procedureVo.getExt(), Mon_ItemOutputVo.class);
 
-        monItemInputVo.setTotalCnt(changeItemCnt);
-        ArrayList<Mon_ItemOutputVo> changeItemList = monItemDao.selectChangeItemList(monItemInputVo);
-        Mon_ItemOutputVo outVo = monItemDao.selectChangeItemSummary(monItemInputVo);
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
 
-        var resultMap = new HashMap<>();
-        resultMap.put("changeItemCnt", changeItemCnt);
-        resultMap.put("changeItemList", changeItemList);
-        resultMap.put("changeItemSummary", outVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+
+    }
+
+    public String selectAutoChangeItemList(Mon_ItemInputVo monItemInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(monItemInputVo);
+        ArrayList<Mon_AutoChangeOutputVo> listOutVo = monItemDao.callSelectAutoChangeItemList(procedureVo);
+        Mon_AutoChangeOutputVo totalInfo = new Gson().fromJson(procedureVo.getExt(), Mon_AutoChangeOutputVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", listOutVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 }

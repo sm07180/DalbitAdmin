@@ -112,6 +112,21 @@
 
         });
 
+        fnc_pushDetail.target.find("input[name='push_targetInfo']").change(function () {
+            if ($(this).val() == "1") { //닉네임
+                $("#push-send_title").val($("#push-send_title").val() + "%%mem_nick%%");
+                $("#push-send_cont").val($("#push-send_cont").val() + "%%mem_nick%%");
+            } else if ($(this).val() == "2") { //이름
+                $("#push-send_title").val($("#push-send_title").val() + "%%mem_name%%");
+                $("#push-send_cont").val($("#push-send_cont").val() + "%%mem_name%%");
+            } else if ($(this).val() == "0") { //미설정
+                $("#push-send_title").val($("#push-send_title").val().replace(/%%mem_nick%%/g, ''));
+                $("#push-send_title").val($("#push-send_title").val().replace(/%%mem_name%%/g, ''));
+                $("#push-send_cont").val($("#push-send_cont").val().replace(/%%mem_nick%%/g, ''));
+                $("#push-send_cont").val($("#push-send_cont").val().replace(/%%mem_name%%/g, ''));
+            }
+        });
+
 
         //발송여부 선택
         fnc_pushDetail.target.find("input[name=is_direct]:radio").click(function () {
@@ -565,7 +580,7 @@
             resultJson['slct_push'] = "9";
         }
 
-        dalbitLog(resultJson)
+        dalbitLog(resultJson);
         return resultJson;
     };
 
@@ -721,6 +736,7 @@
         fnc_pushDetail.target.find("#input_targetLink").val(data.mem_no);
         fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.mem_no);
     };
+
 </script>
 
 
@@ -820,8 +836,8 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="2">메시지 내용</th>
-                <td rowspan="2" colspan="5">
+                <th rowspan="3">메시지 내용</th>
+                <td rowspan="3" colspan="5">
                     <div>
                         <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="150">{{send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 10자~150자(한글) 입력 가능합니다.</span>
@@ -834,6 +850,14 @@
             <td colspan="5">{{{getCommonCodeRadio msg_type 'push_messageType' 'N' 'msg_type'}}}</td>
             </tr>
             -->
+
+            <tr>
+                <th>닉네임/이름 설정</th>
+                <td colspan="5">
+                    {{{getCommonCodeRadio 0 'push_targetInfo' 'all' 'push_targetInfo'}}}
+                </td>
+            </tr>
+
             <tr>
                 <th>발송여부</th>
                 <td colspan="5">

@@ -8,21 +8,22 @@
     <div>
         <div class="row col-lg-12 pl0 pr0 no-padding">
             <div class="col-lg-12 no-padding">
-                <div class="col-lg-4 pull-right no-padding">
-                    <span id="change_summaryArea"></span>
+                <%--<div class="col-lg-5 pull-right no-padding">--%>
+                    <%--<span id="change_summaryArea"></span>--%>
+                <%--</div>--%>
+                <div class="col-md-4 no-padding">
+                    <div class="col-md-3 no-padding mr10">
+                        <span id="changeList_searchType" onchange="changeList_searchType_click();"></span>
+                    </div>
+                    <div class="col-md-3 no-padding">
+                        <span>
+                            <select id="changeAutoSetting" name="changeAutoSetting" class="form-control searchType" style="width: 100%" onchange="changeAutoSetting_change();">
+                                <option value="0">자동설정 전체</option>
+                                <option class="font-bold" style="color: #7030a0;" value="1">ON</option>
+                            </select>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2 no-padding pull-right">
-                <table class="table table-sorting table-hover table-bordered">
-                    <colgroup>
-                        <col width="15%"/><col width="65%"/>
-                    </colgroup>
-                    <tr>
-                        <td style="background-color: #dae3f3"></td><td>테스트 아이디</td>
-                    </tr>
-                </table>
-            </div><div class="col-md-2 no-padding">
-                <span id="changeList_searchType" onchange="changeList_searchType_click();"></span>
             </div>
             <div class="col-lg-12 mt15 no-padding">
                 <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
@@ -30,6 +31,7 @@
                     <thead id="tableTop">
                     <tr>
                         <th>No</th>
+                        <th>자동설정</th>
                         <th>교환일시</th>
                         <th>회원번호</th>
                         <th>닉네임</th>
@@ -82,9 +84,9 @@
         var context = response.data;
         var html = templateScript(context);
         $("#tableBody").html(html);
-        itemPagingInfo.totalCnt = response.data.changeItemCnt;
+        itemPagingInfo.totalCnt = response.data.totalInfo.totalCnt;
 
-        if(response.data.changeItemList.length > 0){
+        if(response.data.detailList.length > 0){
             util.renderPagingNavigation("list_info_paginate_top", itemPagingInfo);
             util.renderPagingNavigation("list_info_paginate", itemPagingInfo);
         }
@@ -92,22 +94,22 @@
     }
 
     function change_summary(json){
-        console.log(json.data.changeItemSummary);
+        console.log(json.data.totalInfo);
+
+        json.data.totalInfo.totalCnt = json.data.totalInfo.maleCnt + json.data.totalInfo.femaleCnt + json.data.totalInfo.noneCnt + json.data.totalInfo.testCnt;
+        json.data.totalInfo.sumTotalByeol = json.data.totalInfo.maleByeolCnt + json.data.totalInfo.femaleByeolCnt + json.data.totalInfo.noneByeolCnt + json.data.totalInfo.testByeolCnt;
+        json.data.totalInfo.sumTotalDal = json.data.totalInfo.maleDalCnt + json.data.totalInfo.femaleDalCnt + json.data.totalInfo.noneDalCnt + json.data.totalInfo.testDalCnt;
+        json.data.totalInfo.totalExchangeAmt = json.data.totalInfo.maleExchangeAmt + json.data.totalInfo.femaleExchangeAmt + json.data.totalInfo.noneExchangeAmt + json.data.totalInfo.testExchangeAmt;
 
         var template = $("#change_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            content : json.data.changeItemSummary
-            , length : json.data.changeItemSummary
+            content : json.data.totalInfo
+            , length : json.data.totalInfo
         };
         var html = templateScript(data);
         $("#change_summaryArea").html(html);
         ui.tableHeightSet();
-    }
-
-    function handlebarsPaging(targetId, pagingInfo){
-        itemPagingInfo = pagingInfo;
-        getList();
     }
 
     $('#excelDownBtn').on('click', function(){
@@ -138,18 +140,30 @@
         orderType = $("select[name='changeList']").val();
         getList();
     }
+    function changeAutoSetting_change(){
+        itemPagingInfo.pageNo = 1;
+        orderType = $("select[name='changeList']").val();
+        getList();
+    }
+
+
 
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_changeItemList">
-    {{#each this.changeItemList as |data|}}
+    {{#each this.detailList as |data|}}
     <tr {{#dalbit_if data.inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
         <td>
-            {{indexDesc ../changeItemCnt data.rowNum}}
+            {{indexDesc ../totalInfo/totalCnt data.rowNum}}
         </td>
         <td>
-            {{data.last_upd_date}}
+            {{#dalbit_if auto '==' 0}}
+                OFF
+            {{else}}
+                <span class="font-bold" style="color: #7030a0;">ON</span>
+            {{/dalbit_if}}
         </td>
+        <td>{{data.last_upd_date}}</td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
@@ -174,14 +188,15 @@
 <script id="change_tableSummary" type="text/x-handlebars-template">
     <table class="table table-condensed table-dark-header table-bordered no-margin _tableHeight no-padding no-margin" data-height="19px">
         <colgroup>
-            <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+            <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/>
         </colgroup>
         <tr>
-            <th colspan="5" style="background-color: #4472c4; color: white;">교환 현황</th>
+            <th colspan="6" style="background-color: #4472c4; color: white;">교환 현황</th>
         </tr>
         <tr style="background-color: #cfd5ea">
             <td>구분</td>
             <td>회원 수</td>
+            <td>건 수 (자동교환)</td>
             <td>별 수</td>
             <td>교환 달 수</td>
             <td>환전 가치 금액</td>
@@ -189,6 +204,7 @@
         <tr style="color: blue;">
             <td>{{{sexIcon 'm'}}}</td>
             <td>{{addComma content.maleCnt}}명</td>
+            <td>{{addComma content.changemCnt}} ({{addComma content.auto_changemCnt}})건</td>
             <td>{{addComma content.maleByeolCnt}}별</td>
             <td>{{addComma content.maleDalCnt}}달</td>
             <td>{{addComma content.maleExchangeAmt}}원</td>
@@ -196,6 +212,7 @@
         <tr style="color: red;">
             <td>{{{sexIcon 'f'}}}</td>
             <td>{{addComma content.femaleCnt}}명</td>
+            <td>{{addComma content.changefCnt}} ({{addComma content.auto_changefCnt}})건</td>
             <td>{{addComma content.femaleByeolCnt}}별</td>
             <td>{{addComma content.femaleDalCnt}}달</td>
             <td>{{addComma content.femaleExchangeAmt}}원</td>
@@ -203,6 +220,7 @@
         <tr>
             <td>{{{sexIcon 'n'}}}</td>
             <td>{{addComma content.noneCnt}}명</td>
+            <td>{{addComma content.changenCnt}} ({{addComma content.auto_changenCnt}})건</td>
             <td>{{addComma content.noneByeolCnt}}별</td>
             <td>{{addComma content.noneDalCnt}}달</td>
             <td>{{addComma content.noneExchangeAmt}}원</td>
@@ -210,6 +228,7 @@
         <tr style="color: black;">
             <td>테스트</td>
             <td>{{addComma content.testCnt}}명</td>
+            <td>{{addComma content.changetCnt}} ({{addComma content.auto_changetCnt}})건</td>
             <td>{{addComma content.testByeolCnt}}별</td>
             <td>{{addComma content.testDalCnt}}달</td>
             <td>{{addComma content.testExchangeAmt}}원</td>
@@ -217,6 +236,7 @@
         <tr class="font-bold" style="color: #ff6600;">
             <th style="background-color: #d9d9d9">총합</th>
             <th style="background-color: #f2f2f2">{{addComma content.totalCnt}}명</th>
+            <th style="background-color: #f2f2f2">{{addComma content.changeCnt}} ({{addComma content.auto_changeCnt}})건</th>
             <th style="background-color: #f2f2f2">{{addComma content.sumTotalByeol}}별</th>
             <th style="background-color: #f2f2f2">{{addComma content.sumTotalDal}}달</th>
             <th style="background-color: #f2f2f2">{{addComma content.totalExchangeAmt}}원</th>

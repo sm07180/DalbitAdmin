@@ -122,6 +122,8 @@ var push_slctPush3 = [
     , new COMMON_CODE('42', '42', 'DJ랭킹(주간)')
     , new COMMON_CODE('43', '43', 'FAN랭킹(일간)')
     , new COMMON_CODE('44', '44', 'FAN랭킹(주간)')
+    , new COMMON_CODE('45', '45', '클립플레이')
+    , new COMMON_CODE('46', '46', '클립댓글')
     , new COMMON_CODE('input', '50', '직접입력')
 ];
 
@@ -129,6 +131,13 @@ var push_isDirect = [
     new COMMON_CODE(null, 'sendType', '발송 구분')
     , new COMMON_CODE('instant', '0', '즉시발송')
     , new COMMON_CODE('reservation', '1', '예약발송')
+];
+
+var push_targetInfo = [
+    new COMMON_CODE(null, 'targetInfo', '발송 닉네임/이름 설정')
+    , new COMMON_CODE('1', '1', '닉네임설정')
+    , new COMMON_CODE('2', '2', '이름 설정')
+    , new COMMON_CODE('0', '0', '미설정')
 ];
 
 

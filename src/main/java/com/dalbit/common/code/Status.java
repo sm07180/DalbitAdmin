@@ -810,6 +810,14 @@ public enum Status {
     회원아이템수정_실패_회원없음("-1", "no.data", "회원없음"),
     회원아이템수정_실패_회수시보유개수부족("-2", "no.data", "회수 시 보유 개수 부족"),
 
+
+    //달 자동교환 설정상태 변경
+    달자동교환설정상태변경_성공("0", "member.change.auto.upd.success", "달 자동 교환 설정 상태 변경 성공"),
+    달자동교환설정상태변경_실패("-1", "member.change.auto.upd.fail", "달 자동 교환 설정 상태 변경 실패"),
+
+    //달 자동교환 설정상태 조회
+    달자동교환설정상태조회_성공("0", "member.change.auto.sel.success", "달 자동 교환 설정 상태 조회 성공"),
+    달자동교환설정상태조회_실패("-1", "member.change.auto.sel.fail", "달 자동 교환 설정 상태 조회 실패"),
     ;
 
     final private String RESULT_SUCCESS = "success";

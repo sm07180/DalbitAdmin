@@ -48,8 +48,7 @@
                 </div>
             </form>
             <!-- //serachBox -->
-
-            <div class="row widget-content">
+            <div class="row widget-content col-md-6 no-padding">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li><a href="/money/resource/info?tabType=0">시간대별</a></li>
                     <li><a href="/money/resource/info?tabType=1">월간별</a></li>
@@ -57,13 +56,32 @@
                     <li><a href="/money/resource/info?tabType=3">회원Data</a></li>
                     <li><a href="/money/resource/info?tabType=4">달 구매내역</a></li>
                     <li><a href="/money/resource/info?tabType=5">달 사용내역</a></li>
-                    <li class="active"><a href="#change" id="tab_changeList" title="교환페이지로 이동합니다.">교환내역</a></li>
+                    <li class="active"><a href="#change" >교환내역</a></li>
                     <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
                 </ul>
             </div>
+            <div class="col-lg-5 pull-right no-padding" id="div_changeSummary" style="margin-right: 13px;">
+                <span id="change_summaryArea"></span>
+            </div>
+            <div class="col-lg-5 pull-right no-padding" id="div_autoChangeSummary" style="margin-right: 13px;display: none">
+                <span id="autoChange_summaryArea"></span>
+            </div>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="change" >
-                    <jsp:include page="changeList.jsp"/>
+                        <div class="row widget-content col-md-6 no-padding mt10">
+                            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                                <li class="active"><a href="#changeList" role="tab" data-toggle="tab" id="tab_changeList" onclick="tab_changeListClick(this.id)">교환내역</a></li>
+                                <li><a href="#changeAuto" role="tab" data-toggle="tab" id="tab_changeAuto" onclick="tab_changeListClick(this.id)"> 자동교환 설정내역</a></li>
+                            </ul>
+                        </div>
+                    <div class="tab-content no-padding">
+                        <div class="tab-pane fade in active" id="changeList" >
+                            <jsp:include page="changeList.jsp"/>
+                        </div>
+                        <div class="tab-pane fade" id="changeAuto" >
+                            <jsp:include page="changeAutoList.jsp"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,6 +107,7 @@
     var eDate;
     var _searchFormRadio ="";
     var orderType=0;
+    var changeTabId = "tab_changeList";
     $(function(){
         $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
 
@@ -98,7 +117,11 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
-        getList();
+        if(changeTabId == "tab_changeList") {
+            getList();
+        }else{
+            getAutoList();
+        }
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
@@ -149,7 +172,11 @@
 
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
-        getList();
+        if(changeTabId == "tab_changeList") {
+            getList();
+        }else{
+            getAutoList();
+        }
     }
     function setStartDay(){
         var date = new Date();
@@ -174,19 +201,24 @@
         }
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
-        getList();
+        if(changeTabId == "tab_changeList") {
+            getList();
+        }else{
+            getAutoList();
+        }
     }
 
     function getParameter(){
         return data = {
-            search_value : $("#search_value").val()
-            , search_type : ""
-            , search_testId : $('input[name="search_testId"]').prop('checked') ? 1 : 0
-            , sDate : $("#startDate").val()
-            , eDate : $("#endDate").val()
+            searchText : $("#search_value").val()
+            , searchType : ""
+            , innerType : $('input[name="search_testId"]').prop('checked') ? 1 : 0
+            , startDate : $("#startDate").val()
+            , endDate : $("#endDate").val()
             , orderType : orderType
-            , pageStart : itemPagingInfo.pageNo
+            , pageNo : itemPagingInfo.pageNo
             , pageCnt : itemPagingInfo.pageCnt
+            , autoType : $("#changeAutoSetting").val()
         };
     }
 
@@ -195,15 +227,30 @@
         util.getAjaxData("select", "/rest/money/item/list", getParameter(), fn_succ_list);
     }
 
+    function getAutoList(){
+        console.log(getParameter());
+        util.getAjaxData("select", "/rest/money/item/autoList", getParameter(), fn_succ_autoList);
+    }
+
     $('#bt_search').on('click', function(){
-        itemPagingInfo.pageNo = 1;
-        getList();
+        if(changeTabId == "tab_changeList") {
+            itemPagingInfo.pageNo = 1;
+            getList();
+        }else{
+            autoChangePagingInfo.pageNo = 1;
+            getAutoList();
+        }
     });
 
     $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
         if(e.keyCode == 13) {
-            itemPagingInfo.pageNo = 1;
-            getList();
+            if(changeTabId == "tab_changeList") {
+                itemPagingInfo.pageNo = 1;
+                getList();
+            }else{
+                autoChangePagingInfo.pageNo = 1;
+                getAutoList();
+            }
         };
     });
 
@@ -211,14 +258,48 @@
         $('._tab').removeClass('active');
         $(this).addClass('active');
 
-        itemPagingInfo.pageNo = 1;
-        getList();
+        if(changeTabId == "tab_changeList") {
+            itemPagingInfo.pageNo = 1;
+            getList();
+        }else{
+            autoChangePagingInfo.pageNo = 1;
+            getAutoList();
+        }
     });
 
     $('input[name="search_testId"]').on('change', function(){
-        itemPagingInfo.pageNo = 1;
-        getList();
+        if(changeTabId == "tab_changeList") {
+            itemPagingInfo.pageNo = 1;
+            getList();
+        }else{
+            autoChangePagingInfo.pageNo = 1;
+            getAutoList();
+        }
     });
+
+    function tab_changeListClick(tmp){
+        changeTabId = tmp;
+        if(changeTabId == "tab_changeList"){
+            $("#div_changeSummary").show();
+            $("#div_autoChangeSummary").hide();
+            getList();
+        }else if(changeTabId == "tab_changeAuto"){
+            $("#div_changeSummary").hide();
+            $("#div_autoChangeSummary").show();
+            getAutoList();
+        }
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        console.log(targetId);
+        if(targetId == "list_info_paginate_top"){
+            itemPagingInfo = pagingInfo;
+            getList();
+        }else{
+            autoChangePagingInfo = pagingInfo;
+            getAutoList();
+        }
+    }
 
 
 </script>
