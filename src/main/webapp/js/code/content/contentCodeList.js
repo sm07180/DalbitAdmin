@@ -122,6 +122,8 @@ var push_slctPush3 = [
     , new COMMON_CODE('42', '42', 'DJ랭킹(주간)')
     , new COMMON_CODE('43', '43', 'FAN랭킹(일간)')
     , new COMMON_CODE('44', '44', 'FAN랭킹(주간)')
+    , new COMMON_CODE('45', '45', '클립플레이')
+    , new COMMON_CODE('46', '46', '클립댓글')
     , new COMMON_CODE('input', '50', '직접입력')
 ];
 

@@ -127,4 +127,7 @@
     <select id="callSelectChangeItemList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">
         call rd_admin.sp_admin_member_change_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <select id="callSelectAutoChangeItemList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.money.vo.Mon_AutoChangeOutputVo">
+        call rd_admin.sp_admin_member_autochange_setting_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

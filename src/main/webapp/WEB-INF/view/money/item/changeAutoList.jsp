@@ -80,10 +80,10 @@
     function autoChange_summary(json){
         console.log(json.data.totalInfo);
 
-        json.data.totalInfo.totalCnt = json.data.totalInfo.maleCnt + json.data.totalInfo.femaleCnt + json.data.totalInfo.noneCnt + json.data.totalInfo.testCnt;
-        json.data.totalInfo.sumTotalByeol = json.data.totalInfo.maleByeolCnt + json.data.totalInfo.femaleByeolCnt + json.data.totalInfo.noneByeolCnt + json.data.totalInfo.testByeolCnt;
-        json.data.totalInfo.sumTotalDal = json.data.totalInfo.maleDalCnt + json.data.totalInfo.femaleDalCnt + json.data.totalInfo.noneDalCnt + json.data.totalInfo.testDalCnt;
-        json.data.totalInfo.totalExchangeAmt = json.data.totalInfo.maleExchangeAmt + json.data.totalInfo.femaleExchangeAmt + json.data.totalInfo.noneExchangeAmt + json.data.totalInfo.testExchangeAmt;
+        json.data.totalInfo.averageCnt = (json.data.totalInfo.totalCnt / json.data.totalInfo.dateDiff).toFixed(1);
+        json.data.totalInfo.averageAutoCnt = (json.data.totalInfo.totalAutoCnt / json.data.totalInfo.dateDiff).toFixed(1);
+        json.data.totalInfo.averageAutoByeol = (json.data.totalInfo.totalAutoByeol / json.data.totalInfo.dateDiff).toFixed(1);
+        json.data.totalInfo.averageExchangeAmt = (json.data.totalInfo.totalExchangeAmt / json.data.totalInfo.dateDiff).toFixed(1);
 
         var template = $("#autoChange_tableSummary").html();
         var templateScript = Handlebars.compile(template);
@@ -135,24 +135,18 @@
         <td>
             {{indexDesc ../totalInfo/totalCnt data.rowNum}}
         </td>
-        <td>
-            {{#dalbit_if auto '==' 0}}
-                OFF
-            {{else}}
-                <span class="font-bold" style="color: #7030a0;">ON</span>
-            {{/dalbit_if}}
-        </td>
-        <td>{{data.last_upd_date}}</td>
+        <td>{{substr data.change_date 0 19}}</td>
+        <td>{{substr data.last_upd_date 0 19}}</td>
         <td>
             <a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a><br/>
             {{data.mem_nick}}
         </td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
-        <td>{{addComma data.mem_grade}}</td>
-        <td>{{addComma data.mem_level}}</td>
-        <td>{{addComma data.changeCnt}}번</td>
-        <td>{{addComma data.gold_old}}별</td>
-        <td>{{addComma data.ruby_old}}달</td>
+        <td>{{addComma data.auto_cnt}}건</td>
+        <td>{{addComma data.last_byeol}}별</td>
+        <td>{{addComma data.total_changebyeol}}별</td>
+        <td>{{addComma data.total_byeol}}별</td>
+        <td>{{addComma data.dal}}달</td>
     </tr>
 
     {{else}}
@@ -180,37 +174,44 @@
         <tr style="color: blue;">
             <td>{{{sexIcon 'm'}}}</td>
             <td>{{addComma content.maleCnt}}명</td>
-            <td>{{addComma content.changemCnt}} ({{addComma content.auto_changemCnt}})건</td>
-            <td>{{addComma content.maleByeolCnt}}별</td>
+            <td>{{addComma content.maleAutoCnt}}건</td>
+            <td>{{addComma content.maleAutoByeol}}별</td>
             <td>{{addComma content.maleExchangeAmt}}원</td>
         </tr>
         <tr style="color: red;">
             <td>{{{sexIcon 'f'}}}</td>
             <td>{{addComma content.femaleCnt}}명</td>
-            <td>{{addComma content.changefCnt}} ({{addComma content.auto_changefCnt}})건</td>
-            <td>{{addComma content.femaleByeolCnt}}별</td>
+            <td>{{addComma content.femaleAutoCnt}}건</td>
+            <td>{{addComma content.femaleAutoByeol}}별</td>
             <td>{{addComma content.femaleExchangeAmt}}원</td>
         </tr>
         <tr>
             <td>{{{sexIcon 'n'}}}</td>
             <td>{{addComma content.noneCnt}}명</td>
-            <td>{{addComma content.changenCnt}} ({{addComma content.auto_changenCnt}})건</td>
-            <td>{{addComma content.noneByeolCnt}}별</td>
+            <td>{{addComma content.noneAutoCnt}}건</td>
+            <td>{{addComma content.noneAutoByeol}}별</td>
             <td>{{addComma content.noneExchangeAmt}}원</td>
         </tr>
         <tr style="color: black;">
             <td>테스트</td>
             <td>{{addComma content.testCnt}}명</td>
-            <td>{{addComma content.changetCnt}} ({{addComma content.auto_changetCnt}})건</td>
-            <td>{{addComma content.testByeolCnt}}별</td>
+            <td>{{addComma content.testAutoCnt}}건</td>
+            <td>{{addComma content.testAutoByeol}}별</td>
             <td>{{addComma content.testExchangeAmt}}원</td>
         </tr>
         <tr class="font-bold" style="color: #ff6600;">
             <th style="background-color: #d9d9d9">총합</th>
             <th style="background-color: #f2f2f2">{{addComma content.totalCnt}}명</th>
-            <th style="background-color: #f2f2f2">{{addComma content.changeCnt}} ({{addComma content.auto_changeCnt}})건</th>
-            <th style="background-color: #f2f2f2">{{addComma content.sumTotalByeol}}별</th>
+            <th style="background-color: #f2f2f2">{{addComma content.totalAutoCnt}}건</th>
+            <th style="background-color: #f2f2f2">{{addComma content.totalAutoByeol}}별</th>
             <th style="background-color: #f2f2f2">{{addComma content.totalExchangeAmt}}원</th>
+        </tr>
+        <tr style="color: black;">
+            <td>일평균</td>
+            <td>{{content.averageCnt}}명</td>
+            <td>{{content.averageAutoCnt}}건</td>
+            <td>{{content.averageAutoByeol}}별</td>
+            <td>{{content.averageExchangeAmt}}원</td>
         </tr>
     </table>
 </script>
