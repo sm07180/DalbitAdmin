@@ -8,7 +8,7 @@
 
 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
     <c:forEach var="twoDepth" items="${menu.twoDepth}">
-        <c:if test="${twoDepth.idx eq 52}">
+        <c:if test="${twoDepth.idx eq 123}">
             <c:set var="readYn" value="${twoDepth.is_read eq 0 ? 'N' : 'Y'}" />
             <c:set var="insertYn" value="${twoDepth.is_insert eq 0 ? 'N' : 'Y'}" />
             <c:set var="deleteYn" value="${twoDepth.is_delete eq 0 ? 'N' : 'Y'}" />
