@@ -38,7 +38,7 @@
             </div>
 
              <div class="col-md-5 no-padding pull-right">
-                <table class="pull-right _tableHeight" style="text-align: left;width: 678px;border: 1px solid black" data-height="23px">
+                <table class="pull-right _tableHeight" style="text-align: left;width: 670px;border: 1px solid black" data-height="23px">
                     <colgroup>
                         <col width="8%"><col width="48%"><col width="8%"><col width="36%">
                     </colgroup>
