@@ -131,6 +131,13 @@ var push_isDirect = [
     , new COMMON_CODE('reservation', '1', '예약발송')
 ];
 
+var push_targetInfo = [
+    new COMMON_CODE(null, 'targetInfo', '발송 닉네임/이름 설정')
+    , new COMMON_CODE('1', '1', '닉네임설정')
+    , new COMMON_CODE('2', '2', '이름 설정')
+    , new COMMON_CODE('0', '0', '미설정')
+];
+
 
 var push_push_slct = [
     new COMMON_CODE(null, 'push_slct', '카테고리')
