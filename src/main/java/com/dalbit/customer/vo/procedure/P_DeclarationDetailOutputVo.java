@@ -48,4 +48,8 @@ public class P_DeclarationDetailOutputVo extends BaseVo {
     private int chatCount;
     private String room_no;
 
+    private int report_cnt;     //신고자의 신고 수
+    private int reported_cnt;   //신고당한 사람의 신고 수
+    private int reported_ok_cnt;    //신고당한 사람의 신고 처리 수
+
 }
