@@ -30,7 +30,29 @@
             <br/>
             <br/>
             <br/>
-            <span id="changeList_searchType" onchange="changeList_searchType_click();"></span>
+            <div class="col-md-4 no-padding">
+                <div class="col-md-3 no-padding mr10">
+                    <span id="changeList_searchType" onchange="changeList_searchType_click();"></span>
+                </div>
+                <div class="col-md-3 no-padding">
+                        <span>
+                            <select id="changeAutoSettingFilter" name="changeAutoSettingFilter" class="form-control searchType" style="width: 100%" onchange="changeAutoSetting_change();">
+                                <option value="0">자동설정 전체</option>
+                                <option class="font-bold" style="color: #7030a0;" value="1">ON</option>
+                            </select>
+                        </span>
+                </div>
+            </div>
+
+            <%--<span id="changeList_searchType" onchange="changeList_searchType_click();"></span>--%>
+            <%--<div class="col-md-3 no-padding">--%>
+                <%--<span>--%>
+                    <%--<select id="changeAutoSettingFilter" name="changeAutoSettingFilter" class="form-control searchType" style="width: 100%" onchange="changeAutoSetting_change();">--%>
+                        <%--<option value="0">자동설정 전체</option>--%>
+                        <%--<option class="font-bold" style="color: #7030a0;" value="1">ON</option>--%>
+                    <%--</select>--%>
+                <%--</span>--%>
+            <%--</div>--%>
         </div>
     </div>
     <div class="row col-lg-12 mt15 no-padding">
@@ -73,13 +95,17 @@
     }
 
     function getParameter(){
+
         return data = {
-            search_type : ""
-            , search_value : memNo
-            , search_testId : 0
-            , pageStart : itemPagingInfo.pageNo
-            , pageCnt : itemPagingInfo.pageCnt
+            searchText : memNo
+            , searchType : ""
+            , innerType : 0
             , orderType : orderType
+            , pageNo : itemPagingInfo.pageNo
+            , pageCnt : itemPagingInfo.pageCnt
+            , autoType : $("#changeAutoSettingFilter").val()
+            , startDate : "2020-01-01"
+            , endDate : "2999-12-31"
         };
     }
 
@@ -94,9 +120,9 @@
         var context = response.data;
         var html = templateScript(context);
         $("#tableBody").html(html);
-        itemPagingInfo.totalCnt = response.data.changeItemCnt;
+        itemPagingInfo.totalCnt = response.data.totalInfo.totalCnt;
 
-        if(response.data.changeItemList.length > 0){
+        if(response.data.detailList.length > 0){
             util.renderPagingNavigation("list_info_paginate_top", itemPagingInfo);
             util.renderPagingNavigation("list_info_paginate", itemPagingInfo);
         }
@@ -107,13 +133,13 @@
     }
 
     function change_summary(json){
-        console.log(json.data.changeItemSummary);
+        console.log(json.data);
 
         var template = $("#change_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            content : json.data.changeItemSummary
-            , length : json.data.changeItemSummary
+            content : json.data.totalInfo
+            , length : json.data.totalInfo
         };
         var html = templateScript(data);
         $("#change_summaryArea").html(html);
@@ -180,14 +206,20 @@
         }
     }
 
+    function changeAutoSetting_change(){
+        itemPagingInfo.pageNo = 1;
+        orderType = $("select[name='changeList']").val();
+        getList();
+    }
+
 </script>
 
 
 <script type="text/x-handlebars-template" id="tmp_changeItemList">
-    {{#each this.changeItemList as |data|}}
+    {{#each this.detailList as |data|}}
     <tr {{#dalbit_if data.inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
         <td>
-            {{indexDesc ../changeItemCnt data.rowNum}}
+            {{indexDesc ../totalInfo/totalCnt data.rowNum}}
         </td>
         <td>
             {{#dalbit_if type '==' 31}}

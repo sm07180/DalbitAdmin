@@ -7,11 +7,11 @@
         <span class="_searchDate"></span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
+                <col width="6%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                 <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                 <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                 <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="4%"/><col width="4%"/><col width="4%"/>
             </colgroup>
             <thead>
             <tr class="_stateTopTh">
@@ -25,7 +25,7 @@
                 <th colspan="2">팬보드 댓글 알림</th>     <!-- 8 -->
                 <th colspan="2">선물 알림</th>     <!-- 5 -->
                 <th colspan="2">1:1 알림</th>     <!-- 6 -->
-                <th colspan="2">공지/이벤트 알림</th>     <!-- 7 -->
+                <%--<th colspan="2">공지/이벤트 알림</th>     <!-- 7 -->--%>
                 <th colspan="3">합계</th>
                 <th rowspan="2">총합</th>
             </tr>
@@ -48,8 +48,8 @@
                 <th>해제</th>
                 <th>설정</th>
                 <th>해제</th>
-                <th>설정</th>
-                <th>해제</th>
+                <%--<th>설정</th>--%>
+                <%--<th>해제</th>--%>
                 <th>무음</th>
                 <th>소리</th>
                 <th>진동</th>
@@ -110,8 +110,8 @@
         <td>{{addComma set_5_n}}</td>
         <td>{{addComma set_6_y}}</td>
         <td>{{addComma set_6_n}}</td>
-        <td>{{addComma set_7_y}}</td>
-        <td>{{addComma set_7_n}}</td>
+        <%--<td>{{addComma set_7_y}}</td>--%>
+        <%--<td>{{addComma set_7_n}}</td>--%>
         <td>{{addComma alim_n}}</td>
         <td>{{addComma alim_s}}</td>
         <td>{{addComma alim_v}}</td>

@@ -6,9 +6,12 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="top-left pull-left dataTable-div col-md-6 no-padding">
-            <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
-            <div class="col-md-12 no-padding">
+        <div class="top-left pull-left dataTable-div col-md-12 no-padding">
+            <div class="comments pt10 pb15 col-md-7 no-padding">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
+            <div class="col-md-5 no-padding pull-right mb5">
+                <span id="pay_summaryArea"></span>
+            </div>
+            <div class="col-md-7 no-padding">
                 <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
                 <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
                 <label id="payWayArea" onchange="sel_change_payWayArea();"></label>
@@ -61,28 +64,6 @@
                     </div>
                 </div>
             </c:if>
-            <div class="col-md-6 no-padding pull-right">
-                    <table class="pull-right _tableHeight" style="text-align: left;width: 600px;border: 1px solid black" data-height="23px">
-                        <colgroup>
-                            <col width="8%"><col width="48%"><col width="8%"><col width="36%">
-                        </colgroup>
-                        <tr>
-                            <td rowspan="3" style="text-align: left" class="font-bold"><span style="font-size: 9px">결제상태</span></td>
-                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: blue" class="font-bold">Y (성공)</span> : 결제 성공</span></td>
-                            <td rowspan="3"  style="text-align: left" class="font-bold"><span style="font-size: 11px">취소상태</td>
-                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: blue" class="font-bold">O (성공)</span> : 취소 성공</span></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: black" class="font-bold">N (시도)</span> : 결제 시도를 했으나 창을 닫거나 멈춘경우</span></td>
-                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: red" class="font-bold">X (불가)</span> : 취소 불가</span></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: red" class="font-bold">F (실패)</span> : 결제창까지 이르렀으나 완료 실패</span></td>
-                            <td style="text-align: left"><span style="font-size: 11px"><span style="color: black" class="font-bold">F (실패)</span> : 취소 시도후 사유로 인한 실패</span></td>
-                        </tr>
-
-                    </table>
-            </div>
         </div>
         <table id="list_info" class="table table-sorting table-hover table-bordered">
             <thead></thead>
