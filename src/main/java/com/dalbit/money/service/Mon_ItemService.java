@@ -37,16 +37,19 @@ public class Mon_ItemService {
     Mem_MemberDao mem_MemberDao;
 
     public String selectChangeItemList(Mon_ItemInputVo monItemInputVo){
+
         ProcedureVo procedureVo = new ProcedureVo(monItemInputVo);
         ArrayList<Mon_ItemOutputVo> listOutVo = monItemDao.callSelectChangeItemList(procedureVo);
         Mon_ItemOutputVo totalInfo = new Gson().fromJson(procedureVo.getExt(), Mon_ItemOutputVo.class);
 
+        P_MemberSetting setting =  mem_MemberDao.getMemberSetting(monItemInputVo.getSearchText());
+
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);
         result.put("detailList", listOutVo);
+        result.put("setting", setting);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
-
 
     }
 
