@@ -17,6 +17,7 @@ public class BoardAdmFanBoardVo extends PagingVo {
     private String start_sel;
     private String end_sel;
     private String boardType;
+    private int isSecret;               // 비밀글 체크 여부
 
     /* output */
     private int idx;                    // 게시글 번호

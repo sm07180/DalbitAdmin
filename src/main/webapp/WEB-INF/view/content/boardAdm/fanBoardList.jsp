@@ -25,6 +25,10 @@
                             <option value="1">정상</option>
                             <option value="2">삭제</option>
                         </select>
+                        <label class="control-inline fancy-checkbox custom-color-green ml15 mt5">
+                            <input type="checkbox" name="isSecret" id="isSecret" value="1">
+                            <span>비밀글 모아보기</span>
+                        </label>
                     </div>
                     <div class="col-md-2 no-padding pull-right">
                         <table class="table table-sorting table-hover table-bordered">
@@ -90,8 +94,8 @@
             , 'searchType' : 0
             , 'boardType' : 1
             , 'status' : Number($("#fanBoardStatus option:selected").val())
+            , 'isSecret' : Number($('#isSecret').val())
         };
-
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
     }
 
@@ -209,6 +213,15 @@
     }
 
     $('#fanBoardStatus').on('change', function () {
+        fanBoardList();
+    });
+
+    $('#isSecret').on('change', function() {
+       if($('input:checkbox[name="isSecret"]').prop('checked')) {
+           $('#isSecret').val(0)
+       } else {
+           $('#isSecret').val(1)
+       }
         fanBoardList();
     });
 

@@ -47,6 +47,9 @@
             <if test='status != 0'>
                 and fan.`status` = #{status}
             </if>
+            <if test='isSecret == 0'>
+                and fan.view_yn = #{isSecret}
+            </if>
         </where>
     </sql>
 

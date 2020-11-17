@@ -60,7 +60,7 @@
 
     var memNo;
     function profileMsgList() {
-        $('#title').html('프로필메시지');
+        $('#title').html('회원/방송공지');
 
         if(!common.isEmpty(memNo) && memNo != null){
             txt_search = memNo;
