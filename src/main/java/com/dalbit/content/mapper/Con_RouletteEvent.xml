@@ -49,7 +49,7 @@
         </if>
 
         <if test='winType == 1'>
-            and evtApply.item_no in ('1', '2', '3')
+            and evtApply.item_no in ('2', '3') /*1은 0달 꽝이라 제외*/
         </if>
         <if test='winType == 2'>
             and evtApply.item_no not in ('1', '2', '3')
