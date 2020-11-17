@@ -35,10 +35,10 @@
 
                                     <input id="monthDate" type="text" class="form-control" style="width: 196px;"/>
 
-                                    <%--<input class="hide" name="startDate" id="startDate" style="width: 100px">--%>
-                                    <%--<input class="hide" name="endDate" id="endDate" style="width: 100px">--%>
-                                    <input name="startDate" id="startDate" style="width: 100px">
-                                    <input name="endDate" id="endDate" style="width: 100px">
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
                                     <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." style="display: none"></label>
 
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -165,7 +165,7 @@
                 $("#onedayDate").hide();
                 $("#monthDate").hide();
                 $("#rangeDatepicker").show();
-                // $("#rangeDatepicker").show();
+                setTimeDate(dateTime);
             }
         }
     }
@@ -184,9 +184,6 @@
     }
 
     function setSummary(response){
-
-        console.log("-------------- setSummary ----------------");
-        console.log(response);
         response.totalInfo.accum_total_join_cnt = accum_total_join_cnt;
         response.totalInfo.accum_total_out_cnt = accum_total_out_cnt;
         response.totalInfo.accum_total_join_before_cnt = accum_total_join_before_cnt;
@@ -213,7 +210,7 @@
         var data = {
             content : json.summary
             , length : json.recordsTotal
-        }
+        };
         var html = templateScript(data);
         $("#joinList_summaryArea").html(html);
 

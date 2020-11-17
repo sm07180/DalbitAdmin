@@ -19,4 +19,9 @@ public interface Mon_ItemDao {
     @Transactional(readOnly = true)
     Mon_ItemOutputVo selectChangeItemSummary(Mon_ItemInputVo monItemInputVo);
 
+
+
+
+    @Transactional(readOnly = true)
+    ArrayList<Mon_ItemOutputVo> callSelectChangeItemList(ProcedureVo procedureVo);
 }

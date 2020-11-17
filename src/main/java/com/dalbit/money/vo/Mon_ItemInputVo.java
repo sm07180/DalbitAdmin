@@ -17,7 +17,16 @@ public class Mon_ItemInputVo extends PagingVo {
     private int search_testId;
     private String limitDay;
     private String excelYn;
-    private String orderType;
+    private int orderType;
+
+
+    private String searchText;
+//    private int searchType;
+    private int autoType;
+    private String innerType;
+    private String startDate;
+    private String endDate;
+
 
     private String idxs;
     private String[] idxArr;

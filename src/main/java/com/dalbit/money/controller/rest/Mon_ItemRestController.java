@@ -27,4 +27,10 @@ public class Mon_ItemRestController {
         return result;
     }
 
+    @PostMapping("autoList")
+    public String autoList(Mon_ItemInputVo monItemInputVo) throws GlobalException {
+        String result = monItemService.selectAutoChangeItemList(monItemInputVo);
+        return result;
+    }
+
 }

@@ -33,6 +33,7 @@ public class Mon_ItemOutputVo {
     private int totalDal;
     private int totalByeol;
     private int type;
+    private int auto;
 
     private int ruby_old;
     private int gold_old;
@@ -73,5 +74,15 @@ public class Mon_ItemOutputVo {
     private int testExchangeAmt;
 
     private int changeAutoCnt;
+
+    private int changemCnt;
+    private int changefCnt;
+    private int changenCnt;
+    private int changetCnt;
+    private int auto_changeCnt;
+    private int auto_changemCnt;
+    private int auto_changefCnt;
+    private int auto_changenCnt;
+    private int auto_changetCnt;
 
 }

@@ -143,14 +143,19 @@
             $("#rangeDatepicker").hide();
 
         }else if(paramSlctType == 3){
-            setDateRange();
+            setDateRange("range");
             $("#div_dayButton").hide();
             $("#div_monthButton").hide();
             $("#div_yearButton").hide();
             $("#th_bottonList").hide();
             $("#rangeDatepicker").show();
         }else if(common.isEmpty(paramSlctType)){
-            setDayButton();
+            if(slctType == 0 || slctType == 1 || slctType == 2){
+                setDayButton();
+            }else if(slctType == 3){
+                setTimeDate(dateTime);
+                $("#bt_search").click();
+            }
         }
 
         $(".labelMonthButton" + common.lpad(month,2,"0")).addClass('active');
@@ -204,11 +209,15 @@
         monthClick("", $("#div_yearButton").find("#search_year").val(), month, day);
     }
 
-    function setDateRange(){
+    function setDateRange(tmp){
 
     }
     function dateRangePrev(isPrev){
-
+        var addDate = isPrev ? -1 : 1;
+        $("#startDate").val(moment($("#startDate").val()).add("days", addDate).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add("days", addDate).format('YYYY.MM.DD'));
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+        $("#bt_search").click();
     }
 
 </script>

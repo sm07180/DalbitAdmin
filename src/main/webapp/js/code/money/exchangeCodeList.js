@@ -127,6 +127,15 @@ var changeList_searchType = [
     , new COMMON_CODE('6', '6', '교환 오래된 순으로')
 ]
 
+var autoChangeList_order = [
+    new COMMON_CODE(null, 'autoChange_order', '자동 교환 설정내역 sort')
+    , new COMMON_CODE('0', '0', '최근 자동교환 설정회원')
+    , new COMMON_CODE('1', '1', '최근 자동교환 회원')
+    , new COMMON_CODE('2', '2', '자동 교환 건 많은 순')
+    , new COMMON_CODE('3', '3', '자동 교환 별 많은 순')
+    , new COMMON_CODE('4', '4', '누적 자동 교환 별 많은 순')
+]
+
 var gender = [
     new COMMON_CODE(null, 'gender', '성별')
     , new COMMON_CODE('0', '0', '전체')
