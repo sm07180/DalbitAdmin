@@ -50,7 +50,7 @@
 
     function getUserInfo() {                 // 검색
         _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
-        tmp_searchText = $('#txt_search').val();
+        tmp_searchText = $('#searchText').val();
         tmp_memWithdrawal = 0;
         tmp_sDate = $("#startDate").val();
         tmp_eDate = $("#endDate").val();

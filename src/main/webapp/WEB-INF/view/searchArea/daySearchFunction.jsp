@@ -50,7 +50,6 @@
         console.log(paramMonth);
         console.log(paramDay);
 
-
          $(".dayButton").empty();
         year = paramYear;
         month = paramMonth;
