@@ -301,7 +301,19 @@
     </insert>
     <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberNotification_Add */
-        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{type_noti},70), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  )
+        values ( #{reported_mem_no}
+              , IFNULL(#{type_noti},70)
+              , (select REPLACE(REPLACE(#{notiContents}
+                , '%%mem_name%%',(select ifnull(mem_name,mem_nick) from rd_data.tb_member_basic where mem_no=#{reported_mem_no}))
+                , '%%mem_nick%%',(select mem_nick from rd_data.tb_member_basic where mem_no=#{reported_mem_no})))
+              , (select REPLACE(REPLACE(#{notimemo}
+                , '%%mem_name%%',(select ifnull(mem_name,mem_nick) from rd_data.tb_member_basic where mem_no=#{reported_mem_no}))
+                , '%%mem_nick%%',(select mem_nick from rd_data.tb_member_basic where mem_no=#{reported_mem_no})))
+              , IFNULL(#{targetMemNo}, #{reported_mem_no})
+              , IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL))
+              , IFNULL(#{targetRedirectUrl}, NULL)
+        )
     </insert>
 
     <insert id="callMemberNotification_Add_ALL" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
@@ -310,8 +322,12 @@
             SELECT
                 a.mem_no
                 , IFNULL(#{type_noti},70)
-                , #{notiContents}
-                , #{notimemo}
+                , (select REPLACE(REPLACE(#{notiContents}
+                    , '%%mem_name%%',(select ifnull(mem_name,mem_nick) from rd_data.tb_member_basic where mem_no=a.mem_no))
+                    , '%%mem_nick%%',(select mem_nick from rd_data.tb_member_basic where mem_no=a.mem_no)))
+                , (select REPLACE(REPLACE(#{notimemo}
+                    , '%%mem_name%%',(select ifnull(mem_name,mem_nick) from rd_data.tb_member_basic where mem_no=a.mem_no))
+                    , '%%mem_nick%%',(select mem_nick from rd_data.tb_member_basic where mem_no=a.mem_no)))
                 , IFNULL(#{targetMemNo}, #{reported_mem_no})
                 , IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL))
                 , IFNULL(#{targetRedirectUrl}, NULL)
