@@ -210,7 +210,14 @@
         INSERT into rd_data.tb_member_notification
           ( mem_no, type_noti, contents, memo, target_mem_no, room_no, read_yn, last_upd_date )
         SELECT
-            e.mem_no, #{slctType}, #{notiContents}, #{notimemo}, e.mem_no, null, 0, NOW()
+            e.mem_no, #{slctType}
+        , (select REPLACE(REPLACE(#{notiContents}
+			, '%%mem_name%%',(select ifnull(mem_name,mem_nick) from rd_data.tb_member_basic where mem_no=e.mem_no))
+			, '%%mem_nick%%',(select mem_nick from rd_data.tb_member_basic where mem_no=e.mem_no)))
+        , (select REPLACE(REPLACE(#{notimemo}
+			, '%%mem_name%%',(select ifnull(mem_name,mem_nick) from rd_data.tb_member_basic where mem_no=e.mem_no))
+			, '%%mem_nick%%',(select mem_nick from rd_data.tb_member_basic where mem_no=e.mem_no)))
+        , e.mem_no, null, 0, NOW()
         FROM
         (
           SELECT
