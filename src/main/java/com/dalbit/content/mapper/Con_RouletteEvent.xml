@@ -163,11 +163,11 @@
                     , CASE WHEN apply.item_no = 1 THEN count(apply.item_no) ELSE 0 END item_no_1
                     , CASE WHEN apply.item_no = 2 THEN count(apply.item_no) ELSE 0 END item_no_2
                     , CASE WHEN apply.item_no = 3 THEN count(apply.item_no) ELSE 0 END item_no_3
-                    , CASE WHEN apply.item_no = 4 THEN count(apply.item_no) ELSE 0 END item_no_4
-                    , CASE WHEN apply.item_no = 5 THEN count(apply.item_no) ELSE 0 END item_no_5
-                    , CASE WHEN apply.item_no = 6 THEN count(apply.item_no) ELSE 0 END item_no_6
-                    , CASE WHEN apply.item_no = 7 THEN count(apply.item_no) ELSE 0 END item_no_7
-                    , CASE WHEN apply.item_no = 8 THEN count(apply.item_no) ELSE 0 END item_no_8
+                    , CASE WHEN apply.item_no = 4 or apply.item_no = 14 or apply.item_no = 24 THEN count(apply.item_no) ELSE 0 END item_no_4
+                    , CASE WHEN apply.item_no = 5 or apply.item_no = 15 or apply.item_no = 25 THEN count(apply.item_no) ELSE 0 END item_no_5
+                    , CASE WHEN apply.item_no = 6 or apply.item_no = 16 or apply.item_no = 26 THEN count(apply.item_no) ELSE 0 END item_no_6
+                    , CASE WHEN apply.item_no = 7 or apply.item_no = 17 or apply.item_no = 27 THEN count(apply.item_no) ELSE 0 END item_no_7
+                    , CASE WHEN apply.item_no = 8 or apply.item_no = 18 or apply.item_no = 28 THEN count(apply.item_no) ELSE 0 END item_no_8
                 from (
                     select date_format(apply.apply_date, '%Y-%m-%d') apply_date
                         , apply.item_no
@@ -218,11 +218,11 @@
                 , if(apply.item_no = 1, 1, 0) item_no_1
                 , if(apply.item_no = 2, 1, 0) item_no_2
                 , if(apply.item_no = 3, 1, 0) item_no_3
-                , if(apply.item_no = 4, 1, 0) item_no_4
-                , if(apply.item_no = 5, 1, 0) item_no_5
-                , if(apply.item_no = 6, 1, 0) item_no_6
-                , if(apply.item_no = 7, 1, 0) item_no_7
-                , if(apply.item_no = 8, 1, 0) item_no_8
+                , if(apply.item_no = 4 or apply.item_no = 14 or apply.item_no = 24, 1, 0) item_no_4
+                , if(apply.item_no = 5 or apply.item_no = 15 or apply.item_no = 25, 1, 0) item_no_5
+                , if(apply.item_no = 6 or apply.item_no = 16 or apply.item_no = 26, 1, 0) item_no_6
+                , if(apply.item_no = 7 or apply.item_no = 17 or apply.item_no = 27, 1, 0) item_no_7
+                , if(apply.item_no = 8 or apply.item_no = 18 or apply.item_no = 28, 1, 0) item_no_8
             from rd_data.tb_event_coupon_member_apply apply
             left join rd_data.tb_member_basic basic on apply.mem_no = basic.mem_no
             where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(apply.apply_date, '%Y-%m-%d')
