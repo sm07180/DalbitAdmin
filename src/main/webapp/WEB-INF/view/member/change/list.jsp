@@ -222,7 +222,7 @@
             {{indexDesc ../totalInfo/totalCnt data.rowNum}}
         </td>
         <td>
-            {{#dalbit_if type '==' 31}}
+            {{#dalbit_if auto '==' 1}}
                 <span class="font-bold" style="color: #7030a0;">ON</span>
             {{else}}
                 OFF
@@ -269,37 +269,37 @@
         </tr>
         <tr style="color: blue;">
             <td>{{{sexIcon 'm'}}}</td>
-            <td>{{addComma content.maleCnt}}({{addComma content.maleAutoCnt}})건</td>
+            <td>{{addComma content.maleCnt}}({{addComma content.auto_changemCnt}})건</td>
             <td>{{addComma content.maleByeolCnt}}별</td>
             <td>{{addComma content.maleDalCnt}}달</td>
             <td>{{addComma content.maleExchangeAmt}}원</td>
         </tr>
         <tr style="color: red;">
             <td>{{{sexIcon 'f'}}}</td>
-            <td>{{addComma content.femaleCnt}}({{addComma content.femaleAutoCnt}})건</td>
+            <td>{{addComma content.femaleCnt}}({{addComma content.auto_changefCnt}})건</td>
             <td>{{addComma content.femaleByeolCnt}}별</td>
             <td>{{addComma content.femaleDalCnt}}달</td>
             <td>{{addComma content.femaleExchangeAmt}}원</td>
         </tr>
         <tr>
             <td>{{{sexIcon 'n'}}}</td>
-            <td>{{addComma content.noneCnt}}({{addComma content.noneAutoCnt}})건</td>
+            <td>{{addComma content.noneCnt}}({{addComma content.auto_changenCnt}})건</td>
             <td>{{addComma content.noneByeolCnt}}별</td>
             <td>{{addComma content.noneDalCnt}}달</td>
             <td>{{addComma content.noneExchangeAmt}}원</td>
         </tr>
         <tr style="color: black;">
             <td>테스트</td>
-            <td>{{addComma content.testCnt}}({{addComma content.testAutoCnt}})건</td>
+            <td>{{addComma content.testCnt}}({{addComma content.auto_changetCnt}})건</td>
             <td>{{addComma content.testByeolCnt}}별</td>
             <td>{{addComma content.testDalCnt}}달</td>
             <td>{{addComma content.testExchangeAmt}}원</td>
         </tr>
         <tr class="font-bold" style="color: #ff6600;">
             <th style="background-color: #d9d9d9">총합</th>
-            <th style="background-color: #f2f2f2">{{addComma content.totalCnt}}({{addComma content.totalAutoCnt}})건</th>
-            <th style="background-color: #f2f2f2">{{addComma content.sumTotalByeol}}별</th>
-            <th style="background-color: #f2f2f2">{{addComma content.sumTotalDal}}달</th>
+            <th style="background-color: #f2f2f2">{{addComma content.totalCnt}}({{addComma content.auto_changeCnt}})건</th>
+            <th style="background-color: #f2f2f2">{{addComma content.totalByeolCnt}}별</th>
+            <th style="background-color: #f2f2f2">{{addComma content.totalDalCnt}}달</th>
             <th style="background-color: #f2f2f2">{{addComma content.totalExchangeAmt}}원</th>
         </tr>
     </table>

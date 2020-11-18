@@ -172,7 +172,13 @@
 
         $("#codeExcel").attr('download' , "결제현황_결제상품별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" +  moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
-        util.getAjaxData("code", "/rest/enter/pay/code", $("#searchForm").serialize(), fn_codePay_success);
+        var data = {
+            slctType : slctType
+            ,startDate : $("#startDate").val()
+            ,endDate : $("#endDate").val()
+        };
+
+        util.getAjaxData("code", "/rest/enter/pay/code", data, fn_codePay_success);
     }
 
     function fn_codePay_success(data, response){
@@ -384,7 +390,7 @@
             var totalHtml = templateScript(totalContext);
             $("#androidTableBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         var template = $('#tmp_androidDetailList').html();

@@ -95,7 +95,12 @@
     function getPayWayList(){
         $("#wayExcel").attr('download' , "결제현황_결제수단별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" +  moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
-        util.getAjaxData("way", "/rest/enter/pay/way", $("#searchForm").serialize(), fn_wayPay_success);
+        var data = {
+            slctType : slctType
+            ,startDate : $("#startDate").val()
+            ,endDate : $("#endDate").val()
+        };
+        util.getAjaxData("way", "/rest/enter/pay/way", data, fn_wayPay_success);
     }
 
     function fn_wayPay_success(data, response){
@@ -118,7 +123,7 @@
             var totalHtml = templateScript(totalContext);
             $("#wayTableBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         var template = $('#tmp_wayDetailList').html();

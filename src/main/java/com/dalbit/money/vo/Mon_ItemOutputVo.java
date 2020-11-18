@@ -48,8 +48,8 @@ public class Mon_ItemOutputVo {
     private int modDal;
     private int totalCnt;
     private int totalAutoCnt;
-    private int sumTotalByeol;
-    private int sumTotalDal;
+    private int totalByeolCnt;
+    private int totalDalCnt;
     private int maleCnt;
     private int maleAutoCnt;
     private int maleByeolCnt;
