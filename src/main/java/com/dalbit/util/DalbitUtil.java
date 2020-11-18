@@ -827,16 +827,30 @@ public class DalbitUtil {
      * 결제수단 변환
      */
     public static String getPayWayConvert(String str){
-        if(str.equals("VA") ){
-            str = "가상계좌";
-        } else if (str.equals("CN")) {
+        if (str.equals("CN")) {
             str = "신용카드";
         } else if (str.equals("MC")) {
             str = "휴대폰";
-        } else if (str.equals("RA")) {
-            str = "계좌이체";
+        } else if (str.equals("VA")) {
+            str = "가상계좌";
         } else if (str.equals("InApp")) {
-            str = "Apple";
+            str = "인앱(IOS)";
+        } else if (str.equals("GM")) {
+            str = "문화상품권";
+        } else if (str.equals("HM")) {
+            str = "해피머니상품권";
+        } else if (str.equals("cashbee")) {
+            str = "캐시비";
+        } else if (str.equals("tmoney")) {
+            str = "티머니";
+        } else if (str.equals("payco")) {
+            str = "페이코";
+        } else if (str.equals("kakaopay")) {
+            str = "카카오페이";
+        } else if (str.equals("GG")) {
+            str = "스마트문상(게임)";
+        } else if (str.equals("GC")) {
+            str = "도서문화상품권";
         } else {
             str = "-";
         }

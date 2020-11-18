@@ -100,7 +100,13 @@
     function getPayAgeList (){
         $("#ageExcel").attr('download' , "결제현황_결제회원별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" +  moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
-        util.getAjaxData("age", "/rest/enter/pay/age", $("#searchForm").serialize(), fn_agePay_success);
+        var data = {
+            slctType : slctType
+            ,startDate : $("#startDate").val()
+            ,endDate : $("#endDate").val()
+        };
+
+        util.getAjaxData("age", "/rest/enter/pay/age", data, fn_agePay_success);
     }
 
     function fn_agePay_success(data, response){
@@ -124,7 +130,7 @@
             var totalHtml = templateScript(totalContext);
             $("#ageTableBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         var template = $('#tmp_ageDetailList').html();
