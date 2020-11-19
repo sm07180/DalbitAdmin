@@ -818,6 +818,13 @@ public enum Status {
     //달 자동교환 설정상태 조회
     달자동교환설정상태조회_성공("0", "member.change.auto.sel.success", "달 자동 교환 설정 상태 조회 성공"),
     달자동교환설정상태조회_실패("-1", "member.change.auto.sel.fail", "달 자동 교환 설정 상태 조회 실패"),
+
+
+    //청취유도 메시지 조회
+    청취유도메시지조회_성공("C001", "select.success", "청취 유도 메시지 조회 성공 시"),
+    청취유도메시지조회_데이터없음("0", "no.data", "청취 유도 메시지 데이터가 없을 시"),
+    청취유도메시지조회_실패("C006", "server.error", "청취 유도 메시지 조회 실패 시"),
+
     ;
 
     final private String RESULT_SUCCESS = "success";
