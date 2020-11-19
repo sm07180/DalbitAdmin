@@ -23,6 +23,8 @@ public class P_itemGiftInsertVo extends BaseVo {
     private String play_time;				// 애니플레이타임
     private String webp_image;			// webp이미지경로
     private String jason_image;			// jason이미지경로
+    private int sound_yn;			    // 사운드 아이템 여부(0: 사운드 아님, 1: 사운드 아이템)
+    private String sound_url;			// 사운드 URL
     private String desc;				// 상품설명
 }
 

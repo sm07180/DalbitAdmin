@@ -64,19 +64,20 @@
     });
 
     function buyDalDataListTabClick(){
-        _datePicker = 4;
+        tabType = 4;
+        slctType = 0;
+
+        dateType(slctType);
         $("#resourceState").hide();
-        $("#oneDayDatePicker").show();
-        $("#monthDatepicker").hide();
-        $("#yearDatepicker").hide();
         $("._prevSearch").show();
         $("._todaySearch").show();
         $("._nextSearch").show();
-
-        $("#txt_search").show();
-        $("#checkTestid").show();
+        $("#div_input").hide();
+        $("#searchText").show();
+        $("#searchCheck").show();
         $("#liveResourceData").hide();
-        buyDalList();
+
+        // buyDalList();
     }
 
     function buyDalList(pagingInfo) {
@@ -89,9 +90,9 @@
         var data = {
             'pageNo': buyDalPagingInfo.pageNo
             , 'pageCnt' : 100
-            , 'searchText' : $("#txt_search").val()
+            , 'searchText' : $("#searchText").val()
             , 'searchType' : 0
-            , 'slctType' : $('input[name="search_testId"]').is(":checked") ? "1" : "0"
+            , 'slctType' : $('input[name="searchCheck"]').is(":checked") ? "1" : "0"
             , 'orderType' : $("select[name='buyDalList']").val()
             , 'startDate' : $("#startDate").val()
         };
