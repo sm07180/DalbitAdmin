@@ -227,6 +227,12 @@ var ItemDataTableSource = {
             {'title': '설명', 'data': 'desc', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
+            {'title': '사운드여부', 'data': 'sound_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                if(data == 0){
+                    return '-'
+                }
+                return data == 0 ? '-' : 'Y';
+                }},
             {'title': '게시상태', 'data': 'view_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, content_viewOn);
                 }},

@@ -26,6 +26,7 @@ public class P_itemGiftListOutputVo extends BaseVo {
     private String file_slct;			//파일 구분( webp/jason, sticker)
     private String webp_image;			//webp 이미지경로
     private String jason_image;			//jason 이미지경로
+    private int sound_yn;			    //사운드여부
     private int play_time;				//애니플레이시간
     private String platform;			//플랫폼(PC(Web포함),Mobile-Android,Mobile-IOS)
     private String desc;				//아이템설명
