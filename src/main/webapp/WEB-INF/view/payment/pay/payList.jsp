@@ -214,8 +214,7 @@
 
     /* 취소버튼 클릭 */
     function payCancelSuccess(response){
-        dalbitLog(response);
-        alert("결제취소가 완료되었습니다.");
+        alert(response.message);
         dtList_info_pay.reload(pay_listSummary);
     }
 
