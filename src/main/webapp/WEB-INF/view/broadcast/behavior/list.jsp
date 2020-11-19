@@ -30,7 +30,7 @@
                 방송에서 DJ 및 청취자에게 보여지는 방송방 행위 유도 관리입니다. 등장 조건은 청취자 입장 후 입니다.
             </div>
             <div class="pull-right">
-                <button type="button" class="btn btn-default mt10 mr10">추가</button>
+                <button type="button" class="btn btn-primary mt10 mr10">추가</button>
             </div>
         </div>
         <div class="row col-lg-12 form-inline">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="widget-footer">
                     <span>
-                        <button class="btn btn-default" type="button" id="bt_behaviorMsg">선택삭제</button>
+                        <button class="btn btn-danger" type="button" id="bt_behaviorMsg">선택삭제</button>
                     </span>
                 </div>
             </div>
