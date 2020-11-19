@@ -114,10 +114,12 @@
 
         fnc_pushDetail.target.find("input[name='push_targetInfo']").change(function () {
             if ($(this).val() == "1") { //닉네임
-                $("#push-send_title").val($("#push-send_title").val() + "%%mem_nick%%");
+                // 제목 제외 요청 (여자1호)
+                // $("#push-send_title").val($("#push-send_title").val() + "%%mem_nick%%");
                 $("#push-send_cont").val($("#push-send_cont").val() + "%%mem_nick%%");
             } else if ($(this).val() == "2") { //이름
-                $("#push-send_title").val($("#push-send_title").val() + "%%mem_name%%");
+                // 제목 제외 요청 (여자1호)
+                // $("#push-send_title").val($("#push-send_title").val() + "%%mem_name%%");
                 $("#push-send_cont").val($("#push-send_cont").val() + "%%mem_name%%");
             } else if ($(this).val() == "0") { //미설정
                 $("#push-send_title").val($("#push-send_title").val().replace(/%%mem_nick%%/g, ''));
