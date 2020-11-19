@@ -67,11 +67,11 @@ public class Mon_ItemOutputVo {
     private int testByeolCnt;
     private int testDalCnt;
 
-    private int totalExchangeAmt;
-    private int maleExchangeAmt;
-    private int femaleExchangeAmt;
-    private int noneExchangeAmt;
-    private int testExchangeAmt;
+    private long totalExchangeAmt;
+    private long maleExchangeAmt;
+    private long femaleExchangeAmt;
+    private long noneExchangeAmt;
+    private long testExchangeAmt;
 
     private int changeAutoCnt;
 

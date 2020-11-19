@@ -72,19 +72,19 @@
     });
 
     function memberDataListTabClick(){
-        _datePicker = 3;
+        tabType = 3;
+        slctType = 99;
+        dateType(slctType);
         $("#resourceState").hide();
-        $("#oneDayDatePicker").hide();
-        $("#monthDatepicker").hide();
-        $("#yearDatepicker").hide();
         $("._prevSearch").hide();
         $("._todaySearch").hide();
         $("._nextSearch").hide();
+        $("#div_input").hide();
 
-        $("#txt_search").show();
-        $("#checkTestid").show();
+        $("#searchText").show();
+        $("#searchCheck").show();
         $("#liveResourceData").hide();
-        memberDataList();
+        // memberDataList();
     }
 
     function memberDataList(pagingInfo) {
@@ -100,8 +100,8 @@
             // , 'searchText' : $('#txt_search').val()
             // , 'sDate' : $("#startDate").val()
             // , 'eDate' : $("#endDate").val()
-            , 'searchText' : $("#txt_search").val()
-            , 'slctType' : $('input[name="search_testId"]').is(":checked") ? "1" : "0"
+            , 'searchText' : $("#searchText").val()
+            , 'slctType' : $('input[name="searchCheck"]').is(":checked") ? "1" : "0"
             , 'orderType' : $("select[name='memberDataList']").val()
         };
 

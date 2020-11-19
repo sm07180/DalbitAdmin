@@ -53,27 +53,7 @@
         }else if(tabId == 'tab_payYear'){
             slctType = 2;
         }
-        clickTab = true;
-        radioChange();
-        if(tabId == 'tab_payTime'){
-            getPayTimeList();
-        }else if(tabId == 'tab_payHistory'){
-            getStatPayInfo();
-        }else if(tabId == 'tab_payMonth'){
-            getPayMonthList();
-        }else if(tabId == 'tab_payYear'){
-            getPayYearList();
-        }else if(tabId == 'tab_payTry'){
-            getPayTryList();
-        }else if(tabId == 'tab_payAge'){
-            getPayAgeList();
-        }else if(tabId == 'tab_payWay'){
-            getPayWayList();
-        }else if(tabId == 'tab_payCode'){
-            getPayCodeList();
-        }else if(tabId == 'tab_payCancel'){
-            getPayCancelList();
-        }
+        dateType(slctType);
     });
 
     $("#bt_search").on('click', function(){

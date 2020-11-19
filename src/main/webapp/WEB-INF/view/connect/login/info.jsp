@@ -94,28 +94,11 @@
 
 
 <script type="text/javascript">
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    var week = ['일', '월', '화', '수', '목', '금', '토'];
-    var toDay = week[moment(new Date()).day()];
-    setTimeDate(dateTime);
-
-    var year;
-    var month = moment(dateTime).format("MM");
-    var day = moment(dateTime).format("DD");
 
     $(function() {
-
+        slctType = 0;
         setDayButton();
     });
-
-    function setTimeDate(dateTime){
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-        toDay = week[moment($("#startDate").val()).add('days', 0).day()];
-        $("._searchDate").html(dateTime + " (" + toDay + ")");
-    }
 
     function setRangeDate(displayDate, startDate, endDate){
         $("#onedayDate").val(startDate);
@@ -125,12 +108,6 @@
         $("#monthDate").val(startDate.substr(0,7));
         $("#yearDate").val(startDate.substr(0,4));
     }
-
-
-    function getStatJoinInfo(){
-        // util.getAjaxData("infoLive", "/rest/connect/login/info/live", null, fn_loginLive_success);
-    }
-
     function fn_loginLive_success(data, response){
         $("#loginLiveTableBody").empty();
 
@@ -139,88 +116,6 @@
         var context = response.data;
         var html=templateScript(context);
         $("#loginLiveTableBody").append(html);
-    }
-
-    $(document).on('click', '._prevSearch', function(){
-        prevNext(true);
-    });
-
-    $(document).on('click', '._nextSearch', function(){
-        prevNext(false);
-    });
-
-    $(document).on('click', '._todaySearch', function(){
-        if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory' || tabId == 'tab_timeOver'){
-            slctType = 0;
-            me = 0;
-        }else if(tabId == 'tab_monthNonOver' || tabId == 'tab_loAgeDetail' || tabId == 'tab_loBrowserDetail') {
-            slctType = 1;
-            me = 1;
-        }else if(tabId == 'tab_yearNonOver'){
-            slctType = 2;
-            me = 2;
-        }
-
-        dateType();
-
-    });
-
-    var me = 0;
-    function radioChange(){
-        dateType(slctType);
-        if(me == 0){
-            // 시간대별 ----------------------------
-            $("#onedayDate").show();
-            $("#monthDate").hide();
-            $("#yearDate").hide();
-            $("#startDate").val($("#onedayDate").val());
-            $("#endDate").val($("#onedayDate").val());
-        }else{
-            if(me == 1){
-                // 일자 -----------------------------------
-                $("#onedayDate").hide();
-                $("#monthDate").show();
-                $("#yearDate").hide();
-
-                var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
-                $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
-                $("#endDate").val($("#onedayDate").val().substr(0,8) + (monthLastDate.getDate() + 1));
-                $("#monthDate").val($("#onedayDate").val().substr(0,7));
-
-                var rangeDate = $("#monthDate").val().split(' - ');
-                if(-1 < rangeDate.indexOf(' - ')){
-                    $("#startDate").val(rangeDate[0]);
-                    $("#endDate").val(rangeDate[1]);
-                };
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-            }else{
-                // 월별 ----------------------------------
-                $("#onedayDate").hide();
-                $("#monthDate").hide();
-                $("#yearDate").show();
-
-                var yearDate = new Date();
-                $("#startDate").val(yearDate.getFullYear() + '.01.01');
-                $("#endDate").val(yearDate.getFullYear() + ".12.31");
-                $("#yearDate").val(yearDate.getFullYear());
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-            }
-        }
-    }
-
-    var slctType = 0;
-    function prevNext(isPrev){
-        var targetDate = statUtil.getStatTimeDate($("#startDate").val(), stat_searchType, slctType, isPrev);
-        var addDate = isPrev ? -1 : 1;
-
-        if(slctType == 0) {
-            dayButtonPrev(addDate);
-        }else if(slctType == 1) {
-            monthButtonPrev(addDate);
-        }else if(slctType == 2) {
-            yearButtonPrev(addDate);
-
-        }
     }
 </script>
 

@@ -31,9 +31,9 @@ public class Pay_CancelRestController {
      *  신용카드 결제 취소
      */
     @PostMapping("card")
-    public int payCancelCard(Pay_CancelCardVo payCancelCardVo) throws GlobalException {
+    public String payCancelCard(Pay_CancelCardVo payCancelCardVo) throws GlobalException {
 
-        int result = payCancelService.payCancelCard(payCancelCardVo);
+        String result = payCancelService.payCancelCard(payCancelCardVo);
         return result;
     }
 

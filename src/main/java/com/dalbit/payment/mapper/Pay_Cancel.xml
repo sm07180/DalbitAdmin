@@ -4,6 +4,7 @@
 
 
     <update id="sendPayCancel" parameterType="com.dalbit.payment.vo.Pay_CancelVo">
+        /* Pay_Cancel.xml - sendPayCancel */
         UPDATE rd_data.tb_payment_succ pay
         SET cancel_state = #{cancel_state}
             , cancel_dt = #{cancel_dt}
@@ -12,4 +13,9 @@
         WHERE order_id = #{order_id}
     </update>
 
+
+    <select id="dalCancel" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        /* Pay_Cancel.xml - callStoryDelete */
+        call rd_data.sp_member_purchase_dal_cancel(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>
