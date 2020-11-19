@@ -10,6 +10,5 @@ public interface Pay_CancelDao {
 
     int sendPayCancel(Pay_CancelVo payCancelVo);
 
-    @Transactional(readOnly = true)
     ProcedureVo dalCancel(ProcedureVo procedureVo);
 }
