@@ -18,28 +18,47 @@
                         <%--<input type="hidden" name="pageStart" id="pageStart">
                         <input type="hidden" name="pageCnt" id="pageCnt">--%>
                         <div class="widget widget-table searchBoxArea">
-                            <div class="widget-header searchBoxRow">
-                                <h3 class="title"><i class="fa fa-search"></i> 환전 검색</h3>
-                                <div>
-                                    <span id="searchYearArea"></span>
-                                    <span id="searchMonthArea"></span>
+                            <table>
+                                <tr>
+                                    <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                        <i class="fa fa-search"></i><br/>검색
+                                    </th>
+                                    <th id="th_bottonList">
+                                        <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                        <div>
+                                            <div id="div_monthButton"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left">
+                                        <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
+                                        <input id="monthDate" type="text" class="form-control"/>
+                                        <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                        <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                        <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                        <%--<input name="endDate" id="endDate" style="width: 100px">--%>
 
-                                    <span id="searchTypeArea" class="ml10"></span>
-                                    <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
-                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                        <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." style="display: none"></label>
 
-                                    <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>--%>
-                                    <label class="control-inline fancy-checkbox custom-color-green">
-                                        <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                                        <span>테스트 아이디 제외</span>
-                                    </label>
+                                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                        <a href="javascript://" class="_prevSearch">[이전]</a>
+                                        <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                        <a href="javascript://" class="_nextSearch">[다음]</a>
 
-                                    <label class="control-inline fancy-checkbox custom-color-green" id="exchangeCheckArea">
-                                        <input type="checkbox" name="search_exchangeYn" id="search_exchangeYn" value="1">
-                                        <span>1회 이상 환전 회원</span>
-                                    </label>
-                                </div>
-                            </div>
+                                        <span id="searchCheck">
+                                            <label class="control-inline fancy-checkbox custom-color-green">
+                                                <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                                <span>테스트 아이디 제외</span>
+                                            </label>
+                                        </span>
+                                        <label class="control-inline fancy-checkbox custom-color-green" id="exchangeCheckArea">
+                                            <input type="checkbox" name="search_exchangeYn" id="search_exchangeYn" value="1">
+                                            <span>1회 이상 환전 회원</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </form>
@@ -129,35 +148,42 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
+
     var exchangePagingInfo = new PAGING_INFO(0,1,50);
     var limitDay = moment(new Date()).format('YYYYMMDD');
 
     var tabType = <%=in_tabType%>;
 
+    slctType = 1;
+
     $(function(){
 
-        $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
-        $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
-        $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
-
-        $('#searchTestIdArea').html(util.getCommonCodeRadio(-1, testId));
+        // $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
+        // $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
+        // $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
+        //
+        // $('#searchTestIdArea').html(util.getCommonCodeRadio(-1, testId));
 
         if(!common.isEmpty(tabType)){
             $('#topBotton li:eq(' + tabType + ') a').tab('show');
         }
-        getList();
+
+
+        setDayButton();
+
+        // getList();
     });
 
     function getParameter(viewName){
         return data = {
             isSpecial : $('._tab.active a').data('specialdj')
-            , search_year : $("#search_year").val()
-            , search_month : $("#search_month").val()
-            , search_state : $("#search_state").val()
+            , search_year : common.substr($("#startDate").val(),0,4)
+            , search_month : common.substr($("#startDate").val(),5,2)
+            // , search_state : $("#search_state").val()
             , exchange_sort : $("#exchange_sort").val()
             , gender : $("#gender").val()
             , search_type : $("#search_type").val()
-            , search_value : $("#search_value").val()
+            , search_value : $("#searchText").val()
             , search_testId : $('input[name="search_testId"]').prop('checked') ? 1 : 0
             , search_exchangeYn : $('input[name="search_exchangeYn"]').prop('checked') ? 'Y' : 'N'
             , pageStart : exchangePagingInfo.pageNo
@@ -169,6 +195,9 @@
     }
 
     function getSummary(){
+
+        console.log(getParameter());
+
         util.getAjaxData("select", "/rest/money/exchange/summary", getParameter(), fn_succ_summary);
     }
 
@@ -224,38 +253,63 @@
 
         var targetAnchor = $('._tab.active').find('a');
 
+        console.log("-------------------------------");
+        console.log(targetAnchor.data('specialdj'));
+        console.log(targetAnchor.prop('id'));
+
+
         if(targetAnchor.data('specialdj') != null){
+            $("#monthDate").show();
             $("#exchangeCheckArea").attr('style', 'display:none !important;');
-            $("#searchYearArea").show();
-            $("#searchMonthArea").show();
             $("#searchStateArea").show();
+            $("#searchCheck").hide();
             $("#summaryArea").show();
             $("#div_testIdTable").hide();
+            $("#th_bottonList").show();
+            $("#searchText").hide();
+            $('._nextSearch').show();
+            $('._prevSearch').show();
+            $('._todaySearch').show();
 
             exchangeList(tmp);
         }else if(targetAnchor.prop('id') == 'rejectList'){
+            $("#monthDate").show();
             $("#exchangeCheckArea").attr('style', 'display:none !important;');
-            $("#searchYearArea").show();
-            $("#searchMonthArea").show();
             $("#searchStateArea").show();
             $("#summaryArea").hide();
+            $("#searchCheck").show();
             $("#div_testIdTable").show();
+            $("#th_bottonList").show();
+            $("#searchText").show();
 
+            $('._nextSearch').show();
+            $('._prevSearch').show();
+            $('._todaySearch').show();
             rejectList();
 
         }else if(targetAnchor.prop('id') == 'enableList') {
+            $("#monthDate").hide();
+            $("#searchCheck").show();
+            $("#th_bottonList").hide();
+            $("#searchText").show();
             $("#exchangeCheckArea").show();
-            $("#searchYearArea").hide();
-            $("#searchMonthArea").hide();
             $("#searchStateArea").hide();
             $("#summaryArea").show();
             $("#div_testIdTable").show();
+
+            $('._prevSearch').hide();
+            $('._todaySearch').hide();
+            $('._nextSearch').hide();
 
             enableList();
         }
     }
 
     function exchangeList(tmp){
+
+        console.log(tmp);
+
+
         if(common.isEmpty(tmp) || tmp != "button"){
             var template = $('#tmp_exchangeSummary').html();
             var templateScript = Handlebars.compile(template);
@@ -316,10 +370,10 @@
 
     $('#bt_search').on('click', function(){
         exchangePagingInfo.pageNo = 1;
-        getList("button");
+        getList();
     });
 
-    $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
+    $('input[id="searchText"]').on('keydown', function(e) {    // textBox 처리
         if(e.keyCode == 13) {
             exchangePagingInfo.pageNo = 1;
             getList();
@@ -917,8 +971,8 @@
             <span id="searchStateArea" onchange="searchStateArea_click();"></span>
             <span id="exchangeSort" onchange="exchangeSort_click();"></span>
             <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-    <span id="selGender" onchange="gender_click();"></span>
-</c:if>
+                <span id="selGender" onchange="gender_click();"></span>
+            </c:if>
         </div>
     </div>
 </script>
@@ -959,8 +1013,8 @@
             <th><input type="checkbox" id="allChk"></th>
             <th>프로필</th>
             <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-    <th>신분증</th>
-</c:if>
+                <th>신분증</th>
+            </c:if>
             <th>회원번호</th>
             <th>닉네임</th>
             <th>성별</th>
