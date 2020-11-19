@@ -24,12 +24,6 @@
             <br/>
             <br/>
             <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
             <div class="col-md-4 no-padding">
                 <div class="col-md-3 no-padding mr10">
                     <span id="changeList_searchType" onchange="changeList_searchType_click();"></span>
@@ -267,34 +261,6 @@
             <td>별 수</td>
             <td>교환 달 수</td>
             <td>환전 가치 금액</td>
-        </tr>
-        <tr style="color: blue;">
-            <td>{{{sexIcon 'm'}}}</td>
-            <td>{{addComma content.maleCnt}}({{addComma content.auto_changemCnt}})건</td>
-            <td>{{addComma content.maleByeolCnt}}별</td>
-            <td>{{addComma content.maleDalCnt}}달</td>
-            <td>{{addComma content.maleExchangeAmt}}원</td>
-        </tr>
-        <tr style="color: red;">
-            <td>{{{sexIcon 'f'}}}</td>
-            <td>{{addComma content.femaleCnt}}({{addComma content.auto_changefCnt}})건</td>
-            <td>{{addComma content.femaleByeolCnt}}별</td>
-            <td>{{addComma content.femaleDalCnt}}달</td>
-            <td>{{addComma content.femaleExchangeAmt}}원</td>
-        </tr>
-        <tr>
-            <td>{{{sexIcon 'n'}}}</td>
-            <td>{{addComma content.noneCnt}}({{addComma content.auto_changenCnt}})건</td>
-            <td>{{addComma content.noneByeolCnt}}별</td>
-            <td>{{addComma content.noneDalCnt}}달</td>
-            <td>{{addComma content.noneExchangeAmt}}원</td>
-        </tr>
-        <tr style="color: black;">
-            <td>테스트</td>
-            <td>{{addComma content.testCnt}}({{addComma content.auto_changetCnt}})건</td>
-            <td>{{addComma content.testByeolCnt}}별</td>
-            <td>{{addComma content.testDalCnt}}달</td>
-            <td>{{addComma content.testExchangeAmt}}원</td>
         </tr>
         <tr class="font-bold" style="color: #ff6600;">
             <th style="background-color: #d9d9d9">총합</th>
