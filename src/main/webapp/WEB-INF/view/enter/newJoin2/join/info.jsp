@@ -86,11 +86,7 @@
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
 
 <script type="text/javascript">
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    var week = ['일', '월', '화', '수', '목', '금', '토'];
-    var toDay = week[moment(new Date()).day()];
-    setTimeDate(dateTime);
+    // setTimeDate(dateTime);
 
     var slctType = 1;
 
@@ -123,64 +119,6 @@
         $("#endDate").val(endDate);
         $("#displayDate").val(startDate.substr(0,7));
         $("#yearDate").val(startDate.substr(0,4));
-    }
-
-    $(document).on('click', '._prevSearch', function(){
-        prevNext(true);
-    });
-
-    $(document).on('click', '._nextSearch', function(){
-        prevNext(false);
-    });
-
-    $(document).on('click', '._todaySearch', function(){
-        if(tabId == 'tab_time'){
-            slctType = 0;
-        }else if(tabId == 'tab_calendar' || tabId == 'tab_month') {
-            slctType = 1;
-        }else if(tabId == 'tab_list') {
-            slctType = 3;
-        }
-        dateType();
-    });
-
-    function radioChange(){
-        dateType(slctType);
-        if(slctType == 0){
-            $("#onedayDate").show();
-            $("#monthDate").hide();
-            $("#rangeDatepicker").hide();
-            // $("#rangeDatepicker").hide();
-            $("#startDate").val($("#onedayDate").val());
-            $("#endDate").val($("#onedayDate").val());
-        }else{
-            if(slctType == 1) {
-                // 일별 -----------------------------------
-                $("#onedayDate").hide();
-                $("#monthDate").show();
-                $("#rangeDatepicker").hide();
-
-            }else if(slctType == 3){
-                // 목록 ----------------------------------
-                $("#onedayDate").hide();
-                $("#monthDate").hide();
-                $("#rangeDatepicker").show();
-                setTimeDate(dateTime);
-            }
-        }
-    }
-
-    function prevNext(isPrev){
-
-        var addDate = isPrev ? -1 : 1;
-
-        if(slctType == 0) {
-            dayButtonPrev(addDate);
-        }else if(slctType == 1) {
-            monthButtonPrev(addDate);
-        }else if(slctType == 3) {
-            dateRangePrev(addDate);
-        }
     }
 
     function setSummary(response){

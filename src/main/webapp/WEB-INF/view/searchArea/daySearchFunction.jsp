@@ -4,6 +4,17 @@
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
+
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
+
+    var year;
+    var month = moment(dateTime).format("MM");
+    var day = moment(dateTime).format("DD");
+    var slctType;
+
     $(function() {
         $(".search_exchange_years").append(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
         year = $("#search_year").val();
@@ -117,42 +128,53 @@
     }
 
     function dateType(paramSlctType){
+        $("#onedayDate").hide();
+        $("#monthDate").hide();
+        $("#yearDate").hide();
+        $("#div_dayButton").hide();
+        $("#div_monthButton").hide();
+        $("#div_yearButton").hide();
+        $("#th_bottonList").hide();
+        $("#rangeDatepicker").hide();
+
         if(paramSlctType == 0){
             setDayButton("day");
+            $("#onedayDate").show();
             $("#div_dayButton").show();
-            $("#div_monthButton").hide();
-            $("#div_yearButton").hide();
             $("#th_bottonList").show();
-            $("#rangeDatepicker").hide();
-
         }else if(paramSlctType == 1){
             setDayButton("month");
-            $("#div_dayButton").hide();
+            $("#monthDate").show();
             $("#div_monthButton").show();
-            $("#div_yearButton").hide();
             $("#th_bottonList").show();
-            $("#rangeDatepicker").hide();
-
         }else if(paramSlctType == 2){
             setDayButton("year");
-            $("#div_dayButton").hide();
-            $("#div_monthButton").hide();
+            $("#yearDate").show();
             $("#div_yearButton").show();
             $("#th_bottonList").show();
-            $("#rangeDatepicker").hide();
-
         }else if(paramSlctType == 3){
-            setDateRange("range");
-            $("#div_dayButton").hide();
-            $("#div_monthButton").hide();
-            $("#div_yearButton").hide();
-            $("#th_bottonList").hide();
+            setTimeDate(dateTime);
             $("#rangeDatepicker").show();
+            $("#bt_search").click();
         }else if(common.isEmpty(paramSlctType)){
-            if(slctType == 0 || slctType == 1 || slctType == 2){
+            if(slctType == 0 ){
                 setDayButton();
+                $("#onedayDate").show();
+                $("#div_dayButton").show();
+                $("#th_bottonList").show();
+            } else if(slctType == 1 ){
+                setDayButton();
+                $("#monthDate").show();
+                $("#div_monthButton").show();
+                $("#th_bottonList").show();
+            }else if(slctType == 2){
+                setDayButton();
+                $("#yearDate").show();
+                $("#div_yearButton").show();
+                $("#th_bottonList").show();
             }else if(slctType == 3){
                 setTimeDate(dateTime);
+                $("#rangeDatepicker").show();
                 $("#bt_search").click();
             }
         }
@@ -170,6 +192,33 @@
     function dayBottonClick(data){
         if(!common.isEmpty(data)) {
             dayClick("", year, common.lpad(month,2,"0"), common.lpad(data.day,2,"0"));
+        }
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        prevNext(true);
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        prevNext(false);
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        dateType();
+    });
+
+    function prevNext(isPrev){
+
+        var addDate = isPrev ? -1 : 1;
+
+        if(slctType == 0) {
+            dayButtonPrev(addDate);
+        }else if(slctType == 1) {
+            monthButtonPrev(addDate);
+        }else if(slctType == 2) {
+            yearButtonPrev(addDate);
+        }else if(slctType == 3) {
+            dateRangePrev(addDate);
         }
     }
 
@@ -208,9 +257,6 @@
         monthClick("", $("#div_yearButton").find("#search_year").val(), month, day);
     }
 
-    function setDateRange(tmp){
-
-    }
     function dateRangePrev(isPrev){
         var addDate = isPrev ? -1 : 1;
         $("#startDate").val(moment($("#startDate").val()).add("days", addDate).format('YYYY.MM.DD'));
