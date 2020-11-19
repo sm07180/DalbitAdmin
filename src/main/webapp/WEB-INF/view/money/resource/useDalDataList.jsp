@@ -68,19 +68,18 @@
     });
 
     function useDalDataListTabClick(){
-        _datePicker = 5;
+        tabType = 5;
+        slctType = 0;
+        dateType(slctType);
         $("#resourceState").hide();
-        $("#oneDayDatePicker").show();
-        $("#monthDatepicker").hide();
-        $("#yearDatepicker").hide();
         $("._prevSearch").show();
         $("._todaySearch").show();
         $("._nextSearch").show();
-
-        $("#txt_search").show();
-        $("#checkTestid").show();
+        $("#div_input").hide();
+        $("#searchText").show();
+        $("#searchCheck").show();
         $("#liveResourceData").hide();
-        useDalList();
+
     }
 
     function useDalList(pagingInfo) {
@@ -93,10 +92,10 @@
         var data = {
             'pageNo': useDalPagingInfo.pageNo
             , 'pageCnt' : 100
-            , 'searchText' : $("#txt_search").val()
+            , 'searchText' : $("#searchText").val()
             , 'searchType' : 0
             , 'slctType' : $('input[name="search_testId"]').is(":checked") ? "1" : "0"
-            , 'orderType' : $("select[name='useDalList']").val()
+            , 'orderType' : $("select[name='searchCheck']").val()
             , 'startDate' : $("#startDate").val()
             , 'slctSecret' : 0
         };

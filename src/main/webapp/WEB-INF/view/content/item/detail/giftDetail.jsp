@@ -77,14 +77,24 @@
 
             util.getAjaxData("upldate", "/rest/content/item/gift/update", data, fnc_giftDetail.fn_update_success, fnc_giftDetail.fn_fail);
         })
+
+        fnc_giftDetail.target.find('#preSoundBtn').on('click', function(){
+            var sound_url = $('#sound_url').val();
+
+            if(common.isEmpty(sound_url)){
+                alert('사운드 URL을 입력해주세요.');
+                return;
+            }
+            document.getElementById("soundAudio").src = sound_url;
+            document.getElementById("soundAudio").load();
+            document.getElementById("soundAudio").play();
+        });
     };
 
 
     //수정 데이터 조회 후 UI 처리
     fnc_giftDetail.initUpdateUI= function(){
         var detailData = getSelectDataInfo().detailData;
-
-        console.log(detailData);
 
         //platform
         var platformCode = detailData.platform.split("");
@@ -120,7 +130,6 @@
     fnc_giftDetail.updateDetail= function(){
         var detailData = getSelectDataInfo().detailData;
         detailData.rowNum = getSelectDataInfo().data.rowNum;
-        dalbitLog(detailData);
 
 
         // form 띄우기
@@ -243,7 +252,24 @@
         //item_price_ios TODO 알아봐야함...
         resultJson['item_price_ios'] = 0;
 
-        dalbitLog(resultJson);
+        //sound 아이템
+        var sound_yn = fnc_giftDetail.target.find("input[name=sound_yn]");
+        if(sound_yn.prop('checked')){
+            //webp 파일명 && lottie 파일명 수정
+            var sound_url = fnc_giftDetail.target.find("input[name=sound_url]");
+            resultJson['sound_file_name'] = util.getFileName(sound_url.val(), false);
+        }else{
+            resultJson['sound_url'] = '';
+            resultJson['sound_file_name'] = '';
+        }
+
+        //webp 파일명 && lottie 파일명 수정
+        var webp_image = fnc_giftDetail.target.find("input[name=webp_image]");
+        resultJson['webp_file_name'] = util.getFileName(webp_image.val(), false);
+
+        var jason_image = fnc_giftDetail.target.find("input[name=jason_image]");
+        resultJson['jason_file_name'] = util.getFileName(jason_image.val(), false);
+
         return resultJson;
     };
 
@@ -292,6 +318,11 @@
             return false;
         }
 
+        //sound
+        if(data.sound_yn == 1 && common.isEmpty(data.sound_url)){
+            alert('사운드URL을 입력해주세요.');
+            return false;
+        }
         return true;
     };
 
@@ -337,41 +368,49 @@
                     <td rowspan="2">{{rowNum}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2' 'Y' 'platform'}}}</td>
+                    <td rowspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
-                    <td colspan="3" rowspan="2">
+                    <td rowspan="2">
                         {{#item_code}}{{this}}{{/item_code}}
                     </td>
 
                     <th>등록/수정자</th>
-                    <td colspan="2">{{opName}}</td>
+                    <td >{{opName}}</td>
                 </tr>
                 <tr>
                     <th>등록/수정일시</th>
-                    <td colspan="2">{{lastupdDate}}</td>
+                    <td >{{lastupdDate}}</td>
                 </tr>
                 <tr>
                     <th>아이템명</th>
-                    <td colspan="8">
+                    <td colspan="3">
                         <input type="text" class="form-control" id="gift-item_name" name="item_name" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{item_name}}">
                     </td>
 
+                    <th>사운드여부</th>
+                    <td>
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" value="1" id="sound_yn" name="sound_yn" class="form-control" {{#equal sound_yn 1}}checked{{/equal}} />
+                            <span><i></i>사운드여부</span>
+                        </label>
+                    </td>
+
                     <th>게시여부</th>
-                    <td colspan="2">{{{getCommonCodeRadio view_yn 'content_viewOn' 'N' 'view_yn'}}}</td>
+                    <td>{{{getCommonCodeRadio view_yn 'content_viewOn' 'N' 'view_yn'}}}</td>
                 </tr>
                 <tr>
                     <th>구분</th>
-                    <td colspan="2">{{{getCommonCodeSelect item_slct 'item_itemSlct'}}}</td>
+                    <td>{{{getCommonCodeSelect item_slct 'item_itemSlct'}}}</td>
 
                     <th>사용영역</th>
-                    <td colspan="2">{{{getCommonCodeSelect use_area 'item_useArea' 'N' 'use_area'}}}</td>
+                    <td>{{{getCommonCodeSelect use_area 'item_useArea' 'N' 'use_area'}}}</td>
 
                     <th>파일등록 필드</th>
-                    <td colspan="2">{{{getCommonCodeSelect file_slct 'item_fileField' 'N' 'file_slct'}}}</td>
+                    <td>{{{getCommonCodeSelect file_slct 'item_fileField' 'N' 'file_slct'}}}</td>
 
                     <th>플레이타임 제한</th>
-                    <td colspan="2">
+                    <td>
                         <div class="form-inline">
                             <input type="text" class="form-control _trim" id="gift-play_time" name="play_time" placeholder="아이템 노출 시간" value="{{play_time}}" style="width:70%;" onkeydown="common.inputFilterNumber(event)" />
                             <span>(초)</span>
@@ -383,7 +422,7 @@
                     <td colspan="3">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
 
                     <th>지급 수량 (별)</th>
-                    <td colspan="3">
+                    <td>
                         <div class="form-inline">
                             <input type="text" class="form-control _trim" id="exchange-byeol" name="byeol" placeholder="지급될 별 수량." value="{{byeol}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(별)</span>
@@ -391,7 +430,7 @@
                     </td>
 
                     <th>가격 (달)</th>
-                    <td colspan="3">
+                    <td>
                         <div class="form-inline">
                             <input type="text" class="form-control _trim" id="gift-item_price" name="item_price" placeholder="아이템 구매 달 수량." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
@@ -406,41 +445,63 @@
                 --%>
                 <tr>
                     <th>Webp 이미지 URL</th>
-                    <td colspan="5">
+                    <td colspan="3">
                         <input type="text" class="_trim" id="gift-webp_image" name="webp_image" style="width:70%" value="{{webp_image}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-webp_image')">
                     </td>
 
                     <th>Json 이미지 URL</th>
-                    <td colspan="5">
+                    <td colspan="3">
                         <input type="text" class="_trim" id="gift-jason_image" name="jason_image" style="width:70%" value="{{jason_image}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-jason_image')">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="4">
                         <!--미리보기-->
                         <a href="javascript:;"><img id="gift-webp_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
 
-                    <td colspan="6">
+                    <td colspan="4">
                         <!--미리보기-->
                         <a href="javascript:;"><img id="gift-jason_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
                 </tr>
                 <tr>
+                    <th>사운드 URL</th>
+                    <td colspan="2">
+                        <input type="text" class="_trim" id="sound_url" name="sound_url" style="width:70%" value="{{sound_url}}">
+                        <input type="button" value="미리듣기" id="preSoundBtn">
+                    </td>
+                    <td>
+                        <!--미리듣기-->
+                        <audio controls id="soundAudio">
+                          <source src="{{sound_url}}">
+                          Your browser does not support the audio tag.
+                        </audio>
+                    </td>
+
+                    <th>인앱 여부</th>
+                    <td colspan="3">
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" value="1" id="in_app_yn" name="in_app_yn" class="form-control" {{#equal in_app_yn 1}}checked{{/equal}} />
+                            <span><i></i>선택 시 APP 안에 다운로드 되어 사용됩니다.</span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
                     <th>썸네일</th>
-                    <td colspan="4">
+                    <td colspan="2">
                         <input type="text" class="_trim" id="gift-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-item_thumbnail')">
                     </td>
-                    <td colspan="1">
+                    <td>
                         <!--미리보기-->
                         <a href="javascript:;"><img id="gift-item_thumbnailViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
 
                     <th>운영자 메모</th>
-                    <td colspan="5">
+                    <td colspan="3">
                         <textarea class="form-control" id="gift-desc" name="desc" rows="5" cols="30" placeholder="메모." style="resize: none" maxlength="200">{{desc}}</textarea>
                     </td>
                 </tr>

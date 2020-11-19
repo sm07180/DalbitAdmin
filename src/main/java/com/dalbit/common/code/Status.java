@@ -720,11 +720,19 @@ public enum Status {
     선물통계보기_실패("C006", "gift.status.view.fail", "선물통계 보기 실패 시"),
 
 
-
     /* 결제취소 */
     결제취소성공("0000", "pay.cancel.success", "결제취소 성공 시"),
     결제취소실패("C006", "pay.cancel.fail", "결제취소 실패 시"),
     보유달부족("C005", "pay.cancel.dal.update", "보유 달 부족 시"),
+
+    /* 달 차감 */
+    달차감_성공("0", "pay.cancel.dal.success", "달 차감 성공 시"),
+    달차감_주문번호없음("-1", "pay.cancel.dal.order.number.no", "주문번호 없을 시"),
+    달차감_회원번호오류("-2", "pay.cancel.dal.member.number.error", "요청회원번호가 오류 시"),
+    달차감_결제완료아님("-3", "pay.cancel.dal.pay.complete.no", "결제완료가 아닐 시"),
+    달차감_이미취소됨("-4", "pay.cancel.dal.already.cancel", "이미 취소된 경우일 시"),
+    달차감_보유달부족("-5", "pay.cancel.dal.lack", "보유 달 부족 시"),
+    달차감_실패("C006", "pay.cancel.dal.fail", "달 차감 실패 시"),
 
 
     //ip/deviceUuid 차단
