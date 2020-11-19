@@ -41,29 +41,20 @@ public class Pay_CancelRestController {
      *  휴대폰 결제 취소
      */
     @PostMapping("phone")
-    public int payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws GlobalException {
+    public String payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws GlobalException {
 
-        int result = payCancelService.payCancelPhone(payCancelPhoneVo);
+        String result = payCancelService.payCancelPhone(payCancelPhoneVo);
         return result;
     }
 
-    /**
-     *  실계좌이체 결제 취소
-     */
-    @PostMapping("bank")
-    public int payCancelBank(Pay_CancelBankVo payCancelBankVo) throws GlobalException {
-
-        int result = payCancelService.payCancelBank(payCancelBankVo);
-        return result;
-    }
 
     /**
      *  페이레터 결제 취소
      */
     @PostMapping("payletter")
-    public int payletterCancel(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
+    public String payletterCancel(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
 
-        int result = payCancelService.payletterCancel(payCancelPayletterVo, request);
+        String result = payCancelService.payletterCancel(payCancelPayletterVo, request);
         return result;
     }
 
@@ -72,9 +63,9 @@ public class Pay_CancelRestController {
      *  문화상품권 결제 취소
      */
     @PostMapping("gm")
-    public int payCancelGm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+    public String payCancelGm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
 
-        int result = payCancelService.payCancelGm(payCancelGiftVo);
+        String result = payCancelService.payCancelGm(payCancelGiftVo);
         return result;
     }
 
@@ -83,9 +74,9 @@ public class Pay_CancelRestController {
      *  게임문화상품권 결제 취소
      */
     @PostMapping("gg")
-    public int payCancelGg(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+    public String payCancelGg(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
 
-        int result = payCancelService.payCancelGg(payCancelGiftVo);
+        String result = payCancelService.payCancelGg(payCancelGiftVo);
         return result;
     }
 
@@ -94,9 +85,9 @@ public class Pay_CancelRestController {
      *  도서문화상품권 결제 취소
      */
     @PostMapping("gc")
-    public int payCancelGc(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+    public String payCancelGc(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
 
-        int result = payCancelService.payCancelGc(payCancelGiftVo);
+        String result = payCancelService.payCancelGc(payCancelGiftVo);
         return result;
     }
 
@@ -105,9 +96,9 @@ public class Pay_CancelRestController {
      *  해피머니상품권 결제 취소
      */
     @PostMapping("hm")
-    public int payCancelHm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+    public String payCancelHm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
 
-        int result = payCancelService.payCancelHm(payCancelGiftVo);
+        String result = payCancelService.payCancelHm(payCancelGiftVo);
         return result;
     }
 
