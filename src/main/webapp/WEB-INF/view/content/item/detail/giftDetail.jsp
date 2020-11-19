@@ -254,9 +254,21 @@
 
         //sound 아이템
         var sound_yn = fnc_giftDetail.target.find("input[name=sound_yn]");
-        if(!sound_yn.prop('checked')){
+        if(sound_yn.prop('checked')){
+            //webp 파일명 && lottie 파일명 수정
+            var sound_url = fnc_giftDetail.target.find("input[name=sound_url]");
+            resultJson['sound_file_name'] = util.getFileName(sound_url.val(), false);
+        }else{
             resultJson['sound_url'] = '';
+            resultJson['sound_file_name'] = '';
         }
+
+        //webp 파일명 && lottie 파일명 수정
+        var webp_image = fnc_giftDetail.target.find("input[name=webp_image]");
+        resultJson['webp_file_name'] = util.getFileName(webp_image.val(), false);
+
+        var jason_image = fnc_giftDetail.target.find("input[name=jason_image]");
+        resultJson['jason_file_name'] = util.getFileName(jason_image.val(), false);
 
         return resultJson;
     };
@@ -469,8 +481,13 @@
                         </audio>
                     </td>
 
-                    <th></th>
-                    <td colspan="3"></td>
+                    <th>인앱 여부</th>
+                    <td colspan="3">
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" value="1" id="in_app_yn" name="in_app_yn" class="form-control" {{#equal in_app_yn 1}}checked{{/equal}} />
+                            <span><i></i>선택 시 APP 안에 다운로드 되어 사용됩니다.</span>
+                        </label>
+                    </td>
                 </tr>
                 <tr>
                     <th>썸네일</th>
