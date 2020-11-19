@@ -52,15 +52,6 @@
             slctType = 1;
         }else if(tabId == 'tab_payYear'){
             slctType = 2;
-        // }else if(tabId == 'tab_payAge' || tabId == 'tab_payWay' || tabId == 'tab_payCode'){
-            // if($('input[name="slctType"]:checked').val() == 0){
-            //     slctType = 0;
-            // }else if($('input[name="slctType"]:checked').val() == 1){
-            //     slctType = 1;
-            // }else{
-            //     slctType = 2;
-            // }
-            // $("#slctTypeArea").show();
         }
         clickTab = true;
         radioChange();

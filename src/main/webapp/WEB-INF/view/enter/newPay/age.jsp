@@ -213,7 +213,7 @@
     <tr>
         <td class="font-bold _stateSubTh">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{substr data.daily 5}}{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}">
@@ -239,7 +239,7 @@
         <td style="border-bottom: hidden;"></td>
         <td class="font-bold _stateSubTh">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{substr data.daily 5}}{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a></td>

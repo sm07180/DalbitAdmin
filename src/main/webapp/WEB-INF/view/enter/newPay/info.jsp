@@ -16,8 +16,8 @@
                                 <th>
                                     <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
                                     <div>
-                                        <div id="div_dayButton" style="display: none"><jsp:include page="../../searchArea/daySearchArea.jsp"/></div>
-                                        <div id="div_monthButton"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
+                                        <div id="div_dayButton"><jsp:include page="../../searchArea/daySearchArea.jsp"/></div>
+                                        <div id="div_monthButton"  style="display: none"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
                                         <div id="div_yearButton" style="display: none"><jsp:include page="../../searchArea/yearSearchArea.jsp"/></div>
                                     </div>
                                 </th>
@@ -116,44 +116,6 @@
     var slctType = 0;
 
     $(function(){
-        // $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
-        //     var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-        //     $("#startDate").val(selectDate);
-        //     $("#endDate").val(selectDate);
-        // });
-        // // 월 선택 -------------------------------------
-        // $('#monthDate').datepicker({
-        //     minViewMode: 'months',
-        //     format: 'yyyy.mm',
-        //     keyboardNavigation: false,
-        //     forceParse: false,
-        //     autoclose: true,
-        //     language: 'kr',
-        // });
-        // $("#monthDate").on('change', function () {
-        //     var monthLastDate = new Date($("#monthDate").val().substr(0,4),$("#monthDate").val().substr(5,6),-1);
-        //     $("#startDate").val($("#monthDate").val() + '.01');
-        //     $("#endDate").val($("#monthDate").val() + "." +  (monthLastDate.getDate() + 1));
-        //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        // });
-        //
-        // // 년 선택 --------------------------------
-        // $('#yearDate').datepicker({
-        //     minViewMode: 'years',
-        //     format: 'yyyy',
-        //     keyboardNavigation: false,
-        //     forceParse: false,
-        //     autoclose: true,
-        //     language: 'kr',
-        // });
-        // $("#yearDate").on('change', function () {
-        //     $("#startDate").val($("#yearDate").val() + '.01.01');
-        //     $("#endDate").val($("#yearDate").val() + ".12.31");
-        //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-        // });
-        //
-        // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
-
         setDayButton();
 
         $('input[id="txt_search"]').keydown(function() {
@@ -172,39 +134,18 @@
         $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
-    // $(document).on('change', 'input[name="slctType"]', function(){
-    //     console.log($('input[name="slctType"]:checked').val());
-    //     if($('input[name="slctType"]:checked').val() == 0){
-    //         _datePicker = 0;
-    //     }else if($('input[name="slctType"]:checked').val() == 1){
-    //         _datePicker = 1;
-    //     }else{
-    //         _datePicker = 2;
-    //     }
-    //     changeDatepicker();
-    //     $("#bt_search").click();
-    // });
-
     $(document).on('click', '._prevSearch', function(){
         clickTab = false;
         prevNext(true);
-        // searchDate('prev');
     });
 
     $(document).on('click', '._nextSearch', function(){
         clickTab = false;
         prevNext(false);
-        // searchDate('next');
     });
 
     $(document).on('click', '._todaySearch', function(){
         clickTab = false;
-        // toDay = week[moment(new Date()).day()];
-        // changeDatepicker();
-        //
-        // if(_datePicker == 0) {
-        //     setTimeDate(dateTime);
-        // }
         dateType();
     });
 
@@ -263,105 +204,5 @@
 
         }
     }
-
-    // var _datePicker = 0;
-
-    // function changeDatepicker(){
-    //     if(_datePicker == 0){
-    //         $("#oneDayDatePicker").show();
-    //         $("#monthDatepicker").hide();
-    //         $("#yearDatepicker").hide();
-    //         if(_searchText == 1){
-    //             $("#txt_search").show();
-    //         }
-    //     }else if(_datePicker == 1) {
-    //         $("#oneDayDatePicker").hide();
-    //         $("#monthDatepicker").show();
-    //         $("#yearDatepicker").hide();
-    //     }else if(_datePicker == 2) {
-    //         $("#oneDayDatePicker").hide();
-    //         $("#monthDatepicker").hide();
-    //         $("#yearDatepicker").show();
-    //     }
-    //     searchDate();
-    // }
-
-    // function searchDate(dateType){
-    //     if(_datePicker == 0){ //시간별 , 일간
-    //         if(common.isEmpty(dateType)){
-    //             $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
-    //             $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-    //             $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
-    //             $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
-    //         }else if(dateType == 'prev'){
-    //             setDay(-1);
-    //         }else{
-    //             setDay(1);
-    //         }
-    //     }else if(_datePicker == 1){ // 월간
-    //         if(common.isEmpty(dateType)){
-    //             $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-    //             $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-    //             $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
-    //             $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
-    //         }else if(dateType == 'prev'){
-    //             setMonth(-1);
-    //         }else if(dateType == 'next'){
-    //             setMonth(1);
-    //         }
-    //     }else if(_datePicker == 2){ // 연간
-    //         if(common.isEmpty(dateType)){
-    //             $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
-    //             $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
-    //             $("._searchDate").html(moment(new Date()).format('YYYY년'));
-    //             $("#yearDate").val(moment(new Date()).format('YYYY'));
-    //         }else if(dateType == 'prev'){
-    //             setYear(-1);
-    //
-    //         }else if(dateType == 'next'){
-    //             setYear(1);
-    //         }
-    //     }
-    //     if(!clickTab){
-    //         $("#bt_search").click();
-    //     }
-    // }
-
-    // function setDay(days){
-    //     toDay = week[moment($("#startDate").val()).add('days', days).day()];
-    //     $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
-    //     $("#endDate").val($("#startDate").val());
-    //     $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
-    //     $("#onedayDate").val($("#startDate").val());
-    // }
-    //
-    // function setMonth(months){
-    //     $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
-    //     $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-    //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-    //     $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
-    // }
-    //
-    // function setYear(years){
-    //     $("#startDate").val(moment($("#startDate").val()).add('years', years).format('YYYY.01.01'));
-    //     $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
-    //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-    //     $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
-    // }
-
-    getStatPayInfo();
-
-    // function click_way(){
-    //     $("#tablist_con li:eq(2) a").tab("show");   // 수단
-    //     getPayWayList();
-    // }
-    // function click_age(){
-    //     $("#tablist_con li:eq(1) a").tab("show");   // 회원별
-    //     getPayAgeList();
-    // }
-    // function click_code(){
-    //     $("#tablist_con li:eq(3) a").tab("show");   // 상품별
-    //     getPayCodeList();
-    // }
 </script>
 
