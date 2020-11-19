@@ -20,6 +20,7 @@
                             <select id="changeAutoSetting" name="changeAutoSetting" class="form-control searchType" style="width: 100%" onchange="changeAutoSetting_change();">
                                 <option value="0">자동설정 전체</option>
                                 <option class="font-bold" style="color: #7030a0;" value="1">ON</option>
+                                <option value="2">OFF</option>
                             </select>
                         </span>
                     </div>
