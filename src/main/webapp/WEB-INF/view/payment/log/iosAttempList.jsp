@@ -11,7 +11,6 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-
                             <table>
                                 <tr>
                                     <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
@@ -100,16 +99,6 @@
 
         dateType(slctType);
     });
-
-    function setTimeDate(dateTime){
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-        $("#displayDate").val(dateTime + " - " + dateTime);
-
-        toDay = week[moment($("#startDate").val()).add('days', 0).day()];
-        $("._searchDate").html(dateTime + " (" + toDay + ")");
-    }
 
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {

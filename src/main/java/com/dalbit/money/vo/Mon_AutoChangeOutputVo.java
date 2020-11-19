@@ -26,11 +26,11 @@ public class Mon_AutoChangeOutputVo {
     private int testCnt;
     private int testAutoCnt;
     private int testAutoByeol;
-    private int totalExchangeAmt;
-    private int maleExchangeAmt;
-    private int femaleExchangeAmt;
-    private int noneExchangeAmt;
-    private int testExchangeAmt;
+    private long totalExchangeAmt;
+    private long maleExchangeAmt;
+    private long femaleExchangeAmt;
+    private long noneExchangeAmt;
+    private long testExchangeAmt;
     private int dateDiff;
 
     // output

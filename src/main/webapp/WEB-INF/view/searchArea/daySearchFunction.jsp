@@ -29,6 +29,16 @@
         });
     });
 
+    function setTimeDate(dateTime){
+        $("#onedayDate").val(dateTime);
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
+
+        toDay = week[moment($("#startDate").val()).add('days', 0).day()];
+        $("._searchDate").html(dateTime + " (" + toDay + ")");
+    }
+
     function setDayButton(today){
         $(".monthButton").empty();
 
@@ -137,26 +147,29 @@
         $("#th_bottonList").hide();
         $("#rangeDatepicker").hide();
 
-        if(paramSlctType == 0){
+        if(paramSlctType == 0){                 // 일검색
             setDayButton("day");
             $("#onedayDate").show();
             $("#div_dayButton").show();
             $("#th_bottonList").show();
-        }else if(paramSlctType == 1){
+        }else if(paramSlctType == 1){           // 월 검색
             setDayButton("month");
             $("#monthDate").show();
             $("#div_monthButton").show();
             $("#th_bottonList").show();
-        }else if(paramSlctType == 2){
+        }else if(paramSlctType == 2){           // 년도 검색
             setDayButton("year");
             $("#yearDate").show();
             $("#div_yearButton").show();
             $("#th_bottonList").show();
-        }else if(paramSlctType == 3){
+        }else if(paramSlctType == 3){           // 기간 검색
             setTimeDate(dateTime);
             $("#rangeDatepicker").show();
             $("#bt_search").click();
+        }else if(paramSlctType == 99){          // 99 : 검색창만
+            $("#bt_search").click();
         }else if(common.isEmpty(paramSlctType)){
+
             if(slctType == 0 ){
                 setDayButton();
                 $("#onedayDate").show();
@@ -175,6 +188,8 @@
             }else if(slctType == 3){
                 setTimeDate(dateTime);
                 $("#rangeDatepicker").show();
+                $("#bt_search").click();
+            }else if(slctType == 00){
                 $("#bt_search").click();
             }
         }

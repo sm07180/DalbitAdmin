@@ -103,16 +103,6 @@
 
     });
 
-    function setTimeDate(dateTime){
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-        $("#displayDate").val(dateTime + " - " + dateTime);
-
-        toDay = week[moment($("#startDate").val()).add('days', 0).day()];
-        $("._searchDate").html(dateTime + " (" + toDay + ")");
-    }
-
     function setRangeDate(displayDate, startDate, endDate){
         $("#onedayDate").val(startDate);
         $("#startDate").val(startDate);

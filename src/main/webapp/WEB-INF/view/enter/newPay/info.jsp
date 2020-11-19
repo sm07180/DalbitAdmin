@@ -64,7 +64,7 @@
 
     var clickTab = false;
 
-    var slctType = 0;
+   slctType = 0;
 
     $(function(){
         setDayButton();
@@ -75,15 +75,6 @@
             };
         });
     });
-
-    function setTimeDate(dateTime){
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-
-        toDay = week[moment($("#startDate").val()).add('days', 0).day()];
-        $("._searchDate").html(dateTime + " (" + toDay + ")");
-    }
 
 </script>
 
