@@ -30,7 +30,7 @@
                 방송에서 DJ 및 청취자에게 보여지는 방송방 행위 유도 관리입니다. 등장 조건은 청취자 입장 후 입니다.
             </div>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary mt10 mr10">추가</button>
+                <button type="button" id="bt_addMsg" class="btn btn-primary mt10 mr10">추가</button>
             </div>
         </div>
         <div class="row col-lg-12 form-inline">
@@ -44,7 +44,7 @@
                                 <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
                             </colgroup>
                             <tr>
-                                <th><input type="checkbox" /></th>
+                                <th><input type="checkbox" id="allChk"/></th>
                                 <th>No</th>
                                 <th>노출 대상</th>
                                 <th>행위 유도 내용</th>
@@ -64,13 +64,16 @@
                 </div>
                 <div class="widget-footer">
                     <span>
-                        <button class="btn btn-danger" type="button" id="bt_behaviorMsg">선택삭제</button>
+                        <button class="btn btn-danger" type="button" id="bt_deleteBehaviorMsg">선택삭제</button>
                     </span>
                 </div>
             </div>
         </div>
         <!-- DATA TABLE END -->
 
+        <div class="row col-lg-12 form-inline">
+            <form id="behaviorDetail"/>
+        </div>
     </div>
 </div>
 
@@ -81,14 +84,12 @@
     });
 
     function getBehaviorList() {
-
         var data = {
             target : 1
             , viewYn : 0
             , searchText : $('#txt_search').val()
         }
         util.getAjaxData("getBehaviorList", "/rest/broadcast/behavior/list", data, function fn_getBehaviorList_success(dst_id, response) {
-            console.log(response.message);
             var template = $('#tmp_behaviorList').html();
             var templateScript = Handlebars.compile(template);
             var context = response.data;
@@ -96,40 +97,164 @@
 
             $('#behaviorList').html(html);
         });
+        console.log("before" + $('#detailTable').length);
     }
+
+    $('#bt_addMsg').on('click', function() {
+        generateForm();
+    });
+
+    function generateForm() {
+        if($('#detailTable').length > 0) {
+            $('#behaviorDetail').empty();
+        } else {
+            var template = $('#tmp_behaviorDetail').html();
+            var templateScript = Handlebars.compile(template);
+            var data = {
+                target : 1
+                , viewYn : 0
+                , type : 1
+            }
+            var context = data;
+            var html = templateScript(context);
+            $('#behaviorDetail').html(html);
+        }
+    }
+
+    $(document).on('click', '._viewDetail', function () {
+        var data = {
+            idx : $(this).data('idx')
+        }
+        util.getAjaxData("getBehaviorDetail", "/rest/broadcast/behavior/detail", data, function fn_getBehaviorDetail_success(dst_id, response) {
+            var template = $('#tmp_behaviorDetail').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data;
+            var html = templateScript(context);
+
+            $('#behaviorDetail').html(html);
+        });
+    });
+
+    function validation() {
+        if(common.isEmpty($('#conTime').val())) {
+            alert("등장 조건 시간을 입력해주세요.")
+            return false;
+        }
+        if(common.isEmpty($('#runTime').val())) {
+            alert("지속 시간을 입력해주세요.")
+            return false;
+        }
+        if(common.isEmpty($('#desc1').val())) {
+            alert("행위 유도 내용을 입력해주세요.")
+            return false;
+        }
+        if(common.isEmpty($('#title').val())) {
+            alert("버튼명을 입력해주세요.")
+            return false;
+        }
+        return true;
+    }
+
+    // $(document).on('click', '._chk', function() {
+    //     if($(this).prop('checked')) {
+    //         $(this).prop('checked', 'checked');
+    //         $(this).parent().parent().find('._viewDetail').click();
+    //     } else {
+    //         $('#behaviorDetail').empty();
+    //     }
+    // });
+
+    $(document).on('click', '#bt_applyBehaviorMsg', function(){
+        console.log($('#idx').val());
+        if(validation()) {
+            if(confirm('메시지를 적용시키시겠습니까?')) {
+                var data = {
+                    idx : common.isEmpty($('#idx').val()) ? 0 : $('#idx').val()
+                    , target : $('input:radio[name="target"]:checked').val()
+                    , viewYn : $('input:radio[name="viewYn"]:checked').val()
+                    , type : $('input:radio[name="type"]:checked').val()
+                    , conTime : $('#conTime').val()
+                    , runTime : $('#runTime').val()
+                    , desc1 : $('#desc1').val()
+                    , desc2 : $('#desc2').val()
+                    , desc3 : $('#desc3').val()
+                    , title : $('#title').val()
+                }
+                util.getAjaxData("applyBehaviorMsg", "/rest/broadcast/behavior/apply", data, function fn_applyBehaviorMsg_success(dst_id, response) {
+                    alert(response.message);
+                    getBehaviorList();
+                    $("#behaviorDetail").empty();
+                });
+            }
+        }
+    });
+
+    $(document).on('click', '#bt_deleteBehaviorMsg', function() {
+        var checked = $('#behaviorList > tr > td > input[type=checkbox]:checked');
+        if(checked.length == 0) {
+            alert('삭제할 메시지를 선택해주세요.');
+            return false;
+        }
+        if(confirm(checked.length + '건의 메시지를 삭제하시겠습니까?')) {
+            var idxs = '';
+            checked.each(function() {
+               idxs += $(this).parent().parent().find('._viewDetail').data('idx') + "|";
+            });
+            idxs = idxs.slice(0,-1);
+            var data = {
+                delete_idx_list : idxs
+            }
+            util.getAjaxData("deleteBehaviorMsg", "/rest/broadcast/behavior/delete", data, function fn_deleteBehaviorMsg_success(dst_id, response) {
+                alert(response.message);
+                getBehaviorList();
+                $("#behaviorDetail").empty();
+            });
+        }
+    });
+
+    $('#allChk').on('click', function(){
+        if($(this).prop('checked')){
+            $('._chk').prop('checked', 'checked');
+        }else{
+            $('._chk').removeAttr('checked');
+        }
+    });
+
 
 </script>
 
 <script id="tmp_behaviorList" type="text/x-handlebars-template">
     {{#each this as |data|}}
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" class="_chk" /></td>
             <td>{{rowNum}}</td>
             <td>
-                {{{getCommonCodeLabel target 'behavior_target'}}}
+                {{{getCommonCodeLabel target "behavior_target"}}}
             </td>
             <td class="word-break" style="width: 400px">
-                {{#desc1}}
-                    1. {{replaceHtml ../desc1}} <br/>
-                {{/desc1}}
-                {{#desc2}}
-                    2. {{replaceHtml ../desc2}} <br/>
-                {{/desc2}}
-                {{#desc3}}
-                    3. {{replaceHtml ../desc3}}
-                {{/desc3}}
+                <a href="javascript://" class="_viewDetail" data-idx="{{idx}}">
+                {{^equal desc1 ''}}
+                   <div>1. {{replaceHtml ../desc1}}</div>
+                {{/equal}}
+                {{^equal desc2 ''}}
+                    <div>2. {{replaceHtml ../desc2}}</div>
+                {{/equal}}
+                {{^equal desc3 ''}}
+                    <div>3. {{replaceHtml ../desc3}}</div>
+                {{/equal}}
+                </a>
             </td>
             <td>{{addComma desc_cnt}}개</td>
             <td>
                 {{title}}
             </td>
             <td>
-                {{{getCommonCodeLabel type 'behavior_type'}}}
+                {{{getCommonCodeLabel type "behavior_type"}}}
             </td>
             <td>{{addComma conTime}}초</td>
             <td>{{addComma runTime}}초</td>
-            <td>{{{getCommonCodeLabel viewYn 'behavior_viewYn'}}}</td>
-            <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{{getCommonCodeLabel viewYn "behavior_viewYn"}}}</td>
+            <td>{{convertToDate last_upd_date "YYYY-MM-DD HH:mm:ss"}}</td>
             <td>
                 {{opName}}
             </td>
@@ -139,4 +264,69 @@
             <td colspan="12">{{isEmptyData}}</td>
         </tr>
     {{/each}}
+</script>
+
+<script id="tmp_behaviorDetail" type="text/x-handlebars-template">
+    <hr class="separator"/>
+    <div class="pull-left">
+        <h4>청취자 행위 유도 상세</h4>
+    </div>
+    <div class="pull-right">
+        <button type="button" id="bt_applyBehaviorMsg" class="btn btn-primary mr10">적용</button>
+        <input type="hidden" id="idx" value="{{idx}}"/>
+    </div>
+    <table class="table table-bordered table-dalbit mt15" id="detailTable">
+        <colgroup>
+            <col width="5%" />
+            <col width="5%" />
+            <col width="5%" />
+            <col width="5%" />
+            <col width="5%" />
+            <col width="5%" />
+        </colgroup>
+        <tbody>
+            <tr class="align-middle">
+                <th>노출 대상</th>
+                <td>{{{getCommonCodeRadio target "behavior_target" }}}</td>
+                <th>등장 조건</th>
+                <td>
+                    <input type="text" class="form-control" id="conTime" value="{{conTime}}" style="width: 50%;"/> 초
+                </td>
+                <th>지속 시간</th>
+                <td>
+                    <input type="text" class="form-control" id="runTime" value="{{runTime}}" style="width: 50%;"/> 초
+                </td>
+            </tr>
+            <tr class="align-middle">
+                <th>게시 여부</th>
+                <td>{{{getCommonCodeRadio viewYn "behavior_viewYn"}}}</td>
+                <th>호출(액션)</th>
+                <td colspan="3">{{{getCommonCodeRadio type "behavior_type"}}}</td>
+            </tr>
+            <tr class="align-middle">
+                <th>행위 유도 내용1</th>
+                <td colspan="5">
+                    <input type="text" class="form-control" id="desc1" value="{{desc1}}" style="width: 80%;"/>
+                </td>
+            </tr>
+            <tr class="align-middle">
+                <th>행위 유도 내용2</th>
+                <td colspan="5">
+                    <input type="text" class="form-control" id="desc2" value="{{desc2}}" style="width: 80%;"/>
+                </td>
+            </tr>
+            <tr class="align-middle">
+                <th>행위 유도 내용3</th>
+                <td colspan="5">
+                    <input type="text" class="form-control" id="desc3" value="{{desc3}}" style="width: 80%;"/>
+                </td>
+            </tr>
+            <tr class="align-middle">
+                <th>버튼명</th>
+                <td colspan="5">
+                    <input type="text" class="form-control" id="title" value="{{title}}" style="width: 80%;"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </script>

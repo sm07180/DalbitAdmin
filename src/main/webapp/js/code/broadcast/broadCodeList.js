@@ -288,6 +288,6 @@ var behavior_type = [
 
 var behavior_viewYn = [
     new COMMON_CODE(null, 'viewYn', '노출여부')
-    , new COMMON_CODE('0', '0', '비노출')
-    , new COMMON_CODE('1', '1', '노출')
+    , new COMMON_CODE('0', '0', 'Off')
+    , new COMMON_CODE('1', '1', 'On')
 ];

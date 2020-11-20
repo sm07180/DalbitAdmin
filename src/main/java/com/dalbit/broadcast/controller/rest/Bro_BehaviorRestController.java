@@ -26,7 +26,30 @@ public class Bro_BehaviorRestController {
      */
     @PostMapping("/list")
     public String behaviorList(P_BehaviorListInputVo pBehaviorListInputVo) {
-        return bro_behaviorService.callBehaviorList(pBehaviorListInputVo);
+        return bro_behaviorService.callBroadcastBehaviorList(pBehaviorListInputVo);
     }
 
+    /**
+     * 청취자 행위 유도 메시지 상세 조회
+     */
+    @PostMapping("/detail")
+    public String behaviorDetail(P_BehaviorDetailInputVo pBehaviorDetailInputVo) {
+        return bro_behaviorService.callBroadcastBehaviorDetail(pBehaviorDetailInputVo);
+    }
+
+    /**
+     * 청취자 행위 유도 메시지 추가 / 수정
+     */
+    @PostMapping("/apply")
+    public String behaviorApply(P_BehaviorListAddUpdateVo pBehaviorListAddUpdateVo) {
+        return bro_behaviorService.broadcastBehaviorApply(pBehaviorListAddUpdateVo);
+    }
+
+    /**
+     * 청취자 행위 유도 메시지 삭제
+     */
+    @PostMapping("/delete")
+    public String behaviorDelete(P_BehaviorListDeleteVo pBehaviorListDeleteVo) {
+        return bro_behaviorService.callBroadcastBehaviorDelete(pBehaviorListDeleteVo);
+    }
 }
