@@ -10,37 +10,35 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <table>
-                                <tr>
-                                    <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
-                                        <i class="fa fa-search"></i><br/>검색
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left">
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
 
-                                        <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
+                                    <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
 
-                                        <input type="text" class="form-control" id="onedayDate" name="onedayDate">
+                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
 
-                                        <input class="hide" name="startDate" id="startDate" style="width: 100px">
-                                        <input class="hide" name="endDate" id="endDate" style="width: 100px">
-                                        <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                        <%--<input name="endDate" id="endDate" style="width: 100px">--%>
-                                        <span id="searchTypeArea"></span>
-                                        <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <span id="searchTypeArea"></span>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
 
-                                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                        <a href="javascript://" class="_prevSearch">[이전]</a>
-                                        <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                        <a href="javascript://" class="_nextSearch">[다음]</a>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
 
-                                    </span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                                </span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>

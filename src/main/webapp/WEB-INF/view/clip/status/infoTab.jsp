@@ -39,31 +39,13 @@
         tabId = $(this).prop('id');
         if(tabId == 'tab_time'){
             slctType = "0";
-            me = 0;
             $(".searchDate").html($("#onedayDate").val() + " (" + toDay + ")");
-        }else if(tabId == 'tab_day') {
+        }else if(tabId == 'tab_day' || tabId == 'tab_calendar') {
             slctType = "1";
-            me = 1;
         }else if(tabId == 'tab_year'){
             slctType = "2";
-            me = 2;
         }
-        radioChange();
-
-        $("#searchForm").show();
-        console.log("---------------");
-        console.log(tabId);
-        if(tabId == 'tab_time'){
-            getTimeList();
-        }else if(tabId == 'tab_day') {
-            getDayList();
-        }else if(tabId == 'tab_year') {
-            getYearList();
-        }else if(tabId == 'tab_calendar'){
-            $("#searchForm").hide();
-            getCalendarInfo();
-        }
-
+        dateType(slctType);
     });
 
     $("#bt_search").on('click', function(){
@@ -74,6 +56,8 @@
             getDayList();
         }else if(tabId == 'tab_year') {
             getYearList();
+        }else if(tabId == 'tab_calendar'){
+            getCalendarInfo();
         }
     });
 </script>

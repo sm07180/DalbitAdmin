@@ -35,6 +35,8 @@
     }
 
     function renderCalendar(){
+        var tmp_sDate = $("#startDate").val();
+
         $('.calendar').fullCalendar('destroy').fullCalendar({
             header: {
                 //left: 'month, agendaWeek, agendaDay',
@@ -44,10 +46,17 @@
             },
             sundayFontColor:'red',
             saturdayFontColor:'blue',
+
+            year : Number(tmp_sDate.substring(0,4)),
+            month : Number(tmp_sDate.substring(5,7)) -1,
+
             events: function(start, end, timezone, callback) {
+                $(".fc-header").hide();
+
                 var startDate = $('.fc-day').not('.fc-other-month').first().data('date').replace(/-/gi,".");
                 var endDate = $('.fc-day').not('.fc-other-month').last().data('date').replace(/-/gi,".");
                 var month =  $('.fc-day').not('.fc-other-month').first().data('date').replace(/-/gi,".") + " - " + $('.fc-day').not('.fc-other-month').last().data('date').replace(/-/gi,".") + "@";
+
                 $.ajax({
                     url: '/rest/clip/status/info/time',
                     type: 'post',

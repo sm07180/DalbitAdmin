@@ -8,23 +8,32 @@
     <div class="row col-lg-12 form-inline">
         <div class="col-md-7 no-padding">
             <div class="widget widget-table searchBoxArea">
-                <div class="widget-header searchBoxRow">
-                    <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
-                    <div>
-                        <span id="searchRadio"></span>
-                        <span id="searchType_broad"></span>
+                <table>
+                    <tr>
+                        <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                            <i class="fa fa-search"></i><br/>검색
+                        </th>
+                        <td style="text-align: left">
+                            <span id="searchRadio"></span>
+                            <div class="input-group date" id="seldate" style="display: none;">
+                                <label for="onedayDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
+                                </label>
+                                <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                            </div>
+                            <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." ></label>
 
-                        <div class="input-group date" id="seldate" style="display: none;">
-                            <label for="onedayDate" class="input-group-addon">
-                                <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
-                            </label>
-                            <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
-                        </div>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
-                        <label><input type="text" class="form-control" id="txt_search"></label>
-                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                    </div>
-                </div>
+                            <span id="searchCheck">
+                                <label class="control-inline fancy-checkbox custom-color-green">
+                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                    <span>테스트 아이디 제외</span>
+                                </label>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="col-md-5 pull-right no-padding" id="divLive">
@@ -52,6 +61,9 @@
 
     </div>
 </form>
+
+<jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+
 <!-- //serachBox -->
 <!-- DATA TABLE -->
 <div class="row col-lg-12 form-inline">
@@ -157,7 +169,7 @@
         }
     });
 
-    $('input[id="txt_search"]').keydown(function() {
+    $('input[id="searchText"]').keydown(function() {
         if (event.keyCode === 13) {
             livePageTabCount();
 
@@ -300,15 +312,15 @@
 
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        tmp_searchText = $('#txt_search').val();
+        tmp_searchText = $('#searchText').val();
         var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = slctType;
         if(slctType == "1"){
             tmp_dj_slctType = $("select[name='searchType_broad']").val();
-            tmp_dj_searchText = $('#txt_search').val();
+            tmp_dj_searchText = $('#searchText').val();
         }else {
             tmp_room_slctType = $("select[name='searchBroad_broad']").val();
-            tmp_room_searchText = $('#txt_search').val();
+            tmp_room_searchText = $('#searchText').val();
         }
         dtList_info.reload(summary_table);
     }

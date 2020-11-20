@@ -143,7 +143,7 @@
     });
 
     function infoTabClick(tmp){
-        tabType = tmp
+        tabType = tmp;
         slctType = tmp;
         dateType(slctType);
 

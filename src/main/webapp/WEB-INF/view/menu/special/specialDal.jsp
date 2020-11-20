@@ -82,9 +82,9 @@
 
     function getParam() {
         return data = {
-            select_year: $('#select_year').val()
-            , select_month: $('#select_month').val()
-            , txt_search: $('#txt_search').val()
+            select_year : common.substr($("#startDate").val(),0,4)
+            , select_month :  common.substr($("#startDate").val(),5,2)
+            , txt_search: $('#searchText').val()
             , searchType: $('#searchType').val()
             , pageStart: specialDjPagingInfo.pageNo
             , pageCnt: specialDjPagingInfo.pageCnt
@@ -98,8 +98,8 @@
 
     function getSummary(){
         var data = {
-            select_year: $('#select_year').val()
-            , select_month: $('#select_month').val()
+             select_year:  common.substr($("#startDate").val(),0,4)
+            , select_month: common.substr($("#startDate").val(),5,2)
         };
         util.getAjaxData("summary", "/rest/menu/special/summary", data, fn_summary_success);
     }
@@ -161,8 +161,8 @@
         var obj = {
             req_idx : me.data('reqidx')
             , mem_no : me.parent().find('._openMemberPop').data('memno')
-            , select_year: $('#select_year').val()
-            , select_month: $('#select_month').val()
+            , select_year:  common.substr($("#startDate").val(),0,4)
+            , select_month: common.substr($("#startDate").val(),5,2)
         };
         util.getAjaxData("detail", "/rest/menu/special/dalDetail", obj, fn_success_dalDetail);
     });
@@ -210,8 +210,8 @@
            var data = {
                'req_idx' : checkbox.parent().parent().find('._dalDetail').data('reqidx')
                , 'mem_no' : checkbox.parent().parent().find('._openMemberPop').data('memno')
-               , select_year: $('#select_year').val()
-               , select_month: $('#select_month').val()
+               , select_year:  common.substr($("#startDate").val(),0,4)
+               , select_month: common.substr($("#startDate").val(),5,2)
            };
             dalbitLog(data);
             util.getAjaxData("cancel", "/rest/menu/special/reqCancel", data, fn_success_cancel);
