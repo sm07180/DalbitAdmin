@@ -506,4 +506,19 @@ public class Bro_BroadcastService {
         }
         return result;
     }
+
+
+    /**
+     * 실시간/종료방송 텝 Count
+     */
+    public String callLiveTabCount(P_BroadcastListInputVo pBroadcastListInputVo){
+        ArrayList<P_BroadcastListOutputVo> tabCountList = bro_BroadcastDao.callLiveTabCount(pBroadcastListInputVo);
+        String result;
+        if(tabCountList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, tabCountList));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+        return result;
+    }
 }

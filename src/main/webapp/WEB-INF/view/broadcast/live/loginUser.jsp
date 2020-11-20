@@ -31,13 +31,22 @@
     $("#loginUserType").html(util.getCommonCodeSelect(1, currentType,"Y"));
 
     $(function(){
-        getLoginUserList();
 
     });
 
-    var dtList_info_loginUser;
     var slctType = 1;
-    function getLoginUserList(tmp){
+
+    var dtList_info_loginUser;
+    function getLoginUserList_tabClick(tmp){
+        $("#selJoinDate").hide();
+        liveState = tmp;
+        if(liveState == 4){
+            $("#divLive").hide();
+            $("#divLiveListen").hide();
+            $("#divLiveGuest").hide();
+            $("#divLivelogin").show();
+            $("#seldate").hide();
+        }
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 100;
@@ -50,10 +59,11 @@
         dtList_info_loginUser.useCheckBox(false);
         dtList_info_loginUser.useIndex(true);
         dtList_info_loginUser.createDataTable(loginNextFunc);
-    }
-    function loginNextFunc(json){
-        $("#tab_LoginUser").text("방송 외 접속 회원(" + json.recordsTotal + ")");
 
+        livePageTabCount();
+    }
+
+    function loginNextFunc(json){
         var template = $("#loginUser_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
@@ -61,22 +71,6 @@
         };
         var html = templateScript(data);
         $("#login_summaryArea").html(html);
-    }
-
-    function getLoginUserList_tabClick(tmp){
-        $("#selJoinDate").hide();
-        liveState = tmp;
-        if(liveState == 4){
-            $("#divLive").hide();
-            $("#divLiveListen").hide();
-            $("#divLiveGuest").hide();
-            $("#divLivelogin").show();
-            $("#seldate").hide();
-        }
-        dtList_info_lisetnUser.reload(liveNextFunc);
-        dtList_info_guest.reload(liveGuest_summary);
-        dtList_info_loginUser.reload(loginNextFunc);
-        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
     }
 
 </script>

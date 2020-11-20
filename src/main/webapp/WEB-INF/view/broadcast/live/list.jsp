@@ -123,44 +123,6 @@
     var sDate;
     var eDate;
 
-    $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
-    $('#seldate').datetimepicker({
-        format: 'L',
-        maxDate:new Date(),
-        format: "YYYY-MM-DD",
-    });
-    sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
-
-    $(document).ready(function() {
-        getSearch();
-    });
-
-    $('#searchRadio').change(function() {
-        if($('input[name="searchRadio"]:checked').val() == "1"){
-            $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
-        }else{
-            $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
-        }
-    });
-
-    $('input[id="txt_search"]').keydown(function() {
-        if (event.keyCode === 13) {
-            getSearch();
-            getListenUserList();
-            getLoginUserList();
-            getGuestList();
-        };
-    });
-
-    $('#bt_search').on('click', function(){
-        getSearch();
-        getListenUserList();
-        getLoginUserList();
-        getGuestList();
-    });
-
-    $("#seldate").hide();
-
     var liveState = 1;
     var room_liveType = 1;
     var dtList_info="";
@@ -173,6 +135,59 @@
     var tmp_room_searchText;
     var tmp_searchText = "";
 
+
+    $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
+    $('#seldate').datetimepicker({
+        format: 'L',
+        maxDate:new Date(),
+        format: "YYYY-MM-DD",
+    });
+    sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
+
+    $(document).ready(function() {
+        getSearch();
+        livePageTabCount();
+    });
+
+    $('#searchRadio').change(function() {
+        if($('input[name="searchRadio"]:checked').val() == "1"){
+            $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+        }else{
+            $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
+        }
+    });
+
+    $('input[id="txt_search"]').keydown(function() {
+        if (event.keyCode === 13) {
+            livePageTabCount();
+
+            if(liveState == 1 || liveState == 2){
+                getSearch();
+            }else if(liveState == 3){
+                getListenUserList_tabClick();
+            }else if(liveState == 4){
+                getLoginUserList_tabClick();
+            }else if(liveState == 5){
+                getliveGuest_tabClick();
+            }
+        };
+    });
+
+    $('#bt_search').on('click', function(){
+        livePageTabCount();
+
+        if(liveState == 1 || liveState == 2){
+            getSearch();
+        }else if(liveState == 3){
+            getListenUserList_tabClick();
+        }else if(liveState == 4){
+            getLoginUserList_tabClick();
+        }else if(liveState == 5){
+            getliveGuest_tabClick();
+        }
+    });
+
+    $("#seldate").hide();
 
     var dtList_info_data = function (data) {
         var slctType = $('input[name="searchRadio"]:checked').val();
@@ -260,7 +275,6 @@
 
         room_liveType = tmp;
 
-
         if(liveState != 1){
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
         }
@@ -271,6 +285,7 @@
             dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
         }
 
+        livePageTabCount();
 
         // getSearch();
     }
@@ -284,14 +299,6 @@
         };
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
-
-        if(liveState == 1) {
-            if(json.code != "C006"){
-                $("#tab_liveList").text("실시간 방송(" + json.summary.totalBroadCastCnt + ")");
-            }else{
-                $("#tab_liveList").text("실시간 방송(0)");
-            }
-        }
     }
 
     function getSearch(){
@@ -344,6 +351,30 @@
         var popupUrl = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+room_no + "&type=" + type;
         util.windowOpen(popupUrl,"1450", "700","방송정보");
     }
+
+    function livePageTabCount(){
+        var data = {};
+
+        util.getAjaxData("livePageTabCount", "/rest/broadcast/broadcast/tabCount",data, tabCount_success);
+    }
+
+    function tabCount_success(dst_id, response){
+        for(var i=0;i<response.data.length;i++){
+            if(response.data[i].tabType == "live"){
+                if(liveState == 1) {
+                    $("#tab_liveList").text("실시간 방송(" + response.data[i].totalCnt + ")");
+                }
+            }else if(response.data[i].tabType == "lis"){
+                $("#tab_liveListener").text("실시간 청취자(" + response.data[i].totalCnt + ")");
+            }else if(response.data[i].tabType == "guest"){
+                $("#tab_liveGuest").text("실시간/종료 게스트(" + response.data[i].totalCnt + ")");
+            }else if(response.data[i].tabType == "login"){
+                $("#tab_LoginUser").text("방송 외 접속 회원(" + response.data[i].totalCnt + ")");
+            }
+        }
+    }
+
+
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">

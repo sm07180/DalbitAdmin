@@ -127,4 +127,11 @@ public class Bro_BroadcastRestController {
         return bro_BroadcastService.callLiveGuestList(pBroadcastListInputVo);
     }
 
+
+    @PostMapping("tabCount")
+    public String tabCount(P_BroadcastListInputVo pBroadcastListInputVo){
+        return bro_BroadcastService.callLiveTabCount(pBroadcastListInputVo);
+    }
+
+
 }

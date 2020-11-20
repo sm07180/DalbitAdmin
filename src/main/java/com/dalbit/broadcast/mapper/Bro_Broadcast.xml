@@ -156,4 +156,35 @@
         call rd_admin.sp_admin_broadcast_room_guest_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+
+    <select id="callLiveTabCount" parameterType="com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
+        select count(*) as totalCnt, 'live' as tabType
+          FROM rd_data.tb_broadcast_room as a
+         inner join rd_data.tb_broadcast_room_live_list b on a.room_no = b.room_no
+         where a.state <![CDATA[<>]]> 4
+         union
+        SELECT COUNT(*), 'lis'
+          FROM rd_data.tb_broadcast_room_live_list a
+         INNER JOIN rd_data.tb_broadcast_room b ON a.room_no = b.room_no AND a.state <![CDATA[<]]> 4
+         INNER JOIN rd_data.tb_broadcast_room_member c ON a.room_no = c.room_no AND c.state = 0 AND c.auth <![CDATA[<]]> 3
+          LEFT OUTER JOIN rd_data.tb_member_basic d ON c.mem_no = d.mem_no
+          LEFT OUTER JOIN rd_data.tb_member_profile e ON c.mem_no = e.mem_no
+          LEFT OUTER JOIN rd_data.tb_ranking_fan_live_data_day f ON c.mem_no = f.mem_no AND DATE(f.upd_date) = now()
+         union
+        SELECT count(*), 'guest'
+          FROM (select a.mem_no
+                  FROM rd_data.tb_broadcast_room_guest a
+                  LEFT JOIN rd_data.tb_member_basic b ON a.mem_no = b.mem_no
+                  LEFT JOIN rd_data.tb_member_withdrawal_bak c ON a.mem_no = c.mem_no
+                 WHERE a.start_date <![CDATA[>=]]> date_format(now(),'%Y-%m-%d 00:00:00')
+                 GROUP BY a.room_no, a.mem_no ) a
+         union
+        SELECT COUNT(*),'login'
+          FROM rd_data.tb_member_connect_state a
+         INNER JOIN rd_data.tb_member_basic b ON a.mem_no = b.mem_no AND a.`type` = 1
+         WHERE a.mem_no NOT IN (SELECT s2.mem_no
+                                  FROM rd_data.tb_broadcast_room_live_list s1
+                                 INNER JOIN rd_data.tb_broadcast_room_member s2 ON s1.room_no = s2.room_no AND s2.state = 0 AND s2.auth <![CDATA[<>]]> 3)
+    </select>
+
 </mapper>
