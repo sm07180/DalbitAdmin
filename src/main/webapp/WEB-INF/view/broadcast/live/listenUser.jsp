@@ -35,12 +35,20 @@
 
     $(function(){
         $("#selJoinDate").hide();
-        getListenUserList();
-
     });
 
     var dtList_info_lisetnUser;
-    function getListenUserList(){
+    function getListenUserList_tabClick(tmp){
+        $("#selJoinDate").hide();
+        liveState = tmp;
+        if(liveState == 3){
+            $("#divLive").hide();
+            $("#divLiveListen").show();
+            $("#divLivelogin").hide();
+            $("#divLiveGuest").hide();
+            $("#seldate").hide();
+        }
+
         var dtList_data = function (data) {
             data.pageCnt = 100;
             data.searchText = $("#txt_search").val();
@@ -52,6 +60,8 @@
         dtList_info_lisetnUser.useCheckBox(false);
         dtList_info_lisetnUser.useIndex(true);
         dtList_info_lisetnUser.createDataTable(liveNextFunc);
+
+        livePageTabCount();
     }
 
     function liveNextFunc(json){
@@ -63,8 +73,6 @@
         };
         var html = templateScript(data);
         $("#liveListener_summaryArea").html(html);
-
-        $("#tab_liveListener").text("실시간 청취자(" + json.recordsTotal + ")");
 
         var data = {};
         data.slctType = 1;
@@ -79,27 +87,10 @@
         util.getAjaxData("broadlive", "/rest/broadcast/broadcast/list", data, fn_success_live_summary);
     }
 
-    function getListenUserList_tabClick(tmp){
-        $("#selJoinDate").hide();
-        liveState = tmp;
-        if(liveState == 3){
-            $("#divLive").hide();
-            $("#divLiveListen").show();
-            $("#divLivelogin").hide();
-            $("#divLiveGuest").hide();
-            $("#seldate").hide();
-        }
-        dtList_info_lisetnUser.reload(liveNextFunc);
-        dtList_info_guest.reload(liveGuest_summary);
-        dtList_info_loginUser.reload(loginNextFunc);
-        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
-    }
     function listenUserType_sel_change(){
         $("#selJoinDate").hide();
         dtList_info_lisetnUser.reload(liveNextFunc);
-        dtList_info_guest.reload(liveGuest_summary);
-        dtList_info_loginUser.reload(loginNextFunc);
-        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
+        livePageTabCount();
     }
 
     function fn_success_live_summary(dst_id,response){
