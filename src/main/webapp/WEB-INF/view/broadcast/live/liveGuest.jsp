@@ -33,13 +33,20 @@
 <script type="text/javascript">
 
     $(function(){
-        getGuestList();
         $("#guestType").html(util.getCommonCodeSelect(0, liveGuest));
     });
 
     var dtList_info_guest;
-    function getGuestList(){
-        console.log("-------------------------------------- 1");
+
+    function getliveGuest_tabClick(tmp){
+        liveState = tmp;
+        if(liveState == 5){
+            $("#divLive").hide();
+            $("#divLiveListen").hide();
+            $("#divLiveGuest").show();
+            $("#divLivelogin").hide();
+            $("#seldate").hide();
+        }
         var dtList_data = function (data) {
             data.pageCnt = 100;
             data.searchText = $("#txt_search").val();
@@ -52,6 +59,8 @@
         dtList_info_guest.useCheckBox(false);
         dtList_info_guest.useIndex(true);
         dtList_info_guest.createDataTable(liveGuest_summary);
+
+        livePageTabCount();
     }
 
     function liveGuest_summary(json){
@@ -70,33 +79,12 @@
             };
             var html = templateScript(data);
             $("#liveGuest_summaryArea").html(html);
-
-            $("#tab_liveGuest").text("실시간/종료 게스트(" + json.recordsTotal + ")");
-        }else{
-            $("#tab_liveGuest").text("실시간/종료 게스트(0)");
-
         }
     }
 
-    function getliveGuest_tabClick(tmp){
-        liveState = tmp;
-        if(liveState == 5){
-            $("#divLive").hide();
-            $("#divLiveListen").hide();
-            $("#divLiveGuest").show();
-            $("#divLivelogin").hide();
-            $("#seldate").hide();
-        }
-        dtList_info_guest.reload(liveGuest_summary);
-        dtList_info_lisetnUser.reload(liveNextFunc);
-        dtList_info_loginUser.reload(loginNextFunc);
-        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
-    }
     function guestType_sel_change(){
         dtList_info_guest.reload(liveGuest_summary);
-        dtList_info_lisetnUser.reload(liveNextFunc);
-        dtList_info_loginUser.reload(loginNextFunc);
-        dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
+        livePageTabCount();
     }
 
     function guestOut(index){
