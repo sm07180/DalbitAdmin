@@ -10,8 +10,8 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                     <div>
-                        <%--<span id="searchRadio"></span>--%>
-                        <%--<span id="searchType_broad"></span>--%>
+                        <span id="searchTypeArea" class="_show_histList"></span>
+                        <input type="text" class="form-control _show_histList" name="searchText" id="searchText" />
 
                         <div class="input-group date" id="seldate">
                             <label for="onedayDate" class="input-group-addon">
@@ -38,95 +38,35 @@
 <!-- DATA TABLE -->
 <div class="row col-lg-12 form-inline">
 
+    <div class="col-md-12">
+        <label id="liveTitle">
+            ㆍ부스터 아이템의 경우 방송방에서 달로 구매하는 부스터가 아닙니다.<br/>
+            ㆍ이벤트 및 스페셜 DJ 혜택 등으로 제작된 부스터로 본인의 방송방에만 사용 가능합니다.<br/>
+            ㆍ부스터 아이템은 사용 시 DJ에게 달이 지급되지 않습니다.<br/>
+            ㆍ부스터 아이템으로 획득한 좋아요는 실시간 방송 순위에만 반영됩니다.
+        </label>
+    </div>
+
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5" id="boosterTab">
         <li class="active"><a href="javascript://" role="tab" data-toggle="tab" id="stat_day">시간대</a></li>
         <li><a href="javascript://" role="tab" data-toggle="tab" id="stat_month">월간</a></li>
         <li><a href="javascript://" role="tab" data-toggle="tab" id="stat_year">연간</a></li>
-        <li><a href="#loginUserList" role="tab" data-toggle="tab" id="tab_LoginUser">상세내역</a></li>
+        <li><a href="javascript://" role="tab" data-toggle="tab" id="list_hist">상세내역</a></li>
         <%--<li><a href="#liveList" role="tab" data-toggle="tab" id="tab_endBrodList" onclick="liveList(2);">종료 방송</a></li>--%>
     </ul>
-    <div class="tab-content no-padding">
-        <div class="tab-pane fade in active" id="liveList" >
-            <div class="widget widget-table">
-                <div class="col-md-12">
-                    <label id="liveTitle" class="mt10">
-                        ㆍ부스터 아이템의 경우 방송방에서 달로 구매하는 부스터가 아닙니다.<br/>
-                        ㆍ이벤트 및 스페셜 DJ 혜택 등으로 제작된 부스터로 본인의 방송방에만 사용 가능합니다.<br/>
-                        ㆍ부스터 아이템은 사용 시 DJ에게 달이 지급되지 않습니다.<br/>
-                        ㆍ부스터 아이템으로 획득한 좋아요는 실시간 방송 순위에만 반영됩니다.
-                    </label>
-                </div>
-                <div class="widget-content" style="border-top-width:0px;">
-                    <table class="table table-sorting table-hover table-bordered">
-                        <colgroup>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                        </colgroup>
-                        <tr>
-                            <td rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">부스터 아이템<br />현황</td>
-                            <td class="_bgColor" data-bgcolor="#dae3f3">유저 지급</td>
-                            <td class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</td>
-                            <td class="_bgColor" data-bgcolor="#dae3f3">증가 합</td>
-
-                            <td class="_bgColor" data-bgcolor="#FFDEAD">유저 차감</td>
-                            <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 차감</td>
-                            <td class="_bgColor" data-bgcolor="#FFDEAD">유저 사용</td>
-                            <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 사용</td>
-                            <td class="_bgColor" data-bgcolor="#FFDEAD">감소 합</td>
-
-                            <td class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총합</td>
-                        </tr>
-                        <tr id="tableTotal"></tr>
-                    </table>
-                </div>
-                <div class="widget-content" style="border-top-width:0px;">
-                    <table id="list_info" class="table table-sorting table-hover table-bordered">
-                        <thead id="tableTop">
-                            <tr>
-                                <th rowspan="2">구분</th>
-                                <th colspan="3" class="_bgColor" data-bgcolor="#DAE3F3">아이템 증가</th>
-                                <th colspan="5" class="_bgColor" data-bgcolor="#FFDEAD">아이템 감소</th>
-                                <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총합</th>
-                                <%--<th rowspan="2">증감</th>--%>
-                            </tr>
-                            <tr>
-                                <td class="_bgColor" data-bgcolor="#DAE3F3">유저 지급</td>
-                                <td class="_bgColor" data-bgcolor="#DAE3F3">테스트 지급</td>
-                                <td class="_bgColor" data-bgcolor="#DAE3F3">증가 합</td>
-
-                                <td class="_bgColor" data-bgcolor="#FFDEAD">유저 차감</td>
-                                <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 차감</td>
-                                <td class="_bgColor" data-bgcolor="#FFDEAD">유저 사용</td>
-                                <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 사용</td>
-                                <td class="_bgColor" data-bgcolor="#FFDEAD">감소 합</td>
-
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="tab-content no-padding" id="layoutDiv"></div>
 </div>
 <!-- DATA TABLE END -->
 
-<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
-<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
-
-<script>
+<script type="text/javascript" src="/js/code/money/boosterCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
+<script type="text/javascript">
     var date = new Date();
     var sDate;
     var eDate;
+
+    var boostHistPagingInfo = new PAGING_INFO(0, 1, 30);
 
     $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
     $('#seldate').datetimepicker({
@@ -140,26 +80,42 @@
         getSearch();
     });
 
-    $('#bt_search').on('click', function(){
+    $(document).on('click', '#bt_search', function(){
+        boostHistPagingInfo.pageNo = 1;
         getSearch();
     });
 
     $(document).on('click', '#boosterTab li a', function(){
+        boostHistPagingInfo.pageNo = 1;
         getSearch();
     });
 
+    $('._show_histList').hide();
+
     function getSearch(){
         var tabId = $('#boosterTab li.active a').prop('id');
+        $('._show_histList').hide();
         if(tabId == 'stat_day'){
             getDaySearch();
         }else if(tabId == 'stat_month'){
             getMonthSearch();
         }else if(tabId == 'stat_year'){
             getYearSearch();
+        }else if(tabId == 'list_hist'){
+
+            $("#searchTypeArea").html(util.getCommonCodeSelect(-1, search_boostHist_type));
+
+            $('._show_histList').show();
+            getHistoryList();
         }
     }
 
     function goSearch(data){
+        //레이아웃 변경
+        var template = $("#tmp_statLayout").html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript();
+        $("#layoutDiv").html(html);
 
         if(common.isEmpty(data)){
             data = {
@@ -188,8 +144,6 @@
                 });
             }
 
-            console.log('파라메터');
-            console.log(param);
             response.data.param = param;
             var html = templateScript(response.data);
             $("#tableBody").html(html);
@@ -199,6 +153,8 @@
             var templateScript = Handlebars.compile(template);
             var html = templateScript(response.data.summary);
             $("#tableTotal").html(html);
+
+            ui.paintColor();
         });
     }
 
@@ -250,6 +206,100 @@
         ui.paintColor();
 
     }
+
+    function getHistoryList(){
+        //레이아웃 변경
+        var template = $("#tmp_histLayout").html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript();
+        $("#layoutDiv").html(html);
+
+        var data = {
+            startDate : $("#onedayDate").val()
+            , pageNo : boostHistPagingInfo.pageNo
+            , pageCnt : boostHistPagingInfo.pageCnt
+            , searchType : $("#searchType").val()
+            , searchText : $("#searchText").val()
+        }
+        util.getAjaxData("histList", "/rest/money/booster/histList", data, function(dist_id, response, param){
+            var template = $("#tmp_histList").html();
+            var templateScript = Handlebars.compile(template);
+            var html = templateScript(response.data);
+            $("#tableBodyHist").html(html);
+
+            boostHistPagingInfo.totalCnt = response.data.paging.totalCnt;
+            util.renderPagingNavigation('histList_paginate', boostHistPagingInfo);
+        });
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        specialDjPagingInfo = pagingInfo;
+        getHistoryList();
+    }
+</script>
+
+<script id="tmp_statLayout" type="text/x-handlebars-template">
+    <div class="tab-pane fade in active" id="liveList">
+        <div class="widget widget-table">
+            <div class="widget-content mt10" style="border-top-width:0px;">
+                <table class="table table-sorting table-hover table-bordered">
+                    <colgroup>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                    </colgroup>
+                    <tr>
+                        <td rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">부스터 아이템<br />현황</td>
+                        <td class="_bgColor" data-bgcolor="#dae3f3">유저 지급</td>
+                        <td class="_bgColor" data-bgcolor="#dae3f3">테스트 지급</td>
+                        <td class="_bgColor" data-bgcolor="#dae3f3">증가 합</td>
+
+                        <td class="_bgColor" data-bgcolor="#FFDEAD">유저 차감</td>
+                        <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 차감</td>
+                        <td class="_bgColor" data-bgcolor="#FFDEAD">유저 사용</td>
+                        <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 사용</td>
+                        <td class="_bgColor" data-bgcolor="#FFDEAD">감소 합</td>
+
+                        <td class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총합</td>
+                    </tr>
+                    <tr id="tableTotal"></tr>
+                </table>
+            </div>
+            <div class="widget-content" style="border-top-width:0px;">
+                <table id="list_info" class="table table-sorting table-hover table-bordered">
+                    <thead id="tableTop">
+                        <tr>
+                            <th rowspan="2">구분</th>
+                            <th colspan="3" class="_bgColor" data-bgcolor="#DAE3F3">아이템 증가</th>
+                            <th colspan="5" class="_bgColor" data-bgcolor="#FFDEAD">아이템 감소</th>
+                            <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총합</th>
+                            <%--<th rowspan="2">증감</th>--%>
+                        </tr>
+                        <tr>
+                            <td class="_bgColor" data-bgcolor="#DAE3F3">유저 지급</td>
+                            <td class="_bgColor" data-bgcolor="#DAE3F3">테스트 지급</td>
+                            <td class="_bgColor" data-bgcolor="#DAE3F3">증가 합</td>
+
+                            <td class="_bgColor" data-bgcolor="#FFDEAD">유저 차감</td>
+                            <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 차감</td>
+                            <td class="_bgColor" data-bgcolor="#FFDEAD">유저 사용</td>
+                            <td class="_bgColor" data-bgcolor="#FFDEAD">테스트 사용</td>
+                            <td class="_bgColor" data-bgcolor="#FFDEAD">감소 합</td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </script>
 
 <script id="tmp_statDayList" type="text/x-handlebars-template">
@@ -323,4 +373,69 @@
             <td class="font-bold">30</td>
         </tr>
     </table>
+</script>
+
+<script id="tmp_histLayout" type="text/x-handlebars-template">
+    <div class="tab-pane fade in active" id="histList" >
+        <div class="widget widget-table">
+            <div class="widget-content mt10" style="border-top-width:0px;">
+                <div class="col-lg-12 row form-inline no-padding mb10">
+                        <button type="button" class="btn btn-primary pull-right" id="bt_member_search">운영자 직접지급</button>
+                </div>
+            </div>
+
+            <div class="widget-content mt10" style="border-top-width:0px;">
+                <table id="list_info" class="table table-sorting table-hover table-bordered">
+                    <thead id="tableTop">
+                        <colgroup>
+                            <col width="5%"/>
+                            <col width="15%"/>
+                            <col width="20%"/>
+                            <col width="10%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="20%"/>
+                            <col width="15%"/>
+                        </colgroup>
+                        <tr>
+                            <td>No</td>
+                            <td>회원번호</td>
+                            <td>닉네임</td>
+                            <td>성별</td>
+                            <td>상태</td>
+                            <td>수량</td>
+                            <td>보유수량</td>
+                            <td>상태 변경 일시</td>
+                            <td>처리자명</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBodyHist"></tbody>
+                </table>
+                <div class="dataTables_paginate paging_full_numbers" id="histList_paginate"></div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="tmp_histList" type="text/x-handlebars-template">
+    {{#each this.list as |data|}}
+        <tr>
+            <td>{{data.rowNum}}</td>
+            <td>{{{memNoLink data.mem_no data.mem_no}}}</td>
+            <td>{{data.mem_nick}}</td>
+            <td>{{{sexIconBr data.mem_sex data.mem_birth_year}}}</td>
+            <td>{{{memberItemState data.state}}}</td>
+            <td>{{addComma data.use_cnt}}</td>
+            <td>{{addComma data.item_cnt}}</td>
+            <td>{{data.last_upd_date}}</td>
+            <td>{{data.op_name}}</td>
+        </tr>
+    {{else}}
+        <tr>
+            <td colspan="9">
+                {{isEmptyData}}
+            </td>
+        </tr>
+    {{/each}}
 </script>

@@ -5,4 +5,9 @@
     <select id="callBoosterStat" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.money.vo.procedure.P_memberBoostStatOutputVo">
         call rd_admin.sp_admin_stat_member_broadcast_booster(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callBoosterHistList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.money.vo.procedure.P_memberBoostHistListOutputVo">
+        call rd_admin.sp_admin_member_broadcast_booster_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
 </mapper>

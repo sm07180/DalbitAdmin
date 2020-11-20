@@ -68,3 +68,14 @@ Handlebars.registerHelper("adultStatusCheck", function (age, recantYn, opt) {
         return opt.fn(this);
     }
 });
+
+Handlebars.registerHelper("memberItemState", function (state) {
+    if(state == 1){
+        return common.fontColor("지급", 1, 'red');
+    }else if(state == 2){
+        return common.fontColor("사용", 2, 'black');
+    }else if(state == 3){
+        return common.fontColor("차감", 3, 'blue');
+    }
+    return state;
+});
