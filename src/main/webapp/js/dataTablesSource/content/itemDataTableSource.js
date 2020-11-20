@@ -230,9 +230,9 @@ var ItemDataTableSource = {
             {'title': '사운드여부', 'data': 'sound_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data == 0 ? '-' : 'Y';
                 }},
-            {'title': '인앱여부', 'data': 'in_app_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+            /*{'title': '인앱여부', 'data': 'in_app_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data == 0 ? '-' : 'Y';
-                }},
+                }},*/
             {'title': '게시상태', 'data': 'view_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, content_viewOn);
                 }},

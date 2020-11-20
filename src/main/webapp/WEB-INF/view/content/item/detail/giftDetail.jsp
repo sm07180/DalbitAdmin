@@ -481,8 +481,12 @@
                         </audio>
                     </td>
 
-                    <th>인앱 여부</th>
-                    <td colspan="3">
+                    <th></th>
+                    <td colspan="3"></td>
+
+                    <!-- 인앱여부 사용안한다고 해서 일단 안보이게 처리 -->
+                    <th style="display:none;">인앱 여부</th>
+                    <td colspan="3" style="display:none;">
                         <label class="control-inline fancy-checkbox custom-color-green">
                             <input type="checkbox" value="1" id="in_app_yn" name="in_app_yn" class="form-control" {{#equal in_app_yn 1}}checked{{/equal}} />
                             <span><i></i>선택 시 APP 안에 다운로드 되어 사용됩니다.</span>
