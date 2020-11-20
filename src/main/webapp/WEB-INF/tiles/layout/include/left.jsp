@@ -10,14 +10,14 @@
 <script type="text/javascript" src="/js/inforexApi.js?${dummyData}"></script>
 <script type="text/javascript">
     $(document).on('keyup keydown keypress', '#menuSearch', function(e){
-       var searchText = $("#menuSearch").val();
+       var searchText = $("#menuSearch").val().toLowerCase();
 
        $('._searched').removeClass('_searched');
 
        //2뎁스 처리
        $('.sub-menu').each(function(){
           $(this).find('._dalbit').each(function(){
-              if(-1 < $(this).text().indexOf(searchText)){
+              if(-1 < $(this).text().toLowerCase().indexOf(searchText)){
                   $(this).parent().addClass('_searched').show();
                   $(this).closest('ul').parent().find('._dalbit:eq(0)').addClass('_searched');
               }else{
@@ -28,7 +28,7 @@
 
        //1뎁스 처리
        $("li.menu1 > ._dalbit").each(function(){
-           if(-1 < $(this).text().indexOf(searchText)){
+           if(-1 < $(this).text().toLowerCase().indexOf(searchText)){
                $(this).parent().addClass('_searched').show();
            }else{
                var menu1 = $(this).closest('li');
