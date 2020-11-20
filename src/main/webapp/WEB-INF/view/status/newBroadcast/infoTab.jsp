@@ -36,16 +36,13 @@
         }
         if(tabId == 'tab_time' || tabId == 'tab_gift'){
             slctType = "0";
-            me = 0;
         }else if(tabId == 'tab_day') {
             slctType = "1";
-            me = 1;
         }else if(tabId == 'tab_year') {
             slctType = "2";
-            me = 2;
         }
 
-        radioChange();
+        dateType(slctType);
 
         if(tabId == 'tab_time'){
             getTimeList();

@@ -37,7 +37,7 @@
 
                                         <span id="searchCheck">
                                             <label class="control-inline fancy-checkbox custom-color-green">
-                                                <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                                <input type="checkbox" name="search_testId" id="search_testId" value="1">
                                                 <span>테스트 아이디 제외</span>
                                             </label>
                                         </span>

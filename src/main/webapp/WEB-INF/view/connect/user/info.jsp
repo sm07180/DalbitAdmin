@@ -6,18 +6,25 @@
     <div id="page-wrapper">
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
-                <div class="widget-header searchBoxRow">
-                    <h3 class="title"><i class="fa fa-search"></i>현재 접속자 회원 검색</h3>
-                    <div>
-                        <span id="searchType"></span>
-                        <label><input type="text" class="form-control" id="txt_search"></label>
-                        <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                        <label class="control-inline fancy-checkbox custom-color-green">
-                            <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                            <span>테스트 아이디 제외</span>
-                        </label>
-                    </div>
-                </div>
+                <table>
+                    <tr>
+                        <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                            <i class="fa fa-search"></i><br/>검색
+                        </th>
+                        <td style="text-align: left">
+                            <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." ></label>
+
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                            <span id="searchCheck">
+                                <label class="control-inline fancy-checkbox custom-color-green">
+                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                    <span>테스트 아이디 제외</span>
+                                </label>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 
@@ -81,6 +88,8 @@
     </div> <!-- // wrapper -->
 </div>
 
+<jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 
@@ -114,7 +123,7 @@
     }
 
     $(document).on('click', '._ipSearch', function(){
-       $("#txt_search").val($(this).text());
+       $("#searchText").val($(this).text());
        $("#bt_search").click();
     });
 

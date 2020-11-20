@@ -62,8 +62,8 @@
 
     $(document).on('click', '._detail', function() {
        var data = {
-           'select_year': $(this).data('year')
-           , 'select_month': $(this).data('month')
+           'select_year': common.substr($("#startDate").val(),0,4)
+           , 'select_month':  common.substr($("#startDate").val(),5,2)
        };
        util.getAjaxData("detail", "/rest/menu/special/selectManageInfo", data, fn_success_manage_detail);
     });

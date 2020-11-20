@@ -51,7 +51,7 @@
 
         var dtList_data = function (data) {
             data.pageCnt = 100;
-            data.searchText = $("#txt_search").val();
+            data.searchText = $("#searchText").val();
             data.sortState = $("select[name='liveListenSort']").val();
             data.inner = 0;
         };
@@ -77,7 +77,7 @@
         var data = {};
         data.slctType = 1;
         data.dj_slctType = 0;
-        data.dj_searchText = $('#txt_search').val();
+        data.dj_searchText = $('#searchText').val();
         data.room_slctType = -1;
         data.room_searchText = "";
         data.ortStartDate =2;

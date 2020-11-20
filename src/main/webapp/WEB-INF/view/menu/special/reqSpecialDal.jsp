@@ -80,8 +80,8 @@
 
     function reqGetSummary(){
         var data = {
-            select_year: $('#select_year').val()
-            , select_month: $('#select_month').val()
+            select_year:  common.substr($("#startDate").val(),0,4)
+            , select_month: common.substr($("#startDate").val(),5,2)
         };
         util.getAjaxData("summary", "/rest/menu/special/summary", data, fn_reqSummary_success);
     }

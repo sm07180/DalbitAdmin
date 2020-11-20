@@ -1,5 +1,6 @@
 package com.dalbit.money.service;
 
+import com.dalbit.clip.vo.ClipHistoryTotalVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
@@ -35,6 +36,20 @@ public class Mon_BoosterService {
         HashMap resultMap = new HashMap();
         resultMap.put("summary", summary);
         resultMap.put("list", statList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+    }
+
+    public String callBoosterHistList(P_memberBoostHistListInputVo pMemberBoostHistListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberBoostHistListInputVo);
+
+        ArrayList<P_memberBoostHistListOutputVo> histList = monBoosterDao.callBoosterHistList(procedureVo);
+
+        HashMap paging = new Gson().fromJson(procedureVo.getExt(), HashMap.class);
+
+        HashMap resultMap = new HashMap();
+        resultMap.put("list", histList);
+        resultMap.put("paging", paging);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }

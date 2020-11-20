@@ -9,16 +9,37 @@
                 <form id="searchForm">
                     <div class="row col-lg-12 form-inline">
                         <div class="widget widget-table searchBoxArea">
-                            <div class="widget-header searchBoxRow">
-                                <h3 class="title"><i class="fa fa-search"></i> 스페셜 DJ 검색</h3>
-                                <div>
-                                    <span id="searchYearArea"></span>
-                                    <span id="searchMonthArea"></span>
-                                    <span id="searchArea"></span>
-                                    <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
-                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                </div>
-                            </div>
+
+                            <table>
+                                <tr>
+                                    <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                        <i class="fa fa-search"></i><br/>검색
+                                        <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                    </th>
+                                    <th id="th_bottonList">
+                                        <div>
+                                            <div id="div_monthButton"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left">
+                                        <input id="monthDate" type="text" class="form-control"/>
+                                        <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                        <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                        <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                        <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+
+                                        <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+
+                                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                                        <a href="javascript://" class="_prevSearch">[이전]</a>
+                                        <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                        <a href="javascript://" class="_nextSearch">[다음]</a>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </form>
@@ -40,11 +61,8 @@
 <script type="text/javascript">
 
     $(function() {
-        $('#searchYearArea').html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), special_selectYears));
-        $('#searchMonthArea').html(util.getCommonCodeSelect(moment(new Date()).format('MM'), special_selectMonths));
-        $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
-
-        getList();
+        slctType = 1;
+        setDayButton();
     });
 
     $('#bt_search').on('click', function () {
@@ -62,7 +80,7 @@
         }
     });
 
-    $('input[id="txt_search"]').keydown(function () {
+    $('input[id="searchText"]').keydown(function () {
         var tab = $('#tablist_con li.active');
         var tabIndex = $('#tablist_con li').index(tab);
         if (event.keyCode == 13) {
@@ -84,8 +102,8 @@
             var obj = {
                 mem_no : data.mem_no
                 , is_force : 1
-                , select_year : $('#select_year').val()
-                , select_month : $('#select_month').val()
+                , select_year : common.substr($("#startDate").val(),0,4)
+                , select_month :  common.substr($("#startDate").val(),5,2)
             };
             util.getAjaxData("ok", "/rest/menu/special/reqOk", obj, fn_success_ok);
         }

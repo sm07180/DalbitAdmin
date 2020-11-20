@@ -9,16 +9,28 @@
         <form id="searchForm">
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
-                <div class="widget-header searchBoxRow">
-                    <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
-                    <div>
-                        <span id="searchRadio"></span>
-                        <span id="searchType_broad"></span>
-                        <span id="searchRoom_state"></span>
-                        <label><input type="text" class="form-control" id="txt_search"></label>
-                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                    </div>
-                </div>
+
+                <table>
+                    <tr>
+                        <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                            <i class="fa fa-search"></i><br/>검색
+                        </th>
+                        <td style="text-align: left">
+                            <span id="searchRadio"></span>
+                            <span id="searchRoom_state"></span>
+                            <div class="input-group date" id="seldate" style="display: none;">
+                                <label for="onedayDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
+                                </label>
+                                <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                            </div>
+                            <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." ></label>
+
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         </form>
@@ -69,7 +81,7 @@
         }
     });
 
-    $('input[id="txt_search"]').keydown(function() {
+    $('input[id="searchText"]').keydown(function() {
         if (event.keyCode === 13) {
             getSearch();
         };
@@ -85,7 +97,7 @@
         data.slctType = slctType;
         if(slctType == "1"){      // DJ정보
             data.dj_slctType = $("select[name='searchType_broad']").val();
-            data.dj_searchText = $('#txt_search').val();
+            data.dj_searchText = $('#searchText').val();
             data.room_slctType = -1;
             data.room_searchText = "";
             data.ortStartDate =2;
@@ -93,7 +105,7 @@
             data.dj_slctType = -1;
             data.dj_searchText = "";
             data.room_slctType = $("select[name='searchBroad_broad']").val();
-            data.room_searchText = $('#txt_search').val();
+            data.room_searchText = $('#searchText').val();
             data.ortStartDate =2;
         }
         data.room_liveType = tmp_room_liveType;
@@ -116,10 +128,10 @@
         tmp_slctType = $('input[name="searchRadio"]:checked').val();
         if(slctType == "1"){
             tmp_dj_slctType = $("select[name='searchType_broad']").val();
-            tmp_dj_searchText = $('#txt_search').val();
+            tmp_dj_searchText = $('#searchText').val();
         }else {
             tmp_room_slctType = $("select[name='searchBroad_broad']").val();
-            tmp_room_searchText = $('#txt_search').val();
+            tmp_room_searchText = $('#searchText').val();
         }
         tmp_room_liveType = $("select[name='searchRoom_state']").val();
         dtList_info.reload();
