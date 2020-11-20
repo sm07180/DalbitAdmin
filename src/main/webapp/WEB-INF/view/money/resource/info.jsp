@@ -124,7 +124,9 @@
     });
 
     $("#bt_search").on('click', function(){
-        console.log(tabType);
+        if(common.isEmpty(tabType)){
+            tabType = 0;
+        }
         if(tabType == 0 || tabType == 1 || tabType == 2){
             getResourceInfo();
         }else if (tabType == 3){
