@@ -8,12 +8,51 @@
 <c:set var="param_menu" value="${param.menu}" />
 
 <script type="text/javascript" src="/js/inforexApi.js?${dummyData}"></script>
+<script type="text/javascript">
+    $(document).on('keyup keydown keypress', '#menuSearch', function(e){
+       var searchText = $("#menuSearch").val();
+
+       $('._searched').removeClass('_searched');
+
+       //2뎁스 처리
+       $('.sub-menu').each(function(){
+          $(this).find('._dalbit').each(function(){
+              if(-1 < $(this).text().indexOf(searchText)){
+                  $(this).parent().addClass('_searched').show();
+                  $(this).closest('ul').parent().find('._dalbit:eq(0)').addClass('_searched');
+              }else{
+                  $(this).parent().hide();
+              }
+          });
+       });
+
+       //1뎁스 처리
+       $("li.menu1 > ._dalbit").each(function(){
+           if(-1 < $(this).text().indexOf(searchText)){
+               $(this).parent().addClass('_searched').show();
+           }else{
+               var menu1 = $(this).closest('li');
+               if(!menu1.parent().hasClass('_searched')){
+                   $(this).hide();
+               }
+           }
+        });
+
+       $('._searched').each(function(){
+           $(this).show();
+       });
+    });
+</script>
 <!-- left sidebar -->
 <div id="left-sidebar" class="left-sidebar _leftFixed">
     <!-- main-nav -->
     <div class="sidebar-scroll" style="overflow:auto;">
         <nav class="main-nav">
             <ul class="main-menu">
+
+                <li>
+                    <input type="text" value="" class="form-control" id="menuSearch" placeholder="메뉴검색" />
+                </li>
 
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
 
