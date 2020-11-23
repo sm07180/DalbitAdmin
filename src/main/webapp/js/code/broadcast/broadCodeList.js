@@ -273,7 +273,7 @@ var elseItem = [
 ];
 
 var behavior_target = [
-    new COMMON_CODE(null, 'target', '대상')
+    new COMMON_CODE(null, 'target', '노출대상')
     , new COMMON_CODE('1', '1', '청취자')
     // 추후에 추가 될 수 있음
 ];
@@ -288,6 +288,20 @@ var behavior_type = [
 
 var behavior_viewYn = [
     new COMMON_CODE(null, 'viewYn', '노출여부')
-    , new COMMON_CODE('0', '0', 'Off')
-    , new COMMON_CODE('1', '1', 'On')
+    , new COMMON_CODE('off', '0', 'Off')
+    , new COMMON_CODE('on', '1', 'On')
+];
+
+var behavior_target_search = [
+    new COMMON_CODE(null, 'target', '노출대상')
+    , new COMMON_CODE('all', -1, '노출대상(전체)')
+    , new COMMON_CODE('1', 1, '청취자')
+    // 추후에 추가 될 수 있음
+];
+
+var behavior_viewYn_search = [
+    new COMMON_CODE(null, 'viewYn', '노출여부')
+    , new COMMON_CODE('all', -1, '노출여부(전체)')
+    , new COMMON_CODE('off', 2, 'Off')
+    , new COMMON_CODE('on', 1, 'On')
 ];
