@@ -35,30 +35,21 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
-    var tabId;
+    var tabId = "tab_total";
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
         $("#slctTypeArea").show();
         $("#slctTypeArea2").hide();
-        if(tabId == 'tab_total'){
-            getTotalList();
-        }else if(tabId == 'tab_genderDetail'){
-            getGenderList();
-        }else if(tabId == 'tab_ageDetail'){
-            getAgeList();
-        }else if(tabId == 'tab_broadcastDetail'){
+
+        if(tabId == 'tab_broadcastDetail'){
             $("#slctTypeArea").hide();
             $("#slctTypeArea2").show();
-            getBroadList();
-        }else if(tabId == 'tab_clipDetail'){
+        }else if(tabId == 'tab_clipDetail') {
             $("#slctTypeArea").hide();
             $("#slctTypeArea2").show();
-            getClipList();
-        }else if(tabId == 'tab_castDetail'){
-        }else if(tabId == 'tab_storeEtcDetail') {
-        }else if(tabId == 'tab_itemDetail') {
-        }else if(tabId == 'tab_buyHistoryDetail') {
         }
+
+        radioChange();
 
         $(".searchDate").html($("#onedayDate").val());
     });
@@ -75,6 +66,20 @@
             }
         }
 
-        $("#tablist_con li.active a").click();
+        if(tabId == 'tab_total'){
+            getTotalList();
+        }else if(tabId == 'tab_genderDetail'){
+            getGenderList();
+        }else if(tabId == 'tab_ageDetail'){
+            getAgeList();
+        }else if(tabId == 'tab_broadcastDetail'){
+            getBroadList();
+        }else if(tabId == 'tab_clipDetail'){
+            getClipList();
+        }else if(tabId == 'tab_castDetail'){
+        }else if(tabId == 'tab_storeEtcDetail') {
+        }else if(tabId == 'tab_itemDetail') {
+        }else if(tabId == 'tab_buyHistoryDetail') {
+        }
     });
 </script>
