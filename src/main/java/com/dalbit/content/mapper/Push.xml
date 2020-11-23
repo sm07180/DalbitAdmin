@@ -26,6 +26,10 @@
             ,is_noti          AS is_noti
             ,send_type          AS send_type
             ,push_slct      AS push_slct
+            , (SELECT count(*) from rd_stmp.smtp_push_data_android where admin_idx = idx)
+				+ (SELECT count(*) from rd_stmp.smtp_push_data_web where admin_idx = idx)
+			    + (SELECT count(*) from rd_stmp.smtp_push_data_web_large where admin_idx = idx)
+			    + (SELECT count(*) from rd_stmp.smtp_push_data_schedule where admin_idx = idx) as reservationCnt
         FROM
             rd_admin.tb_admin_push
     </sql>
@@ -246,4 +250,23 @@
           from rd_data.tb_member_basic
         where mem_no = #{memNo}
     </select>
+
+
+    <!-- ====== 예약 push 삭제 ==========-->
+    <delete id="callContentsPushAndroid" parameterType="com.dalbit.content.vo.procedure.P_pushDeleteVo">
+        DELETE FROM rd_stmp.smtp_push_data_android WHERE admin_idx = #{push_idx}
+    </delete>
+
+    <delete id="callContentsPushWeb" parameterType="com.dalbit.content.vo.procedure.P_pushDeleteVo">
+        DELETE FROM rd_stmp.smtp_push_data_web WHERE admin_idx = #{push_idx}
+    </delete>
+
+    <delete id="callContentsPushWebLarge" parameterType="com.dalbit.content.vo.procedure.P_pushDeleteVo">
+        DELETE FROM rd_stmp.smtp_push_data_web_large WHERE admin_idx = #{push_idx}
+    </delete>
+
+    <delete id="callContentsPushSchedule" parameterType="com.dalbit.content.vo.procedure.P_pushDeleteVo">
+        DELETE FROM rd_stmp.smtp_push_data_schedule WHERE admin_idx = #{push_idx}
+    </delete>
+    <!-- =============================== -->
 </mapper>

@@ -210,6 +210,11 @@ public class PushService {
         for(int i=0; i < idxs.length; i++) {
             ProcedureVo procedureVo = new ProcedureVo(new P_pushDeleteVo(idxs[i]));
 
+            pushDao.callContentsPushAndroid(new P_pushDeleteVo(idxs[i]));
+            pushDao.callContentsPushWeb(new P_pushDeleteVo(idxs[i]));
+            pushDao.callContentsPushWebLarge(new P_pushDeleteVo(idxs[i]));
+            pushDao.callContentsPushSchedule(new P_pushDeleteVo(idxs[i]));
+
             int deleteResult = pushDao.callContentsPushDelete(new P_pushDeleteVo(idxs[i]));
 
             if (deleteResult > 0) {

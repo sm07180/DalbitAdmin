@@ -58,6 +58,13 @@ var PushDataTableSource = {
              {'title': '메시지 제목', 'data': 'send_title', 'width':'50%', 'render': function (data, type, row, meta) {
                      return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
                  }},
+            {'title': '발송대기', 'data': 'reservationCnt', 'width':'80px', 'render': function (data, type, row, meta) {
+                    if(data > 0){
+                        return 'Y';
+                    }else{
+                        return 'N';
+                    }
+                }},
              {'title': '발송 일시', 'data': 'send_datetimeFormat', 'width':'100px', 'render': function (data, type, row, meta) {
                      return data;
                  }},
