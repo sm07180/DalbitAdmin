@@ -67,52 +67,50 @@
         $("#totalContainer").addClass("col-md-3");
         $("#tabContainer").addClass("col-lg-9");
 
+        $("._prevSearch").hide();
+        $("._todaySearch").hide();
+        $("._nextSearch").hide();
 
+        $("input:radio[name='isChoiceDate']:radio[value='1']").prop('checked', true);  // 날짜 전체, 선택 여부
+
+        $("#isChoiceDateArea").hide();
         if(tabId == 'tab_all'){         //클립 관리 (전체)
-            $("input:radio[name='slctType']:radio[value='-1']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
+            slctType = 99;
             $("input:radio[name='isChoiceDate']:radio[value='-1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").hide();
-            $("#div_searchArea").show();
-            $(".date").hide();
-            $("#div_stepButtonArea").hide();
-
             initClipHistory();
         }else if(tabId == 'tab_today'){     //클립 관리 (오늘)
-            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true); // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").hide();
-            // $("#div_searchArea").css('display', 'inline');
-            $("#div_searchArea").show();
-            $("#div_stepButtonArea").show();
+            slctType = 3;
+            $("._prevSearch").show();
+            $("._todaySearch").show();
+            $("._nextSearch").show();
             initClipHistory();
         }else if(tabId == 'tab_member'){    // 클립 관리 (회원)
-            $("#search_aria").html(util.getCommonCodeSelect(-1, clip_member_searchType))
-            $("input:radio[name='slctType']:radio[value='-1']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
+            slctType = 99;
             $("input:radio[name='isChoiceDate']:radio[value='-1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").hide();
-            $("#div_searchArea").hide();
+            $("#search_aria").html(util.getCommonCodeSelect(-1, clip_member_searchType))
         }else if(tabId == 'tab_listen'){    // 클립 청취
+            slctType = 3;
+            $("._prevSearch").show();
+            $("._todaySearch").show();
+            $("._nextSearch").show();
             $("#search_aria").html(util.getCommonCodeSelect(-1, clip_listen_searchType));
-            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").hide();
-            $("#div_searchArea").show();
             $("#div_stepButtonArea").show();
         }else if(tabId == 'tab_gift'){      // 클립 선물
+            slctType = 3;
+            $("._prevSearch").show();
+            $("._todaySearch").show();
+            $("._nextSearch").show();
             $("#search_aria").html(util.getCommonCodeSelect(-1, clip_gift_searchType));
-            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='1']").prop('checked', true);  // 날짜 전체, 선택 여부
             $("#isChoiceDateArea").show();
-            $("#div_searchArea").show();
-            $("#div_stepButtonArea").show();
         }else if(tabId == 'tab_remove'){        //클립 삭제
-            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);  // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='1']").prop('checked', true);  // 날짜 전체, 선택 여부
+            slctType = 3;
+            $("._prevSearch").show();
+            $("._todaySearch").show();
+            $("._nextSearch").show();
             $("#isChoiceDateArea").show();
-            $("#div_searchArea").show();
-            $("#div_stepButtonArea").show();
         }
-        radioChange();
+        dateType();
+
         $(".searchDate").html($("#onedayDate").val());
         $("#bt_search").click();
     });

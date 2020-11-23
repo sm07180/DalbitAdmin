@@ -8,10 +8,44 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                    <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <span id="isChoiceDateArea"></span>
+                                    <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
+
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                    <span id="searchCheck">
+                                        <label class="control-inline fancy-checkbox custom-color-green">
+                                            <input type="checkbox" name="search_testId" id="search_testId" value="1">
+                                            <span>테스트 아이디 제외</span>
+                                        </label>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <%--<div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
-                                <span id="isChoiceDateArea"></span>
+
                                 <span id="slctTypeArea" style="display: none;"></span>
                                 <div class="input-group date" id="oneDayDatePicker">
                                     <label for="onedayDate" class="input-group-addon">
@@ -44,13 +78,13 @@
                                 <input type="hidden" name="startDate" id="startDate">
                                 <input type="hidden" name="endDate" id="endDate" />
 
-                                <%--<input name="startDate" id="startDate">--%>
-                                <%--<input name="endDate" id="endDate" />--%>
+                                &lt;%&ndash;<input name="startDate" id="startDate">&ndash;%&gt;
+                                &lt;%&ndash;<input name="endDate" id="endDate" />&ndash;%&gt;
 
                                 <div class="control-inline pt5 mr0" id="div_searchArea" style="display: none;">
                                     <span id="search_platform_aria" style="display: none"></span>
                                     <span id="search_aria"></span>
-                                    <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                    <label><input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 </div>
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -65,11 +99,19 @@
                                     <span>테스트 아이디 제외</span>
                                 </label>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </form>
         </div>
+
+        <%--data.searchTypeOpen = Number($("#searchTypeOpen").val());--%>
+        <%--data.searchConfirm = Number($("#searchConfirm").val());--%>
+        <%--data.searchState = Number($("#searchState").val());--%>
+        <%--data.orderByType = Number($("#clipOrderByType").val());--%>
+        <%--data.subjectType = Number(common.isEmpty($("#clipSubjectType").val()) ? "-1" : $("#clipSubjectType").val());--%>
+
+
         <div class="col-md-3 no-padding pull-right" id="totalContainer">
             <div id="headerInfo"></div>
         </div>
@@ -88,107 +130,116 @@
 <script type="text/javascript" src="/js/code/clip/clipCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    var week = ['일', '월', '화', '수', '목', '금', '토'];
-    var toDay = week[moment(new Date()).day()];
-    setTimeDate(dateTime);
+    // var dateTime = new Date();
+    // dateTime = moment(dateTime).format("YYYY.MM.DD");
+    // var week = ['일', '월', '화', '수', '목', '금', '토'];
+    // var toDay = week[moment(new Date()).day()];
+    // setTimeDate(dateTime);
+
 
     $(function(){
+        slctType = 99;
         $("#isChoiceDateArea").append(util.getCommonCodeRadio(-1, clip_isChoiceDate));
-        $("#slctTypeArea").append(util.getCommonCodeRadio(-1, clip_slctType));
+        // $("#slctTypeArea").append(util.getCommonCodeRadio(-1, clip_slctType));
         // $("#slctTypeArea").find("input:radio[name='slctType'][value='3']").parent().attr('style', 'display:none !important');
 
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, clip_platform));
-        $("#search_aria").html(util.getCommonCodeSelect(-1, clip_searchType));
+        // $("#search_platform_aria").html(util.getCommonCodeSelect(-1, clip_platform));
+        // $("#search_aria").html(util.getCommonCodeSelect(-1, clip_searchType));
 
-        $('input[id="txt_search"]').keydown(function() {
+        dateType();
+        $('input[id="searchText"]').keydown(function() {
             if (event.keyCode === 13) {
                 $("#bt_search").click();
             };
         });
 
-        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
-            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-            $("#startDate").val(selectDate);
-            $("#endDate").val(selectDate);
-        });
-
-        $('#monthDate').datepicker({
-            minViewMode: 'months',
-            format: 'yyyy.mm',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-
-        $("#monthDate").on('change', function () {
-            var monthLastDate = new Date($("#monthDate").val().substr(0,4),$("#monthDate").val().substr(5,6),-1);
-            $("#startDate").val($("#monthDate").val() + '.01');
-            $("#endDate").val($("#monthDate").val() + "." +  (monthLastDate.getDate() + 1));
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        });
-
-        $('#yearDate').datepicker({
-            minViewMode: 'years',
-            format: 'yyyy',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-        $("#yearDate").on('change', function () {
-            $("#startDate").val($("#yearDate").val() + '.01.01');
-            $("#endDate").val($("#yearDate").val() + ".12.31");
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-        });
+        // $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
+        //     var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+        //     $("#startDate").val(selectDate);
+        //     $("#endDate").val(selectDate);
+        // });
+        //
+        // $('#monthDate').datepicker({
+        //     minViewMode: 'months',
+        //     format: 'yyyy.mm',
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     autoclose: true,
+        //     language: 'kr',
+        // });
+        //
+        // $("#monthDate").on('change', function () {
+        //     var monthLastDate = new Date($("#monthDate").val().substr(0,4),$("#monthDate").val().substr(5,6),-1);
+        //     $("#startDate").val($("#monthDate").val() + '.01');
+        //     $("#endDate").val($("#monthDate").val() + "." +  (monthLastDate.getDate() + 1));
+        //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
+        // });
+        //
+        // $('#yearDate').datepicker({
+        //     minViewMode: 'years',
+        //     format: 'yyyy',
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     autoclose: true,
+        //     language: 'kr',
+        // });
+        // $("#yearDate").on('change', function () {
+        //     $("#startDate").val($("#yearDate").val() + '.01.01');
+        //     $("#endDate").val($("#yearDate").val() + ".12.31");
+        //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
+        // });
 
         // setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
-        setRangeDatepicker(moment(), moment())
+        // setRangeDatepicker(moment(), moment())
 
         $("#tab_all").click();
 
     });
 
-    function setRangeDatepicker(startDate, endDate){
-        $('#rangeDate').daterangepicker({
-            startDate: startDate,
-            endDate: endDate
-        }, function(startDate,endDate){
-            $("#startDate").val(moment(startDate).format("YYYY.MM.DD"));
-            $("#endDate").val(moment(endDate).format("YYYY.MM.DD"));
-            $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-            $("#bt_search").click();
-        });
-    }
+    // function setRangeDatepicker(startDate, endDate){
+    //     $('#rangeDate').daterangepicker({
+    //         startDate: startDate,
+    //         endDate: endDate
+    //     }, function(startDate,endDate){
+    //         $("#startDate").val(moment(startDate).format("YYYY.MM.DD"));
+    //         $("#endDate").val(moment(endDate).format("YYYY.MM.DD"));
+    //         $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+    //         $("#bt_search").click();
+    //     });
+    // }
 
-    function setTimeDate(dateTime){
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-        $("._searchDate").html(dateTime + " (" + toDay + ")");
-    }
-    function setRangeDate(displayDate, startDate, endDate){
-        $("#startDate").val(startDate);
-        $("#endDate").val(endDate);
-        $("#onedayDate").val(startDate);
-        $("#monthDate").val(startDate.substr(0,7));
-        $("#yearDate").val(startDate.substr(0,4));
-    }
+    // function setTimeDate(dateTime){
+    //     $("#onedayDate").val(dateTime);
+    //     $("#startDate").val(dateTime);
+    //     $("#endDate").val(dateTime);
+    //     $("._searchDate").html(dateTime + " (" + toDay + ")");
+    // }
+    // function setRangeDate(displayDate, startDate, endDate){
+    //     $("#startDate").val(startDate);
+    //     $("#endDate").val(endDate);
+    //     $("#onedayDate").val(startDate);
+    //     $("#monthDate").val(startDate.substr(0,7));
+    //     $("#yearDate").val(startDate.substr(0,4));
+    // }
 
-    $(document).on('change', 'input[name="slctType"]', function(){
-        radioChange();
-        $("#bt_search").click();
-    });
+    // $(document).on('change', 'input[name="slctType"]', function(){
+    //     radioChange();
+    //     $("#bt_search").click();
+    // });
 
     $(document).on('change', 'input[name="isChoiceDate"]', function(){
         var type = $(this).val();
 
-        if(type == -1){ // 전체
-            $(".date").hide();
+        if(type != 1){ // 전체
+            $("._prevSearch").hide();
+            $("._todaySearch").hide();
+            $("._nextSearch").hide();
+            $("#rangeDatepicker").hide();
         }else{
-            radioChange();
+            $("._prevSearch").show();
+            $("._todaySearch").show();
+            $("._nextSearch").show();
+            $("#rangeDatepicker").show();
         }
 
         $("#bt_search").click();
@@ -198,182 +249,182 @@
         $("#bt_search").click();
     });
 
+    //
+    //
+    // $(document).on('click', '._prevSearch', function(){
+    //     searchDate('prev');
+    // });
+    //
+    // $(document).on('click', '._nextSearch', function(){
+    //     searchDate('next');
+    // });
+    //
+    // $(document).on('click', '._todaySearch', function(){
+    //     if(tabId == 'tab_total'){
+    //         toDay = week[moment(new Date()).day()];
+    //         $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+    //         setTimeDate(dateTime);
+    //     }else if(tabId == 'tab_history'){
+    //         $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+    //         setTimeDate(dateTime);
+    //     }else if(tabId == 'tab_notice'){
+    //         $("input:radio[name='slctType']:radio[value='1']").prop('checked', true);
+    //     }
+    //     radioChange();
+    //     $("#bt_search").click();
+    // });
 
+    // function radioChange(){
+    //     if($('input[name="isChoiceDate"]:checked').val() == -1){
+    //         $("#oneDayDatePicker").hide();
+    //         $("#monthDatepicker").hide();
+    //         $("#yearDatepicker").hide();
+    //         $("#rangeDatepicker").hide();
+    //         $("#startDate").val($("#onedayDate").val());
+    //         $("#endDate").val($("#onedayDate").val());
+    //         return;
+    //     }
+    //
+    //     if($('input[name="slctType"]:checked').val() == 0){
+    //         $("#oneDayDatePicker").show();
+    //         $("#monthDatepicker").hide();
+    //         $("#yearDatepicker").hide();
+    //         $("#rangeDatepicker").hide();
+    //         $("#startDate").val($("#onedayDate").val());
+    //         $("#endDate").val($("#onedayDate").val());
+    //     }else{
+    //         if($('input[name="slctType"]:checked').val() == 1){
+    //             // 일별 -----------------------------------
+    //             $("#oneDayDatePicker").hide();
+    //             $("#monthDatepicker").show();
+    //             $("#yearDatepicker").hide();
+    //             $("#rangeDatepicker").hide();
+    //
+    //             var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
+    //             $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
+    //             $("#endDate").val($("#onedayDate").val().substr(0,8) + (monthLastDate.getDate() + 1));
+    //             $("#monthDate").val($("#onedayDate").val().substr(0,7));
+    //
+    //             var rangeDate = $("#monthDate").val().split(' - ');
+    //             if(-1 < rangeDate.indexOf(' - ')){
+    //                 $("#startDate").val(rangeDate[0]);
+    //                 $("#endDate").val(rangeDate[1]);
+    //             };
+    //             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
+    //         }else if($('input[name="slctType"]:checked').val() == 3){
+    //             $("#oneDayDatePicker").hide();
+    //             $("#monthDatepicker").hide();
+    //             $("#yearDatepicker").hide();
+    //             $("#rangeDatepicker").show();
+    //
+    //             $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //             $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //             $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+    //             setRangeDatepicker($("#startDate").val(), $("#endDate").val());
+    //
+    //             var rangeDate = $("#rangeDate").val().split(' - ');
+    //             if(-1 < rangeDate.indexOf(' - ')){
+    //                 $("#startDate").val(rangeDate[0]);
+    //                 $("#endDate").val(rangeDate[1]);
+    //             }
+    //
+    //             $("._searchDate").html($("#startDate").val() + ' - ' + $("#endDate").val());
+    //         }else{
+    //             // 월별 ----------------------------------
+    //             $("#oneDayDatePicker").hide();
+    //             $("#monthDatepicker").hide();
+    //             $("#yearDatepicker").show();
+    //
+    //             var yearDate = new Date();
+    //             $("#startDate").val(yearDate.getFullYear() + '.01.01');
+    //             $("#endDate").val(yearDate.getFullYear() + ".12.31");
+    //             $("#yearDate").val(yearDate.getFullYear());
+    //             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
+    //         }
+    //     }
+    // }
 
-    $(document).on('click', '._prevSearch', function(){
-        searchDate('prev');
-    });
+    // function searchDate(dateType){
+    //     if($('input[name="slctType"]:checked').val() == 0){ //시간별 , 일간
+    //         if(common.isEmpty(dateType)){
+    //             $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //             $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //             $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
+    //             $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //         }else if(dateType == 'prev'){
+    //             setDay(-1);
+    //         }else{
+    //             setDay(1);
+    //         }
+    //     }else if($('input[name="slctType"]:checked').val() == 1){ // 월간
+    //         if(common.isEmpty(dateType)){
+    //             $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+    //             $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+    //             $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
+    //             $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
+    //         }else if(dateType == 'prev'){
+    //             setMonth(-1);
+    //         }else if(dateType == 'next'){
+    //             setMonth(1);
+    //         }
+    //     }else if($('input[name="slctType"]:checked').val() == 2){ // 연간
+    //         if(common.isEmpty(dateType)){
+    //             $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
+    //             $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //             $("._searchDate").html(moment(new Date()).format('YYYY년'));
+    //             $("#yearDate").val(moment(new Date()).format('YYYY'));
+    //         }else if(dateType == 'prev'){
+    //             setYear(-1);
+    //
+    //         }else if(dateType == 'next'){
+    //             setYear(1);
+    //         }
+    //     }else if($('input[name="slctType"]:checked').val() == 3){ // PUSH 발송 이력 달력
+    //         if(common.isEmpty(dateType)){
+    //             $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+    //             $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+    //             $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
+    //             $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+    //         }else if(dateType == 'prev'){
+    //             setRangeDay(-1);
+    //         }else if(dateType == 'next'){
+    //             setRangeDay(1);
+    //         }
+    //     }
+    //     $("#bt_search").click();
+    // }
 
-    $(document).on('click', '._nextSearch', function(){
-        searchDate('next');
-    });
-
-    $(document).on('click', '._todaySearch', function(){
-        if(tabId == 'tab_total'){
-            toDay = week[moment(new Date()).day()];
-            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
-            setTimeDate(dateTime);
-        }else if(tabId == 'tab_history'){
-            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
-            setTimeDate(dateTime);
-        }else if(tabId == 'tab_notice'){
-            $("input:radio[name='slctType']:radio[value='1']").prop('checked', true);
-        }
-        radioChange();
-        $("#bt_search").click();
-    });
-
-    function radioChange(){
-        if($('input[name="isChoiceDate"]:checked').val() == -1){
-            $("#oneDayDatePicker").hide();
-            $("#monthDatepicker").hide();
-            $("#yearDatepicker").hide();
-            $("#rangeDatepicker").hide();
-            $("#startDate").val($("#onedayDate").val());
-            $("#endDate").val($("#onedayDate").val());
-            return;
-        }
-
-        if($('input[name="slctType"]:checked').val() == 0){
-            $("#oneDayDatePicker").show();
-            $("#monthDatepicker").hide();
-            $("#yearDatepicker").hide();
-            $("#rangeDatepicker").hide();
-            $("#startDate").val($("#onedayDate").val());
-            $("#endDate").val($("#onedayDate").val());
-        }else{
-            if($('input[name="slctType"]:checked').val() == 1){
-                // 일별 -----------------------------------
-                $("#oneDayDatePicker").hide();
-                $("#monthDatepicker").show();
-                $("#yearDatepicker").hide();
-                $("#rangeDatepicker").hide();
-
-                var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
-                $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
-                $("#endDate").val($("#onedayDate").val().substr(0,8) + (monthLastDate.getDate() + 1));
-                $("#monthDate").val($("#onedayDate").val().substr(0,7));
-
-                var rangeDate = $("#monthDate").val().split(' - ');
-                if(-1 < rangeDate.indexOf(' - ')){
-                    $("#startDate").val(rangeDate[0]);
-                    $("#endDate").val(rangeDate[1]);
-                };
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-            }else if($('input[name="slctType"]:checked').val() == 3){
-                $("#oneDayDatePicker").hide();
-                $("#monthDatepicker").hide();
-                $("#yearDatepicker").hide();
-                $("#rangeDatepicker").show();
-
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-                setRangeDatepicker($("#startDate").val(), $("#endDate").val());
-
-                var rangeDate = $("#rangeDate").val().split(' - ');
-                if(-1 < rangeDate.indexOf(' - ')){
-                    $("#startDate").val(rangeDate[0]);
-                    $("#endDate").val(rangeDate[1]);
-                }
-
-                $("._searchDate").html($("#startDate").val() + ' - ' + $("#endDate").val());
-            }else{
-                // 월별 ----------------------------------
-                $("#oneDayDatePicker").hide();
-                $("#monthDatepicker").hide();
-                $("#yearDatepicker").show();
-
-                var yearDate = new Date();
-                $("#startDate").val(yearDate.getFullYear() + '.01.01');
-                $("#endDate").val(yearDate.getFullYear() + ".12.31");
-                $("#yearDate").val(yearDate.getFullYear());
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-            }
-        }
-    }
-
-    function searchDate(dateType){
-        if($('input[name="slctType"]:checked').val() == 0){ //시간별 , 일간
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
-                $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
-            }else if(dateType == 'prev'){
-                setDay(-1);
-            }else{
-                setDay(1);
-            }
-        }else if($('input[name="slctType"]:checked').val() == 1){ // 월간
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-                $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
-                $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
-            }else if(dateType == 'prev'){
-                setMonth(-1);
-            }else if(dateType == 'next'){
-                setMonth(1);
-            }
-        }else if($('input[name="slctType"]:checked').val() == 2){ // 연간
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
-                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY년'));
-                $("#yearDate").val(moment(new Date()).format('YYYY'));
-            }else if(dateType == 'prev'){
-                setYear(-1);
-
-            }else if(dateType == 'next'){
-                setYear(1);
-            }
-        }else if($('input[name="slctType"]:checked').val() == 3){ // PUSH 발송 이력 달력
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
-                $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-            }else if(dateType == 'prev'){
-                setRangeDay(-1);
-            }else if(dateType == 'next'){
-                setRangeDay(1);
-            }
-        }
-        $("#bt_search").click();
-    }
-
-    function setDay(days){
-        toDay = week[moment($("#startDate").val()).add('days', days).day()];
-        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
-        $("#endDate").val($("#startDate").val());
-        $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
-        $("#onedayDate").val($("#startDate").val());
-    }
-
-    function setMonth(months){
-        $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
-        $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
-    }
-
-    function setYear(years){
-        $("#startDate").val(moment($("#startDate").val()).add('years', years).format('YYYY.01.01'));
-        $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
-        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-        $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
-    }
-
-    function setRangeDay(days){
-        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
-        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
-
-        setRangeDatepicker($("#startDate").val(), $("#endDate").val())
-
-        $("._searchDate").html($("#startDate").val() + ' - ' + $("#endDate").val());
-        $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-    }
+    // function setDay(days){
+    //     toDay = week[moment($("#startDate").val()).add('days', days).day()];
+    //     $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+    //     $("#endDate").val($("#startDate").val());
+    //     $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
+    //     $("#onedayDate").val($("#startDate").val());
+    // }
+    //
+    // function setMonth(months){
+    //     $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
+    //     $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+    //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
+    //     $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
+    // }
+    //
+    // function setYear(years){
+    //     $("#startDate").val(moment($("#startDate").val()).add('years', years).format('YYYY.01.01'));
+    //     $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
+    //     $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
+    //     $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
+    // }
+    //
+    // function setRangeDay(days){
+    //     $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+    //     $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+    //
+    //     setRangeDatepicker($("#startDate").val(), $("#endDate").val())
+    //
+    //     $("._searchDate").html($("#startDate").val() + ' - ' + $("#endDate").val());
+    //     $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+    // }
 
     // var slctType = 0;
     // function prevNext(isPrev){
