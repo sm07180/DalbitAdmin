@@ -49,7 +49,7 @@
                     <div>
                         <span id="searchRadio"></span>
                         <span id="searchType"></span>
-                        <label><input type="text" class="form-control" id="txt_search"></label>
+                        <label><input type="text" class="form-control" id="searchText"></label>
                         <div class="input-group date" id="oneDayDatePicker">
                             <label for="onedayDate" class="input-group-addon">
                                 <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>

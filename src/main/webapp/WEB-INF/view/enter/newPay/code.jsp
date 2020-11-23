@@ -390,7 +390,7 @@
             var totalHtml = templateScript(totalContext);
             $("#androidTableBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         var template = $('#tmp_androidDetailList').html();
@@ -413,7 +413,7 @@
             var totalHtml = templateScript(totalContext);
             $("#iosTableBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         var template = $('#tmp_iosDetailList').html();
