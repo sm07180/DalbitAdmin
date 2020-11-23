@@ -475,7 +475,7 @@
                     </td>
                     <td>
                         <!--미리듣기-->
-                        <audio controls id="soundAudio">
+                        <audio controls loop id="soundAudio">
                           <source src="{{sound_url}}">
                           Your browser does not support the audio tag.
                         </audio>
