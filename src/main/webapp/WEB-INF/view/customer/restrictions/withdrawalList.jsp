@@ -35,7 +35,7 @@
         var dtList_info;
         var dtList_info_data = function ( data ) {
             var searchType = $('#searchType option:selected').val();
-            var searchText = $('#txt_search').val();
+            var searchText = $('#searchText').val();
             var startDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#startDate").val();
             var endDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#endDate").val();
             if($('input[name="searchRadio"]:checked').val() != "1"){

@@ -48,41 +48,18 @@
         $("#page-wrapper").show();
         $("#search_aria").html(util.getCommonCodeSelect(-1, clip_searchType));
         $("#search_aria").hide();
-        $("#txt_search").val("");
+        $("#searchText").val("");
         $("#headerInfo").html("");
         $("#headerInfo").hide();
 
-
-        if(tabId == 'tab_hot'){         //인기 클립
-            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true); // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='-1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").hide();
-            // $("#div_searchArea").css('display', 'inline');
-            $("#div_searchArea").show();
-            $(".date").hide();
-            $("#div_stepButtonArea").hide();
-
-        }else if(tabId == 'tab_new'){     //최신 클립
-            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true); // 날짜 선택 구분 (전체(-1), 시간별(0), 일별(1), 월별(2), 기간(3))
-            $("input:radio[name='isChoiceDate']:radio[value='-1']").prop('checked', true);  // 날짜 전체, 선택 여부
-            $("#isChoiceDateArea").hide();
-            // $("#div_searchArea").css('display', 'inline');
-            $("#div_searchArea").show();
-            $(".date").hide();
-            $("#div_stepButtonArea").hide();
-
-        }else if(tabId == 'tab_category'){    // 카테고리
+        if(tabId == 'tab_category'){    // 카테고리
             $("#page-wrapper").hide();
         }
-        radioChange();
         $(".searchDate").html($("#onedayDate").val());
         $("#bt_search").click();
     });
 
     $("#bt_search").on('click', function(){
-        if($('input[name="slctType"]:first').prop('checked')){
-            $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
-        }
         if(tabId == 'tab_hot'){
             initClipHotList();
             getClipList();
