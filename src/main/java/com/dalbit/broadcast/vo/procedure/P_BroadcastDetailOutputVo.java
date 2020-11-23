@@ -29,6 +29,7 @@ public class P_BroadcastDetailOutputVo extends BaseVo {
     private String guest_nickName;
     private String managerCnt;
     private String forcedLeaveCnt;
+    private String extendTimeCount;
     private String exitTryCount;
     private String osType;
     private String startDate;
