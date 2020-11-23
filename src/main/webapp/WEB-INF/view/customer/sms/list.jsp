@@ -9,26 +9,35 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i>검색조건</h3>
-                            <input type="hidden" name="pageStart" id="pageStart">
-                            <input type="hidden" name="pageCnt" id="pageCnt">
-                            <input type="hidden" name="tabType" id="tabType">
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                                <th>
+                                    <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                    <div>
+                                        <div id="div_monthButton"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <input id="monthDate" type="text" class="form-control" style="width: 196px;"/>
 
-                                <div class="input-group date" id="data_startSel">
-                                    <input type="text" class="form-control" id="input_startSel" name="input_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                                    <input type="hidden" id="txt_startSel" name="txt_startSel">
-                                </div>
-                                <label>~</label>
-                                <div class="input-group date" id="data_endSel">
-                                    <input type="text" class="form-control" id="input_endSel" name="input_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                                    <input type="hidden" id="txt_endSel" name="txt_endSel">
-                                </div>
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <label><input type="text" class="form-control hide" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
 
-                                <%--<span id="smsArea"></span>--%>      <%-- 2020.07.06  조회조건 탭으로 화면을 변경하여 검색 조건에서 제거  --%>
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                        </div>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>
@@ -38,13 +47,13 @@
             <div class="row col-lg-12 form-inline">
                 <div class="mb15" id="htmlTag"></div>
                     <ul class="nav nav-tabs nav-tabs-custom-colored" id="smsTab" role="tablist">
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="smsList(2)">가상계좌 발송</a></li>
+                        <li class="active"><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="smsList(2)">가상계좌 발송</a></li>
                         <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="1" id="tab_certification" onclick="smsList(1)">인증번호 발송</a></li>
                         <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="smsList(7)">운영자 발송</a></li>
                         <li style="display: none;"><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="3" id="tab_etc" onclick="smsList(3)">기타 발송</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade" id="smsDetail">
+                        <div class="tab-pane fade in active" id="smsDetail">
                             <div class="widget widget-table">
                                 <div class="widget-content mt10">
                                     <button type="button" id="bt_smsSend" class="btn btn-success btn-sm pull-right _openSmsSendPop" data-cmid="" data-rownum="">운영자 문자발송</button>
@@ -104,8 +113,11 @@
         "<br> ㆍ서비스를 위한 문자 발송 상태 실패 내역을 확인 할 수 있습니다.");
 
     $(document).ready(function() {
-        init();
-       $("#tab_pay").click();
+        $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
+        $("#tabType").val("2");
+
+        slctType = 1;
+        setDayButton();
     });
 
     $('input[id="searchText"]').keydown(function(e) {
@@ -119,105 +131,27 @@
         smsList();
     });
 
-    function init() {
-        var date = new Date();
-        var thisYear = date.getFullYear();
-        var thisMonth = date.getMonth() + 1;
-        $("#input_endSel").datepicker("setDate", date);
-        $("#input_startSel").datepicker("setDate", thisYear + '.' + thisMonth + '.01');
-        $("#txt_endSel").val($("#input_endSel").val());
-        $("#txt_startSel").val($("#input_startSel").val());
-        $("#tabType").val("2");
-
-        $("#input_startSel").off('change').on("change", function() {
-            var start = $("#input_startSel").val();
-            var end = $("#input_endSel").val();
-            var splitEndDate = end.split("\.");
-            var splitStartDate = start.split("\.");
-
-            if(splitStartDate[2] > splitEndDate[2]){
-                $("#input_endSel").datepicker("setDate", new Date(splitStartDate[0], splitStartDate[1], 0));
-                $("#input_startSel").datepicker("setDate", start);
-            }
-
-            if(start.toString().replace("\.","").substr(0,6) != end.toString().replace("\.","").substr(0,6)){
-                var date = new Date(splitStartDate[0], (splitStartDate[1]), 0);
-                var thisYear = date.getFullYear();
-                var thisMonth = date.getMonth() + 1;
-                var thisDay = date.getDate();
-
-                // alert("동일 월만 조회 가능 합니다.");
-                $("#input_endSel").val(thisYear + '.' + thisMonth + '.' + thisDay);
-                $("#input_startSel").val(start);
-
-                $("#input_endSel").datepicker("setDate", thisYear + '.' + thisMonth + '.' + thisDay);
-                $("#input_startSel").datepicker("setDate", start);
-                return false;
-            }else{
-                $("#txt_endSel").val(end);
-                $("#txt_startSel").val(start);
-            }
-        });
-        $("#input_endSel").off('change').on("change", function() {
-            var end = $("#input_endSel").val();
-            var start = $("#input_startSel").val();
-            var splitEndDate = end.split("\.");
-            var splitStartDate = start.split("\.");
-
-            if(splitStartDate[2] > splitEndDate[2]){
-                $("#input_startSel").datepicker("setDate", new Date(splitEndDate[0], (splitEndDate[1] -1) , 1));
-                $("#input_endSel").datepicker("setDate", end);
-            }
-
-            if(start.toString().replace("\.","").substr(0,6) != end.toString().replace("\.","").substr(0,6)){
-                var date = new Date(splitEndDate[0], (splitEndDate[1]-1), 1);
-                var thisYear = date.getFullYear();
-                var thisMonth = date.getMonth() + 1;
-
-                // alert("동일 월만 조회 가능 합니다.");
-                $("#input_endSel").val(end);
-                $("#input_startSel").val(thisYear + '.' + thisMonth + '.01');
-
-                $("#input_startSel").datepicker("setDate", thisYear + '.' + thisMonth + '.01');
-                $("#input_endSel").datepicker("setDate", end);
-                return false;
-            }else{
-                $("#txt_startSel").val(start);
-                $("#txt_endSel").val(end);
-            }
-        });
-
-        $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
-        smsList();
-    }
-
-    function compare() {
-        var startDate = $("#txt_startSel").val();
-        var startDateArr = startDate.split('.');
-        var endDate = $("#txt_endSel").val();
-        var endDateArr = endDate.split('.');
-
-        var startDateCompare = new Date(startDateArr[0], startDateArr[1]-1, startDateArr[2]);
-        var endDateCompare = new Date(endDateArr[0], endDateArr[1]-1, endDateArr[2]);
-
-        if(startDateCompare.getTime() > endDateCompare.getTime()) {
-            alert('시작날짜와 종료날짜를 확인해주세요');
-        }
-    }
-
     function smsList(type) {
         if(!common.isEmpty(type)){
             listPagingInfo.pageNo = 1;
         }
 
-        type = common.isEmpty(type) ? $("#tabType").val() : type
+        type = common.isEmpty(type) ? $("#tabType").val() : type;
         $("#tabType").val(type);
-
-        compare();
 
         $("#pageStart").val(listPagingInfo.pageNo);
         $("#pageCnt").val(listPagingInfo.pageCnt);
-        util.getAjaxData("list", "/rest/customer/sms/list", $("#searchForm").serialize(), fn_success_list, fn_fail);
+
+        var data = {
+            txt_startSel : $("#startDate").val()
+            , txt_endSel : $("#endDate").val()
+            , searchText : $("#searchText").val()
+            , tabType : type
+            , pageStart : listPagingInfo.pageNo
+            , pageCnt : listPagingInfo.pageCnt
+        };
+
+        util.getAjaxData("list", "/rest/customer/sms/list", data, fn_success_list, fn_fail);
     }
 
     function fn_success_list(dst_id, response) {
@@ -265,8 +199,8 @@
         var formData = new FormData(formElement);
         formData.append("pageStart", $("#pageStart").val());
         formData.append("pageCnt", $("#pageCnt").val());
-        formData.append("txt_startSel", $("#txt_startSel").val());
-        formData.append("txt_endSel", $("#txt_endSel").val());
+        formData.append("txt_startSel", $("#startDate").val());
+        formData.append("txt_endSel", $("#endDate").val());
         formData.append("vxml_file", $('select[name="vxml_file"]').val());
         formData.append("searchText", $("#searchText").val());
 

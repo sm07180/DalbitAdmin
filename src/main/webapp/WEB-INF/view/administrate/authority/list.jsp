@@ -12,27 +12,33 @@
 
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 직원 검색</h3>
-                            <div>
-                                <select name="posType" class="form-control searchType">
-                                    <option value="">직급선택</option>
-                                    <c:forEach var="posCode" items="${cfn:getInforexPosCode()}" varStatus="status">
-                                        <option value="${posCode.pos_code}">${posCode.pos_name}</option>
-                                    </c:forEach>
-                                </select>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <select name="posType" class="form-control searchType">
+                                        <option value="">직급선택</option>
+                                        <c:forEach var="posCode" items="${cfn:getInforexPosCode()}" varStatus="status">
+                                            <option value="${posCode.pos_code}">${posCode.pos_name}</option>
+                                        </c:forEach>
+                                    </select>
 
-                                <select name="deptType" class="form-control searchType">
-                                    <option value="">부서선택</option>
-                                    <c:forEach var="deptCode" items="${cfn:getInforexDeptCode()}" varStatus="status">
-                                        <option value="${deptCode.dept_no}">${deptCode.new_dept_name}</option>
-                                    </c:forEach>
-                                </select>
+                                    <select name="deptType" class="form-control searchType">
+                                        <option value="">부서선택</option>
+                                        <c:forEach var="deptCode" items="${cfn:getInforexDeptCode()}" varStatus="status">
+                                            <option value="${deptCode.dept_no}">${deptCode.new_dept_name}</option>
+                                        </c:forEach>
+                                    </select>
 
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
-                        </div>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>

@@ -45,37 +45,6 @@
                                 </tr>
                             </table>
                         </div>
-                        <%--<div class="widget-header searchBoxRow">--%>
-                        <%--<h3 class="title"><i class="fa fa-search"></i> 교환내역 검색</h3>--%>
-                        <%--<div>--%>
-                        <%--<span id="searchFormRadio"></span>--%>
-
-                        <%--<div class="input-group date" id="rangeDatepicker">--%>
-                        <%--<label for="displayDate" class="input-group-addon">--%>
-                        <%--<span><i class="fa fa-calendar"></i></span>--%>
-                        <%--</label>--%>
-                        <%--<input type="text" name="displayDate" id="displayDate" class="form-control" />--%>
-                        <%--</div>--%>
-
-                        <%--<input type="hidden" name="startDate" id="startDate">--%>
-                        <%--<input type="hidden" name="endDate" id="endDate" />--%>
-
-                        <%--&lt;%&ndash;<input name="startDate" id="startDate">&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;<input name="endDate" id="endDate" />&ndash;%&gt;--%>
-
-                        <%--<label><input type="text" class="form-control" id="search_value" name="search_value"></label>--%>
-                        <%--<button type="button" class="btn btn-success" id="bt_search">검색</button>--%>
-                        <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
-                        <%--<a href="javascript://" class="_todaySearch">[오늘]</a>--%>
-                        <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
-
-                        <%--&lt;%&ndash;<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>&ndash;%&gt;--%>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green">--%>
-                        <%--<input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">--%>
-                        <%--<span>테스트 아이디 제외</span>--%>
-                        <%--</label>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
                     </div>
                 </div>
             </form>
@@ -161,14 +130,10 @@
     }
 
     function getList(){
-        console.log("------------------------- 1");
-        console.log(getParameter());
         util.getAjaxData("select", "/rest/money/item/list", getParameter(), fn_succ_list);
     }
 
     function getAutoList(){
-        console.log("------------------------- 2");
-        console.log(getParameter());
         util.getAjaxData("select", "/rest/money/item/autoList", getParameter(), fn_succ_autoList);
     }
 

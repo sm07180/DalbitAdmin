@@ -8,46 +8,34 @@
         <form id="searchForm">
             <div class="col-lg-12 form-inline no-padding">
                 <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 레벨 분포 회원 검색</h3>
-                        <div>
-                            <%--<span id="searchFormRadio"></span>--%>
-                            <%--<div class="input-group date" id="rangeDatepicker">--%>
-                                <%--<label for="displayDate" class="input-group-addon">--%>
-                                    <%--<span><i class="fa fa-calendar"></i></span>--%>
-                                <%--</label>--%>
-                                <%--<input type="text" name="displayDate" id="displayDate" class="form-control" />--%>
-                            <%--</div>--%>
+                    <table>
+                        <tr>
+                            <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                <i class="fa fa-search"></i><br/>검색
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">
+                                <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
-                            <%--<input type="hidden" name="startDate" id="startDate">--%>
-                            <%--<input type="hidden" name="endDate" id="endDate" />--%>
+                                <label class="control-inline"><span>◈ 최근 2주간 미접속 회원</span></label>
+                                <label class="control-inline fancy-radio custom-color-green" >
+                                    <input type="radio" name="include_radio" checked="checked" value="0">
+                                    <span><i></i>포함</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="include_radio" value="1">
+                                    <span><i></i>제외</span>
+                                </label>
 
-                            <%--<input name="startDate" id="startDate">--%>
-                            <%--<input name="endDate" id="endDate" />--%>
-
-
-                            <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
-                            <%--<a href="javascript://" class="_todaySearch">[오늘]</a>--%>
-                            <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
-
-                            <label class="control-inline"><span>◈ 최근 2주간 미접속 회원</span></label>
-                            <label class="control-inline fancy-radio custom-color-green" >
-                                <input type="radio" name="include_radio" checked="checked" value="0">
-                                <span><i></i>포함</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" name="include_radio" value="1">
-                                <span><i></i>제외</span>
-                            </label>
-
-                            <label class="control-inline fancy-checkbox custom-color-green">
-                                <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
-                                <span>테스트 아이디 제외</span>
-                            </label>
-                        </div>
-                    </div>
+                                <label class="control-inline fancy-checkbox custom-color-green">
+                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                    <span>테스트 아이디 제외</span>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <!-- //serachBox -->
@@ -82,20 +70,7 @@
 
 <script type="text/javascript">
 
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    setTimeDate(dateTime);
-    var _searchFormRadio ="";
     $(document).ready(function() {
-        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
-
-        $("#displayDate").statsDaterangepicker(
-            function(start, end, t1) {
-                $("#startDate").val(start.format('YYYY.MM.DD'));
-                $("#endDate").val(end.format('YYYY.MM.DD'));
-            }
-        );
-
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
