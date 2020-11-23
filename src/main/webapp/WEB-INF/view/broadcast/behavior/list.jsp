@@ -191,8 +191,10 @@
                 }
                 util.getAjaxData("applyBehaviorMsg", "/rest/broadcast/behavior/apply", data, function fn_applyBehaviorMsg_success(dst_id, response) {
                     alert(response.message);
-                    getBehaviorList();
-                    $("#behaviorDetail").empty();
+                    if(response.result == 'success'){
+                        getBehaviorList();
+                        $("#behaviorDetail").empty();
+                    }
                 });
             }
         }
@@ -214,9 +216,12 @@
                 delete_idx_list : idxs
             }
             util.getAjaxData("deleteBehaviorMsg", "/rest/broadcast/behavior/delete", data, function fn_deleteBehaviorMsg_success(dst_id, response) {
+
                 alert(response.message);
-                getBehaviorList();
-                $("#behaviorDetail").empty();
+                if(response.result == 'success'){
+                    getBehaviorList();
+                    $("#behaviorDetail").empty();
+                }
             });
         }
     });

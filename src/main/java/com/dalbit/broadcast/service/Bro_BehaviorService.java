@@ -76,10 +76,9 @@ public class Bro_BehaviorService {
         if(DalbitUtil.isEmpty(pBehaviorListAddUpdateVo.getIdx()) || pBehaviorListAddUpdateVo.getIdx() == 0) {
             // 추가
             bro_behaviorDao.callBroadcastBehaviorAdd(procedureVo);
-            String condition = procedureVo.getExt();
             if (Status.청취자유도메시지추가_성공.getMessageCode().equals(procedureVo.getRet())) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지추가_성공));
-            } else if (condition.contains("for key 'unique_idx_condition_time'")) {
+            } else if (Status.청취자유도메시지_등장시간중복.getMessageCode().equals(procedureVo.getRet())) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지_등장시간중복));
             } else {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지추가_실패));
@@ -87,12 +86,11 @@ public class Bro_BehaviorService {
         } else {
             // 수정
             bro_behaviorDao.callBroadcastBehaviorEdit(procedureVo);
-            String condition = procedureVo.getExt();
             if (Status.청취자유도메시지수정_성공.getMessageCode().equals(procedureVo.getRet())) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지수정_성공));
             } else if (Status.청취자유도메시지수정_메시지번호없음.getMessageCode().equals(procedureVo.getRet())) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지수정_메시지번호없음));
-            } else if (condition.contains("for key 'unique_idx_condition_time'")) {
+            } else if (Status.청취자유도메시지_등장시간중복.getMessageCode().equals(procedureVo.getRet())) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지_등장시간중복));
             } else {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.청취자유도메시지수정_실패));
