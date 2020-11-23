@@ -26,7 +26,7 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
-    var tabId;
+    var tabId = "tab_calendar";
 
     var sDate;
     var eDate;
@@ -39,46 +39,36 @@
 
         tabId = $(this).prop('id');
 
+        $("#searchText").hide();
         if(tabId == 'tab_time'){
-            slctType = "0";
-            me = 0;
+            slctType = 0;
         }else if(tabId == 'tab_calendar' || tabId == 'tab_month') {
-            slctType = "1";
-            me = 1;
+            slctType = 1;
         }else if(tabId == 'tab_list') {
-            slctType = "2";
-            me = 2;
+            $("#searchText").show();
+            slctType = 3;
         }
 
-        radioChange();
+        dateType(slctType);
 
         $("#searchFormRadio").hide();
         $("#searchCheck").hide();
         $("#txt_search").hide();
         $("#stateSummary").show();
         $("#joinListSummary").hide();
-        if(tabId == 'tab_time'){
-            getTime();
-        }else if(tabId == 'tab_calendar') {
-            getCalendar();
-        }else if(tabId == 'tab_month') {
-            getMonth();
-        }else if(tabId == 'tab_list') {
-            // setTimeDate(dateTime);
-            $("#stateSummary").hide();
-            $("#joinListSummary").show();
-            $("#txt_search").show();
-            $("#searchCheck").show();
-            $("#searchFormRadio").show();
-            getUserInfo();
-        }
 
         $(".searchDate").html($("#onedayDate").val());
     });
 
     $("#bt_search").on('click', function(){
         if(tabId != 'tab_list'){
-            $("#tablist_con li.active a").click();
+            if(tabId == 'tab_time'){
+                getTime();
+            }else if(tabId == 'tab_calendar') {
+                getCalendar();
+            }else if(tabId == 'tab_month') {
+                getMonth();
+            }
         }else if (tabId == 'tab_list'){
             getUserInfo();
         }

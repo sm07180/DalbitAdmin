@@ -157,4 +157,21 @@ public class Men_RankService {
 
         return result;
     }
+
+    /**
+     * 좋아요랭킹 목록
+     */
+    public String getGoodRank(GoodRankVo goodRankVo) {
+        ProcedureVo procedureVo = new ProcedureVo(goodRankVo);
+        List<GoodRankVo> outVoList = menRankDao.callGetGoodRank(procedureVo);
+
+        String result;
+        if(outVoList.size() > 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.좋아요랭킹_성공, outVoList, new PagingVo(procedureVo.getRet())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.좋아요랭킹_실패));
+        }
+
+        return result;
+    }
 }

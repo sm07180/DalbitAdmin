@@ -69,7 +69,7 @@
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 100;
-            data.searchText = $("#txt_search").val();
+            data.searchText = $("#searchText").val();
             data.inner = $('input[name="search_testId"]').is(":checked") ? "0" : "-1";
         };
         dtList_info_detail = new DalbitDataTable($("#tableList"), dtList_data, connectDataTableSource.current);

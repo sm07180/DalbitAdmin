@@ -13,32 +13,38 @@
                 <form id="searchForm">
                     <div class="row col-lg-10 form-inline">
                         <div class="widget widget-table searchBoxArea">
-                            <div class="widget-header searchBoxRow">
-                                <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
-                                <div>
-                                    <span name="question_searchType" id="question_searchType" style="display: none"></span>
-                                    <span name="question_selbox_type" id="question_selbox_type" style="display: none"></span>
-                                    <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"></span>
+                            <table>
+                                <tr>
+                                    <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                        <i class="fa fa-search"></i><br/>검색
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left">
+                                        <span name="question_searchType" id="question_searchType" style="display: none"></span>
+                                        <span name="question_selbox_type" id="question_selbox_type" style="display: none"></span>
+                                        <span name="slctDateType" id="slctDateType" onchange="seldateType_change();"></span>
 
-                                    <div class="input-group date" id="rangeDatepicker" style="display: none">
-                                        <label for="displayDate" class="input-group-addon">
-                                            <span><i class="fa fa-calendar"></i></span>
-                                        </label>
-                                        <input type="text" name="displayDate" id="displayDate" class="form-control" />
-                                    </div>
+                                        <div class="input-group date" id="rangeDatepicker" style="display: none">
+                                            <label for="displayDate" class="input-group-addon">
+                                                <span><i class="fa fa-calendar"></i></span>
+                                            </label>
+                                            <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                        </div>
 
-                                    <input type="hidden" name="startDate" id="startDate" />
-                                    <input type="hidden" name="endDate" id="endDate" />
-                                    <%--<input name="startDate" id="startDate" />--%>
-                                    <%--<input name="endDate" id="endDate" />--%>
+                                        <input type="hidden" name="startDate" id="startDate" />
+                                        <input type="hidden" name="endDate" id="endDate" />
+                                        <%--<input name="startDate" id="startDate" />--%>
+                                        <%--<input name="endDate" id="endDate" />--%>
 
-                                    <label><input type="text" class="form-control" id="txt_search" style="width: 130px"></label>
-                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                    <a href="javascript://" class="_prevSearch">[이전]</a>
-                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                    <a href="javascript://" class="_nextSearch">[다음]</a>
-                                </div>
-                            </div>
+                                        <label><input type="text" class="form-control" id="txt_search" style="width: 130px"></label>
+                                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                        <a href="javascript://" class="_prevSearch" style="display: none">[이전]</a>
+                                        <a href="javascript://" class="_todaySearch" style="display: none">[오늘]</a>
+                                        <a href="javascript://" class="_nextSearch" style="display: none">[다음]</a>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </form>
@@ -256,8 +262,14 @@
     function seldateType_change(){
         if($("#slctDateType").find("select").val() == 0){
             $("#rangeDatepicker").hide();
+            $("._prevSearch").hide();
+            $("._todaySearch").hide();
+            $("._nextSearch").hide();
         }else{
             $("#rangeDatepicker").show();
+            $("._prevSearch").show();
+            $("._todaySearch").show();
+            $("._nextSearch").show();
         }
     }
 

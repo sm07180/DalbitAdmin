@@ -49,7 +49,7 @@
         }
         var dtList_data = function (data) {
             data.pageCnt = 100;
-            data.searchText = $("#txt_search").val();
+            data.searchText = $("#searchText").val();
             data.orderType = $("select[name='liveGuest']").val();
             data.startDate = $("#onedayDate").val();
             data.slctType = 0;

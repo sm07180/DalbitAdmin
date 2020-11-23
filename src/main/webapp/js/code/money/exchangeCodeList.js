@@ -1,8 +1,6 @@
 var search_exchange_years = [
     new COMMON_CODE(null, 'search_year', '년')
-    , new COMMON_CODE('2021', '2021', '2021년')
     , new COMMON_CODE('2020', '2020', '2020년')
-    , new COMMON_CODE('2019', '2019', '2019년')
 ];
 
 var search_exchange_months = [

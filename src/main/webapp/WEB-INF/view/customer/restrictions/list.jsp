@@ -11,7 +11,40 @@
         <!-- serachBox -->
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
-                <div class="widget-header searchBoxRow">
+
+                <table>
+                    <tr>
+                        <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                            <i class="fa fa-search"></i><br/>검색
+                        </th>
+                        <th id="th_bottonList">
+                            <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                            <div>
+                                <div id="div_dayButton"><jsp:include page="../../searchArea/daySearchArea.jsp"/></div>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <span id="searchRadio"></span>
+                            <input type="text" class="form-control" id="onedayDate" name="onedayDate" >
+
+                            <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                            <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                            <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                            <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                            <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            <a href="javascript://" class="_prevSearch">[이전]</a>
+                            <a href="javascript://" class="_todaySearch">[오늘]</a>
+                            <a href="javascript://" class="_nextSearch">[다음]</a>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <%--<div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                     <div>
                         <span id="searchRadio"></span>
@@ -31,7 +64,7 @@
                         <input class="hide" name="startDate" id="startDate" style="width: 100px">
                         <input class="hide" name="endDate" id="endDate" style="width: 100px">
                     </div>
-                </div>
+                </div>--%>
             </div>
         </div>
         <!-- //serachBox -->
@@ -73,8 +106,10 @@
     var tabType = common.isEmpty(<%=in_tabType%>) ? 1 : <%=in_tabType%>;
 
     $(document).ready(function() {
+        slctType = 0;
+        setDayButton();
 
-        $('input[id="txt_search"]').keydown(function() {
+        $('input[id="searchText"]').keydown(function() {
             if (event.keyCode === 13) {
                 getRestrictionsInfo();
             };
@@ -85,34 +120,34 @@
         });
         <!-- 버튼 끝 -->
 
-        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
-            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-            $("#displayDate").val(selectDate+ ' - ' + selectDate);
-            $("#startDate").val(selectDate);
-            $("#endDate").val(selectDate);
-            getRestrictionsInfo();
-        });
+        // $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
+        //     var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+        //     $("#displayDate").val(selectDate+ ' - ' + selectDate);
+        //     $("#startDate").val(selectDate);
+        //     $("#endDate").val(selectDate);
+        //     getRestrictionsInfo();
+        // });
 
         $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
-        $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType));
+        // $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType));
         $("#searchOpCode").html(util.getCommonCodeSelect(-1, restrictions_searchOpCode));
 
         getRestrictionsInfo();
     });
-
-    $('#searchRadio').change(function() {
-        if($('input[name="searchRadio"]:checked').val() == "1"){
-            $("#searchType").removeClass("hide");
-        }else{
-            $("#searchType").addClass("hide");
-        }
-    });
+    //
+    // $('#searchRadio').change(function() {
+    //     if($('input[name="searchRadio"]:checked').val() == "1"){
+    //         $("#searchType").removeClass("hide");
+    //     }else{
+    //         $("#searchType").addClass("hide");
+    //     }
+    // });
 
 
     function setTabType(type){
         var code = -1;
         if(tabType == type){
-            code = $('#searchType option:selected').val();
+            code = -1;
         }
         tabType = type;
 

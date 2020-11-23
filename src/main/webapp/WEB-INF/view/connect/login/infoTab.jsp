@@ -39,17 +39,14 @@
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
         if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory' || tabId == 'tab_timeOver'){
-            slctType = "0";
-            me = 0;
+            slctType = 0;
             $(".searchDate").html($("#onedayDate").val() + " (" + toDay + ")");
         }else if(tabId == 'tab_monthNonOver' || tabId == 'tab_loAgeDetail' || tabId == 'tab_loBrowserDetail') {
-            slctType = "1";
-            me = 1;
+            slctType = 1;
         }else if(tabId == 'tab_yearNonOver'){
-            slctType = "2";
-            me = 2;
+            slctType = 2;
         }
-        radioChange();
+        dateType(slctType);
 
         if(tabId != 'tab_loginHistory') {
             $("#searchText").addClass('hide');
@@ -58,8 +55,6 @@
         }
 
         $("#searchForm").show();
-        console.log("---------------");
-        console.log(tabId);
         if(tabId == 'tab_timeOver'){
             getTimeOver();
         }else if(tabId == 'tab_timeNonOver') {

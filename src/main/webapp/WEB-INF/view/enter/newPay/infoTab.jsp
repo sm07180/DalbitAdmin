@@ -39,50 +39,21 @@
     var _searchText = 0;
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
-        $("#slctTypeArea").hide();
+        // $("#slctTypeArea").hide();
         $("#txt_search").hide();
 
         _searchText = 0;
         if(tabId == 'tab_payTime' || tabId == 'tab_payTry' || tabId == 'tab_payHistory' || tabId == 'tab_payCancel'){
-            _datePicker = 0;
+            slctType = 0;
             if(tabId == 'tab_payHistory' || tabId == 'tab_payCancel'){
                 _searchText = 1;
             }
-        }else if(tabId == 'tab_payMonth'){
-            _datePicker = 1;
+        }else if(tabId == 'tab_payMonth' || tabId == 'tab_payAge' || tabId == 'tab_payWay' || tabId == 'tab_payCode'){
+            slctType = 1;
         }else if(tabId == 'tab_payYear'){
-            _datePicker = 2;
-        }else if(tabId == 'tab_payAge' || tabId == 'tab_payWay' || tabId == 'tab_payCode'){
-            if($('input[name="slctType"]:checked').val() == 0){
-                _datePicker = 0;
-            }else if($('input[name="slctType"]:checked').val() == 1){
-                _datePicker = 1;
-            }else{
-                _datePicker = 2;
-            }
-            $("#slctTypeArea").show();
+            slctType = 2;
         }
-        clickTab = true;
-        changeDatepicker();
-        if(tabId == 'tab_payTime'){
-            getPayTimeList();
-        }else if(tabId == 'tab_payHistory'){
-            getStatPayInfo();
-        }else if(tabId == 'tab_payMonth'){
-            getPayMonthList();
-        }else if(tabId == 'tab_payYear'){
-            getPayYearList();
-        }else if(tabId == 'tab_payTry'){
-            getPayTryList();
-        }else if(tabId == 'tab_payAge'){
-            getPayAgeList();
-        }else if(tabId == 'tab_payWay'){
-            getPayWayList();
-        }else if(tabId == 'tab_payCode'){
-            getPayCodeList();
-        }else if(tabId == 'tab_payCancel'){
-            getPayCancelList();
-        }
+        dateType(slctType);
     });
 
     $("#bt_search").on('click', function(){

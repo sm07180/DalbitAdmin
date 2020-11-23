@@ -332,7 +332,7 @@
             var totalHtml = templateScript(totalContext);
             $("#giftYearListBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         for(var i=0;i<response.data.detailList.length;i++){
@@ -370,7 +370,7 @@
             var totalHtml = templateScript(totalContext);
             $("#ageYearListBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
         }
 
         for(var i=0;i<response.data.detailList.length;i++){

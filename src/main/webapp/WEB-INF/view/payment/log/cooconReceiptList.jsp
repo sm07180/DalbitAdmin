@@ -10,23 +10,37 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
-                            <input type="hidden" name="pageStart" id="pageStart">
-                            <input type="hidden" name="pageCnt" id="pageCnt">
-                            <div>
-                                <div class="input-group date" id="date_startSel">
-                                    <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                                </div>
-                                <label>~</label>
-                                <div class="input-group date" id="date_endSel">
-                                    <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                                </div>
-                                <span id="searchTypeArea"></span>
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="description 검색창"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
-                        </div>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+
+                                    <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
+
+                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
+
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <span id="searchTypeArea"></span>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="pageStart" id="pageStart">
+                        <input type="hidden" name="pageCnt" id="pageCnt">
                     </div>
                 </div>
             </form>
@@ -69,63 +83,46 @@
     </div>
 </div>
 
+<jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+
 <script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var errorPagingInfo = new PAGING_INFO(0, 1, 500);
 
+    var slctType = 3;
     $(document).ready(function() {
-        init();
+        $("#searchTypeArea").html(util.getCommonCodeSelect(-1, receiptSearchType));
+        dateType(slctType);
     });
-
-    function compare() {
-        var startDate = $('#txt_startSel').val();
-        var startDateArr = startDate.split('.');
-        var endDate = $('#txt_endSel').val();
-        var endDateArr = endDate.split('.');
-
-        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
-        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
-
-        if(startDateCompare.getTime() > endDateCompare.getTime()) {
-            alert('시작날짜와 종료날짜를 확인해주세요');
-        }
-    }
 
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {
-            compare();
             errorPagingInfo.pageNo = 1;
             getReceiptList();
         };
     });
 
     $('#bt_search').click( function() {       //검색
-        compare();
         errorPagingInfo.pageNo = 1;
         getReceiptList();
     });
 
-    function init() {
-        $("#searchTypeArea").html(util.getCommonCodeSelect(-1, receiptSearchType));
-
-
-        $('#txt_startSel').datepicker("setDate", new Date());
-        $('#txt_endSel').datepicker("setDate", new Date());
-
-        $('#txt_startSel').datepicker().on('dp.change',function(e){
-            $(this).html($(this).val());
-        });
-        $('#txt_endSel').datepicker().on('dp.change',function(e){
-            $(this).html($(this).val());
-        });
-
-        $("#bt_search").click();
-    }
-
     function getReceiptList(){
-        $("#pageStart").val(errorPagingInfo.pageNo);
-        $("#pageCnt").val(errorPagingInfo.pageCnt);
-        util.getAjaxData("receiptList", "/rest/payment/pay/cooconReceiptList", $('#searchForm').serialize(), fn_success);
+       $("#pageStart").val(errorPagingInfo.pageNo);
+       $("#pageCnt").val(errorPagingInfo.pageCnt);
+
+       console.log($('#searchForm').serialize());
+
+        var data = {
+            pageStart : errorPagingInfo.pageNo
+            ,pageCnt : errorPagingInfo.pageCnt
+            ,txt_startSel : $('#startDate').val()
+            ,txt_endSel : $('#endDate').val()
+            ,searchType : $('#searchType').val()
+            ,searchText : $("#searchText").val()
+        };
+
+       util.getAjaxData("receiptList", "/rest/payment/pay/cooconReceiptList", data, fn_success);
     }
 
     function fn_success(dst_id, response) {
@@ -146,7 +143,6 @@
         } else {
             $("#list_info_paginate").show();
         }
-
     }
 
     function handlebarsPaging(targetId, pagingInfo){
@@ -159,9 +155,11 @@
         var formData = new FormData(formElement);
         formData.append("pageStart", $("#pageStart").val());
         formData.append("pageCnt", $("#pageCnt").val());
-        formData.append("txt_startSel", $("#txt_startSel").val());
-        formData.append("txt_endSel", $("#txt_endSel").val());
+        formData.append("txt_startSel", $("#startDate").val());
+        formData.append("txt_endSel", $("#endDate").val());
         formData.append("searchText", $("#searchText").val());
+
+        console.log(formData);
 
         util.excelDownload($(this), "/rest/payment/pay/receiptListExcel", formData);
     });

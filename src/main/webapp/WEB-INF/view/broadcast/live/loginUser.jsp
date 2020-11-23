@@ -50,7 +50,7 @@
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 100;
-            data.searchText = $("#txt_search").val();
+            data.searchText = $("#searchText").val();
             data.inner = -1;
             data.broad = 0;
         };

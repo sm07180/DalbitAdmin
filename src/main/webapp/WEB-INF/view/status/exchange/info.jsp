@@ -8,25 +8,42 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
-                            <div>
-                                <div class="input-group date" id="monthDatepicker">
-                                    <label for="monthDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                                <th id="th_bottonList">
+                                    <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                    <div>
+                                        <div id="div_monthButton"><jsp:include page="../../searchArea/monthSearchArea.jsp"/></div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
                                     <input id="monthDate" type="text" class="form-control"/>
-                                </div>
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." style="display: none"></label>
 
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
 
-                                <input type="hidden" name="startDate" id="startDate">
-                                <input type="hidden" name="endDate" id="endDate" />
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                <a href="javascript://" class="_nextSearch">[다음]</a>
-                            </div>
-                        </div>
+                                    <span id="searchCheck" style="display: none">
+                                    <label class="control-inline fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                        <span>테스트 아이디 제외</span>
+                                    </label>
+                                </span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>
@@ -74,38 +91,11 @@
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 
 <script type="text/javascript">
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    var week = ['일', '월', '화', '수', '목', '금', '토'];
-    var slctType = 1;
+
+    slctType = 1;
     $(function(){
-
-        $('#monthDate').datepicker({
-            minViewMode: 'months',
-            format: 'yyyy.mm',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-        $("#monthDate").on('change', function () {
-            var monthLastDate = new Date($("#monthDate").val().substr(0,4),$("#monthDate").val().substr(5,6),-1);
-            $("#startDate").val($("#monthDate").val() + '.01');
-            $("#endDate").val($("#monthDate").val() + "." +  (monthLastDate.getDate() + 1));
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        });
-
-        setTimeDate(dateTime);
-
-        //방송 통계 현황
-        getList();
+        setDayButton();
     });
-
-    function setTimeDate(dateTime){
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-        searchDate()
-    }
 
     function getList(){
         var startDate = $("#startDate").val();
@@ -196,43 +186,6 @@
         };
         var html = templateScript(data);
         $("#summaryTable2").html(html);
-    }
-
-    $(document).on('click', '._prevSearch', function(){
-        searchDate('prev');
-    });
-
-    $(document).on('click', '._nextSearch', function(){
-        searchDate('next');
-    });
-
-    $(document).on('click', '._todaySearch', function(){
-        setTimeDate(dateTime);
-        $("#bt_search").click();
-    });
-
-    function searchDate(dateType){
-        if(common.isEmpty(dateType)){
-            $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-            $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-
-            $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
-            $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
-
-        }else if(dateType == 'prev'){
-            setMonth(-1);
-
-        }else if(dateType == 'next'){
-            setMonth(1);
-        }
-        $("#bt_search").click();
-    }
-
-    function setMonth(months){
-        $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
-        $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
     }
 
 </script>
