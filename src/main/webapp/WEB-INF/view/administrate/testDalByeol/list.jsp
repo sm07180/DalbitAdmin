@@ -10,33 +10,38 @@
                 <div class="row col-lg-8 form-inline">
                     <form id="searchForm">
                         <div class="widget widget-table searchBoxArea">
-                            <div class="widget-header searchBoxRow">
-                                <h3 class="title"><i class="fa fa-search"></i> 테스트아이디 검색</h3>
+                            <table>
+                                <tr>
+                                    <th style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                        <i class="fa fa-search"></i><br/>검색
+                                        <jsp:include page="../../searchArea/daySearchFunction.jsp"/>
+                                    </th>
+                                    <td style="text-align: left">
 
-                                <div>
-                                    <span id="searchFormRadio"></span>
+                                        <jsp:include page="../../searchArea/dateRangeSearchArea.jsp"/>
 
-                                    <div class="input-group date" id="rangeDatepicker">
-                                        <label for="displayDate" class="input-group-addon">
-                                            <span><i class="fa fa-calendar"></i></span>
-                                        </label>
-                                        <input type="text" name="displayDate" id="displayDate" class="form-control" />
-                                    </div>
+                                        <input type="text" class="form-control" id="onedayDate" name="onedayDate">
 
-                                    <input type="hidden" name="startDate" id="startDate">
-                                    <input type="hidden" name="endDate" id="endDate" />
+                                        <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                        <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                        <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                        <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                        <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." style="display: none"></label>
 
-                                    <%--<input name="startDate" id="startDate">--%>
-                                    <%--<input name="endDate" id="endDate" />--%>
+                                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                        <a href="javascript://" class="_prevSearch">[이전]</a>
+                                        <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                        <a href="javascript://" class="_nextSearch">[다음]</a>
 
-                                    <label><input type="text" class="form-control" id="searchText" name="searchText"></label>
-                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                    <a href="javascript://" class="_prevSearch">[이전]</a>
-                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                    <a href="javascript://" class="_nextSearch">[다음]</a>
-
-                                </div>
-                            </div>
+                                        <span id="searchCheck">
+                                            <label class="control-inline fancy-checkbox custom-color-green">
+                                                <input type="checkbox" name="search_testId" id="search_testId" value="1">
+                                                <span>테스트 아이디 제외</span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </form>
                     <span>
@@ -90,112 +95,20 @@
 <script type="text/javascript" src="/js/handlebars/administrateHelper.js?${dummyData}"></script>
 <script>
 
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    setTimeDate(dateTime);
-
     var sDate;
     var eDate;
-    var _searchFormRadio ="";
     var empName;
-    var listSort;
+    var listSort = 0;
     var pagingInfo = new PAGING_INFO(0,1,50);
 
     $(document).ready(function() {
-
-        $("#displayDate").statsDaterangepicker(
-            function(start, end, t1) {
-                $("#startDate").val(start.format('YYYY.MM.DD'));
-                $("#endDate").val(end.format('YYYY.MM.DD'));
-            }
-        );
-        $("#searchFormRadio").html(util.getCommonCodeRadio(0, searchFormRadio));
+        slctType = 3;
+        dateType(slctType);
 
         $('#testDalByeollistSort').html(util.getCommonCodeSelect(-1, testDalByeollistSort));
 
         init();
-        radioChange();
     });
-
-
-    $(document).on('change', 'input[name="searchFormRadio"]', function(){
-        radioChange();
-    });
-
-    function radioChange(){
-        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
-        if(_searchFormRadio == 2){
-            setTimeDate(dateTime);
-        }
-        setStartDay();
-    }
-
-    $(document).on('click', '._prevSearch', function(){
-        searchDate('prev');
-    });
-
-    $(document).on('click', '._nextSearch', function(){
-        searchDate('next');
-    });
-
-    $(document).on('click', '._todaySearch', function(){
-        $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
-        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
-        setTimeDate(dateTime);
-        setStartDay();
-    });
-
-    function setTimeDate(dateTime){
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-        $("#displayDate").val(dateTime + " - " + dateTime);
-    }
-
-    function searchDate(dateType){
-        if(dateType == 'prev'){
-            setDay(-1);
-        }else if(dateType == 'next'){
-            setDay(1);
-        }
-    }
-
-    function setDay(days){
-        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
-        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
-
-        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
-
-        sDate = $("#startDate").val();
-        eDate = $("#endDate").val();
-        getList();
-    }
-    function setStartDay() {
-        var date = new Date();
-        $("#endDate").val(dateTime);
-
-        if (_searchFormRadio == 1) {     // 일주일 전
-            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
-            sDate = date.getFullYear() + "." + common.lpad(sDate.getMonth() + 1, 2, "0") + "." + common.lpad(sDate.getDate() + 1, 2, "0");      // 일주일전
-            $("#startDate").val(sDate);
-        } else if (_searchFormRadio == 0) {       // 한달전
-            var setMonthDate;
-            var cal = common.lpad(date.getMonth(), 2, "0") + "." + common.lpad(new Date(date.getFullYear(), date.getMonth(), 0).getDate(), 2, "0");
-
-            if (common.lpad(date.getMonth(), 2, "0") + "." + common.lpad(date.getDate(), 2, "0") > cal) {
-                setMonthDate = cal;
-            } else {
-                setMonthDate = common.lpad(date.getMonth(), 2, "0") + "." + common.lpad(date.getDate(), 2, "0");
-            }
-
-            sDate = date.getFullYear() + "." + setMonthDate;
-            $('#startDate').val(sDate);
-        }
-        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
-
-        sDate = $("#startDate").val();
-        eDate = $("#endDate").val();
-        getList();
-    }
 
     function init(){
         getSummary();

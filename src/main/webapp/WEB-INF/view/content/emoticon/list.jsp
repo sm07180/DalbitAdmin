@@ -11,16 +11,22 @@
         <!-- serachBox -->
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
-                <div class="widget-header searchBoxRow">
-                    <h3 class="title"><i class="fa fa-search"></i></h3>
-                    <div>
-                        <span class="select_category" id="select_category"></span>
-                        <span id="searchIsUse"></span>
-                        <%--<span id="searchType"></span>--%>
-                        <label><input type="text" class="form-control" id="txt_search"></label>
-                        <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                    </div>
-                </div>
+                <table>
+                    <tr>
+                        <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                            <i class="fa fa-search"></i><br/>검색
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <span class="select_category" id="select_category"></span>
+                            <span id="searchIsUse"></span>
+                            <%--<span id="searchType"></span>--%>
+                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <!-- //serachBox -->

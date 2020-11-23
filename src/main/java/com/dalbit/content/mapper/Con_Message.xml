@@ -48,24 +48,11 @@
             <include refid="messageSelect"/>
             <where>
                 <if test='searchText != null and searchText != ""'>
-                    <choose>
-                        <when test='searchType == -1'>
-                            AND (
-                                title like concat('%', #{searchText}, '%')
-                                or send_cont like concat('%', #{searchText}, '%')
-                                or op_name like concat('%', #{searchText}, '%')
-                            )
-                        </when>
-                        <when test='searchType == 1'>
-                            AND title like concat('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 2'>
-                            AND send_cont like concat('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 3'>
-                            AND op_name like concat('%', #{searchText}, '%')
-                        </when>
-                    </choose>
+                    AND (
+                        title like concat('%', #{searchText}, '%')
+                        or send_cont like concat('%', #{searchText}, '%')
+                        or op_name like concat('%', #{searchText}, '%')
+                    )
                 </if>
             </where>
         ) AS a,

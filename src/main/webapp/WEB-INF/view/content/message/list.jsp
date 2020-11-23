@@ -9,15 +9,19 @@
         <form id="searchForm">
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i>방송방 메시지 검색</h3>
-                        <div>
-                            <span id="search_searchType_aria"></span>
-
-                            <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                        </div>
-                    </div>
+                    <table>
+                        <tr>
+                            <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                <i class="fa fa-search"></i><br/>검색
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">
+                                <label><input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </form>
@@ -57,7 +61,7 @@
     }
 
     function initEvent(){
-        $('input[id="txt_search"]').keydown(function() {
+        $('input[id="searchText"]').keydown(function() {
             if (event.keyCode === 13) {
                 getItemInfo();
             };
