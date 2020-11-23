@@ -124,28 +124,24 @@
     function radioChange(){
         if(tabId != 'tab_broadcastDetail' && tabId != 'tab_clipDetail') {
             slctType = $('input[name="slctType"]:checked').val();
-            dateType();
             if ($('input[name="slctType"]:checked').val() == 0) {
                 $("#oneDayDatePicker").show();
-                $("#rangeDatepicker").hide();
             } else {
                 $("#oneDayDatePicker").hide();
-                $("#rangeDatepicker").show();
             }
         }else{
             slctType = $('input[name="slctType2"]:checked').val();
             if(slctType == 2) {
                 slctType = 1;
             }
-            dateType();
-            if ($('input[name="slctType2"]:checked').val() == 0) {
+            if (slctType == 0) {
                 $("#oneDayDatePicker").show();
-                $("#rangeDatepicker").hide();
             } else {
                 $("#oneDayDatePicker").hide();
-                $("#rangeDatepicker").show();
             }
         }
+        dateType();
+        $("#bt_search").click();
     }
 
 </script>
