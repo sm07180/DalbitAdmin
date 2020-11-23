@@ -13,10 +13,10 @@ public class TestDalByeolListVo extends PagingVo {
     private String type;
     private String emp_name;
 
-    private int dalSend;
-    private int dalRecv;
-    private int byeolSend;
-    private int byeolRecv;
+    private long dalSend;
+    private long dalRecv;
+    private long byeolSend;
+    private long byeolRecv;
 
 
     private int send;
@@ -29,15 +29,15 @@ public class TestDalByeolListVo extends PagingVo {
     private String lastUpdDate;
 
     // summary
-    private int sendDalMem;
-    private int recvDalMem;
-    private int dalTotalMem;
-    private int sendByeolMem;
-    private int recvByeolMem;
-    private int byeolTotalMem;
+    private long sendDalMem;
+    private long recvDalMem;
+    private long dalTotalMem;
+    private long sendByeolMem;
+    private long recvByeolMem;
+    private long byeolTotalMem;
 
-    private int totalDal;
-    private int totalByeol;
+    private long totalDal;
+    private long totalByeol;
 
 
 

@@ -34,7 +34,7 @@
     var accum_total_out_before_cnt = 0;
 
     $(function(){
-        getCalendar();
+        // getCalendar();
     });
 
     function getCalendar(){
