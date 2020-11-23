@@ -88,8 +88,8 @@
         getBehaviorList();
     });
 
-    $('input[id="searchText"]').keydown(function(){
-        if(event.keyCode === 13) {
+    $('input[id="txt_search"]').keydown(function(e){
+        if(e.keyCode === 13) {
             getBehaviorList();
         }
     });
