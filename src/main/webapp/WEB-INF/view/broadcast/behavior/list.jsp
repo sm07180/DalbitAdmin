@@ -26,7 +26,7 @@
         <div class="row col-lg-12 form-inline" style="padding-bottom: 15px">
             <div class="pull-left">
                 <h4>청취자 행위 유도 관리</h4>
-                방송에서 DJ 및 청취자에게 보여지는 방송방 행위 유도 관리입니다. 등장 조건은 청취자 입장 후 입니다.
+                방송에서 DJ 및 청취자에게 보여지는 방송방 행위 유도 관리입니다. 등장 시간은 청취자 입장 후 입니다.
             </div>
             <div class="pull-right">
                 <button type="button" id="bt_addMsg" class="btn btn-primary mt10 mr10">추가</button>
@@ -50,7 +50,7 @@
                                 <th>내용 개수</th>
                                 <th>버튼 명</th>
                                 <th>호출(액션)</th>
-                                <th>등장 조건</th>
+                                <th>등장 시간</th>
                                 <th>지속 시간</th>
                                 <th>게시 여부</th>
                                 <th>최종 수정 일시</th>
@@ -80,7 +80,7 @@
 <script>
     $(document).ready(function() {
        getBehaviorList();
-       $('#search_target_aria').html(util.getCommonCodeSelect(-1, behavior_target_search))
+       // $('#search_target_aria').html(util.getCommonCodeSelect(-1, behavior_target_search)) // 노출대상 추가 될 시 사용될 예정입니다.
        $('#search_viewYn_aria').html(util.getCommonCodeSelect(-1, behavior_viewYn_search))
     });
 
@@ -147,7 +147,7 @@
 
     function validation() {
         if(common.isEmpty($('#conTime').val())) {
-            alert("등장 조건 시간을 입력해주세요.")
+            alert("등장 시간을 입력해주세요.")
             return false;
         }
         if(common.isEmpty($('#runTime').val())) {
@@ -297,7 +297,7 @@
             <tr class="align-middle">
                 <th>노출 대상</th>
                 <td>{{{getCommonCodeRadio target "behavior_target" }}}</td>
-                <th>등장 조건</th>
+                <th>등장 시간</th>
                 <td>
                     <input type="text" class="form-control" id="conTime" value="{{conTime}}" style="width: 50%;"/> 초
                 </td>
