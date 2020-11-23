@@ -247,6 +247,9 @@ var BroadcastDataTableSource = {
             {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
                     return common.fontColor(data, 0, 'blue') +'번';
                 }},
+            {'title': '이어하기', 'data': 'continue_room','width' : '25px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
+                }},
             {'title': '숨김<br/>상태', 'data': 'hide', 'width':'30px', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
                     else return "Y";
@@ -302,11 +305,14 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '나가기<br />횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기<br />시도', 'data': 'exit_try_count','width' : '70px','render': function (data){
                     return common.fontColor(data, 1, 'red')+'번';
                 }},
-            {'title': '연장<br />횟수', 'data': 'extend_time_count','width' : '70px','render': function (data){
+            {'title': '연장 횟수', 'data': 'extend_time_count','width' : '70px','render': function (data){
                     return common.fontColor(data, 0, 'blue')+'번';
+                }},
+            {'title': '이어하기', 'data': 'continue_room','width' : '70px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
                 }},
             {'title': '숨김상태', 'data': 'hide', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
