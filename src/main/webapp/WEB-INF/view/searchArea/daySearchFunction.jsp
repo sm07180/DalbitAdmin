@@ -189,6 +189,7 @@
                 $("#rangeDatepicker").show();
                 $("#bt_search").click();
             }else if(slctType == 99){
+                setTimeDate(dateTime);
                 $("#bt_search").click();
             }
         }

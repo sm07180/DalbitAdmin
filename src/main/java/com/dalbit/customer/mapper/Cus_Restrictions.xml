@@ -182,7 +182,19 @@
         (
         SELECT
         listen.mem_no	 AS mem_no
-        , listen.room_no	 AS room_no
+        ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
+        ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
+        ,IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_name
+        , (SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)	 AS device_uuid
+        ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
+        ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
+        , dj_mem_no	 AS dj_mem_no
+        ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_userid
+        ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_nick
+        ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
+        ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
+        ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
+        ,(SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
         FROM
         rd_data.tb_member_broadcast_listening AS listen
         LEFT JOIN
