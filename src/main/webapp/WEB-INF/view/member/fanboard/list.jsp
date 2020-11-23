@@ -33,7 +33,7 @@
             </div>
             <div class="modal-body">
                 <div class="col-md-12 no-padding" id="div_fanboard" style="margin-bottom: 7px"></div><br/>
-                <div class="col-md-12 no-padding" id="div_reply"></div>
+                <div class="col-md-12 no-padding" id="div_replyArea"></div>
             </div>
         </div>
     </div>
@@ -100,9 +100,11 @@
 
     function replyList_success(dst_id, response) {
         // dalbitLog(response);
-        $('#div_reply').empty();
+        $('#div_replyArea').empty();
         $('#div_fanboard').empty();
+
         for(var i=0 ; i<response.data.length; i++){
+
             if(response.data[i].inner == 1){
                 var tmp = '<div class="col-md-12 no-padding bg-testMember" style="margin-bottom: 10px;">';
             }else{
@@ -125,7 +127,7 @@
             if(response.data[i].depth == "1"){          // fanboard
                 $('#div_fanboard').append(tmp + "<br/>");
             }else{                                      // reply
-                $('#div_reply').append(tmp);
+                $('#div_replyArea').append(tmp);
                 $('#image_section' + i).attr('style', "width: 40px;height: 40px");
             }
 
