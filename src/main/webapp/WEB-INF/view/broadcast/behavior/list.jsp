@@ -47,7 +47,6 @@
                                 <th>No</th>
                                 <th>노출 대상</th>
                                 <th>행위 유도 내용</th>
-                                <th>내용 개수</th>
                                 <th>버튼 명</th>
                                 <th>호출(액션)</th>
                                 <th>등장 시간</th>
@@ -146,15 +145,15 @@
     });
 
     function validation() {
-        if(common.isEmpty($('#conTime').val())) {
-            alert("등장 시간을 입력해주세요.")
+        if(common.isEmpty($('#conTime').val()) || $('#conTime').val() == 0) {
+            alert("등장 시간을 1초 이상 입력해주세요.")
             return false;
         }
-        if(common.isEmpty($('#runTime').val())) {
-            alert("지속 시간을 입력해주세요.")
+        if(common.isEmpty($('#runTime').val()) || $('#runTime').val() == 0) {
+            alert("지속 시간을 1초 이상 입력해주세요.")
             return false;
         }
-        if(common.isEmpty($('#desc1').val())) {
+        if(common.isEmpty($('#desc1').val()) || common.isEmpty($('#desc2').val()) || common.isEmpty($('#desc3').val())) {
             alert("행위 유도 내용을 입력해주세요.")
             return false;
         }
@@ -191,8 +190,10 @@
                 }
                 util.getAjaxData("applyBehaviorMsg", "/rest/broadcast/behavior/apply", data, function fn_applyBehaviorMsg_success(dst_id, response) {
                     alert(response.message);
-                    getBehaviorList();
-                    $("#behaviorDetail").empty();
+                    if(response.result == 'success'){
+                        getBehaviorList();
+                        $("#behaviorDetail").empty();
+                    }
                 });
             }
         }
@@ -214,9 +215,12 @@
                 delete_idx_list : idxs
             }
             util.getAjaxData("deleteBehaviorMsg", "/rest/broadcast/behavior/delete", data, function fn_deleteBehaviorMsg_success(dst_id, response) {
+
                 alert(response.message);
-                getBehaviorList();
-                $("#behaviorDetail").empty();
+                if(response.result == 'success'){
+                    getBehaviorList();
+                    $("#behaviorDetail").empty();
+                }
             });
         }
     });
@@ -253,7 +257,6 @@
                 {{/equal}}
                 </a>
             </td>
-            <td>{{addComma desc_cnt}}개</td>
             <td>
                 {{title}}
             </td>
@@ -299,11 +302,11 @@
                 <td>{{{getCommonCodeRadio target "behavior_target" }}}</td>
                 <th>등장 시간</th>
                 <td>
-                    <input type="text" class="form-control" id="conTime" value="{{conTime}}" style="width: 50%;"/> 초
+                    <input type="text" class="form-control _trim" id="conTime" value="{{conTime}}" style="width: 50%;"/> 초
                 </td>
                 <th>지속 시간</th>
                 <td>
-                    <input type="text" class="form-control" id="runTime" value="{{runTime}}" style="width: 50%;"/> 초
+                    <input type="text" class="form-control _trim" id="runTime" value="{{runTime}}" style="width: 50%;"/> 초
                 </td>
             </tr>
             <tr class="align-middle">
@@ -315,25 +318,25 @@
             <tr class="align-middle">
                 <th>행위 유도 내용1</th>
                 <td colspan="5">
-                    <input type="text" class="form-control" id="desc1" value="{{desc1}}" style="width: 80%;"/>
+                    <input type="text" class="form-control _trim" id="desc1" value="{{desc1}}" style="width: 80%;"/>
                 </td>
             </tr>
             <tr class="align-middle">
                 <th>행위 유도 내용2</th>
                 <td colspan="5">
-                    <input type="text" class="form-control" id="desc2" value="{{desc2}}" style="width: 80%;"/>
+                    <input type="text" class="form-control _trim" id="desc2" value="{{desc2}}" style="width: 80%;"/>
                 </td>
             </tr>
             <tr class="align-middle">
                 <th>행위 유도 내용3</th>
                 <td colspan="5">
-                    <input type="text" class="form-control" id="desc3" value="{{desc3}}" style="width: 80%;"/>
+                    <input type="text" class="form-control _trim" id="desc3" value="{{desc3}}" style="width: 80%;"/>
                 </td>
             </tr>
             <tr class="align-middle">
                 <th>버튼명</th>
                 <td colspan="5">
-                    <input type="text" class="form-control" id="title" value="{{title}}" style="width: 80%;"/>
+                    <input type="text" class="form-control _trim" id="title" value="{{title}}" style="width: 80%;"/>
                 </td>
             </tr>
         </tbody>
