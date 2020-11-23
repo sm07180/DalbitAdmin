@@ -12,9 +12,8 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i>검색</h3>
                     <div>
-                        <span id="searchRadio"></span>
-                        <span id="searchType_broad"></span>
-                        <span id="searchRoom_state"></span>
+                        <span id="search_target_aria"></span>
+                        <span id="search_viewYn_aria"></span>
                         <label><input type="text" class="form-control" id="txt_search"></label>
                         <button type="button" class="btn btn-success" id="bt_search">검색</button>
                     </div>
@@ -81,12 +80,24 @@
 <script>
     $(document).ready(function() {
        getBehaviorList();
+       $('#search_target_aria').html(util.getCommonCodeSelect(-1, behavior_target_search))
+       $('#search_viewYn_aria').html(util.getCommonCodeSelect(-1, behavior_viewYn_search))
+    });
+
+    $('#bt_search').on('click', function() {
+        getBehaviorList();
+    });
+
+    $('input[id="searchText"]').keydown(function(){
+        if(event.keyCode === 13) {
+            getBehaviorList();
+        }
     });
 
     function getBehaviorList() {
         var data = {
-            target : 1
-            , viewYn : 0
+            target : $('select[name="target"]').val()
+            , viewYn : $('select[name="viewYn"]').val()
             , searchText : $('#txt_search').val()
         }
         util.getAjaxData("getBehaviorList", "/rest/broadcast/behavior/list", data, function fn_getBehaviorList_success(dst_id, response) {
@@ -97,7 +108,6 @@
 
             $('#behaviorList').html(html);
         });
-        console.log("before" + $('#detailTable').length);
     }
 
     $('#bt_addMsg').on('click', function() {
@@ -165,7 +175,6 @@
     // });
 
     $(document).on('click', '#bt_applyBehaviorMsg', function(){
-        console.log($('#idx').val());
         if(validation()) {
             if(confirm('메시지를 적용시키시겠습니까?')) {
                 var data = {
