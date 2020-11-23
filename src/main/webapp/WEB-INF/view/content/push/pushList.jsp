@@ -116,6 +116,8 @@ var fnc_pushList = {};
 
     // 삭제
     fnc_pushList.deleteEvent= function() {
+        var sw = false;
+        var alertSw = false;
         var checkDatas = fnc_pushList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -125,22 +127,38 @@ var fnc_pushList = {};
 
         dalbitLog(checkDatas);
         if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-
             var push_idxs = "";
             for(var idx=0; idx < checkDatas.length; idx++){
                 var dataInfo = checkDatas[idx];
-                if(common.isEmpty(dataInfo.push_idx)){
-                    dalbitLog("[delete] Item code does not exist. : ");
-                    dalbitLog(dataInfo);
-                    continue;
+                if(dataInfo.reservationCnt > 0){
+                    if(!alertSw){
+                        if(confirm("예약발송 건이 있습니다 삭제하시겠습니까?")){
+                            sw = true;
+                            alertSw = true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        sw = true;
+                    }
+                }else{
+                    sw = true;
                 }
+                if(sw){
+                    if(common.isEmpty(dataInfo.push_idx)){
+                        dalbitLog("[delete] Item code does not exist. : ");
+                        dalbitLog(dataInfo);
+                        continue;
+                    }
 
-                if(dataInfo.status != "0"){
-                    alert("삭제 불가능한 상태가 존재합니다.\n해당 상태를 제외하고 삭제를 진행합니다.\n\n * 삭제 가능 상태 : 발송대기");
-                    continue;
+                    if(dataInfo.status != "0"){
+                        alert("삭제 불가능한 상태가 존재합니다.\n해당 상태를 제외하고 삭제를 진행합니다.\n\n * 삭제 가능 상태 : 발송대기");
+                        continue;
+                    }
+
+                    push_idxs += "," + dataInfo.push_idx;
+                    sw = false;
                 }
-
-                push_idxs += "," + dataInfo.push_idx;
             }
             push_idxs = push_idxs.substring(1);
 

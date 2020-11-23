@@ -33,6 +33,7 @@ public class P_pushListOutputVo extends BaseVo {
     private String target_info;
     private int image_type;
     private String push_slct;
+    private int reservationCnt;
 
     public void setReg_date(java.sql.Date reg_date){
         this.reg_date = reg_date;

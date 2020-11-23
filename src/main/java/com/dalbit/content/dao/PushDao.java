@@ -35,4 +35,13 @@ public interface PushDao {
 
     @Transactional(readOnly = true)
     PushChoiceMemVo selectChoiceMember(String memNo);
+
+
+    int callContentsPushAndroid(P_pushDeleteVo pPushDeleteVo);
+    int callContentsPushWeb(P_pushDeleteVo pPushDeleteVo);
+    int callContentsPushWebLarge(P_pushDeleteVo pPushDeleteVo);
+    int callContentsPushSchedule(P_pushDeleteVo pPushDeleteVo);
+
+
+
 }
