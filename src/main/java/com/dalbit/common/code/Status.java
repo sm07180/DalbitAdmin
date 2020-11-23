@@ -846,11 +846,12 @@ public enum Status {
     청취자유도메시지수정_메시지번호없음("-1", "param.error", "수정할 메시지번호가 없을 시"),
     청취자유도메시지수정_실패("C006", "server.error", "청취 유도 메시지 수정 실패 시"),
 
+    청취자유도메시지_등장시간중복("-2", "broadcast.behavior.duplicate.condition.time", "등장 시간이 중복될 시"),
+
     //청취유도 메시지 삭제
     청취자유도메시지삭제_성공("0", "delete.success", "청취 유도 메시지 삭제 성공 시"),
     청취자유도메시지삭제_실패("C006", "server.error", "청취 유도 메시지 삭제 실패 시"),
 
-    청취자유도메시지_등장시간중복("C006", "broadcast.behavior.duplicate.condition.time", "등장 시간이 중복될 시"),
 
     ;
 
