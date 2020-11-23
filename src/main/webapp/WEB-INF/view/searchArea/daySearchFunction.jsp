@@ -169,7 +169,6 @@
         }else if(paramSlctType == 99){          // 99 : 검색창만
             $("#bt_search").click();
         }else if(common.isEmpty(paramSlctType)){
-
             if(slctType == 0 ){
                 setDayButton();
                 $("#onedayDate").show();
@@ -189,7 +188,7 @@
                 setTimeDate(dateTime);
                 $("#rangeDatepicker").show();
                 $("#bt_search").click();
-            }else if(slctType == 00){
+            }else if(slctType == 99){
                 $("#bt_search").click();
             }
         }

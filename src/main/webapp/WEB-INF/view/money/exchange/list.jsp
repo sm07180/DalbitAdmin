@@ -158,12 +158,6 @@
 
     $(function(){
 
-        // $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
-        // $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
-        // $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
-        //
-        // $('#searchTestIdArea').html(util.getCommonCodeRadio(-1, testId));
-
         if(!common.isEmpty(tabType)){
             $('#topBotton li:eq(' + tabType + ') a').tab('show');
         }
