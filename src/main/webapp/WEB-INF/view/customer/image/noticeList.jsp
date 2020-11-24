@@ -41,7 +41,7 @@ var fnc_noticeList = {};
 //=------------------------------ Init / Event--------------------------------------------
     fnc_noticeList.targetId= "noticeList";
     fnc_noticeList.formId= "noticeForm";
-    fnc_noticeList.pagingInfo= new PAGING_INFO(0, 0, 54);
+    fnc_noticeList.pagingInfo= new PAGING_INFO(0, 1, 54);
 
     fnc_noticeList.init= function() {
         fnc_noticeList.target = $("#"+fnc_noticeList.targetId);
@@ -154,7 +154,7 @@ var fnc_noticeList = {};
 <script id="tmp_noticeSelectFrm" type="text/x-handlebars-template">
     {{#each this.data as |data|}}
         {{^equal data.image_path ''}}
-            {{#dalbit_if inner '==' 1}}
+            {{#dalbit_if data.inner '==' 1}}
             <div class="item col-md-2 col-sm-6 mb15 bg-testMember" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
             {{else}}
             <div class="item col-md-2 col-sm-6 mb15" style="padding-bottom: 15px;padding-right: 3px;padding-left: 3px">
