@@ -75,12 +75,6 @@ var BroadcastDataTableSource = {
             {'title': '방송랭킹<br/>점수', 'data': 'total','width' : '45px','render': function (data){
                     return common.addComma(data) + "점";
                 }},
-            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '25px','render': function (data){
-                    if(data > 0){
-                        return 'YES';
-                    }
-                    return 'NO';
-                }},
             {'title': '누적 청취<br/>(비회원)', 'data': 'totalListener','width' : '55px','render': function (data, type, row, meta) {
                     var tmp = common.addComma(row.memTotalListener) + '명<br/>(' + common.addComma(row.notMemTotalListener) + '명)';
                     return tmp;
@@ -128,6 +122,12 @@ var BroadcastDataTableSource = {
                     tmp = tmp + '<button type="button" class="btn btn-danger btn-xs" onclick="forcedEnd($(this).data());" data-memno= "' + row.dj_mem_no + '" data-roomno="' + row.room_no + '" >강제종료</button>';
 
                     return tmp;
+                }},
+            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '25px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
+                }},
+            {'title': '이어하기', 'data': 'continue_room','width' : '25px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
                 }},
             {'title': '숨김<br/>상태', 'data': 'hide', 'width':'30px', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
@@ -208,12 +208,6 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
-                    if(data > 0){
-                        return 'YES';
-                    }
-                    return 'NO';
-                }},
             {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '55px','render': function (data){
                     return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
@@ -249,6 +243,12 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '나가기<br/>시도', 'data': 'exit_try_count','width' : '55px','render': function (data){
                     return common.fontColor(data, 1, 'red') +'번';
+                }},
+            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
+                }},
+            {'title': '이어하기', 'data': 'continue_room','width' : '25px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
                 }},
             {'title': '숨김<br/>상태', 'data': 'hide', 'width':'30px', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
@@ -305,8 +305,14 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '나가기 횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기<br />시도', 'data': 'exit_try_count','width' : '70px','render': function (data){
                     return common.fontColor(data, 1, 'red')+'번';
+                }},
+            {'title': '연장 횟수', 'data': 'extend_time_count','width' : '70px','render': function (data){
+                    return common.fontColor(data, 0, 'blue')+'번';
+                }},
+            {'title': '이어하기', 'data': 'continue_room','width' : '70px','render': function (data){
+                    return common.fontColor(data, 0, 'blue') +'번';
                 }},
             {'title': '숨김상태', 'data': 'hide', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
