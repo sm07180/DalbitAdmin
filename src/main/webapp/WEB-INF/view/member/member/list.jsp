@@ -131,8 +131,8 @@
     dtList_info2.useInitReload(false);
     dtList_info2.createDataTable();
 
-    var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#div_memberList").find(".footer-right").append(excel);
+    var excel = '<button class="btn btn-default btn-sm print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+    $("#div_memberList").append(excel);
 
     var tmp_searchType = -1;
     var tmp_searchText;
@@ -143,11 +143,11 @@
             return;
         }
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        /*if($('input[name="searchRadio"]:checked').val() != "1"){
+        if($('input[name="searchRadio"]:checked').val() != "1"){
             tmp_searchType = $('input[name="searchRadio"]:checked').val();
         }else{
-            tmp_searchType = $("select[name='searchType']").val();
-        }*/
+            tmp_searchType = -1;
+        }
         tmp_searchText = $('#txt_search').val();
 
         $('#tabList_top').removeClass("show");
@@ -205,6 +205,7 @@
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
+        console.log("------------- 1");
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("searchType", tmp_searchType);
