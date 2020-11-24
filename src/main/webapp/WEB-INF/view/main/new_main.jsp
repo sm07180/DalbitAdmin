@@ -9,43 +9,79 @@
             <form id="searchForm">
                 <div class="row form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
-                            <div>
-                                <span id="slctTypeArea"></span>
-                                <div class="input-group date" id="oneDayDatePicker">
-                                    <label for="onedayDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
-                                    </label>
-                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
-                                </div>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                    <jsp:include page="../searchArea/daySearchFunction.jsp"/>
+                                </th>
+                                <th id="th_bottonList">
+                                    <div>
+                                        <div id="div_dayButton"><jsp:include page="../searchArea/daySearchArea.jsp"/></div>
+                                        <div id="div_monthButton" style="display: none"><jsp:include page="../searchArea/monthSearchArea.jsp"/></div>
+                                        <div id="div_yearButton" style="display: none"><jsp:include page="../searchArea/yearSearchArea.jsp"/></div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <span id="slctTypeArea"></span>
 
-                                <div class="input-group date" id="monthDatepicker" style="display:none;">
-                                    <label for="monthDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="monthDate" type="text" class="form-control" style="width: 196px;"/>
-                                </div>
+                                    <input id="onedayDate" type="text" class="form-control" >
+                                    <input id="monthDate" type="text" class="form-control" style="display: none"/>
+                                    <input id="yearDate" type="text" class="form-control" style="display: none"/>
 
-                                <div class="input-group date" id="yearDatepicker" style="display:none;">
-                                    <label for="yearDate" class="input-group-addon">
-                                        <span><i class="fa fa-calendar"></i></span>
-                                    </label>
-                                    <input id="yearDate" type="text" class="form-control" style="width: 196px;"/>
-                                </div>
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <%--<div class="widget-header searchBoxRow">--%>
+                            <%--<h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>--%>
+                            <%--<div>--%>
+                                <%--<span id="slctTypeArea"></span>--%>
+                                <%--<div class="input-group date" id="oneDayDatePicker">--%>
+                                    <%--<label for="onedayDate" class="input-group-addon">--%>
+                                        <%--<span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>--%>
+                                    <%--</label>--%>
+                                    <%--<input type="text" class="form-control" id="onedayDate" name="onedayDate">--%>
+                                <%--</div>--%>
+
+                                <%--<div class="input-group date" id="monthDatepicker" style="display:none;">--%>
+                                    <%--<label for="monthDate" class="input-group-addon">--%>
+                                        <%--<span><i class="fa fa-calendar"></i></span>--%>
+                                    <%--</label>--%>
+                                    <%--<input id="monthDate" type="text" class="form-control" style="width: 196px;"/>--%>
+                                <%--</div>--%>
+
+                                <%--<div class="input-group date" id="yearDatepicker" style="display:none;">--%>
+                                    <%--<label for="yearDate" class="input-group-addon">--%>
+                                        <%--<span><i class="fa fa-calendar"></i></span>--%>
+                                    <%--</label>--%>
+                                    <%--<input id="yearDate" type="text" class="form-control" style="width: 196px;"/>--%>
+                                <%--</div>--%>
 
 
-                                <input type="hidden" name="startDate" id="startDate">
-                                <input type="hidden" name="endDate" id="endDate" />
+                                <%--<input type="hidden" name="startDate" id="startDate">--%>
+                                <%--<input type="hidden" name="endDate" id="endDate" />--%>
 
-                                <%--<input name="startDate" id="startDate">--%>
-                                <%--<input name="endDate" id="endDate" />--%>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
-                                <a href="javascript://" class="_nextSearch">[다음]</a>
-                            </div>
-                        </div>
+                                <%--&lt;%&ndash;<input name="startDate" id="startDate">&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<input name="endDate" id="endDate" />&ndash;%&gt;--%>
+                                <%--<button type="button" class="btn btn-success" id="bt_search">검색</button>--%>
+                                <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
+                                <%--<a href="javascript://" class="_todaySearch">[오늘]</a>--%>
+                                <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
                     </div>
                 </div>
             </form>
@@ -204,186 +240,24 @@
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 
 <script type="text/javascript">
-    var eDisplayDate;
-    $(function(){
-        searchData("all");
-    });
-
     var dataType = 0;
 
-    var chartParam = {
-        slctType : 11
-        , liveType : 1
-        , viewType : 1
-    };
-
-    var dateTime = new Date();
-    dateTime = moment(dateTime).format("YYYY.MM.DD");
-    var week = ['일', '월', '화', '수', '목', '금', '토'];
-    var toDay = week[moment(new Date()).day()];
-    setTimeDate(dateTime);
-
-    var _datePicker = 0;
-
     $(function(){
-        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
-            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-            $("#startDate").val(selectDate);
-            $("#endDate").val(selectDate);
-        });
-        // 월 선택 -------------------------------------
-        $('#monthDate').datepicker({
-            minViewMode: 'months',
-            format: 'yyyy.mm',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-        $("#monthDate").on('change', function () {
-            var monthLastDate = new Date($("#monthDate").val().substr(0,4),$("#monthDate").val().substr(5,6),-1);
-            $("#startDate").val($("#monthDate").val() + '.01');
-            $("#endDate").val($("#monthDate").val() + "." +  (monthLastDate.getDate() + 1));
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        });
-
-        // 년 선택 --------------------------------
-        $('#yearDate').datepicker({
-            minViewMode: 'years',
-            format: 'yyyy',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
-        });
-        $("#yearDate").on('change', function () {
-            $("#startDate").val($("#yearDate").val() + '.01.01');
-            $("#endDate").val($("#yearDate").val() + ".12.31");
-            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-        });
-
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
+        slctType = 0;
+        setDayButton();
+        searchData("all");
 
         $("#bt_search").on('click', function(){
-            searchData();
+            searchData("all");
         });
     });
 
-    function setTimeDate(dateTime){
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
-
-        $("._searchDate").html(dateTime + " (" + toDay + ")");
-    }
 
     $(document).on('change', 'input[name="slctType"]', function(){
-        // console.log($('input[name="slctType"]:checked').val());
-        if($('input[name="slctType"]:checked').val() == 0){
-            _datePicker = 0;
-        }else if($('input[name="slctType"]:checked').val() == 1){
-            _datePicker = 1;
-        }else{
-            _datePicker = 2;
-        }
-        changeDatepicker();
+        slctType = $('input[name="slctType"]:checked').val()
+        dateType();
     });
-
-    $(document).on('click', '._prevSearch', function(){
-        searchDate('prev');
-    });
-
-    $(document).on('click', '._nextSearch', function(){
-        searchDate('next');
-    });
-
-    $(document).on('click', '._todaySearch', function(){
-        toDay = week[moment(new Date()).day()];
-        changeDatepicker();
-
-        setTimeDate(dateTime);
-    });
-
-
-
-    function changeDatepicker(){
-        if(_datePicker == 0){
-            $("#oneDayDatePicker").show();
-            $("#monthDatepicker").hide();
-            $("#yearDatepicker").hide();
-        }else if(_datePicker == 1) {
-            $("#oneDayDatePicker").hide();
-            $("#monthDatepicker").show();
-            $("#yearDatepicker").hide();
-        }else if(_datePicker == 2) {
-            $("#oneDayDatePicker").hide();
-            $("#monthDatepicker").hide();
-            $("#yearDatepicker").show();
-        }
-        searchDate();
-    }
-
-    function searchDate(dateType){
-        if(_datePicker == 0){ //시간별 , 일간
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
-                $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
-            }else if(dateType == 'prev'){
-                setDay(-1);
-            }else{
-                setDay(1);
-            }
-        }else if(_datePicker == 1){ // 월간
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-                $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
-                $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
-            }else if(dateType == 'prev'){
-                setMonth(-1);
-            }else if(dateType == 'next'){
-                setMonth(1);
-            }
-        }else if(_datePicker == 2){ // 연간
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
-                $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
-                $("._searchDate").html(moment(new Date()).format('YYYY년'));
-                $("#yearDate").val(moment(new Date()).format('YYYY'));
-            }else if(dateType == 'prev'){
-                setYear(-1);
-
-            }else if(dateType == 'next'){
-                setYear(1);
-            }
-        }
-        searchData("all");
-    }
-
-    function setDay(days){
-        toDay = week[moment($("#startDate").val()).add('days', days).day()];
-        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
-        $("#endDate").val($("#startDate").val());
-        $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
-        $("#onedayDate").val($("#startDate").val());
-    }
-
-    function setMonth(months){
-        $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
-        $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-        $("#monthDate").val(moment($("#startDate").val()).format('YYYY.MM'));
-    }
-
-    function setYear(years){
-        $("#startDate").val(moment($("#startDate").val()).add('years', years).format('YYYY.01.01'));
-        $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
-        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-        $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
-    }
-
 
     var data = {};
 
