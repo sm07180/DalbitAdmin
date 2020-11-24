@@ -126,13 +126,13 @@
         /* 엑셀저장을 위해 조회조건 임시저장 */
         var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = $('input[name="searchRadio"]:checked').val();
-        if(slctType == "1"){
-            tmp_dj_slctType = $("select[name='searchType_broad']").val();
-            tmp_dj_searchText = $('#searchText').val();
-        }else {
-            tmp_room_slctType = $("select[name='searchBroad_broad']").val();
-            tmp_room_searchText = $('#searchText').val();
-        }
+        tmp_dj_searchText = $('#searchText').val();
+        tmp_room_searchText = $('#searchText').val();
+        // if(slctType == "1"){
+        //     tmp_dj_slctType = $("select[name='searchType_broad']").val();
+        // }else {
+        //     tmp_room_slctType = $("select[name='searchBroad_broad']").val();
+        // }
         tmp_room_liveType = $("select[name='searchRoom_state']").val();
         dtList_info.reload();
         ui.toggleSearchList();

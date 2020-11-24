@@ -9,6 +9,7 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
+
                         <table>
                             <tr>
                                 <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
