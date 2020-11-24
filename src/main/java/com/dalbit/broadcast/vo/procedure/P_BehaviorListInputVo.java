@@ -6,10 +6,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class P_BehaviorListInputVo extends PagingVo {
+public class P_BehaviorListInputVo extends PagingVo{
 
     private int target;
     private int viewYn;
     private String searchText;
+    private int pageNo;
 
 }
