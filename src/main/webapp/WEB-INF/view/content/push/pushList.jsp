@@ -10,6 +10,11 @@
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                 </div>
                 <div class="widget-content">
+                    <div class="col-md-12 no-padding mt5 mb5">
+                        <span class="mb5 mt5">방송 중 운영자 공지/알림/이벤트 안내 메시지등을 발송 할 수 있습니다.</span>
+                    </div>
+                    <span id="search_platform_aria" onchange="selChange();"></span>
+                    <span id="search_sendType_aria" onchange="selChange();"></span>
                     <table id="list_info" class="table table-sorting table-hover table-bordered">
                         <thead>
                         </thead>
@@ -52,6 +57,9 @@ var fnc_pushList = {};
     fnc_pushList.initDataTable= function() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
+            data.platform = $("#platform").val();
+            data.send_type = $("#send_type").val();
+            data.searchText = $("#searchText").val();
         };
 
         this.dtList_info = new DalbitDataTable(fnc_pushList.targetDataTable, dtList_info_data, PushDataTableSource.pushList, $("#searchForm"));
@@ -68,11 +76,11 @@ var fnc_pushList = {};
     fnc_pushList.initDataTableButton= function() {
         var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
-        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
+        // var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
         this.divDataTable.find(".footer-left").append(delBtn);
         this.divDataTable.find(".top-right").append(addBtn);
-        this.divDataTable.find(".footer-right").append(excelBtn);
+        // this.divDataTable.find(".footer-right").append(excelBtn);
     };
 
 
@@ -215,6 +223,14 @@ var fnc_pushList = {};
         this.dtList_info.reload(null, isResetPaging);
 
     };
+
+    function selChange(){
+
+        console.log();
+        $("#searchForm");
+
+        fnc_pushList.selectMainList();
+    }
 
     // /*=---------- 엑셀 ----------*/
     // $('#excelDownBtn').on('click', function(){

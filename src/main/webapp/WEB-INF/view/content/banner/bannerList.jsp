@@ -173,7 +173,7 @@ var fnc_bannerList = {};
     fnc_bannerList.initDataTableButton= function() {
         var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
-        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
+        // var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
         var delBtn_2 = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete2" style="margin-right: 3px;"/>'
         var addBtn_2 = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert2" style="margin-left: 3px;"/>'
@@ -183,7 +183,7 @@ var fnc_bannerList = {};
 
         fnc_bannerList.divDataTable.find(".footer-left").append(delBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(addBtn);
-        fnc_bannerList.divDataTable.find(".footer-right").append(excelBtn);
+        // fnc_bannerList.divDataTable.find(".footer-right").append(excelBtn);
 
     };
 

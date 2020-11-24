@@ -51,6 +51,10 @@
     function reqAbleSpecialList() {
         var dtList_info;
         var dtList_info_data = function(data) {
+            data.select_year = common.substr($("#startDate").val(),0,4);
+            data.select_month =  common.substr($("#startDate").val(),5,2);
+            data.txt_search = $('#searchText').val();
+            data.searchType = $('#searchType').val();
         };
         dtList_info = new DalbitDataTable($("#reqAbleSpecialList"), dtList_info_data, specialDataTableSource.reqAbleSpecialList, $("#searchForm"));
         dtList_info.useCheckBox(false);
@@ -67,7 +71,10 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        formData.append("searchText", $("#searchText").val());
+        formData.append("txt_search", $("#searchText").val());
+        formData.append("select_year", common.substr($("#startDate").val(),0,4));
+        formData.append("select_month", common.substr($("#startDate").val(),5,2));
+        formData.append("searchType", $('#searchType').val());
 
         util.excelDownload($(this), "/rest/menu/special/reqAbleDalListExcel", formData);
     });

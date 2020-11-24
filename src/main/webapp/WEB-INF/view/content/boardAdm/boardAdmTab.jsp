@@ -29,27 +29,9 @@
 <script type="text/javascript">
     var tabId = "tab_storyList" ;
     $("#tablist_con li a").on('click', function(){
-
-
         tabId = $(this).prop('id');
-        if(tabId == "tab_storyList" ){
-            storyList();
-        }else if(tabId == "tab_fanBoardList" ){
-            fanBoardList();
-        }else if(tabId == "tab_fanBoardReply" ){
-            fanBoardReply();
-        }else if(tabId == "tab_noticeList" ){
-            noticeList();
-        }else if(tabId == "tab_broadNoticeList" ) {
-            broadNoticeList();
-        }else if(tabId == "tab_broadNoticeReply") {
-            broadNoticeReply();
-        }else if(tabId == "tab_profileMsgList" ){
-            profileMsgList();
-        }else if(tabId == "tab_clipReply" ){
-            clipReplyList();
-        }
-        tabCntSelect();
+
+        $("#bt_search").click();
     });
     $('input[id="txt_search"]').keydown(function(e) {
         if(e.keyCode == 13) {

@@ -132,13 +132,15 @@
 
 
     var date = new Date();
+    var sDate;
+    var eDate;
 
     var liveState = 1;
     var room_liveType = 1;
     var dtList_info="";
     // liveList(1);
 
-    var tmp_slctType;
+    var tmp_slctType = -1;
     var tmp_dj_slctType = -1;
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
@@ -152,7 +154,7 @@
         maxDate:new Date(),
         format: "YYYY-MM-DD",
     });
-    //sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
+    sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
 
     $(document).ready(function() {
         getSearch();
@@ -313,13 +315,13 @@
         tmp_searchText = $('#searchText').val();
         var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = slctType;
-        if(slctType == "1"){
-            tmp_dj_slctType = $("select[name='searchType_broad']").val();
-            tmp_dj_searchText = $('#searchText').val();
-        }else {
-            tmp_room_slctType = $("select[name='searchBroad_broad']").val();
-            tmp_room_searchText = $('#searchText').val();
-        }
+        tmp_dj_searchText = $('#searchText').val();
+        tmp_room_searchText = $('#searchText').val();
+        // if(slctType == "1"){
+        //     tmp_dj_slctType = $("select[name='searchType_broad']").val();
+        // }else {
+        //     tmp_room_slctType = $("select[name='searchBroad_broad']").val();
+        // }
         dtList_info.reload(summary_table);
     }
 
@@ -332,13 +334,12 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("slctType", tmp_slctType);
-        //formData.append("dj_slctType", tmp_dj_slctType);
+        formData.append("dj_slctType", tmp_dj_slctType);
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_liveType", room_liveType);
-        formData.append("startDate", $("#onedayDate").val() + ' 00:00:00');
-        formData.append("endDate", $("#onedayDate").val() + ' 23:59:59');
-
+        formData.append("sDate", sDate);
+        formData.append("eDate", eDate);
         util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
 

@@ -7,15 +7,21 @@
         <!-- serachBox -->
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
-                <div class="widget-header searchBoxRow">
-                    <h3 class="title"><i class="fa fa-search"></i><span id="title"/></h3>
-                    <div>
-                        <span id="objType"></span>
-                        <span id="viewType"></span>
-                        <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                    </div>
-                </div>
+                <table>
+                    <tr>
+                        <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                            <i class="fa fa-search"></i><br/>검색
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <span id="objType"></span>
+                            <span id="viewType"></span>
+                            <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div class="col-md-12 no-padding">
                 <hr class="one">
