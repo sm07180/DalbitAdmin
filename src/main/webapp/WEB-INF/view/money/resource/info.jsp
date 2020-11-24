@@ -108,14 +108,13 @@
     var tabType = <%=in_tabType%>;
 
     var _itemClick = 1;
-    slctType = 0;
 
     $(function(){
+        slctType = 0;
         setDayButton();
 
         if(!common.isEmpty(tabType)){
             $('#topTab li:eq(' + tabType + ') a').tab('show');
-            slctType = tabType;
             _itemClick = 1;
             dateType(slctType);
         }else{
