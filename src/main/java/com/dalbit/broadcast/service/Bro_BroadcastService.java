@@ -171,7 +171,7 @@ public class Bro_BroadcastService {
             hm.put("mem11-1", DalbitUtil.isEmpty(list.get(i).getEndDateFormat()) ? "" : list.get(i).getEndDateFormat());
             hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
             hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getLiveListener()) ? "" : list.get(i).getLiveListener());
-            hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getTotalListener()) ? "" : list.get(i).getTotalListener());
+            hm.put("mem13-1", DalbitUtil.isEmpty(list.get(i).getTotalListener()) ? "" : list.get(i).getTotalListener());
             hm.put("mem14", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
             hm.put("mem15", DalbitUtil.isEmpty(list.get(i).getBoosterCnt()) ? "" : list.get(i).getBoosterCnt());
             hm.put("mem16", DalbitUtil.isEmpty(list.get(i).getGiftCnt()) ? "" : list.get(i).getGiftCnt());
