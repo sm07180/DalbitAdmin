@@ -132,8 +132,6 @@
 
 
     var date = new Date();
-    var sDate;
-    var eDate;
 
     var liveState = 1;
     var room_liveType = 1;
@@ -154,7 +152,7 @@
         maxDate:new Date(),
         format: "YYYY-MM-DD",
     });
-    sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
+    //sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
 
     $(document).ready(function() {
         getSearch();
@@ -338,8 +336,9 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_liveType", room_liveType);
-        // formData.append("sDate", sDate);
-        // formData.append("eDate", eDate);
+        formData.append("startDate", $("#onedayDate").val() + ' 00:00:00');
+        formData.append("endDate", $("#onedayDate").val() + ' 23:59:59');
+
         util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
 
