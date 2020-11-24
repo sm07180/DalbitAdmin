@@ -334,7 +334,7 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("slctType", tmp_slctType);
-        formData.append("dj_slctType", tmp_dj_slctType);
+        //formData.append("dj_slctType", tmp_dj_slctType);
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_liveType", room_liveType);
