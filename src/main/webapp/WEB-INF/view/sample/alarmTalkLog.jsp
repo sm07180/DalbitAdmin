@@ -15,24 +15,40 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 알림톡 이력 검색</h3>
-                            <input type="hidden" name="pageStart" id="pageStart">
-                            <input type="hidden" name="pageCnt" id="pageCnt">
-                            <div>
-                                <div class="input-group date" id="date_startSel">
-                                    <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                                </div>
-                                <label>~</label>
-                                <div class="input-group date" id="date_endSel">
-                                    <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                                </div>
-                                <span id="statusTypeArea"></span>
-                                <span id="searchTypeArea"></span>
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder=""></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
-                        </div>
+                        <table>
+                            <tr>
+                                <th style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                    <jsp:include page="../searchArea/daySearchFunction.jsp"/>
+                                </th>
+                                <td style="text-align: left">
+
+                                    <span id="statusTypeArea"></span>
+                                    <span id="searchTypeArea"></span>
+                                    <jsp:include page="../searchArea/dateRangeSearchArea.jsp"/>
+
+                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
+
+                                    <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                    <input class="hide" name="endDate" id="endDate" style="width: 100px">
+                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
+
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <a href="javascript://" class="_prevSearch">[이전]</a>
+                                    <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                    <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                                    <span id="searchCheck">
+                                        <label class="control-inline fancy-checkbox custom-color-green">
+                                            <input type="checkbox" name="search_testId" id="search_testId" value="1">
+                                            <span>테스트 아이디 제외</span>
+                                        </label>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>
@@ -80,30 +96,14 @@
         init();
     });
 
-    function compare() {
-        var startDate = $('#txt_startSel').val();
-        var startDateArr = startDate.split('.');
-        var endDate = $('#txt_endSel').val();
-        var endDateArr = endDate.split('.');
-
-        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
-        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
-
-        if(startDateCompare.getTime() > endDateCompare.getTime()) {
-            alert('시작날짜와 종료날짜를 확인해주세요');
-        }
-    }
-
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {
-            compare();
             alarmTalkPagingInfo.pageNo = 1;
             getAlarmTalkList();
         };
     });
 
     $('#bt_search').click( function() {       //검색
-        compare();
         alarmTalkPagingInfo.pageNo = 1;
         getAlarmTalkList();
     });
@@ -112,17 +112,8 @@
         $("#statusTypeArea").html(util.getCommonCodeSelect('', search_alarmTalk_status));
         $("#searchTypeArea").html(util.getCommonCodeSelect('', search_alarmTalk_seachType));
 
-        var now = new Date();
-
-        $('#txt_startSel').datepicker("setDate", new Date(now.getFullYear(), now.getMonth(), 1));
-        $('#txt_endSel').datepicker("setDate", now);
-
-        $('#txt_startSel').datepicker().on('dp.change',function(e){
-            $(this).html($(this).val());
-        });
-        $('#txt_endSel').datepicker().on('dp.change',function(e){
-            $(this).html($(this).val());
-        });
+        slctType = 3;
+        dateType(slctType);
 
         getAlarmTalkList(); //20.05.09 검색해야지만 노출되게 이재은
     }
@@ -130,7 +121,16 @@
     function getAlarmTalkList(){
         $("#pageStart").val(alarmTalkPagingInfo.pageNo);
         $("#pageCnt").val(alarmTalkPagingInfo.pageCnt);
-        util.getAjaxData("alarmTalkLogList", "/rest/administrate/alarmtalk/logs", $('#searchForm').serialize(), fn_success);
+
+        var data = {
+            txt_startSel : $("#startDate").val()
+            ,txt_endSel : $("#endDate").val()
+            ,searchText : $("#searchText").val()
+            ,result_code :  $("#result_code").val()
+            ,pageStart : alarmTalkPagingInfo.pageNo
+            ,pageCnt : alarmTalkPagingInfo.pageCnt
+        };
+        util.getAjaxData("alarmTalkLogList", "/rest/administrate/alarmtalk/logs", data, fn_success);
     }
 
     function fn_success(dst_id, response) {
@@ -157,7 +157,6 @@
             $("#list_info_paginate_top").show();
             $("#list_info_paginate").show();
         }
-
     }
 
     function handlebarsPaging(targetId, pagingInfo){

@@ -9,20 +9,26 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 테스트아이디 검색</h3>
-                            <div>
-                                <span id="search_searchType_aria"></span>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <span id="search_searchType_aria"></span>
 
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
-                                <label class="control-inline fancy-checkbox custom-color-green">
-                                    <input type="checkbox" name="search_adminId" id="search_adminId" value="1" />
-                                    <span>운영자 계정 보기</span>
-                                </label>
-                            </div>
-                        </div>
+                                    <label class="control-inline fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="search_adminId" id="search_adminId" value="1" />
+                                        <span>운영자 계정 보기</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>

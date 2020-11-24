@@ -9,38 +9,23 @@
         <form id="searchForm">
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
-                        <div class="row col-md-12">
-                            <h3 class="title"><i class="fa fa-search"></i>진행기간</h3>
-                            <div>
-                                <label class="radio-inline">
-                                    <input type="radio" name="banner-selectDateType" value="0" checked="true">전체
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="banner-selectDateType" value="1" style="margin-top: 10px;">
-                                    <div class="input-group">
-                                        <span id="banner-reportrange" class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <%--<span class="range-value"></span><b class="caret"></b>--%>
-                                        <input type="text" class="form-control" id="banner-inputReportrange" style="width: 180px;" readonly>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                        -->
-                        <div class="row col-md-12">
-                            <h3 class="title"><i class="fa fa-search"></i>배너검색</h3>
-                            <div>
-                                <%--<span id="search_viewOn_aria"></span>--%>
+                    <table>
+                        <tr>
+                            <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                <i class="fa fa-search"></i><br/>검색
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">
                                 <input type="hidden" name="is_view" id="is_view" value="1" />
                                 <span id="search_bannerType_aria"></span>
                                 <span id="search_platformGroup_aria"></span>
 
                                 <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </form>

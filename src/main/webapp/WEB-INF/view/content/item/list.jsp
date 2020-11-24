@@ -9,19 +9,23 @@
         <form id="searchForm">
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <div class="row col-md-12">
-                            <h3 class="title"><i class="fa fa-search"></i>아이템검색</h3>
-                            <div>
+                    <table>
+                        <tr>
+                            <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                <i class="fa fa-search"></i><br/>검색
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">
                                 <span id="search_viewOn_aria"></span>
                                 <span id="search_osType_aria"></span>
                                 <span id="search_searchType_aria"></span>
 
                                 <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </form>

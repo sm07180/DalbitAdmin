@@ -8,11 +8,19 @@
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i>검색조건</h3>
-                            <span id="search_os_area"></span>
-                            <button type="button" class="btn btn-success btn-sm" id="bt_search">검색</button>
-                        </div>
+                        <table>
+                            <tr>
+                                <th rowspan="2" style="background-color:#4472c4;color:#e9ee17;width: 70px">
+                                    <i class="fa fa-search"></i><br/>검색
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left">
+                                    <span id="search_os_area"></span>
+                                    <button type="button" class="btn btn-success btn-sm" id="bt_search">검색</button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </form>
