@@ -107,6 +107,7 @@
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var listPagingInfo = new PAGING_INFO(0, 1, 50);
+    var tabType = 2;
 
     $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. " +
         "<br>ㆍ대기 상태가 수일을 경과한 경우 SMS 발신자에게 문의하여 주시기 바랍니다. " +
@@ -114,7 +115,7 @@
 
     $(document).ready(function() {
         $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
-        $("#tabType").val("2");
+        // $("#tabType").val("2");
 
         slctType = 1;
         setDayButton();
@@ -134,19 +135,20 @@
     function smsList(type) {
         if(!common.isEmpty(type)){
             listPagingInfo.pageNo = 1;
+            tabType = type;
         }
 
-        type = common.isEmpty(type) ? $("#tabType").val() : type;
-        $("#tabType").val(type);
-
+        // $("#tabType").val(type);
         $("#pageStart").val(listPagingInfo.pageNo);
         $("#pageCnt").val(listPagingInfo.pageCnt);
 
+        console.log("-----------------------------");
+        console.log(tabType);
         var data = {
             txt_startSel : $("#startDate").val()
             , txt_endSel : $("#endDate").val()
             , searchText : $("#searchText").val()
-            , tabType : type
+            , tabType : tabType
             , pageStart : listPagingInfo.pageNo
             , pageCnt : listPagingInfo.pageCnt
         };
@@ -195,13 +197,14 @@
     }
 
     $("#excelDownBtn").on('click', function() {
+        console.log(tabType);
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
-        formData.append("pageStart", $("#pageStart").val());
-        formData.append("pageCnt", $("#pageCnt").val());
+        formData.append("pageStart", listPagingInfo.pageNo);
+        formData.append("pageCnt", listPagingInfo.pageCnt);
         formData.append("txt_startSel", $("#startDate").val());
         formData.append("txt_endSel", $("#endDate").val());
-        formData.append("vxml_file", $('select[name="vxml_file"]').val());
+        formData.append("tabType", tabType);
         formData.append("searchText", $("#searchText").val());
 
         util.excelDownload($(this), "/rest/customer/sms/listExcel", formData, fn_success_excel);
