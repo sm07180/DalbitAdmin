@@ -83,29 +83,32 @@
                             <span name="question_platform" id="question_platform" onchange="question_status_change()"></span>
                         </div>
                     </div>
-                    <div class="widget-content" id="main_table0">
-                        <table id="list_info0" class="table table-sorting table-hover table-bordered ">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content" id="main_table">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered ">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content" id="main_table2">
-                        <table id="list_info2" class="table table-sorting table-hover table-bordered ">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody2">
-                            </tbody>
-                        </table>
+                    <div class="col-md-12 no-padding" id="div_table">
+                        <div class="widget-content" id="main_table0">
+                            <table id="list_info0" class="table table-sorting table-hover table-bordered ">
+                                <thead>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-content" id="main_table">
+                            <table id="list_info" class="table table-sorting table-hover table-bordered ">
+                                <thead>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-content" id="main_table2">
+                            <table id="list_info2" class="table table-sorting table-hover table-bordered ">
+                                <thead>
+                                </thead>
+                                <tbody id="tableBody2">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="buttonList"></div>
                     </div>
                 </div>
             </div>
@@ -474,15 +477,13 @@
             nonMembers();
         }
 
-        var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
-        $("#main_table0").find(".footer-left").append(questionDelBtn);
-        $("#main_table").find(".footer-left").append(questionDelBtn);
-        $("#main_table2").find(".footer-left").append(questionDelBtn);
-
-        var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-        $("#main_table0").find(".footer-right").append(excel);
-        $("#main_table").find(".footer-right").append(excel);
-        $("#main_table2").find(".footer-right").append(excel);
+        $("#buttonList").empty();
+        var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm ml10" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
+        var excel = '<button class="btn btn-default btn-sm print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+        $("#buttonList").append(questionDelBtn);
+        $("#buttonList").append(excel);
+        // $("#main_table").find(".footer-right").append(excel);
+        // $("#main_table2").find(".footer-right").append(excel);
 
         questionDelEventInit();
         questionExcelEventInit();

@@ -140,7 +140,7 @@
     var dtList_info="";
     // liveList(1);
 
-    var tmp_slctType;
+    var tmp_slctType = -1;
     var tmp_dj_slctType = -1;
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
@@ -315,13 +315,13 @@
         tmp_searchText = $('#searchText').val();
         var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = slctType;
-        if(slctType == "1"){
-            tmp_dj_slctType = $("select[name='searchType_broad']").val();
-            tmp_dj_searchText = $('#searchText').val();
-        }else {
-            tmp_room_slctType = $("select[name='searchBroad_broad']").val();
-            tmp_room_searchText = $('#searchText').val();
-        }
+        tmp_dj_searchText = $('#searchText').val();
+        tmp_room_searchText = $('#searchText').val();
+        // if(slctType == "1"){
+        //     tmp_dj_slctType = $("select[name='searchType_broad']").val();
+        // }else {
+        //     tmp_room_slctType = $("select[name='searchBroad_broad']").val();
+        // }
         dtList_info.reload(summary_table);
     }
 
@@ -338,8 +338,8 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_liveType", room_liveType);
-        // formData.append("sDate", sDate);
-        // formData.append("eDate", eDate);
+        formData.append("sDate", sDate);
+        formData.append("eDate", eDate);
         util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
 

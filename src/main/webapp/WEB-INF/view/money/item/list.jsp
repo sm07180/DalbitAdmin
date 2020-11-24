@@ -86,7 +86,7 @@
                     <li><a href="/money/resource/info?tabType=1">월간별</a></li>
                     <li><a href="/money/resource/info?tabType=2">연간별</a></li>
                     <li><a href="/money/resource/info?tabType=3">회원Data</a></li>
-                    <li><a href="/money/resource/info?tabType=4">달 구매내역</a></li>
+                    <li><a href="/money/resource/info?tabType=4">달 결제내역</a></li>
                     <li><a href="/money/resource/info?tabType=5">달 사용내역</a></li>
                     <li class="active"><a href="#change" >교환내역</a></li>
                     <li><a href="/status/exchange/info" id="tab_exchangeList" title="환전내역으로 이동합니다.">환전내역</a></li>
