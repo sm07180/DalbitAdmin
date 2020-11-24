@@ -168,17 +168,17 @@ public class Bro_BroadcastService {
             hm.put("mem7",  DalbitUtil.isEmpty(list.get(i).getDj_userid()) ? "" : list.get(i).getDj_userid());
             hm.put("mem8",  DalbitUtil.isEmpty(list.get(i).getDj_nickname()) ? "" : list.get(i).getDj_nickname());
             hm.put("mem11", DalbitUtil.isEmpty(list.get(i).getStartDateFormat()) ? "" : list.get(i).getStartDateFormat());
-            hm.put("mem11-1", DalbitUtil.isEmpty(list.get(i).getEndDateFormat()) ? "" : list.get(i).getEndDateFormat());
-            hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
-            hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getLiveListener()) ? "" : list.get(i).getLiveListener());
-            hm.put("mem13-1", DalbitUtil.isEmpty(list.get(i).getTotalListener()) ? "" : list.get(i).getTotalListener());
-            hm.put("mem14", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
-            hm.put("mem15", DalbitUtil.isEmpty(list.get(i).getBoosterCnt()) ? "" : list.get(i).getBoosterCnt());
-            hm.put("mem16", DalbitUtil.isEmpty(list.get(i).getGiftCnt()) ? "" : list.get(i).getGiftCnt());
-            hm.put("mem17", DalbitUtil.isEmpty(list.get(i).getFanCnt()) ? "" : list.get(i).getFanCnt());
-            hm.put("mem18", DalbitUtil.isEmpty(list.get(i).getForcedCnt()) ? "" : list.get(i).getForcedCnt());
-            hm.put("mem19", DalbitUtil.isEmpty(list.get(i).getExit_try_count()) ? "" : list.get(i).getExit_try_count());
-            hm.put("mem20", DalbitUtil.isEmpty(list.get(i).getContinue_room()) ? "" : list.get(i).getContinue_room());
+            hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getEndDateFormat()) ? "" : list.get(i).getEndDateFormat());
+            hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
+            hm.put("mem14", DalbitUtil.isEmpty(list.get(i).getLiveListener()) ? "" : list.get(i).getLiveListener());
+            hm.put("mem15", DalbitUtil.isEmpty(list.get(i).getTotalListener()) ? "" : list.get(i).getTotalListener());
+            hm.put("mem16", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
+            hm.put("mem17", DalbitUtil.isEmpty(list.get(i).getBoosterCnt()) ? "" : list.get(i).getBoosterCnt());
+            hm.put("mem18", DalbitUtil.isEmpty(list.get(i).getGiftCnt()) ? "" : list.get(i).getGiftCnt());
+            hm.put("mem19", DalbitUtil.isEmpty(list.get(i).getFanCnt()) ? "" : list.get(i).getFanCnt());
+            hm.put("mem20", DalbitUtil.isEmpty(list.get(i).getForcedCnt()) ? "" : list.get(i).getForcedCnt());
+            hm.put("mem21", DalbitUtil.isEmpty(list.get(i).getExtend_time_count()) ? "" : list.get(i).getExtend_time_count());
+            hm.put("mem22", DalbitUtil.isEmpty(list.get(i).getContinue_room()) ? "" : list.get(i).getContinue_room());
 
             bodies.add(hm.values().toArray());
         }
