@@ -266,17 +266,17 @@ public class Cus_ImageService {
      * notice image 리스트 조회
      */
     public String getNoticeHistory(P_MemberNoticeInputVo pMemberNoticeInputVo) {
-        pMemberNoticeInputVo.setMem_no(MemberVo.getMyMemNo());
         String result;
-
         try {
             int totalCnt = cusImageDao.getNoticeHistory_totalCnt(pMemberNoticeInputVo);
             pMemberNoticeInputVo.setTotalCnt(totalCnt);
+            pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() -1);
+            pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() * pMemberNoticeInputVo.getPageCnt());
             ArrayList<P_MemberNoticeOutputVo> noticeList = cusImageDao.getNoticeHistory(pMemberNoticeInputVo);
             if(noticeList.size() > 0 && noticeList !=null ) {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(pMemberNoticeInputVo.getTotalCnt())));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(pMemberNoticeInputVo.getTotalCnt(), pMemberNoticeInputVo.getPageNo(), pMemberNoticeInputVo.getPageCnt())));
             } else {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, null, new PagingVo(pMemberNoticeInputVo.getTotalCnt(), pMemberNoticeInputVo.getPageNo(), pMemberNoticeInputVo.getPageCnt())));
             }
         } catch(Exception e) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
