@@ -149,7 +149,10 @@
     }
 
     $(document).on('click', '._broadNoticeDelBtn', function() {
-        if(confirm("삭제하시겠습니까?")) {
+        console.log($(this).data('status'));
+        if($(this).data('status') == 1) {
+            alert('이미 삭제된 댓글입니다.');
+        } else if(confirm("삭제하시겠습니까?")) {
             var data = {
                 noticeIdx: $(this).data('broadnoticeidx'),
                 noticeType: $(this).data('type')
@@ -206,7 +209,7 @@
             $('#nickName' + i).text(response.data[i].memNick);
             $('#userId' + i).text(response.data[i].memUserId);
             $('#writeDateFormat' + i).text(response.data[i].writeDateFormat);
-            $('#contents' + i).text(response.data[i].contents);
+            $('#contents' + i).text(common.replaceHtml(response.data[i].contents));
             $('#image_section' + i).prop("src" ,common.profileImage(PHOTO_SERVER_URL,response.data[i].profileImage,memSex));
 
             $('#NoticeModal').modal("show");
@@ -244,7 +247,7 @@
                 {{addComma replyCnt}}
                 <a href="javascript://" class="_noticeReply" data-idx="{{idx}}" data-replycnt="{{replyCnt}}" data-memno="{{mem_no}}">[댓글]</a>
             </td>
-            <td><a href="javascript://" class="_broadNoticeDelBtn" data-broadnoticeidx="{{idx}}" data-type="{{type}}">[삭제]</a></td>
+            <td><a href="javascript://" class="_broadNoticeDelBtn" data-broadnoticeidx="{{idx}}" data-type="{{type}}" data-status="{{status}}">[삭제]</a></td>
         </tr>
     {{else}}
         <tr>

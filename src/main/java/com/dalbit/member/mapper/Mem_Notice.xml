@@ -92,6 +92,7 @@
         select
             '0' as depthType
              , a.idx as idx
+             , a.idx as forReplyIdx
              , ifnull(bas.mem_nick, bak.mem_nick) as memNick
              , ifnull(bas.mem_sex, bak.mem_sex) as memSex
              , ifnull(bas.mem_userid, bak.mem_userid) as memUserId
@@ -109,6 +110,7 @@
         select
             '1' as depthType
              , b.notice_no as idx
+             , b.idx as forReplyIdx
              , ifnull(bas.mem_nick, bak.mem_nick) as memNick
              , ifnull(bas.mem_sex, bak.mem_sex) as memSex
              , ifnull(bas.mem_userid, bak.mem_userid) as memUserId
@@ -120,8 +122,9 @@
              left outer join rd_data.tb_member_basic bas on b.writer_no = bas.mem_no
              left outer join rd_data.tb_member_withdrawal_bak bak on b.writer_no = bak.mem_no
              inner join rd_data.tb_member_profile pro on b.writer_no = pro.mem_no
-        where b.writer_no = #{memNo}
-           and b.notice_no = #{idx}
+        where b.mem_no = #{memNo}
+          and b.notice_no = #{idx}
+          and b.status = 0
         order by writeDate desc
     </select>
 
