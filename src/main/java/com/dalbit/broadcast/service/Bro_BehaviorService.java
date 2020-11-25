@@ -38,16 +38,18 @@ public class Bro_BehaviorService {
         ProcedureVo procedureVo = new ProcedureVo(pBehaviorListInputVo);
         ArrayList<P_BehaviorListOutputVo> list = bro_behaviorDao.callBroadcastBehaviorList(procedureVo);
         String result;
-
+        HashMap msgList = new HashMap();
+        if(DalbitUtil.isEmpty(list) || list.size() == 0) {
+            msgList.put("list", new ArrayList<>());
+            return gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지조회_데이터없음));
+        }
         if (Integer.parseInt(procedureVo.getRet()) > 0) {
-            HashMap msgList = new HashMap();
+
             HashMap resultMap = new Gson().fromJson(procedureVo.getExt(), HashMap.class);
             msgList.put("list", list);
             msgList.put("paging", new PagingVo(DalbitUtil.getIntMap(resultMap, "totalCnt"), DalbitUtil.getIntMap(resultMap, "pageNo"), DalbitUtil.getIntMap(resultMap, "pageCnt")));
 
             result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지조회_성공, msgList));
-        } else if (Status.청취유도메시지조회_데이터없음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지조회_데이터없음));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지조회_실패));
         }
@@ -60,10 +62,10 @@ public class Bro_BehaviorService {
     public String callBroadcastBehaviorDetail(P_BehaviorDetailInputVo pBehaviorDetailInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pBehaviorDetailInputVo);
         bro_behaviorDao.callBroadcastBehaviorDetail(procedureVo);
-        P_BehaviorDetailOutputVo outputVo = new Gson().fromJson(procedureVo.getExt(), P_BehaviorDetailOutputVo.class);
         String result;
 
-       if (Status.청취유도메시지상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+        if (Status.청취유도메시지상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+            P_BehaviorDetailOutputVo outputVo = new Gson().fromJson(procedureVo.getExt(), P_BehaviorDetailOutputVo.class);
             result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지상세조회_성공, outputVo));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지상세조회_실패));

@@ -40,7 +40,7 @@
                             <thead>
                             <colgroup>
                                 <col width="3%"/><col width="3%"/><col width="5%"/><col width="20%"/><col width="5%"/><col width="5%"/>
-                                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+                                <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
                             </colgroup>
                             <tr>
                                 <th><input type="checkbox" id="allChk"/></th>
@@ -129,7 +129,7 @@
     });
 
     function generateForm() {
-        if($('#detailTable').length > 0) {
+        if($('#detailTable').length > 0 && common.isEmpty($('#idx').val())) {
             $('#behaviorDetail').empty();
         } else {
             var template = $('#tmp_behaviorDetail').html();
