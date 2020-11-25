@@ -1,5 +1,6 @@
 package com.dalbit.status.dao;
 
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.status.vo.procedure.P_LevelInputVo;
 import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelOutputVo;
@@ -12,8 +13,11 @@ import java.util.ArrayList;
 @Repository
 public interface Sta_LevelDao {
 
+/*    @Transactional(readOnly = true)
+    ArrayList<P_LevelOutputVo> getMemberLevelList(P_LevelInputVo pLevelInputVo);*/
+
     @Transactional(readOnly = true)
-    ArrayList<P_LevelOutputVo> getMemberLevelList(P_LevelInputVo pLevelInputVo);
+    ArrayList<P_LevelOutputVo> callMemberLevelList(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
     P_LevelOutputVo getTopFanInfo(String mem_no);
@@ -41,6 +45,18 @@ public interface Sta_LevelDao {
 
     @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary60(P_LevelInputVo pLevelInputVo);
+
+    @Transactional(readOnly = true)
+    P_LevelSummaryOutputVo getLevelSummary70(P_LevelInputVo pLevelInputVo);
+
+    @Transactional(readOnly = true)
+    P_LevelSummaryOutputVo getLevelSummary80(P_LevelInputVo pLevelInputVo);
+
+    @Transactional(readOnly = true)
+    P_LevelSummaryOutputVo getLevelSummary90(P_LevelInputVo pLevelInputVo);
+
+    @Transactional(readOnly = true)
+    P_LevelSummaryOutputVo getLevelSummary100(P_LevelInputVo pLevelInputVo);
 
     @Transactional(readOnly = true)
     ArrayList<P_LevelListOutputVo> getLevelList(P_LevelInputVo pLevelInputVo);

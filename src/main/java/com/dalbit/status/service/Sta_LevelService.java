@@ -3,6 +3,7 @@ package com.dalbit.status.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
@@ -19,6 +20,7 @@ import com.dalbit.status.vo.procedure.P_LevelOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -45,7 +47,11 @@ public class Sta_LevelService {
      *  회원 레벨별 목록 조회
      */
     public String getMemberLevel(P_LevelInputVo pLevelInputVo) {
-        pLevelInputVo.setPageNo(pLevelInputVo.getPageNo() -1);
+        ProcedureVo procedureVo = new ProcedureVo(pLevelInputVo);
+        List<P_LevelOutputVo> list = staLevelDao.callMemberLevelList(procedureVo);
+        P_LevelOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_LevelOutputVo.class);
+
+       /* pLevelInputVo.setPageNo(pLevelInputVo.getPageNo() -1);
         pLevelInputVo.setPageNo(pLevelInputVo.getPageNo() * pLevelInputVo.getPageCnt());
         List<P_LevelOutputVo> list = staLevelDao.getMemberLevelList(pLevelInputVo);
         int getLevelListCnt = staLevelDao.getLevelListCnt(pLevelInputVo);
@@ -58,9 +64,9 @@ public class Sta_LevelService {
             }
         }
         //summary
-        P_LevelOutputVo summary = staLevelDao.getLevelSummary(pLevelInputVo);
+        P_LevelOutputVo summary = staLevelDao.getLevelSummary(pLevelInputVo);*/
 
-        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(getLevelListCnt),summary));
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(procedureVo.getRet()) ,summary));
 
         return result;
     }
@@ -84,6 +90,14 @@ public class Sta_LevelService {
             summary = staLevelDao.getLevelSummary50(pLevelInputVo);
         }else if(pLevelInputVo.getLevel().equals("60")){    //51~60
             summary = staLevelDao.getLevelSummary60(pLevelInputVo);
+        }else if(pLevelInputVo.getLevel().equals("70")){    //61~70
+            summary = staLevelDao.getLevelSummary70(pLevelInputVo);
+        }else if(pLevelInputVo.getLevel().equals("80")){    //71~80
+            summary = staLevelDao.getLevelSummary80(pLevelInputVo);
+        }else if(pLevelInputVo.getLevel().equals("90")){    //81~90
+            summary = staLevelDao.getLevelSummary90(pLevelInputVo);
+        }else if(pLevelInputVo.getLevel().equals("100")){    //91~100
+            summary = staLevelDao.getLevelSummary100(pLevelInputVo);
         }
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, null, new PagingVo(0),summary));
