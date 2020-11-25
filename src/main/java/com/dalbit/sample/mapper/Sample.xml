@@ -34,7 +34,7 @@
     <sql id="condition">
         <where>
             <if test='txt_startSel != null and txt_startSel != ""'>
-                DATE_FORMAT(upd_date, '%Y%m%d')  <![CDATA[=]]> DATE_FORMAT(#{txt_startSel},'%Y%m%d')
+                upd_date  <![CDATA[>=]]> #{txt_startSel} and upd_date  <![CDATA[<=]]> concat(#{txt_startSel},' 23:59:59')
             </if>
             <if test="ostype != null and ostype != '' ">
                 and ostype = #{ostype}
@@ -63,7 +63,7 @@
 
     <select id="getLogErrorData" parameterType="com.dalbit.sample.vo.ErrorVo" resultType="com.dalbit.sample.vo.ErrorVo">
         /* Sample.xml - getLogErrorData */
-        select *
+        select @RNUM := @RNUM + 1 as rowNum, a.*
             from (
                 select
                     idx,
@@ -74,14 +74,14 @@
                     dtype,
                     ctype,
                     `desc`,
-                    upd_date,
-                    @RNUM := @RNUM + 1 as rowNum
+                    upd_date
+
                 from rd_data.tb_log_error_data
-                    , (select @RNUM := 0) r
                 <include refid="condition"/>
                 order by idx desc
-            )a
-        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+            )a, (select @RNUM := #{pageStart}) r
+        limit #{pageStart}, #{pageCnt}
+
     </select>
 
     <select id="getLogErrorDataCnt" parameterType="com.dalbit.sample.vo.ErrorVo" resultType="integer">

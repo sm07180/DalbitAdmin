@@ -98,7 +98,7 @@ var viewType = [
 
 var level = [
     new COMMON_CODE(null, 'level', '레벨')
-    ,new COMMON_CODE('all', '', '전체')
+    ,new COMMON_CODE('all', '-1', '전체')
     ,new COMMON_CODE('0', '0', '0레벨')
     ,new COMMON_CODE('1', '1', '1레벨')
     ,new COMMON_CODE('2', '2', '2레벨')

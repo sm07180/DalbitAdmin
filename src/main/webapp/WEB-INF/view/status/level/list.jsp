@@ -162,7 +162,7 @@
         sDate = $("#startDate").val();
         eDate = $("#endDate").val();
         txt_search = $('#txt_search').val();
-        tmp_inner = $('input[name="search_testId"]').is(":checked") ? "0" : "-1";
+        tmp_inner = $('input[name="search_testId"]').is(":checked") ? "0" : "1";
 
         dtList_info.reload(level_listSummary);
     }
@@ -177,20 +177,21 @@
     });
 
     var tmp_include = "0";
-    var tmp_level = "";
+    var tmp_level = "-1";
     var tmp_inner = 0;
     var tmp_filter = 0;
     var dtList_info;
     var lengthCnt = 100;
+
     function getMemLevelList() {
         var dtList_info_data = function(data) {
             data.searchText = txt_search;                        // 검색명
             data.sDate = sDate;
             data.eDate = eDate;
-            data.level = tmp_level;
-            data.inner = tmp_inner;
-            data.include = tmp_include;
-            data.filter = tmp_filter;
+            data.checkLevel = tmp_level;
+            data.testId = tmp_inner;
+            data.lastConnectCheck = tmp_include;
+            data.slctType = tmp_filter;
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, levelDataTableSource.memLevelList);
         dtList_info.useCheckBox(false);
@@ -289,6 +290,10 @@
         <thead>
             <tr>
                 <th>사용자</th><th>0Lv</th><th>1Lv~10Lv</th><th>11Lv~20Lv</th><th>21Lv~30Lv</th><th>31Lv~40Lv</th><th>41Lv~50Lv</th><th>51Lv~60Lv</th>
+                <th>61Lv~70Lv</th>
+                <th>71Lv~80Lv</th>
+                <th>81Lv~90Lv</th>
+                <th>91Lv~100Lv</th>
             </tr>
         </thead>
         <tr class="font-bold">
@@ -300,6 +305,10 @@
             <td><a href="javascript://" class="_levelClick" data-level = "40">{{addComma content.level40}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "50">{{addComma content.level50}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "60">{{addComma content.level60}}</a></td>
+            <td><a href="javascript://" class="_levelClick" data-level = "70">{{addComma content.level70}}</a></td>
+            <td><a href="javascript://" class="_levelClick" data-level = "80">{{addComma content.level80}}</a></td>
+            <td><a href="javascript://" class="_levelClick" data-level = "90">{{addComma content.level90}}</a></td>
+            <td><a href="javascript://" class="_levelClick" data-level = "100">{{addComma content.level100}}</a></td>
         </tr>
     </table>
 </script>

@@ -241,6 +241,98 @@
         </if>
     </select>
 
+    <select id="getLevelSummary70" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+        ,count(case when level = 61 then 1 end) as level1
+        ,count(case when level = 62 then 1 end) as level2
+        ,count(case when level = 63 then 1 end) as level3
+        ,count(case when level = 64 then 1 end) as level4
+        ,count(case when level = 65 then 1 end) as level5
+        ,count(case when level = 66 then 1 end) as level6
+        ,count(case when level = 67 then 1 end) as level7
+        ,count(case when level = 68 then 1 end) as level8
+        ,count(case when level = 69 then 1 end) as level9
+        ,count(case when level = 70 then 1 end) as level10
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        where level > 60 and level  <![CDATA[<]]>  71
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
+    </select>
+
+    <select id="getLevelSummary80" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+        ,count(case when level = 71 then 1 end) as level1
+        ,count(case when level = 72 then 1 end) as level2
+        ,count(case when level = 73 then 1 end) as level3
+        ,count(case when level = 74 then 1 end) as level4
+        ,count(case when level = 75 then 1 end) as level5
+        ,count(case when level = 76 then 1 end) as level6
+        ,count(case when level = 77 then 1 end) as level7
+        ,count(case when level = 78 then 1 end) as level8
+        ,count(case when level = 79 then 1 end) as level9
+        ,count(case when level = 80 then 1 end) as level10
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        where level > 70 and level  <![CDATA[<]]>  81
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
+    </select>
+
+    <select id="getLevelSummary90" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+        ,count(case when level = 81 then 1 end) as level1
+        ,count(case when level = 82 then 1 end) as level2
+        ,count(case when level = 83 then 1 end) as level3
+        ,count(case when level = 84 then 1 end) as level4
+        ,count(case when level = 85 then 1 end) as level5
+        ,count(case when level = 86 then 1 end) as level6
+        ,count(case when level = 87 then 1 end) as level7
+        ,count(case when level = 88 then 1 end) as level8
+        ,count(case when level = 89 then 1 end) as level9
+        ,count(case when level = 90 then 1 end) as level10
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        where level > 80 and level  <![CDATA[<]]>  91
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
+    </select>
+
+    <select id="getLevelSummary100" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+        ,count(case when level = 91 then 1 end) as level1
+        ,count(case when level = 92 then 1 end) as level2
+        ,count(case when level = 93 then 1 end) as level3
+        ,count(case when level = 94 then 1 end) as level4
+        ,count(case when level = 95 then 1 end) as level5
+        ,count(case when level = 96 then 1 end) as level6
+        ,count(case when level = 97 then 1 end) as level7
+        ,count(case when level = 98 then 1 end) as level8
+        ,count(case when level = 99 then 1 end) as level9
+        ,count(case when level <![CDATA[>=]]> 100 then 1 end) as level10
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        where level > 90
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
+    </select>
+
     <select id="getLevelList" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelListOutputVo">
         /* Sta_Level.xml - getLevelList */
         select a.level
@@ -259,6 +351,13 @@
         </if>
         group by a.level,a.grade
         order by `level` desc
+    </select>
+
+
+    <select id="callMemberLevelList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
+        /* Sta_Level.xml - callMemberLevelList */
+        call rd_admin.sp_admin_contents_level_member(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+
     </select>
 
 </mapper>

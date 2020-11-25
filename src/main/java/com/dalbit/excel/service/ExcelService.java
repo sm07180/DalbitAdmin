@@ -98,6 +98,8 @@ public class ExcelService {
             // 파일생성
             workbook.write(os);
 
+            workbook.dispose();
+
         }catch (IOException e) {
             e.printStackTrace();
             throw new GlobalException(Status.엑셀다운로드실패);

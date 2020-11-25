@@ -38,6 +38,12 @@ public class P_LevelOutputVo extends PagingVo {
     private String lastLoginDate;
     private String loginDay;
 
+    private int inner;
+    private String ruby;
+    private String gold;
+    private String top1Fan;
+
+
     //summary
     private int totalLevelCnt;
     private int level0;
@@ -47,5 +53,9 @@ public class P_LevelOutputVo extends PagingVo {
     private int level40;
     private int level50;
     private int level60;
+    private int level70;
+    private int level80;
+    private int level90;
+    private int level100;
 
 }

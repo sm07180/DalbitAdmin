@@ -16,4 +16,9 @@ public class P_LevelInputVo extends SearchVo {
     private String include;
     private int filter;
 
+    private String checkLevel;
+    private int testId;
+    private String lastConnectCheck;
+
+
 }
