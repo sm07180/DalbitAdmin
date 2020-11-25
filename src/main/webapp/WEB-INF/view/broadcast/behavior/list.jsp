@@ -77,6 +77,7 @@
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 <script>
+    var behaviorPagingInfo = new PAGING_INFO(0,1,10);
     $(document).ready(function() {
        getBehaviorList();
        // $('#search_target_aria').html(util.getCommonCodeSelect(-1, behavior_target_search)) // 노출대상 추가 될 시 사용될 예정입니다.
@@ -98,6 +99,8 @@
             target : $('select[name="target"]').val()
             , viewYn : $('select[name="viewYn"]').val()
             , searchText : $('#txt_search').val()
+            , pageNo : behaviorPagingInfo.pageNo
+            , pageCnt : behaviorPagingInfo.pageCnt
         }
         util.getAjaxData("getBehaviorList", "/rest/broadcast/behavior/list", data, function fn_getBehaviorList_success(dst_id, response) {
             var template = $('#tmp_behaviorList').html();
@@ -106,6 +109,18 @@
             var html = templateScript(context);
 
             $('#behaviorList').html(html);
+
+            behaviorPagingInfo.totalCnt = response.data.paging.totalCnt;
+            util.renderPagingNavigation('behaviorList_paginate_top', behaviorPagingInfo);
+            util.renderPagingNavigation('behaviorList_paginate', behaviorPagingInfo);
+
+            if(response.data.length == 0) {
+                $('#behaviorList_paginate_top').hide();
+                $('#behaviorList_paginate').hide();
+            } else {
+                $('#behaviorList_paginate_top').show();
+                $('#behaviorList_paginate').show();
+            }
         });
     }
 
@@ -139,7 +154,6 @@
             var templateScript = Handlebars.compile(template);
             var context = response.data;
             var html = templateScript(context);
-
             $('#behaviorDetail').html(html);
         });
     });
@@ -162,6 +176,11 @@
             return false;
         }
         return true;
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        behaviorPagingInfo = pagingInfo;
+        getBehaviorList();
     }
 
     // $(document).on('click', '._chk', function() {
@@ -237,10 +256,10 @@
 </script>
 
 <script id="tmp_behaviorList" type="text/x-handlebars-template">
-    {{#each this as |data|}}
+    {{#each this.list as |data|}}
         <tr>
             <td><input type="checkbox" class="_chk" /></td>
-            <td>{{rowNum}}</td>
+            <td>{{indexDesc ../paging.totalCnt data.rowNum}}</td>
             <td>
                 {{{getCommonCodeLabel target "behavior_target"}}}
             </td>
@@ -273,7 +292,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="12">{{isEmptyData}}</td>
+            <td colspan="11">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
