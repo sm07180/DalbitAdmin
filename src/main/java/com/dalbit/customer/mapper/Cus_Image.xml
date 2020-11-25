@@ -235,28 +235,28 @@
 
     <select id="getNoticeHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
         select c.*
-        from (
-            select a.idx
-                , b.mem_no
-                , b.mem_nick
-                , b.mem_sex
-                , b.mem_birth_year
-                , b.inner
-                ,'-' as room_no
-                , a.title
-                , a.last_upd_date
-                , a.contents
-                , a.image_path
-                , a.status
-                , a.op_name
-                , @RNUM := @RNUM + 1 as rowNum
-              From rd_data.tb_member_broadcast_notice a
-                left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
-                , (select @RNUM := 0) r
-        <include refid="noticeCondition"/>
-        ) as c
-        order by c.last_upd_date desc
-        limit #{pageStart}, #{pageCnt}
+            from (
+                select a.idx
+                    , b.mem_no
+                    , b.mem_nick
+                    , b.mem_sex
+                    , b.mem_birth_year
+                    , b.inner
+                    ,'-' as room_no
+                    , a.title
+                    , a.last_upd_date
+                    , a.contents
+                    , a.image_path
+                    , a.status
+                    , a.op_name
+                    , @RNUM := @RNUM + 1 as rowNum
+                  From rd_data.tb_member_broadcast_notice a
+                    left join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+                    , (select @RNUM := 0) r
+                <include refid="noticeCondition"/>
+                order by a.last_upd_date desc
+                ) as c
+            limit #{pageNo}, #{pageCnt}
     </select>
 
     <update id="deleteNoticeImg" parameterType="com.dalbit.member.vo.MemberNoticeImgDeleteVo">
