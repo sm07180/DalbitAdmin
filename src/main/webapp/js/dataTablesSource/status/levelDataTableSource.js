@@ -44,7 +44,7 @@ var levelDataTableSource = {
             ,{'title': '최근 접속 기록', 'data' : 'lastLoginDate', 'width':'90px','render' : function(data, type, row, meta) {
                     return data + '<br/>(' + row.loginDay + '일 전)';
                 }}
-            ,{'title': '1위팬 닉네임(선물 수)', 'data' : 'top1Fan', 'width':'100px','render' : function(data, type, row, meta) {
+            ,{'title': '1위팬 닉네임<br/>(선물 수)', 'data' : 'top1Fan', 'width':'100px','render' : function(data, type, row, meta) {
                     // if(row.totRcvRubyCnt > 0){
                         return data;
                     // }
