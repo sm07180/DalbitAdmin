@@ -94,9 +94,11 @@ public class PushService {
 
             // 수신대상이 지정회원일 경우 대상 정보 조회
             if(pushDetail.getIs_all() != null && pushDetail.getIs_all().equals("7")){
-                List arrayList = Arrays.asList(pushDetail.getMem_nos().split("\\|"));
-                List<P_MemberListOutputVo> memInfo = pushDao.selectMemInfo(arrayList);
-                pushDetail.setMem_info(memInfo);
+                if(!DalbitUtil.isEmpty(pushDetail.getMem_nos())) {
+                    List arrayList = Arrays.asList(pushDetail.getMem_nos().split("\\|"));
+                    List<P_MemberListOutputVo> memInfo = pushDao.selectMemInfo(arrayList);
+                    pushDetail.setMem_info(memInfo);
+                }
             }
 
 
