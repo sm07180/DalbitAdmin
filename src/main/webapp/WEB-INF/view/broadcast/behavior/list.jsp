@@ -77,7 +77,7 @@
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 <script>
-    var behaviorPagingInfo = new PAGING_INFO(0,1,5);
+    var behaviorPagingInfo = new PAGING_INFO(0,1,10);
     $(document).ready(function() {
        getBehaviorList();
        // $('#search_target_aria').html(util.getCommonCodeSelect(-1, behavior_target_search)) // 노출대상 추가 될 시 사용될 예정입니다.

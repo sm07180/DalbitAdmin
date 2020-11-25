@@ -39,11 +39,12 @@ public class Bro_BehaviorService {
         ArrayList<P_BehaviorListOutputVo> list = bro_behaviorDao.callBroadcastBehaviorList(procedureVo);
         String result;
 
-        HashMap msgList = new HashMap();
-        HashMap resultMap = new Gson().fromJson(procedureVo.getExt(), HashMap.class);
-        msgList.put("list", list);
-        msgList.put("paging", new PagingVo(DalbitUtil.getIntMap(resultMap, "totalCnt"), DalbitUtil.getIntMap(resultMap, "pageNo"), DalbitUtil.getIntMap(resultMap, "pageCnt")));
         if (Integer.parseInt(procedureVo.getRet()) > 0) {
+            HashMap msgList = new HashMap();
+            HashMap resultMap = new Gson().fromJson(procedureVo.getExt(), HashMap.class);
+            msgList.put("list", list);
+            msgList.put("paging", new PagingVo(DalbitUtil.getIntMap(resultMap, "totalCnt"), DalbitUtil.getIntMap(resultMap, "pageNo"), DalbitUtil.getIntMap(resultMap, "pageCnt")));
+
             result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지조회_성공, msgList));
         } else if (Status.청취유도메시지조회_데이터없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.청취유도메시지조회_데이터없음));
