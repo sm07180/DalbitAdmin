@@ -731,3 +731,20 @@ util.getPlatformName = function(platform){
 
     return platformDisplay;
 }
+
+/**
+ * 파일명 가져오기
+ * fileExt가 있는 경우 확장자를 제거한다.
+ */
+util.getFileName = function(pathInFileName, includeExt){
+    includeExt = common.isEmpty(includeExt) ? true : includeExt;
+
+    console.log(pathInFileName);
+    console.log(includeExt);
+    var split_arr = pathInFileName.split('/');
+    var fileName = split_arr[split_arr.length - 1];
+    if(includeExt){
+        fileName = fileName.substr(0, fileName.lastIndexOf('.'));
+    }
+    return fileName;
+}
