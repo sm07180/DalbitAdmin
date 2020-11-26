@@ -24,6 +24,8 @@ public class P_itemGiftDetailOutputVo extends BaseVo {
     private String file_slct;			//파일 구분( webp/jason, sticker)
     private String webp_image;			//webp 이미지경로
     private String jason_image;			//jason 이미지경로
+    private int sound_yn;			    //사운드 아이템 여부
+    private String sound_url;			//사운드 파일 경로
     private String play_time;				//애니플레이시간
     private String platform;			//플랫폼(PC(Web포함),Mobile-Android,Mobile-IOS)
     private String desc;				//아이템설명
@@ -39,4 +41,5 @@ public class P_itemGiftDetailOutputVo extends BaseVo {
     private String exp;					//획득 경험치
     private String order;					//아이템 순서
     private String state;					//상태( 1: 판매중, 2: 판매 중지)
+    private int in_app_yn;				//인앱 여부( 0: 아님, 1: 인앱 다운로드 아이템)
 }

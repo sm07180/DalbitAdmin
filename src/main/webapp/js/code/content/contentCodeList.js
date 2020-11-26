@@ -532,6 +532,13 @@ var content_platform5 = [
     , new COMMON_CODE('ios', '101', 'IOS')
 ];
 
+var push_send_user = [
+    new COMMON_CODE(null, 'push_send_user', '발송자구분')
+    , new COMMON_CODE('0', '0', '발송자구분(전체)')
+    , new COMMON_CODE('1', '1', '운영자')
+    , new COMMON_CODE('2', '2', '자동')
+];
+
 
 /** =------ App ---------- */
 var content_selectApp = [

@@ -79,8 +79,6 @@ var PushDataTableSource = {
              */
              {'title': '발신자', 'data': 'opName', 'defaultContent': '-', 'width':'100px'},
         ]
-
-        , 'comments': ' 방송 중 운영자 공지/알림/이벤트 안내 메시지등을 발송 할 수 있습니다.'
     },
 
     'pushClosedEventList': {

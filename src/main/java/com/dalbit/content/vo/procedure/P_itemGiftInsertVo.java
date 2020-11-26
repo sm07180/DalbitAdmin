@@ -22,7 +22,13 @@ public class P_itemGiftInsertVo extends BaseVo {
     private String file_slct;			// 파일구분
     private String play_time;				// 애니플레이타임
     private String webp_image;			// webp이미지경로
+    private String webp_file_name;		// webp 파일명
     private String jason_image;			// jason이미지경로
+    private String jason_file_name;		// jason 파일명
+    private int sound_yn;			    // 사운드 아이템 여부(0: 사운드 아님, 1: 사운드 아이템)
+    private String sound_url;			// 사운드 URL
+    private String sound_file_name;		// 사운드 파일명
     private String desc;				// 상품설명
+    private int in_app_yn;				//인앱 여부( 0: 아님, 1: 인앱 다운로드 아이템)
 }
 
