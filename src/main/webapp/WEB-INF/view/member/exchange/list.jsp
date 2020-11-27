@@ -57,14 +57,16 @@
     });
 
     function getHistory_exchangeDetail(tmp) {     // 상세보기
-        sDate = "";
-        eDate = "";
+        sDate = "1900.01.01";
+        eDate = "2999.12.31";
 
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.startDate = sDate;
             data.endDate = eDate;
+            data.slctType = $("#exchangeStatus").val();
+            data.djType = $("#exchangeMemberType").val();
         };
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, MemberDataTableSource.exchangeList);
         dtList_info_detail.useCheckBox(false);
@@ -93,8 +95,8 @@
 
     function exchangeTable_reload(){
         if($("#slctExchangeDateType").find("select").val() == 0){
-            sDate = "";
-            eDate = "";
+            sDate = "1900.01.01";
+            eDate = "2999.12.31";
             $("#rangeExchangeDatepicker").hide();
         }else{
             sDate = $("#startExchangeDate").val();
@@ -105,14 +107,10 @@
     }
 
     function exchangeSummary_table(response){
-
-        console.log("----------------------------------------");
-        console.log(response);
         var template = $('#tmp_exchangeSummary').html();
         var templateScript = Handlebars.compile(template);
-        // var context = response.data.totalInfo;
-        // var html = templateScript(context);
-        var html = templateScript();
+        var context = response.summary;
+        var html = templateScript(context);
         $("#exchangeSummary").html(html);
         ui.paintColor();
     }
@@ -143,17 +141,17 @@
         </tr>
         <tr>
             <th class="_bgColor" data-bgcolor="#f2f2f2">총합</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{addComma confirm_cnt}} 건</td>
+            <td>{{addComma confirm_byeol}} 별</td>
+            <td>{{addComma confirm_amt}} 원</td>
+            <td>{{addComma cancel_cnt}} 건</td>
+            <td>{{addComma cancel_byeol}} 별</td>
+            <td>{{addComma cancel_amt}} 원</td>
+            <td>{{addComma ready_cnt}} 건</td>
+            <td>{{addComma ready_byeol}} 별</td>
+            <td>{{addComma ready_amt}} 원</td>
+            <td>{{addComma now_byeol}} 별</td>
+            <td>{{addComma now_amt}} 원</td>
         </tr>
     </table>
 </script>
