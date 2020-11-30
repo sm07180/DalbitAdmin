@@ -22,6 +22,8 @@ var NoticeDataTableSource = {
                     return common.addComma(data);
                 }}
             , {'title': '게시상태', 'data': 'viewOn', 'render': function (data) {
+                    console.log(data);
+                    console.log(util.renderOnOff(data));
                     return util.renderOnOff(data);
                 }}
             , {'title': '바로알림', 'data': '', 'render': function (data) {
