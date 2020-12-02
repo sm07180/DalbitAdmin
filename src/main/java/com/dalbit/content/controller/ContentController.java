@@ -187,7 +187,7 @@ public class ContentController {
         return "content/item/list";
     }
 
-    @GetMapping("/itempopup/itemOrder")
+    @GetMapping("/item/popup/itemOrder")
     public String itemOrder() {
         return "content/item/popup/itemOrder";
     }
