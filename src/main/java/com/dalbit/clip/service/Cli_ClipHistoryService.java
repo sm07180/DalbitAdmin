@@ -2,27 +2,31 @@ package com.dalbit.clip.service;
 
 import com.dalbit.clip.dao.Cli_ClipHistoryDao;
 import com.dalbit.clip.vo.*;
-import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditHistoryVo;
-import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoEditVo;
-import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoInputVo;
-import com.dalbit.clip.vo.procedure.P_ClipHistoryDetailInfoOutPutVo;
+import com.dalbit.clip.vo.procedure.*;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberAdminMemoAddVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.tomcat.jni.Proc;
+import org.springframework.ui.Model;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -38,6 +42,8 @@ public class Cli_ClipHistoryService {
     @Autowired
     PushService pushService;
 
+    @Autowired
+    ExcelService excelService;
 
     /**
      * 클립 리스트 조회
@@ -441,4 +447,146 @@ public class Cli_ClipHistoryService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
     }
+
+    /**
+     * 클립 저작권 청취내역 조회
+     */
+    public String callClipCopyright(P_ClipCopyrightInputVo pClipCopyrightInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pClipCopyrightInputVo);
+        ArrayList<P_ClipCopyrightOutputVo> list = cliClipHistoryDao.callClipCopyright(procedureVo);
+        P_ClipCopyrightSummaryVo summaryVo = new Gson().fromJson(procedureVo.getExt(), P_ClipCopyrightSummaryVo.class);
+        String result;
+
+        HashMap copyrightList = new HashMap();
+        if(DalbitUtil.isEmpty(list) || list.size() == 0) {
+            copyrightList.put("list", new ArrayList<>());
+            copyrightList.put("summary", summaryVo);
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, copyrightList));
+        }
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            copyrightList.put("list", list);
+            copyrightList.put("summary", summaryVo);
+
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, copyrightList));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
+        return result;
+    }
+
+    /**
+     * 클립 저작권 청취내역 커버 곡명(관리자), 커버 가수(관리자) 편집
+     */
+    public String updateClipCopyrightCover(ClipCopyrightUpdateVo clipCopyrightUpdateVo) {
+        int result = cliClipHistoryDao.updateClipCopyrightCover(clipCopyrightUpdateVo);
+
+        if(result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+
+    /**
+     * 클립 저작권 청취내역 상세 조회
+     */
+    public String callClipCopyrightDetail(P_ClipCopyrightDetailInputVo pClipCopyrightDetailInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pClipCopyrightDetailInputVo);
+        ArrayList<P_ClipCopyrightDetailOutputVo> list = cliClipHistoryDao.callClipCopyrightDetail(procedureVo);
+        P_ClipCopyrightDetailSummaryVo summaryVo = new Gson().fromJson(procedureVo.getExt(), P_ClipCopyrightDetailSummaryVo.class);
+        HashMap detailList = new HashMap();
+        String result;
+
+        if(DalbitUtil.isEmpty(list) || list.size() == 0) {
+            detailList.put("list", new ArrayList<>());
+            detailList.put("summary", summaryVo);
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            detailList.put("list", list);
+            detailList.put("summary", summaryVo);
+
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, detailList));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+        return result;
+    }
+
+    /**
+     * 클립 저작권 청취내역 엑셀
+     */
+    public Model clipCopyrightListExcel(P_ClipCopyrightInputVo pClipCopyrightInputVo, Model model) {
+        pClipCopyrightInputVo.setPageCnt(1000000);
+        ProcedureVo procedureVo = new ProcedureVo(pClipCopyrightInputVo);
+
+        List<P_ClipCopyrightOutputVo> list = cliClipHistoryDao.callClipCopyright(procedureVo);
+        String[] headers = {"No", "회원번호", "닉네임", "주제", "재생시간", "클립번호", "클립제목", "등록일시", "커버곡명(유저)", "커버가수(유저)"
+                , "커버곡명(관리자)", "커버가수(관리자)", "청취 횟수", "상태"};
+        int[] headerWidths = {2000, 5000, 3000, 4000, 3000, 5000, 4000, 5000, 4000, 4000, 4000, 4000, 2000, 4000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            String subject = "";
+            int subCode = list.get(i).getSubjectType();
+            if(subCode == 1) {
+                subject = "커버/노래";
+            } else if(subCode == 2) {
+                subject = "작사/작곡";
+            } else if(subCode == 3) {
+                subject = "더빙";
+            } else if(subCode == 4) {
+                subject = "수다/대화";
+            } else if(subCode == 5) {
+                subject = "고민/사연";
+            } else if(subCode == 6) {
+                subject = "힐링";
+            } else if(subCode == 7) {
+                subject = "ASMR";
+            } else if(subCode == 8) {
+                subject = "성우";
+            } else {
+                subject = "연주";
+            }
+
+            String state = "";
+            int stateCode = list.get(i).getState();
+            if(stateCode == 1) {
+                state = "정상";
+            } else if(stateCode == 4) {
+                state = "삭제(본인)";
+            } else {
+                state = "삭제(운영자)";
+            }
+
+            hm.put("no", list.size()-i);
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getNickName()) ? "" : list.get(i).getNickName());
+            hm.put("subject", subject);
+            hm.put("playTime", DalbitUtil.isEmpty(list.get(i).getPlayTime()) ? "" : list.get(i).getPlayTime());
+            hm.put("clip_no", DalbitUtil.isEmpty(list.get(i).getCast_no()) ? "" : list.get(i).getCast_no());
+            hm.put("clip_title", DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
+            hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getRegDate()) ? "" : list.get(i).getRegDate());
+            hm.put("cover_title(user)", DalbitUtil.isEmpty(list.get(i).getUserCoverTitle()) ? "" : list.get(i).getUserCoverTitle());
+            hm.put("cover_singer(user)", DalbitUtil.isEmpty(list.get(i).getUserCoverSinger()) ? "" : list.get(i).getUserCoverSinger());
+            hm.put("cover_title(admin)", DalbitUtil.isEmpty(list.get(i).getAdminCoverTitle()) ? "" : list.get(i).getAdminCoverTitle());
+            hm.put("cover_singer(admin)", DalbitUtil.isEmpty(list.get(i).getAdminCoverSinger()) ? "" : list.get(i).getAdminCoverSinger());
+            hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getPlayCnt()) ? "" : list.get(i).getPlayCnt());
+            hm.put("state", state);
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("클립 저작권 청취 내역",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "클립 저작권 청취 내역");
+
+        return model;
+    }
+
 }
