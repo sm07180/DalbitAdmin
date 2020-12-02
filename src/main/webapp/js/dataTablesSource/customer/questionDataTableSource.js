@@ -18,7 +18,7 @@ var questionDataTableSource = {
                 }},
             {'title': '플랫폼', 'data': 'platform','width':'60px'},
             {'title': 'Browser', 'data': 'browser','width':'60px'},
-            {'title': '회원번호', 'data': 'mem_no','width':'100px','render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no','width':'150px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     if(row.mem_state == 1){
                         tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
@@ -101,7 +101,7 @@ var questionDataTableSource = {
                 }},
             {'title': '플랫폼', 'data': 'platform','width':'60px'},
             {'title': 'Browser', 'data': 'browser','width':'60px'},
-            {'title': '회원번호', 'data': 'mem_no','width':'100px','render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no','width':'150px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     if(row.mem_state == 1){
                         tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
@@ -175,7 +175,7 @@ var questionDataTableSource = {
                 }},
             {'title': '플랫폼', 'data': 'platform','width':'60px'},
             // {'title': 'Browser', 'data': 'browser','width':'60px'},
-            {'title': '회원번호', 'data': 'mem_no','width':'100px','render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no','width':'150px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
                     return tmp;
