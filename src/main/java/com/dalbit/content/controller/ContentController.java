@@ -225,4 +225,9 @@ public class ContentController {
     public String themeList() {
         return "content/theme/list";
     }
+
+    @GetMapping("/marketing/info")
+    public String info() {
+        return "content/marketing/info";
+    }
 }
