@@ -192,7 +192,7 @@ public class ContentController {
         return "content/item/list";
     }
 
-    @GetMapping("/itempopup/itemOrder")
+    @GetMapping("/item/popup/itemOrder")
     public String itemOrder() {
         return "content/item/popup/itemOrder";
     }
@@ -224,5 +224,10 @@ public class ContentController {
     @GetMapping("/theme/list")
     public String themeList() {
         return "content/theme/list";
+    }
+
+    @GetMapping("/marketing/info")
+    public String info() {
+        return "content/marketing/info";
     }
 }
