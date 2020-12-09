@@ -1,6 +1,8 @@
 package com.dalbit.clip.controller.rest;
 
 import com.dalbit.clip.service.Cli_ClipCategoryService;
+import com.dalbit.clip.vo.procedure.P_ClipRank;
+import com.dalbit.clip.vo.procedure.P_ClipRecommend;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.CommonService;
 import com.dalbit.common.vo.CodeVo;
@@ -52,6 +54,58 @@ public class Cli_ClipCategoryRestController {
         themeService.sendSplashApi();
 
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
+
+
+    /**
+     * 클립 랭킹 조회
+     */
+    @PostMapping("/rank/list")
+    public String callClipRankList(P_ClipRank pClipRank) {
+        String result = cliClipCategoryService.callClipRankList(pClipRank);
+        return result;
+    }
+
+    /**
+     * 달대리 추천 클립 조회
+     */
+    @PostMapping("/recommend/list")
+    public String callClipRecommendList(P_ClipRecommend pClipRecommend) {
+        String result = cliClipCategoryService.callClipRecommendList(pClipRecommend);
+        return result;
+    }
+
+    /**
+     * 달대리 추천 클립 등록
+     */
+    @PostMapping("/recommend/edit")
+    public String callClipRecommendEdit(P_ClipRecommend pClipRecommend) {
+        String result = cliClipCategoryService.callClipRecommendEdit(pClipRecommend);
+        return result;
+    }
+
+    /**
+     * 달대리 추천 클립 상세 정보
+     */
+    @PostMapping("/recommend/detail")
+    public String callClipRecommendDetail(P_ClipRecommend pClipRecommend) {
+        String result = cliClipCategoryService.callClipRecommendDetail(pClipRecommend);
+        return result;
+    }
+
+    /**
+     * 달대리 추천 클립 삭제
+     */
+    @PostMapping("/recommend/delete")
+    public String callClipRecommendDelete(P_ClipRecommend pClipRecommend) {
+        String result = cliClipCategoryService.callClipRecommendDelete(pClipRecommend);
+        return result;
+    }
+
+    @PostMapping("recommend/leaderCheck")
+    public String getLeaderCheck(P_ClipRecommend pClipRecommend) {
+        String result = cliClipCategoryService.getLeaderCheck(pClipRecommend);
+        return result;
     }
 
 }

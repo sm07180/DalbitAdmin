@@ -67,7 +67,6 @@
                         slctType : 1
                     },
                     success: function(response) {
-                        console.log("-----------------------");
                         console.log(response);
                         $("#totalTable").empty();
 

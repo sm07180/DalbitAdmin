@@ -35,12 +35,13 @@
     var beforeOrderByType = 5;
     var beforeClipSubjectType = -1;
 
-    $(document).on('change', "#clipSubjectType, #clipOrderByType, #searchTypeOpen, #searchConfirm, #searchState", function(){
+    $(document).on('change', "#clipSubjectType", function(){
         beforeClipTypeOpen = $("#searchTypeOpen").val();
         beforeClipStateType = $("#searchState").val();
         beforeOrderByType = $("#clipOrderByType").val();
         beforeClipSubjectType = $("#clipSubjectType").val();
-        dtList_info.reload(selectCallback_hotHistory, false);
+        // dtList_info.reload(selectCallback_hotHistory, false);
+        initDataTable_clipHot();
     });
 
     $(function(){
@@ -212,113 +213,6 @@
     function fn_ClipDelete_success(dst_id, response){
         alert(response.message);
         $("#bt_search").click();
-    }
-
-
-
-    // 댓글 목록 리스트
-    $(document).on('click', '._selectReply', function() {
-        if($(this).data('reply') == 0) {
-            alert('해당 클립에는 등록된 댓글이 없습니다.');
-        } else if($(this).data('reply') > 0) {
-            var data = {
-                'targetClipNo' : $(this).data('cast_no')
-            };
-            util.getAjaxData("selectReply", "/rest/clip/history/reply/list", data, fn_success_selectReply);
-        }
-    });
-
-    function fn_success_selectReply(dst_id, response) {
-        $('#div_reply').empty();
-        for(var i=0 ; i<response.data.length; i++){
-            var tmp = '<div class="col-md-12 no-padding" style="margin-bottom: 10px;">';
-            tmp +=    '<div class="col-md-2">';
-            tmp +=      '<form id="profileImg' + i + '" method="post" enctype="multipart/form-data">';
-            tmp +=          '<img class="pull-right" id="image_section' + i + '" src="" alt="your image" style="width: 40px;height: 40px"/>';
-            tmp +=      '</form>';
-            tmp +=     '</div>';
-            tmp +=     '<div class="col-md-10">';
-            if(response.data[i].status == "2"){
-                tmp +=      '<i class="fa fa-lock" style="padding-left: 3px;padding-right: 3px"></i>';
-            }
-            tmp +=      '<label id="nickName' + i + '"></label>';
-            tmp +=      '<label id="userId' + i + '" style="color: #6e696e"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
-            tmp +=      '<lable id="contents' + i + '"></label><br>';
-            tmp +=     '</div>';
-            tmp +=     '</div>';
-
-
-            console.log(tmp)
-            $('#div_reply').append(tmp);
-
-            $('#nickName' + i).text(response.data[i].memNick);
-            $('#userId' + i).text(response.data[i].memNo);
-            $('#writeDateFormat' + i).text(response.data[i].writeDate);
-            $('#contents' + i).text(response.data[i].contents);
-            $('#image_section' + i).prop("src" ,common.profileImage(PHOTO_SERVER_URL,response.data[i].profileImage,memSex));
-
-            $('#clipReplyModal').modal("show");
-        }
-
-    }
-
-
-    //클립 운영자 인증 요청
-    function editClipConfirm(clipNo, confirmData){
-        if(confirm("운영자 관리 여부를 수정 하시겠습니까?")) {
-            var data = Object();
-            data.cast_no = clipNo;
-            data.editSlct = 8;
-            data.confirm = confirmData === 1 ? 0 : 1;
-            data.sendNoti = 0;
-
-            editClipDetailData(data);
-        }
-    }
-
-    //클립 수정
-    var isAlertShow = true;
-    function editClipDetailData(data, isAlert){
-        isAlertShow = true;
-        if(!common.isEmpty(isAlert)){
-            isAlertShow = isAlert
-        }
-
-        util.getAjaxData("clipDetailInfoEdit", "/rest/clip/history/info/edit", data, fn_detailInfo_Edit_success);
-    }
-
-    function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
-        console.log(response);
-        dtList_info.reload(selectCallback_hotHistory, false);
-        if(isAlertShow){alert(response.message)};
-    }
-
-    //클립 신고 팝업 오픈
-    function openClipReportPopup(){
-        var report = "/member/member/popup/reportPopup?"
-            + "memNo=" + encodeURIComponent(clipInfoData.cast_mem_no)
-            + "&memId=" + encodeURIComponent(clipInfoData.cast_userId)
-            + "&memNick=" + encodeURIComponent(common.replaceHtml(clipInfoData.cast_nickName))
-            + "&memSex=" + encodeURIComponent(clipInfoData.cast_memSex)
-            + "&deviceUuid=" + clipInfoData.cast_deviceUuid
-            + "&ip=" + clipInfoData.cast_ip;
-
-        util.windowOpen(report,"750","910","clipReport");
-    }
-
-    // 클립 신고 팝업 완료 콜백 함수
-    function getMemNo_info_reload(memNo){
-        if(!common.isEmpty(clipInfoData)){
-            var data = Object();
-            data.memNo = memNo;
-            data.cast_no = clipInfoData.castNo;
-            data.editSlct = 4;
-            data.state = 5;
-            data.sendNoti = 1;
-
-            editClipDetailData(data, false);
-        }
-        // dtList_info.reload(selectCallback_hotHistory, false);
     }
 
 </script>
