@@ -23,7 +23,6 @@
 <script type="text/javascript">
 
     $(function(){
-        getCalendarInfo();
     });
 
     function getCalendarInfo(){
