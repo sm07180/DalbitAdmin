@@ -100,6 +100,7 @@ var push_slctPush2 = [
     // , new COMMON_CODE('43', '43', '랭킹 > FAN > 일간')
     // , new COMMON_CODE('44', '44', '랭킹 > FAN > 주간')
     , new COMMON_CODE('input', '50', '직접입력')
+    , new COMMON_CODE('input', '51', '달대리 추천 클립')
 ];
 
 var push_slctPush3 = [
@@ -484,6 +485,12 @@ var event_content_button_type = [
     , new COMMON_CODE('popup', 'popup', '팝업')
 ]
 
+var event_foldYn = [
+    new COMMON_CODE(null, 'foldYn', '접기 여부 버튼 타입')
+    , new COMMON_CODE('0', '0', '비노출')
+    , new COMMON_CODE('1', '1', '노출')
+]
+
 /** =------ Item ---------- */
 var item_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
@@ -789,4 +796,104 @@ var marketing_slct_type = [
     new COMMON_CODE(null, 'searchType', '구분')
     , new COMMON_CODE('title', '1', '위클리픽')
     , new COMMON_CODE('content', '2', '15초 광고 모델')
+]
+
+//보름달 관리
+var full_moon_condition1_slctType = [
+    new COMMON_CODE(null, 'slctType', '구분')
+    , new COMMON_CODE('1', '1', '방송시간')
+    , new COMMON_CODE('2', '2', '누적청취자')
+    , new COMMON_CODE('3', '3', '받은 별')
+    , new COMMON_CODE('4', '4', '좋아요<br />(구매 부스터 포함)')
+]
+
+var full_moon_condition1_values = [
+    new COMMON_CODE(null, 'values', '구분')
+    , new COMMON_CODE('1', '1', 'broadTime')
+    , new COMMON_CODE('2', '2', 'listenerCnt')
+    , new COMMON_CODE('3', '3', 'byeolCnt')
+    , new COMMON_CODE('4', '4', 'goodPoint')
+]
+
+//보름달 관리
+var full_moon_condition1_slctType_unit = [
+    new COMMON_CODE(null, 'slctType', '단위')
+    , new COMMON_CODE('1', '1', '분')
+    , new COMMON_CODE('2', '2', '명')
+    , new COMMON_CODE('3', '3', '별')
+    , new COMMON_CODE('4', '4', '개')
+]
+
+var full_moon_condition2_slctType = [
+    new COMMON_CODE(null, 'slctType', '구분')
+    , new COMMON_CODE('1', '1', 'DJ')
+    , new COMMON_CODE('2', '2', '청취자')
+]
+
+var full_moon_condition2_reward = [
+    new COMMON_CODE(null, 'reward', '보상')
+    , new COMMON_CODE('1', '1', '룰렛응모권')
+    , new COMMON_CODE('2', '2', '부스터응모권')
+]
+
+var full_moon_condition2_slctType_values = [
+    new COMMON_CODE(null, 'slctType', '단위')
+    , new COMMON_CODE('1', '1', 'djItemCnt')
+    , new COMMON_CODE('2', '2', 'listenerItemCnt')
+]
+
+var full_moon_condition3_slctType = [
+    new COMMON_CODE(null, 'slctType', '구분')
+    , new COMMON_CODE('1', '1', '보낸 달')
+    , new COMMON_CODE('2', '2', '좋아요')
+    , new COMMON_CODE('3', '3', '보름달 완성 시 청취 중')
+]
+
+var full_moon_condition3_slctType_unit = [
+    new COMMON_CODE(null, 'slctType', '단위')
+    , new COMMON_CODE('1', '1', '달')
+    , new COMMON_CODE('2', '2', '개')
+    , new COMMON_CODE('3', '3', ' ')
+]
+
+var full_moon_condition3_slctType_values = [
+    new COMMON_CODE(null, 'slctType', '단위')
+    , new COMMON_CODE('1', '1', 'minGiftDal')
+    , new COMMON_CODE('2', '2', 'minGoodPoint')
+    , new COMMON_CODE('3', '3', 'listenYn')
+]
+
+//보름달 문구관리
+var full_moon_text_alert_status = [
+    new COMMON_CODE(null, 'status', '보름달 상태')
+    , new COMMON_CODE('1', '1', '미완성')
+    , new COMMON_CODE('2', '2', '완성')
+    , new COMMON_CODE('3', '3', '완성')
+    , new COMMON_CODE('4', '4', '완성')
+    , new COMMON_CODE('5', '5', '완성')
+]
+
+var full_moon_text_alert_type = [
+    new COMMON_CODE(null, 'type', '구분')
+    , new COMMON_CODE('1', '1', '상태창')
+    , new COMMON_CODE('2', '2', '상태창')
+    , new COMMON_CODE('3', '3', '상태창')
+    , new COMMON_CODE('4', '4', '상태창')
+    , new COMMON_CODE('5', '5', '알럿')
+]
+
+var full_moon_text_alert_target = [
+    new COMMON_CODE(null, 'type', '노출 대상')
+    , new COMMON_CODE('1', '1', '공통')
+    , new COMMON_CODE('2', '2', 'DJ')
+    , new COMMON_CODE('3', '3', '조건 충족 청취자')
+    , new COMMON_CODE('4', '4', '조건 미충족 청취자')
+    , new COMMON_CODE('5', '5', '공통')
+]
+
+var full_moon_text_guide_area = [
+    new COMMON_CODE(null, 'area', '영역')
+    , new COMMON_CODE('6', '6', '1')
+    , new COMMON_CODE('7', '7', '2')
+    , new COMMON_CODE('8', '8', '3')
 ]
