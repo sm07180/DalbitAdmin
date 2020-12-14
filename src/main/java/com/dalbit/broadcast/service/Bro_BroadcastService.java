@@ -71,7 +71,6 @@ public class Bro_BroadcastService {
         ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(procedureVo);
         P_BroadcastListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_BroadcastListOutputVo.class);
 
-
         // 종료된 총 방송방 정보 조회
         ArrayList<P_BroadcastListOutputVo> osCntList = bro_BroadcastDao.callBroadcastList_all(pBroadcastListInputVo);
         if(!DalbitUtil.isEmpty(osCntList)) {
@@ -175,6 +174,8 @@ public class Bro_BroadcastService {
             hm.put("mem16", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
             hm.put("mem17", DalbitUtil.isEmpty(list.get(i).getBoosterCnt()) ? "" : list.get(i).getBoosterCnt());
             hm.put("mem18", DalbitUtil.isEmpty(list.get(i).getGiftCnt()) ? "" : list.get(i).getGiftCnt());
+            hm.put("mem18_1", DalbitUtil.isEmpty(list.get(i).getByeolCnt()) ? "" : list.get(i).getByeolCnt());
+            hm.put("mem19_1", DalbitUtil.isEmpty(list.get(i).getStoryCnt()) ? "" : list.get(i).getStoryCnt());
             hm.put("mem19", DalbitUtil.isEmpty(list.get(i).getFanCnt()) ? "" : list.get(i).getFanCnt());
             hm.put("mem20", DalbitUtil.isEmpty(list.get(i).getForcedCnt()) ? "" : list.get(i).getForcedCnt());
             hm.put("mem21", DalbitUtil.isEmpty(list.get(i).getExtend_time_count()) ? "" : list.get(i).getExtend_time_count());
