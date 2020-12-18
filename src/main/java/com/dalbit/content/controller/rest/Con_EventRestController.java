@@ -298,19 +298,19 @@ public class Con_EventRestController {
 //    /**
 //     * 이벤트 댓글 리스트 조회
 //     */
-//    @PostMapping("/reply")
-//    public String replyList(P_EventReplyListInputVo pEventReplyListInputVo) {
-//        String result = con_EventService.getEventReplyList(pEventReplyListInputVo);
-//        return result;
-//    }
-//
-//
-//    /**
-//     * 이벤트 댓글 삭제
-//     */
-//    @PostMapping("/reply/delete")
-//    public String replyDelete(P_EventReplyDeleteInputVo pEventReplyDeleteInputVo) {
-//        String result = con_EventService.getEventReplyDelete(pEventReplyDeleteInputVo);
-//        return result;
-//    }
+    @PostMapping("/reply")
+    public String replyList(P_EventReplyListInputVo pEventReplyListInputVo) {
+        String result = con_EventService.getEventReplyList(pEventReplyListInputVo);
+        return result;
+    }
+
+
+    /**
+     * 이벤트 댓글 삭제
+     */
+    @PostMapping("/reply/delete")
+    public String replyDelete(P_EventReplyDeleteInputVo pEventReplyDeleteInputVo) {
+        String result = con_EventService.getEventReplyDelete(pEventReplyDeleteInputVo);
+        return result;
+    }
 }
