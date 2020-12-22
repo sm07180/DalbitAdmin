@@ -111,9 +111,6 @@ public class SampleController {
     @GetMapping("push")
     public String push(){return "sample/push";}
 
-    @GetMapping("excelUpload")
-    public String excelUpload(){return "sample/excelUpload";}
-
     @GetMapping("player")
     public String player(HttpServletRequest request){
         bro_broadcastService.callBroadcastSimpleInfo(request);
