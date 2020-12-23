@@ -727,7 +727,7 @@
                 return;
             }
             if($("select[name='dalPlusMinus']").val() == 2){
-                if(memberInfo_responseDate.dal < $("#txt_dalAddCnt").val()){
+                if(memberInfo_responseDate.totalDal < $("#txt_dalAddCnt").val()){
                     alert("적용할 수 없는 수치입니다.");
                     return;
                 }
@@ -1121,8 +1121,7 @@
             <th>보유달</th>
             <td colspan="6" style="text-align: left;">
                 <span class="col-md-5 no-padding">
-                    <%--{{addComma dal}} / {{addComma money}} / 총 달 : {{addComma totalDal}}--%>
-                    {{addComma dal}} 달
+                    <span class="font-bold">{{addComma totalDal}}</span> 달 (구매 : {{addComma money}} 달 / 무료 : {{addComma dal}} 달)
                 </span>
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
