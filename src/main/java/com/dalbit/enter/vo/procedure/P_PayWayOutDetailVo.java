@@ -54,4 +54,7 @@ public class P_PayWayOutDetailVo {
     private int kakaopayCnt;
     private int kakaopayAmt;
     private int kakaopayCmt;
+    private int kakaomoneyCnt;
+    private int kakaomoneyAmt;
+    private int kakaomoneyCmt;
 }
