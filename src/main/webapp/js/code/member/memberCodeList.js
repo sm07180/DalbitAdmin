@@ -15,8 +15,9 @@ var mem_state = [
     , new COMMON_CODE('3', '3', '정지')
     , new COMMON_CODE('5', '5', '영구정지')
     , new COMMON_CODE('4', '4', '탈퇴')
-    , new COMMON_CODE('6', '6', '휴면상태')
+    , new COMMON_CODE('6', '6', '임시정지')
     , new COMMON_CODE('7', '7', '자동탈퇴')
+    , new COMMON_CODE('8', '8', '휴면계정')
 ];
 
 var broadCast_summary = [
