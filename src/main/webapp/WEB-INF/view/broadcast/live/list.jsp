@@ -96,9 +96,9 @@
                     <br/>
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
-                <c:if test="${fn:contains('|이재은|이형원|고병권|이재호|양효진|이상훈|', principal.getUserInfo().getName())}">
-                    <button class="btn btn-danger btn-sm print-btn pull-right" type="button" id="inspection" onclick="inspection_click();">임시점검</button>
-                </c:if>
+                    <c:if test="${fn:contains('|이재은|이형원|고병권|이재호|양효진|이상훈|', principal.getUserInfo().getName())}">
+                        <button class="btn btn-danger btn-sm print-btn pull-right" type="button" id="inspection" onclick="inspection_click();">임시점검</button>
+                    </c:if>
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-2 no-padding pull-right">
@@ -312,6 +312,8 @@
     }
 
     function summary_table(json){
+
+        json.summary.liveState = liveState;
         var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
@@ -472,15 +474,15 @@
             <td>{{addComma content.broadFemaleCnt}}</td>
             <td>{{addComma content.broadNoneCnt}}</td>
             <td>{{#equal length '0'}}0{{/equal}}{{addComma content.newCnt}}명</td>
-            <td>{{addComma content.liveListenMaleCnt}} ({{addComma content.guestMaleCnt}})</td>
-            <td>{{addComma content.liveListenFemaleCnt}} ({{addComma content.guestFemaleCnt}})</td>
-            <td>{{addComma content.liveListenNoneCnt}} ({{addComma content.guestNoneCnt}})</td>
+            <td>{{#dalbit_if liveState '==' 0}} {{addComma content.liveListenMaleCnt}} {{else}} {{addComma content.totalListenMaleCnt}} {{/dalbit_if}} ({{addComma content.guestMaleCnt}})</td>
+            <td>{{#dalbit_if liveState '==' 0}} {{addComma content.liveListenFemaleCnt}} {{else}} {{addComma content.totalListenFemaleCnt}} {{/dalbit_if}} ({{addComma content.guestFemaleCnt}})</td>
+            <td>{{#dalbit_if liveState '==' 0}} {{addComma content.liveListenNoneCnt}} {{else}} {{addComma content.totalListenNoneCnt}} {{/dalbit_if}} ({{addComma content.guestNoneCnt}})</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
             <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="5">{{addComma content.totalBroadCastCnt}} ({{addComma content.broadStateNomal}}/{{addComma content.broadBreak}})</td>
             <td class="font-bold" style="background-color: #d8d8d8;" >총 수</td>
-            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="3">{{addComma content.liveListenerCnt}} ({{addComma content.totalGuestCnt}})</td>
+            <td class="font-bold" style="background-color: #f2f2f2; color: #ed7d31" colspan="3">{{#dalbit_if liveState '==' 0}} {{addComma content.liveListenerCnt}} {{else}} {{addComma content.totalListenerCnt}} {{/dalbit_if}} ({{addComma content.totalGuestCnt}})</td>
         </tr>
     </table>
 </script>
