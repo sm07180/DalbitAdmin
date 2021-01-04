@@ -528,6 +528,15 @@
             resultJson['dayOfTheWeek'] = content_scheduleWeek;
         }
 
+        if(fnc_bannerDetail.target.find('#detail_is_button_view').prop('checked')){
+            if(fnc_bannerDetail.target.find("#banner-button_name").val() == ""){
+                alert("버튼명을 입력하여 주시기 바랍니다.");
+                return;
+            }else{
+                resultJson['buttonName'] = fnc_bannerDetail.target.find("#banner-button_name").val();
+            }
+        }
+
         dalbitLog(resultJson);
 
         return resultJson
@@ -753,17 +762,24 @@
             </tr>
 
             <tr class="_show_popup" style='display:none;'>
-                <th>팝업 구분</th>
-                <td>{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
+                <th rowspan="2">팝업 구분</th>
+                <td rowspan="2">{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
 
-                <th>오늘하루 열지않기</th>
-                <td class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
+                <th rowspan="2">오늘하루 열지않기</th>
+                <td rowspan="2" class="no-margin">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
 
-                <th>제목 노출 여부</th>
-                <td class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
+                <th rowspan="2">제목 노출 여부</th>
+                <td rowspan="2" class="no-margin">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
 
                 <th>버튼 노출 여부</th>
                 <td class="no-margin">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
+            </tr>
+
+            <tr class="_show_popup" style='display:none;'>
+                <th>버튼명</th>
+                <td>
+                    <input type="text" class="_trim" id="banner-button_name" name="banner-button_name" value="{{buttonName}}" maxlength="20" />
+                </td>
             </tr>
 
             <tr class="_show_popup _show_popup_text" style='display:none;'>

@@ -81,4 +81,17 @@ public class SampleRestController {
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
+
+    /**
+     * 5/10레벨 이벤트 참여내역 초기화
+     */
+    @GetMapping("joinEventReset")
+    public String joinEventReset(HttpServletRequest request) {
+        String mem_no = request.getParameter("memNo");
+
+        sampleDao.joinEventReset(mem_no);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+        return result;
+    }
 }
