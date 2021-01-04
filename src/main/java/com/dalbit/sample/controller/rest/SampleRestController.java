@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.sample.dao.SampleDao;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.util.DalbitUtil;
@@ -12,6 +13,7 @@ import com.dalbit.util.OkHttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,9 @@ public class SampleRestController {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @Autowired
+    SampleDao sampleDao;
 
     @PostMapping("list")
     public String list(Model model){
