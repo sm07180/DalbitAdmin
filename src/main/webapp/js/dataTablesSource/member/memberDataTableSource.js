@@ -795,14 +795,48 @@ var MemberDataTableSource = {
         'url': '/rest/member/wallet/dal/list'
         , 'columns': [
             {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return util.memNoLink(data, row.mem_no);
                 }},
-            {'title': 'UserID', 'data': 'userId'},
-            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': 'UserID', 'data': 'userId', 'render' : function (data, type, row, meta){
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
+                    return data;
+                }},
+            {'title': 'User닉네임', 'data': 'nickName', 'render' : function (data,type,row,meta){
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
+                    return data;
+                }},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '구분', 'data': 'gubun', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     if(data == 12){
                         if(-1 < row.itemName.indexOf("운영자 지급")){
                             return "운영자 지급"
@@ -811,20 +845,58 @@ var MemberDataTableSource = {
                     return util.getCommonCodeLabel(data, mem_wallet_dal_code);
                 }},
             {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg" : data;
                     return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data) {
+            {'title': '선물 건', 'data': 'itemCnt', 'render': function(data, type, row, meta){
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return common.addComma(data) + " 개"
                 }},
-            {'title': '선물 달', 'data': 'ruby', 'render': function (data) {
+            {'title': '선물 달', 'data': 'ruby', 'render': function(data, type, row, meta){
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return common.addComma(data) + " 달"
                 }},
-            {'title': '선물 일시', 'data': 'giftDateFormat'},
+            {'title': '선물 전', 'data': 'ruby_old', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 후', 'data': 'ruby_new', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 일시', 'data': 'giftDateFormat', 'render' : function(data, type, row, meta){
+                    if((row.gubun == "2" || row.gubun == "3"
+                        || row.gubun == "32" || row.gubun == "14"
+                        || row.gubun == "17"|| row.gubun == "4"
+                        || row.gubun == "5"|| row.gubun == "6") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
+                    return data;
+                }},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
@@ -837,31 +909,83 @@ var MemberDataTableSource = {
         'url': '/rest/member/wallet/byeol/list'
         , 'columns': [
             {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return util.memNoLink(data, row.mem_no);
                 }},
-            {'title': 'UserID', 'data': 'userId'},
-            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': 'UserID', 'data': 'userId','render' : function (data,type,row,meta){
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
+                    return data;
+                }},
+            {'title': 'User닉네임', 'data': 'nickName', 'render':function (data, type, row, meta){
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
+                    return data;
+                }},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '구분', 'data': 'gubun', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return util.getCommonCodeLabel(data, mem_wallet_byeol_code);
                 }},
             {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg" : data;
                     return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data) {
+            {'title': '선물 건', 'data': 'itemCnt', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return common.addComma(data) + " 개"
                 }},
-            {'title': '선물 별', 'data': 'gold', 'render': function (data) {
+            {'title': '선물 별', 'data': 'gold', 'render': function (data, type, row, meta) {
+                    if((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000"){
+                        return "";
+                    }
                     return common.addComma(data) + " 별"
                 }},
-            {'title': '선물 일시', 'data': 'giftDateFormat'},
+            {'title': '선물 전', 'data': 'gold_old', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 후', 'data': 'gold_new', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 일시', 'data': 'giftDateFormat', 'render': function (data, type, row, meta) {
+                    if ((row.gubun == "2" || row.gubun == "14" || row.gubun == "17"
+                        || row.gubun == "19" || row.gubun == "20") && row.mem_no == "10000000000000") {
+                        return "";
+                    }
+                    return data;
+                }},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
@@ -1070,6 +1194,46 @@ var MemberDataTableSource = {
             {'title': '출처 DJ 닉네임', 'data': 'mem_nick'},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no)
+                }},
+        ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+    'mailbox': {
+        'url': '/rest/member/mailbox/list'
+
+        , 'columns': [
+            {'title': '대화일시', 'data': 'lastChatDate'},
+            {'title': '개설회원', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.memNick;
+                }},
+            {'title': '참여회원', 'data': 'targetMemNo', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, data) + '<br/>' + row.target_mem_nick;
+                }},
+            {'title': '대화내용', 'data': 'msg', 'render': function (data, type, row, meta) {
+                    if(row.msgType == "1"){
+                        return '<a href="javascript://"  onclick="mailboxPopUp($(this))" data-chatno="' + row.chatNo + '">' + common.replaceEnter(data) + '</a>';
+                    }else if(row.msgType == "2"){       // 이미지
+                        return '<img class="thumbnail fullSize_background" src="'+ common.viewImage(row.data1) +'" width="50px" height="50px" />' + '<a href="javascript://"  onclick="mailboxPopUp($(this))" data-chatno="' + row.chatNo + '">이미지 전송</a>';
+                    }else if(row.msgType == "3"){       // 아이템
+                        return '<img class="fullSize_background _webpImage" src="'+ row.item_thumbnail+'" width="50px" height="50px" data-webpImage="' + row.webp_image+ '"/>' + '<a href="javascript://"  onclick="mailboxPopUp($(this))" data-chatno="' + row.chatNo + '">아이템 전송</a>';
+                    }
+                }},
+            {'title': '기간', 'data': 'diffDate', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '상태', 'data': 'state', 'render': function (data, type, row, meta) {
+                    if(data == "0"){
+                        return "대화전";
+                    }else if(data == "1"){
+                        return "정상";
+                    }else if(data == "2"){
+                        return "퇴장";
+                    }
                 }},
         ]
         ,'createdRow' : function( row, data, dataIndex ) {
