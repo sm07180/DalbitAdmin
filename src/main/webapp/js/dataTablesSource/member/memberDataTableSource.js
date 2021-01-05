@@ -1242,4 +1242,120 @@ var MemberDataTableSource = {
             }
         }
     },
+
+    'fanrankOnOffList': {
+        'url': '/rest/content/fanrank/onOffList'
+
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no', 'render' : function(data, type, row) {
+                    return util.memNoLink(data, data);
+                }}
+            , {'title': '닉네임', 'data' : 'mem_nick'}
+            , {'title': '성별', 'data': 'mem_sex', 'render' : function(data, type, row) {
+                    return common.sexIcon(data, row.mem_birth_year);
+                }}
+            , {'title': '상태', 'data': 'apply_ranking', 'render' : function(data, type, row) {
+                    if(data == 0){
+                        return common.setFontColor('미반영', 'red');
+                    }else if(data == 1){
+                        return common.setFontColor('반영', 'black');
+                    }
+                    return '';
+                }}
+            , {'title': '일시', 'data': 'change_date', 'render' : function(data) {
+                    return data;
+                }}
+            , {'title': '미 반영 횟수', 'data': 'not_applyCnt', 'render' : function(data) {
+                    return data;
+                }}
+        ]
+        , 'comments': ''
+    },
+
+
+    'newWalletDalDetail': {
+        'url': '/rest/member/wallet/new/dal/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'UserID', 'data': 'userId'},
+            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year);
+                }},
+            {'title': '구분', 'data': 'type', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, mem_wallet_dal_code);
+                }},
+            {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    return data == '0' ? "X" : "O";
+                }},
+            {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg" : data;
+                    return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
+                }},
+            {'title': '아이템명', 'data': 'itemName'},
+            {'title': '선물 건', 'data': 'item_cnt', 'render': function(data, type, row, meta){
+                    return common.addComma(data) + " 개"
+                }},
+            {'title': '선물 달', 'data': 'ruby', 'render': function(data, type, row, meta){
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 전', 'data': 'ruby_old', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 후', 'data': 'ruby_new', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 일시', 'data': 'last_upd_date'},
+        ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
+
+    'newWalletByeolDetail': {
+        'url': '/rest/member/wallet/new/byeol/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'UserID', 'data': 'userId'},
+            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year);
+                }},
+            {'title': '구분', 'data': 'type', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, mem_wallet_byeol_code);
+                }},
+            {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    return data == '0' ? "X" : "O";
+                }},
+            {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg" : data;
+                    return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
+                }},
+            {'title': '아이템명', 'data': 'itemName'},
+            {'title': '선물 건', 'data': 'item_cnt', 'render': function(data, type, row, meta){
+                    return common.addComma(data) + " 개"
+                }},
+            {'title': '선물 별', 'data': 'gold', 'render': function(data, type, row, meta){
+                    return common.addComma(data) + " 별"
+                }},
+            {'title': '선물 전', 'data': 'gold_old', 'render': function (data) {
+                    return common.addComma(data) + " 별"
+                }},
+            {'title': '선물 후', 'data': 'gold_new', 'render': function (data) {
+                    return common.addComma(data) + " 별"
+                }},
+            {'title': '선물 일시', 'data': 'last_upd_date'},
+        ]
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
 }
