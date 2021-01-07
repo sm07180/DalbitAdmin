@@ -68,4 +68,10 @@ public interface Men_RankDao {
     ArrayList<AwardsVoteVo> callAwardsFan(ProcedureVo procedureVo);
 
     ProcedureVo callAwardsDjRegist(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ProcedureVo callAwardsDjSelImpression(ProcedureVo procedureVo);
+
+    ProcedureVo callAwardsDjImpression(ProcedureVo procedureVo);
+
 }

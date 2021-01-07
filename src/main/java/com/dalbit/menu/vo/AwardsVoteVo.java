@@ -56,6 +56,10 @@ public class AwardsVoteVo extends PagingVo {
 
     private String lastUpdDate;
     private String ip;
+    private int existsMsg;      // 사연 등록 여부
+
+    private String title;
+    private String msg;
 }
 
 
