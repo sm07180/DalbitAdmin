@@ -200,6 +200,8 @@
             , exchange.resident_tax
             , exchange.transfer_fee
             , exchange.cash_real
+            , (select account_name from rd_data.tb_member_exchange where mem_no = ifnull(basic.mem_no,withdrawal.mem_no) and latest_idx = 0 and `state` = 1 order by idx desc limit 1) prevAccountName
+            , (select social_no from rd_data.tb_member_exchange where mem_no = ifnull(basic.mem_no,withdrawal.mem_no) and latest_idx = 0 and `state` = 1 order by idx desc limit 1) prevSocialNo
             , exchange.social_no
             , exchange.phone_no
             , exchange.bank_code
