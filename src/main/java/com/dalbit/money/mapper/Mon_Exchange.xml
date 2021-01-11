@@ -42,6 +42,7 @@
         exchange.address_2,
         exchange.add_file1,
         exchange.add_file2,
+        exchange.add_file3,
         exchange.terms_agree,
         exchange.os_type,
         exchange.ip,
@@ -784,6 +785,11 @@
                 , wallet.gold
                 , ifnull(exchange.exchangeCnt, 0) exchangeCnt
                 , profile.specialdj_badge specialCnt
+                , (select byeol from rd_data.tb_member_exchange where state='1' and mem_no=basic.mem_no order by op_name desc limit 1) AS byeol
+                , (select cash_real from rd_data.tb_member_exchange where state='1' and mem_no=basic.mem_no order by op_name desc limit 1) AS cash_real
+                , (select last_upd_date from rd_data.tb_member_exchange where state='1' and mem_no=basic.mem_no order by op_name desc limit 1) AS last_upd_date
+                , (select op_date from rd_data.tb_member_exchange where state='1' and mem_no=basic.mem_no order by op_name desc limit 1) AS op_date
+                , (select op_name from rd_data.tb_member_exchange where state='1' and mem_no=basic.mem_no order by op_name desc limit 1) AS opName
             from rd_data.tb_member_basic basic
             inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
             inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no and 570 <![CDATA[<=]]> wallet.gold
@@ -1039,4 +1045,24 @@
         /* M_Member.xml - callExchangeList */
         call rd_admin.sp_admin_member_all_exchange_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+
+    <update id="opdateUpdate" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        /* Mon_Exchange.xml - opdateUpdate */
+        update rd_data.tb_member_exchange
+        set op_date = #{op_date}
+          , op_name = #{op_name}
+        where idx = #{idx}
+    </update>
+
+    <update id="imageUpload" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        /* Mon_Exchange.xml - imageUpload */
+       update rd_data.tb_member_exchange
+          set add_file1 = #{add_file1}
+            , add_file2 = #{add_file2}
+            , add_file3 = #{add_file3}
+            , op_name = #{op_name}
+            , op_date = now()
+         where idx = #{idx}
+    </update>
 </mapper>
