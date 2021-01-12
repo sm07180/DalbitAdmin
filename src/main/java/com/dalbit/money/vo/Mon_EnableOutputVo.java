@@ -23,6 +23,9 @@ public class Mon_EnableOutputVo {
     private int specialCnt;
     private int type;
     private String memtype;
+    private int gold_old;
+    private int mod_gold;            // 나머지 별
+    private int totalCashReal;            // 나머지 별
 
     private int byeol;
     private int cash_real;
