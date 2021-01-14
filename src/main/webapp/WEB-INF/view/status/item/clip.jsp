@@ -88,16 +88,6 @@
         }
     }
 
-    function handlebarsPaging(targetId, pagingInfo){
-        if(targetId == 'list_broadcast_paginate'){
-            giftClipListPagingInfo = pagingInfo;
-            getBroadList();
-        }else if(targetId == 'list_clip_paginate'){
-            giftClipListPagingInfo = pagingInfo;
-            getClipList();
-        }
-
-    }
 </script>
 <script type="text/x-handlebars-template" id="tmp_clipTotal">
     <tr class="success font-bold">

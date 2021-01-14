@@ -1230,12 +1230,12 @@ var MemberDataTableSource = {
             {'title': '개설회원', 'data': 'memNo', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, data) + '<br/>' + row.memNick;
                 }},
-            {'title': '참여회원', 'data': 'targetMemNo', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '참여회원', 'data': 'targetMemNo', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, data) + '<br/>' + row.target_mem_nick;
                 }},
             {'title': '대화내용', 'data': 'msg', 'render': function (data, type, row, meta) {
                     if(row.msgType == "1"){
-                        return '<a href="javascript://"  onclick="mailboxPopUp($(this))" data-chatno="' + row.chatNo + '">' + common.replaceEnter(data) + '</a>';
+                        return '<a href="javascript://"  onclick="mailboxPopUp($(this))" data-chatno="' + row.chatNo + '" style="word-break: break-all">' + common.replaceEnter(data) + '</a>';
                     }else if(row.msgType == "2"){       // 이미지
                         return '<img class="thumbnail fullSize_background" src="'+ common.viewImage(row.data1) +'" width="50px" height="50px" />' + '<a href="javascript://"  onclick="mailboxPopUp($(this))" data-chatno="' + row.chatNo + '">이미지 전송</a>';
                     }else if(row.msgType == "3"){       // 아이템
@@ -1243,7 +1243,7 @@ var MemberDataTableSource = {
                     }
                 }},
             {'title': '기간', 'data': 'diffDate', 'render': function (data, type, row, meta) {
-                    return data;
+                    return common.timeStampDay(data) + ' 전';
                 }},
             {'title': '상태', 'data': 'state', 'render': function (data, type, row, meta) {
                     if(data == "0"){

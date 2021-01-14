@@ -74,4 +74,5 @@ public class CommonController {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.수정, resultMap));
     }
+
 }

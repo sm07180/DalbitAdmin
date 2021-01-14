@@ -18,10 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -165,5 +162,24 @@ public class CommonService {
 
     public int updateCodeDefine(CodeListVo codeListVo){
         return commonDao.updateCodeDefine(codeListVo);
+    }
+
+    public String dbCheckBySocket(HttpServletRequest request){
+
+        HashMap mainRankingPageVo = new HashMap();
+        mainRankingPageVo.put("mem_no", DalbitUtil.getProperty("socket.database.check.mem_no"));
+        mainRankingPageVo.put("slct_type", 1);
+        mainRankingPageVo.put("ranking_slct", 2);
+        mainRankingPageVo.put("rankingDate", DalbitUtil.convertDateFormat(new Date(), "yyyy-MM-dd"));
+
+        mainRankingPageVo.put("pageNo", 1);
+        mainRankingPageVo.put("pageCnt", 1);
+
+        ProcedureVo procedureVo = new ProcedureVo(mainRankingPageVo);
+
+        List<HashMap> list = commonDao.callMainRankingPage(procedureVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+        return result;
     }
 }

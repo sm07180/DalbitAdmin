@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
@@ -17,7 +16,8 @@
             <%--<li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="tab_click(this.id);">선물내역</a></li>--%>
             <li><a href="#exchangeDetail" role="tab" data-toggle="tab" id="tab_exchangeDetail" onclick="tab_click(this.id);">환전내역</a></li>
             <li><a href="#changeDetail" role="tab" data-toggle="tab" id="tab_changeDetail" onclick="tab_click(this.id);">교환내역</a></li>
-            <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="tab_click(this.id);">마이스타/팬</a></li>
+            <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="tab_click(this.id);">스타/팬/알림</a></li>
+            <li><a href="#mailbox" role="tab" data-toggle="tab" id="tab_mailbox" onclick="tab_click(this.id);">우체통</a></li>
             <li><a href="#notice" role="tab" data-toggle="tab" id="tab_notice" onclick="tab_click(this.id);">회원게시관리</a></li>
             <li><a href="#declaration" role="tab" data-toggle="tab" id="tab_declaration" onclick="tab_click(this.id);">신고내역</a></li>
             <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="tab_click(this.id);">문의내역</a></li>
@@ -54,6 +54,7 @@
             <div class="tab-pane fade" id="exchangeDetail"><jsp:include page="../exchange/list.jsp"/></div>     <!-- 환전 -->
             <div class="tab-pane fade" id="changeDetail"><jsp:include page="../change/list.jsp"/></div>             <!-- 교환내역 -->
             <div class="tab-pane fade" id="mystarDetail"><jsp:include page="../myStar/list.jsp"/></div>         <!-- 마이스타 -->
+            <div class="tab-pane fade" id="mailbox"><jsp:include page="../mailbox/list.jsp"/></div>         <!-- 우체통 -->
             <div class="tab-pane fade" id="notice"><!-- 회원게시관리 -->
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <%--<li><a href="#fanboardDetail" role="tab" data-toggle="tab" id="tab_fanboardDetail" onclick="tab_click(this.id);">팬보드</a></li>--%>
@@ -227,7 +228,9 @@
             getHistory_levelHistory(tmp);
         }else if(tmp == "tab_rouletteList"){
             getHistory_rouletteList(tmp);
-        }
+        }else if(tmp == "tab_mailbox"){
+            getMailbox(tmp);
+         }
     }
 
     function handlebarsPaging(targetId, pagingInfo) {

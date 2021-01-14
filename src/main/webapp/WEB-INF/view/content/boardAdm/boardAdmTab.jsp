@@ -13,6 +13,7 @@
     <li><a href="#broadNoticeReply" role="tab" data-toggle="tab" id="tab_broadNoticeReply">회원공지댓글</a></li>   <!-- 2020.11.10 추가 -->
     <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
     <li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->
+    <li><a href="#mailboxList" role="tab" data-toggle="tab" id="tab_mailboxList">우체통</a></li>
 </ul>
 <div class="tab-content no-padding">
     <div class="tab-pane fade in active" id="storyList"><jsp:include page="storyList.jsp"/></div>
@@ -23,6 +24,7 @@
     <div class="tab-pane fade" id="broadNoticeReply"><jsp:include page="broadNoticeReply.jsp"/></div>
     <div class="tab-pane fade" id="profileMsgList"><jsp:include page="profileMsgList.jsp"/></div>
     <div class="tab-pane fade" id="clipReply"><jsp:include page="clipReply.jsp"/></div>
+    <div class="tab-pane fade" id="mailboxList"><jsp:include page="mailboxList.jsp"/></div>
 </div>
 
 
@@ -31,7 +33,12 @@
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
 
-        $("#bt_search").click();
+        slctType = 3;
+        if(tabId == "tab_mailboxList" ){
+            slctType = 0;
+        }
+
+        dateType();
     });
     $('input[id="txt_search"]').keydown(function(e) {
         if(e.keyCode == 13) {
@@ -39,7 +46,7 @@
         }
     });
     $('#bt_search').on('click', function() {
-
+        $("#summaryArea").empty();
         if(tabId == "tab_storyList" ){
             storyList();
         }else if(tabId == "tab_fanBoardList" ){
@@ -56,6 +63,8 @@
             profileMsgList();
         }else if(tabId == "tab_clipReply" ){
             clipReplyList();
+        }else if(tabId == "tab_mailboxList" ){
+            mailboxList();
         }
         tabCntSelect();
     });
@@ -66,16 +75,17 @@
             'txt_search' : $('#txt_search').val()
             , 'start_sel' : $("#startDate").val()
             , 'end_sel' : $("#endDate").val()
-            ,'broState' : 0
-            ,'searchType' : 0
-            ,'boardType' : 1
-            ,'status' : 0
+            , 'broState' : 0
+            , 'searchType' : 0
+            , 'boardType' : 1
+            , 'status' : 0
         };
         util.getAjaxData("storyList", "/rest/content/boardAdm/tab/count", data, fn_success_tabCntSelect);
     }
     function fn_success_tabCntSelect(dst_id, response){
 
         console.log(response);
+        $("#tab_mailboxList").text("우체통" + "(" + response.data.mailboxCnt +")");
         $("#tab_storyList").text("사연" + "(" + response.data.storyListCnt +")");
         $("#tab_fanBoardList").text("팬보드" + "(" + response.data.fanBoardListCnt +")");
         $("#tab_fanBoardReply").text("팬보드댓글" + "(" + response.data.fanBoardReplyCnt +")");
