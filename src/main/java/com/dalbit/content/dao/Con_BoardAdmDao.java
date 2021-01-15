@@ -53,7 +53,6 @@ public interface Con_BoardAdmDao {
     @Transactional(readOnly = true)
     P_MemberProfileOutputVo profileMsgListSummary(P_MemberProfileInputVo pMemberProfileInputVo);
 
-
     int callProfileMsgDelete(P_MemberProfileInputVo pMemberProfileInputVo);
 
     @Transactional(readOnly = true)
