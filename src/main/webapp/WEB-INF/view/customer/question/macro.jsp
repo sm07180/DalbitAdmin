@@ -149,16 +149,16 @@
 
     // 자동답변 시작 ------------------------------------------------------------------------------
     $("input[name='macroType']").change(function (){
-        $("#macro").hide();
-        $("#nonMacro").hide();
+       $("#macro").hide();
+       $("#nonMacro").hide();
         macroType = $(this).val();
-        if(macroType == 0){
-            getMacroList();
-            $("#macro").show();
-        } else {
-            getFaqInfo();
-            $("#nonMacro").show();
-        }
+       if(macroType == 0){
+           getMacroList();
+           $("#macro").show();
+       } else {
+           getFaqInfo();
+           $("#nonMacro").show();
+       }
     });
 
     // 목록
@@ -299,7 +299,7 @@
         data.gubun = $("select[name='selectGubun']").val()
     };
 
-    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, FaqDataTableSource.faqInfo, $("#searchForm"));
+    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, FaqDataTableSource.macroFaqInfo, $("#searchForm"));
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
