@@ -60,5 +60,18 @@ public class AdministrateController {
         return "administrate/testId/list";
     }
 
+    @GetMapping("/revenueProcess/info")
+    public String revenueProcessInfo() {
+        return "administrate/revenueProcess/info";
+    }
 
+    @GetMapping("/revenueProcess/popup/dalAmt")
+    public String revenuePopupDalAmt() {
+        return "administrate/revenueProcess/popup/dalAmt";
+    }
+
+    @GetMapping("/revenueProcess/popup/byeolAmt")
+    public String revenuePopupByeolAmt() {
+        return "administrate/revenueProcess/popup/byeolAmt";
+    }
 }
