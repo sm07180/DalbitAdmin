@@ -365,7 +365,7 @@ public class Mem_MemberService {
                 tmp.put("nk", pMemberEditorVo.getBeforNickName());
                 String message =  gson.toJson(tmp);
 
-                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
+                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true, true));
 
                  if(pMemberEditorVo.getSendNoti().equals("1")){
                     try{    // PUSH 발송
@@ -478,15 +478,18 @@ public class Mem_MemberService {
 
         // 경고를 제외한 정지, 탈퇴 시 방송강제종료, 청취강제종료 후 처리 되도록
         if(pMemberReportVo.getSlctType() > 2) {
-            MemberVo MemVo = new MemberVo();
-            MemVo.setMem_no(pMemberReportVo.getMem_no());
+
             if(broadCastingCheck > 0) {
                 //방송 강제 종료 처리
+                MemberVo MemVo = new MemberVo();
+                MemVo.setMem_no(pMemberReportVo.getMem_no());
                 mem_BroadcastService.forcedEnd(MemVo);
             }
             if(listeningCheck > 0){
                 // 청취 종료 처리
-                mem_ListenService.forcedExit(MemVo);
+                P_MemberListenInputVo pMemberListenInputVo = new P_MemberListenInputVo();
+                pMemberListenInputVo.setMem_no(pMemberReportVo.getMem_no());
+                mem_ListenService.forcedExit(pMemberListenInputVo);
             }
          }
 
