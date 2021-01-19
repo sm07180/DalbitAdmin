@@ -43,7 +43,7 @@
             </thead>
             <tbody id="byeolAmtTableBody"></tbody>
         </table>
-            <div class="dataTables_paginate paging_full_numbers" id="byeolAmt_paginate"></div>
+        <div class="dataTables_paginate paging_full_numbers" id="byeolAmt_paginate"></div>
     </div>
 </div>
 <button class="btn btn-default btn-sm print-btn pull-left excelDownBtn_byeol" type="button"><i class="fa fa-print"></i>Excel Down</button>
@@ -97,11 +97,11 @@
         formData.append("startDate", $("#startDate").val());
 
         util.excelDownload($(this), "/rest/enter/pay/byeol/amtListExcel", formData,
-           function () {
-            console.log("fn_success_excel");
-        }, function () {
-            console.log("fn_fail_excel");
-        })
+            function () {
+                console.log("fn_success_excel");
+            }, function () {
+                console.log("fn_fail_excel");
+            })
     });
 
 </script>
