@@ -46,7 +46,7 @@
             , 'pageNo' : withdrawalByeolPagingInfo.pageNo
             , 'pageCnt' : withdrawalByeolPagingInfo.pageCnt
         };
-        util.getAjaxData("withdrawalByeol", "/rest/enter/pay/withdrawal/dal", data, fn_withdrawalByeol_success);
+        util.getAjaxData("withdrawalByeol", "/rest/enter/pay/withdrawal/byeol", data, fn_withdrawalByeol_success);
     }
 
     function fn_withdrawalByeol_success(data, response){
@@ -79,7 +79,7 @@
         var formData = new FormData();
         formData.append("startDate", $("#startDate").val());
 
-        util.excelDownload($(this), "/rest/enter/pay/withdrawal/dal/listExcel", formData,
+        util.excelDownload($(this), "/rest/enter/pay/withdrawal/byeol/listExcel", formData,
             function () {
                 console.log("fn_success_excel");
             }, function () {
