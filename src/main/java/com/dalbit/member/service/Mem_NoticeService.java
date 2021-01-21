@@ -10,12 +10,15 @@ import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -40,8 +43,6 @@ public class Mem_NoticeService {
         return result;
     }
 
-
-
     /**
      * 회원 공지 삭제
      */
@@ -51,7 +52,7 @@ public class Mem_NoticeService {
         if(pMemberNoticeDeleteVo.getNoticeType().equals("1")) {
             mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo);
         }else if(pMemberNoticeDeleteVo.getNoticeType().equals("2")) {
-            // befor 공지내용
+            // before 공지내용
             P_MemberNoticeOutputVo pMemberNoticeOutputVo = mem_NoticeDao.callBroadBeforNotice(pMemberNoticeDeleteVo);
 
             // 수정이력
@@ -67,6 +68,37 @@ public class Mem_NoticeService {
 
         String result;
             result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_성공));
+        return result;
+    }
+
+    /**
+     * 회원 공지 삭제
+     */
+    public String getNoticeMultiDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo){
+
+        String opName = MemberVo.getMyMemNo();
+        String[] noticeIdxArr = pMemberNoticeDeleteVo.getNoticeIdxs().split(",");
+        String[] noticeTypeArr = pMemberNoticeDeleteVo.getNoticeTypes().split(",");
+        String[] roomNoArr = new String[noticeIdxArr.length];
+
+        boolean isEmptyRoomNo = DalbitUtil.isEmpty(pMemberNoticeDeleteVo.getRoomNos());
+        if(!isEmptyRoomNo){
+            roomNoArr = pMemberNoticeDeleteVo.getRoomNos().split(",");
+        }
+
+        for(int i=0; i<noticeIdxArr.length; i++){
+            var deleteVo = new P_MemberNoticeDeleteVo();
+            deleteVo.setNoticeIdx(noticeIdxArr[i]);
+            deleteVo.setNoticeType(noticeTypeArr[i]);
+            if(!isEmptyRoomNo) {
+                deleteVo.setRoomNo(roomNoArr[i]);
+            }
+            deleteVo.setOpName(opName);
+
+            getNoticeDelete(deleteVo);
+        }
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_성공));
         return result;
     }
 }
