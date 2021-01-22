@@ -32,7 +32,13 @@
 //=------------------------------ Init / Event--------------------------------------------
     var mailboxPagingInfo= new PAGING_INFO(0, 1, 54);
 
-    function mailboxImgList() {
+    function mailboxImgList(pagingNo) {
+        if(!common.isEmpty(pagingNo)){
+            dalSalesPagingInfo.pageNo = pagingNo;
+        }else{
+            dalSalesPagingInfo.pageNo = 1;
+        }
+
         var data = {
             'pageNo' : mailboxPagingInfo.pageNo
             , 'pageCnt' : mailboxPagingInfo.pageCnt
