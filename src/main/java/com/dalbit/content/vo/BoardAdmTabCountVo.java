@@ -18,6 +18,8 @@ public class BoardAdmTabCountVo extends PagingVo {
     private int searchType;
     private int boardType;
     private int status;
+    private String startDate;
+    private String endDate;
 
     /* output */
     private int storyListCnt;
@@ -29,5 +31,7 @@ public class BoardAdmTabCountVo extends PagingVo {
     private int clipReplyCnt;
     private int broadNoticeReplyCnt;
     private int mailboxCnt;
+
+    private String type;
 
 }

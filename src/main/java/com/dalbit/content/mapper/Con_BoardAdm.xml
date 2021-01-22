@@ -672,4 +672,42 @@
         call rd_admin.sp_admin_mailbox_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callMailboxGift" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.MailboxVo">
+        call rd_admin.sp_admin_mailbox_gift_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="mailboxTabCount" parameterType="com.dalbit.content.vo.BoardAdmTabCountVo" resultType="com.dalbit.content.vo.BoardAdmTabCountVo">
+        /* Con_BoardAdm.xml - tabCount */
+        select '1' type, count(*) AS totalCnt
+           from (
+                SELECT a.chat_no
+                FROM rd_data.tb_mailbox_chatroom a
+                INNER JOIN (
+                    SELECT chat_no, mem_no, target_mem_no
+                    FROM rd_data.tb_mailbox_chatroom_member
+                    WHERE idx IN (SELECT MIN(idx) FROM rd_data.tb_mailbox_chatroom_member GROUP BY chat_no)
+                ) b ON a.chat_no = b.chat_no
+                INNER JOIN (
+                    SELECT chat_no, mem_no, `type`, msg, data1, data2, data3, data4, data5, data6, delete_yn, read_yn, last_upd_date
+                    FROM rd_data.tb_mailbox_chatroom_msg
+                    WHERE idx IN (SELECT MAX(idx) FROM rd_data.tb_mailbox_chatroom_msg GROUP BY chat_no)
+                ) c ON a.chat_no = c.chat_no AND (b.mem_no = c.mem_no OR b.target_mem_no = c.mem_no)
+                where last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{startDate}, '%Y.%m.%d 00:00:00')
+                  and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{endDate}, '%Y.%m.%d 23:59:59')
+           ) a
+        union
+        select '2' type, count(*) AS totalCnt
+         from rd_data.tb_mailbox_chatroom_msg
+        where `type`=2
+          and last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{startDate}, '%Y.%m.%d 00:00:00')
+          and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{endDate}, '%Y.%m.%d 23:59:59')
+        union
+        select '3' type, count(*) AS totalCnt
+         from rd_data.tb_mailbox_chatroom_msg
+        where `type`=3
+          and last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{startDate}, '%Y.%m.%d 00:00:00')
+          and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{endDate}, '%Y.%m.%d 23:59:59')
+    </select>
+
+
 </mapper>
