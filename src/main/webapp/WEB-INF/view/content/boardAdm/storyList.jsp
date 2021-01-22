@@ -12,6 +12,9 @@
                 <option value="1">방송 중</option>
                 <option value="2">방송 종료</option>
             </select>
+
+            <span id="dynamicPageCntArea"></span>
+
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -29,6 +32,11 @@
                 <div id="storyTable"></div>
                 <div class="dataTables_paginate paging_full_numbers" id="story_paginate"></div>
             </div>
+            <div class="widget-footer">
+                <span>
+                    <button class="btn btn-danger btn-sm print-btn" type="button" id="deleteStoryBtn"><i class="fa fa-check"></i>선택 삭제</button>
+                </span>
+            </div>
         </div>
     </div>
 </div>
@@ -36,7 +44,11 @@
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-    var StoryPagingInfo = new PAGING_INFO(0,1,100);
+    var StoryPagingInfo = new PAGING_INFO(0, 1, $("#dynamicPageCntStory").val());
+
+    $(function(){
+        $('#dynamicPageCntArea').html(util.renderDynamicPageCntSelect('dynamicPageCntStory'));
+    });
 
     function storyList(pagingNo, _tabId) {
 
@@ -69,7 +81,6 @@
             , 'broState' : Number($("#broState option:selected").val())
         };
 
-        console.log(data);
         util.getAjaxData("storyList", "/rest/content/boardAdm/storyList", data, function (dst_id, response, param) {
             var template = $('#tmp_storyTable').html();
             var templateScript = Handlebars.compile(template);
@@ -120,6 +131,46 @@
         storyList();
     });
 
+    $(document).on('change', '#dynamicPageCntStory', function () {
+        StoryPagingInfo.pageCnt = $(this).val();
+        storyList();
+    });
+
+    $(document).on('click', '#allChkStory', function(){
+        var me = $(this);
+        var checkboxs = $('._story_chk:not(.disabled)');
+        if(me.prop('checked')){
+            checkboxs.prop('checked', true);
+        }else{
+            checkboxs.prop('checked', false);
+        }
+    });
+
+    $(document).on('click', '#deleteStoryBtn', function(){
+        var checkboxs = $('._story_chk:checked');
+        if(checkboxs.length < 1){
+            alert('삭제할 사연을 선택해주세요.');
+            return false;
+        }
+
+        if(confirm(checkboxs.length + '건을 삭제 하시겠습니까?')){
+
+            var storyIdxs = '';
+            checkboxs.each(function(){
+                var idx = $(this).data('storyidx');
+
+                storyIdxs += idx + ',';
+            });
+            var data = {
+                storyIdxs : storyIdxs
+            }
+
+            util.getAjaxData('multiOperate', '/rest/content/boardAdm/multi/deleteStory', data, function(dist_id, response){
+                alert(response.message);
+                storyList(StoryPagingInfo.pageNo);
+            });
+        }
+    });
 
 </script>
 
@@ -127,13 +178,14 @@
     <table id="tb_storyList" class="table table-sorting table-hover table-bordered mt10">
 
         <colgroup>
-            <col width="3%"/><col width="5%"/><col width="17%"/><col width="7%"/><col width="5%"/>
+            <col width="3%"/><col width="3%"/><col width="5%"/><col width="17%"/><col width="7%"/><col width="5%"/>
             <col width="10%"/><col width="5%"/><col width="29%"/><col width="7%"/><col width="4%"/>
             <col width="3%"/>
         </colgroup>
 
         <thead>
         <tr>
+            <th><input type="checkbox" class="form-control" id="allChkStory" /></th>
             <th>No</th>
             <th>방송중</th>
             <th>방송제목</th>
@@ -151,6 +203,7 @@
         <tbody>
         {{#each this.data as |data|}}
         <tr {{#dalbit_if send_inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
+            <td><input type="checkbox" class="form-control _story_chk {{#dalbit_if status '==' 1}}disabled{{/dalbit_if}}" {{#dalbit_if status '==' 1}}disabled{{/dalbit_if}} data-storyidx="{{data.storyIdx}}" /></td>
             <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{#dalbit_if broState '!=' 4}}ON{{/dalbit_if}}
@@ -185,17 +238,22 @@
             <td>
                 {{#dalbit_if broState '==' 4}}
                     <span class="font-bold">종료됨</span>
-                {{else}}
-                    {{#dalbit_if status '==' 1}}
-                        <span class="font-bold" style="color: red">삭제됨</span>
-                    {{/dalbit_if}}
                 {{/dalbit_if}}
             </td>
-            <td><div style="width:45px;"><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></div></td>
+            <td>
+                <div style="width:45px;">
+                    {{#dalbit_if status '==' 1}}
+                        <span class="font-bold" style="color: red">삭제됨</span>
+                    {{else}}
+                        <a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a>
+                    {{/dalbit_if}}
+
+                </div>
+            </td>
         </tr>
         {{else}}
         <tr>
-            <td colspan="11">{{isEmptyData}}</td>
+            <td colspan="12">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>

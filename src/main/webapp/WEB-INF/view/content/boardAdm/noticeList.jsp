@@ -6,7 +6,12 @@
 <div class="col-lg-12 no-padding">
     <div class="widget-content">
         <div class="col-md-12 no-padding mt10">
-            <span id="noticeListCnt"></span>
+            <div class="col-md-10">
+                <div id="noticeListCnt"></div>
+
+                <span id="dynamicPageNoticeArea"></span>
+            </div>
+
             <div class="col-md-2 no-padding pull-right">
                 <table class="table table-sorting table-hover table-bordered">
                     <colgroup>
@@ -21,11 +26,12 @@
         <div class="dataTables_paginate paging_full_numbers" id="notice_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
-                <col width="4%"/><col width="10%"/><col width="6%"/><col width="10%"/><col width="46%"/>
+                <col width="4%"/><col width="4%"/><col width="10%"/><col width="6%"/><col width="10%"/><col width="46%"/>
                 <col width="10%"/><col width="5%"/><col width="5%"/>
             </colgroup>
             <thead>
             <tr>
+                <th><input type="checkbox" class="form-control" id="allChkNotice" /></th>
                 <th>No</th>
                 <th>등록회원</th>
                 <th>성별(나이)</th>
@@ -41,19 +47,24 @@
         </table>
         <div class="dataTables_paginate paging_full_numbers" id="notice_paginate"></div>
     </div>
+    <div class="widget-footer">
+        <span>
+            <button class="btn btn-danger btn-sm print-btn" type="button" id="deleteNoticeBtn"><i class="fa fa-check"></i>선택 삭제</button>
+        </span>
+    </div>
 </div>
 <!-- //table -->
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-    var noticePagingInfo = new PAGING_INFO(0,1,40);
+    var noticePagingInfo = new PAGING_INFO(0, 1, $('#dynamicPageCntNotice').val());
     var tabId = 'tab_noticeBroadcastDetail';
+    var memNo;
 
-    $(document).ready(function() {
-        // noticeList();
+    $(function(){
+        $('#dynamicPageNoticeArea').html(util.renderDynamicPageCntSelect('dynamicPageCntNotice'));
     });
 
-    var memNo;
     function noticeList(pagingNo, _tabId) {
         if(!common.isEmpty(_tabId)){
             tabId = _tabId;
@@ -140,8 +151,56 @@
         var room_no = $(this).data('roomno');
         var url = "/content/boardAdm/popup/editList?type=1&noticeidx=" + index + "&room_no=" + room_no;
 
-        console.log(url);
         util.windowOpen(url,"1200","450","");
+    });
+
+    $(document).on('change', '#dynamicPageCntNotice', function () {
+        noticePagingInfo.pageCnt = $(this).val();
+        noticeList();
+    });
+
+    $(document).on('click', '#allChkNotice', function(){
+        var me = $(this);
+        var checkboxs = $('._notice_chk:not(.disabled)');
+        if(me.prop('checked')){
+            checkboxs.prop('checked', true);
+        }else{
+            checkboxs.prop('checked', false);
+        }
+    });
+
+    $(document).on('click', '#deleteNoticeBtn', function(){
+        var checkboxs = $('._notice_chk:checked');
+        if(checkboxs.length < 1){
+            alert('삭제할 방송방공지를 선택해주세요.');
+            return false;
+        }
+
+        if(confirm(checkboxs.length + '건을 삭제 하시겠습니까?')){
+
+            var noticeIdxs = '';
+            var noticeTypes = '';
+            var roomNos = '';
+
+            checkboxs.each(function(){
+                var noticeIdx = $(this).data('noticeidx');
+                var noticeType = $(this).data('type');
+                var roomNo = $(this).data('roomno');
+
+                noticeIdxs += noticeIdx + ',';
+                noticeTypes += noticeType + ',';
+                roomNos += roomNo + ',';
+            });
+            var data = {
+                noticeIdxs : noticeIdxs
+                , noticeTypes : noticeTypes
+                , roomNos : roomNos
+            }
+            util.getAjaxData("delete", "/rest/member/notice/multi/delete", data, function (dst_id, response){
+                alert(response.message);
+                noticeList(noticePagingInfo.pageNo);
+            });
+        }
     });
 
 </script>
@@ -149,6 +208,7 @@
 <script id="tmp_noticeTable" type="text/x-handlebars-template">
     {{#each this.data as |data|}}
         <tr {{#dalbit_if inner '==' 1}} style="background-color : #dae3f3" {{/dalbit_if}}>
+            <td><input type="checkbox" class="form-control _notice_chk " data-noticeidx="{{data.idx}}" data-type="{{data.type}}" data-roomno="{{data.room_no}}" /></td>
             <td>{{indexDesc ../pagingVo/totalCnt rowNum}}</td>
             <td>
                 {{{memNoLink mem_no mem_no}}}<br/>
