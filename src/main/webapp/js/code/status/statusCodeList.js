@@ -18,7 +18,7 @@ var giftSort = [
 
 var recvType = [
     new COMMON_CODE(null, 'recvType', 'DJ/게스트 구분')
-    , new COMMON_CODE('0', '0', '전체')
+    , new COMMON_CODE('0', '0', '구분 (전체)')
     , new COMMON_CODE('1', '1', 'DJ')
     , new COMMON_CODE('2', '2', '게스트')
 ];
