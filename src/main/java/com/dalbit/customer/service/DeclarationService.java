@@ -10,11 +10,14 @@ import com.dalbit.customer.dao.DeclarationDao;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.service.Mem_MemberService;
 import com.dalbit.member.vo.LoginBlockHistVo;
 import com.dalbit.member.vo.LoginBlockVo;
 import com.dalbit.member.vo.LoginHistoryVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -48,6 +51,9 @@ public class DeclarationService {
     @Autowired
     PushService pushService;
 
+    @Autowired
+    Mem_MemberService memMemberService;
+
     /**
      * 신고 목록 조회
      */
@@ -59,29 +65,6 @@ public class DeclarationService {
         String result;
 
         if(declareList.size() > 0) {
-
-            for(int i=0;i<declareList.size();i ++ ){
-                P_DeclarationListOutputVo outVo = declarationDao.getReportCount(declareList.get(i).getReported_mem_no());
-                declareList.get(i).setTotalReportedCnt(outVo.getTotalReportedCnt());
-                declareList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
-            }
-
-            for(int i=0;i<declareList.size();i++){
-                MemberVo outVo = mem_MemberDao.getMemberInfo(declareList.get(i).getMem_no());
-                if(!DalbitUtil.isEmpty(outVo)) {
-                    declareList.get(i).setMem_sex(outVo.getMem_sex());
-                    declareList.get(i).setMem_birth_year(outVo.getMem_birth_year());
-                    declareList.get(i).setMem_birth_month(outVo.getMem_birth_month());
-                    declareList.get(i).setMem_birth_day(outVo.getMem_birth_day());
-                }
-                MemberVo outVo2 = mem_MemberDao.getMemberInfo(declareList.get(i).getReported_mem_no());
-                if(!DalbitUtil.isEmpty(outVo2)) {
-                    declareList.get(i).setReported_mem_sex(outVo2.getMem_sex());
-                    declareList.get(i).setReported_mem_birth_year(outVo2.getMem_birth_year());
-                    declareList.get(i).setReported_mem_birth_month(outVo2.getMem_birth_month());
-                    declareList.get(i).setReported_mem_birth_day(outVo2.getMem_birth_day());
-                }
-            }
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_성공, declareList, new PagingVo(procedureVo.getRet())));
         } else if(Status.신고목록조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_데이터없음));
@@ -141,21 +124,6 @@ public class DeclarationService {
         P_DeclarationDetailOutputVo declarationDetail = new Gson().fromJson(procedureVo.getExt(), P_DeclarationDetailOutputVo.class);
 
         String result;
-
-//        if(!DalbitUtil.isEmpty(declarationDetail)){
-//            MemberVo memInfoOutVo = DalbitUtil.getMemInfo(declarationDetail.getMem_no());
-//            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
-//                declarationDetail.setMem_birth_year(memInfoOutVo.getMem_birth_year());
-//                declarationDetail.setMem_birth_month(memInfoOutVo.getMem_birth_month());
-//                declarationDetail.setMem_birth_day(memInfoOutVo.getMem_birth_day());
-//            }
-//            MemberVo memInfoOutVo2 = DalbitUtil.getMemInfo(declarationDetail.getReported_mem_no());
-//            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
-//                declarationDetail.setReported_mem_birth_year(memInfoOutVo2.getMem_birth_year());
-//                declarationDetail.setReported_mem_birth_month(memInfoOutVo2.getMem_birth_month());
-//                declarationDetail.setReported_mem_birth_day(memInfoOutVo2.getMem_birth_day());
-//            }
-//        }
 
         if(Status.신고상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_성공, declarationDetail));
@@ -319,6 +287,49 @@ public class DeclarationService {
     public String callServiceCenterReportOpCountTarget(P_DeclarationOperateCntInputVo pDeclarationOperateCntInputVo) {
         HashMap<P_DeclarationOpCountVo, String> OpList = declarationDao.callServiceCenterReportOpCountTarget(pDeclarationOperateCntInputVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.신고처리내역수조회_성공, OpList));
+    }
+
+
+    /**
+     * 이미지 신고 목록 조회
+     */
+    public String callImageList(P_DeclarationListInputVo pDeclarationListInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pDeclarationListInputVo);
+        ArrayList<P_DeclarationListOutputVo> declareList = declarationDao.callImageList(procedureVo);
+        String result;
+        if(declareList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_성공, declareList, new PagingVo(procedureVo.getRet())));
+        } else if(Status.신고목록조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_데이터없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_에러));
+        }
+
+        return result;
+    }
+
+    /**
+     * 이미지 신고 처리
+     */
+    public String callImageOperate(P_MemberReportVo pMemberReportVo) throws GlobalException {
+
+        ProcedureVo procedureVo = new ProcedureVo(pMemberReportVo);
+        declarationDao.callImageOperate(procedureVo);
+        String result;
+
+        if(Status.신고처리_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = memMemberService.getMemberReport(pMemberReportVo);
+            log.debug(result);
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_성공));
+        } else if(Status.신고처리_신고번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_신고번호없음));
+        } else if(Status.신고처리_이미처리되었음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_이미처리되었음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_에러));
+        }
+
+        return result;
     }
 
 }

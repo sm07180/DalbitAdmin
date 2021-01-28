@@ -27,4 +27,9 @@ public interface DeclarationDao {
 
     @Transactional(readOnly = true)
     HashMap<P_DeclarationOpCountVo,String> callServiceCenterReportOpCountTarget(P_DeclarationOperateCntInputVo pDeclarationOperateCntInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_DeclarationListOutputVo> callImageList(ProcedureVo procedureVo);
+
+    ProcedureVo callImageOperate(ProcedureVo procedureVo);
 }

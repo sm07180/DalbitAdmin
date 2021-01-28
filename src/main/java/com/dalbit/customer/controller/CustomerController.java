@@ -80,4 +80,14 @@ public class CustomerController {
     public String declarationPopup(Model model) {
         return "customer/declaration/popup/declarationPopup";
     }
+
+    @GetMapping("/declaration/image")
+    public String declarationImage(Model model) {
+        return "customer/declaration/image";
+    }
+
+    @RequestMapping("/declaration/popup/reportPopup")
+    public String imagePopup(Model model, HttpServletRequest request) {
+        return "customer/declaration/popup/reportPopup";
+    }
 }
