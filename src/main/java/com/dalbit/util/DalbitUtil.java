@@ -12,6 +12,7 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.main.vo.procedure.P_StatVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.member.vo.procedure.P_MemberSetting;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -1066,6 +1067,40 @@ public class DalbitUtil {
             Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
             inforexLoginResult = response.body().string();
             log.debug(inforexLoginResult);
+            return inforexLoginResult;
+        }catch (IOException | GlobalException e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+
+    /*
+     * 이미지 삭제
+     */
+    public static String sendChatImageDelete(P_MemberReportVo pMemberReportVo){
+
+        String authMemNo = adm_MenuDao.getMobileAuth(pMemberReportVo.getOpName());
+        if(DalbitUtil.isEmpty(authMemNo)){
+            return "noAuth";
+        }
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        RequestBody formBody = new FormBody.Builder()
+                .add("chatNo", pMemberReportVo.getChat_no())
+                .add("targetMemNo", pMemberReportVo.getMem_no())
+                .add("msgIdx", Integer.toString(pMemberReportVo.getImage_idx()))
+                .build();
+
+        String inforexLoginResult;
+        try{
+            String url = SERVER_API_URL + "/admin/declaretion/imageDelete";
+//            String url = "https://devm-bgko.dalbitlive.com:4431/admin/declaretion/imageDelete";
+            Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
+            inforexLoginResult = response.body().string();
+//            log.debug(inforexLoginResult);
+            log.info("-------------------------- imageDelete start ----------------------------");
+            log.info(inforexLoginResult);
+            log.info("-------------------------- imageDelete end   ----------------------------");
             return inforexLoginResult;
         }catch (IOException | GlobalException e){
             e.printStackTrace();
