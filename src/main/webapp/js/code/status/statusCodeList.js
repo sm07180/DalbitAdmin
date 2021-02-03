@@ -23,6 +23,13 @@ var recvType = [
     , new COMMON_CODE('2', '2', '게스트')
 ];
 
+var mediaType = [
+    new COMMON_CODE(null, 'mediaType', '방송 구분')
+    , new COMMON_CODE('0', '0', '방송 (전체)')
+    , new COMMON_CODE('a', 'a', '라디오')
+    , new COMMON_CODE('v', 'v', '비디오')
+];
+
 /*================ 앱버전현황 ===================*/
 var appVersion_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼')

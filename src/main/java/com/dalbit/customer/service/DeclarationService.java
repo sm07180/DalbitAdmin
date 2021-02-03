@@ -188,7 +188,7 @@ public class DeclarationService {
             if((3 <= pDeclarationOperateVo.getOpCode() && pDeclarationOperateVo.getOpCode() <= 6) || pDeclarationOperateVo.getOpCode() == 8){
 
                 //회원번호
-                pDeclarationOperateVo.getReported_mem_no();
+                //pDeclarationOperateVo.getReported_mem_no();
 
                 LoginHistoryVo loginHistory = mem_MemberDao.memberLoginHistory(pDeclarationOperateVo.getReported_mem_no());
 

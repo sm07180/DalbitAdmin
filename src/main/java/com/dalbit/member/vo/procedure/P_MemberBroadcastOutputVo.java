@@ -34,6 +34,7 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
     private int step;
     private int complete_moon;
     private String complete_date; //보름달 완료일시
+    private String type_media;
 
     //summary
     private int totalListenCnt;
@@ -43,7 +44,8 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
     private int totalGood;
     private int totalBooster;
     private int totalCompleteMoonCnt;
-
+    private int totalAudioBroadcastCnt;
+    private int totalVideoBroadcastCnt;
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;
