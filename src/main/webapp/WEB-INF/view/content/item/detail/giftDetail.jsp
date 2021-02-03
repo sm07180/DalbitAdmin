@@ -58,7 +58,6 @@
             if(!fnc_giftDetail.isValid(data)){
                 return false;
             }
-
             util.getAjaxData("insert", "/rest/content/item/gift/insert", data, fnc_giftDetail.fn_insert_success, fnc_giftDetail.fn_fail);
         })
 
@@ -74,7 +73,6 @@
             if(!fnc_giftDetail.isValid(data)){
                 return false;
             }
-
             util.getAjaxData("upldate", "/rest/content/item/gift/update", data, fnc_giftDetail.fn_update_success, fnc_giftDetail.fn_fail);
         })
 
