@@ -369,7 +369,7 @@ public class Mem_MemberService {
                 tmp.put("nk", pMemberEditorVo.getBeforNickName());
                 String message =  gson.toJson(tmp);
 
-                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true, true));
+                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
 
                  if(pMemberEditorVo.getSendNoti().equals("1")){
                     try{    // PUSH 발송
