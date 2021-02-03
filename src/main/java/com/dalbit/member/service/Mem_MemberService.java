@@ -71,6 +71,9 @@ public class Mem_MemberService {
     @Autowired
     CommonDao commonDao;
 
+    @Autowired
+    SocketRestUtil socketRestUtil;
+
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
         mem_MemberDao.callMemberLogin(procedureVo);
@@ -366,7 +369,7 @@ public class Mem_MemberService {
                 tmp.put("nk", pMemberEditorVo.getBeforNickName());
                 String message =  gson.toJson(tmp);
 
-                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
+                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true, true));
 
                  if(pMemberEditorVo.getSendNoti().equals("1")){
                     try{    // PUSH 발송
@@ -492,6 +495,10 @@ public class Mem_MemberService {
                 pMemberListenInputVo.setMem_no(pMemberReportVo.getMem_no());
                 mem_ListenService.forcedExit(pMemberListenInputVo);
             }
+
+            //2021.02.03
+            socketRestUtil.memberForceLogout(pMemberReportVo);
+
          }
 
         // 신고 대상자 정보
