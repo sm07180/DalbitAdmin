@@ -174,6 +174,8 @@
     }
 
     function fn_RecommendLeaderCheck_success(dst_id, respones){
+        console.log("-----------------------------");
+        console.log(respones);
         if(common.isEmpty(respones.data)){
             for(var i=0;i<dtList_info_recommendClip.getCheckedData().length;i++){
                 dtList_info_recommendClip.getCheckedData()[i].represent = '1';

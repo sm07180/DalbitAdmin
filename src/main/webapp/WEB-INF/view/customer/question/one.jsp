@@ -195,6 +195,7 @@
         data.qnaContent = $("textarea#question_contents").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
 
         data.slct_type = $('select[name="question_type"]').find('option:selected').val();
+        console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
         }
