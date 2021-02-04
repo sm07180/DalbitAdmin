@@ -29,7 +29,6 @@
     var clipInfoData = "";
 
     function fn_detailInfo_select_success(dst_id, response, dst_params) {
-        dalbitLog(response);
         clipInfoData = response.data;
 
         var template = $('#tmp_memberInfoFrm').html();
@@ -247,7 +246,6 @@
     }
 
     function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
-        console.log(response);
         getClipDetailInfo();
 
         if(eventId == "bt_edit_state"){
@@ -263,7 +261,6 @@
     }
 
     function fn_detailInfo_addMemo_success(dst_id, response, dst_params) {
-        console.log(response);
         getClipDetailInfo();
         alert(response.message);
         getAdminMemoList("bt_adminMemoList", "운영자메모");

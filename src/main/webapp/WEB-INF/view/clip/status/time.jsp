@@ -309,7 +309,6 @@
     }
 
     function fn_clipStatusGift_success(dst_id, response) {
-        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#giftListBody").empty();
         if(!isDataEmpty){
@@ -358,7 +357,6 @@
     }
 
     function fn_clipStatusAge_success(dst_id, response) {
-        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#ageListBody").empty();
         if(!isDataEmpty){
@@ -407,7 +405,6 @@
     }
 
     function fn_platformTimeList_success(dst_id, response) {
-        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#platformTimeListBody").empty();
 
@@ -556,8 +553,6 @@
         util.getAjaxData("codeList", "/common/codeList", data, fn_ClipSubjectTypeCode_success);
     }
     function fn_ClipSubjectTypeCode_success(dst_id, response){
-        console.log("=========================")
-        console.log(response);
         subjectCodeList = response.data;
 
         console.log(tabId);

@@ -150,7 +150,6 @@
         util.scrollPostion(scrollPosition.top);
     }
     function fn_getFaqGroup_success(data, response, params) {
-        dalbitLog(response);
         var template = $("#tmp_question_faqGroup").html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.faqGroupList;
@@ -196,13 +195,11 @@
         data.qnaContent = $("textarea#question_contents").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
 
         data.slct_type = $('select[name="question_type"]').find('option:selected').val();
-        console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
         }
     }
     function fn_insert_success(data, response, params){
-        dalbitLog(response);
         if(response.code == "-2"){
             alert("이미 등록되어있습니다.");
         }else{
@@ -281,7 +278,6 @@
         util.getAjaxData("qnaCatch", "/rest/customer/question/chatchRelease", obj, fn_chatchRelease_success);
     });
     function fn_chatchRelease_success(data, response, params) {
-        dalbitLog(response);
         dtList_info_detail.reload(question_summary_table);
         $('#tab_customerQuestion').removeClass("show");
     }
@@ -305,7 +301,6 @@
     // }
 
     function adminMemoAdd(){
-        console.log($("#txt_qnaAdminMemo").val());
         if (common.isEmpty($("#txt_qnaAdminMemo").val())) {
             alert("등록할 운영자 메모를 입력해 주십시오.");
             return;
@@ -318,7 +313,6 @@
     }
 
     function update_success(dst_id, response) {
-        dalbitLog(response);
         alert(response.message);
 
         var obj ={};
@@ -327,8 +321,6 @@
     }
 
     function adminMemoList(tmp){
-        console.log("--------------------------------");
-        console.log(tmp);
         if(!common.isEmpty(tmp)){
             qnaIdx = tmp;
         }
@@ -349,7 +341,6 @@
         util.getAjaxData("qnaCatch", "/rest/customer/question/qnaCatch", obj, fn_getqnaCatch_success);
     }
     function fn_getqnaCatch_success(dst_id, response) {
-        dalbitLog(response);
         var obj ={};
         obj.qnaIdx = qnaIdx;
         obj.answer = answer;
@@ -363,7 +354,6 @@
         }else false;
     }
     function quest_fileDel_success(dst_id, response) {
-        dalbitLog(response);
         alert(response.message);
         quest_reload();
     }

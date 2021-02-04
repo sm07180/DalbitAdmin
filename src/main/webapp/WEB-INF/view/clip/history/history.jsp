@@ -203,7 +203,6 @@
 
     var clipInfoData = "";
     function fn_detailInfo_select_success(dst_id, response, dst_params) {
-        dalbitLog(response);
         clipInfoData = response.data;
         openClipReportPopup();
     }
@@ -287,7 +286,6 @@
     }
 
     function fn_detailInfo_Edit_success(dst_id, response, dst_params) {
-        console.log(response);
         dtList_info.reload(selectCallback_clipHistory, false);
         if(isAlertShow){alert(response.message)};
     }

@@ -812,7 +812,6 @@
     }
 
     function dalbyeoladd_success(dst_id, response) {
-        dalbitLog(response);
         if(response.code == "0"){
             alert("지급이 정상 처리 되었습니다.");
         }else{
@@ -900,7 +899,6 @@
         var template = $('#tmp_layer_detail').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.detail;
-        console.log(response.data);
         var html = templateScript(context);
         $("#detailView").html(html);
 

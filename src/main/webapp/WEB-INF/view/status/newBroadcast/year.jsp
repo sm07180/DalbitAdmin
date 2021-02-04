@@ -27,11 +27,11 @@
                 <tr>
                     <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">구분</th>
                     <th colspan="6" class="_bgColor" data-bgColor="#b4c7e7">라디오 방송</th>
-                    <th colspan="6" class="_bgColor" data-bgColor="#b4c7e7">영상 방송</th>
-                    <th colspan="3" class="_bgColor" data-bgColor="#b4c7e7"></th>
+                    <th colspan="8" class="_bgColor" data-bgColor="#b4c7e7">영상 방송</th>
+                    <th rowspan="3" class="_bgColor" data-bgcolor="#dae3f3">최대 개설</th>
                     <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">방송시간</th>
-                    <th colspan="8" class="_bgColor" data-bgColor="#f8cbad">청취자</th>
-                    <th colspan="3" class="_bgColor" data-bgColor="#f8cbad"></th>
+                    <th colspan="10" class="_bgColor" data-bgColor="#f8cbad">청취자</th>
+                    <th rowspan="3" class="_bgColor" data-bgcolor="#fbe5d6">최대 청취자</th>
                     <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">선물 수</th>
                     <th rowspan="3" class="_bgColor" data-bgColor="#b4c7e7">선물 달</th>
                 </tr>
@@ -43,13 +43,11 @@
                     <th colspan="2" class="_bgColor _sex_female" data-bgColor="#dae3f3"></th>
                     <th colspan="2" class="_bgColor _sex_none" data-bgColor="#dae3f3"></th>
                     <th colspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
-                    <th rowspan="2" class="_bgColor" data-bgcolor="#dae3f3">최대 개설</th>
                     <th colspan="2" class="_bgColor _sex_male" data-bgColor="#fbe5d6"></th>
                     <th colspan="2" class="_bgColor _sex_female" data-bgColor="#fbe5d6"></th>
                     <th colspan="2" class="_bgColor _sex_none" data-bgColor="#fbe5d6"></th>
                     <th colspan="2" class="_bgColor" data-bgColor="#fbe5d6">게스트</th>
                     <th colspan="2" class="_bgColor" data-bgcolor="#d9d9d9">소계</th>
-                    <th rowspan="2" class="_bgColor" data-bgcolor="#fbe5d6">최대 청취자</th>
                 </tr>
                 <tr>
                     <th class="_bgColor" data-bgColor="#f2f2f2">중복</th>
@@ -125,8 +123,9 @@
             <span class="font-bold">◈플랫폼 별</span>
             <table class="table table-bordered _tableHeight" data-height="23px">
                 <colgroup>
-                    <col width="7.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
-                    <col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+                    <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
+                    <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
+                    <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
                 </colgroup>
                 <thead>
                 <tr>
@@ -254,7 +253,6 @@
     }
 
     function fn_broadcastgiftYear_success(dst_id, response) {
-        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#giftYearListBody").empty();
         if(!isDataEmpty){
@@ -307,7 +305,6 @@
     }
 
     function fn_platformYearList_success(dst_id, response) {
-        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#platformYearListBody").empty();
         if(!isDataEmpty){
@@ -400,13 +397,13 @@
         <td class="_fontColor" data-fontColor="red">{{addComma total_create_fCnt}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma total_unique_dj_fCnt}}</td>
         <td>{{addComma total_create_nCnt}}</td>
-        <td>{{addComma v_total_create_mCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma v_total_unique_dj_mCnt}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma v_total_create_fCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma v_total_unique_dj_fCnt}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma v_total_create_nCnt}}</td>
-        <td>{{addComma v_total_unique_dj_nCnt}}</td>
         <td>{{addComma total_unique_dj_nCnt}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma v_total_create_mCnt}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma v_total_unique_dj_mCnt}}</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma v_total_create_fCnt}}</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma v_total_unique_dj_fCnt}}</td>
+        <td>{{addComma v_total_create_nCnt}}</td>
+        <td>{{addComma v_total_unique_dj_nCnt}}</td>
         <td>{{addComma total_create_totalCnt}}</td>
         <td>{{addComma total_unique_dj_Cnt}}</td>
         <td>{{addComma total_create_max_Cnt}}</td>
@@ -439,13 +436,13 @@
         <td class="_fontColor" data-fontColor="red">{{addComma create_fCnt 'Y'}}</td>
         <td class="_fontColor" data-fontColor="red">{{addComma unique_dj_fCnt 'Y'}}</td>
         <td>{{addComma create_nCnt 'Y'}}</td>
-        <td>{{addComma v_create_mCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma v_unique_dj_mCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="blue">{{addComma v_create_fCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma v_unique_dj_fCnt 'Y'}}</td>
-        <td class="_fontColor" data-fontColor="red">{{addComma v_create_nCnt 'Y'}}</td>
-        <td>{{addComma v_unique_dj_nCnt 'Y'}}</td>
         <td>{{addComma unique_dj_nCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma v_create_mCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="blue">{{addComma v_unique_dj_mCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma v_create_fCnt 'Y'}}</td>
+        <td class="_fontColor" data-fontColor="red">{{addComma v_unique_dj_fCnt 'Y'}}</td>
+        <td>{{addComma v_create_nCnt 'Y'}}</td>
+        <td>{{addComma v_unique_dj_nCnt 'Y'}}</td>
         <td>{{addComma create_Cnt 'Y'}}</td>
         <td>{{addComma unique_dj_Cnt 'Y'}}</td>
         <td>{{addComma create_max_Cnt 'Y'}}</td>

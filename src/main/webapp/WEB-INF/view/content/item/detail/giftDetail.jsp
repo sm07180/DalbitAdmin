@@ -416,8 +416,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>카테고리</th>
+                    <td>{{{getCommonCodeSelect category 'item_itemCategory' 'Y' 'category'}}}</td>
+
                     <th>타입</th>
-                    <td colspan="3">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
+                    <td>{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
 
                     <th>지급 수량 (별)</th>
                     <td>

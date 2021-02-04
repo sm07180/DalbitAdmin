@@ -77,14 +77,12 @@
     }
 
     function fn_notice_success(data, response){
-        dalbitLog(response);
         $("#tableNoticeBody").empty();
 
         response.data.detailList.nowMonth = Number(moment().format("MM"));
         response.data.detailList.nowDay = Number(moment().format("DD"));
         response.data.detailList.nowHour = Number(moment().format("HH"));
         for(var i=0;i<response.data.detailList.length;i++){
-            console.log(response.data.detailList[i].the_date.substr(8,2));
             response.data.detailList[i].day = response.data.detailList[i].the_date.substr(8,2);
 
             toDay = week[moment(response.data.detailList[i].the_date.replace(/-/gi, ".")).add('days', 0).day()];
