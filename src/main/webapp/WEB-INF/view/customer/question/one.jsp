@@ -302,6 +302,7 @@
     // }
 
     function adminMemoAdd(){
+        console.log($("#txt_qnaAdminMemo").val());
         if (common.isEmpty($("#txt_qnaAdminMemo").val())) {
             alert("등록할 운영자 메모를 입력해 주십시오.");
             return;
@@ -322,6 +323,8 @@
     }
 
     function adminMemoList(tmp){
+        console.log("--------------------------------");
+        console.log(tmp);
         if(!common.isEmpty(tmp)){
             qnaIdx = tmp;
         }

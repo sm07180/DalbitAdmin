@@ -1,14 +1,11 @@
 package com.dalbit.content.controller;
 
-import com.dalbit.common.code.EventCode;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.service.AppService;
 import com.dalbit.content.service.IosAppService;
-import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -169,6 +166,11 @@ public class ContentController {
         return "content/push/list";
     }
 
+    @GetMapping("/servicePolicy/list")
+    public String servicePolicyList() {
+        return "content/servicePolicy/list";
+    }
+
     @GetMapping("/ios/version")
     @ResponseBody
     public String iosVersion(){
@@ -247,5 +249,8 @@ public class ContentController {
 
     @GetMapping("/fanrank/onOffList")
     public String fanrankOnOffList() {return "content/fanrank/onOffList";}
+
+    @GetMapping("/event/content/list")
+    public String eventContentManage() {return "content/event/content/list";}
 
 }
