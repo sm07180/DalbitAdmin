@@ -613,11 +613,16 @@ public class Pay_CancelService {
             Response response = okHttpClientUtil.sendKakaoPost(DalbitUtil.getProperty("kakao.host") + "/v1/payment/cancel", formBody);
             String data = response.body().string();
 
+            log.info("=====================================          1");
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(response.code() == 200){
+                log.info("=====================================          2");
                 KakaoPayCancelResVo kakaoPayCancelResVo = new Gson().fromJson(data, KakaoPayCancelResVo.class);
+                log.info("=====================================          3");
                 cancelVo.setOrder_id(payCancelKakaoPayVo.getTradeid());
+                log.info("=====================================          4");
                 cancelVo.setCancel_dt(kakaoPayCancelResVo.getCanceled_at().replace("T", " "));
+                log.info("=====================================          5");
                 cancelVo.setFail_msg("");
                 cancelVo.setOp_name(MemberVo.getMyMemNo());
                 cancelVo.setCancel_state("y");
@@ -625,9 +630,12 @@ public class Pay_CancelService {
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
                 pCancelVo.setMem_no(payCancelKakaoPayVo.getMemno());
+                log.info("=====================================          6");
                 pCancelVo.setOrder_id(payCancelKakaoPayVo.getTradeid());
+                log.info("=====================================          7");
                 HashMap resultMap = dalCancel(pCancelVo);
 
+                log.info("=====================================          8");
                 if(resultMap.get("status").equals(Status.달차감_성공)){
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
@@ -635,20 +643,29 @@ public class Pay_CancelService {
                 }
             } else {
                 FailVo failVo = new Gson().fromJson(data, FailVo.class);
-                log.info("=====================================");
-                log.info("[카카오페이(머니)] 취소코드: {}", failVo.getCode());
+                log.info("=====================================          9");
+//                log.info("=====================================");
+//                log.info("[카카오페이(머니)] 취소코드: {}", failVo.getCode());
 //                log.info("[카카오페이(머니)] Result Msg: {}", failVo.getExtras().getMethod_result_message());
-                log.info("=====================================");
+//                log.info("=====================================");
 
                 cancelVo.setOrder_id(payCancelKakaoPayVo.getTradeid());
+                log.info("=====================================          10");
                 cancelVo.setCancel_dt("");
                 cancelVo.setFail_msg(Integer.toString(failVo.getCode()));
+                log.info("=====================================          11");
                 cancelVo.setOp_name(MemberVo.getMyMemNo());
                 cancelVo.setCancel_state("f");
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
             //취소 업데이트
+            log.info("=====================================          12");
+            log.info("cancelVo: {}", cancelVo);
+            log.info("cancelVo: {}", cancelVo.toString());
+            log.info("=====================================          13");
+
+
             payCancelDao.sendPayCancel(cancelVo);
 
         }catch (RestClientException | IOException e) {
