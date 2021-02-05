@@ -87,7 +87,7 @@
 
         $('input[id="searchText"]').on('keydown', function(e) {    // textBox 처리
             if(e.keyCode == 13) {
-                boostHistPagingInfo.pageNo = 1;
+                exchangePagingInfo.pageNo = 1;
                 getSearch();
             };
         });
