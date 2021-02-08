@@ -310,11 +310,7 @@
             };
             var html = templateScript(data);
             $("#live_summaryArea").html(html);
-
-            var data = {};
-            util.getAjaxData("inspection", "/rest/member/broadcast/inspection/check",data, fn_inspection_check_success);
         }
-
     }
 
     function fn_inspection_check_success(dst_id, response){
@@ -381,6 +377,10 @@
         var data = {};
 
         util.getAjaxData("livePageTabCount", "/rest/broadcast/broadcast/tabCount",data, tabCount_success);
+
+        var data = {};
+
+        util.getAjaxData("inspection", "/rest/member/broadcast/inspection/check",data, fn_inspection_check_success);
     }
 
     function tabCount_success(dst_id, response){
