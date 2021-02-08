@@ -649,10 +649,6 @@ public class Pay_CancelService {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
             //취소 업데이트
-            log.info("cancelVo: {}", cancelVo);
-            log.info("cancelVo: {}", cancelVo.toString());
-
-
             payCancelDao.sendPayCancel(cancelVo);
 
         }catch (RestClientException | IOException e) {
