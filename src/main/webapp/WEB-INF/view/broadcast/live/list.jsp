@@ -8,7 +8,7 @@
 
 <!-- serachBox -->
 <form id="searchForm">
-    <div class="row col-lg-12 form-inline">
+    <div class="col-lg-12 no-padding form-inline">
         <div class="col-md-6 no-padding">
             <div class="widget widget-table searchBoxArea">
                 <table>
@@ -22,8 +22,10 @@
                                 <label for="onedayDate" class="input-group-addon">
                                     <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
                                 </label>
-                                <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                                <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 90px">
                             </div>
+                            <span id="searchMemberArea" onchange="btSearchClick();"></span>
+                            <span id="searchBroadArea" onchange="btSearchClick();" style="display: none"></span>
                             <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요." ></label>
 
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -69,7 +71,7 @@
 
 <!-- //serachBox -->
 <!-- DATA TABLE -->
-<div class="row col-lg-12 form-inline">
+<div class="col-lg-12 no-padding form-inline">
 
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
@@ -95,6 +97,7 @@
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
                     <button class="btn btn-green btn-sm print-btn" type="button" id="videoList" onclick="videoList_click();" style="background-color: #8556f6;color: white;">영상 모아보기</button>
+                    <button class="btn btn-green btn-sm print-btn" type="button" id="videoList" onclick="videoListPop_click();" style="background-color: #8556f6;color: white;">영상 모아보기 팝업</button>
                 <c:if test="${fn:contains('|이재은|이형원|고병권|이재호|양효진|이상훈|', principal.getUserInfo().getName())}">
                     <button class="btn btn-danger btn-sm print-btn pull-right" type="button" id="inspection" onclick="inspection_click();">임시점검</button>
                 </c:if>
@@ -136,6 +139,9 @@
     $("#liveSort").html(util.getCommonCodeSelect(0, liveSort));
     $("#endSort").html(util.getCommonCodeSelect(0, endSort));
 
+    $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
+    $("#searchBroadArea").html(util.getCommonCodeSelect(1, searchBroad));
+
 
     var date = new Date();
     var sDate;
@@ -168,9 +174,13 @@
     });
 
     $('#searchRadio').change(function() {
+        $("#searchMemberArea").hide();
+        $("#searchBroadArea").hide();
         if($('input[name="searchRadio"]:checked').val() == "1"){
+            $("#searchMemberArea").show();
             $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
         }else{
+            $("#searchBroadArea").show();
             $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
         }
     });
@@ -213,6 +223,7 @@
             data.room_searchText = tmp_searchText;
             data.ortStartDate =2;
         }
+        data.newSearchType = slctType == 1 ? $("#searchMember").val() : $("#searchBroad").val();
         data.room_liveType = room_liveType;
 
         /*
@@ -444,6 +455,11 @@
         }
         $('#bt_search').click();
     }
+
+    function videoListPop_click(){
+        util.windowOpen("/broadcast/live/popup/cctv");
+    }
+
     function videoList(pagingNo) {
         if(!common.isEmpty(pagingNo)){
             videoPagingInfo.pageNo = pagingNo;
@@ -592,6 +608,10 @@
         icon.toggleClass('rotate');
 
     });
+
+    function btSearchClick(){
+        $("#bt_search").click();
+    }
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">
@@ -671,7 +691,7 @@
                         {{{roomNoLink data.title data.room_no}}}
                     </h4>
                     <ul class="list-unstyled">
-                        <li><strong>작성일시:</strong> {{substr data.start_date 0 19}}</li>
+                        <li><strong>방송시작일시:</strong> {{substr data.start_date 0 19}}</li>
                         <li><strong>Nick:</strong> {{replaceHtml data.dj_nickname}}</li>
                         <li><strong>No:</strong> <a href="javascript://" class="_openMemberPop" data-memno="{{data.dj_mem_no}}" >{{data.dj_mem_no}} </a> </li>
                         <li class="sexType"><strong>Sex:</strong> {{{sexIcon data.dj_memSex}}}</li>
