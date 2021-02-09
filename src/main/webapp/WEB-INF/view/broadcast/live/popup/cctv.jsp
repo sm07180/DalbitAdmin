@@ -139,7 +139,7 @@
         ui.paintColor();
     };
 
-    var adapterList = new array();
+    var adapterList = new Array();
 
     function videoPlay(me){
         var video_state = $(me).parent().find('._video_state');
@@ -219,11 +219,8 @@
         var me = $(this);
 
         //이전 동영상 play stop
-        //adapterList
         var target = $("#video_"+me.data('roomno'));
-
         var videoIndex = $('._videoPlayer').index(target);
-        adapterList.remove(videoIndex)
 
         videoPlay(target);
 
@@ -302,27 +299,27 @@
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_videoSelectFrm" type="text/x-handlebars-template">
-{{#each this.data as |data|}}
-    {{^equal data.image_path ''}}
-        <div class="item col-md-1 col-sm-1 mb15" style="padding-right: 3px;padding-left: 3px;display:inline;border:solid 1px;overflow:hidden;height:300px">
-            <div style="height:100px;">
-                <ul class="list-unstyled">
-                    <li>
-                        <strong>제목:</strong> <a href="javascript://" class="_openVideoPlayerPop" data-roomno="{{data.room_no}}">{{{roomNoLink data.title data.room_no}}}</a>
-                        <a href="javascript://" class="_refresh" data-roomno="{{data.room_no}}"><i class="fa fa-refresh _spin pull-right" style="font-size: 20px"></i></a>
-                    </li>
-                    <li><strong>닉네임</strong> {{replaceHtml data.dj_nickname}}(<a href="javascript://" class="_openMemberPop" data-memno="{{data.dj_mem_no}}" >{{data.dj_mem_no}}</a>)</li>
-                </ul>
+    {{#each this.data as |data|}}
+        {{^equal data.image_path ''}}
+            <div class="item col-md-1 col-sm-1 mb15" style="padding-right: 3px;padding-left: 3px;display:inline;border:solid 1px;overflow:hidden;height:300px">
+                <div style="height:100px;">
+                    <ul class="list-unstyled">
+                        <li>
+                            <strong>제목:</strong> <a href="javascript://" class="_openVideoPlayerPop" data-roomno="{{data.room_no}}">{{{roomNoLink data.title data.room_no}}}</a>
+                            <a href="javascript://" class="_refresh" data-roomno="{{data.room_no}}"><i class="fa fa-refresh _spin pull-right" style="font-size: 20px"></i></a>
+                        </li>
+                        <li><strong>닉네임</strong> {{replaceHtml data.dj_nickname}}(<a href="javascript://" class="_openMemberPop" data-memno="{{data.dj_mem_no}}" >{{data.dj_mem_no}}</a>)</li>
+                    </ul>
+                </div>
+                <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
+                    <span class="_video_state"></span>
+                    <video id="video_{{data.room_no}}" class="_videoPlayer" data-roomno={{data.room_no}} style="width:141px;height:188px" autoplay="autoplay" controls="controls" muted></video>
+                </div>
             </div>
-            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
-                <span class="_video_state"></span>
-                <video id="video_{{data.room_no}}" class="_videoPlayer" data-roomno={{data.room_no}} style="width:141px;height:188px" autoplay="autoplay" controls="controls" muted></video>
-            </div>
+        {{/equal}}
+    {{else}}
+        <div class="col-md-12" style="text-align:center">
+            <label>{{isEmptyData}}</label>
         </div>
-    {{/equal}}
-{{else}}
-    <div class="col-md-12" style="text-align:center">
-        <label>{{isEmptyData}}</label>
-    </div>
-{{/each}}
+    {{/each}}
 </script>
