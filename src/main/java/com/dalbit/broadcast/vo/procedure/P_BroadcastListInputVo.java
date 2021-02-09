@@ -20,6 +20,7 @@ public class P_BroadcastListInputVo extends PagingVo {
     private int sortState;
     private int orderType;
     private int newSearchType;
+    private String searchText;
 
     private String startDate;
     private String endDate;

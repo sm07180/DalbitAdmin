@@ -39,6 +39,7 @@
     var dtList_info_loginUser;
     function getLoginUserList_tabClick(tmp){
         $("#selJoinDate").hide();
+        $("#searchRadio").hide();
         liveState = tmp;
         if(liveState == 4){
             $("#divLive").hide();
