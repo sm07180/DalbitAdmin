@@ -96,8 +96,12 @@
                     <br/>
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
+
+                <c:if test="${fn:contains('|양대기|이재은|이형원|고병권|이재호|양효진|김자운|박창욱|황호성|이자연|전보선|', principal.getUserInfo().getName())}">
                     <button class="btn btn-green btn-sm print-btn" type="button" id="videoList" onclick="videoList_click();" style="background-color: #8556f6;color: white;">영상 모아보기</button>
-                    <button class="btn btn-green btn-sm print-btn" type="button" id="videoList" onclick="videoListPop_click();" style="background-color: #8556f6;color: white;">영상 모아보기 팝업</button>
+                    <button class="btn btn-green btn-sm print-btn" type="button" onclick="videoListPop_click();" style="background-color: #8556f6;color: white;">영상 모아보기 팝업</button>
+                </c:if>
+
                 <c:if test="${fn:contains('|이재은|이형원|고병권|이재호|양효진|이상훈|', principal.getUserInfo().getName())}">
                     <button class="btn btn-danger btn-sm print-btn pull-right" type="button" id="inspection" onclick="inspection_click();">임시점검</button>
                 </c:if>
