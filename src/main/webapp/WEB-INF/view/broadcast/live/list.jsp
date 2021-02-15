@@ -198,6 +198,7 @@
     $('#bt_search').on('click', function(){
         livePageTabCount();
 
+        console.log(liveState);
         if(liveState == 1 || liveState == 2){
             getSearch();
         }else if(liveState == 3){

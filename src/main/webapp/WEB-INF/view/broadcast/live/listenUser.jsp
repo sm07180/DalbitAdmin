@@ -55,7 +55,6 @@
             data.sortState = $("select[name='liveListenSort']").val();
             data.inner = 0;
             data.newSearchType = slctType == 1 ? $("#searchMember").val() : $("#searchBroad").val();
-            data.slctType = slctType;
         };
         dtList_info_lisetnUser = new DalbitDataTable($("#listenUser_tableList"), dtList_data, BroadcastDataTableSource.liveListenerList);
         dtList_info_lisetnUser.setPageLength(100);
