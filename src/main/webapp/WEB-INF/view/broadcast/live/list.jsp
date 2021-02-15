@@ -97,7 +97,7 @@
                     <span id="liveSort" onchange="sortChange();"></span>
                     <span id="endSort" style="display: none" onchange="sortChange();"></span>
 
-                <c:if test="${fn:contains('|박진|박희천|양대기|이재은|이형원|고병권|이재호|이상훈|양효진|김자운|박창욱|황호성|이자연|전보선|', principal.getUserInfo().getName())}">
+                <c:if test="${fn:contains('|박진|박희천|양대기|이재은|이형원|고병권|이재호|이상훈|양효진|김자운|박창욱|이건준|가윤경|황호성|이자연|전보선|', principal.getUserInfo().getName())}">
                     <button class="btn btn-green btn-sm print-btn" type="button" id="videoList" onclick="videoList_click();" style="background-color: #8556f6;color: white;">영상 모아보기</button>
                     <button class="btn btn-green btn-sm print-btn" type="button" onclick="videoListPop_click();" style="background-color: #8556f6;color: white;">영상 모아보기 팝업</button>
                 </c:if>
@@ -180,7 +180,8 @@
     $('#searchRadio').change(function() {
         $("#searchMemberArea").hide();
         $("#searchBroadArea").hide();
-        if($('input[name="searchRadio"]:checked').val() == "1"){
+        slctType = $('input[name="searchRadio"]:checked').val();
+        if(slctType == "1"){
             $("#searchMemberArea").show();
             $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
         }else{
@@ -212,7 +213,7 @@
 
     $("#seldate").hide();
 
-    var slctType = $('input[name="searchRadio"]:checked').val();
+    var slctType = 1;
     var dtList_info_data = function (data) {
         data.slctType = slctType;
         if(slctType == "1"){      // DJ정보
@@ -224,7 +225,7 @@
         }else {                                                              // 방송정보
             data.dj_slctType = -1;
             data.dj_searchText = "";
-            data.room_slctType = $("select[name='searchBroad_broad']").val();
+            // data.room_slctType = $("select[name='searchBroad_broad']").val();
             data.room_searchText = tmp_searchText;
             data.ortStartDate =2;
         }
@@ -337,7 +338,6 @@
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#searchText').val();
-        var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = slctType;
         tmp_dj_searchText = $('#searchText').val();
         tmp_room_searchText = $('#searchText').val();
@@ -474,7 +474,7 @@
         }
 
         var data={};
-        var slctType = $('input[name="searchRadio"]:checked').val();
+        var slctType = 1;
         data.slctType = slctType;
         if(slctType == "1"){      // DJ정보
             data.dj_slctType = $("select[name='searchType_broad']").val();
