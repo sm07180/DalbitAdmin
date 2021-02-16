@@ -5,6 +5,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.status.dao.Sta_MailboxDao;
+import com.dalbit.status.vo.procedure.P_MailboxMonthSetVo;
 import com.dalbit.status.vo.procedure.P_MailboxVo;
 import com.dalbit.status.vo.procedure.P_StatVo;
 import com.dalbit.util.GsonUtil;
