@@ -85,6 +85,7 @@
 
 <script type="text/javascript">
 
+    var newSlctType=1;
     $(function(){
         slctType = 99;
         $("#isChoiceDateArea").append(util.getCommonCodeRadio(-1, clip_isChoiceDate));

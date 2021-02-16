@@ -9,11 +9,11 @@
                 <col width="20%"><col width="20%"><col width="20%"><col width="20%"><col width="20%">
             </colgroup>
             <thead>
-            <th style="background-color: #d9d9d9">구분</th>
-            <th style="background-color: #d9d9d9">성별</th>
-            <th style="background-color: #c6d9f1">설정 ON(비율)</th>
-            <th style="background-color: #c6d9f1">해제 OFF(비율)</th>
-            <th style="background-color: #d9d9d9">설정<br/>총계</th>
+                <th style="background-color: #d9d9d9">구분</th>
+                <th style="background-color: #d9d9d9">성별</th>
+                <th style="background-color: #c6d9f1">설정 ON(비율)</th>
+                <th style="background-color: #c6d9f1">해제 OFF(비율)</th>
+                <th style="background-color: #d9d9d9">설정<br/>총계</th>
             </thead>
             <tbody id="yearSetTableBody">
             </tbody>
@@ -89,24 +89,24 @@
 <script type="text/x-handlebars-template" id="tmp_yearSet">
     {{#each this as |data|}}
     <tr {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-    <td rowspan="3">{{the_date}}</td>
-    <td class="_fontColor" data-fontcolor="blue">{{{sexIcon 'm'}}}</td>
-    <td class="_fontColor" data-fontcolor="blue">{{addComma male_mailbox_y 'Y'}} {{#dalbit_if male_mailbox_y '!=' 0}}({{average male_mailbox_y total_mailbox_y}}%){{/dalbit_if}}</td>
-    <td class="_fontColor" data-fontcolor="blue">{{addComma male_mailbox_n 'Y'}} {{#dalbit_if male_mailbox_n '!=' 0}}({{average male_mailbox_n total_mailbox_n}}%){{/dalbit_if}}</td>
-    <td rowspan="3"><span style="color:#af7032">{{addComma total_mailbox_y}}</span><br>{{addComma total_mailbox_n}}</td>
+        <td rowspan="3">{{the_date}}</td>
+        <td class="_fontColor" data-fontcolor="blue">{{{sexIcon 'm'}}}</td>
+        <td class="_fontColor" data-fontcolor="blue">{{addComma male_mailbox_y 'Y'}} {{#dalbit_if male_mailbox_y '!=' 0}}({{average male_mailbox_y total_mailbox_y}}%){{/dalbit_if}}</td>
+        <td class="_fontColor" data-fontcolor="blue">{{addComma male_mailbox_n 'Y'}} {{#dalbit_if male_mailbox_n '!=' 0}}({{average male_mailbox_n total_mailbox_n}}%){{/dalbit_if}}</td>
+        <td rowspan="3"><span style="color:#af7032">{{addComma total_mailbox_y}}</span><br>{{addComma total_mailbox_n}}</td>
     </tr>
     <tr {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-    <td class="_fontColor" data-fontcolor="red">{{{sexIcon 'f'}}}</td>
-    <td class="_fontColor" data-fontcolor="red">{{addComma female_mailbox_y 'Y'}} {{#dalbit_if female_mailbox_y '!=' 0}}({{average female_mailbox_y total_mailbox_y}}%){{/dalbit_if}}</td>
-    <td class="_fontColor" data-fontcolor="red">{{addComma female_mailbox_n 'Y'}} {{#dalbit_if female_mailbox_n '!=' 0}}({{average female_mailbox_n total_mailbox_n}}%){{/dalbit_if}}</td>
+        <td class="_fontColor" data-fontcolor="red">{{{sexIcon 'f'}}}</td>
+        <td class="_fontColor" data-fontcolor="red">{{addComma female_mailbox_y 'Y'}} {{#dalbit_if female_mailbox_y '!=' 0}}({{average female_mailbox_y total_mailbox_y}}%){{/dalbit_if}}</td>
+        <td class="_fontColor" data-fontcolor="red">{{addComma female_mailbox_n 'Y'}} {{#dalbit_if female_mailbox_n '!=' 0}}({{average female_mailbox_n total_mailbox_n}}%){{/dalbit_if}}</td>
     </tr>
     <tr {{#dalbit_if nowMonth '==' month}} class="font-bold _bgColor" data-bgColor="#fff2cc"  {{/dalbit_if}}>
-    <td>{{{sexIcon 'n'}}}</td>
-    <td>{{addComma none_mailbox_y 'Y'}} {{#dalbit_if none_mailbox_y '!=' 0}}({{average none_mailbox_y total_mailbox_y}}%){{/dalbit_if}}</td>
-    <td>{{addComma none_mailbox_n 'Y'}} {{#dalbit_if none_mailbox_n '!=' 0}}({{average none_mailbox_n total_mailbox_n}}%){{/dalbit_if}}</td>
+        <td>{{{sexIcon 'n'}}}</td>
+        <td>{{addComma none_mailbox_y 'Y'}} {{#dalbit_if none_mailbox_y '!=' 0}}({{average none_mailbox_y total_mailbox_y}}%){{/dalbit_if}}</td>
+        <td>{{addComma none_mailbox_n 'Y'}} {{#dalbit_if none_mailbox_n '!=' 0}}({{average none_mailbox_n total_mailbox_n}}%){{/dalbit_if}}</td>
     </tr>
     {{else}}
-    <td colspan="11" class="noData">{{isEmptyData}}<td>
-        {{/each}}
+        <td colspan="11" class="noData">{{isEmptyData}}<td>
+    {{/each}}
 </script>
 
