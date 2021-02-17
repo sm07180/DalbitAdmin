@@ -330,7 +330,7 @@
             $("#live_summaryArea").html(html);
         }
 
-       tableCss();
+       //tableCss();
     }
 
     function fn_inspection_check_success(dst_id, response){
