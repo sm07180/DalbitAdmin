@@ -15,6 +15,9 @@ public class SpecialReqVo extends PagingVo {
     private String select_year;
     private String select_month;
     private int newSearchType;
+    private int plusMinusCnt;
+    private String start_date;
+    private String end_date;
 
     /* output */
     private int idx;
@@ -41,6 +44,7 @@ public class SpecialReqVo extends PagingVo {
     private double addPoint;
     private int specialCnt;
     private int noticeIdx;
+    private int slct_type;
 
     private int airTime;
     private int broadcastCnt;

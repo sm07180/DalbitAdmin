@@ -8,10 +8,14 @@
         <%--<h3><i class="fa fa-desktop"></i> 검색결과</h3>--%>
     <%--</div>--%>
         <div class="row col-md-12 mt15">
+
             <div class="pull-left ml5 mb15">
                 ㆍ 해당 월의 스페셜 DJ입니다. <br/>
                 ㆍ 운영자 직접 등록 시 해당 월 1일부터 바로 스페셜 DJ가 적용됩니다. <br/>
                 ㆍ 스페셜 DJ 자격은 1개월(당월 1일~당월 말일) 동안 유지됩니다.
+                <div>
+                    ㆍ  <input type="checkbox" name="isBest" id="isBest" /> <label for="isBest" class="font-bold">베스트 스페셜 DJ만 보기</label>
+                </div>
             </div>
 
             <!-- summary & 운영자 등록 버튼 -->
@@ -29,19 +33,19 @@
                 <tr>
                     <th></th>
                     <th>No</th>
-                    <th>방송상태</th>
+                    <th>스디<br />횟수</th>
+                    <th>베스트<br />횟수</th>
+                    <th>베스트<br />여부</th>
                     <th>프로필</th>
                     <th>회원번호</th>
                     <th>User닉네임</th>
                     <th>성별</th>
-                    <th>보유팬</th>
+                    <th>이름</th>
+                    <th>연락처</th>
                     <th>누적 방송시간</th>
                     <th>누적 받은 별</th>
-                    <th>받은 좋아요</th>
-                    <th>받은 부스터</th>
-                    <th>최근 3개월 내 방송일</th>
+                    <th>좋아요 합계</th>
                     <th>정지기록</th>
-                    <th>관리자 등록여부</th>
                     <th>등록자</th>
                     <th style="display:none;">순서</th>
                 </tr>
@@ -80,6 +84,7 @@
             , pageStart: specialDjPagingInfo.pageNo
             , pageCnt: specialDjPagingInfo.pageCnt
             , newSearchType : $("#searchMember").val()
+            , isBest : $("#isBest").prop('checked') ? 1 : 0
         };
     }
 
@@ -150,29 +155,15 @@
     });
 
     function fn_success_dalDetail(dst_id, response) {
-        if(response.data.is_force == 0) {
-            var template = $('#tmp_dalList').html();
-            var templateScript = Handlebars.compile(template);
-            var context = response.data;
-            var html = templateScript(context);
-
-            $('#dalList').html(html);
-            $('#sampleDalList').hide();
-            $('#dalList').show();
-            ui.scrollIntoView('dalList');
-            $('#contents').attr("disabled", "disabled");
-
-        } else if(response.data.is_force == 1) {
-            var template = $('#tmp_sampleDalList').html();
-            var templateScript = Handlebars.compile(template);
-            var context = response.data;
-            var html = templateScript(context);
-            $('#sampleDalList').html(html);
-            $('#dalList').hide();
-            $('#sampleDalList').show();
-            ui.scrollIntoView('sampleDalList');
-            $('#sampleDalList').focus();
-        }
+        var template = $('#tmp_sampleDalList').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $('#sampleDalList').html(html);
+        $('#dalList').hide();
+        $('#sampleDalList').show();
+        ui.scrollIntoView('sampleDalList');
+        $('#sampleDalList').focus();
     }
 
     $(document).on('click', '#bt_reqCancel, #bt_reqCancel_2', function() {
@@ -185,43 +176,13 @@
                , select_month: common.substr($("#startDate").val(),5,2)
            };
             dalbitLog(data);
-            util.getAjaxData("cancel", "/rest/menu/special/reqCancel", data, fn_success_cancel);
+            util.getAjaxData("cancel", "/rest/menu/special/reqCancel", data, function(dst_id, response) {
+                alert(response.message);
+                getList();
+            });
         }
         return false;
     });
-
-    function fn_success_cancel(dst_id, response) {
-        alert(response.message);
-        getList();
-    }
-
-    $('#bt_edit').on('click', function() {
-        if(approveDal > totalCnt) {
-            alert('순위 변경은 스페셜 DJ 전체목록에서 가능합니다.');
-            return false;
-        }
-        var orderDataArr = new Array();
-        $('._noTr').each(function(i) {
-            var mem_no = $(this).find('._openMemberPop').data('memno');
-            var order = i + 1;
-            var data = {
-                mem_no : mem_no
-                , order : order
-            };
-            orderDataArr.push(data);
-        });
-
-        var param = {
-            orderJsonData : JSON.stringify(orderDataArr)
-        };
-
-        util.getAjaxData("updateOrder", "/rest/menu/special/updateOrder", param, fn_updateOrder_success);
-    });
-
-    function fn_updateOrder_success(dst_id, response) {
-        alert(response.message);
-        init();
-    }
 
     function fullSize_background(url) {
         if(common.isEmpty(url)){
@@ -240,6 +201,10 @@
     $('#memSearch').on('click', function() {
         showPopMemberList(choiceMember);
     });
+
+    $("#isBest").on('change', function(){
+        specialList();
+    });
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
@@ -249,23 +214,30 @@
         <td class="_noTd">
             <input type="hidden" name="sortNo" value="{{sortNo}}"/>
         </td>
-        <td>{{{renderOnAir onAir}}}</td>
+        <td>{{addComma specialdj_cnt}}</td>
+        <td>{{addComma best_cnt}}</td>
+        <td>
+            {{#equal specialdj_badge 2}}
+                {{{setFontColor 'Y' 'red'}}}
+            {{else}}
+                N
+            {{/equal}}
+        </td>
         <td style="width: 65px;height:65px;">
             <img class="thumbnail" src="{{renderProfileImage data.image_profile data.mem_sex}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
+        <td>
+            <a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
         <td>{{mem_nick}}</td>
         <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-        <td>{{addComma fanCnt}} 명</td>
+        <td>{{mem_name}}</td>
+        <td>{{phoneNumHyphen mem_phone}}</td>
         <td>{{timeStampDay airTime}}</td>
         <td>{{addComma giftedRuby}} 개</td>
-        <td>{{addComma likeCnt}} 개</td>
-        <td>{{addComma boostCnt}} 개</td>
-        <td>{{addComma broadcastCnt}} 일</td>
+        <td>{{addComma totLikeCnt}} 개</td>
         <td>{{addComma reportCnt}} 회</td>
-        <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
         <td style="display:none;">{{order}}</td>
         <td>{{op_name}}</td>
     </tr>
@@ -274,51 +246,6 @@
         <td colspan="15">{{isEmptyData}}</td>
     </tr>
     {{/each}}
-</script>
-
-<script id="tmp_dalList" type="text/x-handlebars-template">
-    <div class="widget widget-table">
-        <div class="widget-header">
-            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
-        </div>
-        <div class="widget-content mt15">
-            <div class="row col-lg-12 form-inline">
-                <table class="table table-bordered table-dalbit">
-                    <input type="hidden" name="reqIdx" data-idx="{{req_idx}}"/>
-                    <tr>
-                        <th>신청일시</th>
-                        <td>{{convertToDate request_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-                        <th>승인일시</th>
-                        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-                        <th>관리자 등록 여부</th>
-                        <td>
-                            {{#equal is_force '0'}}N{{/equal}}
-                            {{^equal is_force '0'}}Y{{/equal}}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>제목</th>
-                        <td colspan="5">{{title}}</td>
-                    </tr>
-                    <tr>
-                        <th>신청내용</th>
-                        <td colspan="5" style="height:300px">
-                            <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>스페셜DJ 선정 연도</th>
-                        <td colspan="2">{{select_year}}년</td>
-                        <th>선정 월</th>
-                        <td colspan="2">{{select_month}}월</td>
-                    </tr>
-                </table>
-                <!-- 승인취소 -->
-                <button type="button" class="btn btn-danger btn-sm mb15" id="bt_reqCancel">승인취소</button>
-            </div>
-        </div>
-    </div>
 </script>
 
 <script id="tmp_sampleDalList" type="text/x-handlebars-template">
