@@ -79,6 +79,8 @@
             initManage();
         } else if (tabIndex == 3) {
             initReqAble();
+        } else if (tabIndex == 4) {
+            initbestAble();
         }
     });
 
@@ -95,17 +97,21 @@
                 initManage();
             } else if (tabIndex == 3) {
                 initReqAble();
+            } else if (tabIndex == 4) {
+                initbestAble();
             }
         }
     });
 
     function choiceMember(data) {
-        if(confirm($('#select_month').val() + '월의 스페셜 DJ로 등록하시겠습니까?')){
+        if(confirm(common.substr($("#startDate").val(),5,2) + '월의 스페셜 DJ로 등록하시겠습니까?')){
             var obj = {
                 mem_no : data.mem_no
                 , is_force : 1
                 , select_year : common.substr($("#startDate").val(),0,4)
                 , select_month :  common.substr($("#startDate").val(),5,2)
+                , start_date : $("#startDate").val()
+                , end_date : $("#endDate").val()
             };
             util.getAjaxData("ok", "/rest/menu/special/reqOk", obj, fn_success_ok);
         }
