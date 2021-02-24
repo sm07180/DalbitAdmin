@@ -32,8 +32,8 @@ public class Sta_ItemRestController {
      * 아이템 고정
      */
     @PostMapping("/live/list")
-    public String itemLive(){
-        String result = sta_ItemService.callItemLive();
+    public String itemLive(StatVo statVo){
+        String result = sta_ItemService.callItemLive(statVo);
         return result;
     }
 
@@ -51,6 +51,23 @@ public class Sta_ItemRestController {
             StatVo.setEndDate(null);
         }
         String result = sta_ItemService.callItemTotal(StatVo);
+        return result;
+    }
+
+    /**
+     * 아이템 총계(주간)
+     * @param StatVo
+     * @return
+     */
+    @PostMapping("/total/week/list")
+    public String callItemTotalWeek(StatVo StatVo){
+        if(DalbitUtil.isEmpty(StatVo.getStartDate())){
+            StatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(StatVo.getEndDate())){
+            StatVo.setEndDate(null);
+        }
+        String result = sta_ItemService.callItemTotalWeek(StatVo);
         return result;
     }
 
