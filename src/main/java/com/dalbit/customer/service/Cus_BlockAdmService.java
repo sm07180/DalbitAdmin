@@ -1,16 +1,19 @@
 package com.dalbit.customer.service;
 
+import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.dao.Cus_BlockAdmDao;
 import com.dalbit.customer.vo.BlockAdmVo;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dalbit.common.code.Status;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +27,9 @@ public class Cus_BlockAdmService {
 
     @Autowired
     Cus_BlockAdmDao cusBlockAdmDao;
+
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      * 차단 회원 내역 조회
@@ -59,6 +65,15 @@ public class Cus_BlockAdmService {
 
         } else if(blockAdmVo.getRadioBlock() == 3){
             blockAdmVo.setEdit_contents("회원번호 차단 등록 : " + blockAdmVo.getBlock_text());
+
+            P_MemberReportVo memo = new P_MemberReportVo();
+            memo.setMemo(blockAdmVo.getAdminMemo());
+            memo.setOpName(MemberVo.getMyMemNo());
+            memo.setMem_no(blockAdmVo.getBlock_text());
+            ProcedureVo procedureVo = new ProcedureVo(memo);
+            mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+        } else if(blockAdmVo.getRadioBlock() == 4){
+            blockAdmVo.setEdit_contents("휴대폰번호 차단 등록 : " + blockAdmVo.getBlock_text());
         }
 
         int result = 0;
@@ -103,6 +118,9 @@ public class Cus_BlockAdmService {
                 if(!DalbitUtil.isEmpty(history.getReport_idx())) {
                     blockAdmVo.setReport_idx(history.getReport_idx());
                 }
+                blockAdmVo.setBlockIdx(Integer.parseInt(idxs[i]));
+                blockAdmVo.setMem_no(history.getMem_no());
+
                 cusBlockAdmDao.insertDelBlockHistory(blockAdmVo);
 
                 // rd_admin.tb_login_block에서 delete하기 위함
@@ -146,4 +164,41 @@ public class Cus_BlockAdmService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(blockAdmVo.getTotalCnt(), blockAdmVo.getPageStart(), blockAdmVo.getPageCnt())));
     }
 
+    /**
+     * 차단 운영자 메모
+     */
+    public String selectAdminMemo(BlockAdmVo blockAdmVo) {
+        BlockAdmVo blockDetail = cusBlockAdmDao.selectAdminMemo(blockAdmVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, blockDetail));
+    }
+
+    /**
+     * 차단 운영자 메모 등록/수정
+     */
+    public String adminMemoIns(BlockAdmVo blockAdmVo) {
+        blockAdmVo.setOpName(MemberVo.getMyMemNo());
+        try {
+            if ("".equals(blockAdmVo.getIdx())) {
+                cusBlockAdmDao.adminMemoIns(blockAdmVo);
+            } else {
+                cusBlockAdmDao.adminMemoUpd(blockAdmVo);
+            }
+            return gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
+    }
+
+    /**
+     * 차단 운영자 메모 삭제
+     */
+    public String adminMemoDel(BlockAdmVo blockAdmVo) {
+        try {
+            cusBlockAdmDao.adminMemoDel(blockAdmVo);
+            return gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
 }

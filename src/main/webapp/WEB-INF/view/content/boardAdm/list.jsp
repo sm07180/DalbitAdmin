@@ -31,7 +31,7 @@
 
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
-
+                                <span id="searchMemberArea" onchange="btSearchClick();"></span>
                                 <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
@@ -60,6 +60,8 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+        $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
+
         slctType = 0;
         dateType();
     });
@@ -136,4 +138,8 @@
     $(document).on("mouseout",".thumbnailImg",function(){ //마우스 아웃
         $("#preview").remove();
     });
+
+    function btSearchClick(){
+        $("#bt_search").click();
+    }
 </script>

@@ -41,7 +41,7 @@
                                             <td><span id="modalBlockDay"></span></td>
                                         </tr>
                                         <tr>
-                                            <th>운영자 메모</th>
+                                            <th>신고 메시지</th>
                                             <td colspan="5" style="text-align: left;height: 142px;">
                                                 <textarea type="textarea" class="form-control" id="adminMemo" name="adminMemo" style="width: 100%;height: 100%"></textarea>
                                             </td>
@@ -80,7 +80,7 @@
         // <!-- 버튼 끝 -->
 
         $("#"+targetId).find("#modalBlockType").html(util.getCommonCodeRadio('1', block_blockRadio));
-        $("#"+targetId).find("#modalBlockDay").html(util.getCommonCodeRadio('1', block_blockDay));
+        $("#"+targetId).find("#modalBlockDay").html(util.getCommonCodeRadio('1', block_blockDay, 'Y'));
     });
 
     var callbackFn;
