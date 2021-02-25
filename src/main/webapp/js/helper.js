@@ -409,3 +409,15 @@ Handlebars.registerHelper("viewMailBoxItemJson", function(memNick, jsonString){
 Handlebars.registerHelper("split", function (value, pattern ,location) {
     return value.split(pattern)[location];
 });
+
+Handlebars.registerHelper("rowNumDesc", function (total, value, pageNo, pageCnt) {
+    pageNo = isNaN(Number(pageNo)) ? 1 : pageNo;
+    pageCnt = isNaN(Number(pageCnt)) ? 0 : pageCnt;
+    return total - value - ((pageNo - 1) * pageCnt);
+});
+
+Handlebars.registerHelper("rowNumAsc", function (total, value, pageNo, pageCnt) {
+    pageNo = isNaN(Number(pageNo)) ? 1 : pageNo;
+    pageCnt = isNaN(Number(pageCnt)) ? 0 : pageCnt;
+    return value + ((pageNo - 1) * pageCnt) + 1;
+});
