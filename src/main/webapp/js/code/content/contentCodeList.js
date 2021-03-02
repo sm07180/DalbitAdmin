@@ -311,6 +311,7 @@ var banner_bannerType = [
     , new COMMON_CODE('storePopup', '12', '스토어팝업')
     , new COMMON_CODE('rankPopup', '14', '랭킹팝업')
     , new COMMON_CODE('questionTop', '15', '1:1문의 TOP')
+    , new COMMON_CODE('clipPlay', '16', '클립Play')
 ];
 
 var banner_bannerType_popup = [
@@ -957,7 +958,7 @@ var full_moon_condition4_slctType_unit = [
 
 var full_moon_condition5_slctType = [
     new COMMON_CODE(null, 'slctType', '구분')
-    , new COMMON_CODE('1', '1', '보름날 노출여부')
+    , new COMMON_CODE('1', '1', '보름달 노출여부')
 ]
 
 //보름달 문구관리
