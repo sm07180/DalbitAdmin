@@ -362,10 +362,6 @@ var BroadcastDataTableSource = {
             {'title': '구분', 'data': 'state', 'width':'80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
 
-                    if(row.shadow == 1){
-                        tmp += '<br/><lable>관리자모드</lable><br/>';
-                    }
-
                     if(row.recomm_badge == "1"){
                         tmp = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span><br/>';
                     }
@@ -412,9 +408,13 @@ var BroadcastDataTableSource = {
             {'title': '권한 종료 일시', 'data': 'authEndDateFormat', 'width':'100px'},
             {'title': '누적 청취시간', 'data': 'listenTime', 'width':'100px','render' : function (data, type, row){
                     if(row.shadow == 1){
-                        var startDate = moment(row.startDateFormat);
-                        var endDate = moment(row.endDateFormat);
-                        return common.timeStamp(endDate.diff(startDate, 'seconds'));
+                        if(common.isEmpty(row.endDateFormat)){
+                            return '';
+                        }else{
+                            var startDate = moment(row.startDateFormat);
+                            var endDate = moment(row.endDateFormat);
+                            return common.timeStamp(endDate.diff(startDate, 'seconds'));
+                        }
                     }
                     return common.timeStamp(data);
                 }},
