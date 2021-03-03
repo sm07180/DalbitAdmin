@@ -336,6 +336,7 @@ var banner_bannerType_banner = [
     , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
     , new COMMON_CODE('clip', '10', '클립 Center')
     , new COMMON_CODE('questionTop', '15', '1:1문의 TOP')
+    , new COMMON_CODE('clipPlay', '16', '클립Play')
 ];
 
 var banner_loginType = [
@@ -797,6 +798,7 @@ var roulette_winType = [
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('dal', '1', '달')
     , new COMMON_CODE('gifticon', '2', '기프티콘')
+    , new COMMON_CODE('exp', '3', '경험치')
 ];
 
 var content_scheduleWeek = [

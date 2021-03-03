@@ -269,8 +269,14 @@ var MemberDataTableSource = {
                 }},
             {'title': '청취시작시간', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '청취종료시간', 'data': 'endDateFormat', 'width':'120px'},
-            {'title': '청취진행시간', 'data': 'listentime', 'width':'80px', 'render': function (data) {
+            {'title': '청취진행시간', 'data': 'listentime', 'width':'80px', 'render': function (data, type, row) {
+                    if(row.shadow == 1){
+                        var startDate = moment(row.startDateFormat);
+                        var endDate = moment(row.endDateFormat);
+                        return common.timeStamp(endDate.diff(startDate, 'seconds'));
+                    }
                     return common.timeStamp(data);
+
                 }},
             {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'60px', 'render': function (data) {
                     return common.addComma(data);
@@ -303,6 +309,9 @@ var MemberDataTableSource = {
         ,'createdRow' : function( row, data, dataIndex ) {
             if (data.inner == 1) {    // 테스트계정 row 색상 표시
                 $(row).addClass("bg-testMember");
+            }
+            if (data.shadow == 1) {
+                $(row).addClass("font-shadow");
             }
         }
     },
@@ -595,6 +604,12 @@ var MemberDataTableSource = {
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}
             ,{'title': '성별', 'data': 'reported_mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.reported_mem_birth_year);
+                }}
+            ,{'title': '이미지', 'data': 'image_cnt','width':'60px','render':function (data,type,row,meta){
+                    if(data < 1){
+                        return "N";
+                    }
+                    return '<a href="javascript://" onclick="getImageCnt('+meta.row+');"> ' + data + ' </a>';
                 }}
             ,{'title': '접수 일시', 'data': 'regDateFormat'}
             ,{'title': '처리 일시', 'data': 'opDateFormat', 'defaultContent':'-'}
