@@ -3,6 +3,8 @@ package com.dalbit.content.service;
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.CommonService;
+import com.dalbit.common.vo.CodeListVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -41,6 +44,9 @@ public class Con_BoardAdmService {
 
     @Autowired
     Mem_MemberDao mem_MemberDao;
+
+    @Autowired
+    CommonService commonService;
 
     /**
      * 팬보드 조회
@@ -466,5 +472,102 @@ public class Con_BoardAdmService {
         result = gsonUtil.toJson(new JsonOutputVo(Status.TabCount조회_성공, list, new PagingVo(0, 0,0)));
 
         return result;
+    }
+
+
+    public String miniGameList(MiniGameListVo miniGameListVo) {
+        ProcedureVo procedureVo = new ProcedureVo(miniGameListVo);
+        ArrayList<MiniGameListVo> list = conBoardAdmDao.callMiniGameList(procedureVo);
+        MiniGameListVo miniGameList = new Gson().fromJson(procedureVo.getExt(), MiniGameListVo.class);
+
+        CodeListVo codeListVo = new CodeListVo();
+        codeListVo.setType("mini_game");
+        codeListVo.setCode("미니게임 활성여부");
+        CodeListVo code = commonService.getCodeDefine(codeListVo);
+
+        var resultMap = new HashMap();
+        resultMap.put("code", code.getCode());
+        resultMap.put("value", code.getValue());
+
+        HashMap map = new HashMap();
+        map.put("list", list);
+        map.put("miniInfo", resultMap);
+        if(list.size() > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, map, new PagingVo(miniGameList.getTotalCnt()),miniGameList));
+        }else{
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, map, new PagingVo(miniGameList.getTotalCnt()),miniGameList));
+        }
+    }
+
+
+    public String miniGameDetail(MiniGameDetailVo miniGameListVo) {
+        ProcedureVo procedureVo = new ProcedureVo(miniGameListVo);
+        conBoardAdmDao.callMiniGameDetail(procedureVo);
+        MiniGameDetailVo minigameDetail = new Gson().fromJson(procedureVo.getExt(), MiniGameDetailVo.class);
+
+        String result;
+
+        if(Status.미니게임_상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_상세조회_성공, minigameDetail));
+        } else if(Status.미니게임_상세조회_게임번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_상세조회_게임번호없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_상세조회_에러));
+        }
+
+        return result;
+    }
+
+    public String miniGameUpdate(MiniGameDetailVo miniGameListVo) {
+        ProcedureVo procedureVo = new ProcedureVo(miniGameListVo);
+        conBoardAdmDao.callMiniGameUpdate(procedureVo);
+        String result;
+        if(Status.미니게임_수정_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_수정_성공));
+        } else if(Status.미니게임_수정_게임번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_수정_게임번호없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_수정_에러));
+        }
+        return result;
+    }
+
+    public String miniGameAdd(MiniGameDetailVo miniGameDetailVo) {
+        ProcedureVo procedureVo = new ProcedureVo(miniGameDetailVo);
+        miniGameDetailVo.setOp_name(MemberVo.getMyMemNo());
+        conBoardAdmDao.callMiniGameAdd(procedureVo);
+        String result;
+        if(Status.미니게임_등록_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_등록_성공));
+        } else if(Status.미니게임_등록_데이터없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_등록_데이터없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.미니게임_등록_에러));
+        }
+        return result;
+    }
+
+    public String miniGameMemberList(MiniGameListVo miniGameListVo) {
+        ProcedureVo procedureVo = new ProcedureVo(miniGameListVo);
+        ArrayList<MiniGameListVo> list = conBoardAdmDao.miniGameMemberList(procedureVo);
+        MiniGameListVo miniGameList = new Gson().fromJson(procedureVo.getExt(), MiniGameListVo.class);
+
+        if(list.size() > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(miniGameList.getTotalCnt()), miniGameList));
+        }else{
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(miniGameList.getTotalCnt()),miniGameList));
+        }
+    }
+
+    public String miniGameEditHistory(MiniGameListVo miniGameListVo) {
+        ProcedureVo procedureVo = new ProcedureVo(miniGameListVo);
+        ArrayList<MiniGameListVo> list = conBoardAdmDao.miniGameEditHistory(procedureVo);
+        MiniGameListVo miniGameList = new Gson().fromJson(procedureVo.getExt(), MiniGameListVo.class);
+
+        if(list.size() > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(miniGameList.getTotalCnt()), miniGameList));
+        }else{
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(miniGameList.getTotalCnt()),miniGameList));
+        }
     }
 }

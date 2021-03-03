@@ -254,4 +254,54 @@ public class Con_BoardAdmRestController {
     public String mailboxTabCount(BoardAdmTabCountVo boardAdmTabCountVo) {
         return conBoardAdmService.mailboxTabCount(boardAdmTabCountVo);
     }
+
+    /**
+     * 미니 게임 목록
+     */
+    @PostMapping("/mini/game/list")
+    public String miniGameList(MiniGameListVo miniGameListVo) {
+        return conBoardAdmService.miniGameList(miniGameListVo);
+    }
+
+    /**
+     * 미니 게임 상세
+     */
+    @PostMapping("/mini/game/detail")
+    public String miniGameDetail(MiniGameDetailVo miniGameListVo) {
+        return conBoardAdmService.miniGameDetail(miniGameListVo);
+    }
+
+    /**
+     * 미니 게임 수정
+     */
+    @PostMapping("/mini/game/info/update")
+    public String miniGameUpdate(MiniGameDetailVo miniGameListVo) {
+        return conBoardAdmService.miniGameUpdate(miniGameListVo);
+    }
+
+    /**
+     * 미니 게임 등록
+     */
+    @PostMapping("/mini/game/info/add")
+    public String miniGameAdd(MiniGameDetailVo miniGameListVo) {
+        return conBoardAdmService.miniGameAdd(miniGameListVo);
+    }
+
+
+    /**
+     * 미니 참여자게임 목록
+     */
+    @PostMapping("/mini/game/member/list")
+    public String miniGameMemberList(MiniGameListVo miniGameListVo) {
+        return conBoardAdmService.miniGameMemberList(miniGameListVo);
+    }
+
+    /**
+     * 미니게임 수정 목록
+     */
+    @PostMapping("/mini/game/edit/history")
+    public String miniGameEditHistory(MiniGameListVo miniGameListVo) {
+        return conBoardAdmService.miniGameEditHistory(miniGameListVo);
+    }
+
 }
