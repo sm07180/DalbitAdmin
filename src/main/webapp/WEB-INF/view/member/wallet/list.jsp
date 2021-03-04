@@ -235,7 +235,11 @@
             data.startDate = sDate;
             data.endDate = eDate;
             data.walletDataType = $("#slctWalletDateType").find("select").val();
-
+            if(tmp == "dal" ) {
+                data.slctType = 0;
+            }else if(tmp == "byeol"){
+                data.slctType = 1;
+            }
         };
         var tmp_summary;
         // dtList_info_detail.destroy();  // 없어도 될듯?
