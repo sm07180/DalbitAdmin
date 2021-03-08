@@ -88,6 +88,10 @@
     var memoIdx;
     var memoDate;
     function adbrixAddClick(){
+        $("#txt_jsonData").val('');
+        $("#div_gridData").empty();
+        $("#file").val("");
+
         $("#adbrixExcelModal").modal('show');
     }
 
@@ -240,10 +244,6 @@
                 });
             }
         });
-
-
-        $("#txt_jsonData").val('');
-        $("#div_gridData").empty();
     }
 
 
