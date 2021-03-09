@@ -1183,7 +1183,7 @@ public class Mem_MemberService {
                     tmp.put("nk", pMemberInfoInputVo.getMemNick());
                     String message =  gson.toJson(tmp);
 
-                    socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberInfoInputVo.getMem_no(), true, true));
+                    socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberInfoInputVo.getMem_no(), true));
                 }
             }
         }
