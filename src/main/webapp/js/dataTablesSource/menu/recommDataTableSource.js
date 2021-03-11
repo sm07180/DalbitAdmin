@@ -75,4 +75,50 @@ var recommDataTableSource = {
             }
         }
     },
+
+
+    'newcomerList': {
+        'url': '/rest/content/newcomer/list'
+        , 'columns': [
+
+            {'title': '프로필', 'width': '70px', 'data': 'profileImage', 'render': function(data, type, row) {
+                    return '<img class="thumbnarest/menu/recommil fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL, data, row.mem_sex) +'" width="65px" height="65px" />';
+                }}
+            , {'title': '회원번호', 'data': 'mem_no', 'width' : '100px', 'render': function(data, type, row) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memno="' + data + '">' + data + '</a><br/>' + row.mem_nick
+                }}
+            , {'title': '성별', 'data': 'mem_sex', 'width':'100px', 'render': function (data, type, row, meta) {
+                    var tmp="";
+                    if(row.specialdj_badge == "1"){
+                        tmp += util.getMemberBadge("red", "red", null, "스페셜DJ", "100%", "20px", 10, "15px", "15px");
+                    }
+                    if(row.shiningdj_badge == "1"){
+                        tmp += util.getMemberBadge("pink", "pink", null, "샤이닝DJ", "100%", "20px", 10, "15px", "15px");
+                    }
+                    return common.sexIcon(data, row.mem_birth_year) + '<br/>' + tmp;
+                }}
+            , {'title': '사용여부', 'data': 'viewYn', 'width':'40px', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data,'content_viewOn','N','view_yn');
+                }}
+            , {'title': 'PUSH문구', 'data': 'send_title', 'width':'180px', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" onclick="pushDetail(' + meta.row + ');">' + data + '</a>';
+                }}
+            , {'title': 'PUSH 발송건수', 'data': 'send_cnt', 'width':'60px'}
+            , {'title': '최근 방송일시', 'data': 'last_broadcast', 'width':'100px', 'render': function(data, type, row) {
+                    return data;
+                }}
+            , {'title': '최근 7일 방송시간', 'data': 'broadcastTime', 'width':'70px', 'render': function(data, type, row) {
+                    return common.timeStampDay(data);
+                }}
+            , {'title': '등록정보', 'data': 'reg_opName', 'width':'100px', 'render': function(data, type, row) {
+                    return data + '<br/>' + row.reg_date;
+                }}
+        ]
+        // , 'comments': ''
+        ,'createdRow' : function( row, data, dataIndex ) {
+            if (data.inner == 1) {    // 테스트계정 row 색상 표시
+                $(row).addClass("bg-testMember");
+            }
+        }
+    },
 };
