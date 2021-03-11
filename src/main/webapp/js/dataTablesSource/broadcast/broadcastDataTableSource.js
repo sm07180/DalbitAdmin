@@ -50,6 +50,9 @@ var BroadcastDataTableSource = {
                     if(row.specialdj_badge == "1"){
                         tmp = tmp + util.getMemberBadge("red", "red", null, "스페셜DJ", "100%", "20px", 10, "15px", "15px");
                     }
+                    if(row.specialdj_badge == "2"){
+                        tmp = tmp + util.getMemberBadge("#632BEB", "#632BEB", null, "베스트DJ", "100%", "20px", 10, "15px", "15px");
+                    }
                     if(row.shiningdj_badge == "1"){
                         tmp = tmp + util.getMemberBadge("pink", "pink", null, "샤이닝DJ", "100%", "20px", 10, "15px", "15px");
                     }
@@ -370,6 +373,9 @@ var BroadcastDataTableSource = {
                     }
                     if(row.specialdj_badge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
+                    }
+                    if(row.specialdj_badge == "2"){
+                        tmp = tmp + '<span class ="label" style="background-color:#632BEB">' + "베스트DJ" + '</span>';
                     }
                     if(row.new_badge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:#ffc000">' + "신입" + '</span><br/>';

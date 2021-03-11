@@ -1053,7 +1053,7 @@
             <th>레벨등급</th>
             <td colspan="2" style="text-align: left">{{grade}}</td>
             <th>경험치</th>
-            <td style="text-align: left;border-right-color:white;border-right-width:0px;">{{exp}}({{substr expPer '0' '5'}}%)</td>
+            <td style="text-align: left;border-right-color:white;border-right-width:0px;">{{addComma exp}}({{substr expPer '0' '5'}}%)</td>
             <td>
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_levelDetail">상세</button>
             </td>
@@ -1240,7 +1240,7 @@
                 {{/dalbit_if}}
 
                 {{#dalbit_if specialdj_badge '==' '1'}}
-                    {{{getBadge '#632BEB' '#632BEB' '' '스패셜DJ' '100px' '20px' 10 '15px' '15px'}}}
+                    {{{getBadge 'red' 'red' '' '스패셜DJ' '100px' '20px' 10 '15px' '15px'}}}
                 {{/dalbit_if}}
 
                 {{#dalbit_if specialdj_badge '==' '2'}}
