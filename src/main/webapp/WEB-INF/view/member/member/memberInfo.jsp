@@ -1021,7 +1021,7 @@
                 프로필<br>이미지
                 {{#equal memWithdrawal '0'}}
                 <br><button type="button" id="bt_img" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
-                <br><button type="button" id="bt_profileImg_editHistory" class="btn btn-default btn-sm">상세</button>
+                <br><button type="button" id="bt_profileImg_editHistory" class="btn btn-default btn-sm" style="display:none;">상세</button>
                 {{/equal}}
             </th>
             <td rowspan="5">
@@ -1031,14 +1031,14 @@
                     </form>
                 </div>
                 <div class="col-md-2 no-padding">
-                    <button type="button" id="bt_profileAlbum" class="btn btn-default btn-sm mt5">상세</button>
+                    <button type="button" id="bt_profileAlbum" class="btn btn-default btn-sm mt5" style="margin-top: 119px;">상세</button>
                 </div>
             </td>
             <th rowspan="5">
                 방송방<br>배경이미지
                 {{#equal memWithdrawal '0'}}
                 <br><button type="button" id="bt_bg_img" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
-                <br><button type="button" id="bt_bgImg_editHistory" class="btn btn-default btn-sm mt5">상세</button>
+                <br><button type="button" id="bt_bgImg_editHistory" class="btn btn-default btn-sm mt5" style="display:none;">상세</button>
                 {{/equal}}
             </th>
             <td rowspan="5">
