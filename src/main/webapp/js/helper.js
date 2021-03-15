@@ -384,8 +384,10 @@ Handlebars.registerHelper('renderSlct', function(type, size){
 
 Handlebars.registerHelper("getBadgeList", function(value, divWidth, divHeight, radius, imgWidth, imgHeight){
     var tmp = "";
-    for(var i=0;i<value.length;i++){
-        tmp = tmp + util.getMemberBadge(value[i].startColor, value[i].endColor, value[i].icon, value[i].text, divWidth, divHeight, radius, imgWidth, imgHeight );
+    if(!common.isEmpty(value)){
+        for(var i=0;i<value.length;i++){
+            tmp = tmp + util.getMemberBadge(value[i].startColor, value[i].endColor, value[i].icon, value[i].text, divWidth, divHeight, radius, imgWidth, imgHeight );
+        }
     }
     return tmp;
 });
