@@ -125,7 +125,7 @@
             else if(memSex == "f")
                 $('#td_memSex').html("<label style=\"color: red\">여</lable>");
             else
-                $('#td_memSex').html("알수없음");
+                $('#td_memSex').html("미선택");
         });
     }
 

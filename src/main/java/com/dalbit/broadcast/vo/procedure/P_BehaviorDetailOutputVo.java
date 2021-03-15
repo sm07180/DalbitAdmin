@@ -18,5 +18,9 @@ public class P_BehaviorDetailOutputVo extends BaseVo {
     private int conTime;
     private int runTime;
     private int viewYn;
+    private int slctType;
+    private String platform;
+    private String itemCode;
+    private String itemWebpUrl;
 
 }

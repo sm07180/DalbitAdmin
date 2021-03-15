@@ -20,4 +20,8 @@ public class P_BehaviorListAddUpdateVo extends BaseVo {
     private int runTime;
     private int viewYn;
 
+    private int slctType;
+    private String platform;
+    private String itemCode;
+
 }
