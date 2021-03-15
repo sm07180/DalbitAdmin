@@ -99,9 +99,9 @@ Handlebars.registerHelper("indexDesc", function(totalCnt, rownum)
     return common.isEmpty(totalCnt) ? 0 : totalCnt - rownum + 1;
 });
 
-Handlebars.registerHelper("indexDescWithoutRownum", function(totalCnt, pageStart, index)
+Handlebars.registerHelper("indexDescWithoutRownum", function(totalCnt, pageStart, pageCnt, index)
 {
-    return common.isEmpty(totalCnt) ? 0 : totalCnt - pageStart - index;
+    return common.isEmpty(totalCnt) ? 0 : totalCnt - ((pageStart - 1) * pageCnt) - index;
 });
 
 Handlebars.registerHelper("getCommonCodeText", function(value, targetCode)
@@ -384,10 +384,11 @@ Handlebars.registerHelper('renderSlct', function(type, size){
 
 Handlebars.registerHelper("getBadgeList", function(value, divWidth, divHeight, radius, imgWidth, imgHeight){
     var tmp = "";
-    if(!common.isEmpty(value)){
-        for(var i=0;i<value.length;i++){
-            tmp = tmp + util.getMemberBadge(value[i].startColor, value[i].endColor, value[i].icon, value[i].text, divWidth, divHeight, radius, imgWidth, imgHeight );
-        }
+    if(common.isEmpty(value)){
+        return '';
+    }
+    for(var i=0;i<value.length;i++){
+        tmp = tmp + util.getMemberBadge(value[i].startColor, value[i].endColor, value[i].icon, value[i].text, divWidth, divHeight, radius, imgWidth, imgHeight );
     }
     return tmp;
 });

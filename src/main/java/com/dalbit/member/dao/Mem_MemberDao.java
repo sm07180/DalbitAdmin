@@ -20,7 +20,7 @@ public interface Mem_MemberDao {
     @Transactional(readOnly = true)
     ProcedureVo callMemberLogin(ProcedureVo procedureVo);
 
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     ArrayList<P_MemberListOutputVo> callMemberList(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
@@ -155,9 +155,6 @@ public interface Mem_MemberDao {
     int deleteCert_back(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
     int moveCertInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
     int moveRollbackCertInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
-
-    @Transactional(readOnly = true)
-    P_MemberAccumOutputVo getMemberAccumData(P_MemberInfoInputVo pMemberInfoInputVo);
 
     int insertAuth(P_AuthVo pAuthVo);
 
