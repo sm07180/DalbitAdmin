@@ -110,9 +110,9 @@ var push_slctPush2 = [
     new COMMON_CODE(null, 'slctPush', '푸시타입')
     , new COMMON_CODE('room', '1', '방송방')       								// [room_no]
     , new COMMON_CODE('main', '2', '메인')
-//    , new COMMON_CODE('incast', '4', '등록 된 캐스트')
-//     , new COMMON_CODE('spdj', '5', '스페셜 DJ 선정 페이지')          // 이상훈과장 요청으로 제거  전유신 2020.07.28
-    , new COMMON_CODE('event', '6', '이벤트 페이지')           					// [board_idx]
+//  , new COMMON_CODE('incast', '4', '등록 된 캐스트')
+//  , new COMMON_CODE('spdj', '5', '스페셜 DJ 선정 페이지')          // 이상훈과장 요청으로 제거  전유신 2020.07.28
+//  , new COMMON_CODE('event', '6', '이벤트 페이지')           	  // 프론트에서 메인으로 가도록 되어있음(이벤트 페이지 이동 구현 x) 	// [board_idx]
     , new COMMON_CODE('notice', '7', '공지사항 페이지')                       	// [board_idx]
     , new COMMON_CODE('fan', '31', '팬보드/댓글')								// [mem_no]
     , new COMMON_CODE('wallet', '32', '내지갑(달)')						// [mem_no]
