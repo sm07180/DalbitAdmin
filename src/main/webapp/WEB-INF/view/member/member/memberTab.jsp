@@ -238,11 +238,14 @@
             getHistory_rouletteList(tmp);
         }else if(tmp == "tab_mailbox"){
             getMailbox(tmp);
+        }else if(tmp == "tab_ggamggameEvent" || tmp == "tab_newrecord"){
+            newRecord();
          }
     }
 
     function handlebarsPaging(targetId, pagingInfo) {
-
+        console.log("----------------------------------------");
+        console.log(targetId);
         if(targetId == "notice_paginate_top" || targetId == "notice_paginate") {
             noticePagingInfo = pagingInfo;
             noticeList(pagingInfo.pageNo);
@@ -278,6 +281,12 @@
         }else if(targetId == "noticeReply_paginate_top" || targetId == "noticeReply_paginate"){
             noticeReplyPagingInfo = pagingInfo;
             broadNoticeReply(pagingInfo.pageNo);
+        }else if(targetId == "login_list_info_paginate_top" || targetId == "login_list_info_paginate"){
+            loginHistoryPagingInfo = pagingInfo;
+            getLoginHistoryList();
+        }else if(targetId == "change_list_info_paginate_top" || targetId == "change_list_info_paginate"){
+            itemPagingInfo = pagingInfo;
+            getChangeList();
         }
     }
 
