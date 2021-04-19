@@ -423,7 +423,7 @@
 
                         <th>기수</th>
                         <td>
-                            <input type="text" class="form-control" style="width:100px;" id="special_roundNos" name="special_roundNos" value="{{this.specialDjManageInfo.round_no}}" />
+                            <input type="text" class="form-control" style="width:100px;" id="round_no" name="round_no" value="{{this.specialDjManageInfo.round_no}}" />
                         </td>
                     </tr>
                     <tr>
