@@ -423,7 +423,7 @@
 
                         <th>기수</th>
                         <td>
-                            {{{getCommonCodeSelect this.specialDjManageInfo.round_no 'special_roundNos'}}}
+                            <input type="text" class="form-control" style="width:100px;" id="special_roundNos" name="special_roundNos" value="{{this.specialDjManageInfo.round_no}}" />
                         </td>
                     </tr>
                     <tr>
