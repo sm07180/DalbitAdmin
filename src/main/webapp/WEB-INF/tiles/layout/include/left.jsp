@@ -96,7 +96,7 @@
                                         <li class="${not empty url and url.equals(twoDepth.menu_url) ? 'active': ''}">
                                             <a href="${twoDepth.is_pop eq 1 ? twoDepth.menu_url : 'javascript://'}" data-url="${0 == fn:length(twoDepth.menu_url) ? '' : twoDepth.menu_url}"
                                                target="${twoDepth.is_pop eq 1 ? '_black' : ''}"
-                                               class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''} _dalbit">
+                                               class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''} ${twoDepth.is_use eq 2 ? '_inforex' : '_dalbit'}">
                                                 <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
                                         </li>
