@@ -42,6 +42,7 @@
             , MENU.PARENT_IDX
             , MENU.ICON
             , MENU.IS_POP
+            , MENU.IS_USE
             , MENU.IS_COMMING_SOON
             , MENU.MOBILE_YN
             , AUTH.EMP_NO
