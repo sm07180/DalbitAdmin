@@ -23,7 +23,7 @@
             , reg_date
             , last_upd_date
         from rd_admin.tb_admin_menu
-        where is_use = 1
+        where is_use >= 1
             <if test='depth != 0'>
                 and depth = #{depth}
             </if>

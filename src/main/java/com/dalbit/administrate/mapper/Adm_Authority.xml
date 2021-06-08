@@ -78,7 +78,7 @@
            , rd_admin.tb_admin_menu MENU
         WHERE AUTH.MENU_IDX = MENU.IDX
           AND MENU_IDX = #{menuIdx}
-          AND IS_USE = 1
+          AND IS_USE >= 1
         ORDER BY MENU.DEPTH ASC, MENU.ORDER_NO ASC, MENU.PARENT_IDX ASC
     </select>
 
