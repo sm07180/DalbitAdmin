@@ -7,10 +7,14 @@ import org.springframework.stereotype.Repository;
 
 @Component
 @Repository
-public interface SmsService {
+public interface SmsProc {
 
     @Select("CALL rd_data.p_hpMsg_send(#{msgSlct}, #{sendPhone}, #{sendMemNo}, #{rcvPhone}, #{rcvMemId}, " +
             "#{titleConts}, #{msgBody}, #{atchFile}, #{rsrvDt}, #{tranSlct}, #{retVal})")
     int sendSms(SmsProcVO smsProcVO);
+
+    @Select("CALL rd_data.p_hpMsg_mem_target_send(#{msgSlct}, #{testYn}, #{sendPhone}, " +
+            "#{titleConts}, #{msgBody}, #{atchFile}, #{rsrvDt}, #{tranSlct})")
+    int sendSmsBroadcast(SmsProcVO smsProcVO);
 
 }

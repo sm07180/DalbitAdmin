@@ -4,6 +4,7 @@ import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,26 @@ public class ParamCheckInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
+
+        String ip = request.getHeader("X-FORWARDED-FOR");
+        if (ip == null || ip.length() == 0) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+
+        if (ip == null || ip.length() == 0) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+
+        if (ip == null || ip.length() == 0) {
+            ip = request.getRemoteAddr();
+        }
+
+        if (ip.equals("0:0:0:0:0:0:0:1")) {
+            ip = "127.0.0.1";
+        }
+        MDC.clear();
+        MDC.put("ACCESS_IP", ip);
+
         for(Enumeration<String> itertor = (Enumeration<String>)request.getParameterNames(); itertor.hasMoreElements();){
             String key = itertor.nextElement();
             if(key.startsWith("i_")){

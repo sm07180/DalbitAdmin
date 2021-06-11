@@ -13,6 +13,7 @@ public class SmsProcVO {
     private String msgBody;
     private String atchFile = "";
     private String rsrvDt = "";
+    private String testYn = "";
     private int tranSlct;
     private int retVal;
 }
