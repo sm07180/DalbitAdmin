@@ -36,7 +36,7 @@ public class SmsService {
         if(!DalbitUtil.isSmsPhoneNoChk(smsVo.getPhoneNo())){
             throw new GlobalException(ErrorStatus.휴대폰번호검증오류);
         }
-        smsProcVO.setSendPhone(DalbitUtil.getProperty("sms.send.phone.no"));
+        smsProcVO.setSendPhone("1522-0251");
         smsProcVO.setMsgSlct(msgSlct);
         smsProcVO.setRcvPhone(smsVo.getPhoneNo());
         smsProcVO.setTitleConts(smsVo.getSubject());
@@ -64,7 +64,7 @@ public class SmsService {
     private int sendSmsTestCommon(SmsVo smsVo, String msgSlct, boolean isAll) {
         SmsProcVO smsProcVO = new SmsProcVO();
 
-        smsProcVO.setSendPhone(DalbitUtil.getProperty("sms.send.phone.no"));
+        smsProcVO.setSendPhone("1522-0251");
         smsProcVO.setMsgSlct(msgSlct);
         smsProcVO.setTitleConts(smsVo.getSubject());
 
