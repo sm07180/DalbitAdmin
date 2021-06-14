@@ -30,7 +30,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="org.springframework.web" level="WARN" />
+    <!--<logger name="org.springframework.web" level="WARN" />
     <logger name="jdbc" level="OFF" />
     <logger name="jdbc.sqlonly" level="OFF" />
     <logger name="jdbc.sqltiming" level="OFF" />
@@ -40,7 +40,8 @@
     <logger name="jdbc.connection" level="WARN" />
     <logger name="log4jdbc.log4j2" level="OFF" />
     <logger name="io.lettuce" level="WARN" />
-    <logger name="com.zaxxer.hikari" level="WARN" />
+    <logger name="com.zaxxer.hikari" level="WARN" />-->
+    <logger name="jdbc.sqlonly" level="INFO" />
 
     <root level="INFO">
         <appender-ref ref="FILE" />
