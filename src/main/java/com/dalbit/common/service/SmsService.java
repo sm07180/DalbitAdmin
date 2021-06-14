@@ -33,6 +33,8 @@ public class SmsService {
         SmsProcVO smsProcVO = new SmsProcVO();
         smsVo.setPhoneNo(smsVo.getPhoneNo().replaceAll("-", ""));
 
+        log.error("@@@@@@@@@@@@@@@ Debug Point 1  ===> {}", smsProcVO);
+
         if(!DalbitUtil.isSmsPhoneNoChk(smsVo.getPhoneNo())){
             throw new GlobalException(ErrorStatus.휴대폰번호검증오류);
         }
@@ -40,6 +42,8 @@ public class SmsService {
         smsProcVO.setMsgSlct(msgSlct);
         smsProcVO.setRcvPhone(smsVo.getPhoneNo());
         smsProcVO.setTitleConts(smsVo.getSubject());
+
+        log.error("@@@@@@@@@@@@@@@ Debug Point 2  ===> {}", smsProcVO);
 
         // 내부 개발 테스트 표시 추가 2020.07.01
         if("local".equals(DalbitUtil.getActiveProfile())){
@@ -50,14 +54,15 @@ public class SmsService {
         smsProcVO.setRsrvDt(smsVo.getSend_time());
         smsProcVO.setTranSlct(Integer.parseInt(smsVo.getVxmlFile()));
 
+        log.error("@@@@@@@@@@@@@@@ Debug Point 3  ===> {}", smsProcVO);
+
         return smsProc.sendSms(smsProcVO);
     }
 
     /**
      * LMS 문자 발송 - 타겟
      * */
-    public int sendMms(SmsVo smsVo)throws GlobalException{
-        log.error("@@@@@@@@@@@@@@@ 발송 log 확인  ===> {}", smsVo);
+    public int sendMms(SmsVo smsVo)throws GlobalException {
         return sendSmsCommon(smsVo, "L");
     }
 
