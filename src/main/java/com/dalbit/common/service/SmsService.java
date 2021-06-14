@@ -57,7 +57,8 @@ public class SmsService {
      * LMS 문자 발송 - 타겟
      * */
     public int sendMms(SmsVo smsVo)throws GlobalException{
-        return sendSmsCommon(smsVo, "M");
+        log.error("@@@@@@@@@@@@@@@ 발송 log 확인  ===> {}", smsVo);
+        return sendSmsCommon(smsVo, "L");
     }
 
     private int sendSmsTestCommon(SmsVo smsVo, String msgSlct, boolean isAll) {
@@ -91,7 +92,7 @@ public class SmsService {
      * LMS 문자 발송 - 테스트 계정 전체
      * */
     public int sendMmsTargetTest(SmsVo smsVo)throws GlobalException{
-        return sendSmsTestCommon(smsVo, "M", false);
+        return sendSmsTestCommon(smsVo, "L", false);
     }
 
 
@@ -107,7 +108,7 @@ public class SmsService {
      * LMS 문자 발송 - 모든 유저 전체
      * */
     public int sendMmsTargetMemberAll(SmsVo smsVo)throws GlobalException{
-        return sendSmsTestCommon(smsVo, "M", true);
+        return sendSmsTestCommon(smsVo, "L", true);
     }
 
 }
