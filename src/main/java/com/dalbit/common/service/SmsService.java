@@ -33,8 +33,6 @@ public class SmsService {
         SmsProcVO smsProcVO = new SmsProcVO();
         smsVo.setPhoneNo(smsVo.getPhoneNo().replaceAll("-", ""));
 
-        log.error("@@@@@@@@@@@@@@@ Debug Point 1  ===> {}", smsProcVO);
-
         if(!DalbitUtil.isSmsPhoneNoChk(smsVo.getPhoneNo())){
             throw new GlobalException(ErrorStatus.휴대폰번호검증오류);
         }
@@ -43,18 +41,16 @@ public class SmsService {
         smsProcVO.setRcvPhone(smsVo.getPhoneNo());
         smsProcVO.setTitleConts(smsVo.getSubject());
 
-        log.error("@@@@@@@@@@@@@@@ Debug Point 2  ===> {}", smsProcVO);
-
         // 내부 개발 테스트 표시 추가 2020.07.01
         if("local".equals(DalbitUtil.getActiveProfile())){
             String cont = "[내부개발] " + smsVo.getMsgBody();
             smsProcVO.setMsgBody(cont);
+        } else {
+            smsProcVO.setMsgBody(smsVo.getMsgBody());
         }
 
         smsProcVO.setRsrvDt(smsVo.getSend_time());
         smsProcVO.setTranSlct(Integer.parseInt(smsVo.getVxmlFile()));
-
-        log.error("@@@@@@@@@@@@@@@ Debug Point 3  ===> {}", smsProcVO);
 
         return smsProc.sendSms(smsProcVO);
     }
@@ -77,6 +73,8 @@ public class SmsService {
         if("local".equals(DalbitUtil.getActiveProfile())){
             String cont = "[내부개발] " + smsVo.getMsgBody();
             smsProcVO.setMsgBody(cont);
+        } else {
+            smsProcVO.setMsgBody(smsVo.getMsgBody());
         }
 
         smsProcVO.setTestYn(isAll ? "n" : "y");
