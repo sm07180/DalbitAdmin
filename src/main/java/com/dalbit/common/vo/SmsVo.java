@@ -30,7 +30,7 @@ public class SmsVo {
     private String subject = "";    //제목
     private String vxmlFile;        //문자발송구분 (0 : 인증코드 문자 - 회원가입, 1 : 인증코드 문자 - 비밀번호 변경, 2 : 환전성공, 3 : 환전거부,  4 : 가상계좌 문자, 5 : 1:1 문의 답변, 7 : 어드민 운영자 직접발송) Admin은 비밀번호 초기화 '1' 하드코딩
     private String send_name = "";
-    private String send_time;
+    private String send_time = "";
     private String mem_no;
     private String cinfo;              // 운영자 발송 시 그룹 코드
     //0(단문)으로 하드코딩.
