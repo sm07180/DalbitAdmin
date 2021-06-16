@@ -26,19 +26,27 @@ public class P_ExchangeTotalOutDetailVo extends SearchVo {
     private int inc_succAmt;
 
     private String the_date;
-    private int specialdj_succ_Cnt;
-    private int specialdj_succ_Amt;
-    private int specialdj_succ_byeol_Cnt;
-    private int succ_Cnt;
-    private int succ_Amt;
-    private int succ_byeol_Cnt;
+    private int specialdj_succ_Cnt = 0;
+    private int specialdj_succ_Amt = 0;
+    private int specialdj_succ_byeol_Cnt = 0;
+    private int succ_Cnt = 0;
+    private int succ_Amt = 0;
+    private int succ_byeol_Cnt = 0;
+    private int sum_succ_cnt = 0;
+    private int sum_succ_amt = 0;
+    private int sum_pay_amt = 0;
+    private String sum_exchange_per = "-";
 
-    private int nSpecialdj_succ_Cnt;
-    private int nSpecialdj_succ_Amt;
-    private int nSpecialdj_succ_byeol_Cnt;
-    private int nSucc_Cnt;
-    private int nSucc_Amt;
-    private int nSucc_byeol_Cnt;
+    private int nSpecialdj_succ_Cnt = 0;
+    private int nSpecialdj_succ_Amt = 0;
+    private int nSpecialdj_succ_byeol_Cnt = 0;
+    private int nSucc_Cnt = 0;
+    private int nSucc_Amt = 0;
+    private int nSucc_byeol_Cnt = 0;
+    private int nSum_succ_cnt = 0;
+    private int nSum_succ_amt = 0;
+    private int nSum_pay_amt = 0;
+    private String nSum_exchange_per = "-";
 
 }
 

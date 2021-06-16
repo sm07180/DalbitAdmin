@@ -4,6 +4,10 @@ package com.dalbit.status.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.enter.service.Ent_PayService;
+import com.dalbit.enter.vo.procedure.P_PayTotalOutDetailVo;
+import com.dalbit.enter.vo.procedure.P_PayTotalOutVo;
+import com.dalbit.enter.vo.procedure.P_PayTotalWayInPutVo;
 import com.dalbit.status.dao.Sta_ExchangeDao;
 import com.dalbit.status.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -29,11 +34,28 @@ public class Sta_ExchangeService {
     GsonUtil gsonUtil;
     @Autowired
     Sta_ExchangeDao sta_ExchangeDao;
+    @Autowired
+    Ent_PayService ent_PayService;
 
     /**
      * 환전 통합현황 월간
      */
     public String callExchangeMonth(P_StatVo pStatVo){
+        P_PayTotalWayInPutVo pPayTotalWayInPutVo = new P_PayTotalWayInPutVo();
+
+        String dateListFormat = String.format("%s-%s@%s-%s", pStatVo.getBeforStartDate(), pStatVo.getBeforEndDate(), pStatVo.getStartDate(), pStatVo.getEndDate());
+        pPayTotalWayInPutVo.setDateList(dateListFormat);
+        pPayTotalWayInPutVo.setSlctType(1);
+        pPayTotalWayInPutVo.setPaywayType("all");
+
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        ent_PayService.getPayMonthWayList(pPayTotalWayInPutVo, resultList);
+
+        P_PayTotalOutVo totalOutVo0 = (P_PayTotalOutVo) resultList.get(0).get("totalInfo");
+        P_PayTotalOutVo totalOutVo1 = (P_PayTotalOutVo) resultList.get(1).get("totalInfo");
+        ArrayList detailList0 = (ArrayList) resultList.get(0).get("detailList");
+        ArrayList detailList1 = (ArrayList) resultList.get(1).get("detailList");
+
         ProcedureVo procedureVo = new ProcedureVo(pStatVo);
         ArrayList<P_ExchangeTotalOutDetailVo> detailList_n = sta_ExchangeDao.callExchangeMonth(procedureVo);
         P_ExchangeTotalOutVo totalInfo_n = new Gson().fromJson(procedureVo.getExt(), P_ExchangeTotalOutVo.class);
@@ -57,18 +79,22 @@ public class Sta_ExchangeService {
         totalOutVo.setTot_succ_Cnt(totalInfo_b.getTot_succ_Cnt());
         totalOutVo.setTot_succ_Amt(totalInfo_b.getTot_succ_Amt());
         totalOutVo.setTot_succ_byeol_Cnt(totalInfo_b.getTot_succ_byeol_Cnt());
+        totalOutVo.setTot_pay_amt(totalOutVo0.getSum_succAmt());
+
         totalOutVo.setNTot_specialdj_succ_Cnt(totalInfo_n.getTot_specialdj_succ_Cnt());
         totalOutVo.setNTot_specialdj_succ_Amt(totalInfo_n.getTot_specialdj_succ_Amt());
         totalOutVo.setNTot_specialdj_succ_byeol_Cnt(totalInfo_n.getTot_specialdj_succ_byeol_Cnt());
         totalOutVo.setNTot_succ_Cnt(totalInfo_n.getTot_succ_Cnt());
         totalOutVo.setNTot_succ_Amt(totalInfo_n.getTot_succ_Amt());
         totalOutVo.setNTot_succ_byeol_Cnt(totalInfo_n.getTot_succ_byeol_Cnt());
+        totalOutVo.setNTot_pay_amt(totalOutVo1.getSum_succAmt());
 
         List list = new ArrayList();
         for (int i=30; -1 < i; i --){
             P_ExchangeTotalOutDetailVo outVo = new P_ExchangeTotalOutDetailVo();
             outVo.setDay(Integer.toString(i+1));
 
+            // 우측 (스폐셜, 일반)
             if(detailList_n.size() >= i+1) {
                 if (detailList_n.get(i).getThe_date().substring(8).equals(DalbitUtil.lpad(Integer.toString(i+1),2,"0"))) {
                     outVo.setNSpecialdj_succ_Cnt(detailList_n.get(i).getSpecialdj_succ_Cnt());
@@ -77,23 +103,23 @@ public class Sta_ExchangeService {
                     outVo.setNSucc_Cnt(detailList_n.get(i).getSucc_Cnt());
                     outVo.setNSucc_Amt(detailList_n.get(i).getSucc_Amt());
                     outVo.setNSucc_byeol_Cnt(detailList_n.get(i).getSucc_byeol_Cnt());
-                }else{
-                    outVo.setNSpecialdj_succ_Cnt(0);
-                    outVo.setNSpecialdj_succ_Amt(0);
-                    outVo.setNSpecialdj_succ_byeol_Cnt(0);
-                    outVo.setNSucc_Cnt(0);
-                    outVo.setNSucc_Amt(0);
-                    outVo.setNSucc_byeol_Cnt(0);
+
+                    // 우측 총계
+                    if(detailList1.size() >= i+1) {
+                        P_PayTotalOutDetailVo tempRight = (P_PayTotalOutDetailVo) detailList1.get(i);
+                        if (tempRight.getDaily() != null) {
+                            int nSum_succ_amt = detailList_n.get(i).getSpecialdj_succ_Amt() + detailList_n.get(i).getSucc_Amt();
+                            outVo.setNSum_succ_cnt( detailList_n.get(i).getSpecialdj_succ_Cnt() + detailList_n.get(i).getSucc_Cnt() );
+                            outVo.setNSum_succ_amt(nSum_succ_amt);
+                            int nSum_pay_amt = (int)Math.round(tempRight.getSuccAmt()/1.1);
+                            outVo.setNSum_pay_amt(nSum_pay_amt);
+                            outVo.setNSum_exchange_per( nSum_pay_amt == 0 ? "-" : String.format("%.2f", (nSum_succ_amt * 100.0 / nSum_pay_amt))+"%" );
+                        }
+                    }
                 }
-            }else{
-                outVo.setNSpecialdj_succ_Cnt(0);
-                outVo.setNSpecialdj_succ_Amt(0);
-                outVo.setNSpecialdj_succ_byeol_Cnt(0);
-                outVo.setNSucc_Cnt(0);
-                outVo.setNSucc_Amt(0);
-                outVo.setNSucc_byeol_Cnt(0);
             }
 
+            // 좌측 (스폐셜, 일반)
             if(detailList_b.size() >= i+1) {
                 if (detailList_b.get(i).getThe_date().substring(8).equals(DalbitUtil.lpad(Integer.toString(i+1),2,"0"))) {
                     outVo.setSpecialdj_succ_Cnt(detailList_b.get(i).getSpecialdj_succ_Cnt());
@@ -102,21 +128,20 @@ public class Sta_ExchangeService {
                     outVo.setSucc_Cnt(detailList_b.get(i).getSucc_Cnt());
                     outVo.setSucc_Amt(detailList_b.get(i).getSucc_Amt());
                     outVo.setSucc_byeol_Cnt(detailList_b.get(i).getSucc_byeol_Cnt());
-                }else{
-                    outVo.setSpecialdj_succ_Cnt(0);
-                    outVo.setSpecialdj_succ_Amt(0);
-                    outVo.setSpecialdj_succ_byeol_Cnt(0);
-                    outVo.setSucc_Cnt(0);
-                    outVo.setSucc_Amt(0);
-                    outVo.setSucc_byeol_Cnt(0);
+
+                    // 좌측 총계
+                    if(detailList0.size() >= i+1) {
+                        P_PayTotalOutDetailVo tempLeft = (P_PayTotalOutDetailVo) detailList0.get(i);
+                        if (tempLeft.getDaily() != null) {
+                            int sum_succ_amt = detailList_b.get(i).getSpecialdj_succ_Amt() + detailList_b.get(i).getSucc_Amt();
+                            outVo.setSum_succ_cnt( detailList_b.get(i).getSpecialdj_succ_Cnt() + detailList_b.get(i).getSucc_Cnt() );
+                            outVo.setSum_succ_amt(sum_succ_amt);
+                            int sum_pay_amt = (int)Math.round(tempLeft.getSuccAmt()/1.1);
+                            outVo.setSum_pay_amt(sum_pay_amt);
+                            outVo.setSum_exchange_per( sum_pay_amt == 0 ? "-" : String.format("%.2f", (sum_succ_amt * 100.0 / sum_pay_amt))+"%" );
+                        }
+                    }
                 }
-            }else{
-                outVo.setSpecialdj_succ_Cnt(0);
-                outVo.setSpecialdj_succ_Amt(0);
-                outVo.setSpecialdj_succ_byeol_Cnt(0);
-                outVo.setSucc_Cnt(0);
-                outVo.setSucc_Amt(0);
-                outVo.setSucc_byeol_Cnt(0);
             }
             list.add(outVo);
         }

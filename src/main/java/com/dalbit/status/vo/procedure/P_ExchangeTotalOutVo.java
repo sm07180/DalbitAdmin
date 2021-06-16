@@ -30,6 +30,7 @@ public class P_ExchangeTotalOutVo extends SearchVo {
     private int tot_succ_Cnt;
     private int tot_succ_Amt;
     private int tot_succ_byeol_Cnt;
+    private int tot_pay_amt;
 
     private int nTot_specialdj_succ_Cnt;
     private int nTot_specialdj_succ_Amt;
@@ -37,4 +38,5 @@ public class P_ExchangeTotalOutVo extends SearchVo {
     private int nTot_succ_Cnt;
     private int nTot_succ_Amt;
     private int nTot_succ_byeol_Cnt;
+    private int nTot_pay_amt;
 }

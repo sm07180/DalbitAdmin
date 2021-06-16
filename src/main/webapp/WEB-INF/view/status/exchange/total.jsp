@@ -8,39 +8,44 @@
         <span class="font-bold">◈ 월간별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/>
-                <col width="7.6%"/><col width="7.6%"/><col width="0.1%"/><col width="7.6%"/><col width="7.6%"/>
-                <col width="7.6%"/><col width="7.6%"/><col width="7.6%"/><col width="7.6%"/>
+                <col width="7.6%"/>
+                <col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/>
+                <col width="0.1%"/>
+                <col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="3" style="background-color: #dae3f3"></th>
-                <th colspan="6" style="background-color: #b4c7e7" id="beforMonth"></th>
+                <th colspan="7" style="background-color: #b4c7e7" id="beforMonth"></th>
                 <th class="_noBorder"></th>
-                <th colspan="6" style="background-color: #ffe699" id="nowMonth"></th>
+                <th colspan="7" style="background-color: #ffe699" id="nowMonth"></th>
             </tr>
 
             <tr>
-                <th colspan="3" style="background-color: #ff9933">스페셜</th>
-                <th colspan="3" style="background-color: #548235">일반</th>
+                <th colspan="2" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="2" style="background-color: #548235; color: white">일반</th>
+                <th colspan="3" style="background-color: #8041D9; color: white">총계</th>
                 <th class="_noBorder"></th>
-                <th colspan="3" style="background-color: #ff9933">스페셜</th>
-                <th colspan="3" style="background-color: #548235">일반</th>
+                <th colspan="2" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="2" style="background-color: #548235; color: white">일반</th>
+                <th colspan="3" style="background-color: #8041D9; color: white">총계</th>
             </tr>
             <tr>
                 <th>건수</th>
-                <th>금액</th>
-                <th>요청 별</th>
+                <th>환전금액</th>
                 <th>건수</th>
-                <th>금액</th>
-                <th>요청 별</th>
+                <th>환전금액</th>
+                <th>환전금액 (건수)</th>
+                <th>결제금액</th>
+                <th>환전율</th>
                 <th class="_noBorder"></th>
                 <th>건수</th>
-                <th>금액</th>
-                <th>요청 별</th>
+                <th>환전금액</th>
                 <th>건수</th>
-                <th>금액</th>
-                <th>요청 별</th>
+                <th>환전금액</th>
+                <th>환전금액 (건수)</th>
+                <th>결제금액</th>
+                <th>환전율</th>
             </tr>
             </thead>
             <tbody id="monthTableBody"></tbody>
@@ -182,22 +187,18 @@
 
         var total_succ_cnt = response.data.totalInfo.tot_specialdj_succ_Cnt + response.data.totalInfo.tot_succ_Cnt;         // 총건
         var total_succ_amt = response.data.totalInfo.tot_specialdj_succ_Amt + response.data.totalInfo.tot_succ_Amt;         // 총 금액
-        var total_succ_byeol = response.data.totalInfo.tot_specialdj_succ_byeol_Cnt + response.data.totalInfo.tot_succ_byeol_Cnt;   // 총 요청별
 
         var nTotal_succ_cnt = response.data.totalInfo.nTot_specialdj_succ_Cnt + response.data.totalInfo.nTot_succ_Cnt;
         var nTotal_succ_amt = response.data.totalInfo.nTot_specialdj_succ_Amt + response.data.totalInfo.nTot_succ_Amt;
-        var nTotal_succ_byeol = response.data.totalInfo.nTot_specialdj_succ_byeol_Cnt + response.data.totalInfo.nTot_succ_byeol_Cnt;
 
-        response.data.totalInfo.total_succ = "환전금액 총 : " + total_succ_cnt + "건 / 금액 : " +  total_succ_amt + " / " + total_succ_byeol + " 개";
-        response.data.totalInfo.nTotal_succ = "환전금액 총 : " + nTotal_succ_cnt + "건 / 금액 : " +  nTotal_succ_amt + " / " + nTotal_succ_byeol + " 개";
+        response.data.totalInfo.total_exchange_info = total_succ_amt + " (" + total_succ_cnt + ")";
+        response.data.totalInfo.nTotal_exchange_info = nTotal_succ_amt + " (" + nTotal_succ_cnt + ")";
+        response.data.totalInfo.tot_pay_amt = (response.data.totalInfo.tot_pay_amt / 1.1).toFixed(0);
+        response.data.totalInfo.nTot_pay_amt = (response.data.totalInfo.nTot_pay_amt / 1.1).toFixed(0);
+        response.data.totalInfo.tot_exchange_per = response.data.totalInfo.tot_pay_amt === "0" ? "-" : Math.round((total_succ_amt*100.0 / response.data.totalInfo.tot_pay_amt) * 100) / 100 + "%";
+        response.data.totalInfo.nTot_exchange_per = response.data.totalInfo.nTot_pay_amt === "0" ? "-" : Math.round((nTotal_succ_amt*100.0 / response.data.totalInfo.nTot_pay_amt) * 100) / 100 + "%";
 
         if(!isDataEmpty){
-            var template = $('#tmp_month_total').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data.totalInfo;
-            var totalHtml = templateScript(totalContext);
-            $("#monthTableBody").append(totalHtml);
-
             var template = $('#tmp_month').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
@@ -443,31 +444,24 @@
 
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_month_total">
-    <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
-        <td>총계</td>
-        <td colspan="6">{{addComma total_succ}}</td>
-        <td class="_noBorder"></td>
-        <td colspan="6">{{addComma nTotal_succ}}</td>
-    </tr>
-</script>
-
 <script type="text/x-handlebars-template" id="tmp_month">
     <tr class="font-bold" style="background-color: #f2f2f2;color: #fb782d;">
         <td>총합</td>
         <td>{{addComma tot_specialdj_succ_Cnt}}</td>
         <td>{{addComma tot_specialdj_succ_Amt}}</td>
-        <td>{{addComma tot_specialdj_succ_byeol_Cnt}}</td>
         <td>{{addComma tot_succ_Cnt}}</td>
         <td>{{addComma tot_succ_Amt}}</td>
-        <td>{{addComma tot_succ_byeol_Cnt}}</td>
+        <td>{{addComma total_exchange_info}}</td>
+        <td>{{addComma tot_pay_amt}}</td>
+        <td>{{tot_exchange_per}}</td>
         <td class="_noBorder"></td>
         <td>{{addComma nTot_specialdj_succ_Cnt}}</td>
         <td>{{addComma nTot_specialdj_succ_Amt}}</td>
-        <td>{{addComma nTot_specialdj_succ_byeol_Cnt}}</td>
         <td>{{addComma nTot_succ_Cnt}}</td>
         <td>{{addComma nTot_succ_Amt}}</td>
-        <td>{{addComma nTot_succ_byeol_Cnt}}</td>
+        <td>{{addComma nTotal_exchange_info}}</td>
+        <td>{{addComma nTot_pay_amt}}</td>
+        <td>{{nTot_exchange_per}}</td>
     </tr>
 </script>
 
@@ -479,17 +473,21 @@
         </td>
         <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="special" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma specialdj_succ_Cnt 'Y'}}</a></td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
-        <td>{{addComma specialdj_succ_byeol_Cnt 'Y'}}</td>
         <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="normal" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma succ_Cnt 'Y'}}</a></td>
         <td>{{addComma succ_Amt 'Y'}}</td>
-        <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
+        <td>{{addComma sum_succ_amt}} ({{addComma sum_succ_cnt}})</td>
+        <td>{{addComma sum_pay_amt 'Y'}}</td>
+        <td>{{sum_exchange_per}}</td>
+
         <td class="_noBorder"></td>
+
         <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="special" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nSpecialdj_succ_Cnt 'Y'}}</a></td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_byeol_Cnt 'Y'}}</td>
         <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="normal" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nSucc_Cnt 'Y'}}</a></td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
-        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_byeol_Cnt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSum_succ_amt}} ({{addComma nSum_succ_cnt}})</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSum_pay_amt 'Y'}}</td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{nSum_exchange_per}}</td>
     </tr>
     {{/each}}
 </script>

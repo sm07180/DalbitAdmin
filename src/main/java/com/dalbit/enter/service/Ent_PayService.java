@@ -500,7 +500,13 @@ public class Ent_PayService {
      */
     public String callPayMonthWay(P_PayTotalWayInPutVo pPayTotalWayInPutVo){
 
-        ArrayList resultList = new ArrayList();
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        getPayMonthWayList(pPayTotalWayInPutVo, resultList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
+    }
+
+    public void getPayMonthWayList(P_PayTotalWayInPutVo pPayTotalWayInPutVo, List<Map<String, Object>> resultList) {
         String[] dateList = pPayTotalWayInPutVo.getDateList().split("@");
 
         int slctType_date = 0;
@@ -512,7 +518,7 @@ public class Ent_PayService {
         }
         P_PayTotalOutVo sum_Total = new P_PayTotalOutVo();
         for(int i=0;i<dateList.length;i++){
-            if(dateList[i].indexOf("-") > -1){
+            if(dateList[i].contains("-")){
                 pPayTotalWayInPutVo.setStartDate(dateList[i].split("-")[0]);
                 pPayTotalWayInPutVo.setEndDate(dateList[i].split("-")[1]);
             }else{
@@ -624,8 +630,6 @@ public class Ent_PayService {
         result.put("totalInfo", sum_Total);
         result.put("detailList", sum);
         resultList.add(result);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
     }
 
     // 수익인식 프로세스 ---------------------------------------------------------
