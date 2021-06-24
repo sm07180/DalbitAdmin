@@ -61,6 +61,32 @@ public class SmsHistoryVo extends PagingVo {
     private String mem_level;
     private String mem_grade;
 
+    private int msg_id;
+    private String job_id;
+    private int schedule_type;
+    private int dest_count;
+    private int content_count;
+//    private int msg_type;
+
+    private String msgSlct = "S";        // 기본값
+    private String sendSlct = "e";       // 기본값
+    private String tDate;
+    private String tranSlct;
+    private String user_id;
+    private String now_date;
+    private String send_date;
+    private String dest_info;
+    private String callback;
+//    private String subject;
+    private String mms_msg;
+    private String sms_msg = "";
+    private String content_data;
+    private String kt_office_code;
+    private String cdr_id;
+    private String reserved1;
+    private String reserved2;
+    private String reserved3;
+
     public void setReport_time(Date last_upd_date){
         this.report_time = DalbitUtil.convertDateFormat(last_upd_date, "yyyy.MM.dd HH:mm:ss");
     }

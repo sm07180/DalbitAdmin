@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.SmsVo;
 import com.dalbit.customer.dao.Cus_SmsDao;
+import com.dalbit.customer.proc.Cus_SmsProc;
 import com.dalbit.customer.vo.SmsHistoryVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
@@ -24,18 +25,11 @@ import java.util.*;
 @Slf4j
 @Service
 public class Cus_SmsService {
-
-    @Autowired
-    Cus_SmsDao cusSmsDao;
-
-    @Autowired
-    SmsService smsService;
-
-    @Autowired
-    GsonUtil gsonUtil;
-
-    @Autowired
-    ExcelService excelService;
+    @Autowired Cus_SmsDao cusSmsDao;
+    @Autowired Cus_SmsProc cusSmsProc;
+    @Autowired SmsService smsService;
+    @Autowired GsonUtil gsonUtil;
+    @Autowired ExcelService excelService;
 
     /**
      * sms 리스트 조회
@@ -44,12 +38,50 @@ public class Cus_SmsService {
         String logDate = smsHistoryVo.getTxt_startSel().replaceAll("\\.", "").substring(0,6);
         smsHistoryVo.setLogDateTableName(logDate);
 
-        int count = cusSmsDao.getSmsListCnt(smsHistoryVo);
-        smsHistoryVo.setTotalCnt(count);
+        smsHistoryVo.setTDate(smsHistoryVo.getTxt_startSel().replaceAll("\\.", "-").substring(0,10));
+        String tranSlct;
+        switch (smsHistoryVo.getTabType()) {
+            case 2: tranSlct = "4"; break;
+            default: tranSlct = String.valueOf(smsHistoryVo.getTabType());
+        }
+        smsHistoryVo.setTranSlct(tranSlct);
 
-        List<SmsHistoryVo> list = cusSmsDao.getSmsList(smsHistoryVo);
+        List<Object> temp = cusSmsProc.getSmsList(smsHistoryVo);
 
-        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(smsHistoryVo.getTotalCnt(), smsHistoryVo.getPageStart(), smsHistoryVo.getPageCnt())));
+        if (temp.size() > 1) Collections.reverse((ArrayList) temp.get(1));
+
+        int i = 1 + ((smsHistoryVo.getPageStart() - 1) * smsHistoryVo.getPageCnt());
+        for (Object obj : (ArrayList) temp.get(1)) {
+            SmsHistoryVo smsHistoryVo1 = (SmsHistoryVo) obj;
+            smsHistoryVo1.setRowNum(i++);
+            String[] dest_phone = smsHistoryVo1.getDest_info().split("\\^");
+            smsHistoryVo1.setDest_phone(dest_phone.length > 1 ? dest_phone[1] : "");
+            String sendTime = "";
+            try {
+                String tmpStr = smsHistoryVo1.getSend_date();
+                sendTime = String.format("%s-%s-%s %s:%s:%s",
+                        tmpStr.substring(0, 4),
+                        tmpStr.substring(4, 6),
+                        tmpStr.substring(6, 8),
+                        tmpStr.substring(8, 10),
+                        tmpStr.substring(10, 12),
+                        tmpStr.substring(12, 14));
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                smsHistoryVo1.setSend_time(sendTime);
+            }
+
+            if ("".equals(smsHistoryVo1.getSms_msg())) smsHistoryVo1.setSms_msg(smsHistoryVo1.getMms_msg());
+        }
+
+        String result = gsonUtil.toJson(new JsonOutputVo(
+                Status.조회, temp.size() > 1 ? temp.get(1) : null,
+                new PagingVo(
+                        temp.size() > 1 ? Integer.parseInt(String.valueOf(((ArrayList) temp.get(0)).get(0))) : 0,
+                        smsHistoryVo.getPageStart(),
+                        smsHistoryVo.getPageCnt()
+                )));
         return result;
     }
 

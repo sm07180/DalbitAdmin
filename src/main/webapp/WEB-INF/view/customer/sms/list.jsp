@@ -47,15 +47,21 @@
             <div class="row col-lg-12 form-inline">
                 <div class="mb15" id="htmlTag"></div>
                     <ul class="nav nav-tabs nav-tabs-custom-colored" id="smsTab" role="tablist">
-                        <li class="active"><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="smsList(2)">가상계좌 발송</a></li>
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="1" id="tab_certification" onclick="smsList(1)">인증번호 발송</a></li>
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="smsList(7)">운영자 발송</a></li>
+                        <li class="active"><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="smsList(2, 'S')">가상계좌 발송</a></li>
+                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="1" id="tab_certification" onclick="smsList(1, 'S')">인증번호 발송</a></li>
+                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="smsList(7, 'S')">운영자 발송</a></li>
                         <li style="display: none;"><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="3" id="tab_etc" onclick="smsList(3)">기타 발송</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="smsDetail">
                             <div class="widget widget-table">
                                 <div class="widget-content mt10">
+                                    <span onchange="selChange();">
+                                        <select id="msgSlctSel" value="msgSlct" class="form-control searchType">
+                                            <option value="S">SMS</option>
+                                            <option value="L">LMS</option>
+                                        </select>
+                                    </span>
                                     <div class="col-md-12 no-padding">
                                         <button type="button" id="bt_smsSend" class="btn btn-success btn-sm pull-right _openSmsSendPop" data-cmid="" data-rownum="">운영자 문자발송</button>
                                     </div>
@@ -64,22 +70,19 @@
                                         <colgroup>
                                             <col width="30px"/>      <!-- No -->
                                             <col width="120px"/>    <!-- 발신번호 -->
-                                            <col width="50px"/>     <!-- 통신사 -->
-                                            <col width="140px"/>    <!-- 수신번호 -->
-                                            <col width="140px"/>    <!-- 회원 ID -->
-                                            <col width="140px"/>    <!-- 회원 닉네임 -->
+                                            <col width="150px"/>    <!-- 수신번호 -->
+                                            <col width="150px"/>    <!-- 회원 ID -->
+                                            <col width="150px"/>    <!-- 회원 닉네임 -->
                                             <col width="70px"/>    <!-- 발송상태 -->
                                             <col width="180px"/>    <!-- 발송일 -->
-                                            <col width="250px"/>    <!-- LMS 제목 -->
-                                            <col width="450px"/>    <!-- 발송내용 -->
+                                            <col width="260px"/>    <!-- LMS 제목 -->
+                                            <col width="460px"/>    <!-- 발송내용 -->
                                             <col width="110px"/>    <!-- 구분 -->
                                             <col width="100px"/>    <!-- 발신자 -->
-                                            <col width="70px"/>    <!-- 발신자 -->
                                         </colgroup>
                                         <thead>
                                             <th>No</th>
                                             <th>발신번호</th>
-                                            <th>통신사</th>
                                             <th>수신번호</th>
                                             <th>회원번호</th>
                                             <th>회원 닉네임</th>
@@ -89,7 +92,6 @@
                                             <th>문자내용</th>
                                             <th>구분</th>
                                             <th>발신자</th>
-                                            <th>삭제</th>
                                         </thead>
                                         <tbody id="tableBody"></tbody>
                                     </table>
@@ -112,6 +114,7 @@
 <script type="text/javascript">
     var listPagingInfo = new PAGING_INFO(0, 1, 50);
     var tabType = 2;
+    var msgSlct = "S";
 
     $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. " +
         "<br>ㆍ대기 상태가 수일을 경과한 경우 SMS 발신자에게 문의하여 주시기 바랍니다. " +
@@ -136,23 +139,30 @@
         smsList();
     });
 
-    function smsList(type) {
+    function smsList(type, slct) {
         if(!common.isEmpty(type)){
             listPagingInfo.pageNo = 1;
             tabType = type;
+	        msgSlct = slct;
         }
+
+	    if(!common.isEmpty(slct)){
+		    msgSlct = slct;
+		    if (slct === 'S') $("#msgSlctSel").val("S");
+	    }
 
         // $("#tabType").val(type);
         $("#pageStart").val(listPagingInfo.pageNo);
         $("#pageCnt").val(listPagingInfo.pageCnt);
 
         console.log("-----------------------------");
-        console.log(tabType);
+        console.log(tabType, msgSlct);
         var data = {
             txt_startSel : $("#startDate").val()
             , txt_endSel : $("#endDate").val()
             , searchText : $("#searchText").val()
             , tabType : tabType
+            , msgSlct : msgSlct
             , pageStart : listPagingInfo.pageNo
             , pageCnt : listPagingInfo.pageCnt
         };
@@ -230,14 +240,18 @@
         dalbitLog("excel down 성공");
     }
 
+    function selChange(){
+	    msgSlct = $("#msgSlctSel").val();
+	    smsList(tabType, msgSlct);
+    }
+
 </script>
 
 <script id="tmp_smsList" type="text/x-handlebars-template">
     {{#each this as |data|}}
     <tr>
         <td>{{indexDesc ../totalCnt rowNum}}</td>
-        <td>{{data.send_phone}}</td>
-        <td>{{wap_info}}</td>
+        <td>{{data.callback}}</td>
         <td>{{phoneNumHyphen dest_phone}}</td>
         {{#if mem_no}}
             <td>
@@ -252,32 +266,21 @@
         {{else}}
             <td></td>
         {{/if}}
-        {{#dalbit_if sms_status '>' '3'}}
-            <td>오류</td>
-        {{else}}
-            <td>{{{getCommonCodeLabel status 'sms_status'}}}</td>
-        {{/dalbit_if}}
+        <td>완료</td>
         {{#if report_time}}
-            <td>{{report_time}}</td>
+            <td>{{report_time}}</td>`
         {{else}}
             <td>{{substr send_time '0' '19'}}</td>
         {{/if}}
         <%--<td><a class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{../totalCnt rowNum}}">{{subject}}</a></td>--%>
-        <td><a href="javascript://" class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{indexDesc ../totalCnt rowNum}}" data-logtable="{{logDateTableName}}">{{subject}}</a></td>
-        <td class="al pl5">{{{replaceNewLineToBr msg_body}}}</td>
-        <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
+        <td>{{subject}}</td>
+        <td class="al pl5">{{{replaceNewLineToBr sms_msg}}}</td>
+        <td>{{{getCommonCodeLabel reserved2 'sms_code'}}}</td>
         {{#if send_name}}
             <td>{{send_name}}</td>
         {{else}}
             <td>자동</td>
         {{/if}}
-        <td>
-            {{#dalbit_if status '==' 3}}
-                <button type="button" id="bt_smsDel" class="btn btn-danger btn-sm" data-cmid="{{cmid}}" onclick="smsDelClick($(this).data());">예약삭제</button>
-            {{else}}
-                -
-            {{/dalbit_if}}
-        </td>
     </tr>
     {{else}}
         <tr>

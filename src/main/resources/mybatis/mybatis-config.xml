@@ -14,4 +14,8 @@
 		<typeAlias type="com.dalbit.menu.vo.procedure.P_RoomListVo" alias="P_RoomListVo" />
 	</typeAliases>
 
+	<mappers>
+		<mapper resource="./mapper/ResultMap.xml" />
+		<package name="mappers"/>
+	</mappers>
 </configuration>
