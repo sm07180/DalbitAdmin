@@ -256,7 +256,7 @@
         {{#if mem_no}}
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a>
-                <p class="no-margin">{{mem_level}} / {{mem_grade}}</p>
+                <p class="no-margin">{{#if mem_level}}{{mem_level}}{{else}}0{{/if}} / {{#if mem_grade}}{{mem_grade}}{{else}}0{{/if}}</p>
             </td>
         {{else}}
             <td>개별발송</td>

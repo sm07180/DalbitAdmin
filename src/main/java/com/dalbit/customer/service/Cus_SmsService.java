@@ -72,6 +72,7 @@ public class Cus_SmsService {
                 smsHistoryVo1.setSend_time(sendTime);
             }
 
+            if (smsHistoryVo1.getMem_no() == null) smsHistoryVo1.setMem_no(smsHistoryVo1.getReserved3());
             if ("".equals(smsHistoryVo1.getSms_msg())) smsHistoryVo1.setSms_msg(smsHistoryVo1.getMms_msg());
         }
 
