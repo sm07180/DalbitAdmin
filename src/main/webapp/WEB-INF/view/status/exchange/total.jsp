@@ -138,7 +138,7 @@
             <tr>
                 <th colspan="3" style="background-color: #ff9933">스페셜</th>
                 <th colspan="3" style="background-color: #548235">일반</th>
-                <th rowspan="2">총합</th>
+                <th rowspan="2" style="border:1px solid rgb(221, 221, 221)">총합</th>
             </tr>
             <tr>
                 <th>건수</th>
@@ -361,6 +361,8 @@
             response.data.detailList.slctType = slctType;
         }
 
+	    let nowYear = moment().format("YYYY");
+
         for(var i=0;i<response.data.detailList.length;i++) {
             var tmpMonth;
             var tmpTCnt = 0;
@@ -388,7 +390,7 @@
             var tmpStartDay = Number(response.data.detailList[i].week_startDate.substr(5).replace("-",""));
             var tmpEndDay = Number(response.data.detailList[i].week_endDate.substr(5).replace("-",""));
 
-            if (tmpStartDay <= tmpDay && tmpEndDay >= tmpDay) {
+            if (tmpStartDay <= tmpDay && tmpEndDay >= tmpDay && nowYear === response.data.detailList[i].year) {
                 response.data.detailList[i].color = 1;
             } else {
                 response.data.detailList[i].color = 0;
@@ -593,7 +595,7 @@
 <script type="text/x-handlebars-template" id="tmp_weekDetailList">
     {{#each this as |data|}}
     <tr {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{/dalbit_if}} >
-        <td class="font-bold month" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #b4c7e7" {{/dalbit_if}}> {{month}}월 </td>
+        <td class="font-bold month" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #b4c7e7" {{/dalbit_if}}> {{year}}년<br/>{{month}}월 </td>
         <td class="font-bold" {{#dalbit_if color '==' 1}} style="background-color:#fff2cc" {{else}} style="background-color: #dae3f3" {{/dalbit_if}} >
             {{monthWeek}}주 ({{substr week_startDate 5}} ~ {{substr week_endDate 5}})
         </td>
@@ -603,7 +605,7 @@
         <td>{{addComma succ_Cnt  'Y'}}</td>
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>
-        <td class="total" data-month="{{month}}">
+        <td class="total" data-month="{{month}}" style="border:1px solid rgb(221, 221, 221)">
             <span style="display: none">{{month}}</span>
             {{addComma month_succ_Cnt}}건<br/>/ {{addComma month_succ_Amt}}원
         </td>
