@@ -10,7 +10,7 @@
         </div>
 
         <div class="login-box center-block">
-            <h4 style="text-align: center">인포렉스 아이디로 로그인해주세요.</h4>
+            <h4 style="text-align: center">여보야 아이디로 로그인해주세요.</h4>
             <hr />
             <form class="form-horizontal" id="form">
                 <p class="title">아이디</p>
