@@ -20,7 +20,7 @@
                     <div class="logged-user">
                         <div class="btn-group">
                             <a href="javascript://" class="btn btn-link">
-                                <img src="/favicon.ico" alt="User Avatar">
+                                <img src="/favicon.ico" style="width: 20px; margin-bottom: 4px;" alt="User Avatar">
                                 <span class="name">${principal.getUserInfo().getName()}</span> [ <span class="userid">${principal.getUserInfo().getUserid()}</span> ]
                                 님 께서 로그인 하셨습니다.
                             </a>
