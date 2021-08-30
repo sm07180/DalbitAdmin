@@ -102,10 +102,10 @@ public class P_RevenueProcessVo {
     private long withdrawalByeol;
 
     private long freeSalesAmt;
-    private long subPayBooster;
-    private long subPayBoosterV;
-    private long subFreeBooster;
-    private long subFreeBoosterV;
+    private long subPayBooster;         // 유료 부스터-음성
+    private long subPayBoosterV;        // 유료 부스터-영상
+    private long subFreeBooster;        // 무료 부스터-음성
+    private long subFreeBoosterV;       // 무료 부스터-영상
 
 
 

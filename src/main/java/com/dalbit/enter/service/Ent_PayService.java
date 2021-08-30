@@ -703,7 +703,10 @@ public class Ent_PayService {
                             ,"증가-무료(관리자지급)"
                             ,"감소(전체합계)"
                             ,"감소-유료(합계)"
-                            ,"감소-유료(방송)"
+                            ,"감소-유료(방송-음성)"
+                            ,"감소-유료(방송-영상)"
+                            ,"감소-유료(부스터-음성)"
+                            ,"감소-유료(부스터-영상)"
                             ,"감소-유료(클립)"
                             ,"감소-유료(우체통)"
                             ,"감소-유료(선물하기)"
@@ -712,7 +715,10 @@ public class Ent_PayService {
                             ,"감소-유료(휴면탈퇴)"
                             ,"감소-유료(관리자회수)"
                             ,"감소-무료(합계)"
-                            ,"감소-무료(방송)"
+                            ,"감소-무료(방송-음성)"
+                            ,"감소-무료(방송-영상)"
+                            ,"감소-무료(부스터-음성)"
+                            ,"감소-무료(부스터-영상)"
                             ,"감소-무료(클립)"
                             ,"감소-무료(우체통)"
                             ,"감소-무료(선물하기)"
@@ -726,7 +732,8 @@ public class Ent_PayService {
         int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000
                                 , 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000
                                 , 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000
-                                , 3000, 3000, 3000, 3000, 3000};
+                                , 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000
+                                , 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         if(!DalbitUtil.isEmpty(totalInfo)){
@@ -748,24 +755,30 @@ public class Ent_PayService {
             hm.put("mem15",  totalInfo.getSubTotalDal());
             hm.put("mem16",  totalInfo.getSubPayTotal());
             hm.put("mem17",  totalInfo.getSubPayBroad());
-            hm.put("mem18",  totalInfo.getSubPayClip());
-            hm.put("mem19",  totalInfo.getSubPayMailbox());
-            hm.put("mem20",  totalInfo.getSubPayGift());
-            hm.put("mem21",  totalInfo.getSubPayCancel());
-            hm.put("mem22",  totalInfo.getSubPayWithdrawal());
-            hm.put("mem23",  totalInfo.getSubPayWithdrawalSleep());
-            hm.put("mem24",  totalInfo.getSubPayOp());
-            hm.put("mem25",  totalInfo.getSubFreeTotal());
-            hm.put("mem26",  totalInfo.getSubFreeBroad());
-            hm.put("mem27",  totalInfo.getSubFreeClip());
-            hm.put("mem28",  totalInfo.getSubFreeMailbox());
-            hm.put("mem29",  totalInfo.getSubFreeGift());
-            hm.put("mem30",  totalInfo.getSubFreeCancel());
-            hm.put("mem31",  totalInfo.getSubFreeWithdrawal());
-            hm.put("mem32",  totalInfo.getSubFreeWithdrawlSleep());
-            hm.put("mem33",  totalInfo.getSubFreeOp());
-            hm.put("mem34",  totalInfo.getNewPayDal());
-            hm.put("mem35",  totalInfo.getNewFreeDal());
+            hm.put("mem18",  totalInfo.getSubPayBroadV());
+            hm.put("mem19",  totalInfo.getSubPayBooster());
+            hm.put("mem20",  totalInfo.getSubPayBoosterV());
+            hm.put("mem21",  totalInfo.getSubPayClip());
+            hm.put("mem22",  totalInfo.getSubPayMailbox());
+            hm.put("mem23",  totalInfo.getSubPayGift());
+            hm.put("mem24",  totalInfo.getSubPayCancel());
+            hm.put("mem25",  totalInfo.getSubPayWithdrawal());
+            hm.put("mem26",  totalInfo.getSubPayWithdrawalSleep());
+            hm.put("mem27",  totalInfo.getSubPayOp());
+            hm.put("mem28",  totalInfo.getSubFreeTotal());
+            hm.put("mem29",  totalInfo.getSubFreeBroad());
+            hm.put("mem30",  totalInfo.getSubFreeBroadV());
+            hm.put("mem31",  totalInfo.getSubFreeBooster());
+            hm.put("mem32",  totalInfo.getSubFreeBoosterV());
+            hm.put("mem33",  totalInfo.getSubFreeClip());
+            hm.put("mem34",  totalInfo.getSubFreeMailbox());
+            hm.put("mem35",  totalInfo.getSubFreeGift());
+            hm.put("mem36",  totalInfo.getSubFreeCancel());
+            hm.put("mem37",  totalInfo.getSubFreeWithdrawal());
+            hm.put("mem38",  totalInfo.getSubFreeWithdrawlSleep());
+            hm.put("mem39",  totalInfo.getSubFreeOp());
+            hm.put("mem40",  totalInfo.getNewPayDal());
+            hm.put("mem41",  totalInfo.getNewFreeDal());
             bodies.add(hm.values().toArray());
         }
 
@@ -788,24 +801,30 @@ public class Ent_PayService {
             hm.put("mem15",  list.get(i).getSubTotalDal());
             hm.put("mem16",  list.get(i).getSubPayTotal());
             hm.put("mem17",  list.get(i).getSubPayBroad());
-            hm.put("mem18",  list.get(i).getSubPayClip());
-            hm.put("mem19",  list.get(i).getSubPayMailbox());
-            hm.put("mem20",  list.get(i).getSubPayGift());
-            hm.put("mem21",  list.get(i).getSubPayCancel());
-            hm.put("mem22",  list.get(i).getSubPayWithdrawal());
-            hm.put("mem23",  list.get(i).getSubPayWithdrawalSleep());
-            hm.put("mem24",  list.get(i).getSubPayOp());
-            hm.put("mem25",  list.get(i).getSubFreeTotal());
-            hm.put("mem26",  list.get(i).getSubFreeBroad());
-            hm.put("mem27",  list.get(i).getSubFreeClip());
-            hm.put("mem28",  list.get(i).getSubFreeMailbox());
-            hm.put("mem29",  list.get(i).getSubFreeGift());
-            hm.put("mem30",  list.get(i).getSubFreeCancel());
-            hm.put("mem31",  list.get(i).getSubFreeWithdrawal());
-            hm.put("mem32",  list.get(i).getSubFreeWithdrawlSleep());
-            hm.put("mem33",  list.get(i).getSubFreeOp());
-            hm.put("mem34",  list.get(i).getNewPayDal());
-            hm.put("mem35",  list.get(i).getNewFreeDal());
+            hm.put("mem18",  list.get(i).getSubPayBroadV());
+            hm.put("mem19",  list.get(i).getSubPayBooster());
+            hm.put("mem20",  list.get(i).getSubPayBoosterV());
+            hm.put("mem21",  list.get(i).getSubPayClip());
+            hm.put("mem22",  list.get(i).getSubPayMailbox());
+            hm.put("mem23",  list.get(i).getSubPayGift());
+            hm.put("mem24",  list.get(i).getSubPayCancel());
+            hm.put("mem25",  list.get(i).getSubPayWithdrawal());
+            hm.put("mem26",  list.get(i).getSubPayWithdrawalSleep());
+            hm.put("mem27",  list.get(i).getSubPayOp());
+            hm.put("mem28",  list.get(i).getSubFreeTotal());
+            hm.put("mem29",  list.get(i).getSubFreeBroad());
+            hm.put("mem30",  list.get(i).getSubFreeBroadV());
+            hm.put("mem31",  list.get(i).getSubFreeBooster());
+            hm.put("mem32",  list.get(i).getSubFreeBoosterV());
+            hm.put("mem33",  list.get(i).getSubFreeClip());
+            hm.put("mem34",  list.get(i).getSubFreeMailbox());
+            hm.put("mem35",  list.get(i).getSubFreeGift());
+            hm.put("mem36",  list.get(i).getSubFreeCancel());
+            hm.put("mem37",  list.get(i).getSubFreeWithdrawal());
+            hm.put("mem38",  list.get(i).getSubFreeWithdrawlSleep());
+            hm.put("mem39",  list.get(i).getSubFreeOp());
+            hm.put("mem40",  list.get(i).getNewPayDal());
+            hm.put("mem41",  list.get(i).getNewFreeDal());
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);

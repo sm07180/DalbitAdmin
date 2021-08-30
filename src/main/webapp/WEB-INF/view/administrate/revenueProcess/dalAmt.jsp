@@ -117,7 +117,7 @@
         var html=templateScript(detailContext);
         $("#dalAmtTableBody").append(html);
 
-        dalAmtPagingInfo.totalCnt = response.data.totalInfo.totalCnt;
+        dalAmtPagingInfo.totalCnt = response.data ? response.data.totalInfo.totalCnt : 0;
         util.renderPagingNavigation('dalAmt_paginate_top', dalAmtPagingInfo);
         util.renderPagingNavigation('dalAmt_paginate', dalAmtPagingInfo);
         dalAmtPagingInfo.pageNo=1;
