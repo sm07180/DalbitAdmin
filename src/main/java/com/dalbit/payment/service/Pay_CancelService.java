@@ -669,7 +669,6 @@ public class Pay_CancelService {
      */
     public String payCancelSimple(Pay_CancelSimplePayVo payCancelSimplePayVo) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, GlobalException, ParseException {
 
-        log.error("{}", payCancelSimplePayVo);
         //String ci = “asdjaslkdj21j3120mlqkwdj1092dj12dj12odjlkdj1”; //sms 본인인증 ci
         String ID = DalbitUtil.getProperty("simple.service.id");
         String API_ID = DalbitUtil.getProperty("simple.cancel.api.id");
@@ -707,8 +706,8 @@ public class Pay_CancelService {
 
             bwriter = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
             bwriter.flush();
-            log.error("LinkTestProc:response code ::" + con.getResponseCode());
-            log.error("LinkTestProc:response msg ::" + con.getResponseMessage());
+            log.info("LinkTestProc:response code ::" + con.getResponseCode());
+            log.info("LinkTestProc:response msg ::" + con.getResponseMessage());
             in = new DataInputStream(con.getInputStream());
             bout = new ByteArrayOutputStream();
 
