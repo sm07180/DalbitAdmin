@@ -46,4 +46,6 @@ public class RecommVo extends PagingVo {
     private String broadcastTitle;
     private String desc;
     private String imageUrl;
+
+    private String djKeyword;
 }

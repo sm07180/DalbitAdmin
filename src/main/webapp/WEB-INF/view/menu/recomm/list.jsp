@@ -41,6 +41,7 @@
     });
 
     var dtList;
+    const defaultImageUrl = "https://photo.dalbitlive.com/profile_3/profile_m_200327.jpg";
     function getList() {
         var dtList_info_data = function (data) {
             data.slctType = $("#recomm_status").val();
@@ -76,8 +77,10 @@
         ui.paintColor();
         if(!common.isEmpty($("#image_url").val())){
             $('._previewImage').click();
+        }else {
+          $('#image_url').val(defaultImageUrl);
+          $('._previewImage').click();
         }
-
 
         var scrollPosition = $("#recommMemberInfo").offset();
         util.scrollPostion(scrollPosition.top);
@@ -92,6 +95,11 @@
                 $(this).val($(this).val().substring(0, 250));
             }
         });
+        $('#dj_keyword').on('keyup', function() {
+          if($(this).val().length > 10) {
+            $(this).val($(this).val().substring(0, 10));
+          }
+        });
     }
     function recommEdit() {
         if(confirm('추천 DJ를 저장 하시겠습니까?')) {
@@ -104,6 +112,7 @@
                 , desc: $("#desc").val()
                 , viewYn: $("input[name='view_yn']:checked").val()
                 , imageUrl : $("#image_url").val()
+                , djKeyword: $("#dj_keyword").val()
             };
 
             console.log(data);
@@ -143,9 +152,11 @@
     }
 
     $(document).on('click', '._previewImage', function(){
-       console.log('click');
-       console.log($('._previewArea img').length);
        var image_url = $("#image_url").val();
+       if(image_url === '') {
+         image_url = defaultImageUrl;
+         $('#image_url').val(defaultImageUrl);
+       }
        var img = "<img class='thumbnail fullSize_background no-padding' src='"+image_url+"' style='height:auto; width:100%;margin-bottom: 0px' />";
        $('._previewArea').html(img);
     });
@@ -217,6 +228,14 @@
         <tr>
             <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">소개문구</th>
             <td colspan="8"><textarea type="textarea" class="form-control" id="desc" name="desc" style="width: 100%; height: 200px">{{desc}}</textarea></td>
+        </tr>
+        <tr>
+            <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">키워드</th>
+            <td colspan="8">
+                <textarea type="textarea" class="form-control" id="dj_keyword" name="dj_keyword"
+                          placeholder="여기에 작성된 문구는 신규회원 대상 추천DJ 팬등록 유도 페이지에 노출됩니다. (최대 10자)"
+                          style="width: 100%; height: 50px">{{djKeyword}}</textarea>
+            </td>
         </tr>
     </table>
 </script>
