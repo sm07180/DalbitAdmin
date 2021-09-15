@@ -77,9 +77,6 @@
         ui.paintColor();
         if(!common.isEmpty($("#image_url").val())){
             $('._previewImage').click();
-        }else {
-          $('#image_url').val(defaultImageUrl);
-          $('._previewImage').click();
         }
 
         var scrollPosition = $("#recommMemberInfo").offset();
@@ -96,8 +93,9 @@
             }
         });
         $('#dj_keyword').on('keyup', function() {
-          if($(this).val().length > 10) {
-            $(this).val($(this).val().substring(0, 10));
+          const maxLength = 20;
+          if($(this).val().length > maxLength) {
+            $(this).val($(this).val().substring(0, maxLength));
           }
         });
     }
@@ -114,9 +112,6 @@
                 , imageUrl : $("#image_url").val()
                 , djKeyword: $("#dj_keyword").val()
             };
-
-            console.log(data);
-
             util.getAjaxData("recomm", "/rest/menu/recomm/edit", data, fn_recommEdit_success);
         }
     }
@@ -152,11 +147,19 @@
     }
 
     $(document).on('click', '._previewImage', function(){
-       var image_url = $("#image_url").val();
-       if(image_url === '') {
-         image_url = defaultImageUrl;
-         $('#image_url').val(defaultImageUrl);
-       }
+      var $imageUrlTarget = $("#image_url");
+      var $profileImageTarget = $("#profile_image");
+      var image_url = $imageUrlTarget.val();
+      var profile_image_url = $profileImageTarget.attr("src");
+
+      if(image_url === '') {
+        if(profile_image_url !== '') {
+          image_url = profile_image_url;
+        }else {
+          image_url = defaultImageUrl;
+        }
+      }
+      $('#image_url').val(image_url);
        var img = "<img class='thumbnail fullSize_background no-padding' src='"+image_url+"' style='height:auto; width:100%;margin-bottom: 0px' />";
        $('._previewArea').html(img);
     });
@@ -222,7 +225,7 @@
             </td>
             <th class="_bgColor" data-bgcolor="#c6d9f1">프로필 이미지</th>
             <td>
-                <img class="thumbnail fullSize_background no-padding" src="{{renderProfileImage profileImage}}" style='height:auto; width:100%;margin-bottom: 0px' />
+                <img id="profile_image" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage profileImage}}" style='height:auto; width:100%;margin-bottom: 0px' />
             </td>
         </tr>
         <tr>
@@ -233,7 +236,7 @@
             <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">키워드</th>
             <td colspan="8">
                 <textarea type="textarea" class="form-control" id="dj_keyword" name="dj_keyword"
-                          placeholder="여기에 작성된 문구는 신규회원 대상 추천DJ 팬등록 유도 페이지에 노출됩니다. (최대 10자)"
+                          placeholder="여기에 작성된 문구는 신규회원 대상 추천DJ 팬등록 유도 페이지에 노출됩니다. (최대 20자)"
                           style="width: 100%; height: 50px">{{djKeyword}}</textarea>
             </td>
         </tr>
