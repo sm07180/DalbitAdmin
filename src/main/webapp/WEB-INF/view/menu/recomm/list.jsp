@@ -68,6 +68,7 @@
     function fn_recommMember_success(dst_id, response, param){
 
         response.data.desc = response.data.desc.replace(/\\n/gi, "\r\n");
+        response.data.djKeyword = response.data.djKeyword.replace(/\\n/gi, "\r\n");
 
         var template = $('#tmp_recommMemberInfo').html();
         var templateScript = Handlebars.compile(template);
