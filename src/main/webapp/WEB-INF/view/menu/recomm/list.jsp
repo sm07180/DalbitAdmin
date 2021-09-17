@@ -66,10 +66,6 @@
     }
 
     function fn_recommMember_success(dst_id, response, param){
-
-        response.data.desc = response.data.desc.replace(/\\n/gi, "\r\n");
-        response.data.djKeyword = response.data.djKeyword.replace(/\\n/gi, "\r\n");
-
         var template = $('#tmp_recommMemberInfo').html();
         var templateScript = Handlebars.compile(template);
         var data = response.data;
@@ -105,8 +101,8 @@
             var data = {
                 mem_no: $("#recomm_mem_no").text()
                 , memSex: $("input[name='memSex']:checked").val()
-                , ageType: $("input[name='ageType']:checked").val()
-                , ageDesc: $("#age_desc").val()
+                // , ageType: $("input[name='ageType']:checked").val()
+                // , ageDesc: $("#age_desc").val()
                 , title: $("#title").val()
                 , desc: $("#desc").val()
                 , viewYn: $("input[name='view_yn']:checked").val()
@@ -195,29 +191,25 @@
             <td>{{{getCommonCodeRadio viewYn 'content_viewOn' 'N' 'view_yn'}}}</td>
         </tr>
         <tr>
-            <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">나이</th>
-            <td colspan="2">{{{getCommonCodeRadio ageType 'ageType'}}}</td>
-            <th class="_bgColor" data-bgcolor="#c6d9f1">나이소개</th>
-            <td><input type="text" class="form-control" name="age_desc" id="age_desc" value="{{ageDesc}}"></td>
+            <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">방송정보</th>
+            <td colspan="4"><input type="text" class="form-control" name="title" id="title" value="{{broadcastTitle}}"></td>
             <th class="_bgColor" data-bgcolor="#c6d9f1">최근 방송일시</th>
             <td>{{last_broadcast}}</td>
             <th class="_bgColor" data-bgcolor="#c6d9f1">추천 팬 등록수</th>
             <td>{{addComma fanCnt}} 명</td>
         </tr>
         <tr>
-            <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">방송정보</th>
-            <td colspan="4"><input type="text" class="form-control" name="title" id="title" value="{{broadcastTitle}}"></td>
+            <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">이미지 등록</th>
+            <td rowspan="2" colspan="3">
+                <input type="text" class="form-control" name="image_url" id="image_url" value="{{imageUrl}}">
+            </td>
+            <td rowspan="2"><button type="button" class="btn btn-default btn-sm _previewImage">미리보기</button></td>
             <th class="_bgColor" data-bgcolor="#c6d9f1">최근 3개월 방송시간</th>
             <td>{{timeStampDay broadcastTime}}</td>
             <th class="_bgColor" data-bgcolor="#c6d9f1">최근 3개월 방송횟수</th>
             <td>{{addComma broadcastCnt}} 회</td>
         </tr>
         <tr>
-            <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">이미지 등록</th>
-            <td colspan="3">
-                <input type="text" class="form-control" name="image_url" id="image_url" value="{{imageUrl}}">
-            </td>
-            <td><button type="button" class="btn btn-default btn-sm _previewImage">미리보기</button></td>
             <th class="_bgColor" data-bgcolor="#c6d9f1">미리보기</th>
             <td class="_previewArea">
                 {{^equal imageUrl ''}}
@@ -231,14 +223,14 @@
         </tr>
         <tr>
             <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">소개문구</th>
-            <td colspan="8"><textarea type="textarea" class="form-control" id="desc" name="desc" style="width: 100%; height: 200px">{{desc}}</textarea></td>
+            <td colspan="8"><textarea type="textarea" class="form-control" id="desc" name="desc" style="width: 100%; height: 200px">{{replaceTextarea desc}}</textarea></td>
         </tr>
         <tr>
             <th colspan="2" class="_bgColor" data-bgcolor="#c6d9f1">키워드</th>
             <td colspan="8">
                 <textarea type="textarea" class="form-control" id="dj_keyword" name="dj_keyword"
                           placeholder="여기에 작성된 문구는 신규회원 대상 추천DJ 팬등록 유도 페이지에 노출됩니다. (최대 20자)"
-                          style="width: 100%; height: 50px">{{djKeyword}}</textarea>
+                          style="width: 100%; height: 50px">{{replaceTextarea djKeyword}}</textarea>
             </td>
         </tr>
     </table>
