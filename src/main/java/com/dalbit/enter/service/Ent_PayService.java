@@ -878,10 +878,12 @@ public class Ent_PayService {
                 ,"닉네임"
                 ,"기초"
                 ,"증가-합계"
-                ,"증가-방송"
                 ,"증가-이벤트"
+                ,"증가-방송 음성"
+                ,"증가-방송 영상"
                 ,"증가-클립"
                 ,"증가-우체통"
+                ,"증가-환전취소"
                 ,"증가-관리자지급"
                 ,"감소-합계"
                 ,"감소-환전"
@@ -892,7 +894,7 @@ public class Ent_PayService {
                 ,"기말"
         };
         int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000
-                , 3000, 3000, 3000, 3000, 3000, 3000};
+                , 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
 
@@ -900,40 +902,44 @@ public class Ent_PayService {
             HashMap hm = new LinkedHashMap();
             hm.put("mem1",  "합계");
             hm.put("mem2",  "");
-            hm.put("mem3",  totalInfo.getOldByeol());
-            hm.put("mem4",  totalInfo.getAddTotal());
-            hm.put("mem5",  totalInfo.getAddEvent());
-            hm.put("mem6",  totalInfo.getAddBroad());
-            hm.put("mem7",  totalInfo.getAddClip());
-            hm.put("mem8",  totalInfo.getAddMailbox());
-            hm.put("mem9",  totalInfo.getAddOp());
-            hm.put("mem10",  totalInfo.getSubTotal());
-            hm.put("mem11",  totalInfo.getSubExchange());
-            hm.put("mem12",  totalInfo.getSubChange());
-            hm.put("mem13",  totalInfo.getSubWithdrawal());
-            hm.put("mem14",  totalInfo.getSubWithdrawalSleep());
-            hm.put("mem15",  totalInfo.getSubOp());
-            hm.put("mem16",  totalInfo.getNewByeol());
+            hm.put("mem3",  totalInfo.getOldByeol()); // 기초
+            hm.put("mem4",  totalInfo.getAddTotal()); // 합계
+            hm.put("mem5",  totalInfo.getAddEvent()); // 이벤트
+            hm.put("mem6",  totalInfo.getAddBroad()); // 방송-음성
+            hm.put("mem7",  totalInfo.getAddBroadV()); // 방송-영상
+            hm.put("mem8",  totalInfo.getAddClip()); // 클립
+            hm.put("mem9",  totalInfo.getAddMailbox()); // 우체통
+            hm.put("mem10",  totalInfo.getAddChangeCancel()); // 환전취소
+            hm.put("mem11",  totalInfo.getAddOp()); // 관리자 지급
+            hm.put("mem12",  totalInfo.getSubTotal()); // 합계
+            hm.put("mem13",  totalInfo.getSubExchange()); // 환전
+            hm.put("mem14",  totalInfo.getSubChange()); // 달로 변환
+            hm.put("mem15",  totalInfo.getSubWithdrawal()); // 회원탈퇴
+            hm.put("mem16",  totalInfo.getSubWithdrawalSleep()); // 휴면탈퇴
+            hm.put("mem17",  totalInfo.getSubOp()); // 관리자 회수
+            hm.put("mem18",  totalInfo.getNewByeol()); // 기말
             bodies.add(hm.values().toArray());
         }
-        for(int i = 0; i < list.size(); i++){
+        for(P_RevenueProcessVo vo: list) {
             HashMap hm = new LinkedHashMap();
-            hm.put("mem1",  list.get(i).getMem_no());
-            hm.put("mem2",  list.get(i).getNickName());
-            hm.put("mem3",  list.get(i).getOldByeol());
-            hm.put("mem4",  list.get(i).getAddTotal());
-            hm.put("mem5",  list.get(i).getAddEvent());
-            hm.put("mem6",  list.get(i).getAddBroad());
-            hm.put("mem7",  list.get(i).getAddClip());
-            hm.put("mem8",  list.get(i).getAddMailbox());
-            hm.put("mem9",  list.get(i).getAddOp());
-            hm.put("mem10",  list.get(i).getSubTotal());
-            hm.put("mem11",  list.get(i).getSubExchange());
-            hm.put("mem12",  list.get(i).getSubChange());
-            hm.put("mem13",  list.get(i).getSubWithdrawal());
-            hm.put("mem14",  list.get(i).getSubWithdrawalSleep());
-            hm.put("mem15",  list.get(i).getSubOp());
-            hm.put("mem16",  list.get(i).getNewByeol());
+            hm.put("mem1", vo.getMem_no());
+            hm.put("mem2", vo.getNickName());
+            hm.put("mem3", vo.getOldByeol());
+            hm.put("mem4", vo.getAddTotal());
+            hm.put("mem5", vo.getAddEvent());
+            hm.put("mem6", vo.getAddBroad());
+            hm.put("mem7", vo.getAddBroadV());
+            hm.put("mem8", vo.getAddClip());
+            hm.put("mem9", vo.getAddMailbox());
+            hm.put("mem10", vo.getAddChangeCancel());
+            hm.put("mem11", vo.getAddOp());
+            hm.put("mem12", vo.getSubTotal());
+            hm.put("mem13", vo.getSubExchange());
+            hm.put("mem14", vo.getSubChange());
+            hm.put("mem15", vo.getSubWithdrawal());
+            hm.put("mem16", vo.getSubWithdrawalSleep());
+            hm.put("mem17", vo.getSubOp());
+            hm.put("mem18", vo.getNewByeol());
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
