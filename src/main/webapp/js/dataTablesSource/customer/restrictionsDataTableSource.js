@@ -81,14 +81,14 @@ var RestrictionsDataTableSource = {
   ,'ageLimitList': {
     'url': '/rest/customer/restrictions/age/limit/list'
     , 'columns': [
-      {'title': '회원번호', 'data': 'memNo', 'width':'50px', 'render': function (data, type, row, meta) {
+      {'title': '회원번호', 'data': 'mem_no', 'width':'50px', 'render': function (data, type, row, meta) {
           return '<a href="javascript://" class="_openMemberPop" data-memNo="' + data + '">' + data + '</a>';
         }}
-      ,{'title': '닉네임', 'data': 'memNick', 'width':'90px'}
-      ,{'title': '아이디', 'data': 'memId', 'width':'70px'}
+      ,{'title': '닉네임', 'data': 'mem_nick', 'width':'90px'}
+      ,{'title': '아이디', 'data': 'mem_id', 'width':'70px'}
       ,{'title': '정지일시', 'data': 'stopDate', 'width':'130px'}
-      ,{'title': '회원 가입일시', 'data': 'memJoinDate', 'width':'130px'}
-      ,{'title': '본인인증 여부', 'data': 'certYn', 'width':'40px'}
+      ,{'title': '회원 가입일시', 'data': 'mem_join_date', 'width':'130px'}
+      ,{'title': '본인인증 여부', 'data': 'cert_yn', 'width':'40px'}
     ]
     ,'createdRow' : function( row, data, dataIndex ) {
       if (data.inner == 1) {    // 테스트계정 row 색상 표시

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
-
+<div class="pull-left pt10 pl10"><span id="selectYn"></span></div>
 <div class="widget-content">
     <table id="tb_res_ageLimitList" class="table table-sorting table-hover table-bordered">
         <thead></thead>
@@ -12,15 +12,14 @@
 <script src="/js/dataTablesSource/customer/restrictionsDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/restrictionsCodeList.js?${dummyData}"></script>
 <script>
-  var targetMemNo = "";
+
 
   $(document).ready(function() {
-    // $("#searchTarget").html(util.getCommonCodeSelect(-1, restrictions_searchTarget));
-    //getRes_forcedList(targetMemNo);
+    $("#selectYn").html(util.getCommonCodeSelect(-1, restrictions_selectYn));
+      //getRes_ageLimitList();
   });
 
-  function getRes_ageLimitList(memNo){
-    targetMemNo = memNo;
+  function getRes_ageLimitList(certYn){
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
       // var searchType = -1;
@@ -29,13 +28,6 @@
       var endDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#endDate").val();
       if($('input[name="searchRadio"]:checked').val() != "1"){
         searchType = $('input[name="searchRadio"]:checked').val();       // IP 검색 : 9 , 모바일ID 검색 : 6
-      }
-
-      if(!common.isEmpty(targetMemNo)){
-        // searchType = 1;
-        searchText = targetMemNo;
-        startDate = "1900.01.01";
-        endDate = "9000.01.01";
       }
 
       // data.searchType = searchType;       // 검색구분

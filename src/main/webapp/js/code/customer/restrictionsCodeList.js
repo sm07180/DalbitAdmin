@@ -28,3 +28,10 @@ var restrictions_searchTarget = [
     , new COMMON_CODE('1', '1', '회원')
     , new COMMON_CODE('2', '2', 'DJ')
 ];
+
+var restrictions_selectYn = [
+    new COMMON_CODE(null, 'selectYn', '본인인증')
+    , new COMMON_CODE('all', '-1', '본인인증(전체)')
+    , new COMMON_CODE('1', '1', '본인인증(Y)')
+    , new COMMON_CODE('2', '2', '본인인증(N)')
+];

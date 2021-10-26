@@ -49,7 +49,7 @@ public class Cus_RestrictionsRestController {
     /**
      * 연령제한 회원 리스트 조회
      */
-    @GetMapping("/age/limit/list")
+    @PostMapping("/age/limit/list")
     public String getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo) {
         return cusRestrictionsService.getAgeLimitList(pAgeLimitListInputVo);
     }
