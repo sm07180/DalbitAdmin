@@ -2,6 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
+<div class="widget-content">
+    <table id="tb_res_ageLimitList" class="table table-sorting table-hover table-bordered">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script src="/js/dataTablesSource/customer/restrictionsDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/customer/restrictionsCodeList.js?${dummyData}"></script>
 <script>
   var targetMemNo = "";
 
@@ -37,7 +46,7 @@
       data.newSearchType = $("#searchMember").val();
       // data.pageCnt = 10;
     };
-    dtList_info2 = new DalbitDataTable($("#tb_res_forcedList"), dtList_info_data2, RestrictionsDataTableSource.forcedList);
+    dtList_info2 = new DalbitDataTable($("#tb_res_ageLimitList"), dtList_info_data2, RestrictionsDataTableSource.ageLimitList);
     dtList_info2.useCheckBox(false);
     dtList_info2.useIndex(true);
     dtList_info2.useInitReload(false);

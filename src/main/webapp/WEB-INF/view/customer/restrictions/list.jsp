@@ -162,7 +162,7 @@
         }else if(tabType == 2){ //방송 강제퇴장 회원
             getRes_forcedList();
         }else if(tabType == 3){ // 연령 제한 회원
-
+            getRes_ageLimitList();
         }
 
     }
