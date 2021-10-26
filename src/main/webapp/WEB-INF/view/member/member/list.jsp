@@ -35,6 +35,7 @@
                 <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
                 <li><a href="javascript: window.location.href = window.location.origin + '/customer/restrictions/list?tabtype=1';">경고/정지회원</a></li>
                 <li><a href="javascript: window.location.href = window.location.origin + '/customer/restrictions/list?tabtype=2';">방송 강제퇴장 회원</a></li>
+                <li><a href="javascript: window.location.href = window.location.origin + '/customer/restrictions/list?tabtype=3';">연령제한 회원</a></li>
             </ul>
         </div>
         <div class="row col-lg-12 form-inline">

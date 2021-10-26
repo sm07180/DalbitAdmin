@@ -4,10 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.customer.dao.Cus_RestrictionsDao;
-import com.dalbit.customer.vo.procedure.P_ForcedListInputVo;
-import com.dalbit.customer.vo.procedure.P_ForcedListOutputVo;
-import com.dalbit.customer.vo.procedure.P_WithdrawalListInputVo;
-import com.dalbit.customer.vo.procedure.P_WithdrawalListOutputVo;
+import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +49,23 @@ public class Cus_RestrictionsService {
         List<P_ForcedListOutputVo> list = cusRestrictionsDao.getForcedList(pForcedListInputVo);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pForcedListInputVo.getTotalCnt(), pForcedListInputVo.getPageStart(), pForcedListInputVo.getPageCnt())));
+        return result;
+    }
+
+    /**
+     * 연령제한 리스트 조회
+     */
+    public String getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo) {
+        String result = "";
+        List<P_AgeLimitListOutputVo> list = cusRestrictionsDao.getAgeLimitList(pAgeLimitListInputVo);
+        int cnt = cusRestrictionsDao.getAgeLimitListCnt(pAgeLimitListInputVo);
+
+        log.warn("{}", list);
+        log.warn("{}", cnt);
+
+//        List<P_AgeLimitListOutputVo> list = cusRestrictionsDao.getAgeLimitList(pAgeLimitListInputVo);
+
+//        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pForcedListInputVo.getTotalCnt(), pForcedListInputVo.getPageStart(), pForcedListInputVo.getPageCnt())));
         return result;
     }
 }

@@ -1,12 +1,14 @@
 package com.dalbit.customer.controller.rest;
 
 import com.dalbit.customer.service.Cus_RestrictionsService;
+import com.dalbit.customer.vo.procedure.P_AgeLimitListInputVo;
 import com.dalbit.customer.vo.procedure.P_ForcedListInputVo;
 import com.dalbit.customer.vo.procedure.P_WithdrawalListInputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,4 +46,11 @@ public class Cus_RestrictionsRestController {
         return result;
     }
 
+    /**
+     * 연령제한 회원 리스트 조회
+     */
+    @GetMapping("/age/limit/list")
+    public String getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo) {
+        return cusRestrictionsService.getAgeLimitList(pAgeLimitListInputVo);
+    }
 }

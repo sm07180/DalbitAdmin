@@ -76,6 +76,7 @@
                 <li><a href="javascript: window.location.href = window.location.origin + '/member/member/list?tabtype=2';">탈퇴회원</a></li>
                 <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="setTabType(1);">경고/정지회원</a></li>
                 <li><a href="#forcedList" role="tab" data-toggle="tab" id="tab_forcedList" onclick="setTabType(2);">방송 강제퇴장 회원</a></li>
+                <li><a href="#ageLimitList" role="tab" data-toggle="tab" id="tab_ageLimitList" onclick="setTabType(3);">연령제한 회원</a></li>
             </ul>
         </div>
         <div class="row col-lg-12 form-inline">
@@ -91,6 +92,9 @@
                     </div>
                     <div class="tab-pane fade" id="forcedList">       <!-- 방송 강제퇴장 회원 -->
                         <jsp:include page="./forcedList.jsp"/>
+                    </div>
+                    <div class="tab-pane fade" id="ageLimitList">       <!-- 방송 강제퇴장 회원 -->
+                        <jsp:include page="./ageLimitList.jsp"/>
                     </div>
                 </div>
             </div>
@@ -157,6 +161,8 @@
             getRes_withdrawalList();
         }else if(tabType == 2){ //방송 강제퇴장 회원
             getRes_forcedList();
+        }else if(tabType == 3){ // 연령 제한 회원
+
         }
 
     }
@@ -175,6 +181,8 @@
         }else if(tabType == "2"){
             $("#tab_forcedList").click();
             // getRes_forcedList();
+        }else if (tabType == "3"){
+          $("#tab_ageLimitList").click();
         }
     }
 

@@ -417,4 +417,15 @@
     </select>
     <!-- 방송 강제퇴장 회원 LIST-->
 
+    <select id="getAgeLimitList" statementType="CALLABLE"
+            parameterType="com.dalbit.customer.vo.procedure.P_AgeLimitListInputVo"
+            resultType="java.util.ArrayList">
+        call rd_admin.sp_admin_member_certification_stop_list(#{pageNo}, #{pagePerCnt})
+    </select>
+
+    <select id="getAgeLimitListCnt" statementType="CALLABLE"
+            parameterType="com.dalbit.customer.vo.procedure.P_AgeLimitListInputVo"
+            resultType="java.lang.Integer">
+        call rd_admin.sp_admin_member_certification_stop_list(#{pageNo}, #{pagePerCnt})
+    </select>
 </mapper>
