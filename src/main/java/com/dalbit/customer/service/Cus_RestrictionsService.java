@@ -4,8 +4,10 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.customer.dao.Cus_RestrictionsDao;
+import com.dalbit.customer.proc.Cus_SmsProc;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
+import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,11 @@ public class Cus_RestrictionsService {
     @Autowired
     ExcelService excelService;
 
+    @Autowired
+    Cus_SmsProc cusSmsProc;
+
     /**
-     *  경고/정지 회원 리스트 조회
+     * 경고/정지 회원 리스트 조회
      */
     public String getWithdrawalList(P_WithdrawalListInputVo pWithdrawalListInputVo) {
         int count = cusRestrictionsDao.getWithdrawalListCnt(pWithdrawalListInputVo);
@@ -56,16 +61,15 @@ public class Cus_RestrictionsService {
      * 연령제한 리스트 조회
      */
     public String getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo) {
-        String result = "";
-        List<P_AgeLimitListOutputVo> list = cusRestrictionsDao.getAgeLimitList(pAgeLimitListInputVo);
-        int cnt = cusRestrictionsDao.getAgeLimitListCnt(pAgeLimitListInputVo);
+        List<Object> getList = cusSmsProc.getAgeLimitList(pAgeLimitListInputVo);
 
-        log.warn("{}", list);
-        log.warn("{}", cnt);
+        List<P_AgeLimitListOutputVo> list = DBUtil.getList(getList, P_AgeLimitListOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
 
-//        List<P_AgeLimitListOutputVo> list = cusRestrictionsDao.getAgeLimitList(pAgeLimitListInputVo);
+        String result = gsonUtil.toJson
+            (new JsonOutputVo(Status.조회, list,
+                new PagingVo(listCnt, pAgeLimitListInputVo.getPageNo(), pAgeLimitListInputVo.getPagePerCnt())));
 
-//        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(pForcedListInputVo.getTotalCnt(), pForcedListInputVo.getPageStart(), pForcedListInputVo.getPageCnt())));
         return result;
     }
 }

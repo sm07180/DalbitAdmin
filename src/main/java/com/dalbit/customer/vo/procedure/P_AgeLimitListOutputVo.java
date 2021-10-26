@@ -2,6 +2,8 @@ package com.dalbit.customer.vo.procedure;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class P_AgeLimitListOutputVo {
     private String mem_no;
@@ -9,5 +11,5 @@ public class P_AgeLimitListOutputVo {
     private String mem_nick;
     private String mem_join_date;
     private String cert_yn;
-    private String stopDate;
+    private Date stopDate;
 }

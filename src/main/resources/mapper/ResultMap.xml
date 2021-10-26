@@ -11,5 +11,5 @@
 
 	<!-- SMS / LMS -->
 	<resultMap id="SmsHistoryVo" type="com.dalbit.customer.vo.SmsHistoryVo" />
-    <resultMap id="getAgeLimitList" type="com.dalbit.customer.vo.procedure.P_AgeLimitListOutputVo" />
+    <resultMap id="PAgeLimitListOutputVo" type="com.dalbit.customer.vo.procedure.P_AgeLimitListOutputVo" />
 </mapper>

@@ -1,6 +1,7 @@
 package com.dalbit.customer.proc;
 
 import com.dalbit.customer.vo.SmsHistoryVo;
+import com.dalbit.customer.vo.procedure.P_AgeLimitListInputVo;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -16,4 +17,7 @@ public interface Cus_SmsProc {
     @Select("CALL rd_data.p_hpMsg_list(#{msgSlct}, #{tDate}, #{sendSlct}, #{tranSlct}, #{pageStart}, #{pageCnt})")
     List<Object> getSmsList(SmsHistoryVo smsHistoryVo);
 
+    @ResultMap({"ResultMap.integer", "ResultMap.string", "ResultMap.PAgeLimitListOutputVo"})
+    @Select("CALL rd_admin.sp_admin_member_certification_stop_list(#{pageNo}, #{pagePerCnt})")
+    List<Object> getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo);
 }

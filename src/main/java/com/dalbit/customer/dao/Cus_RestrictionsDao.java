@@ -20,10 +20,4 @@ public interface Cus_RestrictionsDao {
 
     @Transactional(readOnly = true)
     List<P_ForcedListOutputVo> getForcedList(P_ForcedListInputVo pForcedListInputVo);
-
-    @Transactional(readOnly = true)
-    List<P_AgeLimitListOutputVo> getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo);
-
-    @Transactional(readOnly = true)
-    Integer getAgeLimitListCnt(P_AgeLimitListInputVo pAgeLimitListInputVo);
 }
