@@ -31,7 +31,7 @@ var restrictions_searchTarget = [
 
 var restrictions_selectYn = [
     new COMMON_CODE(null, 'selectYn', '본인인증')
-    , new COMMON_CODE('all', '-1', '본인인증(전체)')
-    , new COMMON_CODE('1', '1', '본인인증(Y)')
-    , new COMMON_CODE('2', '2', '본인인증(N)')
+    , new COMMON_CODE('all', '', '본인인증(전체)')
+    , new COMMON_CODE('y', 'y', '본인인증(Y)')
+    , new COMMON_CODE('n', 'n', '본인인증(N)')
 ];

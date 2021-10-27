@@ -18,6 +18,6 @@ public interface Cus_SmsProc {
     List<Object> getSmsList(SmsHistoryVo smsHistoryVo);
 
     @ResultMap({"ResultMap.integer", "ResultMap.PAgeLimitListOutputVo"})
-    @Select("CALL rd_admin.sp_admin_member_certification_stop_list(#{pageNo}, #{pagePerCnt})")
+    @Select("CALL rd_admin.sp_admin_member_certification_stop_list_v1(#{searchSlct},#{searchData},#{certYn},#{pageNo}, #{pagePerCnt})")
     List<Object> getAgeLimitList(P_AgeLimitListInputVo pAgeLimitListInputVo);
 }

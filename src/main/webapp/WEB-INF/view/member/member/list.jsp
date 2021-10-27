@@ -63,7 +63,7 @@
                     </div>
                     <div class="tab-pane fade" id="ageLimitList">       <!-- 회원 -->
                         <div class="widget-content">
-                            <div class="pull-left pt10 pl10"><span id="selectYn"></span></div>
+                            <div class="pull-left pt10 pl10"><span id="selectYnArea"></span></div>
                             <table id="tb_ageLimitList" class="table table-sorting table-hover table-bordered">
                                 <thead></thead>
                                 <tbody></tbody>
@@ -86,6 +86,7 @@
     var tabType = common.isEmpty(<%=in_tabType%>) ? 1 : <%=in_tabType%>;
     var dtList_info;
     var dtList_info2;
+    var dtList_info3;
     $(document).ready(function() {
 
         if(tabType == 1){
@@ -111,9 +112,11 @@
             getUserInfo();
         });
         <!-- 버튼 끝 -->
-        $("#selectYn").html(util.getCommonCodeSelect(-1, restrictions_selectYn));
+        $("#selectYnArea").html(util.getCommonCodeSelect(-1, restrictions_selectYn));
     });
-
+    $(document).on('change', '#selectYnArea', function() {          // 연령제한 select
+        dtList_info3.reload();
+    });
     // $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
     $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
@@ -156,20 +159,21 @@
         dtList_info2.useInitReload(false);
         dtList_info2.createDataTable();
     }
-    function getResAgeLimitList(certYn){
+    function getResAgeLimitList(){
         var dtList_info_data3 = function ( data ) {
-            data.searchType = -1;          // 검색구분
-            data.searchText = $('#txt_search').val();                        // 검색명
+            //data.searchSlct = -1;          // 검색구분
+            data.searchData = $('#txt_search').val();                        // 검색명
             data.memWithdrawal = memWithdrawal;
-            data.newSearchType = $("#searchMember").val();
+            data.searchSlct = $("#searchMember").val(); // 검색구분
+            data.certYn = $("#selectYn").val();
             // data.pageCnt = 10;
         };
-        dtList_info2 = new DalbitDataTable($("#tb_ageLimitList"), dtList_info_data3, RestrictionsDataTableSource.ageLimitList);
-        dtList_info2.useCheckBox(false);
-        dtList_info2.useIndex(true);
-        dtList_info2.useInitReload(false);
-        dtList_info2.setPageLength(50)
-        dtList_info2.createDataTable();
+        dtList_info3 = new DalbitDataTable($("#tb_ageLimitList"), dtList_info_data3, RestrictionsDataTableSource.ageLimitList);
+        dtList_info3.useCheckBox(false);
+        dtList_info3.useIndex(true);
+        dtList_info3.useInitReload(false);
+        dtList_info3.setPageLength(50)
+        dtList_info3.createDataTable();
     }
 
 
@@ -190,11 +194,13 @@
         // }else{
         // }
         tmp_searchText = $('#txt_search').val();
-
+console.log(memWithdrawal)
         $('#tabList_top').removeClass("show");
         if(memWithdrawal == "0"){
             dtList_info.reload();
             ui.checkBoxInit('tb_memberList');
+        }else if(memWithdrawal == "2"){
+            dtList_info3.reload();
         }else{
             dtList_info2.reload();
             ui.checkBoxInit('tb_withdrawalList');
@@ -236,6 +242,9 @@
         var obj = new Object();
         if(memWithdrawal == "0"){
             var data = dtList_info.getDataRow(index);
+            obj.mem_no = data.mem_no;
+        }else if(memWithdrawal == "2"){
+            var data = dtList_info3.getDataRow(index);
             obj.mem_no = data.mem_no;
         }else{
             var data = dtList_info2.getDataRow(index);
