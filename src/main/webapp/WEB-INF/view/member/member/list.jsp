@@ -29,13 +29,14 @@
         </div>
         <!-- //serachBox -->
         <!-- DATA TABLE -->
+
         <div class="row col-lg-12 form-inline">
             <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
                 <li><a href="#memberList" role="tab" data-toggle="tab" id="tab_memberList" onclick="memberList();">회원</a></li>
                 <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
                 <li><a href="javascript: window.location.href = window.location.origin + '/customer/restrictions/list?tabtype=1';">경고/정지회원</a></li>
                 <li><a href="javascript: window.location.href = window.location.origin + '/customer/restrictions/list?tabtype=2';">방송 강제퇴장 회원</a></li>
-                <li><a href="javascript: window.location.href = window.location.origin + '/customer/restrictions/list?tabtype=3';">연령제한 회원</a></li>
+                <li><a href="#ageLimitList" role="tab" data-toggle="tab" id="tab_ageLimitList" onclick="ageLimitList();">연령제한 회원</a></li>
             </ul>
         </div>
         <div class="row col-lg-12 form-inline">
@@ -60,6 +61,15 @@
                             </table>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="ageLimitList">       <!-- 회원 -->
+                        <div class="widget-content">
+                            <div class="pull-left pt10 pl10"><span id="selectYn"></span></div>
+                            <table id="tb_ageLimitList" class="table table-sorting table-hover table-bordered">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,7 +86,6 @@
     var tabType = common.isEmpty(<%=in_tabType%>) ? 1 : <%=in_tabType%>;
     var dtList_info;
     var dtList_info2;
-
     $(document).ready(function() {
 
         if(tabType == 1){
@@ -87,6 +96,9 @@
             $("#tab_withdrawalList").click();
             ui.checkBoxInit('tb_withdrawalList');
 
+        }else if(tabType == 3){
+            $("#tab_ageLimitList").click();
+            ui.checkBoxInit('tb_ageLimitList');
         }
 
         $('input[id="txt_search"]').keydown(function() {
@@ -99,6 +111,7 @@
             getUserInfo();
         });
         <!-- 버튼 끝 -->
+        $("#selectYn").html(util.getCommonCodeSelect(-1, restrictions_selectYn));
     });
 
     // $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
@@ -143,7 +156,21 @@
         dtList_info2.useInitReload(false);
         dtList_info2.createDataTable();
     }
-
+    function getResAgeLimitList(certYn){
+        var dtList_info_data3 = function ( data ) {
+            data.searchType = -1;          // 검색구분
+            data.searchText = $('#txt_search').val();                        // 검색명
+            data.memWithdrawal = memWithdrawal;
+            data.newSearchType = $("#searchMember").val();
+            // data.pageCnt = 10;
+        };
+        dtList_info2 = new DalbitDataTable($("#tb_ageLimitList"), dtList_info_data3, RestrictionsDataTableSource.ageLimitList);
+        dtList_info2.useCheckBox(false);
+        dtList_info2.useIndex(true);
+        dtList_info2.useInitReload(false);
+        dtList_info2.setPageLength(50)
+        dtList_info2.createDataTable();
+    }
 
 
 
@@ -180,6 +207,10 @@
     function withdrawalList(){
         memWithdrawal = "1";
         renderMemberWithdrawalList();
+    }
+    function ageLimitList(){
+        memWithdrawal = "2";
+        getResAgeLimitList();
     }
 
     $(document).on('click', '#tb_memberList .dt-body-center input[type="checkbox"]', function(){
