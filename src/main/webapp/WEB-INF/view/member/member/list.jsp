@@ -184,6 +184,11 @@
     var tmp_searchText;
     var memNo = "unknown";
     function getUserInfo() {                 // 검색
+        if ($('#txt_search').val().length < 1 && memWithdrawal == "2"){
+            dtList_info3.reload();
+            return;
+        }
+
         if ($('#txt_search').val().length < 1) {
             alert("검색대상을 입력해 주세요.");
             return;
@@ -194,7 +199,6 @@
         // }else{
         // }
         tmp_searchText = $('#txt_search').val();
-console.log(memWithdrawal)
         $('#tabList_top').removeClass("show");
         if(memWithdrawal == "0"){
             dtList_info.reload();
