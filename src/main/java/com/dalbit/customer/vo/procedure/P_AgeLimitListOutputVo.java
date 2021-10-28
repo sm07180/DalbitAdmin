@@ -11,5 +11,6 @@ public class P_AgeLimitListOutputVo {
     private String mem_nick;
     private String mem_join_date;
     private String cert_yn;
+    private String mem_age;
     private Date stopDate;
 }

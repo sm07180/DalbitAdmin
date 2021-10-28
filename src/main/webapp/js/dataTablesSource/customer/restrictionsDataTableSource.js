@@ -88,6 +88,7 @@ var RestrictionsDataTableSource = {
       ,{'title': '아이디', 'data': 'mem_id', 'width':'70px'}
       ,{'title': '정지일시', 'data': 'stopDate', 'width':'130px'}
       ,{'title': '회원 가입일시', 'data': 'mem_join_date', 'width':'130px'}
+      ,{'title': '나이', 'data': 'mem_age', 'width':'130px'}
       ,{'title': '본인인증 여부', 'data': 'cert_yn', 'width':'40px'}
     ]
     ,'createdRow' : function( row, data, dataIndex ) {
