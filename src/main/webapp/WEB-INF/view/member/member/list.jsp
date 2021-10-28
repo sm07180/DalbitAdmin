@@ -204,7 +204,7 @@
             dtList_info.reload();
             ui.checkBoxInit('tb_memberList');
         }else if(memWithdrawal == "2"){
-            dtList_info3.reload();
+          getResAgeLimitList();
         }else{
             dtList_info2.reload();
             ui.checkBoxInit('tb_withdrawalList');
