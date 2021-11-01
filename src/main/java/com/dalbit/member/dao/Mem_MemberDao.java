@@ -182,4 +182,6 @@ public interface Mem_MemberDao {
     int callMemberAlbumDelete(P_MemberInfoInputVo pMemberInfoInputVo);
     int callMemberProfileDelete(P_MemberInfoInputVo pMemberInfoInputVo);
     int callMemberLeaderAlbumDelete(P_MemberInfoInputVo pMemberInfoInputVo);
+
+    int rouletteCouponChange(P_RouletteCouponVo pRouletteCouponVo);
 }

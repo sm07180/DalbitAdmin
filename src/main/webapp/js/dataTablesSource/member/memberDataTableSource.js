@@ -1258,7 +1258,7 @@ var MemberDataTableSource = {
         ]
     },
 
-    'couponHistory': {
+    'rouletteCouponHistory': {
         'url': '/rest/member/member/coupon/history'
         , 'columns': [
             {'title': '구분', 'data': 'type', 'render': function (data, type, row, meta) {

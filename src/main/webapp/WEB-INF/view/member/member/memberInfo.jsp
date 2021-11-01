@@ -174,7 +174,7 @@
         $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
             getAdminMemoList(this.id,"운영자메모");
         });
-        $('#bt_couponHistory').click(function() {       //운영자 메모 리스트
+        $('#bt_rouletteCouponHistory').click(function() {       //운영자 메모 리스트
             getInfoDetail(this.id,"룰렛 응모권");
         });
         $('.bt_connectState').click(function() {         //접속상태
@@ -253,7 +253,9 @@
         $("#bt_profileMsg_del").click(function() {        // 이름 변경
             bt_click(this.id);
         });
-
+      $('#bt_rouletteCouponAdd').click(function(){         // 룰렛 응모권 변경
+        rouletteCouponAdd(this);
+      });
         // 버튼 끝
         /*var data = {
             mem_no : memNo,
@@ -886,6 +888,62 @@
         }
     }
 
+    function rouletteCouponAdd(btn){
+      const rouletteCouponInput = $('#txt_rouletteCouponAddCnt');
+      const rouletteCouponInputCnt = parseInt(rouletteCouponInput.val());
+      const changedType = $('#rouletteCouponPlusMinus').val();
+      const haveCouponCnt = parseInt(document.getElementById('bt_rouletteCouponAdd').dataset.rouletteCouponCnt);
+
+      if(common.isEmpty(rouletteCouponInputCnt)){
+        alert('룰렛 응모권 갯수를 입력해주세요.');
+        rouletteCouponInput.focus();
+        return;
+      }else if(isNaN(rouletteCouponInputCnt)){
+        alert('룰렛 응모권 갯수는 숫자로만 입력해주세요.');
+        rouletteCouponInput.focus();
+        return;
+      }
+
+      if(changedType == '3' && haveCouponCnt < rouletteCouponInputCnt){
+        alert('보유수량보다 많은 수량을 차감할 수 없습니다.');
+        return;
+      }
+
+      if(changedType == '1' && 9999 < haveCouponCnt + rouletteCouponInputCnt){
+        alert('아이템 갯수는 9999까지만 가능합니다.');
+        return;
+      }
+
+      var msg = '룰렛 응모권 ' + rouletteCouponInputCnt +'개를 지급하시겠습니까?';
+      var dst_id = 'rouletteCouponAdd';
+      if(changedType == '3'){
+        msg = '룰렛 응모권 ' + rouletteCouponInputCnt +'개를 차감하시겠습니까?';
+        dst_id = 'rouletteCouponSubtract';
+      }
+
+      if(confirm(msg)){
+
+        const data = {
+          memNo : $(btn).data('memno') // 대상 memNo
+          , couponSlct : changedType === "1" ? "1" : "2" // 1: 지급, 2: 차감
+          , procCnt : rouletteCouponInputCnt // 처리 수
+        }
+
+        util.getAjaxData(dst_id, "/rest/member/member/roulette/coupon/change", data, function(dst_id, response){
+          if(response.result === 'success') {
+            var responseMsg = '룰렛 응모권 ' + rouletteCouponInputCnt + '개를 지급하였습니다.';
+            if(changedType == '3'){
+              responseMsg = '룰렛 응모권 ' + rouletteCouponInputCnt + '개를 차감하였습니다.';
+            }
+            alert(responseMsg);
+            location.reload();
+          }else {
+            alert('룰렛 응모권 지급 실패하였습니다.');
+          }
+        });
+      }
+    }
+
     $(document).on('click', '#bt_listenExit', function(){
         var listen_title = $(this).data('listen_title');
         var listen_room_no = $(this).data('listen_room_no');
@@ -1439,9 +1497,19 @@
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">상세</button>
             </td>
             <th>룰렛<br />응모권</th>
-            <td colspan="2" style="text-align: left;border-right-color:white;border-right-width:0px;">{{addComma couponCnt}} 개</td>
-            <td>
-                <button type="button" id="bt_couponHistory" class="btn btn-default btn-sm pull-right">상세</button>
+            <td colspan="3" style="text-align: left;border-right-color:white;border-right-width:0px;">
+                <span class="col-md-3 no-padding" style="text-align: left; line-height: 30px;">{{addComma couponCnt}} 개</span>
+                <c:if test="${insertYn eq 'Y'}">
+                    <span class="col-md-9 no-padding" id="">
+                        <select id="rouletteCouponPlusMinus" name="rouletteCouponPlusMinus" class="form-control searchType">
+                            <option value="1">+</option>
+                            <option value="3">-</option>
+                        </select>
+                        <input type="text" class="form-control" id="txt_rouletteCouponAddCnt" style="width:50px" maxlength="4">
+                        <button type="button" id="bt_rouletteCouponAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-roulette-coupon-cnt="{{couponCnt}}">변경</button>
+                        <button type="button" id="bt_rouletteCouponHistory" class="btn btn-default btn-sm">상세</button>
+                    </span>
+                </c:if>
             </td>
         </tr>
         </tbody>

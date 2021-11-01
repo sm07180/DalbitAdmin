@@ -18,6 +18,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.proc.P_Member;
 import com.dalbit.member.vo.*;
 import com.dalbit.member.vo.procedure.*;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
@@ -77,6 +78,8 @@ public class Mem_MemberService {
 
     @Autowired
     SocketRestUtil socketRestUtil;
+
+    @Autowired P_Member p_member;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -1146,6 +1149,45 @@ public class Mem_MemberService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정실패));
+        }
+
+        return result;
+    }
+
+    /**
+     * 아이템 수정하기
+     */
+    public String rouletteCouponChange(P_RouletteCouponVo pRouletteCouponVo){
+        pRouletteCouponVo.setOpName(MemberVo.getMyMemNo());
+        String chrgrName = MemberVo.getMyMemNo();
+        pRouletteCouponVo.setChrgrMemName(chrgrName);
+        P_RouletteCouponVo returnInfo = p_member.insEventCouponIns(pRouletteCouponVo);
+        String result = "";
+
+        if(returnInfo.getS_return() == -1) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원아이템수정_실패_회수시보유개수부족));
+        }else if(returnInfo.getS_return() == 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }else {
+            String ediContents = "";
+            int afterItemCnt = returnInfo.getS_afterCnt();
+            int changedItemCnt = pRouletteCouponVo.getProcCnt();
+            if (pRouletteCouponVo.getCouponSlct() == 1) {
+                int prevItemCnt = afterItemCnt - changedItemCnt;
+                ediContents = "룰렛 응모권 아이템 지급 : " + changedItemCnt + "개 | " + prevItemCnt + "개 > " + afterItemCnt + "개";
+            }else {
+                int prevItemCnt = afterItemCnt + changedItemCnt;
+                ediContents = "룰렛 응모권 아이템 차감 : " + changedItemCnt + "개 | " + prevItemCnt + "개 > " + afterItemCnt + "개";
+            }
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(pRouletteCouponVo.getMemNo());
+            pMemberEditorVo.setEditContents(ediContents);
+            pMemberEditorVo.setType(0);
+            pMemberEditorVo.setOpName(chrgrName);
+            mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공));
         }
 
         return result;

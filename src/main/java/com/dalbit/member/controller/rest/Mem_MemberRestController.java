@@ -343,4 +343,13 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.getAlbumDelete(pMemberInfoInputVo);
         return result;
     }
+
+    /**
+     * 룰렛 응모권 변경
+     */
+    @PostMapping("/roulette/coupon/change")
+    public String rouletteCouponChange(P_RouletteCouponVo pRouletteCouponVo, HttpServletRequest request){
+        String result = mem_MemberService.rouletteCouponChange(pRouletteCouponVo);
+        return result;
+    }
 }
