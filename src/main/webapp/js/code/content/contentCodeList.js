@@ -1028,5 +1028,6 @@ const djFanPrize_dj_filter = [
     , new COMMON_CODE('4', '4', '받은 별 100000~199999')
     , new COMMON_CODE('5', '5', '받은 별 200000~399999')
     , new COMMON_CODE('6', '6', '받은 별 400000~')
+    , new COMMON_CODE('7', '0', '전체')
 
 ]
