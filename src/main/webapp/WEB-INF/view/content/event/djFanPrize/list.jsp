@@ -282,7 +282,7 @@
             <td>{{phoneNumHyphen data.mem_phone}}</td>
             <td>{{mem_nick}}</td>
             <td>{{addComma use_coupon_cnt}}</td>
-            <td>{{addComma view_time}} 분</td>
+            <td>{{timeStampDay view_time}}</td>
         </tr>
 
         {{else}}
@@ -376,7 +376,7 @@
             <td>{{phoneNumHyphen mem_phone}}</td>
             <td>{{mem_nick}}</td>
             <td>{{addComma rcv_dal_cnt}}</td>
-            <td>{{addComma play_time}} 분</td>
+            <td>{{timeStampDay play_time}}</td>
             <td>{{addComma rcv_booster}}</td>
         </tr>
 
