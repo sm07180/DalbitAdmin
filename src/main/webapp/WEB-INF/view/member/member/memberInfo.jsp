@@ -262,8 +262,7 @@
         });
 
         $('#bt_djFanCouponHistory').click(function() {       //11월 경품 이벤트 메모 리스트
-            // getInfoDetail(this.id,"경품 응모권");
-            alert('작업중입니다');
+            getInfoDetail(this.id,"경품 응모권");
         });
         // 버튼 끝
         /*var data = {
@@ -569,7 +568,7 @@
         var source = MemberDataTableSource[buttonId];
         console.log(source);
         var dtList_info_detail_data = function (data) {
-            data.mem_no = memNo;
+            data.memNo = memNo;
             if(buttonId == "connectState"){
                 data.sortDate = "1";
             }else if(buttonId == "manager" || buttonId == "black" ){
@@ -1541,7 +1540,7 @@
                         </select>
                         <input type="text" class="form-control" id="txt_djFanCouponAddCnt" style="width:50px" maxlength="4">
                         <button type="button" id="bt_djFanCouponAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-djfan-coupon-cnt="{{novemberCouponCnt}}">변경</button>
-                        <button type="button" id="bt_djFanCouponHistory" class="btn btn-default btn-sm">상세</button>
+                        <button type="button" id="bt_djFanCouponHistory" data-memno="{{mem_no}}" class="btn btn-default btn-sm">상세</button>
                     </span>
                 </c:if>
             </td>

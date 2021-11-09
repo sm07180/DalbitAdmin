@@ -13,9 +13,9 @@ import com.dalbit.common.service.CommonMemberService;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.*;
 import com.dalbit.content.service.PushService;
-import com.dalbit.content.vo.procedure.P_DjFanPrizeDjListInputVo;
-import com.dalbit.content.vo.procedure.P_DjFanPrizeDjListOutputVo;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
+import com.dalbit.customer.vo.procedure.P_AgeLimitListInputVo;
+import com.dalbit.customer.vo.procedure.P_AgeLimitListOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
@@ -1235,13 +1235,17 @@ public class Mem_MemberService {
         return result;
     }
 
-    public String memberDjFanCouponHistory(P_MemberCouponVo pMemberCouponVo){
-        ProcedureVo procedureVo = new ProcedureVo(pMemberCouponVo);
-        ArrayList<P_MemberCouponVo> couponHistoryList = mem_MemberDao.callMemberCouponHistory(procedureVo);
+    public String memberDjFanCouponHistory(P_DjFanCouponHistoryInputVo pDjFanCouponHistoryInputVo){
+        List<Object> getList = p_member.getDjFanEventCouponHistory(pDjFanCouponHistoryInputVo);
 
-        P_MemberCouponVo summary = new Gson().fromJson(procedureVo.getExt(), P_MemberCouponVo.class);
+        List<P_DjFanCouponHistoryOutputVo> list = DBUtil.getList(getList, P_DjFanCouponHistoryOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, couponHistoryList, new PagingVo(summary.getTotalCnt())));
+        String result = gsonUtil.toJson
+                (new JsonOutputVo(Status.조회, list,
+                        new PagingVo(listCnt, pDjFanCouponHistoryInputVo.getPageNo(), pDjFanCouponHistoryInputVo.getPagePerCnt())));
+
+        return result;
     }
 
 }

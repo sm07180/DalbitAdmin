@@ -18,5 +18,6 @@
 	<resultMap id="PDjPanPrizeFanSectionOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanSectionOutputVo" />
 	<resultMap id="PDjPanPrizeFanTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanTotalListOutputVo" />
 	<resultMap id="PDjPanPrizeDjListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeDjListOutputVo" />
+	<resultMap id="PDjFanCouponHistoryOutputVo" type="com.dalbit.member.vo.procedure.P_DjFanCouponHistoryOutputVo" />
 
 </mapper>

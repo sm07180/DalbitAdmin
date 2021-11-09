@@ -366,8 +366,8 @@ public class Mem_MemberRestController {
      * 11월 경품 응모권 내역
      */
     @PostMapping("djFanCoupon/history")
-    public String memberDjFanCouponHistory(P_MemberCouponVo pMemberCouponVo){
-        String result = mem_MemberService.memberDjFanCouponHistory(pMemberCouponVo);
+    public String memberDjFanCouponHistory(P_DjFanCouponHistoryInputVo pDjFanCouponHistoryInputVo){
+        String result = mem_MemberService.memberDjFanCouponHistory(pDjFanCouponHistoryInputVo);
         return result;
     }
 }
