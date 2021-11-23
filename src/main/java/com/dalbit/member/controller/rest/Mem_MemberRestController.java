@@ -352,4 +352,22 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.rouletteCouponChange(pRouletteCouponVo);
         return result;
     }
+
+    /**
+     * 11월 경품 응모권 변경
+     */
+    @PostMapping("/djFan/coupon/change")
+    public String djFanCouponChange(P_DjFanCouponVo pDjFanCouponVo, HttpServletRequest request){
+        String result = mem_MemberService.djFanCouponChange(pDjFanCouponVo);
+        return result;
+    }
+
+    /**
+     * 11월 경품 응모권 내역
+     */
+    @PostMapping("djFanCoupon/history")
+    public String memberDjFanCouponHistory(P_DjFanCouponHistoryInputVo pDjFanCouponHistoryInputVo){
+        String result = mem_MemberService.memberDjFanCouponHistory(pDjFanCouponHistoryInputVo);
+        return result;
+    }
 }

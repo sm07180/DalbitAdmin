@@ -12,4 +12,12 @@
 	<!-- SMS / LMS -->
 	<resultMap id="SmsHistoryVo" type="com.dalbit.customer.vo.SmsHistoryVo" />
     <resultMap id="PAgeLimitListOutputVo" type="com.dalbit.customer.vo.procedure.P_AgeLimitListOutputVo" />
+
+    <!-- 11월 경품 이벤트-->
+	<resultMap id="PDjPanPrizeFanListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanListOutputVo" />
+	<resultMap id="PDjPanPrizeFanSectionOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanSectionOutputVo" />
+	<resultMap id="PDjPanPrizeFanTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanTotalListOutputVo" />
+	<resultMap id="PDjPanPrizeDjListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeDjListOutputVo" />
+	<resultMap id="PDjFanCouponHistoryOutputVo" type="com.dalbit.member.vo.procedure.P_DjFanCouponHistoryOutputVo" />
+
 </mapper>

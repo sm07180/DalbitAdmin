@@ -1012,3 +1012,22 @@ var game_history_sort = [
     , new COMMON_CODE('3', '3', '누적 청취자 적은 순으로')
     , new COMMON_CODE('4', '4', '받은 별 많은 순으로')
 ]
+
+const djFanPrize_fan_filter = [
+    new COMMON_CODE('1', '1', '응모 1회 이상(전체)')
+    , new COMMON_CODE('2', '10', '응모 10회 이상')
+    , new COMMON_CODE('3', '50', '응모 50회 이상')
+    , new COMMON_CODE('4', '100', '응모 100회 이상')
+
+]
+
+const djFanPrize_dj_filter = [
+    new COMMON_CODE('1', '1', '받은 별 2000~29999')
+    , new COMMON_CODE('2', '2', '받은 별 30000~59999')
+    , new COMMON_CODE('3', '3', '받은 별 60000~99999')
+    , new COMMON_CODE('4', '4', '받은 별 100000~199999')
+    , new COMMON_CODE('5', '5', '받은 별 200000~399999')
+    , new COMMON_CODE('6', '6', '받은 별 400000~')
+    , new COMMON_CODE('7', '0', '전체')
+
+]
