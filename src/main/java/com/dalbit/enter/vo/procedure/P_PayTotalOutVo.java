@@ -8,31 +8,31 @@ import lombok.ToString;
 @Setter
 @ToString
 public class P_PayTotalOutVo {
-    private int sum_succCnt;
-    private int sum_succAmt;
-    private int sum_succCmt;
-    private int sum_firstCnt;
-    private int sum_firstAmt;
-    private int sum_firstCmt;
-    private int sum_reCnt;
-    private int sum_reAmt;
-    private int sum_reCmt;
-    private int sum_tryCnt;
-    private int sum_succRate;
-    private int sum_cancCnt;
-    private int sum_cancAmt;
-    private int sum_cancCmt;
-    private int sum_failCnt;
+    private long sum_succCnt;
+    private long sum_succAmt;
+    private long sum_succCmt;
+    private long sum_firstCnt;
+    private long sum_firstAmt;
+    private long sum_firstCmt;
+    private long sum_reCnt;
+    private long sum_reAmt;
+    private long sum_reCmt;
+    private long sum_tryCnt;
+    private long sum_succRate;
+    private long sum_cancCnt;
+    private long sum_cancAmt;
+    private long sum_cancCmt;
+    private long sum_failCnt;
 
-    private int inc_sum_succCnt;
-    private int inc_sum_succAmt;
-    private int inc_sum_firstCnt;
-    private int inc_sum_firstAmt;
-    private int inc_sum_reCnt;
-    private int inc_sum_reAmt;
-    private int inc_sum_tryCnt;
-    private int inc_sum_succRate;
-    private int inc_sum_cancCnt;
-    private int inc_sum_cancAmt;
+    private long inc_sum_succCnt;
+    private long inc_sum_succAmt;
+    private long inc_sum_firstCnt;
+    private long inc_sum_firstAmt;
+    private long inc_sum_reCnt;
+    private long inc_sum_reAmt;
+    private long inc_sum_tryCnt;
+    private long inc_sum_succRate;
+    private long inc_sum_cancCnt;
+    private long inc_sum_cancAmt;
 
 }

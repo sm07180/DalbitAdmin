@@ -10,33 +10,33 @@ import lombok.ToString;
 @ToString
 public class P_ExchangeTotalOutVo extends SearchVo {
 
-    private int sum_tryCnt;
-    private int sum_tryAmt;
-    private int sum_succCnt;
-    private int sum_succAmt;
-    private int sum_cancCnt;
-    private int sum_cancAmt;
+    private long sum_tryCnt;
+    private long sum_tryAmt;
+    private long sum_succCnt;
+    private long sum_succAmt;
+    private long sum_cancCnt;
+    private long sum_cancAmt;
 
-    private int inc_sum_tryCnt;
-    private int inc_sum_tryAmt;
-    private int inc_sum_succCnt;
-    private int inc_sum_succAmt;
-    private int inc_sum_cancCnt;
-    private int inc_sum_cancAmt;
+    private long inc_sum_tryCnt;
+    private long inc_sum_tryAmt;
+    private long inc_sum_succCnt;
+    private long inc_sum_succAmt;
+    private long inc_sum_cancCnt;
+    private long inc_sum_cancAmt;
 
-    private int tot_specialdj_succ_Cnt;
-    private int tot_specialdj_succ_Amt;
-    private int tot_specialdj_succ_byeol_Cnt;
-    private int tot_succ_Cnt;
-    private int tot_succ_Amt;
-    private int tot_succ_byeol_Cnt;
-    private int tot_pay_amt;
+    private long tot_specialdj_succ_Cnt;
+    private long tot_specialdj_succ_Amt;
+    private long tot_specialdj_succ_byeol_Cnt;
+    private long tot_succ_Cnt;
+    private long tot_succ_Amt;
+    private long tot_succ_byeol_Cnt;
+    private long tot_pay_amt;
 
-    private int nTot_specialdj_succ_Cnt;
-    private int nTot_specialdj_succ_Amt;
-    private int nTot_specialdj_succ_byeol_Cnt;
-    private int nTot_succ_Cnt;
-    private int nTot_succ_Amt;
-    private int nTot_succ_byeol_Cnt;
-    private int nTot_pay_amt;
+    private long nTot_specialdj_succ_Cnt;
+    private long nTot_specialdj_succ_Amt;
+    private long nTot_specialdj_succ_byeol_Cnt;
+    private long nTot_succ_Cnt;
+    private long nTot_succ_Amt;
+    private long nTot_succ_byeol_Cnt;
+    private long nTot_pay_amt;
 }
