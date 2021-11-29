@@ -261,6 +261,14 @@
             resultJson['sound_file_name'] = '';
         }
 
+      // TTS 아이템
+      var tts_use_yn = fnc_giftDetail.target.find("input[name=tts_use_yn]");
+      if(tts_use_yn.prop('checked')){
+        resultJson['tts_use_yn'] = 'y';
+      }else{
+        resultJson['tts_use_yn'] = 'n';
+      }
+
         //webp 파일명 && lottie 파일명 수정
         var webp_image = fnc_giftDetail.target.find("input[name=webp_image]");
         resultJson['webp_file_name'] = util.getFileName(webp_image.val(), false);
@@ -268,6 +276,7 @@
         var jason_image = fnc_giftDetail.target.find("input[name=jason_image]");
         resultJson['jason_file_name'] = util.getFileName(jason_image.val(), false);
 
+        console.log('hi : ', resultJson);
         return resultJson;
     };
 
@@ -368,8 +377,8 @@
                     <th rowspan="2">플랫폼</th>
                     <td rowspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2' 'Y' 'platform'}}}</td>
 
-                    <th rowspan="2">아이템 코드</th>
-                    <td rowspan="2">
+                    <th>아이템 코드</th>
+                    <td>
                         {{#item_code}}{{this}}{{/item_code}}
                     </td>
 
@@ -377,6 +386,14 @@
                     <td >{{opName}}</td>
                 </tr>
                 <tr>
+                    <th>TTS 여부</th>
+                    <td>
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" value="1" id="tts_use_yn" name="tts_use_yn" class="form-control" {{#equal tts_use_yn 'y'}}checked{{/equal}} />
+                            <span><i></i>TTS 여부</span>
+                        </label>
+                    </td>
+
                     <th>등록/수정일시</th>
                     <td >{{lastupdDate}}</td>
                 </tr>

@@ -31,5 +31,6 @@ public class P_itemGiftInsertVo extends BaseVo {
     private String sound_file_name;		// 사운드 파일명
     private String desc;				// 상품설명
     private int in_app_yn;				//인앱 여부( 0: 아님, 1: 인앱 다운로드 아이템)
+    private String tts_use_yn;          // tts 음성 사용 가능 여부
 }
 

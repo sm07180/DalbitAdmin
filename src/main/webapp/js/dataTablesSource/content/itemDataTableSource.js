@@ -230,6 +230,9 @@ var ItemDataTableSource = {
             {'title': '사운드여부', 'data': 'sound_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data == 0 ? '-' : 'Y';
                 }},
+            {'title': 'TTS 여부', 'data': 'tts_use_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return data === 'n' ? '-' : 'Y';
+                }},
             /*{'title': '인앱여부', 'data': 'in_app_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data == 0 ? '-' : 'Y';
                 }},*/
