@@ -15,23 +15,23 @@ public class P_PayTotalOutDetailVo {
     private int day;
     private int hour;
 
-    private int succCnt;
-    private int succCmt;
-    private int succAmt;
-    private int accumAmt;
+    private long succCnt;
+    private long succCmt;
+    private long succAmt;
+    private long accumAmt;
 
-    private int fisrtCnt;
-    private int firstAmt;
-    private int reCnt;
-    private int reAmt;
-    private int tryCnt;
-    private int succRate;
-    private int cancCnt;
-    private int cancCmt;
-    private int cancAmt;
-    private int failCnt;
+    private long fisrtCnt;
+    private long firstAmt;
+    private long reCnt;
+    private long reAmt;
+    private long tryCnt;
+    private long succRate;
+    private long cancCnt;
+    private long cancCmt;
+    private long cancAmt;
+    private long failCnt;
 
 
-    private int inc_succCnt;
-    private int inc_succAmt;
+    private long inc_succCnt;
+    private long inc_succAmt;
 }

@@ -43,6 +43,7 @@ public class P_itemGiftListOutputVo extends BaseVo {
     private int order;					//아이템 순서
     private int state;					//상태( 1: 판매중, 2: 판매 중지)
     private int in_app_yn;				//인앱 여부( 0: 아님, 1: 인앱 다운로드 아이템)
+    private String tts_use_yn;          // tts 음성 사용 가능 여부
 
 
     //Summary
