@@ -32,7 +32,7 @@
                                     <input class="hide" name="startDate" id="startDate" style="width: 100px">
                                     <input class="hide" name="endDate" id="endDate" style="width: 100px">
                                     <label><input type="text" class="form-control" name="searchMemNoText"
-                                                  id="searchMemNoText" placeholder="검색어를 입력해주세요."></label>
+                                                  id="searchMemNoText" placeholder="회원번호를 입력하세요."></label>
 
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                     <a href="javascript://" class="_prevSearch">[이전]</a>
