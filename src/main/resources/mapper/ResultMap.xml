@@ -23,4 +23,7 @@
 	<!-- 뽑기 이벤트-->
 	<resultMap id="PDrawEventListOutputVo" type="com.dalbit.content.vo.procedure.P_DrawEventListOutputVo" />
 
+	<!-- #7241 깐부이벤트 -->
+	<resultMap id="PKkanbuBetTotalOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuBetTotalOutputVo" />
+	<resultMap id="PKkanbuBetListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuBetListOutputVo" />
 </mapper>
