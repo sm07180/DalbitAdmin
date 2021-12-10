@@ -269,6 +269,9 @@ public class ContentController {
     @GetMapping("/event/djFanPrize/list")
     public String event2111() {return "content/event/djFanPrize/list";}
 
+    @GetMapping("/event/draw/list")
+    public String eventDraw() {return "content/event/draw/list";}
+
     @GetMapping("/event/kkanbu/list")
     public String kkanbu() {return "content/event/kkanbu/list";}
 

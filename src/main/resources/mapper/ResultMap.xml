@@ -20,4 +20,7 @@
 	<resultMap id="PDjPanPrizeDjListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeDjListOutputVo" />
 	<resultMap id="PDjFanCouponHistoryOutputVo" type="com.dalbit.member.vo.procedure.P_DjFanCouponHistoryOutputVo" />
 
+	<!-- 뽑기 이벤트-->
+	<resultMap id="PDrawEventListOutputVo" type="com.dalbit.content.vo.procedure.P_DrawEventListOutputVo" />
+
 </mapper>

@@ -206,8 +206,8 @@
         formData.append("slct_type", slct_type);
         formData.append("slct_typeTxt", slct_typeTxt);
         formData.append("walletDataType", $("#slctWalletDateType").find("select").val());
-        formData.append("sDate", sDate);
-        formData.append("eDate", eDate);
+        formData.append("startDate", sDate);
+        formData.append("endDate", eDate);
 
         if(walletList_gubun == "dal" ){
             formData.append("slctType", 0);
