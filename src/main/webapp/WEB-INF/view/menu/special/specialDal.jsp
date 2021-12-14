@@ -234,6 +234,10 @@
         <td>
             <a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
+            {{#equal exitYn 'y'}}
+            <br>
+            [탈퇴회원]
+            {{/equal}}
         </td>
         <td>{{mem_nick}}</td>
         <td>{{{sexIcon mem_sex mem_birth_year}}}</td>

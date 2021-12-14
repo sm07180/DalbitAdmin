@@ -14,6 +14,7 @@ public class SpecialVo extends PagingVo {
     private String searchType;
     private String select_year;
     private String select_month;
+    private String bestYn;
     private int newSearchType;
     private int isBest;
     private int roundNo;
@@ -50,6 +51,7 @@ public class SpecialVo extends PagingVo {
     private int specialdj_cnt;
     private int specialdj_badge;
     private int best_cnt;
+    private String exitYn;
 
     private String title;
     private String contents;

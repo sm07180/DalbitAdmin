@@ -135,7 +135,8 @@ public class Men_SpecialRestController {
      */
     @PostMapping("dalList")
     public String dalList(SpecialVo specialVo){
-        String result = menSpecialService.getSpecialList(specialVo);
+        // String result = menSpecialService.getSpecialList(specialVo);
+        String result = menSpecialService.getSpecialListUseProc(specialVo);
         return result;
     }
 
