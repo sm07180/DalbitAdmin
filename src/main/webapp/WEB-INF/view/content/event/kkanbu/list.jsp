@@ -68,10 +68,10 @@
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     const kkanbuTerm = {
-        1: ['2021-12-14', '2021-12-20', '2021-12-21'],
-        2: ['2021-12-21', '2021-12-27', '2021-12-28'],
-        3: ['2021-12-28', '2022-01-03', '2022-01-04'],
-        4: ['2022-01-04', '2022-01-10', '2022-01-11'],
+        1: ['2021-12-15', '2021-12-21', '2021-12-22'],
+        2: ['2021-12-22', '2021-12-28', '2021-12-29'],
+        3: ['2021-12-29', '2022-01-04', '2022-01-05'],
+        4: ['2022-01-05', '2022-01-11', '2022-01-12'],
     };
 
     const reqStateCode = {
@@ -520,7 +520,7 @@
                 <img src="//image.dalbitlive.com/event/gganbu/marble-blue.png" width="15"> {{blue_marble}}
                 <img src="//image.dalbitlive.com/event/gganbu/marble-purple.png" width="15"> {{violet_marble}}
             </td>
-            <td rowspan="2">{{addComma marble_pocket_pt}}</td>
+            <td rowspan="2">{{addComma tot_marble_pocket_pt}}</td>
             <td rowspan="2">{{timeStampDay tot_bj_view_time}}</td>
             <td rowspan="2">{{timeStampDay tot_mem_view_time}}</td>
             <td rowspan="2">{{addComma tot_mem_pay_amt}}</td>
