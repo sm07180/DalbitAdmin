@@ -30,5 +30,10 @@ public class P_KkanbuRankListOutputVo {
     private int tot_bj_view_time;		    // 총청취시간
     private int tot_mem_pay_amt;			// 총결제금액
     private int tot_mem_exc_cnt;			// 총 달교환
+    private BigDecimal ptr_tot_marble_pocket_pt;    // 구슬주머니 점수
+    private int ptr_tot_mem_view_time;		    // 총방송시간
+    private int ptr_tot_bj_view_time;		    // 총청취시간
+    private int ptr_tot_mem_pay_amt;			// 총결제금액
+    private int ptr_tot_mem_exc_cnt;			// 총 달교환
     private Date ins_date;			        // 등록일자
 }

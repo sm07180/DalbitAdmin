@@ -521,15 +521,19 @@
                 <img src="//image.dalbitlive.com/event/gganbu/marble-purple.png" width="15"> {{violet_marble}}
             </td>
             <td rowspan="2">{{addComma tot_marble_pocket_pt}}</td>
-            <td rowspan="2">{{timeStampDay tot_bj_view_time}}</td>
-            <td rowspan="2">{{timeStampDay tot_mem_view_time}}</td>
-            <td rowspan="2">{{addComma tot_mem_pay_amt}}</td>
-            <td rowspan="2">{{addComma tot_mem_exc_cnt}}</td>
+            <td>{{timeStampDay tot_bj_view_time}}</td>
+            <td>{{timeStampDay tot_mem_view_time}}</td>
+            <td>{{addComma tot_mem_pay_amt}}</td>
+            <td>{{addComma tot_mem_exc_cnt}}</td>
         </tr>
         <tr>
             <td>{{{memNoLink ptr_mem_no ptr_mem_no}}}</td>
             <td>{{ptr_mem_nick}}</td>
             <td>{{phoneNumHyphen ptr_mem_phone}}</td>
+            <td>{{timeStampDay ptr_tot_bj_view_time}}</td>
+            <td>{{timeStampDay ptr_tot_mem_view_time}}</td>
+            <td>{{addComma ptr_tot_mem_pay_amt}}</td>
+            <td>{{addComma ptr_tot_mem_exc_cnt}}</td>
         </tr>
         {{else}}
         <tr>
