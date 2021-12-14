@@ -22,7 +22,7 @@ var specialDataTableSource = {
             , {'title': '연락처', 'data': 'mem_phone', 'width':'10%', 'render': function(data){
                     return common.phoneNumHyphen(data)
                 }}
-            , {'title': '누적<br />방송시간', 'data': 'airTime','render': function(data) {
+            , {'title': '누적(팬방제외)<br />방송시간', 'data': 'airTime','render': function(data) {
                     return common.addComma(data)+' 분';
                 }}
             , {'title': '90분 이상<br />방송 횟수', 'data': 'broadcastCnt','render': function(data) {
@@ -74,7 +74,7 @@ var specialDataTableSource = {
             , {'title': '성별', 'data': 'mem_sex', 'width':'5%', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }}
-            , {'title': '누적<br />방송시간', 'data': 'airTime','render': function(data) {
+            , {'title': '누적(팬방제외)<br />방송시간', 'data': 'airTime','render': function(data) {
                     return common.addComma(data)+' 분';
                 }}
             , {'title': '90분 이상<br />방송 횟수', 'data': 'broadcastCnt','render': function(data) {

@@ -87,6 +87,8 @@
             , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 60, 0)
                         from rd_data.tb_broadcast_room room
                         where mem_no = basic.mem_no
+#                       팬방송제외
+                        and type_entry != 1
                         and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>start_date
                         and start_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) airTime
             , ifnull((select count(*)
@@ -309,6 +311,7 @@
         </where>
     </sql>
 
+<!--    프로시저(p_adm_special_dj_list)로 변경됨 -->
     <select id="getSpecialList" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
         /* Men_Special.xml - getSpecialList */
         select *, (a.likeCnt + boostCnt * 10) as totLikeCnt
@@ -334,7 +337,15 @@
                 ifnull(req.mem_name, basic.mem_name) mem_name,
                 ifnull(req.mem_phone, basic.mem_phone) mem_phone,
                 if(0 <![CDATA[<]]> (pro.specialdj_cnt-5), pro.specialdj_cnt-5, 0) best_cnt,
-                (select ifnull(sum(airtime), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS airTime,
+--                 전체방송
+--                 (select ifnull(sum(airtime), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS airTime,
+--                 팬방송제외
+                (
+                select ifnull(sum(case when room.type_entry != 1 then broadcast.airtime end), 0)
+                from rd_data.tb_member_broadcast_broadcasting broadcast
+                left join rd_data.tb_broadcast_room room on (room.room_no = broadcast.room_no)
+                WHERE broadcast.mem_no = dj.mem_no
+                ) AS airTime,
                 (select ifnull(sum(gold), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS giftedRuby,
                 (select ifnull(sum(good), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS likeCnt,
                 (select sum(booster) as boostCnt from rd_data.tb_member_broadcast_broadcasting a where mem_no= dj.mem_no) as boostCnt,
@@ -645,6 +656,7 @@
 
         CASE
             WHEN list.condition_code1 = 1 THEN list.condition_data1 * 60 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code1 = 8 THEN list.condition_data1 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code1 = 2 THEN list.condition_data1 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code1 = 3 THEN list.condition_data1 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code1 = 4 THEN list.condition_data1 <![CDATA[<=]]> list.level
@@ -657,6 +669,7 @@
 
         CASE
             WHEN list.condition_code2 = 1 THEN list.condition_data2 * 60 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code2 = 8 THEN list.condition_data2 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code2 = 2 THEN list.condition_data2 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code2 = 3 THEN list.condition_data2 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code2 = 4 THEN list.condition_data2 <![CDATA[<=]]> list.level
@@ -669,6 +682,7 @@
 
         CASE
             WHEN list.condition_code3 = 1 THEN list.condition_data3 * 60 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code3 = 8 THEN list.condition_data3 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code3 = 2 THEN list.condition_data3 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code3 = 3 THEN list.condition_data3 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code3 = 4 THEN list.condition_data3 <![CDATA[<=]]> list.level
@@ -681,6 +695,7 @@
 
         CASE
             WHEN list.condition_code4 = 1 THEN list.condition_data4 * 60 <![CDATA[<=]]> list.airTime
+            WHEN list.condition_code4 = 8 THEN list.condition_data4 * 60 <![CDATA[<=]]> list.airTime
             WHEN list.condition_code4 = 2 THEN list.condition_data4 <![CDATA[<=]]> list.broadcastCnt
             WHEN list.condition_code4 = 3 THEN list.condition_data4 <![CDATA[<=]]> list.goodCnt + list.boostGoodCnt
             WHEN list.condition_code4 = 4 THEN list.condition_data4 <![CDATA[<=]]> list.level
@@ -770,6 +785,8 @@
                     , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 60, 0)
                                 from rd_data.tb_broadcast_room room
                                 where mem_no = basic.mem_no
+#                                  팬방송제외
+                                and type_entry != 1
                                 and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00') <![CDATA[<=]]> start_date
                                 and start_date <![CDATA[<=]]> DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) airTime
                     , ifnull((select count(*)
