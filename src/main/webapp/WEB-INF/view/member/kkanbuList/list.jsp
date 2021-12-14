@@ -60,6 +60,20 @@
             util.getAjaxData("getKkanbuMemSel", apiURL, data, function (id, response, params) {
                 let template, templateScript, context, html;
 
+                // tmp_kkanbu_table - kkanbu_container
+                template = $('#tmp_kkanbu_table').html();
+                templateScript = Handlebars.compile(template);
+                context = response.memData;
+                html = templateScript(context);
+                $("#kkanbu_container").html(html);
+
+                // tmp_mable_table - mable_container
+                template = $('#tmp_mable_table').html();
+                templateScript = Handlebars.compile(template);
+                context = response.sectionData;
+                html = templateScript(context);
+                $("#mable_container").html(html);
+
                 pageInfo.totalCnt = response.totalCnt;
                 if (tabSlct === 'm') {
                     template = $('#tmp_marble_list').html();
@@ -169,7 +183,7 @@
         </thead>
         <tbody id="kkanbu_status">
         <tr>
-            <td>{{memNoLink ptr_mem_no ptr_mem_no}}</td>
+            <td>{{{memNoLink ptr_mem_no ptr_mem_no}}}</td>
             <td>{{ptr_mem_nick}}</td>
             <td>{{avg mem_level ptr_mem_level}}</td>
         </tr>
