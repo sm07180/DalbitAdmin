@@ -63,7 +63,10 @@
                 // tmp_kkanbu_table - kkanbu_container
                 template = $('#tmp_kkanbu_table').html();
                 templateScript = Handlebars.compile(template);
+                response.memData.kkanbu_mem_no = (memNo === response.memData.ptr_mem_no) ? response.memData.mem_no : response.memData.ptr_mem_no;
+                response.memData.kkanbu_mem_nick = (memNo === response.memData.ptr_mem_no) ? response.memData.mem_nick : response.memData.ptr_mem_nick;
                 context = response.memData;
+
                 html = templateScript(context);
                 $("#kkanbu_container").html(html);
 
@@ -183,8 +186,8 @@
         </thead>
         <tbody id="kkanbu_status">
         <tr>
-            <td>{{{memNoLink ptr_mem_no ptr_mem_no}}}</td>
-            <td>{{ptr_mem_nick}}</td>
+            <td>{{{memNoLink kkanbu_mem_no kkanbu_mem_no}}}</td>
+            <td>{{kkanbu_mem_nick}}</td>
             <td>{{avg mem_level ptr_mem_level}}</td>
         </tr>
         </tbody>
