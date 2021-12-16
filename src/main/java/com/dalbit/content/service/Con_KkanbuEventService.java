@@ -140,7 +140,7 @@ public class Con_KkanbuEventService {
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
         resHashMap.put("memData", memData);
-        resHashMap.put("sectonData", sectionData);
+        resHashMap.put("sectionData", sectionData);
         resHashMap.put("totalCnt", listCnt);
         resHashMap.put("listData", list);
         String result = gsonUtil.toJson(resHashMap);
@@ -166,7 +166,7 @@ public class Con_KkanbuEventService {
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
         resHashMap.put("memData", memData);
-        resHashMap.put("sectonData", sectionData);
+        resHashMap.put("sectionData", sectionData);
         resHashMap.put("totalCnt", listCnt);
         resHashMap.put("listData", list);
         String result = gsonUtil.toJson(resHashMap);
