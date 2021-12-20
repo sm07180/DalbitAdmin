@@ -490,6 +490,7 @@
             <col width="auto"/>
             <col width="auto"/>
             <col width="auto"/>
+            <col width="auto"/>
         </colgroup>
         <thead>
         <tr>
@@ -504,6 +505,7 @@
             <th>회차 내 방송시간</th>
             <th>회차 내 결제금액</th>
             <th>회차 내 달 교환</th>
+            <th>깐부수락일시</th>
         </tr>
         </thead>
         <tbody id="rank_table_body">
@@ -525,6 +527,7 @@
             <td>{{timeStampDay tot_bj_view_time}}</td>
             <td>{{addComma tot_mem_pay_amt}}</td>
             <td>{{addComma tot_mem_exc_cnt}}</td>
+            <td rowspan="2" style="border-left-width: thin;">{{ins_date}}</td>
         </tr>
         <tr>
             <td>{{{memNoLink ptr_mem_no ptr_mem_no}}}</td>
@@ -537,7 +540,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="11">{{isEmptyData}}</td>
+            <td colspan="12">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
