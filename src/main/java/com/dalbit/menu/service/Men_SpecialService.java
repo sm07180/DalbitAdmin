@@ -11,6 +11,7 @@ import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
 import com.dalbit.menu.vo.*;
+import com.dalbit.util.DBUtil;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
@@ -275,6 +276,28 @@ public class Men_SpecialService {
 //                list.get(i).setMem_sex(outVo.getMem_sex());
 //            }
 //        }
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialVo.getTotalCnt(), specialVo.getPageStart(), specialVo.getPageCnt())));
+
+        return result;
+    }
+
+    /**
+     * 스페셜 달DJ 목록 - 프로시저
+     * @param specialVo
+     * @return
+     */
+    public String getSpecialListUseProc(SpecialVo specialVo) {
+        specialVo.setOp_name(MemberVo.getMyMemNo());
+        specialVo.setBestYn("");
+        if (specialVo.getIsBest() == 1) {
+            specialVo.setBestYn("Y");
+        }
+
+        List<Object> obj = menSpecialDao.getSpecialListUseProc(specialVo);
+        int cnt = DBUtil.getData(obj, Integer.class);
+        specialVo.setTotalCnt(cnt);
+        List<SpecialVo> list = DBUtil.getList(obj, SpecialVo.class);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialVo.getTotalCnt(), specialVo.getPageStart(), specialVo.getPageCnt())));
 

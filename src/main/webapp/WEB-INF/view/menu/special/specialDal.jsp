@@ -42,7 +42,7 @@
                     <th>성별</th>
                     <th>이름</th>
                     <th>연락처</th>
-                    <th>누적 방송시간</th>
+                    <th>누적(팬방제외)<br />방송시간</th>
                     <th>누적 받은 별</th>
                     <th>좋아요 합계</th>
                     <th>정지기록</th>
@@ -234,6 +234,10 @@
         <td>
             <a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
+            {{#equal exitYn 'y'}}
+            <br>
+            [탈퇴회원]
+            {{/equal}}
         </td>
         <td>{{mem_nick}}</td>
         <td>{{{sexIcon mem_sex mem_birth_year}}}</td>

@@ -50,7 +50,7 @@
             }
         );
 
-        $("#rouletteStartDate").val(dateTime);
+        $("#rouletteStartDate").val(dateTime);``
         $("#rouletteEndDate").val(dateTime);
 
         $('#winTypeArea').html(util.getCommonCodeSelect('-1', roulette_winType));

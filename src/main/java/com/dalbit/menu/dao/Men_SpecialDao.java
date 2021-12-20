@@ -2,6 +2,8 @@ package com.dalbit.menu.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.menu.vo.*;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,10 @@ public interface Men_SpecialDao {
 
     @Transactional(readOnly = true)
     int getSpecialListCnt(SpecialVo specialVo);
+
+    @ResultMap({"ResultMap.integer", "ResultMap.PSpecialVo"})
+    @Select("CALL rd_admin.p_adm_special_dj_list( #{select_year}, #{select_month}, #{bestYn}, #{txt_search}, #{newSearchType}, #{pageStart}, #{pageCnt})")
+    List<Object> getSpecialListUseProc(SpecialVo specialVo);
 
     @Transactional(readOnly = true)
     SpecialVo getSpecialDetail(SpecialVo specialVo);

@@ -424,3 +424,9 @@ Handlebars.registerHelper("rowNumAsc", function (total, value, pageNo, pageCnt) 
     pageCnt = isNaN(Number(pageCnt)) ? 0 : pageCnt;
     return value + ((pageNo - 1) * pageCnt) + 1;
 });
+
+Handlebars.registerHelper("avg", function(value1, value2) {
+    value1 = isNaN(Number(value1)) ? 0 : value1;
+    value2 = isNaN(Number(value2)) ? 0 : value2;
+    return Math.floor((value1 + value2) / 2);
+});

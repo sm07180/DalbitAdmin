@@ -9,6 +9,9 @@
 	<resultMap type="java.util.LinkedHashMap" id="linkedHashMap"/>
 	<resultMap type="String" id="string"/>
 
+	<!-- 방송관리 / 스페셜DJ -->
+	<resultMap id="PSpecialVo" type="com.dalbit.menu.vo.SpecialVo" />
+
 	<!-- SMS / LMS -->
 	<resultMap id="SmsHistoryVo" type="com.dalbit.customer.vo.SmsHistoryVo" />
     <resultMap id="PAgeLimitListOutputVo" type="com.dalbit.customer.vo.procedure.P_AgeLimitListOutputVo" />
@@ -23,4 +26,18 @@
 	<!-- 뽑기 이벤트-->
 	<resultMap id="PDrawEventListOutputVo" type="com.dalbit.content.vo.procedure.P_DrawEventListOutputVo" />
 
+	<!-- #7241 깐부이벤트 -->
+	<resultMap id="PKkanbuBetListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuBetListOutputVo" />
+	<resultMap id="PKkanbuBetTotalOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuBetTotalOutputVo" />
+	<resultMap id="PKkanbuListInputVo" type="com.dalbit.content.vo.procedure.P_KkanbuListInputVo" />
+	<resultMap id="PKkanbuMarbleListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMarbleListOutputVo" />
+	<resultMap id="PKkanbuMarblePointListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMarblePointListOutputVo" />
+	<resultMap id="PKkanbuMarblePointTotalOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMarblePointTotalOutputVo" />
+	<resultMap id="PKkanbuMemSelInputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelInputVo" />
+	<resultMap id="PKkanbuMemSelMarbleListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelMarbleListOutputVo" />
+	<resultMap id="PKkanbuMemSelMarblePointListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelMarblePointListOutputVo" />
+	<resultMap id="PKkanbuMemSelOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelOutputVo" />
+	<resultMap id="PKkanbuMemSelTotalOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelTotalOutputVo" />
+	<resultMap id="PKkanbuRankListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuRankListOutputVo" />
+	<resultMap id="PKkanbuReqListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuReqListOutputVo" />
 </mapper>
