@@ -404,7 +404,7 @@
             , #{pay_dt_comein}
             , #{pay_ok_date}
             , #{pay_ok_time}
-            , (select item_price from rd_data.tbl_charge_item where item_code = #{item_code})
+            , (select item_price from rd_data.tbl_charge_item where item_code = #{item_code}) * #{item_amt}
             , #{item_amt}
             , #{item_code}
             , (select item_name from rd_data.tbl_charge_item where item_code = #{item_code})
@@ -415,7 +415,7 @@
             , #{bill_id}
             , #{service_id}
             , #{os}
-            , (select dal from rd_data.tbl_charge_item where item_code = #{item_code})
+            , (select dal from rd_data.tbl_charge_item where item_code = #{item_code}) * #{item_amt}
             , #{dal_yn}
         )
     </insert>
