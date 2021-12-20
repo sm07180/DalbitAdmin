@@ -266,7 +266,7 @@ var elseItem = [
     new COMMON_CODE(null, 'payItem', '아이템구분')
     , new COMMON_CODE(-1, '-1', '아이템 ▽')
     , new COMMON_CODE('A1070', 'A1070', '달 10')
-    , new COMMON_CODE('A1867', 'A1867', '달 50')
+    , new COMMON_CODE('A1865', 'A1865', '달 50')
     , new COMMON_CODE('A1335', 'A1335', '달 100')
     , new COMMON_CODE('A1555', 'A1555', '달 300')
     , new COMMON_CODE('A1227', 'A1227', '달 500')
