@@ -31,7 +31,7 @@
         <div class="col-md-12 no-padding">
             <c:set var="url" value="${requestScope['javax.servlet.forward.request_uri']}" />
             <c:if test="${fn:contains(url, 'memberPopup')}">
-                <div class="col-md-6 no-padding">
+                <div class="col-md-7 no-padding">
                     <span id="payInsertDisplay" style="cursor: hand; font-size: 13px" onclick="fnDisplay()" >IOS 내역추가 ▽</span>
                     <span id="exampleDate" style="margin-left: 17%">일시 ex) 2020-01-01 11:11:11</span>
                     <div class="payInsertInfo hide" id="payInsert">
@@ -39,9 +39,19 @@
                         <select class="form-control" id="payWayInfo" onchange="fnPayway(this.value)">
                             <option selected value="">결제수단 ▽</option>
                             <option value="InApp">InApp</option>
-                            <%--<option value="kakaopay">카카오페이</option>
+                            <option value="simple">계좌 간편결제</option>
+                            <option value="VA">무통장 입금(계좌이체)</option>
+                            <option value="CN">카드 결제</option>
+                            <option value="MC">휴대폰 결제</option>
+                            <option value="kakaoMoney">카카오페이(머니)</option>
+                            <option value="kakaopay">카카오페이(카드)</option>
                             <option value="payco">페이코</option>
-                            <option value="tmoney">티머니</option>--%>
+                            <option value="tmoney">티머니</option>
+                            <option value="cashbee">캐시비</option>
+                            <option value="GM">문화상품권</option>
+                            <option value="HM">해피머니상품권</option>
+                            <%-- <option value="GC">도서문화상품권</option>--%>
+                            <%-- GG 스마트문상(게임문화상품권), RA --%>
                         </select>
                         <input class="form-control" name="comDate" id="comDate" placeholder="시도일시" style="width: 20%">
                         <input class="form-control" name="okDate" id="okDate" placeholder="완료일시" style="width: 20%">
