@@ -369,8 +369,6 @@
             , item_amt : itemCnt
         };
 
-        console.log(data);
-
         util.getAjaxData("payAdd", "/rest/payment/pay/add/", data, payAddSuccess);
 
     });
