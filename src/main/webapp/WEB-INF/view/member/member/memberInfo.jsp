@@ -568,7 +568,7 @@
         var source = MemberDataTableSource[buttonId];
         console.log(source);
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.mem_no = memNo;
             if(buttonId == "connectState"){
                 data.sortDate = "1";
             }else if(buttonId == "manager" || buttonId == "black" ){
@@ -1434,7 +1434,7 @@
                             <option value="3">-</option>
                         </select>
                         <input type="text" class="form-control" id="txt_boostAddCnt" style="width:50px" maxlength="4">
-                        <button type="button" id="bt_boostAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-boostcnt="{{boostCnt}}">변경</button>
+                        <button type="button" id="bt_boostAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-boostcnt="{{boostItemCnt}}">변경</button>
                         <button type="button" id="boostHist" class="btn btn-default btn-sm pull-right">상세</button>
                     </span>
                 </c:if>
