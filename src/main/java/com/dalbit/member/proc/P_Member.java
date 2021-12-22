@@ -23,7 +23,7 @@ public interface P_Member {
 
     /* 관리자 11월 경품 응모권 지급/차감 내역 */
     @ResultMap({"ResultMap.integer", "ResultMap.PDjFanCouponHistoryOutputVo"})
-    @Select("CALL rd_admin.p_adm_event_november_dal_log_list(#{memNo}, #{pageNo}, #{pagePerCnt})")
+    @Select("CALL rd_admin.p_adm_event_november_dal_log_list(#{mem_no}, #{pageNo}, #{pagePerCnt})")
     List<Object> getDjFanEventCouponHistory(P_DjFanCouponHistoryInputVo pDjFanCouponHistoryInputVo);
 
 

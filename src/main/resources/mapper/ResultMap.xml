@@ -40,4 +40,13 @@
 	<resultMap id="PKkanbuMemSelTotalOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelTotalOutputVo" />
 	<resultMap id="PKkanbuRankListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuRankListOutputVo" />
 	<resultMap id="PKkanbuReqListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuReqListOutputVo" />
+
+	<!--트리만들기 이벤트-->
+	<resultMap id="P_XmasTreeStatusOutputVo" type="com.dalbit.content.vo.procedure.P_XmasTreeStatusOutputVo" />
+	<resultMap id="P_XmasTreeStoryListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasTreeStoryListOutputVo" />
+	<resultMap id="P_XmasAllStoryListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllStoryListOutputVo" />
+	<resultMap id="P_XmasAllDelStoryListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllDelStoryListOutputVo" />
+	<resultMap id="P_XmasAllReportListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllReportListOutputVo" />
+	<resultMap id="P_XmasLoverListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasLoverListOutputVo" />
+	<resultMap id="P_XmasDetailLoverScoreListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasDetailLoverScoreListOutputVo" />
 </mapper>

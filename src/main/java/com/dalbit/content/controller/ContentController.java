@@ -275,4 +275,7 @@ public class ContentController {
     @GetMapping("/event/kkanbu/list")
     public String kkanbu() {return "content/event/kkanbu/list";}
 
+    @GetMapping("/event/xmasTree/list")
+    public String xmasTree() {return "content/event/xmas/list";}
+
 }
