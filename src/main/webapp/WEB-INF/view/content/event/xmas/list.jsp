@@ -461,12 +461,10 @@
       let treeStep;
       if (value >= 150000) {
         treeStep = 3;
-      } else if (value >= 100000) {
+      } else if (value >= 70000) {
         treeStep = 2;
-      } else if (value >= 50000) {
-        treeStep = 1;
       } else {
-        treeStep = 0;
+        treeStep = 1;
       }
       return treeStep + "단계 트리";
     });
