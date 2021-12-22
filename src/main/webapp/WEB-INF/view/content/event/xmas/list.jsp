@@ -286,7 +286,7 @@
   function delStory(target, type) {
     const storyNo = target.story_no;
     const decoNo = target.story_decoration_no;
-    if(decoNo != 0 && decoNo != undefined){
+    if (decoNo != 0 && decoNo != undefined) {
       alert('현재 ' + decoNo + '번 트리에 장식되어 있습니다. 내린 후 삭제해 주세요.');
       return;
     }
@@ -297,7 +297,7 @@
       }
       util.getAjaxData("getXmasEventList", "/rest/content/event/xmas/delStory", data, function (dstId, response) {
         // console.log("delStory=", response);
-        if(response.result.result != 'success'){
+        if (response.result.result != 'success') {
           alert('비정상 처리!, 다시 시도해 주세요');
           return;
         }
@@ -341,7 +341,7 @@
   function callDecoApi(data) {
     util.getAjaxData("getXmasEventList", "/rest/content/event/xmas/setDecoStory", data, function (dstId, response) {
       // console.log("callDecoApi=", response);
-      if(response.result.result != 'success'){
+      if (response.result.result != 'success') {
         alert('비정상 처리!, 다시 시도해 주세요');
         return;
       }
@@ -388,7 +388,7 @@
     const loverSectionTab = $('#lover_section_tab_list li.active a');
     const loverSectiontNo = loverSectionTab.data('section_no');
 
-    if(isInitPop){  //모달창은 새로 열때마다 탭 초기화.
+    if (isInitPop) {  //모달창은 새로 열때마다 탭 초기화.
       $('#lover_score_section_tab_list li').eq(0).addClass('active');
       $('#lover_score_section_tab_list li').eq(1).removeClass('active');
       $('#lover_score_section_tab_list li').eq(2).removeClass('active');
@@ -463,8 +463,10 @@
         treeStep = 3;
       } else if (value >= 100000) {
         treeStep = 2;
-      } else{
+      } else if (value >= 50000) {
         treeStep = 1;
+      } else {
+        treeStep = 0;
       }
       return treeStep + "단계 트리";
     });
@@ -505,9 +507,9 @@
 
 <%--좋아요 트리만들기 상단 상태--%>
 <script type="text/x-handlebars-template" id="tmp_subscribe_status">
-    <div>좋아요 점수 : {{send_like_score_cnt}}점 ({{send_like_cnt}})개</div>
-    <div>라이브 부스트 점수 : {{send_booster_score_cnt}}점 ({{send_booster_cnt}})개</div>
-    <div style="margin-bottom: 5px"><b>총점 : {{tot_score_cnt}}점 ({{treeStep tot_score_cnt}})</b></div>
+    <div>좋아요 점수 : {{addComma send_like_score_cnt}}점 ({{addComma send_like_cnt}})개</div>
+    <div>라이브 부스트 점수 : {{addComma send_booster_score_cnt}}점 ({{addComma send_booster_cnt}})개</div>
+    <div style="margin-bottom: 5px"><b>총점 : {{addComma tot_score_cnt}}점 ({{treeStep tot_score_cnt}})</b></div>
 </script>
 
 <%--좋아요 트리만들기 1,2,3트리별 장식 사연--%>
@@ -828,7 +830,8 @@
             <td>{{calNo @key}}</td>
             <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
-            <td><a href="#" onclick="popDetailLoverScore(true, 1, {{mem_no}}, '{{mem_nick}}')">{{addComma tot_score_cnt}}점</a>
+            <td><a href="#" onclick="popDetailLoverScore(true, 1, {{mem_no}}, '{{mem_nick}}')">{{addComma
+                tot_score_cnt}}점</a>
             </td>
             <td><a href="#" onclick="popDetailLoverScore(true, 1, {{mem_no}}, '{{mem_nick}}')">{{addComma
                 send_like_score_cnt}}점</a></td>
