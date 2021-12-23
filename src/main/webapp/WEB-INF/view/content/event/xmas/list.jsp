@@ -459,9 +459,9 @@
 
     Handlebars.registerHelper('treeStep', function (value, options) {
       let treeStep;
-      if (value >= 150000) {
+      if (value >= 250000) {
         treeStep = 3;
-      } else if (value >= 70000) {
+      } else if (value >= 120000) {
         treeStep = 2;
       } else {
         treeStep = 1;
