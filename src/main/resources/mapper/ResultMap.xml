@@ -49,4 +49,12 @@
 	<resultMap id="P_XmasAllReportListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllReportListOutputVo" />
 	<resultMap id="P_XmasLoverListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasLoverListOutputVo" />
 	<resultMap id="P_XmasDetailLoverScoreListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasDetailLoverScoreListOutputVo" />
+
+	<!-- 신입회원 WELCOME -->
+	<resultMap id="P_WelcomeDjStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeDjStepOutputVo" />
+	<resultMap id="P_WelcomeGiftInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo" />
+	<resultMap id="P_WelcomeInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeInputVo" />
+	<resultMap id="P_WelcomeListenersStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeListenersStepOutputVo" />
+	<resultMap id="P_WelcomeStatusOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeStatusOutputVo" />
+	<resultMap id="P_WelcomeTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeTotalListOutputVo" />
 </mapper>
