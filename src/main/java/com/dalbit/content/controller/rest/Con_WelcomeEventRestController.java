@@ -33,7 +33,7 @@ public class Con_WelcomeEventRestController {
      * DJ 목록
      * @return
      */
-    @GetMapping("/discjockeys")
+    @GetMapping("/dj")
     public String getWelcomeDjs() {
         return "";
     }
