@@ -133,6 +133,8 @@
   let detailLoverScorePagingInfo = new PAGING_INFO(0, 1, 20); //사랑꾼상세점수 팝업
   let popDetailLoverScoreMemNo = 0;
   let popDetailLoverScoreMemNick = 0;
+  const treeLv3Score = 250000;
+  const treeLv2Score = 120000;
 
   function getXmasEventList(pagingNo = 1) {
     if (!common.isEmpty(pagingNo)) {
@@ -204,6 +206,8 @@
     if (target == "#tmpl_like_tree" || target == "tmpl_like_tree_story_list") {
       template = $('#tmp_subscribe_status').html();
       templateScript = Handlebars.compile(template);
+      let completePercent = Math.round((100 - (((treeLv3Score - resData.treeStatusData.tot_score_cnt) / treeLv3Score) * 100)) * 100) / 100;
+      resData.treeStatusData.completePercent = completePercent;
       context = resData.treeStatusData;
       html = templateScript(context);
       $("#subscribe_status_area").removeClass("hidden");
@@ -459,9 +463,9 @@
 
     Handlebars.registerHelper('treeStep', function (value, options) {
       let treeStep;
-      if (value >= 250000) {
+      if (value >= treeLv3Score) {
         treeStep = 3;
-      } else if (value >= 120000) {
+      } else if (value >= treeLv2Score) {
         treeStep = 2;
       } else {
         treeStep = 1;
@@ -507,7 +511,7 @@
 <script type="text/x-handlebars-template" id="tmp_subscribe_status">
     <div>좋아요 점수 : {{addComma send_like_score_cnt}}점 ({{addComma send_like_cnt}})개</div>
     <div>라이브 부스트 점수 : {{addComma send_booster_score_cnt}}점 ({{addComma send_booster_cnt}})개</div>
-    <div style="margin-bottom: 5px"><b>총점 : {{addComma tot_score_cnt}}점 ({{treeStep tot_score_cnt}})</b></div>
+    <div style="margin-bottom: 5px"><b>총점 : {{addComma tot_score_cnt}}점 ({{treeStep tot_score_cnt}})  완성률: {{completePercent}}%</b></div>
 </script>
 
 <%--좋아요 트리만들기 1,2,3트리별 장식 사연--%>
