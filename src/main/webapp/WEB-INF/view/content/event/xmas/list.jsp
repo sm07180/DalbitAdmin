@@ -133,8 +133,8 @@
   let detailLoverScorePagingInfo = new PAGING_INFO(0, 1, 20); //사랑꾼상세점수 팝업
   let popDetailLoverScoreMemNo = 0;
   let popDetailLoverScoreMemNick = 0;
-  const treeLv3Score = 250000;
-  const treeLv2Score = 120000;
+  const treeLv3Score = 220000;
+  const treeLv2Score = 110000;
 
   function getXmasEventList(pagingNo = 1) {
     if (!common.isEmpty(pagingNo)) {
