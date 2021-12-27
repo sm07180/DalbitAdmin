@@ -38,6 +38,27 @@
                 </div>
             </form>
             <!-- //serachBox -->
+            <div class="clearfix widget-content mt5 mb5">
+                <h4 class="font-bold">WELCOME 이벤트</h4>
+
+                <div id="slct_tabContainer" class="mb15">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" id="kkanbu_tablist">
+                        <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" data-slct_type="0" aria-expanded="false" class="_tab">청취자</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" data-slct_type="1" aria-expanded="false" class="_tab">DJ</a></li>
+                    </ul>
+                </div>
+
+                <div id="section_tabContainer" class="mb15">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" id="section_tablist">
+                        <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" data-section_no="0" aria-expanded="false" class="_tab">전체</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" data-section_no="1" aria-expanded="false" class="_tab">1단계</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" data-section_no="2" aria-expanded="false" class="_tab">2단계</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" data-section_no="3" aria-expanded="false" class="_tab">3단계</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" data-section_no="4" aria-expanded="false" class="_tab">ALL CLEAR</a></li>
+                    </ul>
+                </div>
+
+            </div>
 
         </div> <!-- //container-fluid -->
     </div> <!-- //page-wrapper -->
@@ -49,7 +70,10 @@
     let welcomeSectionNo = 0;   // 0: 전체, 1: 1단계, 2: 2단계, 3: 3단계, 4: ALL
 
     const welcomeEventData = (function() {
+        let curPageInfo;
+
         function callList(pageInfo) {
+            curPageInfo = pageInfo;
 
         }
 
@@ -70,6 +94,23 @@
         setDayButton();
 
         $('#bt_search').on('click', function () {
+            welcomePagingInfo.pageNo = 1;
+            welcomeEventData.callList(welcomePagingInfo);
+        });
+
+        // 최상위 탭 이벤트
+        $('#slct_tabContainer li a').on('click', function() {
+            const $this = $(this);
+            welcomeSlctType = parseInt($this.data('slct_type'), 10);
+            welcomeSectionNo = 0;
+
+            $('#section_tabContainer li a').eq(welcomeSectionNo).click();
+        });
+
+        $('#section_tabContainer li a').on('click', function() {
+            const $this = $(this);
+            welcomeSectionNo = parseInt($this.data('section_no'), 10);
+
             welcomePagingInfo.pageNo = 1;
             welcomeEventData.callList(welcomePagingInfo);
         });
