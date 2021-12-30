@@ -62,6 +62,7 @@ util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc,
         header: {
 
         },
+        contentType: isEmptyOption ? 'application/x-www-form-urlencoded; charset=UTF-8' : common.isEmpty(option.contentType) ? 'application/x-www-form-urlencoded; charset=UTF-8' : option.contentType,
         type: isEmptyOption ? 'POST' : common.isEmpty(option.type) ? 'POST' : option.type,
         url: dst_url,
         dataType: isEmptyOption ? 'json' : common.isEmpty(option.dataType) ? 'json' : option.dataType,

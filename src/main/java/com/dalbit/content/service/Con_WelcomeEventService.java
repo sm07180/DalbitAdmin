@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.proc.Event_welcomeProc;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -115,24 +116,15 @@ public class Con_WelcomeEventService {
     public String callModifyWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
         String result;
         HashMap resHashMap = new HashMap();
-
-        P_WelcomeGiftInputVo CwelcomeGiftInputVo = new P_WelcomeGiftInputVo();
         try {
-            CwelcomeGiftInputVo.setGiftSlct(pWelcomeGiftInputVo.getGiftSlct());
-            CwelcomeGiftInputVo.setStepNo(pWelcomeGiftInputVo.getStepNo());
-            CwelcomeGiftInputVo.setDelChrgrName(pWelcomeGiftInputVo.getDelChrgrName());
-
-            String[] memNoList = pWelcomeGiftInputVo.getMemNo().split(",");
-            for (int i = 0; i < memNoList.length; i++) {
-                CwelcomeGiftInputVo.setMemNo(memNoList[i]);
-                event_welcomeProc.modifyWelcomeGift(CwelcomeGiftInputVo);
+            for (P_WelcomeGiftInputVo item : pWelcomeGiftInputVo.getList()) {
+                item.setChrgrName(MemberVo.getMyMemNo());
+                event_welcomeProc.modifyWelcomeGift(item);
             }
-            result = gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
+            resHashMap.put("result", new JsonOutputVo(Status.처리완료));
         } catch (Exception e) {
-            e.printStackTrace();
-            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+            resHashMap.put("result", new JsonOutputVo(Status.파라미터오류));
         }
-        result = gsonUtil.toJson(resHashMap);
-        return result;
+        return gsonUtil.toJson(resHashMap);
     }
 }

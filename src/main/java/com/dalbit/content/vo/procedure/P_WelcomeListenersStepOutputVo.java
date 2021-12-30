@@ -19,10 +19,13 @@ public class P_WelcomeListenersStepOutputVo {
     private String mem_gift_req_yn;     // 경품신청 완료
     private String mem_gift_rcv_yn;     // 경품받기 완료
     private Date mem_gift_the_month;    // 경품 일자(월)
-    private int mem_gift_no;            // 경품 번호
+    private String mem_gift_code;       // 경품 코드
     private String mem_gift_name;       // 경품 이름
     private Date mem_gift_req_date;     // 신청날짜
     private Date mem_gift_rcv_date;	    // 받은일자
+    
+    private String step_con_yn;         // 접속조건 충족여부
+    private int tot_pay_dal_cnt;        // 총 구매달
 
     private Date ins_date;		        // 등록일자
     private Date upd_date;		        // 수정일자

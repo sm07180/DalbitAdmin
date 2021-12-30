@@ -20,7 +20,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer", "ResultMap.P_WelcomeTotalListOutputVo"})
-    @Select("CALL rd_admin.p_adm_welcome_dj_list(#{memNo}, #{pageNo}, s#{pagePerCnt})")
+    @Select("CALL rd_admin.p_adm_welcome_dj_list(#{memNo}, #{pageNo}, #{pagePerCnt})")
     List<Object> getWelcomeDjList(P_WelcomeInputVo pWelcomeInputVo);
 
     /**
@@ -40,7 +40,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer", "ResultMap.P_WelcomeTotalListOutputVo"})
-    @Select("CALL rd_admin.p_adm_welcome_mem_list(#{memNo}, #{pageNo}, s#{pagePerCnt})")
+    @Select("CALL rd_admin.p_adm_welcome_mem_list(#{memNo}, #{pageNo}, #{pagePerCnt})")
     List<Object> getWelcomeListenerList(P_WelcomeInputVo pWelcomeInputVo);
 
     /**
@@ -60,7 +60,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer"})
-    @Update("CALL rd_data.p_adm_welcome_gift_upd(#{memNo}, #{giftSlct}, #{stepNo}, #{delChrgrName})")
+    @Update("CALL rd_admin.p_adm_welcome_gift_upd(#{memNo}, #{giftSlct}, #{giftCode}, #{giftName}, #{stepNo}, #{chrgrName})")
     int modifyWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
 
 }

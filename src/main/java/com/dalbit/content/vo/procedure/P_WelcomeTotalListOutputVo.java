@@ -16,17 +16,17 @@ public class P_WelcomeTotalListOutputVo {
 
     private String step_1_req_yn;	    // 1단계 경품신청 완료
     private Date step_1_gift_the_month; // 1단계 경품 일자(월)
-    private int step_1_gift_no;	        // 1단계 경품 번호
+    private String step_1_gift_code;	// 1단계 경품 코드
     private String step_1_gift_name;	// 1단계 경품 이름
 
     private String step_2_req_yn;	    // 2단계 경품신청 완료
     private Date step_2_gift_the_month; // 2단계 경품 일자(월)
-    private int step_2_gift_no;	        // 2단계 경품 번호
+    private String step_2_gift_code;	// 2단계 경품 코드
     private String step_2_gift_name;	// 2단계 경품 이름
 
     private String step_3_req_yn;	    // 3단계 경품신청 완료
     private Date step_3_gift_the_month; // 3단계 경품 일자(월)
-    private int step_3_gift_no;	        // 3단계 경품 번호
+    private String step_3_gift_code;    // 3단계 경품 코드
     private String step_3_gift_name;	// 3단계 경품 이름
 
     private Date ins_date;		        // 등록일자
