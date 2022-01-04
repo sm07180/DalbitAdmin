@@ -22,16 +22,10 @@
     </select>
 
     <select id="currentIpDuplInfo" resultType="java.util.HashMap">
-        select *
-        FROM(
-                SELECT state.ip, count(state.ip) ipCnt
-                from rd_data.tb_member_connect_state state
-                         inner join rd_data.tb_member_basic basic on state.mem_no = basic.mem_no
-                WHERE `type` = 1 and basic.inner = 0
-                group by state.ip
-                order by count(state.ip) desc
-                limit 10
-            )a
-        WHERE 1 <![CDATA[<]]> a.ipCnt
+        SELECT  IF(state.ip='',last_login_ip,state.ip) AS ip, COUNT(*) AS ipCnt
+        FROM  rd_data.tb_member_connect_state state
+                  INNER JOIN rd_data.tb_member_basic basic ON state.mem_no = basic.mem_no
+        WHERE `type` = 1 AND basic.inner = 0
+        GROUP BY 1 ORDER BY ipCnt DESC LIMIT 10
     </select>
 </mapper>
