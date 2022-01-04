@@ -281,5 +281,8 @@ public class ContentController {
     @GetMapping("/event/welcome/list")
     public String welcome() {return "content/event/welcome/list";}
 
+    @GetMapping("/event/tothemoon/list")
+    public String tothemoon() {return "content/event/tothemoon/list";}
+
 }
 

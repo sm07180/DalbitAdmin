@@ -57,4 +57,9 @@
 	<resultMap id="P_WelcomeListenersStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeListenersStepOutputVo" />
 	<resultMap id="P_WelcomeStatusOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeStatusOutputVo" />
 	<resultMap id="P_WelcomeTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeTotalListOutputVo" />
+
+	<!-- 달나라갈꺼니까! -->
+	<resultMap id="P_ToTheMoonInputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonInputVo" />
+	<resultMap id="P_ToTheMoonStatusVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonStatusVo" />
+	<resultMap id="P_ToTheMoonListOutputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonListOutputVo" />
 </mapper>
