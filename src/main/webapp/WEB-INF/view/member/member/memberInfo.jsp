@@ -256,14 +256,6 @@
       $('#bt_rouletteCouponAdd').click(function(){         // 룰렛 응모권 변경
         rouletteCouponAdd(this);
       });
-
-        $('#bt_djFanCouponAdd').click(function(){         // 룰렛 응모권 변경
-            djFanCouponAdd(this);
-        });
-
-        $('#bt_djFanCouponHistory').click(function() {       //11월 경품 이벤트 메모 리스트
-            getInfoDetail(this.id,"경품 응모권");
-        });
         // 버튼 끝
         /*var data = {
             mem_no : memNo,
@@ -952,61 +944,6 @@
         });
       }
     }
-    function djFanCouponAdd(btn){
-      const djFanCouponInput = $('#txt_djFanCouponAddCnt');
-      const djFanCouponInputCnt = parseInt(djFanCouponInput.val());
-      const changedType = $('#djFanCouponPlusMinus').val();
-      const haveCouponCnt = parseInt(document.getElementById('bt_djFanCouponAdd').dataset.djFanCouponCnt);
-
-      if(common.isEmpty(djFanCouponInputCnt)){
-        alert('경품 응모권 갯수를 입력해주세요.');
-        djFanCouponInput.focus();
-        return;
-      }else if(isNaN(djFanCouponInputCnt)){
-        alert('경품 응모권 갯수는 숫자로만 입력해주세요.');
-        djFanCouponInput.focus();
-        return;
-      }
-
-      if(changedType == '3' && haveCouponCnt < djFanCouponInputCnt){
-        alert('보유수량보다 많은 수량을 차감할 수 없습니다.');
-        return;
-      }
-
-      if(changedType == '1' && 9999 < haveCouponCnt + djFanCouponInputCnt){
-        alert('아이템 갯수는 9999까지만 가능합니다.');
-        return;
-      }
-
-      var msg = '경품 응모권 ' + djFanCouponInputCnt +'개를 지급하시겠습니까?';
-      var dst_id = 'djFanCouponAdd';
-      if(changedType == '3'){
-        msg = '경품 응모권 ' + djFanCouponInputCnt +'개를 차감하시겠습니까?';
-        dst_id = 'djFanCouponSubtract';
-      }
-
-      if(confirm(msg)){
-
-        const data = {
-          memNo : $(btn).data('memno') // 대상 memNo
-          , couponSlct : changedType === "1" ? "1" : "2" // 1: 지급, 2: 차감
-          , procCnt : djFanCouponInputCnt // 처리 수
-        }
-
-        util.getAjaxData(dst_id, "/rest/member/member/djFan/coupon/change", data, function(dst_id, response){
-          if(response.result === 'success') {
-            var responseMsg = '경품 응모권 ' + djFanCouponInputCnt + '개를 지급하였습니다.';
-            if(changedType == '3'){
-              responseMsg = '경품 응모권 ' + djFanCouponInputCnt + '개를 차감하였습니다.';
-            }
-            alert(responseMsg);
-            location.reload();
-          }else {
-            alert('경품 응모권 지급 실패하였습니다.');
-          }
-        });
-      }
-    }
 
     $(document).on('click', '#bt_listenExit', function(){
         var listen_title = $(this).data('listen_title');
@@ -1525,24 +1462,9 @@
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자<br>메모</th>
-            <td rowspan="2" colspan="4" style="text-align: left;">
-                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 80%;height: 76px"></textarea>
+            <td rowspan="2" colspan="7" style="text-align: left;">
+                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
-            </td>
-            <th>11월 경품<br />응모권</th>
-            <td colspan="3" style="text-align: left;border-right-color:white;border-right-width:0px;">
-                <span class="col-md-3 no-padding" style="text-align: left; line-height: 30px;">{{addComma novemberCouponCnt}} 개</span>
-                <c:if test="${insertYn eq 'Y'}">
-                    <span class="col-md-9 no-padding" id="">
-                        <select id="djFanCouponPlusMinus" name="djFanCouponPlusMinus" class="form-control searchType">
-                            <option value="1">+</option>
-                            <option value="3">-</option>
-                        </select>
-                        <input type="text" class="form-control" id="txt_djFanCouponAddCnt" style="width:50px" maxlength="4">
-                        <button type="button" id="bt_djFanCouponAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-djfan-coupon-cnt="{{novemberCouponCnt}}">변경</button>
-                        <button type="button" id="bt_djFanCouponHistory" data-memno="{{mem_no}}" class="btn btn-default btn-sm">상세</button>
-                    </span>
-                </c:if>
             </td>
         </tr>
         <tr>

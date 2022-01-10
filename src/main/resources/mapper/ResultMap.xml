@@ -21,7 +21,6 @@
 	<resultMap id="PDjPanPrizeFanSectionOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanSectionOutputVo" />
 	<resultMap id="PDjPanPrizeFanTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeFanTotalListOutputVo" />
 	<resultMap id="PDjPanPrizeDjListOutputVo" type="com.dalbit.content.vo.procedure.P_DjFanPrizeDjListOutputVo" />
-	<resultMap id="PDjFanCouponHistoryOutputVo" type="com.dalbit.member.vo.procedure.P_DjFanCouponHistoryOutputVo" />
 
 	<!-- 뽑기 이벤트-->
 	<resultMap id="PDrawEventListOutputVo" type="com.dalbit.content.vo.procedure.P_DrawEventListOutputVo" />
@@ -40,4 +39,7 @@
 	<resultMap id="PKkanbuMemSelTotalOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuMemSelTotalOutputVo" />
 	<resultMap id="PKkanbuRankListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuRankListOutputVo" />
 	<resultMap id="PKkanbuReqListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuReqListOutputVo" />
+
+    <!-- 미성년자 법정대리인 이메일 발송 로그 -->
+    <resultMap id="ParentsEmailLogSelOutputVo" type="com.dalbit.payment.vo.ParentsEmailLogSelOutputVo" />
 </mapper>

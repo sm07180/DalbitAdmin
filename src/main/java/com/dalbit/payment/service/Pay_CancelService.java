@@ -3,6 +3,8 @@ package com.dalbit.payment.service;
 import com.checkpay.util.SecurityUtil;
 import com.dalbit.common.code.CancelPhoneCode;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.EmailService;
+import com.dalbit.common.vo.EmailInputVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.exception.GlobalException;
@@ -14,6 +16,7 @@ import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.module.cnnew_v0003.McashManager;
 import com.dalbit.payment.module.gift_v0001.giftCncl;
 import com.dalbit.payment.module.mcCancel_v0001.MC_Cancel;
+import com.dalbit.common.proc.Common;
 import com.dalbit.payment.vo.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -24,6 +27,7 @@ import net.sf.json.JSONObject;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -35,13 +39,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Properties;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -55,6 +59,9 @@ public class Pay_CancelService {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @Autowired Common common;
+    @Autowired EmailService emailService;
 
     /**
      *  신용카드 결제 취소
@@ -98,6 +105,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelCardVo.getMemno(), payCancelCardVo.getPaycd(), payCancelCardVo.getOkdt()
+                            , payCancelCardVo.getOktime(), payCancelCardVo.getPaycode(), payCancelCardVo.getItemamt()
+                            , payCancelCardVo.getCardno(), payCancelCardVo.getCardnm(), payCancelCardVo.getMemBirth()
+                            , payCancelCardVo.getPrdtprice(), payCancelCardVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelCard 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result =  gsonUtil.toJson(new JsonOutputVo((Status)resultMap.get("status")));
@@ -160,6 +178,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelPhoneVo.getMemno(), payCancelPhoneVo.getPaycd(), payCancelPhoneVo.getOkdt()
+                            , payCancelPhoneVo.getOktime(), payCancelPhoneVo.getPaycode(), payCancelPhoneVo.getItemamt()
+                            , payCancelPhoneVo.getCardno(), payCancelPhoneVo.getCardnm(), payCancelPhoneVo.getMemBirth()
+                            , payCancelPhoneVo.getPrdtprice(), payCancelPhoneVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelPhone 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result =  gsonUtil.toJson(new JsonOutputVo((Status)resultMap.get("status")));
@@ -299,6 +328,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelPayletterVo.getMemno(), payCancelPayletterVo.getPaycd(), payCancelPayletterVo.getOkdt()
+                            , payCancelPayletterVo.getOktime(), payCancelPayletterVo.getPaycode(), payCancelPayletterVo.getItemamt()
+                            , payCancelPayletterVo.getCardno(), payCancelPayletterVo.getCardnm(), payCancelPayletterVo.getMemBirth()
+                            , payCancelPayletterVo.getPrdtprice(), payCancelPayletterVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payletterCancel 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
@@ -359,6 +399,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelGiftVo.getMemno(), payCancelGiftVo.getPaycd(), payCancelGiftVo.getOkdt()
+                            , payCancelGiftVo.getOktime(), payCancelGiftVo.getPaycode(), payCancelGiftVo.getItemamt()
+                            , payCancelGiftVo.getCardno(), payCancelGiftVo.getCardnm(), payCancelGiftVo.getMemBirth()
+                            , payCancelGiftVo.getPrdtprice(), payCancelGiftVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelGm 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
@@ -420,6 +471,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelGiftVo.getMemno(), payCancelGiftVo.getPaycd(), payCancelGiftVo.getOkdt()
+                            , payCancelGiftVo.getOktime(), payCancelGiftVo.getPaycode(), payCancelGiftVo.getItemamt()
+                            , payCancelGiftVo.getCardno(), payCancelGiftVo.getCardnm(), payCancelGiftVo.getMemBirth()
+                            , payCancelGiftVo.getPrdtprice(), payCancelGiftVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelGg 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
@@ -483,6 +545,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelGiftVo.getMemno(), payCancelGiftVo.getPaycd(), payCancelGiftVo.getOkdt()
+                            , payCancelGiftVo.getOktime(), payCancelGiftVo.getPaycode(), payCancelGiftVo.getItemamt()
+                            , payCancelGiftVo.getCardno(), payCancelGiftVo.getCardnm(), payCancelGiftVo.getMemBirth()
+                            , payCancelGiftVo.getPrdtprice(), payCancelGiftVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelGc 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
@@ -546,6 +619,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelGiftVo.getMemno(), payCancelGiftVo.getPaycd(), payCancelGiftVo.getOkdt()
+                            , payCancelGiftVo.getOktime(), payCancelGiftVo.getPaycode(), payCancelGiftVo.getItemamt()
+                            , payCancelGiftVo.getCardno(), payCancelGiftVo.getCardnm(), payCancelGiftVo.getMemBirth()
+                            , payCancelGiftVo.getPrdtprice(), payCancelGiftVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelHm 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
@@ -601,6 +685,133 @@ public class Pay_CancelService {
         return result;
     }
 
+    /**
+     * 미성년자 법정대리인에게 결제 취소 이메일 발송
+     */
+
+    // 만나이
+    private int birthToAmericanAge(int birthYear, int birthMonth, int birthDay) {
+        Calendar cal = Calendar.getInstance();
+        int nowYear = cal.get(Calendar.YEAR);
+        int nowMonth = cal.get(Calendar.MONTH) + 1;
+        int nowDay = cal.get(Calendar.DAY_OF_MONTH);
+        int monthAndDay = Integer.parseInt(nowMonth + "" + nowDay);
+
+        int birthMonthAndDay = Integer.parseInt(birthMonth + "" + birthDay);
+        int yearDiff = nowYear - birthYear;
+        int monthAndDayDiff = monthAndDay - birthMonthAndDay;
+        int manAge = yearDiff;
+
+        if(monthAndDayDiff < 0) {
+            manAge--;
+        }
+
+        return manAge;
+    }
+
+    // 성인 구분
+    private String isAdultYn(String birth) {
+        String isAdultYn = "n"; // 미성년자
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy");
+            Date time = new Date();
+            int now = Integer.parseInt(sd.format(time));
+            String[] splitedBirth = birth.split("-");
+            int birthYear = Integer.parseInt(splitedBirth[0]);
+            int birthMonth = Integer.parseInt(splitedBirth[1]);
+            int birthDay = Integer.parseInt(splitedBirth[2]);
+            int americanAge = birthToAmericanAge(birthYear, birthMonth, birthDay);
+
+            if(now - americanAge >= 19) isAdultYn = "y"; // 성인
+        } catch (Exception e) {
+            log.error("Pay_CancelService / sendPayCancelMail 시간 / 나이 변환 에러 : ", e);
+        }
+
+        return isAdultYn;
+    }
+
+    // 메일 발송
+    private void sendPayCancelMail(PayCancelSendEmailVo payCancelSendEmailVo) {
+        // 나이 체크 (미성년자만 이메일 발송)
+        if(StringUtils.equals(isAdultYn(payCancelSendEmailVo.getMemBirth()), "y")) return;
+
+        String memNo = payCancelSendEmailVo.getMemNo();
+        String sHtml = "";
+        StringBuffer mailContent = new StringBuffer();
+        BufferedReader in = null;
+
+        try{
+            // 법정대리인 인증 정보
+            ParentsAuthSelVo parentsAuthSelVo = common.parentsAuthSel(memNo);
+
+            // 인증 정보 없음
+            if(parentsAuthSelVo == null) {
+                log.error("Pay_CancelService / sendPayCancelMail 법정대리인 인증 정보 없음 => memNo: {}", memNo);
+                return;
+            }
+
+            // 결제 취소 메일 발송
+            URL url = new URL("http://image.dalbitlive.com/resource/mailForm/payCancel.txt");
+            URLConnection urlconn = url.openConnection();
+            in = new BufferedReader(new InputStreamReader(urlconn.getInputStream(),"utf-8"));
+
+            while((sHtml = in.readLine()) != null){
+                mailContent.append("\n");
+                mailContent.append(sHtml);
+            }
+
+            String msgCont;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String today = dateFormat.format(new Date());
+
+            msgCont = mailContent.toString().replaceAll("@@cancelUserName@@", parentsAuthSelVo.getMem_name()); // 유저 이름
+            msgCont = msgCont.replaceAll("@@paymentDate@@", payCancelSendEmailVo.getOkdt()); // 거래일시
+            msgCont = msgCont.replaceAll("@@paymentMethod@@", payCancelSendEmailVo.getPaycdName()); // 결제수단
+            msgCont = msgCont.replaceAll("@@paymentAccount@@", payCancelSendEmailVo.getHideCardNo()); // 결제정보1
+            msgCont = msgCont.replaceAll("@@paymentBank@@", payCancelSendEmailVo.getCardnm()); // 결제정보2
+            msgCont = msgCont.replaceAll("@@paymentProduct@@", payCancelSendEmailVo.getPaycode()); // 결제상품
+            msgCont = msgCont.replaceAll("@@paymentQuantity@@", payCancelSendEmailVo.getItemamt()); // 결제수량
+            msgCont = msgCont.replaceAll("@@paymentPrice@@", payCancelSendEmailVo.getItemPrice()); // 결제금액
+            msgCont = msgCont.replaceAll("@@cancelDate@@", today); // 취소일시
+            msgCont = msgCont.replaceAll("@@cancelPrice@@", payCancelSendEmailVo.getItemPrice()); // 취소금액
+
+            EmailInputVo emailInputVo = new EmailInputVo();
+            emailInputVo.setTitle("달빛라이브 결제 취소 알림");
+            emailInputVo.setMsgCont(msgCont);
+            emailInputVo.setRcvMail(parentsAuthSelVo.getParents_mem_email());
+            emailService.sendEmail(emailInputVo);
+
+            // 메일 발송 성공 로그 ins
+            ParentsEmailLogInsVo parentsEmailLogInsVo = new ParentsEmailLogInsVo();
+            parentsEmailLogInsVo.setMemNo(memNo);
+            parentsEmailLogInsVo.setMailSlct("c");
+
+            String cancelUserName = parentsAuthSelVo.getMem_name();
+            String cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
+            String cancelAccount = payCancelSendEmailVo.getCardno();
+
+            JSONObject mailEtcInfo = new JSONObject();
+            mailEtcInfo.put("cancelUserName", cancelUserLastLetterReplace); // 회원이름 마지막 글자 *
+            mailEtcInfo.put("paymentDate", payCancelSendEmailVo.getOkdt());
+            mailEtcInfo.put("paymentMethod", payCancelSendEmailVo.getPaycdName());
+            mailEtcInfo.put("paymentAccount", payCancelSendEmailVo.getHideCardNo()); // 계좌번호 *처리(카드결제)
+            mailEtcInfo.put("paymentBank", payCancelSendEmailVo.getCardnm());
+            mailEtcInfo.put("paymentProduct", payCancelSendEmailVo.getPaycode());
+            mailEtcInfo.put("paymentQuantity", payCancelSendEmailVo.getItemamt());
+            mailEtcInfo.put("paymentPrice", payCancelSendEmailVo.getItemPrice());
+            mailEtcInfo.put("cancelDate", today);
+            mailEtcInfo.put("cancelPrice", payCancelSendEmailVo.getItemPrice());
+            mailEtcInfo.put("cancelUserFullName", cancelUserName); // 회원 이름
+            mailEtcInfo.put("cancelAccountFullName", cancelAccount); // 결제 계좌번호
+
+            parentsEmailLogInsVo.setMailEtc(mailEtcInfo.toString());
+            parentsEmailLogInsVo.setPMemEmail(parentsAuthSelVo.getParents_mem_email());
+            common.parentsAuthEmailLogIns(parentsEmailLogInsVo);
+        }
+        catch(Exception e){
+            log.error("Pay_CancelService / sendPayCancelMail 미성년자 결제 취소 이메일 발송 에러 : ", e);
+        }
+    }
 
     /**
      * 카카오페이(머니) 결제 취소
@@ -636,6 +847,17 @@ public class Pay_CancelService {
                 HashMap resultMap = dalCancel(pCancelVo);
 
                 if(resultMap.get("status").equals(Status.달차감_성공)){
+                    try {
+                        PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                            payCancelKakaoPayVo.getMemno(), payCancelKakaoPayVo.getPaycd(), payCancelKakaoPayVo.getOkdt()
+                            , payCancelKakaoPayVo.getOktime(), payCancelKakaoPayVo.getPaycode(), payCancelKakaoPayVo.getItemamt()
+                            , payCancelKakaoPayVo.getCardno(), payCancelKakaoPayVo.getCardnm(), payCancelKakaoPayVo.getMemBirth()
+                            , payCancelKakaoPayVo.getPrdtprice(), payCancelKakaoPayVo.getHideCardNo()
+                        );
+                        sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                    } catch (Exception e) {
+                        log.error("Pay_CancelService / payCancelKakaoMoney 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                    }
                     result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
                 }else {
                     result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
@@ -750,6 +972,17 @@ public class Pay_CancelService {
             HashMap resultMap = dalCancel(pCancelVo);
 
             if(resultMap.get("status").equals(Status.달차감_성공)){
+                try {
+                    PayCancelSendEmailVo payCancelSendEmailVo = new PayCancelSendEmailVo(
+                        payCancelSimplePayVo.getMemno(), payCancelSimplePayVo.getPaycd(), payCancelSimplePayVo.getOkdt()
+                        , payCancelSimplePayVo.getOktime(), payCancelSimplePayVo.getPaycode(), payCancelSimplePayVo.getItemamt()
+                        , payCancelSimplePayVo.getCardno(), payCancelSimplePayVo.getCardnm(), payCancelSimplePayVo.getMemBirth()
+                        , payCancelSimplePayVo.getPrdtprice(), payCancelSimplePayVo.getHideCardNo()
+                    );
+                    sendPayCancelMail(payCancelSendEmailVo); // 미성년자 결제취소 법정대리인한테 메일 발송
+                } catch (Exception e) {
+                    log.error("Pay_CancelService / payCancelSimple 미성년자 결제 취소 이메일 발송 에러 : ", e);
+                }
                 result =  gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
             }else {
                 result = gsonUtil.toJson(new JsonOutputVo((Status) resultMap.get("status")));
