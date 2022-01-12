@@ -291,7 +291,7 @@
             <td>{{addComma mem_exp_score}}</td>
             <td>
                 {{addComma mem_special_score}}
-                {{#dalbit_if isOverGoodNo "==" false}}
+                {{#dalbit_if isOverGoodNo "==" true}}
                 <a class="_openGoodStartScoreDetail" data-info="{{json this}}" style="cursor: pointer;">[확인]</a>
                 {{/dalbit_if}}
             </td>
