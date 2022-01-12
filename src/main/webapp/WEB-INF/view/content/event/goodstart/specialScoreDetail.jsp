@@ -31,7 +31,6 @@
     )
 
     function getSuccessCallback(id, response, params) {
-      console.log('success callback', id, response, params)
       let template, templateScript, context, html;
 
       template = $('#goodStart_fan_detail_table').html();
