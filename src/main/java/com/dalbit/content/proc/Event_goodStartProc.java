@@ -42,7 +42,7 @@ public interface Event_goodStartProc {
     List<Object> goodStartFanList(GoodStartDataInputVo goodStartDataInputVo);
 
     // fan 특정 회원 조회
-    @Select("CALL rd_data.p_adm_evt_good_start_fan_sel(#{goodNo}, #{memNo}, #{bjSlct})")
+    @Select("CALL rd_data.p_adm_evt_good_start_fan_sel(#{goodNo}, #{memNo})")
     GoodStartFanRankVo goodStartFanSel(GoodStartDataInputVo goodStartDataInputVo);
 
     /**

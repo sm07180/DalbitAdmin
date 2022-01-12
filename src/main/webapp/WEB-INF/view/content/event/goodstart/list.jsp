@@ -94,7 +94,6 @@
   }
 
   function getSuccessCallback(id, response, params) {
-    console.log('params' ,params);
     let template, templateScript, context, html, $tableId;
     const slctType = $('#goodstart_rank_type .active a')[0].dataset.rank_type; // dj / fan
     const goodNo = parseInt($('#goodstart_no .active a')[0].dataset.goodno); // 선택된 회차
@@ -120,7 +119,6 @@
 
     template = $tableId.html();
     templateScript = Handlebars.compile(template);
-    console.log('JSON.parse(response) : ', response);
     if(params.memNo === "0") {
       context = response.rankList.map(function (item, index) {
         item.rank_no = index + 1;
@@ -140,14 +138,6 @@
 
   function errorFunc() {
     console.log('굿스타트 이벤트 api error');
-  }
-
-  function specialScoreDetail(data) {
-    console.log('specialScoreDetail : ', data);
-    const url = "/content/event/goodstart/specialScoreDetail" + encodeURIComponent(data);
-    console.log('url :: ', url);
-
-    util.windowOpen(url, 750, 600, 'goodStartScoreDetailPop');
   }
 
   // 종합랭킹 / 신인랭킹 탭 show, hide
@@ -189,6 +179,7 @@
     const slctType = $('#goodstart_rank_type .active a')[0].dataset.rank_type;
     const goodNo = $('#goodstart_no .active a')[0].dataset.goodno;
     const rankSlct = $('#goodstart_rank_slct .active a')[0].dataset.rank_slct;
+    console.log('goodNo, slctType, rankSlct : ', goodNo, slctType, rankSlct);
     getGoodStartData(goodNo, slctType, rankSlct);
   });
 </script>
