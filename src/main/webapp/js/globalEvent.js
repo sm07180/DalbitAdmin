@@ -136,3 +136,12 @@ $(document).on('focusout', '._onlyNumber', function(){
     var replaced = me.val().replace(/[^0-9]/g,"")
     me.val(replaced);
 });
+
+// 굿스타트 이벤트 - 팬 - 특별점수 상세 페이지
+$(document).on('click', '._openGoodStartScoreDetail', function(){
+  console.log($(this).data('info'));
+  const url = "/rest/content/event/goodstart/specialScoreDetail?specialDetailData" + encodeURIComponent($(this).data('info'));
+  console.log('url :: ', url);
+
+  util.windowOpen(url, 750, 600, 'goodStartScoreDetailPop');
+});

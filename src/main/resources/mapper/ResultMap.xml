@@ -62,4 +62,8 @@
 	<resultMap id="P_ToTheMoonInputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonInputVo" />
 	<resultMap id="P_ToTheMoonStatusVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonStatusVo" />
 	<resultMap id="P_ToTheMoonListOutputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonListOutputVo" />
+
+    <!-- 굿스타트 -->
+    <resultMap id="GoodStartDjRankVo" type="com.dalbit.content.vo.GoodStartDjRankVo" />
+    <resultMap id="GoodStartFanRankVo" type="com.dalbit.content.vo.GoodStartFanRankVo" />
 </mapper>
