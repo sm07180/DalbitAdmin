@@ -287,7 +287,7 @@ public class ContentController {
     @GetMapping("/event/goodstart/list")
     public String goodStart() {return "content/event/goodstart/list";}
 
-    @GetMapping("/event/goodstart/specialScoreDetail")
+    @GetMapping("/event/goodstart/special/score/detail")
     public String specialScoreDetail(Model model, @RequestParam(value = "specialDetailData") String specialDetailData ) {
         model.addAttribute("specialDetailData", specialDetailData);
         return "content/event/goodstart/specialScoreDetail";

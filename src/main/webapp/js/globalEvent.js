@@ -139,9 +139,9 @@ $(document).on('focusout', '._onlyNumber', function(){
 
 // 굿스타트 이벤트 - 팬 - 특별점수 상세 페이지
 $(document).on('click', '._openGoodStartScoreDetail', function(){
-  console.log($(this).data('info'));
-  const url = "/rest/content/event/goodstart/specialScoreDetail?specialDetailData" + encodeURIComponent($(this).data('info'));
-  console.log('url :: ', url);
+  const data = $(this).data('info');
+  const dataToJson = JSON.stringify(data);
+  const url = "/content/event/goodstart/special/score/detail?specialDetailData=" + encodeURIComponent(dataToJson);
 
-  util.windowOpen(url, 750, 600, 'goodStartScoreDetailPop');
+  util.windowOpen(url, 550, 300, 'goodStartScoreDetailPop');
 });

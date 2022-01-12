@@ -208,7 +208,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{rank_no}}</td>
-            <td>{{{memNoLink mem_no}}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{mem_ins_level}}</td>
             <td>{{addComma tot_mem_score}}</td>
@@ -247,7 +247,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{rank_no}}</td>
-            <td>{{{memNoLink mem_no}}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{mem_ins_level}}</td>
             <td>{{addComma tot_mem_score}}</td>
@@ -286,7 +286,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{rank_no}}</td>
-            <td>{{{memNoLink mem_no}}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{addComma mem_exp_score}}</td>
             <td>
@@ -299,7 +299,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="12">{{isEmptyData}}</td>
+            <td colspan="6">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
