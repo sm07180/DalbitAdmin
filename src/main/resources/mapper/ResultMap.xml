@@ -40,6 +40,32 @@
 	<resultMap id="PKkanbuRankListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuRankListOutputVo" />
 	<resultMap id="PKkanbuReqListOutputVo" type="com.dalbit.content.vo.procedure.P_KkanbuReqListOutputVo" />
 
+	<!--트리만들기 이벤트-->
+	<resultMap id="P_XmasTreeStatusOutputVo" type="com.dalbit.content.vo.procedure.P_XmasTreeStatusOutputVo" />
+	<resultMap id="P_XmasTreeStoryListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasTreeStoryListOutputVo" />
+	<resultMap id="P_XmasAllStoryListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllStoryListOutputVo" />
+	<resultMap id="P_XmasAllDelStoryListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllDelStoryListOutputVo" />
+	<resultMap id="P_XmasAllReportListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasAllReportListOutputVo" />
+	<resultMap id="P_XmasLoverListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasLoverListOutputVo" />
+	<resultMap id="P_XmasDetailLoverScoreListOutputVo" type="com.dalbit.content.vo.procedure.P_XmasDetailLoverScoreListOutputVo" />
+
+	<!-- 신입회원 WELCOME -->
+	<resultMap id="P_WelcomeDjStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeDjStepOutputVo" />
+	<resultMap id="P_WelcomeGiftInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo" />
+	<resultMap id="P_WelcomeInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeInputVo" />
+	<resultMap id="P_WelcomeListenersStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeListenersStepOutputVo" />
+	<resultMap id="P_WelcomeStatusOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeStatusOutputVo" />
+	<resultMap id="P_WelcomeTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeTotalListOutputVo" />
+
+	<!-- 달나라갈꺼니까! -->
+	<resultMap id="P_ToTheMoonInputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonInputVo" />
+	<resultMap id="P_ToTheMoonStatusVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonStatusVo" />
+	<resultMap id="P_ToTheMoonListOutputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonListOutputVo" />
+
+    <!-- 굿스타트 -->
+    <resultMap id="GoodStartDjRankVo" type="com.dalbit.content.vo.GoodStartDjRankVo" />
+    <resultMap id="GoodStartFanRankVo" type="com.dalbit.content.vo.GoodStartFanRankVo" />
+
     <!-- 미성년자 법정대리인 이메일 발송 로그 -->
     <resultMap id="ParentsEmailLogSelOutputVo" type="com.dalbit.payment.vo.ParentsEmailLogSelOutputVo" />
 </mapper>

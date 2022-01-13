@@ -137,6 +137,15 @@ $(document).on('focusout', '._onlyNumber', function(){
     me.val(replaced);
 });
 
+// 굿스타트 이벤트 - 팬 - 특별점수 상세 페이지
+$(document).on('click', '._openGoodStartScoreDetail', function(){
+  const data = $(this).data('info');
+  const dataToJson = JSON.stringify(data);
+  const url = "/content/event/goodstart/special/score/detail?specialDetailData=" + encodeURIComponent(dataToJson);
+
+  util.windowOpen(url, 550, 300, 'goodStartScoreDetailPop');
+});
+
 /* 미성년자 법정대리인 메일발송 내용 팝업 */
 // 동의
 $(document).on('click', '._openMailAgreePop', function(){

@@ -275,4 +275,22 @@ public class ContentController {
     @GetMapping("/event/kkanbu/list")
     public String kkanbu() {return "content/event/kkanbu/list";}
 
+    @GetMapping("/event/xmasTree/list")
+    public String xmasTree() {return "content/event/xmas/list";}
+
+    @GetMapping("/event/welcome/list")
+    public String welcome() {return "content/event/welcome/list";}
+
+    @GetMapping("/event/tothemoon/list")
+    public String tothemoon() {return "content/event/tothemoon/list";}
+
+    @GetMapping("/event/goodstart/list")
+    public String goodStart() {return "content/event/goodstart/list";}
+
+    @GetMapping("/event/goodstart/special/score/detail")
+    public String specialScoreDetail(Model model, @RequestParam(value = "specialDetailData") String specialDetailData ) {
+        model.addAttribute("specialDetailData", specialDetailData);
+        return "content/event/goodstart/specialScoreDetail";
+    }
 }
+
