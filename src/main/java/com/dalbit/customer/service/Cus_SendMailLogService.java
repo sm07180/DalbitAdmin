@@ -41,9 +41,7 @@ public class Cus_SendMailLogService {
             }
         }
 
-        result = gsonUtil.toJson
-            (new JsonOutputVo(Status.조회, list,
-                new PagingVo(listCnt, parentsEmailLogSelVo.getPageNo(), parentsEmailLogSelVo.getPagePerCnt())));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(listCnt)));
 
         return result;
     }
