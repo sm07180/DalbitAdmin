@@ -11,6 +11,8 @@ public class P_LevelInputVo extends SearchVo {
     private int pageNo;
     private String sDate;
     private String eDate;
+    private String chrgrYn;
+
     private String level;
     private int inner;
     private String include;
