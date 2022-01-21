@@ -6,7 +6,7 @@
     <div id="page-wrapper">
         <!-- serachBox -->
         <label class="control-inline fancy-checkbox custom-color-green">
-            <input type="checkbox" name="search_testId_level" id="search_testId_level" value="1" checked="true">
+            <input type="checkbox" name="search_testId_level" id="search_testId_level" value="n" checked="true">
             <span>테스트 아이디 제외</span>
         </label>
         <div>
@@ -62,71 +62,68 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function() {
-        getLevelList();
-    });
+  $(document).ready(function() {
+    getLevelList();
+  });
 
-    $("input[name='search_testId_level']").change(function () {
-        getLevelList();
-    });
+  $("input[name='search_testId_level']").change(function () {
+    getLevelList();
+  });
 
-    function getLevelList() {
-        var data = {inner : $('input[name="search_testId_level"]').is(":checked") ? "0" : "-1"};
-        util.getAjaxData("select", "/rest/status/level/level", data, fn_succ_list);
+  function getLevelList() {
+    var data = {chrgrYn : $('input[name="search_testId_level"]').is(":checked") ? "n" : "y"};
+    util.getAjaxData("select", "/rest/status/level/level", data, fn_succ_list);
+  }
+
+  function fn_succ_list(data,response,param){
+
+    for(var i=0;i<response.data.length;i++){
+      var tmp = "/status/level/popup/memLevelList?level=" + response.data[i].level;
+      response.data[i]["levelUrl"] = '<a href="javascript://" class="_openPop" data-url="' + tmp + '" data-width="'+ 1430 +'" data-height="'+ 500 +'"><b>' + common.addComma(response.data[i].memCount) + '<b/></a>';
     }
 
-    function fn_succ_list(data,response,param){
-        // var tmp_url = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ width +'" data-height="'+ height +'">' + display + '</a>';
-        // util.popupLink(common.addComma(data),"/status/level/popup/memLevelList?level=" + row.level,1600,900);
-
-        for(var i=0;i<response.data.length;i++){
-            var tmp = "/status/level/popup/memLevelList?level=" + response.data[i].level;
-            response.data[i]["levelUrl"] = '<a href="javascript://" class="_openPop" data-url="' + tmp + '" data-width="'+ 1430 +'" data-height="'+ 500 +'"><b>' + common.addComma(response.data[i].memCount) + '<b/></a>';
-        }
-
-        var leftCnt = (response.data.length/2).toFixed(0);
-        console.log(leftCnt);
-        var responseLeft = [];
-        var responseRight = [];
-        for(var i=0;i<leftCnt;i++){
-            responseLeft[i] = response.data[i];
-        }
-        for(var i=leftCnt;i<response.data.length;i++){
-            responseRight[i] = response.data[i];
-        }
-
-        $("#level_body1").empty();
-        $("#level_body2").empty();
-
-        var template = $('#tmp_levelBody1').html();
-        var templateScript = Handlebars.compile(template);
-        var detailContext = responseLeft;
-        var html=templateScript(detailContext);
-        $("#level_body1").append(html);
-
-        var template = $('#tmp_levelBody2').html();
-        var templateScript = Handlebars.compile(template);
-        var detailContext = responseRight;
-        var html=templateScript(detailContext);
-        $("#level_body2").append(html);
-
-        levelList_listSummary(response);
+    var leftCnt = (response.data.length/2).toFixed(0);
+    var responseLeft = [];
+    var responseRight = [];
+    for(var i=0;i<leftCnt;i++){
+      responseLeft[i] = response.data[i];
+    }
+    for(var i=leftCnt;i<response.data.length;i++){
+      responseRight[i] = response.data[i];
     }
 
-    function levelList_listSummary(json){
-        var template = $("#levelList_listSummary").html();
-        var templateScript = Handlebars.compile(template);
-        var data = {
-            content : json.summary
-            , length : json.recordsTotal
-        };
-        var html = templateScript(data);
-        $("#levelList_summaryArea").html(html);
+    $("#level_body1").empty();
+    $("#level_body2").empty();
+
+    var template = $('#tmp_levelBody1').html();
+    var templateScript = Handlebars.compile(template);
+    var detailContext = responseLeft;
+    var html=templateScript(detailContext);
+    $("#level_body1").append(html);
+
+    var template = $('#tmp_levelBody2').html();
+    var templateScript = Handlebars.compile(template);
+    var detailContext = responseRight;
+    var html=templateScript(detailContext);
+    $("#level_body2").append(html);
+
+    levelList_listSummary(response);
+  }
+
+  function levelList_listSummary(json){
+    var template = $("#levelList_listSummary").html();
+    var templateScript = Handlebars.compile(template);
+    var data = {
+      content : json.summary
+      , length : json.recordsTotal
+    };
+    var html = templateScript(data);
+    $("#levelList_summaryArea").html(html);
 
 
-        ui.tableHeightSet();
+    ui.tableHeightSet();
 
-    }
+  }
 
 </script>
 
@@ -150,12 +147,12 @@
         <td>
             {{addComma levelExp}} ~ {{addComma expRange}}
         </td>
-        <td style="background-color: #fff7e5">{{{levelUrl}}}</td>
-        <td>{{pro}}%</td>
+        <td style="background-color: #fff7e5">{{{memCount}}}</td>
+        <td>{{mem_pro}}%</td>
     </tr>
     {{else}}
-        <td colspan="11" class="noData">{{isEmptyData}}<td>
-    {{/each}}
+    <td colspan="11" class="noData">{{isEmptyData}}<td>
+        {{/each}}
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_levelBody2">
@@ -166,8 +163,8 @@
         <td>
             {{addComma levelExp}} ~ {{addComma expRange}}
         </td>
-        <td style="background-color: #fff7e5">{{{levelUrl}}}</td>
-        <td>{{pro}}%</td>
+        <td style="background-color: #fff7e5">{{{memCount}}}</td>
+        <td>{{mem_pro}}%</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

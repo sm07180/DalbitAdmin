@@ -66,4 +66,7 @@
     <!-- 굿스타트 -->
     <resultMap id="GoodStartDjRankVo" type="com.dalbit.content.vo.GoodStartDjRankVo" />
     <resultMap id="GoodStartFanRankVo" type="com.dalbit.content.vo.GoodStartFanRankVo" />
+
+	<!-- 레벨분포-->
+	<resultMap id="P_LevelListOutputVo" type="com.dalbit.status.vo.procedure.P_LevelListOutputVo"/>
 </mapper>
