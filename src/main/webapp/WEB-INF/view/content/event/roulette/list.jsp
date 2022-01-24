@@ -27,7 +27,7 @@
                                     <%--<input name="startDate" id="startDate">--%>
                                     <%--<input name="endDate" id="endDate" />--%>
 
-                                    <label><input type="text" class="form-control" id="memId" placeholder="검색할 정보를 입력하세요"></label>
+                                    <label><input type="text" class="form-control" id="memId" placeholder="검색할 UserId를 입력하세요"></label>
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                     <a href="javascript://" class="_prevSearch">[이전]</a>
                                     <a href="javascript://" class="_todaySearch">[오늘]</a>
