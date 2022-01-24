@@ -66,6 +66,9 @@
     <resultMap id="GoodStartDjRankVo" type="com.dalbit.content.vo.GoodStartDjRankVo" />
     <resultMap id="GoodStartFanRankVo" type="com.dalbit.content.vo.GoodStartFanRankVo" />
 
+	<!-- 레벨분포-->
+	<resultMap id="P_LevelListOutputVo" type="com.dalbit.status.vo.procedure.P_LevelListOutputVo"/>
+
     <!-- 미성년자 법정대리인 이메일 발송 로그 -->
     <resultMap id="ParentsEmailLogSelOutputVo" type="com.dalbit.payment.vo.ParentsEmailLogSelOutputVo" />
 </mapper>
