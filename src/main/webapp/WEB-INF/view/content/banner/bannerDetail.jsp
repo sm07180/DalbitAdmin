@@ -358,6 +358,7 @@
             ,'is_view':'1'
             ,'term_type':'0'
             ,'popup_type':'0'
+            ,'iosJudgeViewOn': '1'
         }
         var context = detailData;
         var html = templateScript(context);
