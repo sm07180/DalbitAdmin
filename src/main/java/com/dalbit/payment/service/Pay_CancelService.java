@@ -733,7 +733,7 @@ public class Pay_CancelService {
     // 메일 발송
     private void sendPayCancelMail(PayCancelSendEmailVo payCancelSendEmailVo) {
         // 나이 체크 (미성년자만 이메일 발송)
-        if(StringUtils.equals(isAdultYn(payCancelSendEmailVo.getMemBirth()), "y")) return;
+        /*if(StringUtils.equals(isAdultYn(payCancelSendEmailVo.getMemBirth()), "y")) return;
 
         String memNo = payCancelSendEmailVo.getMemNo();
         String sHtml = "";
@@ -810,7 +810,7 @@ public class Pay_CancelService {
         }
         catch(Exception e){
             log.error("Pay_CancelService / sendPayCancelMail 미성년자 결제 취소 이메일 발송 에러 : ", e);
-        }
+        }*/
     }
 
     /**
