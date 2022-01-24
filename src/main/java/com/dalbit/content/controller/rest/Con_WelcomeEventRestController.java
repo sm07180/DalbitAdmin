@@ -2,6 +2,8 @@ package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_WelcomeEventService;
 import com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo;
+import com.dalbit.content.vo.procedure.P_WelcomeQualifyInputVo;
+import com.dalbit.content.vo.procedure.P_WelcomeUserGiftInputVo;
 import com.dalbit.content.vo.procedure.P_WelcomeInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +53,47 @@ public class Con_WelcomeEventRestController {
      * @return
      */
     @PostMapping("/gift")
-    public String modifyWelcomeGift(@RequestBody P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
+    public String modifyWelcomeGift(@RequestBody P_WelcomeUserGiftInputVo pWelcomeGiftInputVo) {
         return con_welcomeEventService.callModifyWelcomeGift(pWelcomeGiftInputVo);
     }
 
+    /**
+     * 상품 목표 목록
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @GetMapping("/gift-admin-goals")
+    public String getGiftAdminGoals(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo) {
+        return con_welcomeEventService.callGiftQualifyList(pWelcomeQualifyInputVo);
+    }
+
+    /**
+     * 상품 목표 등록/수정
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @PostMapping("/gift-admin-goals")
+    public String createGiftAdminGoals(@RequestBody P_WelcomeQualifyInputVo pWelcomeQualifyInputVo) {
+        return con_welcomeEventService.callCreateGiftAdminGoals(pWelcomeQualifyInputVo);
+    }
+
+    /**
+     * 상품 목록
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @GetMapping("/gift-admin-sections")
+    public String getGiftAdminSections(P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
+        return con_welcomeEventService.callGiftList(pWelcomeGiftInputVo);
+    }
+
+    /**
+     * 상품 목록 등록/수정
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @PostMapping("/gift-admin-sections")
+    public String createGiftAdminSections(@RequestBody P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
+        return con_welcomeEventService.callCreateGiftAdminSections(pWelcomeGiftInputVo);
+    }
 }

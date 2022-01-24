@@ -1,11 +1,8 @@
 package com.dalbit.content.proc;
 
 import com.dalbit.content.vo.procedure.P_ToTheMoonInputVo;
-import com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo;
-import com.dalbit.content.vo.procedure.P_WelcomeInputVo;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 

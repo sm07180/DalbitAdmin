@@ -113,13 +113,92 @@ public class Con_WelcomeEventService {
      * @param pWelcomeGiftInputVo
      * @return
      */
-    public String callModifyWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
-        String result;
+    public String callModifyWelcomeGift(P_WelcomeUserGiftInputVo pWelcomeGiftInputVo) {
+        HashMap resHashMap = new HashMap();
+        try {
+            for (P_WelcomeUserGiftInputVo item : pWelcomeGiftInputVo.getList()) {
+                item.setChrgrName(MemberVo.getMyMemNo());
+                event_welcomeProc.modifyWelcomeUserGift(item);
+            }
+            resHashMap.put("result", new JsonOutputVo(Status.처리완료));
+        } catch (Exception e) {
+            resHashMap.put("result", new JsonOutputVo(Status.파라미터오류));
+        }
+        return gsonUtil.toJson(resHashMap);
+    }
+
+    /**
+     * 상품 목록 - 사용월
+     *
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    public String callGiftList(P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
+        List<Object> getList = event_welcomeProc.getWelcomeGiftList(pWelcomeGiftInputVo);
+        List<P_WelcomeGiftOutputVo> list = DBUtil.getList(getList, P_WelcomeGiftOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+
+        return result;
+    }
+
+    /**
+     * 상품 목표 등록/수정
+     *
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    public String callCreateGiftAdminGoals(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo) {
+        HashMap resHashMap = new HashMap();
+        try {
+            for (P_WelcomeQualifyInputVo item : pWelcomeQualifyInputVo.getList()) {
+                item.setChrgrName(MemberVo.getMyMemNo());
+//                event_welcomeProc.modifyWelcomeUserGift(item);
+            }
+            resHashMap.put("result", new JsonOutputVo(Status.처리완료));
+        } catch (Exception e) {
+            resHashMap.put("result", new JsonOutputVo(Status.파라미터오류));
+        }
+        return gsonUtil.toJson(resHashMap);
+    }
+
+    /**
+     * 단계별 조건 목록 - 사용월
+     *
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    public String callGiftQualifyList(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo) {
+        List<Object> getList = event_welcomeProc.getWelcomeGifQualifyList(pWelcomeQualifyInputVo);
+        List<P_WelcomeQualifyOutputVo> list = DBUtil.getList(getList, P_WelcomeQualifyOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+
+        return result;
+    }
+
+    /**
+     * 상품 목록 등록/수정
+     *
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    public String callCreateGiftAdminSections(P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
         HashMap resHashMap = new HashMap();
         try {
             for (P_WelcomeGiftInputVo item : pWelcomeGiftInputVo.getList()) {
                 item.setChrgrName(MemberVo.getMyMemNo());
-                event_welcomeProc.modifyWelcomeGift(item);
+//                event_welcomeProc.modifyWelcomeUserGift(item);
             }
             resHashMap.put("result", new JsonOutputVo(Status.처리완료));
         } catch (Exception e) {

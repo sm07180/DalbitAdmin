@@ -1,9 +1,7 @@
 package com.dalbit.content.proc;
 
 import com.dalbit.content.vo.procedure.*;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +58,96 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer"})
-    @Update("CALL rd_admin.p_adm_welcome_gift_upd(#{memNo}, #{giftSlct}, #{giftCode}, #{giftName}, #{stepNo}, #{chrgrName})")
+    @Update("CALL rd_admin.p_adm_welcome_user_gift_upd(#{memNo}, #{giftSlct}, #{giftCode}, #{giftName}, #{stepNo}, #{chrgrName})")
+    int modifyWelcomeUserGift(P_WelcomeUserGiftInputVo pWelcomeGiftInputVo);
+
+    /**
+     * 웰컴이벤트 상품 삭제
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Delete("CALL rd_admin.p_adm_welcome_gift_del(#{giftCode}, #{chrgrName})")
+    int removeWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
+
+    /**
+     * 웰컴이벤트 상품 등록
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Insert("CALL rd_admin.p_adm_welcome_gift_ins(#{giftCode}, #{giftName}, #{giftCont}, #{giftDalCnt}, #{stepNo}, #{giftOrd}, #{giftSlct}, #{useYn}, #{giftTheMonth}, #{chrgrName})")
+    int createWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
+
+    /**
+     * 웰컴이벤트 상품 수정
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Update("CALL rd_admin.p_adm_welcome_gift_upd(#{giftCode}, #{giftName}, #{giftCont}, #{giftDalCnt}, #{giftOrd}, #{useYn}, #{chrgrName})")
     int modifyWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
 
+    /**
+     * 웰컴이벤트 - 상품 목록
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer", "ResultMap.P_WelcomeGiftOutputVo"})
+    @Select("CALL rd_admin.p_adm_welcome_gift_list(#{stepNo}, #{giftSlct}, #{tDate}, #{pageNo}, #{pagePerCnt})")
+    List<Object> getWelcomeGiftList(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
+
+    /**
+     * 웰컴이벤트 - 상품 상세
+     * @param pWelcomeGiftInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.P_WelcomeGiftOutputVo"})
+    @Select("CALL rd_admin.p_adm_welcome_gift_sel(#{giftCode})")
+    List<Object> getWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
+
+    /**
+     * 웰컴이벤트 조건 삭제
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Delete("CALL rd_admin.p_adm_welcome_qualify_del(#{qualifyNo}, #{chrgrName})")
+    int removeWelcomeGiftQualify(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo);
+
+    /**
+     * 웰컴이벤트 조건 등록
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Insert("CALL rd_admin.p_adm_welcome_qualify_ins(#{theMonth}, #{qualifyName}, #{qualifyGubun}, #{qualifyVal}, #{qualifyStepNo}, #{qualifySlct}, #{chrgrName})")
+    int createWelcomeGiftQualify(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo);
+
+    /**
+     * 웰컴이벤트 조건 수정
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Update("CALL rd_admin.p_adm_welcome_qualify_upd(#{qualifyNo}, #{qualifyVal}, #{chrgrName}, #{chrgrName})")
+    int modifyWelcomeGiftQualify(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo);
+
+    /**
+     * 웰컴이벤트 - 단계별 조건 목록 - 페이징
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer", "ResultMap.P_WelcomeQualifyOutputVo"})
+    @Select("CALL rd_admin.p_adm_welcome_qualify_list(#{stepNo}, #{qualifySlct}, #{tDate}, #{pageNo}, #{pagePerCnt})")
+    List<Object> getWelcomeGifQualifyList(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo);
+
+    /**
+     * 웰컴이벤트 - 단계별 조건 상세
+     * @param pWelcomeQualifyInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.P_WelcomeGiftOutputVo"})
+    @Select("CALL rd_admin.p_adm_welcome_qualify_sel(#{qualifyNo})")
+    List<Object> getWelcomeGiftQualify(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo);
 }
