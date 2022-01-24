@@ -69,6 +69,9 @@
 	<!-- 레벨분포-->
 	<resultMap id="P_LevelListOutputVo" type="com.dalbit.status.vo.procedure.P_LevelListOutputVo"/>
 
+	<!--룰렛이벤트-->
+	<resultMap id="RouletteApplyVo" type="com.dalbit.content.vo.RouletteApplyVo"/>
+
     <!-- 미성년자 법정대리인 이메일 발송 로그 -->
     <resultMap id="ParentsEmailLogSelOutputVo" type="com.dalbit.payment.vo.ParentsEmailLogSelOutputVo" />
 </mapper>
