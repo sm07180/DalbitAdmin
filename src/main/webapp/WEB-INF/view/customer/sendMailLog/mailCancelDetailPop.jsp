@@ -86,9 +86,7 @@
 <script src="/js/dataTablesSource/customer/sendMailLogDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/restrictionsCodeList.js?${dummyData}"></script>
 <script>
-  const jsonMailEtc = "<%=mailEtc%>";
-  console.log(decodeURIComponent(jsonMailEtc));
-  const mailEtc = JSON.parse(decodeURIComponent(jsonMailEtc));
+  const mailEtc = <%=mailEtc%>;
 
   $(document).ready(function() {
     getRes_sendMailDetail()
