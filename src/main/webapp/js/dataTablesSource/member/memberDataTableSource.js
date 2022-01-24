@@ -1290,27 +1290,6 @@ var MemberDataTableSource = {
             }
         }
     },
-    'djFanCouponHistory': {
-        'url': '/rest/member/member/djFanCoupon/history'
-        , 'columns': [
-            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, data)
-                }},
-            {'title': '쿠폰수', 'data': 'coupon_cnt', 'render': function (data, type, row, meta) {
-                    return common.addComma(data) + " 개"
-                }},
-            {'title': '지급/차감', 'data': 'coupon_slct', 'render': function (data, type, row, meta) {
-                if(data == 1){
-                    return common.setFontColor('지급', 'blue');
-                } else{
-                    return common.setFontColor('차감', 'red');
-                }
-                }},
-            {'title': '등록일', 'data': 'ins_date', 'render': function(data, type, row, meta){
-                    return data;
-                }},
-        ]
-    },
 
     'mailbox': {
         'url': '/rest/member/mailbox/list'

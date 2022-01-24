@@ -230,6 +230,12 @@
                 , paycd : cancelData.paycd
                 , okdt : cancelData.okdt
                 , oktime : cancelData.oktime
+                , paycode : cancelData.paycode
+                , itemamt : cancelData.itemamt
+                , cardnm : cancelData.cardnm
+                , cardno : cancelData.cardno
+                , memBirth : cancelData.birth
+                , hideCardNo : cancelData.hidecardno
             };
 
             util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);

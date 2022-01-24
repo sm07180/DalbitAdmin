@@ -145,3 +145,27 @@ $(document).on('click', '._openGoodStartScoreDetail', function(){
 
   util.windowOpen(url, 550, 300, 'goodStartScoreDetailPop');
 });
+
+/* 미성년자 법정대리인 메일발송 내용 팝업 */
+// 동의
+$(document).on('click', '._openMailAgreePop', function(){
+  const paramData = $(this).data('mailEtc');
+  const url = "/customer/send/mail/detail/agree/pop?mailEtc=" + paramData;
+
+  util.windowOpen(url, 750, 600, 'mailAgreePop');
+});
+// 결제
+$(document).on('click', '._openMailPayPop', function(){
+  const paramData = $(this).data('mailEtc');
+  const url = "/customer/send/mail/detail/pay/pop?mailEtc=" + paramData;
+
+  util.windowOpen(url, 750, 650, '_openMailPayPop');
+});
+// 취소
+$(document).on('click', '._openMailCancelPop', function(){
+  const paramData = $(this).data('mailEtc');
+  const url = "/customer/send/mail/detail/cancel/pop?mailEtc=" + paramData;
+
+  util.windowOpen(url, 750, 760, '_openMailCancelPop');
+});
+/* // 미성년자 법정대리인 메일발송 내용 팝업 */
