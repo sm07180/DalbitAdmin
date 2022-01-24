@@ -6,9 +6,12 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_RouletteEventDao;
+import com.dalbit.content.proc.Event_RouletteProc;
 import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.P_RouletteRateVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
+import com.dalbit.util.DBUtil;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -32,7 +35,8 @@ public class Con_RouletteEventService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
-
+    @Autowired
+    Event_RouletteProc eventRouletteProc;
 
     public String selectRouletteRate(P_RouletteRateVo pRouletteRateVo){
         ProcedureVo procedureVo = new ProcedureVo(pRouletteRateVo);
@@ -65,10 +69,9 @@ public class Con_RouletteEventService {
 
     public String selectRouletteApplyList(RouletteApplyVo rouletteApplyVo){
 
-        int totalCnt = con_rouletteEventDao.selectRouletteApplyCnt(rouletteApplyVo);
-        rouletteApplyVo.setTotalCnt(totalCnt);
-        ArrayList<RouletteApplyVo> list = con_rouletteEventDao.selectRouletteApplyList(rouletteApplyVo);
-
+        List<Object> getList  = eventRouletteProc.rouletteMemList(rouletteApplyVo);
+        List<RouletteApplyVo> list = DBUtil.getList(getList, RouletteApplyVo.class);
+        int totalCnt = DBUtil.getData(getList, Integer.class);
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt, rouletteApplyVo.getPageStart(), rouletteApplyVo.getPageCnt())));
         return result;
     }

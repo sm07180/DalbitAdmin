@@ -69,4 +69,7 @@
 
 	<!-- 레벨분포-->
 	<resultMap id="P_LevelListOutputVo" type="com.dalbit.status.vo.procedure.P_LevelListOutputVo"/>
+
+	<!--룰렛이벤트-->
+	<resultMap id="RouletteApplyVo" type="com.dalbit.content.vo.RouletteApplyVo"/>
 </mapper>

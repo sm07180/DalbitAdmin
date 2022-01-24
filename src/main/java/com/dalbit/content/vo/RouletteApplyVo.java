@@ -21,10 +21,15 @@ public class RouletteApplyVo extends PagingVo {
     private String mem_userid;
     private String mem_nick;
     private String mem_sex;
-
-    private String startDate;
-    private String endDate;
     private String txt_search;
     private String searchType;
     private String winType;
+
+    private String memId;
+    private String itemSlct="-1";
+    private String startDate;
+    private String endDate;
+    private String pageNo;
+    private String pagePerCnt;
+
 }
