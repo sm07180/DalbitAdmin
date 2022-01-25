@@ -791,7 +791,7 @@ var roulette_searchType = [
 ];
 
 var roulette_winType = [
-  new COMMON_CODE(null, 'winType', '검색구분')
+  new COMMON_CODE(null, 'itemSlct', '검색구분')
   , new COMMON_CODE('all', '-1', '전체')
   , new COMMON_CODE('dal', '1', '달')
   , new COMMON_CODE('gifticon', '2', '기프티콘')

@@ -6,17 +6,19 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.status.dao.Sta_LevelDao;
+import com.dalbit.status.proc.P_Level;
 import com.dalbit.status.vo.procedure.P_LevelInputVo;
 import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo;
+import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -30,6 +32,9 @@ public class Sta_LevelService {
 
     @Autowired
     ExcelService excelService;
+
+    @Autowired
+    P_Level pLevel;
 
     /**
      *  회원 레벨별 목록 조회
@@ -97,14 +102,15 @@ public class Sta_LevelService {
      *  회원 레벨별 목록 조회
      */
     public String getLevelList(P_LevelInputVo pLevelInputVo) {
-        List<P_LevelListOutputVo> list = staLevelDao.getLevelList(pLevelInputVo);
+        List<Object> getList  = pLevel.memLevelStatList(pLevelInputVo);
 
-        //summary
+        List<P_LevelListOutputVo> list = DBUtil.getList(getList, P_LevelListOutputVo.class);
+        int memAllCount = DBUtil.getData(getList, Integer.class);
+
         P_LevelListOutputVo summary = new P_LevelListOutputVo();
-        summary.setMemAllCount(list.get(0).getMemAllCount());
+        summary.setMemAllCount(memAllCount);
 
-        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(0),summary));
-
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(0), summary));
         return result;
     }
 

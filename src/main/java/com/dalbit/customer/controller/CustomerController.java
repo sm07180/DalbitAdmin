@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -89,5 +90,34 @@ public class CustomerController {
     @RequestMapping("/declaration/popup/reportPopup")
     public String imagePopup(Model model, HttpServletRequest request) {
         return "customer/declaration/popup/reportPopup";
+    }
+
+    /**
+     * 미성년자 메일 발송 내역
+     */
+    @RequestMapping("/send/mail/log/list")
+    public String sendMailLogList(Model model) {
+        return "customer/sendMailLog/list";
+    }
+
+    /**
+     * 미성년자 메일 발송 내용 (팝업)
+     */
+    @GetMapping("/send/mail/detail/agree/pop")
+    public String sendMailDetailAgreePop(Model model, @RequestParam(value = "mailEtc", defaultValue = "") String mailEtc) {
+        model.addAttribute("mailEtc", mailEtc);
+        return "customer/sendMailLog/mailAgreeDetailPop";
+    }
+
+    @RequestMapping("/send/mail/detail/pay/pop")
+    public String sendMailDetailPayPop(Model model, @RequestParam(value = "mailEtc", defaultValue = "") String mailEtc) {
+        model.addAttribute("mailEtc", mailEtc);
+        return "customer/sendMailLog/mailPayDetailPop";
+    }
+
+    @RequestMapping("/send/mail/detail/cancel/pop")
+    public String sendMailDetailCancelPop(Model model, @RequestParam(value = "mailEtc", defaultValue = "") String mailEtc) {
+        model.addAttribute("mailEtc", mailEtc);
+        return "customer/sendMailLog/mailCancelDetailPop";
     }
 }
