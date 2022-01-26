@@ -42,7 +42,9 @@
     function generateForm() {
         var template = $('#tmp_noticeFrm').html();
         var templateScript = Handlebars.compile(template);
-        $("#noticeForm").html(templateScript);
+        var context = {'iosJudgeViewOn': '1'};
+        var html = templateScript(context);
+        $("#noticeForm").html(html);
 
         util.editorInit("content-notice");
     }
@@ -264,7 +266,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>IOS심사시<br />비노출</th>
+                    <th>IOS심사 중<br />노출여부</th>
                     <td>{{{getOnOffSwitch iosJudgeViewOn 'iosJudgeViewOn'}}}</td>
                 </tr>
             </tbody>

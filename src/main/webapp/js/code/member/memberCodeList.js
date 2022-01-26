@@ -353,3 +353,10 @@ var member_roulette_coupon_type = [
     , new COMMON_CODE('4', '4', '스페셜DJ')
     , new COMMON_CODE('5', '5', '신기록')
 ]
+
+var semdMail_slct = [
+  new COMMON_CODE('', '', '메일구분')
+  , new COMMON_CODE('a', 'a', '동의 알림')
+  , new COMMON_CODE('p', 'p', '결제')
+  , new COMMON_CODE('c', 'c', '결제 취소')
+]

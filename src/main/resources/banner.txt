@@ -1,9 +1,8 @@
 
-`7MM"""Yb.      db      `7MMF'      `7MMF'            db                db      `7MM"""Yb. `7MMM.     ,MMF'`7MMF'`7MN.   `7MF'
-  MM    `Yb.   ;MM:       MM          MM             ;MM:              ;MM:       MM    `Yb. MMMb    dPMM    MM    MMN.    M
-  MM     `Mb  ,V^MM.      MM          MM            ,V^MM.            ,V^MM.      MM     `Mb M YM   ,M MM    MM    M YMb   M
-  MM      MM ,M  `MM      MM          MM           ,M  `MM           ,M  `MM      MM      MM M  Mb  M' MM    MM    M  `MN. M
-  MM     ,MP AbmmmqMA     MM      ,   MM      ,    AbmmmqMA          AbmmmqMA     MM     ,MP M  YM.P'  MM    MM    M   `MM.M
-  MM    ,dP'A'     VML    MM     ,M   MM     ,M   A'     VML        A'     VML    MM    ,dP' M  `YM'   MM    MM    M     YMM
-.JMMmmmdP'.AMA.   .AMMA..JMMmmmmMMM .JMMmmmmMMM .AMA.   .AMMA.    .AMA.   .AMMA..JMMmmmdP' .JML. `'  .JMML..JMML..JML.    YM
-
+     __,--,_.     __,--,_.          _______       ___       __       __           ___              ___       _______  .___  ___.  __  .__   __.               __,--,_.     __,--,_.
+    /       |    /       |         |       \     /   \     |  |     |  |         /   \            /   \     |       \ |   \/   | |  | |  \ |  |              /       |    /       |
+   |   (----`   |   (----`         |  .--.  |   /  ^  \    |  |     |  |        /  ^  \          /  ^  \    |  .--.  ||  \  /  | |  | |   \|  |             |   (----`   |   (----`
+    \   \        \   \             |  |  |  |  /  /_\  \   |  |     |  |       /  /_\  \        /  /_\  \   |  |  |  ||  |\/|  | |  | |  . `  |              \   \        \   \
+.----)   |   .----)   |            |  '--'  | /  _____  \  |  `----.|  `----. /  _____  \      /  _____  \  |  '--'  ||  |  |  | |  | |  |\   |          .----)   |   .----)   |
+|_    __/    |_    __/             |_______/ /__/     \__\ |_______||_______|/__/     \__\    /__/     \__\ |_______/ |__|  |__| |__| |__| \__|          |_    __/    |_    __/
+  '--'         '--'                                                                                                                                        '--'         '--'

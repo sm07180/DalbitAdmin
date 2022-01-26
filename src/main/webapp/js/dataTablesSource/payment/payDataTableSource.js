@@ -95,7 +95,20 @@ var payDataTableSource = {
                     }
                 }}
             , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
-
+                var info="";
+                if(row.pay_way == 'MC'){
+                  info = common.phoneNumHyphen(row.pay_info_no);
+                } else if(row.pay_way == 'CN'){
+                  info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
+                } else if(row.pay_way == 'VA'){
+                  info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                } else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay' || row.pay_way == 'kakaoMoney') {
+                  info = row.pay_info;
+                } else if( row.pay_way == 'simple'){
+                  info = row.account_no + '<br/>' + util.getCommonCodeLabel(row.bank_code, bankList);
+                } else {
+                  info = '-'
+                }
                 return (row.pay_way == 'VA' || row.pay_way == 'InApp' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" :
                         '<button type="button" class="btn btn-default cancelBtn" ' +
                                 'data-paycd="'+ row.pay_way+'" ' +
@@ -108,6 +121,12 @@ var payDataTableSource = {
                                 'data-memnick="'+row.mem_nick+'" ' +
                                 'data-okdt="'+row.pay_ok_date+'" ' +
                                 'data-oktime="'+row.pay_ok_time+'" ' +
+                                'data-paycode="' + row.pay_code + '"' +
+                                'data-itemamt="' + row.item_amt + '"' +
+                                'data-cardnm="' + row.card_nm + '"' +
+                                'data-cardno="' + row.card_no + '"' +
+                                'data-birth="' + row.birth + '"' +
+                                'data-hide-card-no="' + row.account_no + '"' +
                                 'onclick="cancelClick($(this).data())"> 취소' +
                          '</button>'
                     '-'
@@ -200,7 +219,20 @@ var payDataTableSource = {
                     return '<label style="color: #0b38aa; font-weight: bold">'+data.toUpperCase()+'</label>';
                 }}
             , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
-
+                    var info="";
+                    if(row.pay_way == 'MC'){
+                      info = common.phoneNumHyphen(row.pay_info_no);
+                    } else if(row.pay_way == 'CN'){
+                      info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
+                    } else if(row.pay_way == 'VA'){
+                      info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    } else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay' || row.pay_way == 'kakaoMoney') {
+                      info = row.pay_info;
+                    } else if( row.pay_way == 'simple'){
+                      info = row.account_no + '<br/>' + util.getCommonCodeLabel(row.bank_code, bankList);
+                    } else {
+                      info = '-'
+                    }
                     return (row.pay_way == 'VA' || row.pay_way == 'InApp' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" :
                         '<button type="button" class="btn btn-default cancelBtn" ' +
                         'data-paycd="'+ row.pay_way+'" ' +
@@ -213,6 +245,12 @@ var payDataTableSource = {
                         'data-memnick="'+row.mem_nick+'" ' +
                         'data-okdt="'+row.pay_ok_date+'" ' +
                         'data-oktime="'+row.pay_ok_time+'" ' +
+                        'data-paycode="' + row.pay_code + '"' +
+                        'data-itemamt="' + row.item_amt + '"' +
+                        'data-cardnm="' + row.card_nm + '"' +
+                        'data-cardno="' + row.card_no + '"' +
+                        'data-birth="' + row.birth + '"' +
+                        'data-hide-card-no="' + row.account_no + '"' +
                         'onclick="cancelClick($(this).data())"> 취소' +
                         '</button>'
                     '-'

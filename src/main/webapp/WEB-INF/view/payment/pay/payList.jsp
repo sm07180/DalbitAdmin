@@ -193,7 +193,6 @@
     function cancelClick(cancelData){
 
         var result = confirm(cancelData.memnick+"님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?");
-
         if(result){
             var restUrl='';
             if(cancelData.paycd == 'CN'){
@@ -230,6 +229,12 @@
                 , paycd : cancelData.paycd
                 , okdt : cancelData.okdt
                 , oktime : cancelData.oktime
+                , paycode : cancelData.paycode
+                , itemamt : cancelData.itemamt
+                , cardnm : cancelData.cardnm
+                , cardno : cancelData.cardno
+                , memBirth : cancelData.birth
+                , hideCardNo : cancelData.hideCardNo
             };
 
             util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);
