@@ -13,11 +13,12 @@ public class P_WelcomeGiftInputVo {
     private int giftOrd;            // 순번: 1,2,3
     private int giftSlct;           // 구분 1:dj, 2:청취자
     private String useYn;           // 경품 사용여부[y,n]
-    private String giftTheMonth;    // 경품사용월
+    private String theMonth;        // 경품사용월
     private String chrgrName;       // 관리자명
 
     private List<P_WelcomeGiftInputVo> list;
 
+    private String modifyYn;        // 수정상태인지?
     private int stepNo;             // 단계번호
     private String tDate;           // 경품사용월 - 조회
     private int pageNo = 1;

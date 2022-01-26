@@ -115,9 +115,9 @@
 
     // 경품데이터
     let giftList = [
-        { giftCode: '', giftName: '', giftCont: '', giftDalCnt: 0, giftCnt: 0, giftStepNo: 1, giftOrd: 1, giftSlct: 2, useYn: "y", totInsCnt: 1, theMonth: '', insDate: '', updDate: '', chrgrName: ''},
-        { giftCode: '', giftName: '', giftCont: '', giftDalCnt: 0, giftCnt: 0, giftStepNo: 1, giftOrd: 2, giftSlct: 2, useYn: "y", totInsCnt: 1, theMonth: '', insDate: '', updDate: '', chrgrName: ''},
-        { giftCode: '', giftName: '', giftCont: '', giftDalCnt: 0, giftCnt: 0, giftStepNo: 1, giftOrd: 3, giftSlct: 2, useYn: "y", totInsCnt: 1, theMonth: '', insDate: '', updDate: '', chrgrName: ''}
+        { giftCode: '', giftName: '', giftCont: '', giftDalCnt: 0, giftCnt: 0, giftStepNo: 1, giftOrd: 1, giftSlct: 2, useYn: "y", modifyYn: "n", totInsCnt: 1, theMonth: '', insDate: '', updDate: '', chrgrName: ''},
+        { giftCode: '', giftName: '', giftCont: '', giftDalCnt: 0, giftCnt: 0, giftStepNo: 1, giftOrd: 2, giftSlct: 2, useYn: "y", modifyYn: "n", totInsCnt: 1, theMonth: '', insDate: '', updDate: '', chrgrName: ''},
+        { giftCode: '', giftName: '', giftCont: '', giftDalCnt: 0, giftCnt: 0, giftStepNo: 1, giftOrd: 3, giftSlct: 2, useYn: "y", modifyYn: "n", totInsCnt: 1, theMonth: '', insDate: '', updDate: '', chrgrName: ''}
     ];
     let tempGiftList;
 
@@ -312,7 +312,7 @@
             let apiURL = '/rest/content/event/welcome/gift-admin-goals';
             util.getAjaxData("getGiftAdminGoalList", apiURL, data, function (id, response, params) {
                 for ( const indexGoal in tempGoalList ) {
-                    if (!response.listData) {
+                    if (response.listData.length === 0) {
                         tempGoalList[indexGoal].theMonth = data.tDate;
                         tempGoalList[indexGoal].qualifyStepNo = data.stepNo;
                         tempGoalList[indexGoal].qualifySlct = data.qualifySlct;
@@ -348,7 +348,12 @@
             let apiURL = '/rest/content/event/welcome/gift-admin-sections';
             util.getAjaxData("getGiftAdminSectionList", apiURL, data, function (id, response, params) {
                 for ( const indexGift in tempGiftList ) {
-                    if (!response.listData) continue;
+                    if (response.listData.length === 0) {
+                        tempGiftList[indexGift].theMonth = data.tDate;
+                        tempGiftList[indexGift].giftStepNo = data.stepNo;
+                        tempGiftList[indexGift].giftSlct = data.giftSlct;
+                        continue;
+                    }
                     if (data.stepNo === 4 && indexGift > 0) {
                         delete tempGiftList[indexGift];
                         continue;
@@ -368,6 +373,7 @@
                             tempGiftList[indexGift].insDate = response.listData[indexRes].ins_date || tempGiftList[indexGift].insDate;
                             tempGiftList[indexGift].updDate = response.listData[indexRes].upd_date || tempGiftList[indexGift].updDate;
                             tempGiftList[indexGift].chrgrName = response.listData[indexRes].chrgr_name || tempGiftList[indexGift].chrgrName;
+                            tempGiftList[indexGift].modifyYn = 'y';
                         }
                     }
                 }
@@ -442,7 +448,7 @@
         function reqGiftGoal() {
             let reqGiftGoal = [];
             for ( index in tempGoalList ) {
-                if (tempGoalList[index].qualifyGubun && tempGoalList[index].qualifyName && tempGoalList[index].qualifyVal && tempGoalList[index].theMonth) {
+                if (tempGoalList[index].qualifyGubun && tempGoalList[index].qualifyName && tempGoalList[index].theMonth) {
                     reqGiftGoal.push(tempGoalList[index]);
                 }
             }
@@ -451,15 +457,35 @@
                 return;
             }
 
+            let inputVals = $('#formGiftGoal input[name="qualifyVal"]');
+            inputVals.map((index, item) => {
+                reqGiftGoal[index].qualifyVal = parseInt(item.value, 10) || 0;
+            });
+
             let data = { list: reqGiftGoal };
             let apiURL = '/rest/content/event/welcome/gift-admin-goals';
             util.getAjaxData("reqGiftGoal", apiURL, JSON.stringify(data), function (id, response, params) {
-
             }, null, {type: 'POST', contentType: 'application/json; charset=UTF-8'});
         }
 
         function reqGiftAdmin() {
             let reqGiftAdmin = [];
+
+            // 입력폼
+            let inputRows = $('#formGiftAdmin .giftAdminRows');
+            inputRows.map((index, item) => {
+                let giftCode = $(item).find('input[name="giftCode"]').val();
+                let giftName = $(item).find('input[name="giftName"]').val();
+                let giftCont = $(item).find('input[name="giftCont"]').val();
+                let giftDalCnt = $(item).find('input[name="giftDalCnt"]').val();
+
+                tempGiftList[index].giftCode = giftCode || '';
+                tempGiftList[index].giftName = giftName || '';
+                tempGiftList[index].giftCont = giftCont || '';
+                tempGiftList[index].giftDalCnt = parseInt(giftDalCnt, 10) || 0;
+            });
+
+            // 기본 입력 데이터
             for ( index in tempGiftList ) {
                 if (tempGiftList[index].giftCode && tempGiftList[index].giftName && tempGiftList[index].giftCont && tempGiftList[index].theMonth) {
                     reqGiftAdmin.push(tempGiftList[index]);
@@ -469,11 +495,14 @@
                 alert('입력하신 상품 정보를 확인해주세요.');
                 return;
             }
-
             let data = { list: reqGiftAdmin };
             let apiURL = '/rest/content/event/welcome/gift-admin-sections';
             util.getAjaxData("reqGiftAdmin", apiURL, JSON.stringify(data), function (id, response, params) {
-
+                let msg = '총 ' + response.applyCnt + '건의 데이터를 갱신하였습니다.';
+                if (reqGiftAdmin.length > response.applyCnt) {
+                    msg += '\n중복되는 상품코드가 존재합니다.';
+                }
+                alert(msg);
             }, null, {type: 'POST', contentType: 'application/json; charset=UTF-8'});
         }
 
@@ -589,8 +618,8 @@
             <colgroup>
                 <col width="auto"/>
                 <col width="100px"/>
-                <col width="120px"/>
-                <col width="120px"/>
+                <col width="150px"/>
+                <col width="90px"/>
             </colgroup>
             <thead>
             <tr>
@@ -606,7 +635,7 @@
                 <td>{{qualifyName}}</td>
                 <td class="text-left">
                     <div class="form-inline">
-                        <input type="text" name="qualify_val" class="form-control" style="width: 60px" value="{{qualifyVal}}">
+                        <input type="text" name="qualifyVal" class="form-control" style="width: 60px" value="{{qualifyVal}}">
                         {{#dalbit_if qualifyGubun '==' 1}} 시간 {{/dalbit_if}}
                         {{#dalbit_if qualifyGubun '==' 2}} 회 {{/dalbit_if}}
                         {{#dalbit_if qualifyGubun '==' 3}} 달 {{/dalbit_if}}
@@ -642,8 +671,8 @@
                 <col width="auto"/>
                 <col width="auto"/>
                 <col width="100px"/>
-                <col width="120px"/>
-                <col width="120px"/>
+                <col width="150px"/>
+                <col width="90px"/>
             </colgroup>
             <thead>
             <tr>
@@ -657,19 +686,19 @@
             </thead>
             <tbody>
             {{#each this as |data|}}
-            <tr>
+            <tr class="giftAdminRows">
                 <td>
-                    <input type="text" name="" class="form-control" value="{{giftCode}}">
+                    <input type="text" name="giftCode" class="form-control" value="{{giftCode}}">
                 </td>
                 <td>
-                    <input type="text" name="" class="form-control" value="{{giftName}}">
+                    <input type="text" name="giftName" class="form-control" value="{{giftName}}">
                 </td>
                 <td>
-                    <input type="text" name="" class="form-control" value="{{giftCont}}">
+                    <input type="text" name="giftCont" class="form-control" value="{{giftCont}}">
                 </td>
                 <td class="text-left">
                     <div class="form-inline">
-                        <input type="text" name="" class="form-control" style="width: 60px" value="{{giftDalCnt}}">
+                        <input type="text" name="giftDalCnt" class="form-control" style="width: 60px" value="{{giftDalCnt}}">
                         건
                     </div>
                 </td>
@@ -706,6 +735,10 @@
             <col width="auto"/>
             <col width="auto"/>
             <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
         </colgroup>
         <thead>
         <tr>
@@ -713,9 +746,13 @@
             <th>회원번호</th>
             <th>연락처</th>
             <th>닉네임</th>
+            <th>가입일자</th>
             <th>1단계 선물</th>
+            <th>1단계 수령일자</th>
             <th>2단계 선물</th>
+            <th>2단계 수령일자</th>
             <th>3단계 선물</th>
+            <th>3단계 수령일자</th>
         </tr>
         </thead>
         <tbody id="total_table_body">
@@ -725,22 +762,35 @@
             <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{phoneNumHyphen mem_phone}}</td>
             <td>{{mem_nick}}</td>
+            <td>{{mem_join_date}}</td>
             <td>
                 {{#dalbit_if step_1_req_yn '==' 'y'}} {{step_1_gift_name}} {{/dalbit_if}}
                 {{#dalbit_if step_1_req_yn '==' 'n'}} X {{/dalbit_if}}
+            </td>
+            <td>
+                {{#dalbit_if step_1_gift_req_date '!=' ''}} {{step_1_gift_req_date}} {{/dalbit_if}}
+                {{#dalbit_if step_1_gift_req_date '==' ''}} - {{/dalbit_if}}
             </td>
             <td>
                 {{#dalbit_if step_2_req_yn '==' 'y'}} {{step_2_gift_name}} {{/dalbit_if}}
                 {{#dalbit_if step_2_req_yn '==' 'n'}} X {{/dalbit_if}}
             </td>
             <td>
+                {{#dalbit_if step_2_gift_req_date '!=' ''}} {{step_2_gift_req_date}} {{/dalbit_if}}
+                {{#dalbit_if step_2_gift_req_date '==' ''}} - {{/dalbit_if}}
+            </td>
+            <td>
                 {{#dalbit_if step_3_req_yn '==' 'y'}} {{step_3_gift_name}} {{/dalbit_if}}
                 {{#dalbit_if step_3_req_yn '==' 'n'}} X {{/dalbit_if}}
+            </td>
+            <td>
+                {{#dalbit_if step_3_gift_req_date '!=' ''}} {{step_3_gift_req_date}} {{/dalbit_if}}
+                {{#dalbit_if step_3_gift_req_date '==' ''}} - {{/dalbit_if}}
             </td>
         </tr>
         {{else}}
         <tr>
-            <td colspan="7">{{isEmptyData}}</td>
+            <td colspan="11">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
@@ -778,6 +828,7 @@
             <col width="auto"/>
             <col width="auto"/>
             <col width="auto"/>
+            <col width="auto"/>
         </colgroup>
         <thead>
         <tr>
@@ -785,6 +836,7 @@
             <th>회원번호</th>
             <th>연락처</th>
             <th>닉네임</th>
+            <th>가입일자</th>
             <th>
                 {{stepNo}}단계 선물
             </th>
@@ -799,6 +851,7 @@
             <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{phoneNumHyphen mem_phone}}</td>
             <td>{{mem_nick}}</td>
+            <td>{{mem_join_date}}</td>
             <td>
                 {{#dalbit_if slctType '==' 'listener'}} {{mem_gift_name}} {{/dalbit_if}}
                 {{#dalbit_if slctType '==' 'dj'}} {{dj_gift_name}} {{/dalbit_if}}
@@ -824,7 +877,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="7">{{isEmptyData}}</td>
+            <td colspan="8">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>

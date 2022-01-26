@@ -9,6 +9,7 @@ public class P_WelcomeListenersStepOutputVo {
     private String mem_no;              // 회원 번호
     private String mem_phone;	        // 회원 폰번호
     private String mem_nick;	        // 회원 닉네임
+    private Date  mem_join_date;        // 회원가입일
 
     private int step_no;                // 단계 번호
 

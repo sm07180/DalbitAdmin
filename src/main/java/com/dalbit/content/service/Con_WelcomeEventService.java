@@ -155,13 +155,22 @@ public class Con_WelcomeEventService {
      */
     public String callCreateGiftAdminGoals(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo) {
         HashMap resHashMap = new HashMap();
+        int result = 0;
         try {
             for (P_WelcomeQualifyInputVo item : pWelcomeQualifyInputVo.getList()) {
                 item.setChrgrName(MemberVo.getMyMemNo());
-//                event_welcomeProc.modifyWelcomeUserGift(item);
+                if (item.getQualifyNo() > 0) { // 등록
+                    int modifyCnt = event_welcomeProc.modifyWelcomeGiftQualify(item);
+                    if (modifyCnt < 0) modifyCnt = 0;
+                    result += modifyCnt;
+                } else { // 수정
+                    result += event_welcomeProc.createWelcomeGiftQualify(item);
+                }
             }
+            resHashMap.put("applyCnt", result);
             resHashMap.put("result", new JsonOutputVo(Status.처리완료));
         } catch (Exception e) {
+            resHashMap.put("applyCnt", result);
             resHashMap.put("result", new JsonOutputVo(Status.파라미터오류));
         }
         return gsonUtil.toJson(resHashMap);
@@ -195,13 +204,20 @@ public class Con_WelcomeEventService {
      */
     public String callCreateGiftAdminSections(P_WelcomeGiftInputVo pWelcomeGiftInputVo) {
         HashMap resHashMap = new HashMap();
+        int result = 0;
         try {
             for (P_WelcomeGiftInputVo item : pWelcomeGiftInputVo.getList()) {
                 item.setChrgrName(MemberVo.getMyMemNo());
-//                event_welcomeProc.modifyWelcomeUserGift(item);
+                if ("n".equals(item.getModifyYn())) { // 등록
+                    result += event_welcomeProc.createWelcomeGift(item);
+                } else { // 수정
+                    result += event_welcomeProc.modifyWelcomeGift(item);
+                }
             }
+            resHashMap.put("applyCnt", result);
             resHashMap.put("result", new JsonOutputVo(Status.처리완료));
         } catch (Exception e) {
+            resHashMap.put("applyCnt", result);
             resHashMap.put("result", new JsonOutputVo(Status.파라미터오류));
         }
         return gsonUtil.toJson(resHashMap);

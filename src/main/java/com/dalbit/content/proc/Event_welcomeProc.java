@@ -76,7 +76,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer"})
-    @Insert("CALL rd_admin.p_adm_welcome_gift_ins(#{giftCode}, #{giftName}, #{giftCont}, #{giftDalCnt}, #{stepNo}, #{giftOrd}, #{giftSlct}, #{useYn}, #{giftTheMonth}, #{chrgrName})")
+    @Select("CALL rd_admin.p_adm_welcome_gift_ins(#{giftCode}, #{giftName}, #{giftCont}, #{giftDalCnt}, #{stepNo}, #{giftOrd}, #{giftSlct}, #{useYn}, #{theMonth}, #{chrgrName})")
     int createWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
 
     /**
@@ -85,7 +85,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer"})
-    @Update("CALL rd_admin.p_adm_welcome_gift_upd(#{giftCode}, #{giftName}, #{giftCont}, #{giftDalCnt}, #{giftOrd}, #{useYn}, #{chrgrName})")
+    @Select("CALL rd_admin.p_adm_welcome_gift_upd(#{giftCode}, #{giftName}, #{giftCont}, #{giftDalCnt}, #{giftOrd}, #{useYn}, #{chrgrName})")
     int modifyWelcomeGift(P_WelcomeGiftInputVo pWelcomeGiftInputVo);
 
     /**
@@ -130,7 +130,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer"})
-    @Update("CALL rd_admin.p_adm_welcome_qualify_upd(#{qualifyNo}, #{qualifyVal}, #{chrgrName}, #{chrgrName})")
+    @Update("CALL rd_admin.p_adm_welcome_qualify_upd(#{qualifyNo}, #{qualifyVal}, #{chrgrName})")
     int modifyWelcomeGiftQualify(P_WelcomeQualifyInputVo pWelcomeQualifyInputVo);
 
     /**
