@@ -126,7 +126,7 @@ var payDataTableSource = {
                                 'data-cardnm="' + row.card_nm + '"' +
                                 'data-cardno="' + row.card_no + '"' +
                                 'data-birth="' + row.birth + '"' +
-                                'data-hidecardno="' + info + '"' +
+                                'data-hide-card-no="' + row.account_no + '"' +
                                 'onclick="cancelClick($(this).data())"> 취소' +
                          '</button>'
                     '-'
@@ -250,7 +250,7 @@ var payDataTableSource = {
                         'data-cardnm="' + row.card_nm + '"' +
                         'data-cardno="' + row.card_no + '"' +
                         'data-birth="' + row.birth + '"' +
-                        'data-hidecardno="' + info + '"' +
+                        'data-hide-card-no="' + row.account_no + '"' +
                         'onclick="cancelClick($(this).data())"> 취소' +
                         '</button>'
                     '-'
