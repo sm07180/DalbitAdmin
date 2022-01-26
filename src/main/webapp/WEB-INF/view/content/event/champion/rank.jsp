@@ -13,19 +13,19 @@
 
                 <div id="tabContainer" class="mb15">
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="champion_tablist">
-                        <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_1" data-event_no="1" aria-expanded="false" class="_tab">1회차</a></li>
-                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_2" data-event_no="2" aria-expanded="false" class="_tab">2회차</a></li>
-                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_3" data-event_no="3" aria-expanded="false" class="_tab">3회차</a></li>
-                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_4" data-event_no="4" aria-expanded="false" class="_tab">4회차</a></li>
-                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_5" data-event_no="5" aria-expanded="false" class="_tab">5회차</a></li>
-                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_total" data-event_no="0" aria-expanded="false" class="_tab">종합</a></li>
+                        <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_1" data-step-no="1" aria-expanded="false" class="_tab">1회차</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_2" data-step-no="2" aria-expanded="false" class="_tab">2회차</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_3" data-step-no="3" aria-expanded="false" class="_tab">3회차</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_4" data-step-no="4" aria-expanded="false" class="_tab">4회차</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_5" data-step-no="5" aria-expanded="false" class="_tab">5회차</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="tab_event_total" data-step-no="0" aria-expanded="false" class="_tab">종합</a></li>
                     </ul>
                 </div>
 
                 <div id="twoDepth_tabContainer" class="mb15">
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="twoDepth_tablist" id="twoDepth_champion_tablist">
-                        <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" id="twoDepth_tab_dj" data-slct_type="1" aria-expanded="false" class="_tab">DJ 랭킹</a></li>
-                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="twoDepth_tab_fan" data-slct_type="2" aria-expanded="false" class="_tab">팬 랭킹</a></li>
+                        <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" id="twoDepth_tab_dj" data-slct-No="1" aria-expanded="false" class="_tab">DJ 랭킹</a></li>
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" id="twoDepth_tab_fan" data-slct-No="2" aria-expanded="false" class="_tab">팬 랭킹</a></li>
                     </ul>
                 </div>
 
@@ -51,15 +51,18 @@
     function getFullmoonEventList(){
         var oneDepth = $('#champion_tablist li.active a');
         var twoDepth = $('#twoDepth_champion_tablist li.active a');
-        var event_no = oneDepth.data('event_no');
-        var slct_type = twoDepth.data('slct_type');
+        var stepNo = oneDepth.data('step-no');
+        var slctNo = twoDepth.data('slct-no');
 
         var data = {
-            event_no : event_no
-            , slct_type : slct_type
+            stepNo : stepNo,
+            slctNo : slctNo,
+            pageNo : 1,
+            pagePerCnt : 500
         }
 
-        if(slct_type == 1){
+        console.log(data);
+        if(slctNo === 1){
             util.getAjaxData("getChampionEventList", "/rest/content/event/champion/list", data, function(dst_id, response) {
                 var template = $("#tmp_djList").html();
                 var templateScript = Handlebars.compile(template);
@@ -117,7 +120,7 @@
         <tbody id="fullmoonEventList">
             {{#each this as |data|}}
                 <tr>
-                    <td>{{data.rank}}</td>
+                    <td>{{index @index}}</td>
                     <td><img class="thumbnail fullSize_background" src="{{renderImage data.profileImage}}" style='width:65px; height:65px; margin-bottom: 0px' /></td>
                     <td>{{{memNoLink data.mem_no data.mem_no}}}</td>
                     <td>{{phoneNumHyphen memPhone}}</td>
@@ -161,7 +164,7 @@
         <tbody id="fullmoonEventList">
         {{#each this as |data|}}
             <tr>
-                <td>{{data.rank}}</td>
+                <td>{{index @index}}</td>
                 <td><img class="thumbnail fullSize_background" src="{{renderImage data.profileImage}}" style='width:65px; height:65px; margin-bottom: 0px' /></td>
                 <td>{{{memNoLink data.mem_no data.mem_no}}}</td>
                 <td>{{phoneNumHyphen memPhone}}</td>

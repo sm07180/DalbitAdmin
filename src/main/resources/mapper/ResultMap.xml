@@ -72,4 +72,7 @@
 
 	<!--룰렛이벤트-->
 	<resultMap id="RouletteApplyVo" type="com.dalbit.content.vo.RouletteApplyVo"/>
+
+	<!-- championShip Event -->
+	<resultMap id="ChampionshipVo" type="com.dalbit.content.vo.ChampionshipVO"/>
 </mapper>
