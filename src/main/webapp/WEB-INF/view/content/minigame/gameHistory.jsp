@@ -55,11 +55,17 @@
             , startDate : $("#startDate").val()
             , endDate : $("#endDate").val()
             , slctType : 1
+            , searchVal : ""
+            , searchSlct : 1
+            , ordSlct : 1
+            , dateSlct : 2
+            , tDate :$("#endDate").val().replaceAll(".", "-")
             , pageNo : gameHistoryPagingInfo.pageNo
             , pageCnt : gameHistoryPagingInfo.pageCnt
 
         };
 
+        console.log(data);
         util.getAjaxData("miniGameList", "/rest/content/boardAdm/mini/game/history/list", data, fn_success_miniGameMemberList);
 
         var template = $('#tmp_miniGameHistoryTable').html();
@@ -69,6 +75,8 @@
     }
 
     function fn_success_miniGameMemberList(dst_id, response){
+
+        console.log(response);
 
 
         response.pagingVo.pageNo = gameHistoryPagingInfo.pageNo;

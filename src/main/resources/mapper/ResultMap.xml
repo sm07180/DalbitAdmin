@@ -77,4 +77,8 @@
 
 	<!-- championShip Event -->
 	<resultMap id="ChampionshipVo" type="com.dalbit.content.vo.ChampionshipVO"/>
+
+	<!-- miniGame Event -->
+	<resultMap id="MiniGameCntVo" type="com.dalbit.content.vo.MiniGameCntVo"/>
+	<resultMap id="MiniGameVo" type="com.dalbit.content.vo.MiniGameVo"/>
 </mapper>
