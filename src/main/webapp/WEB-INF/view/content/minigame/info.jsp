@@ -114,10 +114,10 @@
 
 <script id="tmp_historyTableBody" type="text/x-handlebars-template">
     <tr>
-        <td>{{addComma totalGoCnt}}</td>
-        <td>{{addComma totalPayAmt}}</td>
-        <td>{{addComma payCnt}}</td>
-        <td>{{addComma freeCnt}}</td>
-        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma m_totalPayAmt}}</td>
+        <td>{{addComma m_totalPayAmt}}</td>
+        <td>{{addComma m_payCnt}}</td>
+        <td>{{addComma m_freeCnt}}</td>
+        <td>{{addComma m_totalDalCnt}}</td>
     </tr>
 </script>

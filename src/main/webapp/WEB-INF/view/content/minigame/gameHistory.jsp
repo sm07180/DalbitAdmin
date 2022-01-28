@@ -41,31 +41,21 @@
 
     var gameHistoryPagingInfo = new PAGING_INFO(0,1,40);
     function gameHistory(pagingNo) {
-
         if(!common.isEmpty(pagingNo)){
             gameHistoryPagingInfo.pageNo = pagingNo;
         }else{
             gameHistoryPagingInfo.pageNo = 1;
         }
-
         var data = {
-            sortState : $("#game_history_sort").val()
-            , newSearchType : $("#searchMember").val()
-            , searchText : common.isEmpty($('#searchText').val()) ? '' : $('#searchText').val()
-            , startDate : $("#startDate").val()
-            , endDate : $("#endDate").val()
-            , slctType : 1
-            , searchVal : ""
-            , searchSlct : 1
-            , ordSlct : 1
-            , dateSlct : 2
-            , tDate :$("#endDate").val().replaceAll(".", "-")
-            , pageNo : gameHistoryPagingInfo.pageNo
-            , pageCnt : gameHistoryPagingInfo.pageCnt
-
+            searchVal : common.isEmpty($('#searchText').val()) ? '' : $('#searchText').val(),
+            searchSlct : $("#searchMember").val(),
+            ordSlct : $("#game_history_sort").val(),
+            dateSlct : tabId === "tab_gameHistory_month" ? 2 : 1,
+            tDate :$("#endDate").val().replaceAll(".", "-"),
+            pageNo : gameHistoryPagingInfo.pageNo,
+            pageCnt : gameHistoryPagingInfo.pageCnt
         };
 
-        console.log(data);
         util.getAjaxData("miniGameList", "/rest/content/boardAdm/mini/game/history/list", data, fn_success_miniGameMemberList);
 
         var template = $('#tmp_miniGameHistoryTable').html();
@@ -75,10 +65,6 @@
     }
 
     function fn_success_miniGameMemberList(dst_id, response){
-
-        console.log(response);
-
-
         response.pagingVo.pageNo = gameHistoryPagingInfo.pageNo;
         response.pagingVo.pageCnt = gameHistoryPagingInfo.pageCnt;
 

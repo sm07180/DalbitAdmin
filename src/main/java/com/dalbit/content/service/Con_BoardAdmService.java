@@ -553,17 +553,14 @@ public class Con_BoardAdmService {
     }
 
     public String miniGameHistoryList(MiniGameListVo miniGameListVo) {
-        System.out.println("miniGameListVo = " + miniGameListVo);
 
         List<Object> list = miniGameProc.miniGameMonth(miniGameListVo);
-        List<MiniGameCntVo> cntVo = DBUtil.getList(list, MiniGameCntVo.class, 1);
+        MiniGameCntVo cntVo = DBUtil.getList(list, MiniGameCntVo.class, 0).get(0);
         Integer cnt = DBUtil.getData(list, Integer.class);
         List<MiniGameVo> miniGameVO = DBUtil.getList(list, MiniGameVo.class, 2);
 
-        System.out.println("list = " + list);
-
         if(list.size() > 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, miniGameVO, new PagingVo(cnt), cntVo));
         }else{
             return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list));
         }
