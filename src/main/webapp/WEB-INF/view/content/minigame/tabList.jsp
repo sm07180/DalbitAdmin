@@ -24,11 +24,9 @@
         if(tabId == "tab_miniGame"){
             slctType = 1;
         }else if(tabId == "tab_gameHistory"){
-
             $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
             slctType = 0;
         }else if(tabId == "tab_gameHistory_month"){
-
             $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
             slctType = 1;
         }

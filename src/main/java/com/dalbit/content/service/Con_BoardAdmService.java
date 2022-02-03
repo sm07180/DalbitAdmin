@@ -9,11 +9,13 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BoardAdmDao;
+import com.dalbit.content.proc.Event_miniGameProc;
 import com.dalbit.content.vo.*;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.*;
+import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,9 @@ public class Con_BoardAdmService {
 
     @Autowired
     CommonService commonService;
+
+    @Autowired
+    Event_miniGameProc miniGameProc;
 
     /**
      * 팬보드 조회
@@ -548,14 +553,16 @@ public class Con_BoardAdmService {
     }
 
     public String miniGameHistoryList(MiniGameListVo miniGameListVo) {
-        ProcedureVo procedureVo = new ProcedureVo(miniGameListVo);
-        ArrayList<MiniGameListVo> list = conBoardAdmDao.miniGameHistoryList(procedureVo);
-        MiniGameListVo miniGameList = new Gson().fromJson(procedureVo.getExt(), MiniGameListVo.class);
+
+        List<Object> list = miniGameProc.miniGameMonth(miniGameListVo);
+        MiniGameCntVo cntVo = DBUtil.getList(list, MiniGameCntVo.class, 0).get(0);
+        Integer cnt = DBUtil.getData(list, Integer.class);
+        List<MiniGameVo> miniGameVO = DBUtil.getList(list, MiniGameVo.class, 2);
 
         if(list.size() > 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(miniGameList.getTotalCnt()), miniGameList));
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, miniGameVO, new PagingVo(cnt), cntVo));
         }else{
-            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(miniGameList.getTotalCnt()),miniGameList));
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list));
         }
     }
 

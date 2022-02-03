@@ -74,4 +74,11 @@
 
     <!-- 미성년자 법정대리인 이메일 발송 로그 -->
     <resultMap id="ParentsEmailLogSelOutputVo" type="com.dalbit.payment.vo.ParentsEmailLogSelOutputVo" />
+
+	<!-- championShip Event -->
+	<resultMap id="ChampionshipVo" type="com.dalbit.content.vo.ChampionshipVO"/>
+
+	<!-- miniGame Event -->
+	<resultMap id="MiniGameCntVo" type="com.dalbit.content.vo.MiniGameCntVo"/>
+	<resultMap id="MiniGameVo" type="com.dalbit.content.vo.MiniGameVo"/>
 </mapper>
