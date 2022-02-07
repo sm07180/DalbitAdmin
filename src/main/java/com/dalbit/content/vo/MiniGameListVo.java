@@ -57,4 +57,10 @@ public class MiniGameListVo extends PagingVo {
     private int payCnt;
     private int totalDalCnt;
 
+    private String searchVal;
+    private Integer searchSlct;
+    private Integer ordSlct;
+    private Integer dateSlct;
+    private String tDate;
+
 }
