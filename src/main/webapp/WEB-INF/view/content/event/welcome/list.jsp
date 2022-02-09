@@ -127,7 +127,7 @@
         function getListenerList(_memNo, pageInfo) {
             let data = {
                 memNo: _memNo,
-                tDate: '',
+                tDate: year + '-' + month + '-01',
                 stepNo: 0,
                 pageNo: pageInfo.pageNo,
                 pagePerCnt: pageInfo.pageCnt
@@ -159,7 +159,7 @@
         function getDjList(_memNo, pageInfo) {
             let data = {
                 memNo: _memNo,
-                tDate: '',
+                tDate: year + '-' + month + '-01',
                 stepNo: 0,
                 pageNo: pageInfo.pageNo,
                 pagePerCnt: pageInfo.pageCnt

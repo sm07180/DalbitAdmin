@@ -18,7 +18,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer", "ResultMap.P_WelcomeTotalListOutputVo"})
-    @Select("CALL rd_admin.p_adm_welcome_dj_list(#{memNo}, #{pageNo}, #{pagePerCnt})")
+    @Select("CALL rd_admin.p_adm_welcome_dj_list(#{memNo}, #{tDate}, #{pageNo}, #{pagePerCnt})")
     List<Object> getWelcomeDjList(P_WelcomeInputVo pWelcomeInputVo);
 
     /**
@@ -38,7 +38,7 @@ public interface Event_welcomeProc {
      * @return
      */
     @ResultMap({"ResultMap.integer", "ResultMap.P_WelcomeTotalListOutputVo"})
-    @Select("CALL rd_admin.p_adm_welcome_mem_list(#{memNo}, #{pageNo}, #{pagePerCnt})")
+    @Select("CALL rd_admin.p_adm_welcome_mem_list(#{memNo}, #{tDate}, #{pageNo}, #{pagePerCnt})")
     List<Object> getWelcomeListenerList(P_WelcomeInputVo pWelcomeInputVo);
 
     /**
