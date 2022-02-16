@@ -85,4 +85,10 @@
 	<!-- miniGame Event -->
 	<resultMap id="MiniGameCntVo" type="com.dalbit.content.vo.MiniGameCntVo"/>
 	<resultMap id="MiniGameVo" type="com.dalbit.content.vo.MiniGameVo"/>
+
+	<!-- 친구초대 이벤트 (달라) -->
+	<resultMap id="P_InviteInputVo" type="com.dalbit.content.vo.procedure.P_InviteInputVo" />
+	<resultMap id="P_InviteListOutputVo" type="com.dalbit.content.vo.procedure.P_InviteListOutputVo" />
+	<resultMap id="P_InviteRecvListOutputVo" type="com.dalbit.content.vo.procedure.P_InviteRecvListOutputVo" />
+	<resultMap id="P_InviteStateOutputVo" type="com.dalbit.content.vo.procedure.P_InviteStateOutputVo" />
 </mapper>
