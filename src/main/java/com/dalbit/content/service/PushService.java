@@ -275,7 +275,9 @@ public class PushService {
             pPushInsertVo.setSend_cont(cont);
         }
 
-        pPushInsertVo.setSend_url(pPushInsertVo.getSend_url().replace(SERVER_PHOTO_URL, ""));
+        if (pPushInsertVo.getSend_url() != null) {
+            pPushInsertVo.setSend_url(pPushInsertVo.getSend_url().replace(SERVER_PHOTO_URL, ""));
+        }
 
         if(pPushInsertVo.getIs_all().equals("7")){        // 지정 일 경우 푸시 발송
             if(mem_nos != null && mem_nos.length() > 0){
