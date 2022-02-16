@@ -171,8 +171,6 @@
         // 피참여자 목록
         function getRecvList(_memNo, pageInfo) {
             $('.recv-modal-list').empty();
-            console.log('getRecvList');
-            console.log('getRecvList: ' + _memNo);
 
             rectMemNo = _memNo;
             if (!rectMemNo) {
@@ -193,9 +191,6 @@
 
         // 피참여자 목록 그리기
         function renderRecvList(id, response, pageInfo) {
-            console.log(response.listData);
-
-
             let template, templateScript, context, html;
             template = $('#tmp_invite_recv_list').html();
             templateScript = Handlebars.compile(template);
