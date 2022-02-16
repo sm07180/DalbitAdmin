@@ -312,7 +312,7 @@ public class Mem_MemberService {
                         pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
                         pPushInsertVo.setSlct_push("35");
                         pPushInsertVo.setPush_slct("57");       //운영자 메시지(프로필 이미지 초기화, 닉네임 초기화)
-                        pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                        pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                         pPushInsertVo.setSend_cont(pMemberEditorVo.getNotiMemo());
                         pPushInsertVo.setImage_type("101");
                         pushService.sendPushReqOK(pPushInsertVo);
@@ -375,7 +375,7 @@ public class Mem_MemberService {
         try{    // PUSH 발송
             pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
             pPushInsertVo.setSlct_push("34");
-            pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+            pPushInsertVo.setSend_title("달라 이용제한 해제 안내");
             pPushInsertVo.setSend_cont(cont);
             pPushInsertVo.setEtc_contents(etcCont);
             pPushInsertVo.setImage_type("101");
@@ -527,7 +527,7 @@ public class Mem_MemberService {
                 pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
                 pPushInsertVo.setSlct_push("34");
                 pPushInsertVo.setPush_slct("54");   //운영자 메시지(사용자 경고)
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                 pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
                 pPushInsertVo.setEtc_contents(pMemberReportVo.getNotiContents().replaceAll("\n", "<br>"));
                 pPushInsertVo.setImage_type("101");
@@ -738,9 +738,9 @@ public class Mem_MemberService {
                 pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
                 pPushInsertVo.setSlct_push("32");
                 pPushInsertVo.setPush_slct("61");   //운영자 선물 알림
-                pPushInsertVo.setSend_title("운영자의 선물 도착!!");
-                pPushInsertVo.setSend_cont("운영자가 선물을 보냈습니다.");
-                pPushInsertVo.setImage_type("102");
+                pPushInsertVo.setSend_title("달라에서 선물을 준비했어요!");
+                pPushInsertVo.setSend_cont("클릭하고 선물을 확인해보세요\uD83C\uDF81");
+                pPushInsertVo.setImage_type("101");
 
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){
@@ -1141,7 +1141,7 @@ public class Mem_MemberService {
                 pPushInsertVo.setMem_nos(pMemberInfoInputVo.getMem_no());
                 pPushInsertVo.setSlct_push("35");
                 pPushInsertVo.setPush_slct("57");       //운영자 메시지(프로필 이미지 초기화, 닉네임 초기화)
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                 pPushInsertVo.setSend_cont("운영정책 위반으로 프로필 이미지가 초기화 되었습니다.");
                 pPushInsertVo.setImage_type("101");
                 pushService.sendPushReqOK(pPushInsertVo);

@@ -176,7 +176,7 @@ public class DeclarationService {
                         pPushInsertVo.setMem_nos(declarationDetail.getReported_mem_no());
                         pPushInsertVo.setSlct_push("34");
                         pPushInsertVo.setPush_slct("54");   //운영자 메시지(사용자 경고)
-                        pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                        pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                         pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
                         pPushInsertVo.setEtc_contents(pDeclarationOperateVo.getNotiContents().replaceAll("\n", "<br>"));
                         pPushInsertVo.setImage_type("101");

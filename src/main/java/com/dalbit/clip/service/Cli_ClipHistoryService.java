@@ -271,46 +271,46 @@ public class Cli_ClipHistoryService {
 
             if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("1")) {    // 클립 배경 초기화
                 pPushInsertVo.setSlct_push("47");
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                 pPushInsertVo.setSend_cont("운영정책 위반으로 클립 이미지가 초기화 되었습니다.");
                 pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
 
-                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiContents("달라 운영정책 위반 안내");
                 pClipHistoryDetailInfoEditVo.setNotiMemo("운영정책 위반으로 클립 이미지가 초기화 되었습니다.");
 
             } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("2")) { // 닉네임 초기화
                 pPushInsertVo.setPush_slct("57");   //운영자 메시지(프로필 이미지 초기화, 닉네임 초기화)
                 pPushInsertVo.setSlct_push("35");
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                 pPushInsertVo.setSend_cont("닉네임에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
 
-                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiContents("달라 운영정책 위반 안내");
                 pClipHistoryDetailInfoEditVo.setNotiMemo("닉네임에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
 
             } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("3")) { // 클립 비공개
                 pPushInsertVo.setSlct_push("47");
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("1:1문의 답변이 등록되었어요!");
                 pPushInsertVo.setSend_cont("운영정책 위반으로 클립이 비공개 처리되었습니다.");
                 pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
 
-                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiContents("달라 운영정책 위반 안내");
                 pClipHistoryDetailInfoEditVo.setNotiMemo("운영정책 위반으로 클립이 비공개 처리되었습니다.");
 
             } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("4")) { // 클립 삭제
                 pPushInsertVo.setSlct_push("48");
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                 pPushInsertVo.setSend_cont("운영정책 위반으로 클립이 삭제 처리되었습니다.");
 
-                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiContents("달라 운영정책 위반 안내");
                 pClipHistoryDetailInfoEditVo.setNotiMemo("운영정책 위반으로 클립이 삭제 처리되었습니다.");
 
             } else if (pClipHistoryDetailInfoEditVo.getEditSlct().equals("6")) { // 클립 제목 초기화
                 pPushInsertVo.setSlct_push("47");
-                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_title("달라 운영정책 위반 안내");
                 pPushInsertVo.setSend_cont("클립 제목에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
                 pPushInsertVo.setRoom_no(pClipHistoryDetailInfoEditVo.getCast_no());
 
-                pClipHistoryDetailInfoEditVo.setNotiContents("달빛 라이브 운영자 메시지");
+                pClipHistoryDetailInfoEditVo.setNotiContents("달라 운영정책 위반 안내");
                 pClipHistoryDetailInfoEditVo.setNotiMemo("클립 제목에 적합하지 않은 금지어사용으로 초기화 되었습니다.");
 
             }
