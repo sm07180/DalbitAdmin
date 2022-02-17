@@ -55,227 +55,227 @@
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script src="/template/js/plugins/fullcalendar/fullcalendar.js"></script>
 <script type="text/javascript">
-    let inviteSlctType = 1;
-    let invitePagingInfo = new PAGING_INFO(0, 1, 50);
-    let inviteRecvPagingInfo = new PAGING_INFO(0, 1, 10);
-    let rectMemNo = '';
-    let isModal = false;
+  let inviteSlctType = 1;
+  let invitePagingInfo = new PAGING_INFO(0, 1, 50);
+  let inviteRecvPagingInfo = new PAGING_INFO(0, 1, 10);
+  let rectMemNo = '';
+  let isModal = false;
 
-    const inviteEventData = (function() {
-        // 초대현황
-        function getState(_memNo) {
-            $('.calendar').fullCalendar({
-                header: {
-                    left: '',
-                    center: 'prev, title, next',
-                    right: 'today'
-                },
-                firstDay: 1, //월요일부터 시작
-                showTotal: true, //합계 노출여부
-                events: function(start, end, timezone, callback) {
-                    let cal = $('.calendar').fullCalendar('getDate');
-                    let year = cal.getFullYear();
-                    let month = (cal.getMonth() + 1).toString().padStart(2, '0');
-                    let tDate = year + '-' + month + '-01';
+  const inviteEventData = (function() {
+    // 초대현황
+    function getState(_memNo) {
+      $('.calendar').fullCalendar({
+        header: {
+          left: '',
+          center: 'prev, title, next',
+          right: 'today'
+        },
+        firstDay: 1, //월요일부터 시작
+        showTotal: true, //합계 노출여부
+        events: function(start, end, timezone, callback) {
+          let cal = $('.calendar').fullCalendar('getDate');
+          let year = cal.getFullYear();
+          let month = (cal.getMonth() + 1).toString().padStart(2, '0');
+          let tDate = year + '-' + month + '-01';
 
-                    let data = {
-                        memNo: _memNo,
-                        tDate: tDate,
-                    };
-                    let apiURL = '/rest/content/event/invite/state';
-                    util.getAjaxData("getState", apiURL, data, function (id, response, params) {
-                        // 결과정보를 날짜셀에 표기
-                        response.listData.forEach(function(info) {
-                            let dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
-                            let template = $('#tmp_calendarData').html();
-                            let templateScript = Handlebars.compile(template);
-                            let context = info;
-                            let html = templateScript(context);
-                            dayTarget.append(html);
-                        });
+          let data = {
+            memNo: _memNo,
+            tDate: tDate,
+          };
+          let apiURL = '/rest/content/event/invite/state';
+          util.getAjaxData("getState", apiURL, data, function (id, response, params) {
+            // 결과정보를 날짜셀에 표기
+            response.listData.forEach(function(info) {
+              let dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
+              let template = $('#tmp_calendarData').html();
+              let templateScript = Handlebars.compile(template);
+              let context = info;
+              let html = templateScript(context);
+              dayTarget.append(html);
+            });
 
-                        // 해당 주차 합계를 표기
-                        $('tr.fc-week').each(function() {
-                            let week = $(this);
-                            let startDate = week.find('td.fc-day:first').data('date');
-                            let endDate = week.find('td.fc-day:last').data('date');
-                            let index = $('tr.fc-week').index(week);
+            // 해당 주차 합계를 표기
+            $('tr.fc-week').each(function() {
+              let week = $(this);
+              let startDate = week.find('td.fc-day:first').data('date');
+              let endDate = week.find('td.fc-day:last').data('date');
+              let index = $('tr.fc-week').index(week);
 
-                            let weekSumData = {
-                                month: month,
-                                index: index,
-                                invitation_mem_cnt: 0,
-                                invitation_rcv_mem_cnt: 0,
-                                invitation_dal_cnt: 0
-                            };
-                            response.listData.forEach(function(info) {
-                                if (startDate <= info.the_date && info.the_date <= endDate) {
-                                    weekSumData.invitation_mem_cnt += info.invitation_mem_cnt;
-                                    weekSumData.invitation_rcv_mem_cnt += info.invitation_rcv_mem_cnt;
-                                    weekSumData.invitation_dal_cnt += info.invitation_dal_cnt;
-                                }
-                            });
-
-                            let weekTarget = $('.fc-week:eq(' + index + ')').find('.fc-day-content:last');
-                            let template = $('#tmp_weekCalendarData').html();
-                            let templateScript = Handlebars.compile(template);
-                            let context = weekSumData;
-                            let html = templateScript(context);
-                            weekTarget.append(html);
-                        });
-                    }, null, {type: 'GET'});
+              let weekSumData = {
+                month: month,
+                index: index,
+                invitation_mem_cnt: 0,
+                invitation_rcv_mem_cnt: 0,
+                invitation_dal_cnt: 0
+              };
+              response.listData.forEach(function(info) {
+                if (startDate <= info.the_date && info.the_date <= endDate) {
+                  weekSumData.invitation_mem_cnt += info.invitation_mem_cnt;
+                  weekSumData.invitation_rcv_mem_cnt += info.invitation_rcv_mem_cnt;
+                  weekSumData.invitation_dal_cnt += info.invitation_dal_cnt;
                 }
+              });
+
+              let weekTarget = $('.fc-week:eq(' + index + ')').find('.fc-day-content:last');
+              let template = $('#tmp_weekCalendarData').html();
+              let templateScript = Handlebars.compile(template);
+              let context = weekSumData;
+              let html = templateScript(context);
+              weekTarget.append(html);
             });
+          }, null, {type: 'GET'});
         }
-
-        // 참여자목록
-        function getList(_memNo, pageInfo) {
-            _memNo = _memNo ? _memNo : '';
-            let data = {
-                searchVal: _memNo,
-                searchSlct: 1,
-                pageNo: pageInfo.pageNo,
-                pagePerCnt: pageInfo.pageCnt
-            };
-            let apiURL = '/rest/content/event/invite/list';
-            util.getAjaxData("getList", apiURL, data, function (id, response, params) {
-                renderList(id, response, pageInfo);
-            }, null, {type: 'GET'});
-        }
-
-        // 참여자 목록 그리기
-        function renderList(id, response, pageInfo) {
-            let template, templateScript, context, html;
-            template = $('#tmp_invite_list').html();
-            templateScript = Handlebars.compile(template);
-            context = response.listData.map(function (item, index) {
-                item.rank_no = ((pageInfo.pageNo - 1) * pageInfo.pageCnt) + index + 1;
-                return item;
-            });
-            html = templateScript(context);
-            $(".content-area").html(html);
-
-            pageInfo.totalCnt = response.totalCnt;
-            util.renderPagingNavigation('total_paginate_top', pageInfo);
-            util.renderPagingNavigation('total_paginate_bottom', pageInfo);
-
-            if (response.listData.length === 0) {
-                $('#total_paginate_top').hide();
-                $('#total_paginate_bottom').hide();
-            } else {
-                $('#total_paginate_top').show();
-                $('#total_paginate_bottom').show();
-            }
-        }
-
-        // 피참여자 목록
-        function getRecvList(_memNo, pageInfo) {
-            $('.recv-modal-list').empty();
-
-            rectMemNo = _memNo;
-            if (!rectMemNo) {
-                alert('요청할 정보가 없습니다.');
-                return;
-            }
-
-            let data = {
-                memNo: rectMemNo,
-                pageNo: pageInfo.pageNo,
-                pagePerCnt: pageInfo.pageCnt
-            };
-            let apiURL = '/rest/content/event/invite/recv-list';
-            util.getAjaxData("getRecvList", apiURL, data, function (id, response, params) {
-                renderRecvList(id, response, pageInfo);
-            }, null, {type: 'GET'});
-        }
-
-        // 피참여자 목록 그리기
-        function renderRecvList(id, response, pageInfo) {
-            let template, templateScript, context, html;
-            template = $('#tmp_invite_recv_list').html();
-            templateScript = Handlebars.compile(template);
-            context = response.listData;
-            html = templateScript(context);
-            $(".recv-modal-list").html(html);
-
-            pageInfo.totalCnt = response.totalCnt;
-            util.renderPagingNavigation('recv_paginate_top', pageInfo);
-            util.renderPagingNavigation('recv_paginate_bottom', pageInfo);
-
-            if (response.listData.length === 0) {
-                $('#recv_paginate_top').hide();
-                $('#recv_paginate_bottom').hide();
-            } else {
-                $('#recv_paginate_top').show();
-                $('#recv_paginate_bottom').show();
-            }
-
-            if (!isModal) {
-                isModal = true;
-                $('#recv-modal').modal('show');
-            }
-        }
-
-        function callList(pageInfo) {
-            let memNo = document.getElementById('searchText').value;
-            memNo = memNo ? parseInt(memNo, 10) : 0;
-
-            $('.content-area').empty();
-            $('.calendar').empty();
-
-            switch (inviteSlctType) {
-                case 1:
-                    getState(memNo);
-                    break;
-                case 2:
-                    getList(memNo, pageInfo);
-                    break;
-            }
-        }
-
-        function callRecvList(memNo) {
-            isModal = false;
-            $('#recv-modal').modal('hide');
-
-            inviteRecvPagingInfo.pageNo = 1;
-            getRecvList(memNo, inviteRecvPagingInfo);
-        }
-
-        return {
-            callRecvList: callRecvList,
-            getRecvList: getRecvList,
-            callList: callList
-        }
-    }());
-
-    // 페이징 이벤트
-    function handlebarsPaging(targetId, pagingInfo) {
-        if (targetId === 'total_paginate_top' ||  targetId === 'total_paginate_bottom') {
-            inviteEventData.callList(pagingInfo);
-        }
-
-        if (targetId === 'recv_paginate_top' ||  targetId === 'recv_paginate_bottom') {
-            inviteEventData.getRecvList(rectMemNo, pagingInfo);
-        }
+      });
     }
 
-    $(function() {
-        // 기본실행
-        inviteEventData.callList(invitePagingInfo);
+    // 참여자목록
+    function getList(_memNo, pageInfo) {
+      _memNo = _memNo ? _memNo : '';
+      let data = {
+        searchVal: _memNo,
+        searchSlct: 1,
+        pageNo: pageInfo.pageNo,
+        pagePerCnt: pageInfo.pageCnt
+      };
+      let apiURL = '/rest/content/event/invite/list';
+      util.getAjaxData("getList", apiURL, data, function (id, response, params) {
+        renderList(id, response, pageInfo);
+      }, null, {type: 'GET'});
+    }
 
-        $('#bt_search').on('click', function () {
-            inviteEventData.callList(pagingInfo);
-        });
+    // 참여자 목록 그리기
+    function renderList(id, response, pageInfo) {
+      let template, templateScript, context, html;
+      template = $('#tmp_invite_list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData.map(function (item, index) {
+        item.rank_no = ((pageInfo.pageNo - 1) * pageInfo.pageCnt) + index + 1;
+        return item;
+      });
+      html = templateScript(context);
+      $(".content-area").html(html);
 
-        // 탭클릭
-        $('#invite-slct-tabs li a').on('click', function() {
-            const $this = $(this);
-            inviteSlctType = parseInt($this.data('slct_type'), 10);
+      pageInfo.totalCnt = response.totalCnt;
+      util.renderPagingNavigation('total_paginate_top', pageInfo);
+      util.renderPagingNavigation('total_paginate_bottom', pageInfo);
 
-            invitePagingInfo.pageNo = 1;
-            inviteEventData.callList(invitePagingInfo);
-        });
+      if (response.listData.length === 0) {
+        $('#total_paginate_top').hide();
+        $('#total_paginate_bottom').hide();
+      } else {
+        $('#total_paginate_top').show();
+        $('#total_paginate_bottom').show();
+      }
+    }
+
+    // 피참여자 목록
+    function getRecvList(_memNo, pageInfo) {
+      $('.recv-modal-list').empty();
+
+      rectMemNo = _memNo;
+      if (!rectMemNo) {
+        alert('요청할 정보가 없습니다.');
+        return;
+      }
+
+      let data = {
+        memNo: rectMemNo,
+        pageNo: pageInfo.pageNo,
+        pagePerCnt: pageInfo.pageCnt
+      };
+      let apiURL = '/rest/content/event/invite/recv-list';
+      util.getAjaxData("getRecvList", apiURL, data, function (id, response, params) {
+        renderRecvList(id, response, pageInfo);
+      }, null, {type: 'GET'});
+    }
+
+    // 피참여자 목록 그리기
+    function renderRecvList(id, response, pageInfo) {
+      let template, templateScript, context, html;
+      template = $('#tmp_invite_recv_list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData;
+      html = templateScript(context);
+      $(".recv-modal-list").html(html);
+
+      pageInfo.totalCnt = response.totalCnt;
+      util.renderPagingNavigation('recv_paginate_top', pageInfo);
+      util.renderPagingNavigation('recv_paginate_bottom', pageInfo);
+
+      if (response.listData.length === 0) {
+        $('#recv_paginate_top').hide();
+        $('#recv_paginate_bottom').hide();
+      } else {
+        $('#recv_paginate_top').show();
+        $('#recv_paginate_bottom').show();
+      }
+
+      if (!isModal) {
+        isModal = true;
+        $('#recv-modal').modal('show');
+      }
+    }
+
+    function callList(pageInfo) {
+      let memNo = document.getElementById('searchText').value;
+      memNo = memNo ? parseInt(memNo, 10) : 0;
+
+      $('.content-area').empty();
+      $('.calendar').empty();
+
+      switch (inviteSlctType) {
+        case 1:
+          getState(memNo);
+          break;
+        case 2:
+          getList(memNo, pageInfo);
+          break;
+      }
+    }
+
+    function callRecvList(memNo) {
+      isModal = false;
+      $('#recv-modal').modal('hide');
+
+      inviteRecvPagingInfo.pageNo = 1;
+      getRecvList(memNo, inviteRecvPagingInfo);
+    }
+
+    return {
+      callRecvList: callRecvList,
+      getRecvList: getRecvList,
+      callList: callList
+    }
+  }());
+
+  // 페이징 이벤트
+  function handlebarsPaging(targetId, pagingInfo) {
+    if (targetId === 'total_paginate_top' ||  targetId === 'total_paginate_bottom') {
+      inviteEventData.callList(pagingInfo);
+    }
+
+    if (targetId === 'recv_paginate_top' ||  targetId === 'recv_paginate_bottom') {
+      inviteEventData.getRecvList(rectMemNo, pagingInfo);
+    }
+  }
+
+  $(function() {
+    // 기본실행
+    inviteEventData.callList(invitePagingInfo);
+
+    $('#bt_search').on('click', function () {
+      inviteEventData.callList(pagingInfo);
     });
+
+    // 탭클릭
+    $('#invite-slct-tabs li a').on('click', function() {
+      const $this = $(this);
+      inviteSlctType = parseInt($this.data('slct_type'), 10);
+
+      invitePagingInfo.pageNo = 1;
+      inviteEventData.callList(invitePagingInfo);
+    });
+  });
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
@@ -359,12 +359,12 @@
         </thead>
         <tbody>
         {{#each this as |data|}}
-        <tr>
-            <td>{{{memNoLink rcv_mem_no rcv_mem_no}}}</td>
-            <td>{{rcv_mem_nick}}</td>
-            <td>{{phoneNumHyphen rcv_mem_phone}}</td>
-            <td>{{rcv_last_device_uuid}}</td>
-            <td>{{rcv_ip}}</td>
+        <tr {{#dalbit_if ip_chk_yn '==' 'y'}} style="background: #ff9800" {{/dalbit_if}}>
+        <td>{{{memNoLink rcv_mem_no rcv_mem_no}}}</td>
+        <td>{{rcv_mem_nick}}</td>
+        <td>{{phoneNumHyphen rcv_mem_phone}}</td>
+        <td>{{rcv_last_device_uuid}}</td>
+        <td>{{rcv_mem_ip}}</td>
         </tr>
         {{else}}
         <tr>

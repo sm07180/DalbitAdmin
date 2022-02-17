@@ -23,6 +23,7 @@ public class P_InviteRecvListOutputVo {
     private int rcv_mem_state;              // 회원상태(1:정상3:블럭, 4:탈퇴, 5:영구정지...)  (받은)
     private Date rcv_mem_join_date;         // 가입일자(받은)
     private String rcv_mem_phone;           // 폰번호
-    private String rcv_ip;                  // ip
+    private String rcv_mem_ip;              // ip
+    private String ip_chk_yn;               // 중복아이피인지
     private String rcv_last_device_uuid;    // 디바이스아이디
 }
