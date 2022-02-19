@@ -194,10 +194,7 @@
       let template, templateScript, context, html;
       template = $('#tmp_invite_recv_list').html();
       templateScript = Handlebars.compile(template);
-      context = response.listData.map(function (item, index) {
-        item.rcv_mem_exit_yn = (item.rcv_mem_state === 0 || item.rcv_mem_state === 4) ? 'Y' : 'N';
-        return item;
-      });
+      context = response.listData;
       html = templateScript(context);
       $(".recv-modal-list").html(html);
 

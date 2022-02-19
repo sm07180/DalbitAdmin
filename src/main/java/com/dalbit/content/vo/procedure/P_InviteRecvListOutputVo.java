@@ -25,5 +25,6 @@ public class P_InviteRecvListOutputVo {
     private String rcv_mem_phone;           // 폰번호
     private String rcv_mem_ip;              // ip
     private String ip_chk_yn;               // 중복아이피인지
+    private String rcv_mem_exit_yn;         // 탈퇴여부 y / n
     private String rcv_last_device_uuid;    // 디바이스아이디
 }
