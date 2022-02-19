@@ -194,7 +194,10 @@
       let template, templateScript, context, html;
       template = $('#tmp_invite_recv_list').html();
       templateScript = Handlebars.compile(template);
-      context = response.listData;
+      context = response.listData.map(function (item, index) {
+        item.rcv_mem_exit_yn = (item.rcv_mem_state === 0 || item.rcv_mem_state === 4) ? 'Y' : 'N';
+        return item;
+      });
       html = templateScript(context);
       $(".recv-modal-list").html(html);
 
@@ -355,16 +358,18 @@
             <th>연락처</th>
             <th>디바이스번호</th>
             <th>IP</th>
+            <th>탈퇴여부</th>
         </tr>
         </thead>
         <tbody>
         {{#each this as |data|}}
-        <tr {{#dalbit_if ip_chk_yn '==' 'y'}} style="background: #ff9800" {{/dalbit_if}}>
+        <tr {{#dalbit_if ip_chk_yn '==' 'y'}} style="background: #ffefd5" {{/dalbit_if}}>
         <td>{{{memNoLink rcv_mem_no rcv_mem_no}}}</td>
         <td>{{rcv_mem_nick}}</td>
         <td>{{phoneNumHyphen rcv_mem_phone}}</td>
         <td>{{rcv_last_device_uuid}}</td>
         <td>{{rcv_mem_ip}}</td>
+        <td>{{rcv_mem_exit_yn}}</td>
         </tr>
         {{else}}
         <tr>
