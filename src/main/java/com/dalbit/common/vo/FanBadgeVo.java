@@ -4,7 +4,8 @@ import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class FanBadgeVo {
     private String text;
     private String icon;
@@ -23,29 +24,32 @@ public class FanBadgeVo {
     private String msgBorderEndColor;
 
     private String textColor = "#ffffff";
+    private String textStyle = "normal";
     private String borderColor = "";
-    private float bgAlpha = (float)1.0;
+    private float bgAlpha = (float) 1.0;
     private String bgImg = "";
 
     private String chatImg;
     private int chatImgWidth;
     private int chatImgHeight;
 
+    public FanBadgeVo() {
+    }
 
-    public FanBadgeVo(String text, String tipMsg, String frameAni){
+    public FanBadgeVo(String text, String tipMsg, String frameAni) {
         this.text = text;
         this.tipMsg = tipMsg;
         this.frameAni = frameAni;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
         this.endColor = endColor;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
@@ -53,7 +57,7 @@ public class FanBadgeVo {
         this.image = image;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image, String imageSmall){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image, String imageSmall) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
@@ -62,7 +66,7 @@ public class FanBadgeVo {
         this.imageSmall = imageSmall;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor, String textColor, String borderColor, float bgAlpha, String bgImg, String frameTop, String frameChat, String frameAni, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor, String textColor, String borderColor, float bgAlpha, String bgImg, String frameTop, String frameChat, String frameAni, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
@@ -83,7 +87,7 @@ public class FanBadgeVo {
         this.bgImg = bgImg;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor, String textColor, String borderColor, float bgAlpha, String bgImg, String frameTop, String frameChat, String frameAni, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor, String chatImg, int chatImgWidth, int chatImgHeight){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor, String textColor, String borderColor, float bgAlpha, String bgImg, String frameTop, String frameChat, String frameAni, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor, String chatImg, int chatImgWidth, int chatImgHeight) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
@@ -107,7 +111,7 @@ public class FanBadgeVo {
         this.chatImgHeight = chatImgHeight;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image, String imageSmall, String frameTop, String frameChat, String frameAni, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image, String imageSmall, String frameTop, String frameChat, String frameAni, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
@@ -125,7 +129,7 @@ public class FanBadgeVo {
         this.msgBorderEndColor = msgBorderEndColor;
     }
 
-    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image, String imageSmall, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor){
+    public FanBadgeVo(String text, String icon, String startColor, String endColor, String image, String imageSmall, String tipMsg, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
@@ -140,7 +144,7 @@ public class FanBadgeVo {
         this.msgBorderEndColor = msgBorderEndColor;
     }
 
-    public FanBadgeVo(String text, String tipMsg, String frameAni, String icon, String startColor, String endColor, String textColor, String borderColor, float bgAlpha, String bgImg, String frameTop, String frameChat, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor, String chatImg, int chatImgWidth, int chatImgHeight, int isNew){
+    public FanBadgeVo(String text, String tipMsg, String frameAni, String icon, String startColor, String endColor, String textColor, String borderColor, float bgAlpha, String bgImg, String frameTop, String frameChat, String explainMsg, String enterAni, String enterBgImg, String msgBorderSrtColor, String msgBorderEndColor, String chatImg, int chatImgWidth, int chatImgHeight, int isNew) {
         this.text = text;
         this.icon = icon;
         this.startColor = startColor;
