@@ -613,3 +613,9 @@ common.getStringByteLength = function(str){
     // return str.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length;      // utf-8
     return str.replace(/[\0-\x7f]|([0-힣]|(.))/g, "$&$1$2").length;      // euc-kr
 }
+
+common.voteType = {
+    's': '투표중',
+    'e': '마감',
+    'd': '투표삭제'
+}

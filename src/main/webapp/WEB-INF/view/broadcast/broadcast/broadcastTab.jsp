@@ -41,5 +41,6 @@
 
     var dtList_info_detail;
     var dtList_info_detail2;
+    var dtList_info_detail3;
     var dtList_top_info="";
 </script>
