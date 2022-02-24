@@ -6,10 +6,7 @@ import com.dalbit.content.vo.procedure.P_RebrandCommentSearchInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -39,7 +36,7 @@ public class Con_RebrandEventRestController {
      * @return
      */
     @DeleteMapping("/comments")
-    public String removeComment(P_RebrandCommentDeleteInputVo pRebrandCommentDeleteInputVo) {
+    public String removeComment(@RequestBody P_RebrandCommentDeleteInputVo pRebrandCommentDeleteInputVo) {
         return con_rebrandEventService.removeComment(pRebrandCommentDeleteInputVo);
     }
 }

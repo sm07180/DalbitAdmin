@@ -324,4 +324,13 @@ public class ContentController {
     public String invite() {
         return "content/event/invite/list";
     }
+
+    /**
+     * 리브랜딩 이벤트
+     * @return
+     */
+    @GetMapping("/event/rebrand/list")
+    public String rebrand() {
+        return "content/event/rebrand/list";
+    }
 }
