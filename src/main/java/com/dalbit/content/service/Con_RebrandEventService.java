@@ -3,10 +3,7 @@ package com.dalbit.content.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.dao.Con_RebrandEventDao;
-import com.dalbit.content.vo.procedure.P_RebrandCommentDeleteInputVo;
-import com.dalbit.content.vo.procedure.P_RebrandCommentListOutputVo;
-import com.dalbit.content.vo.procedure.P_RebrandCommentSearchInputVo;
-import com.dalbit.content.vo.procedure.P_WelcomeTotalListOutputVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +52,25 @@ public class Con_RebrandEventService {
 
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.삭제));
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 리브랜드 이벤트 - 공감 목록
+     *
+     * @param pRebrandShareSearchInputVo
+     * @return
+     */
+    public String getShares(P_RebrandShareSearchInputVo pRebrandShareSearchInputVo) {
+        List<Object> getList = con_rebrandEventDao.selectShares(pRebrandShareSearchInputVo);
+        List<P_RebrandShareListOutputVo> list = DBUtil.getList(getList, P_RebrandShareListOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("listData", list);
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }

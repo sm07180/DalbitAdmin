@@ -4,6 +4,7 @@
 
     <resultMap id="integer" type="Integer" />
     <resultMap id="P_RebrandCommentListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCommentListOutputVo" />
+    <resultMap id="P_RebrandShareListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandShareListOutputVo" />
 
     <select id="selectComments" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCommentSearchInputVo" resultMap="integer,P_RebrandCommentListOutputVo">
         CALL rd_data.p_adm_tb_event_rbd_tail_list(#{slct}, #{searchData}, #{pageNo}, #{pagePerCnt})
@@ -12,6 +13,10 @@
     <delete id="deleteComment" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCommentDeleteInputVo">
         CALL rd_data.p_tb_event_rbd_tail_del(#{tailNo}, #{tailMemNo})
     </delete>
+
+    <select id="selectShares" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandShareSearchInputVo" resultMap="integer,P_RebrandShareListOutputVo">
+        CALL rd_data.p_adm_tb_event_rbd_share_tail_list(#{slct}, #{searchData}, #{pageNo}, #{pagePerCnt})
+    </select>
 
 </mapper>
 

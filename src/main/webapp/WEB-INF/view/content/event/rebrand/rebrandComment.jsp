@@ -32,7 +32,7 @@
 </div>
 
 <script>
-  let $root = null;
+  let $commentRoot = null;
   const commentSearch = {
     slct: 1,
     searchData: ''
@@ -95,8 +95,8 @@
       commentSearch.slct = 1;
       commentSearch.searchData = '';
 
-      $root.find('select[name="slct"]').val(commentSearch.slct);
-      $root.find('input[name="searchVal"]').val(commentSearch.searchData);
+      $commentRoot.find('select[name="slct"]').val(commentSearch.slct);
+      $commentRoot.find('input[name="searchVal"]').val(commentSearch.searchData);
     }
 
     return {
@@ -113,15 +113,15 @@
   }
 
   $(document).ready(function () {
-    $root = $('#rebrand-comment');
+    $commentRoot = $('#rebrand-comment');
 
-    $root.find('select[name="slct"]').on('change', function () {
+    $commentRoot.find('select[name="slct"]').on('change', function () {
       commentSearch.slct = this.value;
     });
-    $root.find('input[name="searchVal"]').on('change paste keyup', function () {
+    $commentRoot.find('input[name="searchVal"]').on('change paste keyup', function () {
       commentSearch.searchData = this.value;
     });
-    $root.find('button[type="button"]').on('click', function () {
+    $commentRoot.find('button[type="button"]').on('click', function () {
       commentPagingInfo.pageNo = 1;
       commentEventData.callList();
     });

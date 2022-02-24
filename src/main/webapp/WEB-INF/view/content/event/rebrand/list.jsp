@@ -13,7 +13,7 @@
                     <li class="active"><a href="#rebrandMain" role="tab" data-toggle="tab">달라졌어요이벤트</a></li>
                     <li><a href="#rebrandComment" role="tab" data-toggle="tab" onclick="initCommentEvent()">댓글이벤트</a>
                     </li>
-                    <li><a href="#rebrandShare" role="tab" data-toggle="tab">공유이벤트</a></li>
+                    <li><a href="#rebrandShare" role="tab" data-toggle="tab" onclick="initShareEvent()">공유이벤트</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="rebrandMain">
@@ -39,6 +39,11 @@
       case 'comment-paginate-bottom':
         commentPagingInfo.pageNo = pagingInfo.pageNo;
         commentEventData.callList();
+        break;
+      case 'share-paginate-top':
+      case 'share-paginate-bottom':
+        sharePagingInfo.pageNo = pagingInfo.pageNo;
+        shareEventData.callList();
         break;
     }
   }

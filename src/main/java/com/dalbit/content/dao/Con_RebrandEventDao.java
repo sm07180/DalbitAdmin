@@ -2,10 +2,9 @@ package com.dalbit.content.dao;
 
 import com.dalbit.content.vo.procedure.P_RebrandCommentDeleteInputVo;
 import com.dalbit.content.vo.procedure.P_RebrandCommentSearchInputVo;
+import com.dalbit.content.vo.procedure.P_RebrandShareSearchInputVo;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -25,4 +24,12 @@ public interface Con_RebrandEventDao {
      * @return
      */
     int deleteComment(P_RebrandCommentDeleteInputVo pRebrandCommentDeleteInputVo);
+
+    /**
+     * 리브랜딩 공유 이벤트 목록
+     *
+     * @param pRebrandShareSearchInputVo
+     * @return
+     */
+    List<Object> selectShares(P_RebrandShareSearchInputVo pRebrandShareSearchInputVo);
 }
