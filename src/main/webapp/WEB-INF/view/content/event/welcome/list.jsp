@@ -45,7 +45,7 @@
                     <ul class="nav nav-tabs nav-tabs-custom-colored" id="kkanbu_tablist">
                         <li class="active"><a href="#detail_event" role="tab" data-toggle="tab" data-slct_type="0" aria-expanded="false" class="_tab">청취자</a></li>
                         <li><a href="#detail_event" role="tab" data-toggle="tab" data-slct_type="1" aria-expanded="false" class="_tab">DJ</a></li>
-                        <!-- li><a href="#detail_event" role="tab" data-toggle="tab" data-slct_type="2" aria-expanded="false" class="_tab">관리</a></li -->
+                        <li><a href="#detail_event" role="tab" data-toggle="tab" data-slct_type="2" aria-expanded="false" class="_tab">관리</a></li>
                     </ul>
                 </div>
 
