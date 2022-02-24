@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_RebrandEventDao">
+
+    <resultMap id="integer" type="Integer" />
+    <resultMap id="P_RebrandCommentListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCommentListOutputVo" />
+
+    <select id="selectComments" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCommentSearchInputVo" resultMap="integer,P_RebrandCommentListOutputVo">
+        CALL rd_data.p_adm_tb_event_rbd_tail_list(#{slct}, #{searchData}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <delete id="deleteComment" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCommentDeleteInputVo">
+        CALL rd_data.p_tb_event_rbd_tail_del(#{tailNo}, #{tailMemNo})
+    </delete>
+
+</mapper>
+
+
