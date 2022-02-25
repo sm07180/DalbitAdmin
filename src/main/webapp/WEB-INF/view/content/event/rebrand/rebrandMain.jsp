@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form id="rebrand-main" class="searchForm mb5">
+<form id="rebrand-main" class="searchForm mb5" onsubmit="return false;">
     <div class="widget widget-table searchBoxArea">
         <table>
             <tr>

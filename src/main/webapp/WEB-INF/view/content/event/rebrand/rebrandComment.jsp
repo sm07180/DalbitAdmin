@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form id="rebrand-comment" class="searchForm mb5">
+<form id="rebrand-comment" class="searchForm mb5" onsubmit="return false;">
     <div class="widget widget-table">
         <table>
             <tr>
@@ -118,8 +118,16 @@
     $commentRoot.find('select[name="slct"]').on('change', function () {
       commentSearch.slct = this.value;
     });
-    $commentRoot.find('input[name="searchVal"]').on('change paste keyup', function () {
+    $commentRoot.find('input[name="searchVal"]').on('change', function () {
       commentSearch.searchData = this.value;
+    });
+    $commentRoot.find('input[name="searchVal"]').on('keypress', function (e) {
+      var keycode = e.keyCode ? e.keyCode : e.which;
+      if(keycode == '13'){
+        commentPagingInfo.pageNo = 1;
+        commentEventData.callList();
+      }
+      e.stopPropagation();
     });
     $commentRoot.find('button[type="button"]').on('click', function () {
       commentPagingInfo.pageNo = 1;

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form id="rebrand-share" class="searchForm mb5">
+<form id="rebrand-share" class="searchForm mb5" onsubmit="return false;">
     <div class="widget widget-table">
         <table>
             <tr>
@@ -105,6 +105,14 @@
     });
     $shareRoot.find('input[name="searchVal"]').on('change paste keyup', function () {
       shareSearch.searchData = this.value;
+    });
+    $shareRoot.find('input[name="searchVal"]').on('keypress', function (e) {
+      var keycode = e.keyCode ? e.keyCode : e.which;
+      if(keycode == '13'){
+        sharePagingInfo.pageNo = 1;
+        shareEventData.callList();
+      }
+      e.stopPropagation();
     });
     $shareRoot.find('button[type="button"]').on('click', function () {
       sharePagingInfo.pageNo = 1;
