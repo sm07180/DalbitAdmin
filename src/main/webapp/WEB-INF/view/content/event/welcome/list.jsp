@@ -482,6 +482,7 @@
                 tempGiftList[index].giftCode = giftCode || '';
                 tempGiftList[index].giftName = giftName || '';
                 tempGiftList[index].giftCont = giftCont || '';
+                tempGiftList[index].stepNo = tempGiftList[index].giftStepNo;
                 tempGiftList[index].giftDalCnt = parseInt(giftDalCnt, 10) || 0;
             });
 
