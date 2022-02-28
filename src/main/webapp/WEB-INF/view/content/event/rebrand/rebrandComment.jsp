@@ -57,7 +57,6 @@
       let template, templateScript, context, html;
       template = $('#tmp-comment-list').html();
       templateScript = Handlebars.compile(template);
-      console.log(response.listData);
       context = response.listData.map(function (item, index) {
         item.index_no = response.totalCnt - (((commentPagingInfo.pageNo - 1) * commentPagingInfo.pageCnt) + index);
         return item;
@@ -85,11 +84,11 @@
         tailMemNo: tailMemNo
       };
       let apiURL = '/rest/content/event/rebrand/comments';
-      util.getAjaxData("commentEventDelete", apiURL, JSON.stringify(data), function (id, response, params) {
+      util.getAjaxData("commentEventDelete", apiURL, data, function (id, response, params) {
         if (response.result.result === 'success') {
           commentEventData.callList();
         }
-      }, null, {type: 'DELETE', contentType: 'application/json; charset=utf-8'});
+      }, null, {type: 'POST'});
     }
 
     function intSearchForm() {

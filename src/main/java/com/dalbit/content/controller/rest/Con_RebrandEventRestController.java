@@ -37,8 +37,8 @@ public class Con_RebrandEventRestController {
      * @param pRebrandCommentDeleteInputVo
      * @return
      */
-    @DeleteMapping("/comments")
-    public String removeComment(@RequestBody P_RebrandCommentDeleteInputVo pRebrandCommentDeleteInputVo) {
+    @PostMapping("/comments")
+    public String removeComment(P_RebrandCommentDeleteInputVo pRebrandCommentDeleteInputVo) {
         return con_rebrandEventService.removeComment(pRebrandCommentDeleteInputVo);
     }
 
