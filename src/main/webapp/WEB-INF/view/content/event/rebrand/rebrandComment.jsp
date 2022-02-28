@@ -12,7 +12,7 @@
                     <div class="form-inline">
                         <select name="slct" class="form-control searchType">
                             <option value="1" selected="selected">회원 번호</option>
-                            <option value="2">아이디</option>
+                            <option value="5">아이디</option>
                             <option value="3">회원 닉네임</option>
                             <option value="4">연락처</option>
                         </select>
@@ -57,6 +57,7 @@
       let template, templateScript, context, html;
       template = $('#tmp-comment-list').html();
       templateScript = Handlebars.compile(template);
+      console.log(response.listData);
       context = response.listData.map(function (item, index) {
         item.index_no = response.totalCnt - (((commentPagingInfo.pageNo - 1) * commentPagingInfo.pageCnt) + index);
         return item;
@@ -168,7 +169,7 @@
         <tr>
             <td>{{index_no}}</td>
             <td>{{{memNoLink tail_mem_no tail_mem_no}}}</td>
-            <td>{{mem_id}}</td>
+            <td>{{tail_mem_id}}</td>
             <td>{{phoneNumHyphen ptr_mem_phone}}</td>
             <td>{{mem_nick}}</td>
             <td>
@@ -183,7 +184,7 @@
                 {{/dalbit_if}}
                 ({{ptr_mem_age}}세)
             </td>
-            <td>{{tail_conts}}</td>
+            <td><div style="word-break: break-all; word-wrap: break-word; padding: 5px; text-align: left">{{tail_conts}}</div></td>
             <td>{{ins_date}}</td>
             <td>
                 {{#dalbit_if del_yn '==' 'y'}}
