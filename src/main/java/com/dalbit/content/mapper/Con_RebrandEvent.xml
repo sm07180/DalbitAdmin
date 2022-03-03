@@ -6,16 +6,51 @@
     <resultMap id="P_RebrandCommentListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCommentListOutputVo" />
     <resultMap id="P_RebrandShareListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandShareListOutputVo" />
 
+    <resultMap id="P_RebrandCollectCntOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCollectCntOutputVo" />
+    <resultMap id="P_RebrandCollectListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCollectListOutputVo" />
+    <resultMap id="P_RebrandCollectLogListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCollectLogListOutputVo" />
+    <resultMap id="P_RebrandCollectRankListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCollectRankListOutputVo" />
+    <resultMap id="P_RebrandCollectSummaryOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCollectSummaryOutputVo" />
+    <resultMap id="P_RebrandCollectTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_RebrandCollectTotalListOutputVo" />
+
+    <!--    댓글 목록-->
     <select id="selectComments" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCommentSearchInputVo" resultMap="integer,P_RebrandCommentListOutputVo">
         CALL rd_data.p_adm_tb_event_rbd_tail_list(#{slct}, #{searchData}, #{pageNo}, #{pagePerCnt})
     </select>
 
+    <!--    댓글 삭제-->
     <delete id="deleteComment" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCommentDeleteInputVo">
         CALL rd_data.p_tb_event_rbd_tail_del(#{tailNo}, #{tailMemNo})
     </delete>
 
+    <!--    공유하기 목록-->
     <select id="selectShares" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandShareSearchInputVo" resultMap="integer,P_RebrandShareListOutputVo">
         CALL rd_data.p_adm_tb_event_rbd_share_tail_list(#{slct}, #{searchData}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    회차별 순위 목록    -->
+    <select id="selectCollectRankList" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCollectSearchInputVo" resultMap="integer,P_RebrandCollectRankListOutputVo">
+        CALL rd_admin.p_adm_evt_dalla_collect_member_rank_list(#{memId}, #{seqNo}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    회차별 뽑기 목록-->
+    <select id="selectCollectList" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCollectSearchInputVo" resultMap="P_RebrandCollectSummaryOutputVo,P_RebrandCollectCntOutputVo,P_RebrandCollectListOutputVo">
+        CALL rd_admin.p_adm_evt_dalla_collect_bbopgi_list(#{memId}, #{seqNo}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    종합순위 목록-->
+    <select id="selectCollectTotalList" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCollectSearchInputVo" resultMap="integer,P_RebrandCollectTotalListOutputVo">
+        CALL rd_admin.p_adm_evt_dalla_collect_member_special_rank_list(#{memId}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    지급목록-->
+    <select id="selectCollectLogList" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCollectSearchInputVo" resultMap="integer,P_RebrandCollectLogListOutputVo">
+        CALL rd_admin.p_adm_evt_dalla_collect_log_list(#{memNo}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    스톤지급-->
+    <select id="insertCollectIns" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_RebrandCollectInputVo" resultType="integer">
+        CALL rd_admin.p_adm_evt_dalla_collect_ins(#{memNo}, #{dallaGubun}, #{insDallaCnt}, #{chrgrMemName}, #{insDallaSlct})
     </select>
 
 </mapper>

@@ -10,7 +10,7 @@
                 <h4 class="font-bold">리브랜딩 이벤트</h4>
 
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#rebrandMain" role="tab" data-toggle="tab">달라졌어요이벤트</a></li>
+                    <li class="active"><a href="#rebrandMain" role="tab" data-toggle="tab" onclick="initStoneEvent()">달라졌어요이벤트</a></li>
                     <li><a href="#rebrandComment" role="tab" data-toggle="tab" onclick="initCommentEvent()">댓글이벤트</a>
                     </li>
                     <li><a href="#rebrandShare" role="tab" data-toggle="tab" onclick="initShareEvent()">공유이벤트</a></li>
@@ -33,6 +33,8 @@
 <!-- //wrapper-->
 
 <script>
+  initStoneEvent();
+
   function handlebarsPaging(targetId, pagingInfo) {
     switch (targetId) {
       case 'comment-paginate-top':

@@ -74,4 +74,97 @@ public class Con_RebrandEventService {
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }
+
+    /**
+     * 회차별 순위 목록
+     *
+     * @param pRebrandCollectSearchInputVo
+     * @return
+     */
+    public String getCollectRankList(P_RebrandCollectSearchInputVo pRebrandCollectSearchInputVo) {
+        List<Object> getList = con_rebrandEventDao.selectCollectRankList(pRebrandCollectSearchInputVo);
+        List<P_RebrandCollectRankListOutputVo> list = DBUtil.getList(getList, P_RebrandCollectRankListOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 회차별 뽑기 목록
+     *
+     * @param pRebrandCollectSearchInputVo
+     * @return
+     */
+    public String getCollectList(P_RebrandCollectSearchInputVo pRebrandCollectSearchInputVo) {
+        List<Object> getList = con_rebrandEventDao.selectCollectList(pRebrandCollectSearchInputVo);
+        List<P_RebrandCollectListOutputVo> list = DBUtil.getList(getList, P_RebrandCollectListOutputVo.class);
+        P_RebrandCollectSummaryOutputVo summary = DBUtil.getData(getList, P_RebrandCollectSummaryOutputVo.class);
+        P_RebrandCollectCntOutputVo cnt = DBUtil.getData(getList, P_RebrandCollectCntOutputVo.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", cnt.getCnt());
+        resHashMap.put("listData", list);
+        resHashMap.put("summary", summary);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 종합순위 목록
+     *
+     * @param pRebrandCollectSearchInputVo
+     * @return
+     */
+    public String getCollectTotalList(P_RebrandCollectSearchInputVo pRebrandCollectSearchInputVo) {
+        List<Object> getList = con_rebrandEventDao.selectCollectTotalList(pRebrandCollectSearchInputVo);
+        List<P_RebrandCollectTotalListOutputVo> list = DBUtil.getList(getList, P_RebrandCollectTotalListOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 지급목록
+     *
+     * @param pRebrandCollectSearchInputVo
+     * @return
+     */
+    public String getCollectLogList(P_RebrandCollectSearchInputVo pRebrandCollectSearchInputVo) {
+        List<Object> getList = con_rebrandEventDao.selectCollectLogList(pRebrandCollectSearchInputVo);
+        List<P_RebrandCollectLogListOutputVo> list = DBUtil.getList(getList, P_RebrandCollectLogListOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 스톤지급
+     *
+     * @param pRebrandCollectInputVo
+     * @return
+     */
+    public String createCollect(P_RebrandCollectInputVo pRebrandCollectInputVo) {
+        int resultCnt = con_rebrandEventDao.insertCollectIns(pRebrandCollectInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.생성));
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
 }
