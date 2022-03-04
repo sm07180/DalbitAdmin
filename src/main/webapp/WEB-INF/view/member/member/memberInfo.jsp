@@ -61,7 +61,6 @@
     'n': '일반'
   }
 
-
   // 스톤 목록 출력
   function renderStoneDetail(id, response, params) {
     let template, templateScript, context, html;
