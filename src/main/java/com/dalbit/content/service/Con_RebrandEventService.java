@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.dao.Con_RebrandEventDao;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -160,6 +161,8 @@ public class Con_RebrandEventService {
      * @return
      */
     public String createCollect(P_RebrandCollectInputVo pRebrandCollectInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pRebrandCollectInputVo.setChrgrMemName(chrgrName);
         int resultCnt = con_rebrandEventDao.insertCollectIns(pRebrandCollectInputVo);
 
         HashMap resHashMap = new HashMap();

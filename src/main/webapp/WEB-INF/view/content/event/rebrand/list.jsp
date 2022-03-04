@@ -47,6 +47,13 @@
         sharePagingInfo.pageNo = pagingInfo.pageNo;
         shareEventData.callList();
         break;
+      case 'collect-ranks-top':
+      case 'collect-ranks-bottom':
+      case 'collect-top':
+      case 'collect-bottom':
+        mainPagingInfo.pageNo = pagingInfo.pageNo;
+        mainEventData.callList();
+        break;
     }
   }
 </script>
