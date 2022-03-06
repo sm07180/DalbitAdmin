@@ -130,7 +130,6 @@
     // 뽑기목록 출력
     function renderCollectList(id, response, params) {
       let template, templateScript, context, html;
-
       template = $('#tmp-collect-summary').html();
       templateScript = Handlebars.compile(template);
       context = response.summary;
@@ -192,12 +191,20 @@
         $('#collect-ranks-top').hide();
         $('#collect-ranks-bottom').hide();
       } else {
-        $('#collect-ranks-paginate-top').show();
+        $('#collect-ranks-top').show();
         $('#collect-ranks-bottom').show();
       }
     }
 
     function callList() {
+      $("#stone1st-collect-summary").empty();
+      $("#stone1st-collect-list").empty();
+      $("#stone1st-rank").empty();
+      $("#stone2st-collect-summary").empty();
+      $("#stone2st-collect-list").empty();
+      $("#stone2st-rank").empty();
+      $("#stone-collect-total").empty();
+
       switch(mainSearch.seqNo) {
         case 1:
         case 2:
@@ -220,6 +227,8 @@
       mainSearch.seqNo = 1;
       mainSearch.type = 1;
       mainSearch.searchData = '';
+      mainPagingInfo.pageNo = 1;
+      mainPagingInfo.pageCnt = 50;
       $mainRoot.find('input[name="searchVal"]').val(mainSearch.searchData);
     }
 
