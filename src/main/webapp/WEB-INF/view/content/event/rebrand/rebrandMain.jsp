@@ -240,10 +240,10 @@
 
   // 달라졌어요 이벤트~
   function initStoneEvent() {
-    setTimeout(function() {
+    $(document).ready(function () {
       mainEventData.intSearchForm();
       mainEventData.callList();
-    }, 0);
+    });
   }
 
   $(document).ready(function () {
