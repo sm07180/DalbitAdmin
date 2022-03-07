@@ -140,6 +140,7 @@
       templateScript = Handlebars.compile(template);
       context = response.listData.map(function (item, index) {
         item.rank_no = ((mainPagingInfo.pageNo - 1) * mainPagingInfo.pageCnt) + index + 1;
+        item.index_no = response.totalCnt - (((mainPagingInfo.pageNo - 1) * mainPagingInfo.pageCnt) + index);
         return item;
       });
       html = templateScript(context);
@@ -306,10 +307,10 @@
             <col width="120px"/>
             <col width="200px"/>
             <col width="120px"/>
-            <col width="150px"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
             <col width="120px"/>
-            <col width="auto"/>
-            <col width="auto"/>
         </colgroup>
         <thead>
         <tr>
@@ -330,9 +331,9 @@
             <td>{{{memNoLink mem_userid mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{phoneNumHyphen mem_phone}}</td>
-            <td>{{addComma ins_d_cnt}}</td>
-            <td>{{addComma ins_a_cnt}}</td>
-            <td>{{addComma ins_l_cnt}}</td>
+            <td>{{addComma ins_d_cnt}} ({{addComma tot_d_cnt}})</td>
+            <td>{{addComma ins_a_cnt}} ({{addComma tot_a_cnt}})</td>
+            <td>{{addComma ins_l_cnt}} ({{addComma tot_l_cnt}})</td>
             <td>{{addComma dalla_cnt}}</td>
         </tr>
         {{else}}
@@ -378,7 +379,7 @@
         </colgroup>
         <thead>
         <tr>
-            <th>순위</th>
+            <th>No.</th>
             <th>아이디</th>
             <th>닉네임</th>
             <th>사용스톤</th>
@@ -389,7 +390,7 @@
         <tbody id="collect-table-body">
         {{#each this as |data|}}
         <tr>
-            <td>{{rank_no}}</td>
+            <td>{{index_no}}</td>
             <td>{{{memNoLink mem_userid mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>
