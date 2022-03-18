@@ -275,7 +275,7 @@
 
 <script type="text/x-handlebars-template" id="tmp-playmaker-detail-list">
     <div class="dataTables_paginate paging_full_numbers" id="playmaker-detail-top"></div>
-    <table id="playmaker-admin-p-table" class="table table-sorting table-hover table-bordered">
+    <table id="playmaker-detail-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="auto"/>
             <col width="auto"/>

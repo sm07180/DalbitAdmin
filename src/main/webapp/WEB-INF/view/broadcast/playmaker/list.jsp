@@ -11,7 +11,7 @@
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#playmakerAdmin" role="tab" data-toggle="tab" onclick="initPlaymakerAdminEvent();">플레이메이커 관리</a></li>
                     <li><a href="#playmakerDetail" role="tab" data-toggle="tab" onclick="initPlaymakerDetailEvent();">상세조회</a></li>
-                    <li><a href="#playmakerTeam" role="tab" data-toggle="tab">팀설정</a></li>
+                    <li><a href="#playmakerTeam" role="tab" data-toggle="tab" onclick="initPlaymakerTeamEvent();">팀설정</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="playmakerAdmin">
@@ -47,6 +47,11 @@
       case 'playmaker-detail-bottom':
         datailPagingInfo.pageNo = pagingInfo.pageNo;
         datailEventData.callList();
+        break;
+      case 'playmaker-team-top':
+      case 'playmaker-team-bottom':
+        teamPagingInfo.pageNo = pagingInfo.pageNo;
+        teamEventData.callList();
         break;
     }
   }
