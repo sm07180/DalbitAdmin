@@ -130,8 +130,9 @@
     function callPlaymakerTeamRemove() {
       if (!confirm('삭제하면 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
       let $playmakerEditModal = $('#playmakerEdit');
-
-      console.log(playMakerTeamMemDelVo);
+      $playmakerEditModal.modal('hide');
+      teamPagingInfo.pageNo = 1;
+      callList();
       // let apiURL = '/rest/broadcast/playmaker/teams/members-delete';
       // util.getAjaxData("removeTeam", apiURL, playMakerMemVo, function (id, response, params) {
       //   $playmakerEditModal.modal('hide');
