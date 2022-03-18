@@ -7,6 +7,7 @@
         <div class="container-fluid">
             <div class="clearfix widget-content mb5">
                 <h4 class="font-bold">플레이 메이커</h4>
+                <h5>※ 플레이메이커로 등록된 시점부터 해당 사용자의 데이터가 집계됩니다.</h5>
 
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#playmakerAdmin" role="tab" data-toggle="tab" onclick="initPlaymakerAdminEvent();">플레이메이커 관리</a></li>
