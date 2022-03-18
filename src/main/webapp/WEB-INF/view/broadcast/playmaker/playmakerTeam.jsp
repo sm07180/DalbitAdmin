@@ -26,35 +26,33 @@
                     </colgroup>
                     <tr>
                         <th>소속팀</th>
-                        <td><span class="admin-team-name"></span></td>
+                        <td><span class="playmaker-team-name"></span></td>
                     </tr>
                     <tr>
-                        <th>플레이메이커</th>
-                        <td><span class="admin-mem-name"></span></td>
-                    </tr>
-                    <tr>
-                        <th>활동기간</th>
+                        <th>팀장(선택)</th>
                         <td>
-                            <div class="input-group date" id="rangeDatepicker2">
-                                <label for="rangeDate2" class="input-group-addon">
-                                    <span><i class="fa fa-calendar"></i></span>
-                                </label>
-                                <input id="rangeDate2" type="text" class="form-control"/>
+                            <div class="form-inline">
+                                <input type="text" name="memNick" id="playmaker-team-mem-nick" class="form-control" value="" readonly>
+                                <button type="button" class="btn btn-success playmaker-team-mem-search">회원검색</button>
+                                <button type="button" class="btn btn-default" id="playmaker-team-mem-init">초기화</button>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>환전 시 수수료(%)</th>
+                        <th>팀원(필수)</th>
                         <td>
-                            <input type="text" maxlength="2" name="exc_cms" class="form-control" style="width: 60px;" value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                            <div>
+                                <button type="button" class="btn btn-block btn-success playmaker-team-mem-search">회원검색</button>
+                                <div></div>
+                            </div>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="teamEventData.callPlaymakerTeamRemove();">삭제</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">닫기</button>
-                <button type="button" class="btn btn-danger" onclick="adminEventData.callPlaymakerRemove();">삭제</button>
-                <button type="button" class="btn btn-primary" onclick="adminEventData.callPlaymakerEdit();">수정</button>
+                <button type="button" class="btn btn-primary" onclick="teamEventData.callPlaymakerTeamEdit();">저장</button>
             </div>
         </div>
     </div>
@@ -69,6 +67,11 @@
   }
   const teamData = {
     teamName: ''
+  }
+  const playMakerTeamMems = [];
+  const playMakerTeamMemDelVo = {
+    teamNo: '',
+    memNo: ''
   }
   const teamPagingInfo = new PAGING_INFO(0, 1, 50);
   const teamEventData = (function () {
@@ -123,9 +126,34 @@
       }, null, {type: 'POST'});
     }
 
+    // 팀삭제
+    function callPlaymakerTeamRemove() {
+      if (!confirm('삭제하면 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
+      let $playmakerEditModal = $('#playmakerEdit');
+
+      console.log(playMakerTeamMemDelVo);
+      // let apiURL = '/rest/broadcast/playmaker/teams/members-delete';
+      // util.getAjaxData("removeTeam", apiURL, playMakerMemVo, function (id, response, params) {
+      //   $playmakerEditModal.modal('hide');
+      //   if (response.s_return === 1) {
+      //     teamEventData.callList();
+      //   }
+      // }, null, {type: 'POST'});
+    }
+
+    // 팀원 등록
+    function callPlaymakerTeamEdit() {
+      teamPagingInfo.pageNo = 1;
+      callList();
+    }
+
     // 팀수정
     function onPlaymakerTeamEdit(data) {
-      console.log(data);
+      let $playmakerEditModal = $('#playmakerTeamEdit');
+      $playmakerEditModal.find('.playmaker-team-name').html(data.team_name);
+      $('#playmaker-team-mem-nick').val(data.mem_nick);
+      playMakerTeamMemDelVo.teamNo = data.team_no;
+      $playmakerEditModal.modal();
     }
 
     function intSearchForm() {
@@ -136,6 +164,8 @@
       intSearchForm: intSearchForm,
       onPlaymakerTeamEdit: onPlaymakerTeamEdit,
       callTeamReg: callTeamReg,
+      callPlaymakerTeamRemove: callPlaymakerTeamRemove,
+      callPlaymakerTeamEdit: callPlaymakerTeamEdit,
       callList: callList
     }
   }());

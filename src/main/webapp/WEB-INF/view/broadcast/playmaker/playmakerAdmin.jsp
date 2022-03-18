@@ -125,9 +125,9 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">닫기</button>
                 <button type="button" class="btn btn-danger" onclick="adminEventData.callPlaymakerRemove();">삭제</button>
-                <button type="button" class="btn btn-primary" onclick="adminEventData.callPlaymakerEdit();">수정</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">닫기</button>
+                <button type="button" class="btn btn-primary" onclick="adminEventData.callPlaymakerEdit();">저장</button>
             </div>
         </div>
     </div>
