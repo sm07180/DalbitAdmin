@@ -129,7 +129,7 @@
     // 팀삭제
     function callPlaymakerTeamRemove() {
       if (!confirm('삭제하면 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
-      let $playmakerEditModal = $('#playmakerEdit');
+      let $playmakerEditModal = $('#playmakerTeamEdit');
       $playmakerEditModal.modal('hide');
       teamPagingInfo.pageNo = 1;
       callList();
@@ -144,6 +144,8 @@
 
     // 팀원 등록
     function callPlaymakerTeamEdit() {
+      let $playmakerEditModal = $('#playmakerTeamEdit');
+      $playmakerEditModal.modal('hide');
       teamPagingInfo.pageNo = 1;
       callList();
     }
