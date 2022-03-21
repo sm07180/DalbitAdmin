@@ -63,8 +63,8 @@
         var data = {
             "msg_type" : "0"
             ,"is_direct" : "0"
-            ,"subject": "[달빛라이브]"
-            ,"msg_body": "[달빛라이브]"
+            ,"subject": "[달라]"
+            ,"msg_body": "[달라]"
         };
 
         var template = $('#tmp_SmsSend_view').html();
