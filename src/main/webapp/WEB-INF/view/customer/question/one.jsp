@@ -576,7 +576,7 @@
                         </div>
                         <div>
                             <div><span class="font-bold">제목</span></div>
-                            <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달라]{{question_title}}" maxlength="30" disabled>
+                            <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달라] 1:1 문의 답변" maxlength="30" disabled>
                             <span style="color: red; font-size:0.9em">* 제목은 수정이 불가능합니다.</span>
                             <br/>
                         </div>
