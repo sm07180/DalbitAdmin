@@ -223,13 +223,16 @@ public class Bro_PlayMakerService {
     /**
      * 팀원 등록
      *
-     * @param pPlayMakerTeamMemInputVo
+     * @param pPlayMakerTeamMemInputVoList
      * @return
      */
-    public String createTeamMembers(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
+    public String createTeamMembers(List<P_PlayMakerTeamMemInputVo> pPlayMakerTeamMemInputVoList) {
         String chrgrName = MemberVo.getMyMemNo();
-        pPlayMakerTeamMemInputVo.setChrgrName(chrgrName);
-        int s_return = bro_playMakerDao.insertTeamMembers(pPlayMakerTeamMemInputVo);
+        int s_return = 0;
+        for (P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo : pPlayMakerTeamMemInputVoList) {
+            pPlayMakerTeamMemInputVo.setChrgrName(chrgrName);
+            s_return = bro_playMakerDao.insertTeamMembers(pPlayMakerTeamMemInputVo);
+        }
 
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.생성));

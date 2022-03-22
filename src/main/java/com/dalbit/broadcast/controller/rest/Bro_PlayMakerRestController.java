@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("rest/broadcast/playmaker")
@@ -127,12 +130,12 @@ public class Bro_PlayMakerRestController {
     /**
      * 팀원 등록
      *
-     * @param pPlayMakerTeamMemInputVo
+     * @param pPlayMakerTeamMemInputVoList
      * @return
      */
     @PostMapping("teams/members")
-    public String createTeamMembers(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
-        return broPlayMakerService.createTeamMembers(pPlayMakerTeamMemInputVo);
+    public String createTeamMembers(@RequestBody List<P_PlayMakerTeamMemInputVo> pPlayMakerTeamMemInputVoList) {
+        return broPlayMakerService.createTeamMembers(pPlayMakerTeamMemInputVoList);
     }
 
     /**
