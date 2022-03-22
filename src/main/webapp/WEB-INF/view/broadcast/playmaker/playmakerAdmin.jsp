@@ -398,6 +398,10 @@
     // 회원검색
     $('#playmaker-mem-search').on('click', function () {
       showPopMemberList(function(data) {
+        if (adminMemNos.length >= adminMemNoMaxCount) {
+          alert('한번에 최대 ' + adminMemNoMaxCount + '명까지만 추가 할 수 있습니다.');
+          return;
+        }
         if (data.mem_no && !adminMemNos.includes(data.mem_no)) {
           adminMemNicks.push($.trim(data.mem_nick));
           adminMemNos.push($.trim(data.mem_no));
@@ -459,7 +463,7 @@
             </td>
             <td>{{exc_cms}}%</td>
             <td>{{last_play_date}}</td>
-            <td>{{addComma tot_play_time}}</td>
+            <td>{{timeStampAllKor tot_play_time}}</td>
             <td>{{addComma tot_req_money}}</td>
             <td><a href="javascript:void(0);" onclick="adminEventData.onPlaymakerEdit({{json this}});">[수정]</a><br>{{chrgr_name}}</td>
         </tr>
@@ -516,7 +520,7 @@
             </td>
             <td>{{exc_cms}}%</td>
             <td>{{last_play_date}}</td>
-            <td>{{addComma tot_play_time}}</td>
+            <td>{{timeStampAllKor tot_play_time}}</td>
             <td>{{addComma tot_req_money}}</td>
             <td><a href="javascript:void(0);" onclick="adminEventData.onPlaymakerEdit({{json this}});">[수정]</a><br>{{chrgr_name}}</td>
             <td>
