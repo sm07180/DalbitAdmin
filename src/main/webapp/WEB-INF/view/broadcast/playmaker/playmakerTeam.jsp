@@ -32,7 +32,8 @@
                         <th>팀장(선택)</th>
                         <td>
                             <div class="form-inline">
-                                <input type="text" name="memNick" id="playmaker-team-mem-nick" class="form-control" value="" readonly>
+                                <input type="text" name="memNick" id="playmaker-team-mem-nick" class="form-control"
+                                       value="" readonly>
                                 <button type="button" class="btn btn-success playmaker-team-mem-search">회원검색</button>
                                 <button type="button" class="btn btn-default" id="playmaker-team-mem-init">초기화</button>
                             </div>
@@ -42,17 +43,57 @@
                         <th>팀원(필수)</th>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-block btn-success playmaker-team-mem-search">회원검색</button>
-                                <div></div>
+                                <button type="button" class="btn btn-block btn-success playmaker-team-mem-search">회원검색
+                                </button>
+                                <div id="playmakerTeamMembers"></div>
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="teamEventData.callPlaymakerTeamRemove();">삭제</button>
+                <button type="button" class="btn btn-danger" onclick="teamEventData.callPlaymakerTeamRemove();">삭제
+                </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">닫기</button>
-                <button type="button" class="btn btn-primary" onclick="teamEventData.callPlaymakerTeamEdit();">저장</button>
+                <button type="button" class="btn btn-primary" onclick="teamEventData.callPlaymakerTeamEdit();">저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="playmakerTeamMemberSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                등록된 플레이메이커를 검색합니다.
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="searchBoxArea">
+                    <table class="table table-bordered no-margin" style="width: 100%;">
+                        <colgroup>
+                            <col width="100px">
+                            <col width="auto">
+                        </colgroup>
+                        <tr>
+                            <th><i class="fa fa-search"></i> 회원 검색</th>
+                            <td>
+                                <div class="form-inline text-left">
+                                    <select name="searchMember" class="form-control searchType">
+                                        <option value="1">회원 번호</option>
+                                        <option value="5">아이디</option>
+                                        <option value="2">회원 닉네임</option>
+                                    </select>
+                                    <label><input type="text" class="form-control"></label>
+                                    <button type="button" class="btn btn-success">검색</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="playmaker-team-members-list"></div>
             </div>
         </div>
     </div>
@@ -68,6 +109,7 @@
   const teamData = {
     teamName: ''
   }
+  let playMakerTeamMemMaxCount = 10;
   const playMakerTeamMems = [];
   const playMakerTeamMemDelVo = {
     teamNo: '',
@@ -187,6 +229,11 @@
       let $this = $(this);
       teamData.teamName = $this.val();
     });
+
+    $('.playmaker-team-mem-search').on('click', function (e) {
+      $('#playmakerTeamMemberSearch').modal();
+    });
+
   });
 </script>
 
@@ -227,12 +274,20 @@
             <td>{{team_no}}</td>
             <td>{{team_name}}</td>
             <td>{{ins_date}}</td>
-            <td>{{mem_nick}}<br>({{{memNoLink mem_userid mem_no}}})</td>
+            <td>
+                {{#dalbit_if mem_nick '!=' ''}}
+                {{mem_nick}}<br>({{{memNoLink mem_userid mem_no}}})
+                {{/dalbit_if}}
+                {{#dalbit_if mem_nick '==' ''}}
+                -
+                {{/dalbit_if}}
+            </td>
             <td>{{addComma team_mem_cnt}}</td>
             <td>{{addComma team_avg_level}}</td>
             <td>{{addComma tot_rcv_byeol}}</td>
             <td>{{timeStampAllKor tot_play_time}}</td>
-            <td><a href="javascript:void(0);" onclick="teamEventData.onPlaymakerTeamEdit({{json this}});">[수정]</a><br>{{chrgr_name}}</td>
+            <td><a href="javascript:void(0);" onclick="teamEventData.onPlaymakerTeamEdit({{json this}});">[수정]</a><br>{{chrgr_name}}
+            </td>
         </tr>
         {{else}}
         <tr>
