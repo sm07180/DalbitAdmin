@@ -318,8 +318,8 @@
             <td>{{team_name}}</td>
             <td>{{addComma rcv_byeol}}</td>
             <td>{{addComma play_cnt}}</td>
-            <td>{{timeStampAllKor max_play_time}}</td>
             <td>{{timeStampAllKor play_time}}</td>
+            <td>{{timeStampAllKor max_play_time}}</td>
             <td>{{addComma tot_view_mem_cnt}}</td>
             <td>{{addComma view_mem_cnt}}</td>
             <td>{{addComma view_guest_cnt}}</td>
