@@ -114,4 +114,12 @@ public interface Bro_PlayMakerDao {
      * @return
      */
     List<P_PlayMakerTeamSelOutputVo> selectTeam(P_PlayMakerTeamSelInputVo pPlayMakerTeamSelInputVo);
+
+    /**
+     * 팀삭제
+     *
+     * @param pPlayMakerTeamMemInputVo
+     * @return
+     */
+    int deleteTeam(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo);
 }

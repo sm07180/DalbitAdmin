@@ -145,7 +145,7 @@ public class Bro_PlayMakerRestController {
      * @return
      */
     @PostMapping("teams/members-delete")
-    public String removeTeam(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
+    public String removeTeamMembers(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
         return broPlayMakerService.removeTeamMembers(pPlayMakerTeamMemInputVo);
     }
 
@@ -158,5 +158,15 @@ public class Bro_PlayMakerRestController {
     @GetMapping("teams/{teamNo}")
     public String team(P_PlayMakerTeamSelInputVo pPlayMakerTeamSelInputVo) {
         return broPlayMakerService.team(pPlayMakerTeamSelInputVo);
+    }
+
+    /**
+     * 팀삭제
+     * @param pPlayMakerTeamMemInputVo
+     * @return
+     */
+    @PostMapping("teams/team-delete")
+    public String removeTeam(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
+        return broPlayMakerService.removeTeam(pPlayMakerTeamMemInputVo);
     }
 }

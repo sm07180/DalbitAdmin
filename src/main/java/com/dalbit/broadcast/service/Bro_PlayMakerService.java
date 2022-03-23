@@ -248,6 +248,8 @@ public class Bro_PlayMakerService {
      * @return
      */
     public String removeTeamMembers(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pPlayMakerTeamMemInputVo.setChrgrName(chrgrName);
         int s_return = bro_playMakerDao.deleteTeamMembers(pPlayMakerTeamMemInputVo);
 
         HashMap resHashMap = new HashMap();
@@ -269,6 +271,24 @@ public class Bro_PlayMakerService {
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
         resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 팀삭제
+     *
+     * @param pPlayMakerTeamMemInputVo
+     * @return
+     */
+    public String removeTeam(P_PlayMakerTeamMemInputVo pPlayMakerTeamMemInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pPlayMakerTeamMemInputVo.setChrgrName(chrgrName);
+        int s_return = bro_playMakerDao.deleteTeam(pPlayMakerTeamMemInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.삭제));
+        resHashMap.put("s_return", s_return);
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }

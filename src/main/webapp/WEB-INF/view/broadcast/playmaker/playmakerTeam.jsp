@@ -288,15 +288,14 @@
       if (!confirm('삭제하면 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
       let $playmakerEditModal = $('#playmakerTeamEdit');
       $playmakerEditModal.modal('hide');
-      teamPagingInfo.pageNo = 1;
-      callList();
-      // let apiURL = '/rest/broadcast/playmaker/teams/members-delete';
-      // util.getAjaxData("removeTeam", apiURL, playMakerMemVo, function (id, response, params) {
-      //   $playmakerEditModal.modal('hide');
-      //   if (response.s_return === 1) {
-      //     teamEventData.callList();
-      //   }
-      // }, null, {type: 'POST'});
+
+      let apiURL = '/rest/broadcast/playmaker/teams/team-delete';
+      util.getAjaxData("removeTeam", apiURL, playMakerTeamMemDelVo, function (id, response, params) {
+        $playmakerEditModal.modal('hide');
+        if (response.s_return === 1) {
+          teamEventData.callList();
+        }
+      }, null, {type: 'POST'});
     }
 
     // 팀원 등록
@@ -331,7 +330,7 @@
         util.getAjaxData("getTeamSel", apiURL, {teamNo: data.team_no}, function (id, response, params) {
           if (response.listData) {
             response.listData.forEach(function (item) {
-              if (item.team_oner_yn === 'n') {
+              if (item.mem_no !== '' && item.team_oner_yn === 'n') {
                 playMakerTeamMems.push({
                   teamNo: item.team_no,
                   memNo: item.mem_no,
@@ -341,6 +340,7 @@
                 isModifyMode = true;
               }
             });
+
             renderPlayMakerTeamMems();
           }
         }, null, {type: 'GET'});

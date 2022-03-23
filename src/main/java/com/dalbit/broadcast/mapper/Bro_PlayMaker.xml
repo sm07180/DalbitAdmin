@@ -82,4 +82,9 @@
     <select id="selectTeam" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamSelInputVo" resultMap="P_PlayMakerTeamSelOutputVo">
         CALL rd_data.p_play_maker_team_sel(#{teamNo})
     </select>
+
+    <!--    팀원 삭제-->
+    <select id="deleteTeam" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_team_del(#{teamNo}, #{chrgrName})
+    </select>
 </mapper>
