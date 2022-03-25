@@ -128,11 +128,10 @@
         </td>
         <td>{{{getCommonCodeLabel slctType 'revenueProcess'}}}</td>
         <td>
-            {{#dalbit_if memType '==' 0}}
-                일반
-            {{else}}
-                스페셜
-            {{/dalbit_if}}
+            {{#dalbit_if memType '==' 0}}일반{{/dalbit_if}}
+            {{#dalbit_if memType '==' 1}}스페셜{{/dalbit_if}}
+            {{#dalbit_if memType '==' 2}}스페셜{{/dalbit_if}}
+            {{#dalbit_if memType '==' 3}}플레이메이커{{/dalbit_if}}
         </td>
         <td>{{addComma payDal 'Y'}}</td>
         <td>{{addComma freeDal 'Y'}}</td>
