@@ -9,28 +9,32 @@
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="7.6%"/>
-                <col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/>
+                <col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="6.59%"/><col width="4.59%"/><col width="4.59%"/>
                 <col width="0.1%"/>
-                <col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/><col width="6.59%"/>
+                <col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="4.59%"/><col width="6.59%"/><col width="4.59%"/><col width="4.59%"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="3" style="background-color: #dae3f3"></th>
-                <th colspan="7" style="background-color: #b4c7e7" id="beforMonth"></th>
+                <th colspan="9" style="background-color: #b4c7e7" id="beforMonth"></th>
                 <th class="_noBorder"></th>
-                <th colspan="7" style="background-color: #ffe699" id="nowMonth"></th>
+                <th colspan="9" style="background-color: #ffe699" id="nowMonth"></th>
             </tr>
 
             <tr>
                 <th colspan="2" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="2" style="background-color: #ff33cc; color: white">플레이메이커</th>
                 <th colspan="2" style="background-color: #548235; color: white">일반</th>
                 <th colspan="3" style="background-color: #8041D9; color: white">총계</th>
                 <th class="_noBorder"></th>
                 <th colspan="2" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="2" style="background-color: #ff33cc; color: white">플레이메이커</th>
                 <th colspan="2" style="background-color: #548235; color: white">일반</th>
                 <th colspan="3" style="background-color: #8041D9; color: white">총계</th>
             </tr>
             <tr>
+                <th>건수</th>
+                <th>환전금액</th>
                 <th>건수</th>
                 <th>환전금액</th>
                 <th>건수</th>
@@ -39,6 +43,8 @@
                 <th>결제금액</th>
                 <th>환전율</th>
                 <th class="_noBorder"></th>
+                <th>건수</th>
+                <th>환전금액</th>
                 <th>건수</th>
                 <th>환전금액</th>
                 <th>건수</th>
@@ -56,35 +62,41 @@
         <span class="font-bold">◈ 성별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="6%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="0.1%"/><col width="3.7%"/>
-                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                <col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/><col width="3.7%"/>
-                <col width="3.7%"/>
-
-
+                <col width="6%"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="0.1%"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/><col width="auto"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="4" style="background-color: #dae3f3"></th>
-                <th colspan="12" style="background-color: #b4c7e7" id="beforGender"></th>
+                <th colspan="18" style="background-color: #b4c7e7" id="beforGender"></th>
                 <th class="_noBorder"></th>
-                <th colspan="12" style="background-color: #ffe699" id="nowGender"></th>
+                <th colspan="18" style="background-color: #ffe699" id="nowGender"></th>
             </tr>
             <tr>
-                <th colspan="6" style="background-color: #ff9933">스페셜</th>
-                <th colspan="6" style="background-color: #548235">일반</th>
+                <th colspan="6" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="6" style="background-color: #ff33cc; color: white">플레이메이커</th>
+                <th colspan="6" style="background-color: #548235; color: white">일반</th>
                 <th class="_noBorder"></th>
-                <th colspan="6" style="background-color: #ff9933">스페셜</th>
-                <th colspan="6" style="background-color: #548235">일반</th>
+                <th colspan="6" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="6" style="background-color: #ff33cc; color: white">플레이메이커</th>
+                <th colspan="6" style="background-color: #548235; color: white">일반</th>
             </tr>
             <tr>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
+                <th class="_sex_male" colspan="3"></th>
+                <th class="_sex_female" colspan="3"></th>
                 <th class="_noBorder"></th>
+                <th class="_sex_male" colspan="3"></th>
+                <th class="_sex_female" colspan="3"></th>
                 <th class="_sex_male" colspan="3"></th>
                 <th class="_sex_female" colspan="3"></th>
                 <th class="_sex_male" colspan="3"></th>
@@ -103,7 +115,19 @@
                 <th style="color: red">건수</th>
                 <th style="color: red">금액</th>
                 <th style="color: red">요청 별</th>
+                <th style="color: blue">건수</th>
+                <th style="color: blue">금액</th>
+                <th style="color: blue">요청 별</th>
+                <th style="color: red">건수</th>
+                <th style="color: red">금액</th>
+                <th style="color: red">요청 별</th>
                 <th class="_noBorder"></th>
+                <th style="color: blue">건수</th>
+                <th style="color: blue">금액</th>
+                <th style="color: blue">요청 별</th>
+                <th style="color: red">건수</th>
+                <th style="color: red">금액</th>
+                <th style="color: red">요청 별</th>
                 <th style="color: blue">건수</th>
                 <th style="color: blue">금액</th>
                 <th style="color: blue">요청 별</th>
@@ -126,21 +150,27 @@
         <span class="font-bold">◈ 주간별</span>
         <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
-                <col width="5%"/><col width="15.2%"/><col width="11.2%"/><col width="11.2%"/><col width="11.2%"/><col width="11.2%"/>
-                <col width="11.2%"/><col width="11.2%"/><col width="11.2%"/>
+                <col width="5%"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/><col width="auto"/>
+                <col width="auto"/><col width="auto"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="3" colspan="2" style="background-color: #dae3f3"></th>
-                <th colspan="7" style="background-color: #b4c7e7" id="nowWeek"></th>
+                <th colspan="10" style="background-color: #b4c7e7" id="nowWeek"></th>
             </tr>
-
             <tr>
-                <th colspan="3" style="background-color: #ff9933">스페셜</th>
-                <th colspan="3" style="background-color: #548235">일반</th>
+                <th colspan="3" style="background-color: #ff9933; color: white">스페셜</th>
+                <th colspan="3" style="background-color: #ff33cc; color: white">플레이메이커</th>
+                <th colspan="3" style="background-color: #548235; color: white">일반</th>
                 <th rowspan="2" style="border:1px solid rgb(221, 221, 221)">총합</th>
             </tr>
             <tr>
+                <th>건수</th>
+                <th>금액</th>
+                <th>요청 별</th>
                 <th>건수</th>
                 <th>금액</th>
                 <th>요청 별</th>
@@ -227,7 +257,6 @@
                 toDay = response.data.detailList[i].the_date.replace(/-/gi,".") + "(" + toDay + ")";
             }
             response.data.detailList[i].date = toDay;
-
             response.data.detailList[i].beforMonth = $("#beforMonth").text();
             response.data.detailList[i].afterMonth = $("#nowMonth").text();
         }
@@ -263,22 +292,32 @@
         var total_succ_spAmt = response.data.totalInfo.tot_specialdj_succ_mAmt + response.data.totalInfo.tot_specialdj_succ_fAmt + response.data.totalInfo.tot_specialdj_succ_nAmt;
         var total_succ_spByeol = response.data.totalInfo.tot_specialdj_succ_byeol_mCnt + response.data.totalInfo.tot_specialdj_succ_byeol_fCnt + response.data.totalInfo.tot_specialdj_succ_byeol_nCnt;
 
+        var total_succ_pmCnt =  response.data.totalInfo.tot_pm_succ_mCnt + response.data.totalInfo.tot_pm_succ_fcnt + response.data.totalInfo.tot_pm_succ_nCnt;
+        var total_succ_pmAmt = response.data.totalInfo.tot_pm_succ_mAmt + response.data.totalInfo.tot_pm_succ_fAmt + response.data.totalInfo.tot_pm_succ_nAmt;
+        var total_succ_pmByeol = response.data.totalInfo.tot_pm_succ_byeol_mCnt + response.data.totalInfo.tot_pm_succ_byeol_fCnt + response.data.totalInfo.tot_pm_succ_byeol_nCnt;
+
         var total_succ_noCnt = response.data.totalInfo.tot_succ_mCnt + response.data.totalInfo.tot_succ_fCnt + response.data.totalInfo.tot_succ_nCnt;
         var total_succ_noAmt = response.data.totalInfo.tot_succ_mAmt + response.data.totalInfo.tot_succ_fAmt + response.data.totalInfo.tot_succ_nAmt;
         var total_succ_noByeol = response.data.totalInfo.tot_succ_byeol_mCnt + response.data.totalInfo.tot_succ_byeol_fCnt + response.data.totalInfo.tot_succ_byeol_nCnt;
 
         response.data.totalInfo.total_succ_sp = "환전금액 총 : " + total_succ_spCnt + "건 / 금액 : " +  total_succ_spAmt + " / " + total_succ_spByeol + " 개";
+        response.data.totalInfo.total_succ_pm = "환전금액 총 : " + total_succ_pmCnt + "건 / 금액 : " +  total_succ_pmAmt + " / " + total_succ_pmByeol + " 개";
         response.data.totalInfo.total_succ_no = "환전금액 총 : " + total_succ_noCnt + "건 / 금액 : " +  total_succ_noAmt + " / " + total_succ_noByeol + " 개";
 
         var b_total_succ_spCnt =  response.data.totalInfo.b_tot_specialdj_succ_mCnt + response.data.totalInfo.b_tot_specialdj_succ_fcnt + response.data.totalInfo.b_tot_specialdj_succ_nCnt;
         var b_total_succ_spAmt = response.data.totalInfo.b_tot_specialdj_succ_mAmt + response.data.totalInfo.b_tot_specialdj_succ_fAmt + response.data.totalInfo.b_tot_specialdj_succ_nAmt;
         var b_total_succ_spByeol = response.data.totalInfo.b_tot_specialdj_succ_byeol_mCnt + response.data.totalInfo.b_tot_specialdj_succ_byeol_fCnt + response.data.totalInfo.b_tot_specialdj_succ_byeol_nCnt;
 
+        var b_total_succ_pmCnt =  response.data.totalInfo.b_tot_pm_succ_mCnt + response.data.totalInfo.b_tot_pm_succ_fcnt + response.data.totalInfo.b_tot_pm_succ_nCnt;
+        var b_total_succ_pmAmt = response.data.totalInfo.b_tot_pm_succ_mAmt + response.data.totalInfo.b_tot_pm_succ_fAmt + response.data.totalInfo.b_tot_pm_succ_nAmt;
+        var b_total_succ_pmByeol = response.data.totalInfo.b_tot_pm_succ_byeol_mCnt + response.data.totalInfo.b_tot_pm_succ_byeol_fCnt + response.data.totalInfo.b_tot_pm_succ_byeol_nCnt;
+
         var b_total_succ_noCnt = response.data.totalInfo.b_tot_succ_mCnt + response.data.totalInfo.b_tot_succ_fCnt + response.data.totalInfo.b_tot_succ_nCnt;
         var b_total_succ_noAmt = response.data.totalInfo.b_tot_succ_mAmt + response.data.totalInfo.b_tot_succ_fAmt + response.data.totalInfo.b_tot_succ_nAmt;
         var b_total_succ_noByeol = response.data.totalInfo.b_tot_succ_byeol_mCnt + response.data.totalInfo.b_tot_succ_byeol_fCnt + response.data.totalInfo.b_tot_succ_byeol_nCnt;
 
         response.data.totalInfo.b_total_succ_sp = "환전금액 총 : " + b_total_succ_spCnt + "건 / 금액 : " +  b_total_succ_spAmt + " / " + b_total_succ_spByeol + " 개";
+        response.data.totalInfo.b_total_succ_pm = "환전금액 총 : " + b_total_succ_pmCnt + "건 / 금액 : " +  b_total_succ_pmAmt + " / " + b_total_succ_pmByeol + " 개";
         response.data.totalInfo.b_total_succ_no = "환전금액 총 : " + b_total_succ_noCnt + "건 / 금액 : " +  b_total_succ_noAmt + " / " + b_total_succ_noByeol + " 개";
 
         if(!isDataEmpty){
@@ -299,7 +338,6 @@
 
         for(var i=0;i<response.data.detailList.length;i++){
             response.data.detailList[i].index = common.lpad(Number(moment().format("HH")),2,"0");
-
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
             response.data.detailList[i].nowHour = Number(moment().format("HH"));
@@ -339,9 +377,9 @@
         var isDataEmpty = response.data.detailList == null;
         $("#weekTableBody").empty();
 
-        var total_succ_Cnt =  response.data.totalInfo.tot_specialdj_succ_Cnt + response.data.totalInfo.tot_succ_Cnt;
-        var total_succ_Amt = response.data.totalInfo.tot_specialdj_succ_Amt + response.data.totalInfo.tot_succ_Amt;
-        var total_succ_Byeol = response.data.totalInfo.tot_specialdj_succ_byeol_Cnt + response.data.totalInfo.tot_succ_byeol_Cnt;
+        var total_succ_Cnt =  response.data.totalInfo.tot_specialdj_succ_Cnt + response.data.totalInfo.tot_pm_succ_Cnt + response.data.totalInfo.tot_succ_Cnt;
+        var total_succ_Amt = response.data.totalInfo.tot_specialdj_succ_Amt + response.data.totalInfo.tot_pm_succ_Amt + response.data.totalInfo.tot_succ_Amt;
+        var total_succ_Byeol = response.data.totalInfo.tot_specialdj_succ_byeol_Cnt + response.data.totalInfo.tot_pm_succ_byeol_Cnt + response.data.totalInfo.tot_succ_byeol_Cnt;
 
         response.data.totalInfo.total_succ = "환전금액 총 : " + total_succ_Cnt + "건 / 금액 : " +  total_succ_Amt + " / " + total_succ_Byeol + " 개";
 
@@ -451,6 +489,8 @@
         <td>총합</td>
         <td>{{addComma tot_specialdj_succ_Cnt}}</td>
         <td>{{addComma tot_specialdj_succ_Amt}}</td>
+        <td>{{addComma tot_pm_succ_Cnt}}</td>
+        <td>{{addComma tot_pm_succ_Amt}}</td>
         <td>{{addComma tot_succ_Cnt}}</td>
         <td>{{addComma tot_succ_Amt}}</td>
         <td>{{addComma total_exchange_info}}</td>
@@ -459,6 +499,8 @@
         <td class="_noBorder"></td>
         <td>{{addComma nTot_specialdj_succ_Cnt}}</td>
         <td>{{addComma nTot_specialdj_succ_Amt}}</td>
+        <td>{{addComma nTot_pm_succ_Cnt}}</td>
+        <td>{{addComma nTot_pm_succ_Amt}}</td>
         <td>{{addComma nTot_succ_Cnt}}</td>
         <td>{{addComma nTot_succ_Amt}}</td>
         <td>{{addComma nTotal_exchange_info}}</td>
@@ -475,6 +517,8 @@
         </td>
         <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="special" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma specialdj_succ_Cnt 'Y'}}</a></td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="playmaker" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma pm_succ_Cnt 'Y'}}</a></td>
+        <td>{{addComma pm_succ_Amt 'Y'}}</td>
         <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="normal" data-month="befor"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma succ_Cnt 'Y'}}</a></td>
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma sum_succ_amt}} ({{addComma sum_succ_cnt}})</td>
@@ -485,6 +529,8 @@
 
         <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="special" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nSpecialdj_succ_Cnt 'Y'}}</a></td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSpecialdj_succ_Amt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="playmaker" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nPm_succ_Cnt 'Y'}}</a></td>
+        <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nPm_succ_Amt 'Y'}}</td>
         <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="normal" data-month="now" {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma nSucc_Cnt 'Y'}}</a></td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSucc_Amt 'Y'}}</td>
         <td {{#dalbit_if nowDay '!=' day}} style="background-color: #FFF7E5" {{/dalbit_if}}>{{addComma nSum_succ_amt}} ({{addComma nSum_succ_cnt}})</td>
@@ -499,8 +545,10 @@
     <tr class="font-bold" style="background-color: #f2f2f2;color: black;">
         <td>총계</td>
         <td colspan="6">{{addComma b_total_succ_sp}}</td>
+        <td colspan="6">{{addComma b_total_succ_sp}}</td>
         <td colspan="6">{{addComma b_total_succ_no}}</td>
         <td class="_noBorder"></td>
+        <td colspan="6">{{addComma total_succ_sp}}</td>
         <td colspan="6">{{addComma total_succ_sp}}</td>
         <td colspan="6">{{addComma total_succ_no}}</td>
     </tr>
@@ -515,6 +563,12 @@
         <td>{{addComma b_tot_specialdj_succ_fcnt}}</td>
         <td>{{addComma b_tot_specialdj_succ_fAmt}}</td>
         <td>{{addComma b_tot_specialdj_succ_byeol_fCnt}}</td>
+        <td>{{addComma b_tot_pm_succ_mCnt}}</td>
+        <td>{{addComma b_tot_pm_succ_mAmt}}</td>
+        <td>{{addComma b_tot_pm_succ_byeol_mCnt}}</td>
+        <td>{{addComma b_tot_pm_succ_fcnt}}</td>
+        <td>{{addComma b_tot_pm_succ_fAmt}}</td>
+        <td>{{addComma b_tot_pm_succ_byeol_fCnt}}</td>
         <td>{{addComma b_tot_succ_mCnt}}</td>
         <td>{{addComma b_tot_succ_mAmt}}</td>
         <td>{{addComma b_tot_succ_byeol_mCnt}}</td>
@@ -528,6 +582,12 @@
         <td>{{addComma tot_specialdj_succ_fcnt}}</td>
         <td>{{addComma tot_specialdj_succ_fAmt}}</td>
         <td>{{addComma tot_specialdj_succ_byeol_fCnt}}</td>
+        <td>{{addComma tot_pm_succ_mCnt}}</td>
+        <td>{{addComma tot_pm_succ_mAmt}}</td>
+        <td>{{addComma tot_pm_succ_byeol_mCnt}}</td>
+        <td>{{addComma tot_pm_succ_fcnt}}</td>
+        <td>{{addComma tot_pm_succ_fAmt}}</td>
+        <td>{{addComma tot_pm_succ_byeol_fCnt}}</td>
         <td>{{addComma tot_succ_mCnt}}</td>
         <td>{{addComma tot_succ_mAmt}}</td>
         <td>{{addComma tot_succ_byeol_mCnt}}</td>
@@ -549,6 +609,12 @@
         <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="special" data-month="befor" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_specialdj_succ_fcnt 'Y'}}</a></td>
         <td>{{addComma b_specialdj_succ_fAmt 'Y'}}</td>
         <td>{{addComma b_specialdj_succ_byeol_fCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="playmaker" data-month="befor" data-gender="m" ><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_pm_succ_mCnt 'Y'}}</a></td>
+        <td>{{addComma b_pm_succ_mAmt 'Y'}}</td>
+        <td>{{addComma b_pm_succ_byeol_mCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="playmaker" data-month="befor" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_pm_succ_fcnt 'Y'}}</a></td>
+        <td>{{addComma b_pm_succ_fAmt 'Y'}}</td>
+        <td>{{addComma b_pm_succ_byeol_fCnt 'Y'}}</td>
         <td onclick="exchangeTotalClick($(this).data())" data-beformonth="{{beforMonth}}" data-day="{{day}}" data-user="normal" data-month="befor" data-gender="m"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma b_succ_mCnt 'Y'}}</a></td>
         <td>{{addComma b_succ_mAmt 'Y'}}</td>
         <td>{{addComma b_succ_byeol_mCnt 'Y'}}</td>
@@ -562,6 +628,12 @@
         <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="special" data-month="now" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma specialdj_succ_fcnt 'Y'}}</a></td>
         <td>{{addComma specialdj_succ_fAmt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_fCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="playmaker" data-month="now" data-gender="m"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma pm_succ_mCnt 'Y'}}</a></td>
+        <td>{{addComma pm_succ_mAmt 'Y'}}</td>
+        <td>{{addComma pm_succ_byeol_mCnt 'Y'}}</td>
+        <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="playmaker" data-month="now" data-gender="f"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma pm_succ_fcnt 'Y'}}</a></td>
+        <td>{{addComma pm_succ_fAmt 'Y'}}</td>
+        <td>{{addComma pm_succ_byeol_fCnt 'Y'}}</td>
         <td onclick="exchangeTotalClick($(this).data())" data-aftermonth="{{afterMonth}}" data-day="{{day}}" data-user="normal" data-month="now" data-gender="m"><a class="_data _fontColor" data-fontcolor="#555" href="javascript://">{{addComma succ_mCnt 'Y'}}</a></td>
         <td>{{addComma succ_mAmt 'Y'}}</td>
         <td>{{addComma succ_byeol_mCnt 'Y'}}</td>
@@ -585,6 +657,9 @@
         <td>{{addComma tot_specialdj_succ_Cnt}}</td>
         <td>{{addComma tot_specialdj_succ_Amt}}</td>
         <td>{{addComma tot_specialdj_succ_byeol_Cnt}}</td>
+        <td>{{addComma tot_pm_succ_Cnt}}</td>
+        <td>{{addComma tot_pm_succ_Amt}}</td>
+        <td>{{addComma tot_pm_succ_byeol_Cnt}}</td>
         <td>{{addComma tot_succ_Cnt}}</td>
         <td>{{addComma tot_succ_Amt}}</td>
         <td>{{addComma tot_succ_byeol_Cnt}}</td>
@@ -602,6 +677,9 @@
         <td>{{addComma specialdj_succ_Cnt 'Y'}}</td>
         <td>{{addComma specialdj_succ_Amt 'Y'}}</td>
         <td>{{addComma specialdj_succ_byeol_Cnt 'Y'}}</td>
+        <td>{{addComma pm_succ_Cnt 'Y'}}</td>
+        <td>{{addComma pm_succ_Amt 'Y'}}</td>
+        <td>{{addComma pm_succ_byeol_Cnt 'Y'}}</td>
         <td>{{addComma succ_Cnt  'Y'}}</td>
         <td>{{addComma succ_Amt 'Y'}}</td>
         <td>{{addComma succ_byeol_Cnt 'Y'}}</td>

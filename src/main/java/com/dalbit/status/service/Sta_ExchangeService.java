@@ -76,6 +76,9 @@ public class Sta_ExchangeService {
         totalOutVo.setTot_specialdj_succ_Cnt(totalInfo_b.getTot_specialdj_succ_Cnt());
         totalOutVo.setTot_specialdj_succ_Amt(totalInfo_b.getTot_specialdj_succ_Amt());
         totalOutVo.setTot_specialdj_succ_byeol_Cnt(totalInfo_b.getTot_specialdj_succ_byeol_Cnt());
+        totalOutVo.setTot_pm_succ_Cnt(totalInfo_b.getTot_pm_succ_Cnt());
+        totalOutVo.setTot_pm_succ_Amt(totalInfo_b.getTot_pm_succ_Amt());
+        totalOutVo.setTot_pm_succ_byeol_Cnt(totalInfo_b.getTot_pm_succ_byeol_Cnt());
         totalOutVo.setTot_succ_Cnt(totalInfo_b.getTot_succ_Cnt());
         totalOutVo.setTot_succ_Amt(totalInfo_b.getTot_succ_Amt());
         totalOutVo.setTot_succ_byeol_Cnt(totalInfo_b.getTot_succ_byeol_Cnt());
@@ -84,6 +87,9 @@ public class Sta_ExchangeService {
         totalOutVo.setNTot_specialdj_succ_Cnt(totalInfo_n.getTot_specialdj_succ_Cnt());
         totalOutVo.setNTot_specialdj_succ_Amt(totalInfo_n.getTot_specialdj_succ_Amt());
         totalOutVo.setNTot_specialdj_succ_byeol_Cnt(totalInfo_n.getTot_specialdj_succ_byeol_Cnt());
+        totalOutVo.setNTot_pm_succ_Cnt(totalInfo_n.getTot_pm_succ_Cnt());
+        totalOutVo.setNTot_pm_succ_Amt(totalInfo_n.getTot_pm_succ_Amt());
+        totalOutVo.setNTot_pm_succ_byeol_Cnt(totalInfo_n.getTot_pm_succ_byeol_Cnt());
         totalOutVo.setNTot_succ_Cnt(totalInfo_n.getTot_succ_Cnt());
         totalOutVo.setNTot_succ_Amt(totalInfo_n.getTot_succ_Amt());
         totalOutVo.setNTot_succ_byeol_Cnt(totalInfo_n.getTot_succ_byeol_Cnt());
@@ -100,6 +106,9 @@ public class Sta_ExchangeService {
                     outVo.setNSpecialdj_succ_Cnt(detailList_n.get(i).getSpecialdj_succ_Cnt());
                     outVo.setNSpecialdj_succ_Amt(detailList_n.get(i).getSpecialdj_succ_Amt());
                     outVo.setNSpecialdj_succ_byeol_Cnt(detailList_n.get(i).getSpecialdj_succ_byeol_Cnt());
+                    outVo.setNPm_succ_Cnt(detailList_n.get(i).getPm_succ_Cnt());
+                    outVo.setNPm_succ_Amt(detailList_n.get(i).getPm_succ_Amt());
+                    outVo.setNPm_succ_byeol_Cnt(detailList_n.get(i).getPm_succ_byeol_Cnt());
                     outVo.setNSucc_Cnt(detailList_n.get(i).getSucc_Cnt());
                     outVo.setNSucc_Amt(detailList_n.get(i).getSucc_Amt());
                     outVo.setNSucc_byeol_Cnt(detailList_n.get(i).getSucc_byeol_Cnt());
@@ -108,8 +117,8 @@ public class Sta_ExchangeService {
                     if(detailList1.size() >= i+1) {
                         P_PayTotalOutDetailVo tempRight = (P_PayTotalOutDetailVo) detailList1.get(i);
                         if (tempRight.getDaily() != null) {
-                            int nSum_succ_amt = detailList_n.get(i).getSpecialdj_succ_Amt() + detailList_n.get(i).getSucc_Amt();
-                            outVo.setNSum_succ_cnt( detailList_n.get(i).getSpecialdj_succ_Cnt() + detailList_n.get(i).getSucc_Cnt() );
+                            int nSum_succ_amt = detailList_n.get(i).getSpecialdj_succ_Amt() + detailList_n.get(i).getPm_succ_Amt() + detailList_n.get(i).getSucc_Amt();
+                            outVo.setNSum_succ_cnt( detailList_n.get(i).getSpecialdj_succ_Cnt() + detailList_n.get(i).getPm_succ_Cnt() + detailList_n.get(i).getSucc_Cnt() );
                             outVo.setNSum_succ_amt(nSum_succ_amt);
                             int nSum_pay_amt = (int)Math.round(tempRight.getSuccAmt()/1.1);
                             outVo.setNSum_pay_amt(nSum_pay_amt);
@@ -125,6 +134,9 @@ public class Sta_ExchangeService {
                     outVo.setSpecialdj_succ_Cnt(detailList_b.get(i).getSpecialdj_succ_Cnt());
                     outVo.setSpecialdj_succ_Amt(detailList_b.get(i).getSpecialdj_succ_Amt());
                     outVo.setSpecialdj_succ_byeol_Cnt(detailList_b.get(i).getSpecialdj_succ_byeol_Cnt());
+                    outVo.setPm_succ_Cnt(detailList_b.get(i).getPm_succ_Cnt());
+                    outVo.setPm_succ_Amt(detailList_b.get(i).getPm_succ_Amt());
+                    outVo.setPm_succ_byeol_Cnt(detailList_b.get(i).getPm_succ_byeol_Cnt());
                     outVo.setSucc_Cnt(detailList_b.get(i).getSucc_Cnt());
                     outVo.setSucc_Amt(detailList_b.get(i).getSucc_Amt());
                     outVo.setSucc_byeol_Cnt(detailList_b.get(i).getSucc_byeol_Cnt());
@@ -133,8 +145,8 @@ public class Sta_ExchangeService {
                     if(detailList0.size() >= i+1) {
                         P_PayTotalOutDetailVo tempLeft = (P_PayTotalOutDetailVo) detailList0.get(i);
                         if (tempLeft.getDaily() != null) {
-                            int sum_succ_amt = detailList_b.get(i).getSpecialdj_succ_Amt() + detailList_b.get(i).getSucc_Amt();
-                            outVo.setSum_succ_cnt( detailList_b.get(i).getSpecialdj_succ_Cnt() + detailList_b.get(i).getSucc_Cnt() );
+                            int sum_succ_amt = detailList_b.get(i).getSpecialdj_succ_Amt() + detailList_b.get(i).getPm_succ_Amt() + detailList_b.get(i).getSucc_Amt();
+                            outVo.setSum_succ_cnt( detailList_b.get(i).getSpecialdj_succ_Cnt() + detailList_b.get(i).getPm_succ_Cnt() + detailList_b.get(i).getSucc_Cnt() );
                             outVo.setSum_succ_amt(sum_succ_amt);
                             int sum_pay_amt = (int)Math.round(tempLeft.getSuccAmt()/1.1);
                             outVo.setSum_pay_amt(sum_pay_amt);
@@ -183,6 +195,17 @@ public class Sta_ExchangeService {
         totalInfo.setB_tot_specialdj_succ_nCnt(totalInfo_b.getTot_specialdj_succ_nCnt());
         totalInfo.setB_tot_specialdj_succ_nAmt(totalInfo_b.getTot_specialdj_succ_nAmt());
         totalInfo.setB_tot_specialdj_succ_byeol_nCnt(totalInfo_b.getTot_specialdj_succ_byeol_nCnt());
+
+        totalInfo.setB_tot_pm_succ_mCnt(totalInfo_b.getTot_pm_succ_mCnt());
+        totalInfo.setB_tot_pm_succ_mAmt(totalInfo_b.getTot_pm_succ_mAmt());
+        totalInfo.setB_tot_pm_succ_byeol_mCnt(totalInfo_b.getTot_pm_succ_byeol_mCnt());
+        totalInfo.setB_tot_pm_succ_fcnt(totalInfo_b.getTot_pm_succ_fcnt());
+        totalInfo.setB_tot_pm_succ_fAmt(totalInfo_b.getTot_pm_succ_fAmt());
+        totalInfo.setB_tot_pm_succ_byeol_fCnt(totalInfo_b.getTot_pm_succ_byeol_fCnt());
+        totalInfo.setB_tot_pm_succ_nCnt(totalInfo_b.getTot_pm_succ_nCnt());
+        totalInfo.setB_tot_pm_succ_nAmt(totalInfo_b.getTot_pm_succ_nAmt());
+        totalInfo.setB_tot_pm_succ_byeol_nCnt(totalInfo_b.getTot_pm_succ_byeol_nCnt());
+
         totalInfo.setB_tot_succ_mCnt(totalInfo_b.getTot_succ_mCnt());
         totalInfo.setB_tot_succ_mAmt(totalInfo_b.getTot_succ_mAmt());
         totalInfo.setB_tot_succ_byeol_mCnt(totalInfo_b.getTot_succ_byeol_mCnt());
@@ -208,6 +231,15 @@ public class Sta_ExchangeService {
                     outVo.setSpecialdj_succ_nCnt(detailList_n.get(i).getSpecialdj_succ_nCnt());
                     outVo.setSpecialdj_succ_nAmt(detailList_n.get(i).getSpecialdj_succ_nAmt());
                     outVo.setSpecialdj_succ_byeol_nCnt(detailList_n.get(i).getSpecialdj_succ_byeol_nCnt());
+                    outVo.setPm_succ_mCnt(detailList_n.get(i).getPm_succ_mCnt());
+                    outVo.setPm_succ_mAmt(detailList_n.get(i).getPm_succ_mAmt());
+                    outVo.setPm_succ_byeol_mCnt(detailList_n.get(i).getPm_succ_byeol_mCnt());
+                    outVo.setPm_succ_fcnt(detailList_n.get(i).getPm_succ_fcnt());
+                    outVo.setPm_succ_fAmt(detailList_n.get(i).getPm_succ_fAmt());
+                    outVo.setPm_succ_byeol_fCnt(detailList_n.get(i).getPm_succ_byeol_fCnt());
+                    outVo.setPm_succ_nCnt(detailList_n.get(i).getPm_succ_nCnt());
+                    outVo.setPm_succ_nAmt(detailList_n.get(i).getPm_succ_nAmt());
+                    outVo.setPm_succ_byeol_nCnt(detailList_n.get(i).getPm_succ_byeol_nCnt());
                     outVo.setSucc_mCnt(detailList_n.get(i).getSucc_mCnt());
                     outVo.setSucc_mAmt(detailList_n.get(i).getSucc_mAmt());
                     outVo.setSucc_byeol_mCnt(detailList_n.get(i).getSucc_byeol_mCnt());
@@ -227,6 +259,15 @@ public class Sta_ExchangeService {
                     outVo.setSpecialdj_succ_nCnt(0);
                     outVo.setSpecialdj_succ_nAmt(0);
                     outVo.setSpecialdj_succ_byeol_nCnt(0);
+                    outVo.setPm_succ_mCnt(0);
+                    outVo.setPm_succ_mAmt(0);
+                    outVo.setPm_succ_byeol_mCnt(0);
+                    outVo.setPm_succ_fcnt(0);
+                    outVo.setPm_succ_fAmt(0);
+                    outVo.setPm_succ_byeol_fCnt(0);
+                    outVo.setPm_succ_nCnt(0);
+                    outVo.setPm_succ_nAmt(0);
+                    outVo.setPm_succ_byeol_nCnt(0);
                     outVo.setSucc_mCnt(0);
                     outVo.setSucc_mAmt(0);
                     outVo.setSucc_byeol_mCnt(0);
