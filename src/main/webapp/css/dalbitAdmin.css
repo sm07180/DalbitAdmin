@@ -88,6 +88,19 @@ table.table.table-summary{
     margin-right: 10px;
 }
 
+table.table.table-summary2{
+    width: auto;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+table.table.table-summary2 th, td {
+    font-size: 11px !important;
+}
+table.table.table-summary2 td span {
+    font-size: 11px !important;
+}
+
 .widget-table .widget-content .table-comment{
     float: left !important;
     padding: 10px 10px 10px 10px;
