@@ -9,6 +9,8 @@ ga('create', 'UA-67690109-1', 'auto');
 ga('send', 'pageview');
 */
 
+document.domain = 'admin.inforex.co.kr';
+
 $(document).ready(function(){
 
     /************************
