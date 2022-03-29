@@ -20,6 +20,10 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+
+import java.net.URI;
 
 
 /**
@@ -75,7 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .headers()
-                .frameOptions().sameOrigin()
+                .frameOptions().disable().addHeaderWriter(
+                        new XFrameOptionsHeaderWriter(
+                                new StaticAllowFromStrategy(URI.create("*"))
+                        )
+                )
 
             .and()
 
