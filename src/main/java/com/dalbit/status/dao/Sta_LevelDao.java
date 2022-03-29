@@ -1,14 +1,12 @@
 package com.dalbit.status.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.status.vo.procedure.P_LevelInputVo;
-import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
-import com.dalbit.status.vo.procedure.P_LevelOutputVo;
-import com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo;
+import com.dalbit.status.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface Sta_LevelDao {
@@ -18,6 +16,9 @@ public interface Sta_LevelDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_LevelOutputVo> callMemberLevelList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    List<Object> callMemberLevelListV2(P_LevelSearchInputVo pLevelSearchInputVo);
 
     @Transactional(readOnly = true)
     P_LevelOutputVo getTopFanInfo(String mem_no);

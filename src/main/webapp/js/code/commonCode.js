@@ -200,6 +200,19 @@ var level = [
     ,new COMMON_CODE('99', '99', '99레벨')
 ];
 
+var levelGroup = [
+    new COMMON_CODE(null, 'level', '레벨')
+    ,new COMMON_CODE('0', '0', '0레벨')
+    ,new COMMON_CODE('1', '1', '1~10레벨')
+    ,new COMMON_CODE('2', '2', '11~20레벨')
+    ,new COMMON_CODE('3', '3', '21~30레벨')
+    ,new COMMON_CODE('4', '4', '31~40레벨')
+    ,new COMMON_CODE('5', '5', '41~50레벨')
+    ,new COMMON_CODE('6', '6', '51~60레벨')
+    ,new COMMON_CODE('7', '7', '61~70레벨')
+    ,new COMMON_CODE('8', '8', '71~120레벨')
+];
+
 var grade = [
     new COMMON_CODE(null, 'grade', '단계')
     ,new COMMON_CODE('0','0','0')
