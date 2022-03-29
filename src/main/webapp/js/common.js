@@ -1,8 +1,6 @@
 /**
  * 공통 자바스크립트 함수
  */
-document.domain = 'inforex.co.kr';
-
 common = {};
 
 common.isEmpty = function(value){
