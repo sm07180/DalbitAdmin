@@ -73,7 +73,7 @@ var ItemDataTableSource = {
             {'title': '가격', 'data': 'item_price', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
             }},
-            {'title': 'IOS 가격', 'data': 'item_price_ios', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+            {'title': '인앱 가격', 'data': 'item_price_ios', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
             }},
             {'title': '할인율', 'data': 'discount_rate', 'defaultContent': '-', 'render': function (data, type, row, meta) {
