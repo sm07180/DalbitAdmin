@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.menu.dao.Men_PartnerDao" >
+
+    <resultMap id="integer" type="Integer" />
+    <resultMap id="P_PartnerBenefitInputVo" type="com.dalbit.menu.vo.procedure.P_PartnerBenefitInputVo" />
+    <resultMap id="P_PartnerCancelInputVo" type="com.dalbit.menu.vo.procedure.P_PartnerCancelInputVo" />
+    <resultMap id="P_PartnerInputVo" type="com.dalbit.menu.vo.procedure.P_PartnerInputVo" />
+    <resultMap id="P_PartnerListOutputVo" type="com.dalbit.menu.vo.procedure.P_PartnerListOutputVo" />
+    <resultMap id="P_PartnerSearchListOutputVo" type="com.dalbit.menu.vo.procedure.P_PartnerSearchListOutputVo" />
+    <resultMap id="P_PartnerTotalCntOutputVo" type="com.dalbit.menu.vo.procedure.P_PartnerTotalCntOutputVo" />
+
+    <!-- 파트너DJ 목록 -->
+    <select id="selectPartners" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_PartnerInputVo" resultMap="P_PartnerTotalCntOutputVo,P_PartnerListOutputVo">
+        CALL rd_data.p_adm_partner_dj_list(#{tMonth}, #{searchVal}, #{searchSlct}, #{pageNo}, #{pageCnt})
+    </select>
+
+    <!-- 파트너DJ 등록 -->
+    <insert id="insertPartner" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_PartnerBenefitInputVo">
+        CALL rd_data.p_adm_partner_dj_ins(#{memNo}, #{partnerBenefit}, #{chrgrName})
+    </insert>
+
+    <!-- 파트너DJ 수정 -->
+    <update id="updatePartner" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_PartnerBenefitInputVo">
+        CALL rd_data.p_adm_partner_dj_benefit_upd(#{memNo}, #{partnerBenefit})
+    </update>
+
+    <!-- 파트너DJ 취소 -->
+    <delete id="deletePartner" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_PartnerCancelInputVo">
+        CALL rd_data.p_adm_partner_dj_cancel(#{memNo}, #{cancelDetail}, #{chrgrName})
+    </delete>
+
+    <!-- 파트너DJ 검색 -->
+    <select id="selectFindPartners" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_PartnerInputVo" resultMap="P_PartnerTotalCntOutputVo,P_PartnerSearchListOutputVo">
+        CALL rd_data.p_adm_partner_dj_search(#{searchVal}, #{searchSlct}, #{pageNo}, #{pageCnt})
+    </select>
+</mapper>

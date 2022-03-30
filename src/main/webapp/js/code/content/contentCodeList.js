@@ -647,6 +647,14 @@ var content_platform6 = [
   , new COMMON_CODE('001', '001', 'IOS')
 ];
 
+var content_platform7 = [
+  new COMMON_CODE(null, 'platform', '플랫폼구분')
+  , new COMMON_CODE('all', '-1', '전체')
+  , new COMMON_CODE('pc', '100', 'PC')
+  , new COMMON_CODE('aos', '010', 'Android')
+  , new COMMON_CODE('ios', '001', 'IOS')
+];
+
 var push_send_user = [
   new COMMON_CODE(null, 'push_send_user', '발송자구분')
   , new COMMON_CODE('0', '0', '발송자구분(전체)')

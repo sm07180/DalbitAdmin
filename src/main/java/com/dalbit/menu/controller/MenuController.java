@@ -44,6 +44,11 @@ public class MenuController {
         return "menu/special/list";
     }
 
+    @RequestMapping("/partner/list")
+    public String partnerList(){
+        return "menu/partner/list";
+    }
+
     @RequestMapping("/shining/list")
     public String shiningList(){
         return "menu/shining/list";

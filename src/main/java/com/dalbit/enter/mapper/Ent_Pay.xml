@@ -90,4 +90,14 @@
     <select id="callWithdrawalByeol" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_RevenueProcessVo">
         call rd_admin.sp_admin_accounting_withdrawal_byeol_member(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <!-- 외부결제 설정 정보 -->
+    <select id="selectPaymentSet" statementType="CALLABLE" resultType="com.dalbit.enter.vo.procedure.P_PaymentSetOutputVo">
+        call rd_data.p_payment_set_sel()
+    </select>
+
+    <!-- 외부결제 설정 -->
+    <update id="updatePaymentSet" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSetInputVo">
+        call rd_data.p_payment_set_upd(#{setSlct}, #{paySlct}, #{chrgrName})
+    </update>
 </mapper>

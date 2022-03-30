@@ -14,11 +14,15 @@
     <div class="widget-content mt10" id="div_payY">
         <div class="row form-inline" id="divHisroty">
             <div class="widget widget-table mb10">
-                <div class="widget-header">
+                <div class="widget-header" style="height: 66px">
                     <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
                     <%--<div class="btn-group widget-header-toolbar">--%>
                     <%--<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand" onclick="slid();"><i class="fa fa-chevron-up" id="chevron"></i></a>--%>
                     <%--</div>--%>
+                    <div class="widget-header-toolbar">
+                        <div><button type="button" data-code="2" id="btn-inapp-aos" class="btn-inapp btn btn-sm btn-danger" style="width: 150px">AOS 외부결제 비활성화</button></div>
+                        <div><button type="button" data-code="1" id="btn-inapp-ios" class="btn-inapp btn btn-sm btn-danger" style="width: 150px">IOS 외부결제 비활성화</button></div>
+                    </div>
                 </div>
                 <div id="div_top">
                     <div class="mt5 col-md-10 no-padding mr10" id="statPayTableBody1"></div>
@@ -71,6 +75,35 @@
     var tmp_ostype = -1;
     var tmp_innerType = 0;
     var tmp_payWay = "all";
+
+    // 외부결제 버튼코드
+    var paymentSetBtnCodes = {
+      'y': 'primary',
+      'n': 'danger',
+    }
+    // 외부결제 버튼텍스트
+    var paymentSetBtnText = {
+      'y': '활성화',
+      'n': '비활성화',
+    }
+    // 인앱결제 여부
+    function getPamentSetInfo() {
+      util.getAjaxData("getPamentSetInfo", "/rest/enter/pay/payment", {}, function(data, response) {
+        $('.btn-inapp').removeClass('btn-danger').removeClass('btn-primary');
+        $('#btn-inapp-aos').addClass('btn-' + paymentSetBtnCodes[response.data.aos_payment_set]);
+        $('#btn-inapp-ios').addClass('btn-' + paymentSetBtnCodes[response.data.ios_payment_set]);
+
+        $('#btn-inapp-aos').text('AOS 외부결제 ' + paymentSetBtnText[response.data.aos_payment_set]);
+        $('#btn-inapp-ios').text('IOS 외부결제 ' + paymentSetBtnText[response.data.ios_payment_set]);
+      }, null, {type: 'GET'});
+    }
+
+    // 인앱결제 설정
+    function setPamentSetInfo(data) {
+      util.getAjaxData("setPamentSetInfo", "/rest/enter/pay/payment", data, function(data, response) {
+        getPamentSetInfo();
+      }, null, {type: 'POST'});
+    }
 
     function getStatPayInfo(){
         $("#historyExcel").attr('download' , "결제현황_일간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
@@ -212,6 +245,7 @@
         ui.paintColor();
         ui.tableHeightSet();
         getPayHistoryList();
+        getPamentSetInfo();
     }
 
 
@@ -297,6 +331,19 @@
         util.windowOpen(popupUrl,"1550","885","결제목록");
     }
 
+    $(document).ready(function () {
+        // 인앱결제 토글
+        $('.btn-inapp').on('click', function (e){
+          var $this = $(this);
+          var paySlct = $this.data('code');
+          var setSlct = $this.hasClass('btn-danger') ? 'y' : 'n';
+          // 인앱결제 설정변경
+          setPamentSetInfo({
+            setSlct: setSlct,
+            paySlct: paySlct
+          });
+        });
+    });
 </script>
 
 

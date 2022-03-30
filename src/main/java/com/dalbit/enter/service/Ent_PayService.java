@@ -27,13 +27,44 @@ public class Ent_PayService {
 
     @Autowired
     MessageUtil messageUtil;
+
     @Autowired
     GsonUtil gsonUtil;
+
     @Autowired
     Ent_PayDao ent_PayDao;
 
     @Autowired
     ExcelService excelService;
+
+    /**
+     * 외부결제 설정 정보
+     * @return
+     */
+    public String getPaymentSet() {
+        P_PaymentSetOutputVo data = ent_PayDao.selectPaymentSet();
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("data", data);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 외부결제 설정
+     * @param pPaymentSetInputVo
+     * @return
+     */
+    public String modifyPaymentSet(P_PaymentSetInputVo pPaymentSetInputVo) {
+        int data = ent_PayDao.updatePaymentSet(pPaymentSetInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.수정));
+        resHashMap.put("data", data);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
 
     /**
      * 결제/환불 고정
