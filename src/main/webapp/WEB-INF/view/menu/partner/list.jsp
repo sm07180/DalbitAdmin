@@ -45,10 +45,11 @@
                     </div>
                 </div>
             </form>
-            <!-- //serachBox -->
-            <h4><b>[파트너DJ]</b></h4>
             <!-- tab -->
             <div class="row col-lg-12 form-inline">
+                <!-- //serachBox -->
+                <h4><b>[파트너DJ]</b></h4>
+
                 <div class="row col-md-12 mt15">
                     <div class="pull-left ml5 mb15">
                         ㆍ 해당 월의 파트너 DJ입니다. <br/>
