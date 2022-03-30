@@ -399,7 +399,7 @@
                 </button>
                 {{/dalbit_if}}
                 {{#dalbit_if ins_date '==' ''}}
-                [취소]
+                [취소됨]
                 {{/dalbit_if}}
             </td>
         </tr>
