@@ -9,6 +9,7 @@ import java.util.Date;
 @Setter
 public class P_PartnerListOutputVo {
     private String mem_no;		            // 회원 번호
+    private int partner_dj_cnt;             // 선정횟수
     private String partner_benefit;	        // 파트너DJ 혜택
     private String chrgr_name;	            // 등록관리자
     private String mem_id;		            // 회원 아이디

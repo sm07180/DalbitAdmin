@@ -367,7 +367,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{index_no}}</td>
-            <td>{{addComma partnerdj_badge}}</td>
+            <td>{{addComma partner_dj_cnt}}</td>
             <td style="width: 65px;height:65px;">
                 <img class="thumbnail" src="{{renderProfileImage image_profile mem_sex}}"
                      style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
