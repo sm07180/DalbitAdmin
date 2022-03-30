@@ -107,18 +107,17 @@
         for (var i = 0; i < formArray.length; i++){
             data[formArray[i]['name']] = formArray[i]['value'];
         }
-        data["contents"] = $("#editor").summernote('code');
+        data["title"] = $.trim(data["title"]);
+        data["contents"] = common.replaceHtml($("#editor").summernote('code'));
         data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
 
         var platform_pc = $("#platform1").prop('checked') ? '1' : '0';
         var platform_aos = $("#platform2").prop('checked') ? '1' : '0';
         var platform_ios = $("#platform3").prop('checked') ? '1' : '0';
         data["platform"] = platform_pc + platform_aos + platform_ios;
-
         data["iosJudgeViewOn"] = $("#detail_iosJudgeViewOn").prop('checked') ? 1 : 0;
 
         dalbitLog(data);
-
         return data;
     }
 
