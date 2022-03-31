@@ -183,8 +183,8 @@ public class Mem_MemberService {
             memberInfo.setLiveBadgeList(badgeList);
         }
 
-        String parentsAuthChk = common.parentsAuthChk(memNo);
-        memberInfo.setParentsAuthChk(parentsAuthChk);
+//        String parentsAuthChk = common.parentsAuthChk(memNo);
+//        memberInfo.setParentsAuthChk(parentsAuthChk);
 
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
