@@ -197,7 +197,7 @@
       data.searchVal = txt_search;                        // 검색명
       data.levelSlct = tmp_level;
       data.lastLoginYn = parseInt(tmp_include, 10) < 1 ? 'n' : 'y';
-      data.chrgrYn = parseInt(tmp_inner, 10) < 1 ? 'n' : 'y';
+      data.chrgrYn = parseInt(tmp_inner, 10) === 0 ? 'y' : 'n';
       data.searchSlct = $("#searchMember").val();
     };
 
