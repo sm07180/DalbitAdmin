@@ -30,4 +30,5 @@ public class P_PartnerListOutputVo {
     private Date ins_date;                  // 등록일자
     private Date upd_date;		            // 수정일자
     private String exitYn;		            // 탈퇴여부
+    private String cancelYn;		        // 취소여부
 }

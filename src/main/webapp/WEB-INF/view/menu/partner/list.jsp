@@ -398,7 +398,7 @@
                         onclick="partnerEventData.deletePartner('{{mem_no}}')">삭제
                 </button>
                 {{/dalbit_if}}
-                {{#dalbit_if ins_date '==' ''}}
+                {{#dalbit_if cancelYn '==' 'y'}}
                 [취소됨]
                 {{/dalbit_if}}
             </td>
