@@ -144,6 +144,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private int idx;
     private int leader_yn;
 
+    private String parentsAuthChk; // 법정대리인 인증 여부(y/n)
 
     /*public void setBlock_end_date(Date block_end_date){
         this.block_end_date = block_end_date;

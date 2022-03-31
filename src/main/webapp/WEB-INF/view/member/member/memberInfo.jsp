@@ -963,7 +963,7 @@
         getAdminMemoList("bt_adminMemoList", "운영자메모");
     }
 
-    //법정대리인 동의정보
+    //법정대리인 동의정보 (환전)
     $(document).on('click', '#bt_agree_info', function(){
 
         var detailData = {};
@@ -972,6 +972,16 @@
         util.getAjaxData("parents", "/rest/member/member/parents", detailData, fn_succ_parents_detail);
     });
 
+    //법정대리인 동의정보 (결제)
+    $(document).on('click', '#pay_parent_agree_info', function(){
+
+      var detailData = {};
+      detailData.memNo = memNo
+
+      util.getAjaxData("payParents", "/rest/member/member/pay/parents", detailData, fn_succ_pay_parents_detail);
+    });
+
+    // 법정대리인 동의정보 팝업 (환전)
     function fn_succ_parents_detail(dist_id, response){
         var template = $('#tmp_layer_detail').html();
         var templateScript = Handlebars.compile(template);
@@ -982,6 +992,17 @@
         showModal();
     }
 
+    // 법정대리인 동의정보 팝업 (결제)
+    function fn_succ_pay_parents_detail(dist_id, response){
+      var template = $('#pay_layer_detail').html();
+      var templateScript = Handlebars.compile(template);
+      var context = response.data.detail;
+      var html = templateScript(context);
+      $("#detailView").html(html);
+
+      showModal();
+    }
+
     function showModal(){
         $("#showModal").click();
     }
@@ -990,7 +1011,7 @@
         $("#layerCloseBtn").click();
     }
 
-    //법정대리인(보호자) 동의 철회
+    //법정대리인(보호자) 동의 철회 (환전)
     $(document).on('click', '#bt_recant', function(){
 
         var result = confirm("법정대리인의 보호자 동의를 철회하시는 경우\n해당 회원은 추 후 법정대리인 동의를 다시 받아야 합니다.\n법정대리인(동의)를 철회하시겠습니까?");
@@ -1003,7 +1024,20 @@
 
     });
 
-    //법정대리인(보호자) 동의 복귀
+    //법정대리인(보호자) 동의 철회 (결제)
+    $(document).on('click', '#pay_agree_recant', function(){
+
+      var result = confirm("법정대리인의 보호자 동의를 철회하시는 경우\n해당 회원은 추 후 법정대리인 동의를 다시 받아야 합니다.\n법정대리인(동의)를 철회하시겠습니까?");
+      if(result){
+        var detailData = {};
+        detailData.memNo = memNo
+
+        util.getAjaxData("payrecant", "/rest/member/member/pay/recant", detailData, fn_succ_payRecant);
+      }
+
+    });
+
+    //법정대리인(보호자) 동의 복귀(환전)
     $(document).on('click', '#bt_back_recant', function(){
 
         var result = confirm("법정대리인(동의)를 복귀하시겠습니까?");
@@ -1013,6 +1047,18 @@
 
             util.getAjaxData("backrecant", "/rest/member/member/back/recant", detailData, fn_succ_back_recant);
         }
+    });
+
+    //법정대리인(보호자) 동의 복귀 (결제)
+    $(document).on('click', '#pay_agree_back_recant', function(){
+
+      var result = confirm("법정대리인(동의)를 복귀하시겠습니까?");
+      if(result){
+        var detailData = {};
+        detailData.memNo = memNo
+
+        util.getAjaxData("paybackrecant", "/rest/member/member/pay/back/recant", detailData, fn_succ_back_payRecant);
+      }
     });
 
     $(document).on('click', '#bt_cancel_cert', function(){
@@ -1054,14 +1100,41 @@
     });
 
 
+    // 환전
     function fn_succ_recant(){
         alert("법정대리인(동의)를 철회하였습니다.");
         getMemNo_info_reload(memNo);
     }
 
+    // 결제
+    function fn_succ_payRecant(dst_id, data) {
+      console.log('fn_succ_payRecant', data);
+      if(data === 1) {
+        alert("법정대리인(동의)를 철회하였습니다.");
+        getMemNo_info_reload(memNo);
+      }else if(data === -1) {
+        alert("철회할 데이터가 없습니다.");
+      }else {
+        alert("에러");
+      }
+    }
+
+    // 환전
     function fn_succ_back_recant() {
         alert("법정대리인(동의)를 복귀하였습니다.");
         getMemNo_info_reload(memNo);
+    }
+
+    // 결제
+    function fn_succ_back_payRecant(dst_id, data) {
+      if(data === 1) {
+        alert("법정대리인(동의)를 복귀하였습니다.");
+        getMemNo_info_reload(memNo);
+      }else if(data === -1) {
+        alert("복귀할 데이터가 없습니다.");
+      }else {
+        alert("에러");
+      }
     }
 
     $(document).on('click','#bt_profileAlbum', function (){
@@ -1462,9 +1535,21 @@
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자<br>메모</th>
-            <td rowspan="2" colspan="7" style="text-align: left;">
+            <td rowspan="2" colspan="3" style="text-align: left;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
+            </td>
+            <th rowspan="2">법정대리인<br/>(보호자)<br/>동의_환전</th>
+            <td rowspan="2" colspan="3" style="text-align: left;">
+                {{#equal parentsAuthChk 'y'}}
+                <label style="color: red; font-weight: bold;">Yes</label>
+                <button type="button" id="pay_agree_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
+                <button type="button" id="pay_parent_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                {{else}}
+                <label style="font-weight: bold;">No</label>
+                <button type="button" id="pay_agree_back_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
+                <button type="button" id="pay_parent_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                {{/equal}}
             </td>
         </tr>
         <tr>
@@ -1631,6 +1716,53 @@
                                 가족관계증명서류가 없습니다.
                                 {{/if}}
                             </td>
+                        </tr>
+                        {{else}}
+                        법정대리인 보호자 동의 정보가 없습니다.
+                        {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="pay_layer_detail">
+    <div class="modal-dialog" style="max-width: 700px;min-width: 400px; width: auto; display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
+                <h4 class="modal-title" id="_layerTitle" style="font-weight: bold">법정대리인 (보호자) 동의정보</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 form-inline block _modalLayer">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <tbody id="tableBody">
+                        {{#if parents_mem_name}}
+                        <tr>
+                            <th>보호자 이름</th>
+                            <td>{{parents_mem_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>성 별</th>
+                            <td>{{{sexIcon parents_mem_sex}}}</td>
+                        </tr>
+                        <tr>
+                            <th>생년월일</th>
+                            <td>{{parents_mem_birth_year}}{{parents_mem_birth_day}}</td>
+                        </tr>
+                        <tr>
+                            <th>휴대폰 번호</th>
+                            <td>{{parents_mem_hphone}}</td>
+                        </tr>
+                        <tr>
+                            <th>동의 만료 예정 일시</th>
+                            <td>&nbsp;{{expire_date}}</td>
+                        </tr>
+                        <tr>
+                            <th>메일 주소</th>
+                            <td>&nbsp;{{parents_mem_email}}</td>
                         </tr>
                         {{else}}
                         법정대리인 보호자 동의 정보가 없습니다.

@@ -5,12 +5,12 @@
 
 <div class="pull-left pt10 pl10"><span id="selectYn"></span></div>
 <div class="widget-content">
-    <table id="tb_res_sendMailLogList" class="table table-sorting table-hover table-bordered" style="width: 710px; text-align: center; border-collapse: collapse">
+    <table id="tb_res_sendMailLogList" style="width: 710px; text-align: center; border-collapse: collapse">
         <tbody>
         <tr>
             <td>
-                <img src="https://image.dalbitlive.com/emailForm/emailForm_top.png"
-                     alt="달빛라이브"
+                <img src="https://image.dalbitlive.com/emailForm/emailForm_header.png"
+                     alt="달라"
                      loading="lazy"
                      style="vertical-align: bottom"
                 />
@@ -21,8 +21,8 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="text-align: left; font-size: 34px; font-weight: 700; color: #333333; letter-spacing: -2px;">
-                            달빛라이브<br/>
-                            <strong id="cancelUserName" style="color: #632BEB"></strong>님의 결제 취소 안내입니다.
+                            달라<br/>
+                            <strong id="cancelUserName" style="color: #FF3C7B"></strong>님의 결제 취소 안내입니다.
                         </td>
                     </tr>
                     <tr>
@@ -92,17 +92,27 @@
     getRes_sendMailDetail()
   });
 
+  function addComma(x) {
+    if (x === undefined || x === null) return 0
+    try {
+      var parts = x.toString().split('.')
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      return parts.join('.')
+    } catch {
+      return 0
+    }
+  }
+
   function getRes_sendMailDetail(){
-    console.log(mailEtc);
     $("#cancelUserName").html(mailEtc.cancelUserName);
     $("#paymentDate").html(mailEtc.paymentDate);
     $("#paymentMethod").html(mailEtc.paymentMethod);
     $("#paymentInfo").html(mailEtc.paymentAccount + ' ' + mailEtc.paymentBank);
     $("#paymentProduct").html(mailEtc.paymentProduct);
     $("#paymentQuantity").html(mailEtc.paymentQuantity);
-    $("#paymentPrice").html(mailEtc.paymentPrice);
+    $("#paymentPrice").html(addComma(mailEtc.paymentPrice));
     $("#cancelDate").html(mailEtc.cancelDate);
-    $("#cancelPrice").html(mailEtc.cancelPrice);
+    $("#cancelPrice").html(addComma(mailEtc.paymentPrice));
   }
 
   function closePop() {
