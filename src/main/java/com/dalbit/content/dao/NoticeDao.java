@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Repository
 public interface NoticeDao {
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     ArrayList<P_noticeListOutputVo> callServiceCenterNoticeList(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
