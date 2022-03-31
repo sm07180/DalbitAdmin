@@ -718,10 +718,12 @@
                 <th>회원가입 일수</th>
                 <td colspan="2">회원 가입 <input type="text" class="_onlyNumber" id="memJoinInnerDate" name="memJoinInnerDate" maxlength="6" style="width:50px" value="{{memJoinInnerDate}}" />일 이내</td>
                 <th>회원레벨 범위</th>
-                <td colspan="3">
+                <td>
                     <input type="text" class="_onlyNumber" id="memLevelStart" name="memLevelStart" maxlength="3" style="width:50px" value="{{memLevelStart}}" /> ~
                     <input type="text" class="_onlyNumber" id="memLevelEnd" name="memLevelEnd" maxlength="3" style="width:50px" value="{{memLevelEnd}}" />
                 </td>
+                <th>구분</th>
+                <td>{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
             </tr>
 
             <tr>
@@ -844,14 +846,14 @@
 
             <!-- 가려달라고 해서 일단 여기에 모아둠.. -->
             <tr style="display:none;">
-                <th>구분</th>
-                <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
+                <!-- th>구분</th>
+                <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td -->
 
                 <th>성별</th>
-                <td colspan="2">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
+                <td colspan="3">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
 
                 <th>노출 빈도</th>
-                <td>{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
+                <td colspan="3">{{{getCommonCodeRadio frequency_rate 'banner_frequency' 'N' 'frequency_rate'}}}</td>
             </tr>
             </tbody>
         </table>

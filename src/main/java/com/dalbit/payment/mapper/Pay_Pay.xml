@@ -84,7 +84,7 @@
                 <if test="slctType == 0">
                     <choose>
                         <when test="newSearchType == 1">
-                            and (b.mem_no = #{searchText} or c.mem_no = #{searchText} or pay.order_id like concat(#{searchText}, '%'))
+                            and (pay.mem_no = #{searchText} or pay.mem_no = #{searchText} or pay.order_id like concat(#{searchText}, '%'))
                         </when>
                         <when test="newSearchType == 2">
                             and (b.mem_nick like concat('%', #{searchText}, '%') or c.mem_nick like concat('%', #{searchText}, '%') or pay.order_id like concat(#{searchText}, '%'))
@@ -99,24 +99,24 @@
                             and (b.mem_userid = #{searchText} or c.mem_userid = #{searchText} or pay.order_id like concat(#{searchText}, '%'))
                         </when>
                         <when test="newSearchType == 6">
-                            and (b.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE ip = #{searchText})
-                             or c.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE ip = #{searchText})
+                            and (pay.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE ip = #{searchText})
+                             or pay.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE ip = #{searchText})
                              or pay.order_id like concat(#{searchText}, '%'))
                         </when>
                         <when test="newSearchType == 7">
-                            and (b.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText})
-                             or c.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText})
+                            and (pay.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText})
+                             or pay.mem_no in (SELECT distinct mem_no FROM rd_data.tb_member_session_history WHERE device_uuid = #{searchText})
                              or pay.order_id like concat(#{searchText}, '%'))
                         </when>
                         <otherwise>
-                            and ((b.mem_no = #{searchText} or b.mem_nick like concat('%', #{searchText}, '%'))
-                             or (c.mem_no = #{searchText} or c.mem_nick like concat('%', #{searchText}, '%'))
+                            and ((pay.mem_no = #{searchText} or b.mem_nick like concat('%', #{searchText}, '%'))
+                             or (pay.mem_no = #{searchText} or c.mem_nick like concat('%', #{searchText}, '%'))
                              or pay.order_id like concat(#{searchText}, '%'))
                         </otherwise>
                     </choose>
                 </if>
                 <if test="slctType == 1">
-                    and ( b.mem_no = #{searchText} or c.mem_no = #{searchText} )
+                    and ( pay.mem_no = #{searchText} or pay.mem_no = #{searchText} )
                 </if>
             </if>
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.broadcast.dao.Bro_PlayMakerDao" >
+
+    <resultMap id="integer" type="Integer" />
+    <resultMap id="P_PlayMakerDetailInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerDetailInputVo" />
+    <resultMap id="P_PlayMakerDetailListOutputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerDetailListOutputVo" />
+    <resultMap id="P_PlayMakerMemInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemInputVo" />
+    <resultMap id="P_PlayMakerMemInsInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemInsInputVo" />
+    <resultMap id="P_PlayMakerMemListOutputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemListOutputVo" />
+    <resultMap id="P_PlayMakerMemSelInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemSelInputVo" />
+    <resultMap id="P_PlayMakerMemSelOutputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemSelOutputVo" />
+    <resultMap id="P_PlayMakerTeamInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamInputVo" />
+    <resultMap id="P_PlayMakerTeamListInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamListInputVo" />
+    <resultMap id="P_PlayMakerTeamListOutputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamListOutputVo" />
+    <resultMap id="P_PlayMakerTeamMemInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo" />
+    <resultMap id="P_PlayMakerTeamSelInputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamSelInputVo" />
+    <resultMap id="P_PlayMakerTeamSelOutputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamSelOutputVo" />
+    <resultMap id="P_PlayMakerTotalCountOutputVo" type="com.dalbit.broadcast.vo.procedure.P_PlayMakerTotalCountOutputVo" />
+
+    <!--    플레이메이커 목록 (활동중 / 미활동)-->
+    <select id="selectList" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerDetailInputVo" resultMap="P_PlayMakerTotalCountOutputVo,P_PlayMakerMemListOutputVo">
+        CALL rd_data.p_play_maker_mem_list(#{teamNo}, #{ordSlct}, #{endSlct}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    플레이메이커 상세-->
+    <select id="selectPlayer" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemSelInputVo" resultMap="P_PlayMakerMemSelOutputVo">
+        CALL rd_data.p_play_maker_mem_sel(#{searchSlct}, #{searchData})
+    </select>
+
+    <!--    플레이메이커 등록-->
+    <select id="insertPlayer" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemInsInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_mem_ins(#{memNo}, #{excCms}, #{sDate}, #{eDate}, #{chrgrName})
+    </select>
+
+    <!--    플레이메이커 수정-->
+    <select id="updatePlayer" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemInsInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_mem_upd(#{memNo}, #{excCms}, #{sDate}, #{eDate}, #{chrgrName})
+    </select>
+
+    <!--    플레이메이커 삭제-->
+    <select id="deletePlayer" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerMemInsInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_mem_del(#{memNo}, #{chrgrName})
+    </select>
+
+    <!--    플레이메이커 일간-->
+    <select id="selectDay" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerDetailInputVo" resultMap="P_PlayMakerTotalCountOutputVo,P_PlayMakerDetailListOutputVo">
+        CALL rd_data.p_play_maker_detail_day_list(#{teamNo}, #{ordSlct}, #{tDate}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    플레이메이커 주간-->
+    <select id="selectWeek" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerDetailInputVo" resultMap="P_PlayMakerTotalCountOutputVo,P_PlayMakerDetailListOutputVo">
+        CALL rd_data.p_play_maker_detail_week_list(#{teamNo}, #{ordSlct}, #{tDate}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    플레이메이커 월간-->
+    <select id="selectMonth" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerDetailInputVo" resultMap="P_PlayMakerTotalCountOutputVo,P_PlayMakerDetailListOutputVo">
+        CALL rd_data.p_play_maker_detail_month_list(#{teamNo}, #{ordSlct}, #{tDate}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    팀 목록-->
+    <select id="selectTeams" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamListInputVo" resultMap="P_PlayMakerTotalCountOutputVo,P_PlayMakerTeamListOutputVo">
+        CALL rd_data.p_play_maker_team_list(#{ordSlct}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!--    팀 등록-->
+    <select id="insertTeams" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_team_ins(#{teamName}, #{chrgrName})
+    </select>
+
+    <!--    팀원 등록-->
+    <select id="insertTeamMembers" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_team_mem_ins(#{teamNo}, #{memNo}, #{memSlct}, #{chrgrName})
+    </select>
+
+    <!--    팀원 삭제-->
+    <select id="deleteTeamMembers" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_team_mem_del(#{teamNo}, #{memNo}, #{chrgrName})
+    </select>
+
+    <!--    팀 상세-->
+    <select id="selectTeam" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamSelInputVo" resultMap="P_PlayMakerTeamSelOutputVo">
+        CALL rd_data.p_play_maker_team_sel(#{teamNo})
+    </select>
+
+    <!--    팀원 삭제-->
+    <select id="deleteTeam" statementType="CALLABLE" parameterType="com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo" resultType="integer">
+        CALL rd_data.p_play_maker_team_del(#{teamNo}, #{chrgrName})
+    </select>
+</mapper>

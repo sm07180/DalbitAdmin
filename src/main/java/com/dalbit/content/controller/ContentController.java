@@ -94,27 +94,27 @@ public class ContentController {
     }
 
     @GetMapping("/event/photo/shot/list")
-    public String photoShotList(){
+    public String photoShotList() {
         return "content/event/shot/list";
     }
 
     @GetMapping("/event/knowhow/list")
-    public String knowhowList(){
+    public String knowhowList() {
         return "content/event/knowhow/list";
     }
 
     @GetMapping("/event/member/list")
-    public String memberList(){
+    public String memberList() {
         return "content/event/member/list";
     }
 
     @GetMapping("/event/chuseok/freeDalList")
-    public String freeDalList(){
+    public String freeDalList() {
         return "content/event/chuseok/freeDalList";
     }
 
     @GetMapping("/event/chuseok/purchaseList")
-    public String purchaseList(){
+    public String purchaseList() {
         return "content/event/chuseok/purchaseList";
     }
 
@@ -154,7 +154,9 @@ public class ContentController {
     }
 
     @RequestMapping("/message/popup/messagePopup")
-    public String messagePopup(Model model) { return "content/message/popup/messagePopup"; }
+    public String messagePopup(Model model) {
+        return "content/message/popup/messagePopup";
+    }
 
     @GetMapping("/ios/list")
     public String iosList() {
@@ -183,27 +185,27 @@ public class ContentController {
 
     @GetMapping("/ios/version")
     @ResponseBody
-    public String iosVersion(){
+    public String iosVersion() {
         HashMap result = iosAppService.getVersion();
         return gsonUtil.toJson(new JsonOutputVo((Status) result.get("status"), result.get("data")));
     }
 
     @GetMapping("/ios/app")
     @ResponseBody
-    public String iosApp(HttpServletRequest request){
+    public String iosApp(HttpServletRequest request) {
         HashMap result = iosAppService.getApp(request);
         return gsonUtil.toJson(new JsonOutputVo((Status) result.get("status"), result.get("data")));
     }
 
     @PostMapping("/ios")
     @ResponseBody
-    public String iosInsert(HttpServletRequest request){
+    public String iosInsert(HttpServletRequest request) {
         return gsonUtil.toJson(new JsonOutputVo(iosAppService.doInsert(request)));
     }
 
     @DeleteMapping("/ios")
     @ResponseBody
-    public String iosDelete(HttpServletRequest request){
+    public String iosDelete(HttpServletRequest request) {
         return gsonUtil.toJson(new JsonOutputVo(iosAppService.doDelete(request)));
     }
 
@@ -231,6 +233,7 @@ public class ContentController {
     public String noticeEdit() {
         return "content/notice/noticeEdit";
     }
+
     @GetMapping("/siteban/list")
     public String sitebanList() {
         return "content/siteban/list";
@@ -252,45 +255,82 @@ public class ContentController {
     }
 
     @GetMapping("/fullmoon/list")
-    public String fullmoonList() {return "content/fullmoon/list";}
+    public String fullmoonList() {
+        return "content/fullmoon/list";
+    }
 
     @GetMapping("/newvilevel/info")
-    public String newvilevelInfo() {return "content/newvilevel/info";}
+    public String newvilevelInfo() {
+        return "content/newvilevel/info";
+    }
 
     @GetMapping("/fanrank/onOffList")
-    public String fanrankOnOffList() {return "content/fanrank/onOffList";}
+    public String fanrankOnOffList() {
+        return "content/fanrank/onOffList";
+    }
 
     @GetMapping("/event/content/list")
-    public String eventContentManage() {return "content/event/content/list";}
+    public String eventContentManage() {
+        return "content/event/content/list";
+    }
 
     @GetMapping("/event/champion/rank")
-    public String championRank() {return "content/event/champion/rank";}
+    public String championRank() {
+        return "content/event/champion/rank";
+    }
 
     @GetMapping("/event/djFanPrize/list")
-    public String event2111() {return "content/event/djFanPrize/list";}
+    public String event2111() {
+        return "content/event/djFanPrize/list";
+    }
 
     @GetMapping("/event/draw/list")
-    public String eventDraw() {return "content/event/draw/list";}
+    public String eventDraw() {
+        return "content/event/draw/list";
+    }
 
     @GetMapping("/event/kkanbu/list")
-    public String kkanbu() {return "content/event/kkanbu/list";}
+    public String kkanbu() {
+        return "content/event/kkanbu/list";
+    }
 
     @GetMapping("/event/xmasTree/list")
-    public String xmasTree() {return "content/event/xmas/list";}
+    public String xmasTree() {
+        return "content/event/xmas/list";
+    }
 
     @GetMapping("/event/welcome/list")
-    public String welcome() {return "content/event/welcome/list";}
+    public String welcome() {
+        return "content/event/welcome/list";
+    }
 
     @GetMapping("/event/tothemoon/list")
-    public String tothemoon() {return "content/event/tothemoon/list";}
+    public String tothemoon() {
+        return "content/event/tothemoon/list";
+    }
 
     @GetMapping("/event/goodstart/list")
-    public String goodStart() {return "content/event/goodstart/list";}
+    public String goodStart() {
+        return "content/event/goodstart/list";
+    }
 
     @GetMapping("/event/goodstart/special/score/detail")
-    public String specialScoreDetail(Model model, @RequestParam(value = "specialDetailData") String specialDetailData ) {
+    public String specialScoreDetail(Model model, @RequestParam(value = "specialDetailData") String specialDetailData) {
         model.addAttribute("specialDetailData", specialDetailData);
         return "content/event/goodstart/specialScoreDetail";
     }
-}
 
+    @GetMapping("/event/invite/list")
+    public String invite() {
+        return "content/event/invite/list";
+    }
+
+    /**
+     * 리브랜딩 이벤트
+     * @return
+     */
+    @GetMapping("/event/rebrand/list")
+    public String rebrand() {
+        return "content/event/rebrand/list";
+    }
+}

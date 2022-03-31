@@ -32,6 +32,7 @@ public class BroadcastController {
 
     /**
      * 생방송 목록
+     *
      * @param model
      * @return
      */
@@ -41,14 +42,16 @@ public class BroadcastController {
     }
 
     @RequestMapping("/broadcast/popup/broadcastPopup")
-    public String broadcastPopup(Model model) { return "broadcast/broadcast/popup/broadcastPopup"; }
+    public String broadcastPopup(Model model) {
+        return "broadcast/broadcast/popup/broadcastPopup";
+    }
 
     @RequestMapping("/broadcast/popup/playerPopup")
     public String playerPopup(HttpServletRequest request) {
-        if(playerType.equals("wowza")){
+        if (playerType.equals("wowza")) {
             bro_broadcastService.callBroadcastWowzaSimpleInfo(request);
             return "broadcast/broadcast/popup/playerPopup_wowza";
-        }else{
+        } else {
             bro_broadcastService.callBroadcastSimpleInfo(request);
             return "broadcast/broadcast/popup/playerPopup";
         }
@@ -56,10 +59,10 @@ public class BroadcastController {
 
     @RequestMapping("/broadcast/popup/videoPlayerPopup")
     public String videoPlayerPopup(HttpServletRequest request) {
-        if(playerType.equals("wowza")){
+        if (playerType.equals("wowza")) {
             bro_broadcastService.callBroadcastWowzaSimpleInfo(request);
             return "broadcast/broadcast/popup/playerPopup_wowza_video";
-        }else{
+        } else {
             bro_broadcastService.callBroadcastSimpleInfo(request);
             return "broadcast/broadcast/popup/playerPopup";
         }
@@ -67,6 +70,7 @@ public class BroadcastController {
 
     /**
      * 생방송 목록
+     *
      * @param model
      * @return
      */
@@ -76,14 +80,29 @@ public class BroadcastController {
     }
 
     @RequestMapping("/live/popup/storyPopup")
-    public String storyPopup(Model model) { return "broadcast/live/popup/storyPopup"; }
+    public String storyPopup(Model model) {
+        return "broadcast/live/popup/storyPopup";
+    }
 
     @RequestMapping("/live/popup/noticeSendPopup")
-    public String noticeSendPopup(Model model) { return "broadcast/live/popup/noticeSendPopup"; }
+    public String noticeSendPopup(Model model) {
+        return "broadcast/live/popup/noticeSendPopup";
+    }
 
     @GetMapping("/live/popup/cctv")
     public String livePopupCctv(Model model) {
         return "broadcast/live/popup/cctv";
+    }
+
+    /**
+     * 플레이메이커 목록
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/playMaker/list")
+    public String playmaker(Model model) {
+        return "broadcast/playmaker/list";
     }
 
 }

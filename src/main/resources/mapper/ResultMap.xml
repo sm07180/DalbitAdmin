@@ -51,11 +51,15 @@
 
 	<!-- 신입회원 WELCOME -->
 	<resultMap id="P_WelcomeDjStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeDjStepOutputVo" />
-	<resultMap id="P_WelcomeGiftInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo" />
+	<resultMap id="P_WelcomeUserGiftInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeUserGiftInputVo" />
 	<resultMap id="P_WelcomeInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeInputVo" />
 	<resultMap id="P_WelcomeListenersStepOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeListenersStepOutputVo" />
 	<resultMap id="P_WelcomeStatusOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeStatusOutputVo" />
 	<resultMap id="P_WelcomeTotalListOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeTotalListOutputVo" />
+	<resultMap id="P_WelcomeGiftInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo" />
+	<resultMap id="P_WelcomeGiftOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeGiftOutputVo" />
+	<resultMap id="P_WelcomeQualifyInputVo" type="com.dalbit.content.vo.procedure.P_WelcomeQualifyInputVo" />
+	<resultMap id="P_WelcomeQualifyOutputVo" type="com.dalbit.content.vo.procedure.P_WelcomeQualifyOutputVo" />
 
 	<!-- 달나라갈꺼니까! -->
 	<resultMap id="P_ToTheMoonInputVo" type="com.dalbit.content.vo.procedure.P_ToTheMoonInputVo" />
@@ -81,4 +85,10 @@
 	<!-- miniGame Event -->
 	<resultMap id="MiniGameCntVo" type="com.dalbit.content.vo.MiniGameCntVo"/>
 	<resultMap id="MiniGameVo" type="com.dalbit.content.vo.MiniGameVo"/>
+
+	<!-- 친구초대 이벤트 (달라) -->
+	<resultMap id="P_InviteInputVo" type="com.dalbit.content.vo.procedure.P_InviteInputVo" />
+	<resultMap id="P_InviteListOutputVo" type="com.dalbit.content.vo.procedure.P_InviteListOutputVo" />
+	<resultMap id="P_InviteRecvListOutputVo" type="com.dalbit.content.vo.procedure.P_InviteRecvListOutputVo" />
+	<resultMap id="P_InviteStateOutputVo" type="com.dalbit.content.vo.procedure.P_InviteStateOutputVo" />
 </mapper>
