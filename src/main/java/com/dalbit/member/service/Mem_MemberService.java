@@ -914,14 +914,18 @@ public class Mem_MemberService {
      * 법정대리인 동의 철회 (결제)
      */
     public Integer updatePayRecant(String memNo) {
-        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
-        pMemberEditorVo.setMem_no(memNo);
-        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
-        pMemberEditorVo.setEditContents("법정대리인 동의정보 철회(결제)");
-        pMemberEditorVo.setType(0);
+        Integer parentAuthDelResult = p_member.parentsAuthDel(memNo);
+        if(parentAuthDelResult == 1) {
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(memNo);
+            pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+            pMemberEditorVo.setEditContents("법정대리인 동의정보 철회(결제)");
+            pMemberEditorVo.setType(0);
 
-        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
-        return p_member.parentsAuthDel(memNo);
+            mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+        }
+
+        return parentAuthDelResult;
     }
 
     /**
@@ -942,14 +946,18 @@ public class Mem_MemberService {
      * 법정대리인 동의 복귀 (결제)
      */
     public Integer updatePayBackRecant(String memNo) {
-        P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
-        pMemberEditorVo.setMem_no(memNo);
-        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
-        pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀(결제)");
-        pMemberEditorVo.setType(0);
+        Integer parentsAuthRecoveryResult = p_member.parentsAuthRecovery(memNo);
+        if(parentsAuthRecoveryResult == 1) {
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(memNo);
+            pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+            pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀(결제)");
+            pMemberEditorVo.setType(0);
 
-        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
-        return p_member.parentsAuthRecovery(memNo);
+            mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+        }
+
+        return parentsAuthRecoveryResult;
     }
 
     /**

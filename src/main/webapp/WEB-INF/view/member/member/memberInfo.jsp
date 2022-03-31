@@ -1680,6 +1680,34 @@
             </td>
         </tr>
         <tr>
+            <th>성별</th>
+            <td style="text-align: left">
+                <label class="mt5">{{{getCommonCodeRadio memSex 'memSex'}}}</label>
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}"
+                        data-nickname="{{nickName}}">변경
+                </button>
+                {{/equal}}
+            </td>
+            <th>법정대리인<br/>(보호자)<br/>동의_결제</th>
+            <td style="text-align: left;">
+                {{#equal parentsAuthChk 'y'}}
+                <label style="color: red; font-weight: bold;">Yes</label>
+                <button type="button" id="pay_agree_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
+                <button type="button" id="pay_parent_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                {{else}}
+                <label style="font-weight: bold;">No</label>
+                <button type="button" id="pay_agree_back_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
+                <button type="button" id="pay_parent_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                {{/equal}}
+            </td>
+            <th rowspan="2">운영자<br>메모</th>
+            <td rowspan="2" colspan="7" style="text-align: left;">
+                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
+                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
+            </td>
+        </tr>
+        <tr>
             <th>생년월일</th>
             <td style="text-align: left">
                 <div class="input-group date" id="date_birth" style="width:75%;">
@@ -1697,36 +1725,6 @@
             <th>나이</th>
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
-            <th rowspan="2">운영자<br>메모</th>
-            <td rowspan="2" colspan="3" style="text-align: left;">
-                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
-                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
-            </td>
-            <th rowspan="2">법정대리인<br/>(보호자)<br/>동의_환전</th>
-            <td rowspan="2" colspan="3" style="text-align: left;">
-                {{#equal parentsAuthChk 'y'}}
-                <label style="color: red; font-weight: bold;">Yes</label>
-                <button type="button" id="pay_agree_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
-                <button type="button" id="pay_parent_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
-                {{else}}
-                <label style="font-weight: bold;">No</label>
-                <button type="button" id="pay_agree_back_recant" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
-                <button type="button" id="pay_parent_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
-                {{/equal}}
-            </td>
-        </tr>
-        <tr>
-            <th>성별</th>
-            <td colspan="3" style="text-align: left">
-                <label class="mt5">{{{getCommonCodeRadio memSex 'memSex'}}}</label>
-                {{#equal memWithdrawal '0'}}
-                <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}"
-                        data-nickname="{{nickName}}">변경
-                </button>
-                {{/equal}}
-            </td>
-        </tr>
-        <tr>
         </tr>
         <tr>
             <th>비밀번호</th>
