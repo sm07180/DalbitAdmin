@@ -67,4 +67,17 @@ public interface Ent_PayDao {
 
     @Transactional(readOnly = true)
     List<P_RevenueProcessVo> callWithdrawalByeol(ProcedureVo procedureVo);
+
+    /**
+     * 외부결제 설정 정보
+     * @return
+     */
+    P_PaymentSetOutputVo selectPaymentSet();
+
+    /**
+     * 외부결제 설정
+     * @param pPaymentSetInputVo
+     * @return
+     */
+    int updatePaymentSet(P_PaymentSetInputVo pPaymentSetInputVo);
 }

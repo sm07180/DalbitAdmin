@@ -7,10 +7,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.status.dao.Sta_LevelDao;
 import com.dalbit.status.proc.P_Level;
-import com.dalbit.status.vo.procedure.P_LevelInputVo;
-import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
-import com.dalbit.status.vo.procedure.P_LevelOutputVo;
-import com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo;
+import com.dalbit.status.vo.procedure.*;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
@@ -18,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -61,6 +59,57 @@ public class Sta_LevelService {
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(procedureVo.getRet()) ,summary));
 
+        return result;
+    }
+
+    public String getMemberLevelV2(P_LevelSearchInputVo pLevelSearchInputVo) {
+        List<Object> getList = staLevelDao.callMemberLevelListV2(pLevelSearchInputVo);
+        P_LevelSearchCount1OutputVo memLevel1 = DBUtil.getData(getList, P_LevelSearchCount1OutputVo.class);
+        P_LevelSearchCount2OutputVo memLevel2 = DBUtil.getData(getList, P_LevelSearchCount2OutputVo.class);
+        P_LevelSearchCount3OutputVo memLevel3 = DBUtil.getData(getList, P_LevelSearchCount3OutputVo.class);
+        P_LevelSearchCount4OutputVo memLevel4 = DBUtil.getData(getList, P_LevelSearchCount4OutputVo.class);
+        P_LevelSearchCount5OutputVo memLevel5 = DBUtil.getData(getList, P_LevelSearchCount5OutputVo.class);
+        P_LevelSearchCount6OutputVo memLevel6 = DBUtil.getData(getList, P_LevelSearchCount6OutputVo.class);
+        P_LevelSearchCount7OutputVo memLevel7 = DBUtil.getData(getList, P_LevelSearchCount7OutputVo.class);
+        P_LevelSearchCount8OutputVo memLevel8 = DBUtil.getData(getList, P_LevelSearchCount8OutputVo.class);
+        P_LevelSearchCount9OutputVo memLevel9 = DBUtil.getData(getList, P_LevelSearchCount9OutputVo.class);
+        P_LevelSearchTotalOutputVo totalCount = DBUtil.getData(getList, P_LevelSearchTotalOutputVo.class);
+        List<P_LevelSearchOutputVo> list = DBUtil.getList(getList, P_LevelSearchOutputVo.class);
+
+        P_LevelSearchSummaryOutputVo summary = new P_LevelSearchSummaryOutputVo();
+        if ("y".equals(pLevelSearchInputVo.getChrgrYn())) {
+            summary.setLevel0(memLevel1.getMem_level_0() - memLevel1.getChrgr_level_0());
+            summary.setLevel1_10(memLevel2.getMem_level_1_10() - memLevel2.getChrgr_level_1_10());
+            summary.setLevel11_20(memLevel3.getMem_level_11_20() - memLevel3.getChrgr_level_11_20());
+            summary.setLevel21_30(memLevel4.getMem_level_21_30() - memLevel4.getChrgr_level_21_30());
+            summary.setLevel31_40(memLevel5.getMem_level_31_40() - memLevel5.getChrgr_level_31_40());
+            summary.setLevel41_50(memLevel6.getMem_level_41_50() - memLevel6.getChrgr_level_41_50());
+            summary.setLevel51_60(memLevel7.getMem_level_51_60() - memLevel7.getChrgr_level_51_60());
+            summary.setLevel61_70(memLevel8.getMem_level_61_70() - memLevel8.getChrgr_level_61_70());
+            summary.setLevel71_120(memLevel9.getMem_level_71_120() - memLevel9.getChrgr_level_71_120());
+        } else {
+            summary.setLevel0(memLevel1.getMem_level_0());
+            summary.setLevel1_10(memLevel2.getMem_level_1_10());
+            summary.setLevel11_20(memLevel3.getMem_level_11_20());
+            summary.setLevel21_30(memLevel4.getMem_level_21_30());
+            summary.setLevel31_40(memLevel5.getMem_level_31_40());
+            summary.setLevel41_50(memLevel6.getMem_level_41_50());
+            summary.setLevel51_60(memLevel7.getMem_level_51_60());
+            summary.setLevel61_70(memLevel8.getMem_level_61_70());
+            summary.setLevel71_120(memLevel9.getMem_level_71_120());
+        }
+        int totalLevelCnt = summary.getLevel0()
+                + summary.getLevel1_10()
+                + summary.getLevel11_20()
+                + summary.getLevel21_30()
+                + summary.getLevel31_40()
+                + summary.getLevel41_50()
+                + summary.getLevel51_60()
+                + summary.getLevel61_70()
+                + summary.getLevel71_120();
+        summary.setTotalLevelCnt(totalLevelCnt);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCount.getCnt()), summary));
         return result;
     }
 

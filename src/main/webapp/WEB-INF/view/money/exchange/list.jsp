@@ -9,6 +9,7 @@
 <%
     String in_tabType = request.getParameter("tabType");
 %>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -103,7 +104,7 @@
                             </li>
                             <li class="_tab">
                                 <a href="#recommend" id="tab_playmaker" name="tab_playmaker" role="tab"
-                                   data-toggle="tab" data-specialDj="0" data-playmaker="2">플레이메이커</a>
+                                   data-toggle="tab" data-specialDj="2">플레이메이커</a>
                             </li>
                             <li class="_tab">
                                 <a href="#recommend" id="tab_user" name="tab_user" role="tab" data-toggle="tab"
@@ -241,7 +242,7 @@
       , slctType: $("#search_state").val()
       , orderType: $("#exchange_sort").val()
       , innerType: $('input[name="search_testId"]').prop('checked') ? 1 : 0
-      , djType: $('._tab.active a').data('playmaker') ? $('._tab.active a').data('playmaker') : $('._tab.active a').data('specialdj')
+      , djType: $('._tab.active a').data('specialdj')
       , newSearchType: $("#searchMember").val()
     };
   }
@@ -251,6 +252,27 @@
   }
 
   function fn_succ_summary(dst_id, response) {
+    var playmaker_total_cnt = 0;
+    var playmaker_total_amount = 0;
+    var playmaker_total_star = 0;
+
+    response.data.playmakerSummaryList.forEach(function (data, i) {
+      $('._summary_playmaker_' + i).html(common.addComma(data));
+      if (i == 0 || i == 3) {
+        playmaker_total_cnt += data;
+      }
+      if (i == 1 || i == 4) {
+        playmaker_total_amount += data;
+      }
+      if (i == 2 || i == 5) {
+        playmaker_total_star += data;
+      }
+    });
+
+    $('._summary_total_playmaker_cnt').html(common.addComma(playmaker_total_cnt));
+    $('._summary_total_playmaker_amount').html(common.addComma(playmaker_total_amount));
+    $('._summary_total_playmaker_star').html(common.addComma(playmaker_total_star));
+
     var special_total_cnt = 0;
     var special_total_amount = 0;
     var special_total_star = 0;
@@ -301,19 +323,6 @@
     selectTab = targetAnchor.data('specialdj');
 
     if (targetAnchor.data('specialdj') != null) {
-      $("#monthDate").show();
-      $("#exchangeCheckArea").attr('style', 'display:none !important;');
-      $("#searchStateArea").show();
-      $("#summaryArea").show();
-      $("#div_testIdTable").hide();
-      $("#th_bottonList").show();
-      // $("#searchText").hide();
-      $('._nextSearch').show();
-      $('._prevSearch').show();
-      $('._todaySearch').show();
-
-      exchangeList(tmp);
-    } else if (targetAnchor.prop('id') == 'tab_playmaker') {
       $("#monthDate").show();
       $("#exchangeCheckArea").attr('style', 'display:none !important;');
       $("#searchStateArea").show();
@@ -945,13 +954,13 @@
 
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
     <div class="col-lg-12 no-padding" style="height: 106px;">
-        <table class="table table-bordered table-summary pull-right no-margin _tableHeight"
-               style="width: 48%;font: message-box;" data-height="24">
+        <table class="table table-bordered table-summary2 pull-right no-margin _tableHeight"
+               style="width: 33%;font: message-box;" data-height="24">
             <colgroup>
-                <col width="80px"/>
-                <col width="80px"/>
-                <col width="100px"/>
-                <col width="80px"/>
+                <col width="50px"/>
+                <col width="auto"/>
+                <col width="auto"/>
+                <col width="auto"/>
             </colgroup>
             <thead>
             <tr>
@@ -997,13 +1006,65 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-bordered table-summary pull-right no-margin _tableHeight" style="width: 48%"
+        <table class="table table-bordered table-summary2 pull-right no-margin _tableHeight" style="width: 33%"
                data-height="24">
             <colgroup>
-                <col width="80px"/>
-                <col width="80px"/>
-                <col width="100px"/>
-                <col width="80px"/>
+                <col width="50px"/>
+                <col width="auto"/>
+                <col width="auto"/>
+                <col width="auto"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ff33cc" data-fontcolor="white">플레이메이커</th>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <th>건 수</th>
+                <th>금액</th>
+                <th>요청 별</th>
+            </tr>
+            </thead>
+            <tbody id="tb_playmaker_summary">
+            <tr>
+                <th>미처리</th>
+                <td><span class="_summary_playmaker_0">0</span>건</td>
+                <td><span class="_summary_playmaker_1">0</span>원</td>
+                <td><span class="_summary_playmaker_2">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리완료</th>
+                <td><span class="_summary_playmaker_3">0</span>건</td>
+                <td><span class="_summary_playmaker_4">0</span>원</td>
+                <td><span class="_summary_playmaker_5">0</span>별</td>
+            </tr>
+            <tr class="_fontColor" data-fontcolor="#ff5600">
+                <th>총계</th>
+                <th><span class="_summary_total_playmaker_cnt">0</span>건</th>
+                <th><span class="_summary_total_playmaker_amount">0</span>원</th>
+                <th><span class="_summary_total_playmaker_star">0</span>별</th>
+            </tr>
+            <tr style="border-left: hidden;border-right: hidden; height: 5px;">
+                <td colspan="4" style="height: 5px;"></td>
+            </tr>
+            <tr>
+                <th>환전취소</th>
+                <td><span class="_summary_playmaker_6">0</span>건</td>
+                <!-- 양과장님 요청으로 수치 표현 안함 -->
+                <!--<td><span class="_summary_special_7">0</span>원</td>
+                <td><span class="_summary_special_8">0</span>별</td>-->
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-summary2 pull-right no-margin _tableHeight" style="width: 33%"
+               data-height="24">
+            <colgroup>
+                <col width="50px"/>
+                <col width="auto"/>
+                <col width="auto"/>
+                <col width="auto"/>
             </colgroup>
             <thead>
             <tr>
@@ -1161,6 +1222,9 @@
             {{#dalbit_if selectTab '==' 1}}
             <th>스페셜DJ<br/>혜택</th>
             {{/dalbit_if}}
+            {{#dalbit_if selectTab '==' 2}}
+            <th>플레이메이커<br/>혜택</th>
+            {{/dalbit_if}}
             <th>실수령액</th>
             <th>환전<br/>누적금액</th>
             <th>신청 전 별</th>
@@ -1223,10 +1287,12 @@
     </td>
     <td>{{data.account_name}}</td>
     <td>{{addComma data.cash_basic}}원</td>
-    {{#dalbit_if ../selectTab '==' 1}}
-    <td>{{addComma data.benefit}}원</td>{{/dalbit_if}}
-    <td><a href="javascript://" id="totalCashReal" data-idx="{{idx}}" data-account_name="{{account_name}}">{{addComma
-        data.cash_real}}원</a></td>
+    {{#dalbit_if ../selectTab '!=' 0}}
+    <td>{{addComma data.benefit}}원</td>
+    {{/dalbit_if}}
+    <td>
+        <a href="javascript://" id="totalCashReal" data-idx="{{idx}}" data-account_name="{{account_name}}">{{addComma data.cash_real}}원</a>
+    </td>
     <td>{{addComma data.totalCashReal}}원</td>
     <td>{{addComma data.gold_old}}별</td>
     <td>{{addComma data.byeol}}별</td>

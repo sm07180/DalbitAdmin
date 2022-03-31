@@ -19,6 +19,9 @@ public class P_ExchangeWeekOutDetailVo extends SearchVo {
     private int specialdj_succ_Cnt;
     private int specialdj_succ_Amt;
     private int specialdj_succ_byeol_Cnt;
+    private int pm_succ_Cnt;
+    private int pm_succ_Amt;
+    private int pm_succ_byeol_Cnt;
     private int succ_Cnt;
     private int succ_Amt;
     private int succ_byeol_Cnt;

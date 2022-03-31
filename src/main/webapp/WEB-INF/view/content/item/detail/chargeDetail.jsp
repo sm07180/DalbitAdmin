@@ -51,14 +51,13 @@
         fnc_chargeDetail.target.find("input[name='platform']:radio").change(function () {
             var type = this.value;
 
-            if(type == "001"){
+            if(type == "001" || type == "010"){
                 fnc_chargeDetail.target.find("input[name=item_code]").show();
             }else{
                 fnc_chargeDetail.target.find("input[name=item_code]").hide();
                 fnc_chargeDetail.target.find("input[name=item_code]").val("");
             }
         });
-
 
         // 등록 버튼
         fnc_chargeDetail.target.find("#insertBtn").on("click", function () {
@@ -354,9 +353,9 @@
 
                     <th rowspan="2">플랫폼</th>
                     <td colspan="2" rowspan="2">
-                        {{^item_code}}{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}{{/item_code}}
+                        {{^item_code}}{{{getCommonCodeRadio platform 'content_platform7' 'Y' 'platform'}}}{{/item_code}}
                         {{#item_code}}
-                            {{{getCommonCodeLabel ../platform 'content_platform3'}}}
+                            {{{getCommonCodeLabel ../platform 'content_platform7'}}}
                             <input type="hidden" name="platform" value="{{../platform}}" />
                         {{/item_code}}
                     </td>

@@ -360,4 +360,19 @@
 
     </select>
 
+    <resultMap id="P_LevelSearchCount1OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount1OutputVo" />
+    <resultMap id="P_LevelSearchCount2OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount2OutputVo" />
+    <resultMap id="P_LevelSearchCount3OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount3OutputVo" />
+    <resultMap id="P_LevelSearchCount4OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount4OutputVo" />
+    <resultMap id="P_LevelSearchCount5OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount5OutputVo" />
+    <resultMap id="P_LevelSearchCount6OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount6OutputVo" />
+    <resultMap id="P_LevelSearchCount7OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount7OutputVo" />
+    <resultMap id="P_LevelSearchCount8OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount8OutputVo" />
+    <resultMap id="P_LevelSearchCount9OutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchCount9OutputVo" />
+    <resultMap id="P_LevelSearchOutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchOutputVo" />
+    <resultMap id="P_LevelSearchTotalOutputVo" type="com.dalbit.status.vo.procedure.P_LevelSearchTotalOutputVo" />
+    <select id="callMemberLevelListV2" statementType="CALLABLE" parameterType="com.dalbit.status.vo.procedure.P_LevelSearchInputVo" resultMap="P_LevelSearchCount1OutputVo,P_LevelSearchCount2OutputVo,P_LevelSearchCount3OutputVo,P_LevelSearchCount4OutputVo,P_LevelSearchCount5OutputVo,P_LevelSearchCount6OutputVo,P_LevelSearchCount7OutputVo,P_LevelSearchCount8OutputVo,P_LevelSearchCount9OutputVo,P_LevelSearchTotalOutputVo,P_LevelSearchOutputVo">
+        /* Sta_Level.xml - callMemberLevelListV2 */
+        call rd_admin.p_adm_member_level_list(#{lastLoginYn}, #{chrgrYn}, #{levelSlct}, #{searchVal}, #{searchSlct}, #{pageNo}, #{pageCnt})
+    </select>
 </mapper>

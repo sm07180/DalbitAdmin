@@ -105,7 +105,6 @@
 
     $(function (){
         $("#exchangeSort").html(util.getCommonCodeSelect('', exchange_sort));
-
         getExchangeList();
     });
 

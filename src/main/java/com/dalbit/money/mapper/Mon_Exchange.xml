@@ -63,6 +63,7 @@
         inner join rd_data.tb_member_profile profile on exchange.mem_no = profile.mem_no
         inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
         left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no and special.select_year = #{search_year} and special.select_month = #{search_month}
+        left join rd_data.tb_play_maker_mem p on exchange.mem_no = p.mem_no AND end_date > NOW()
         left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
         left join rd_data.tb_member_withdrawal_bak withdrawal on exchange.mem_no = withdrawal.mem_no
         inner join (select @RNUM := 0) r
@@ -152,6 +153,9 @@
                             </when>
                             <when test="isSpecial == 1">
                                 and special.mem_no is not null
+                            </when>
+                            <when test="isSpecial == 2">
+                                and p.mem_no is not null
                             </when>
                         </choose>
                     </when>
@@ -271,6 +275,7 @@
 
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state = 0
         <choose>
             <when test="end_year == null">
@@ -284,10 +289,13 @@
 
         <choose>
             <when test="isSpecial == 0">
-                and special.mem_no is null
+                and special.mem_no is null and p.mem_no is null
             </when>
             <when test="isSpecial == 1">
-                and special.mem_no is not null
+                and special.mem_no is not null and p.mem_no is null
+            </when>
+            <when test="isSpecial == 2">
+                and p.mem_no is not null
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -317,7 +325,7 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
-
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state = 0
         <choose>
             <when test="end_year == null">
@@ -331,10 +339,13 @@
 
         <choose>
             <when test="isSpecial == 0">
-                and special.mem_no is null
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and special.mem_no is not null
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -363,6 +374,7 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state = 0
         <choose>
             <when test="end_year == null">
@@ -375,10 +387,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and special.mem_no is null
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and special.mem_no is not null
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -409,6 +424,7 @@
         </choose>
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state = 1
         <choose>
             <when test="end_year == null">
@@ -421,10 +437,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and benefit = 0
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and benefit != 0
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -454,6 +473,7 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state = 1
         <choose>
             <when test="end_year == null">
@@ -466,10 +486,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and benefit = 0
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and benefit != 0
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -499,6 +522,7 @@
         on exchange.mem_no = basic.mem_no
 
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state = 1
         <choose>
             <when test="end_year == null">
@@ -511,10 +535,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and benefit = 0
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and benefit != 0
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -545,7 +572,7 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
-
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state in ( 2, 4 )
         <choose>
             <when test="end_year == null">
@@ -559,10 +586,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and special.mem_no is null
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and special.mem_no is not null
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -592,6 +622,7 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state in ( 2, 4 )
         <choose>
             <when test="end_year == null">
@@ -605,10 +636,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and special.mem_no is null
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and special.mem_no is not null
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -638,6 +672,7 @@
         on exchange.mem_no = basic.mem_no
 
         LEFT JOIN rd_data.tb_member_withdrawal_bak f ON exchange.mem_no = f.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
         where exchange.state in ( 2, 4 )
         <choose>
             <when test="end_year == null">
@@ -651,10 +686,13 @@
         </choose>
         <choose>
             <when test="isSpecial == 0">
-                and special.mem_no is null
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
             <when test="isSpecial == 1">
-                and special.mem_no is not null
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
             </when>
         </choose>
         <if test='search_testId == 1'>
@@ -664,51 +702,64 @@
 
     <select id="selectStatSummaryInfo" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo">
         /* Mon_Exchange.xml - selectSummaryInfo */
-        select count(*) cnt
-        , sum(cash_real) sumCashReal
-        , sum(byeol) sumByeol
-        from rd_data.tb_member_exchange exchange
-        where concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
-        and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+        SELECT COUNT(*) cnt, SUM(cash_real) sumCashReal, SUM(byeol) sumByeol
+        FROM rd_data.tb_member_exchange exchange
+        LEFT JOIN rd_admin.tb_special_dj special ON exchange.mem_no = special.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
+        WHERE concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+        AND DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
         <choose>
             <when test="isSpecial == 0">
-                and exchange.benefit = 0
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
-            <otherwise>
-                and exchange.benefit != 0
-            </otherwise>
+            <when test="isSpecial == 1">
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
+            </when>
         </choose>
 
-        union all
+        UNION ALL
 
-        select count(*) cnt, sum(cash_real) sumCashReal, sum(byeol) sumByeol
-        from rd_data.tb_member_exchange exchange
-        where (state in (0, 1, 4) or (state = 2 and last_reject = 1))
-        and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
-        and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+        SELECT COUNT(*) cnt, SUM(cash_real) sumCashReal, SUM(byeol) sumByeol
+        FROM rd_data.tb_member_exchange exchange
+        LEFT JOIN rd_admin.tb_special_dj special ON exchange.mem_no = special.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
+        WHERE (state IN (0, 1, 4) OR (state = 2 AND last_reject = 1))
+        AND CONCAT(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+        AND DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
         <choose>
             <when test="isSpecial == 0">
-                and exchange.benefit = 0
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
-            <otherwise>
-                and exchange.benefit != 0
-            </otherwise>
+            <when test="isSpecial == 1">
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
+            </when>
         </choose>
 
-        union all
+        UNION ALL
 
-        select count(*) cnt, sum(cash_real) sumCashReal, sum(byeol) sumByeol
-        from rd_data.tb_member_exchange exchange
-        where state in ( 2, 4 )
-        and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
-        and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+        SELECT COUNT(*) cnt, SUM(cash_real) sumCashReal, SUM(byeol) sumByeol
+        FROM rd_data.tb_member_exchange exchange
+        LEFT JOIN rd_admin.tb_special_dj special ON exchange.mem_no = special.mem_no
+        LEFT JOIN rd_data.tb_play_maker_mem p ON exchange.mem_no = p.mem_no AND end_date > NOW()
+        WHERE state IN ( 2, 4 )
+        AND CONCAT(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+        AND DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
         <choose>
             <when test="isSpecial == 0">
-                and exchange.benefit = 0
+                AND special.mem_no IS NULL AND p.mem_no IS NULL
             </when>
-            <otherwise>
-                and exchange.benefit != 0
-            </otherwise>
+            <when test="isSpecial == 1">
+                AND special.mem_no IS NOT NULL AND p.mem_no IS NULL
+            </when>
+            <when test="isSpecial == 2">
+                AND p.mem_no IS NOT NULL
+            </when>
         </choose>
     </select>
 

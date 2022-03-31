@@ -29,6 +29,9 @@ public class P_ExchangeTotalOutDetailVo extends SearchVo {
     private int specialdj_succ_Cnt = 0;
     private int specialdj_succ_Amt = 0;
     private int specialdj_succ_byeol_Cnt = 0;
+    private int pm_succ_Cnt = 0;
+    private int pm_succ_Amt = 0;
+    private int pm_succ_byeol_Cnt = 0;
     private int succ_Cnt = 0;
     private int succ_Amt = 0;
     private int succ_byeol_Cnt = 0;
@@ -40,6 +43,9 @@ public class P_ExchangeTotalOutDetailVo extends SearchVo {
     private int nSpecialdj_succ_Cnt = 0;
     private int nSpecialdj_succ_Amt = 0;
     private int nSpecialdj_succ_byeol_Cnt = 0;
+    private int nPm_succ_Cnt = 0;
+    private int nPm_succ_Amt = 0;
+    private int nPm_succ_byeol_Cnt = 0;
     private int nSucc_Cnt = 0;
     private int nSucc_Amt = 0;
     private int nSucc_byeol_Cnt = 0;
