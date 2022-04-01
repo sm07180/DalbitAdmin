@@ -218,6 +218,8 @@ public class Mon_ExchangeService {
     }
 
     public String selectExchangeSummary(Mon_ExchangeInputVo monExchangeInputVo){
+        monExchangeInputVo.setIsSpecial(2);
+        ArrayList<Integer> playmakerSummaryList = monExchangeDao.selectSummaryInfo(monExchangeInputVo);
 
         monExchangeInputVo.setIsSpecial(1);
         ArrayList<Integer> specialSummaryList = monExchangeDao.selectSummaryInfo(monExchangeInputVo);
@@ -226,6 +228,7 @@ public class Mon_ExchangeService {
         ArrayList<Integer> generalSummaryList = monExchangeDao.selectSummaryInfo(monExchangeInputVo);
 
         var resultMap = new HashMap<>();
+        resultMap.put("playmakerSummaryList", playmakerSummaryList);
         resultMap.put("specialSummaryList", specialSummaryList);
         resultMap.put("generalSummaryList", generalSummaryList);
 
@@ -233,6 +236,8 @@ public class Mon_ExchangeService {
     }
 
     public String selectStatSummaryInfo(Mon_ExchangeInputVo monExchangeInputVo){
+        monExchangeInputVo.setIsSpecial(2);
+        ArrayList<Mon_ExchangeSummaryOutputVo> playmakerSummaryList = monExchangeDao.selectStatSummaryInfo(monExchangeInputVo);
 
         monExchangeInputVo.setIsSpecial(1);
         ArrayList<Mon_ExchangeSummaryOutputVo> specialSummaryList = monExchangeDao.selectStatSummaryInfo(monExchangeInputVo);
@@ -241,6 +246,7 @@ public class Mon_ExchangeService {
         ArrayList<Mon_ExchangeSummaryOutputVo> generalSummaryList = monExchangeDao.selectStatSummaryInfo(monExchangeInputVo);
 
         var resultMap = new HashMap<>();
+        resultMap.put("playmakerSummaryList", playmakerSummaryList);
         resultMap.put("specialSummaryList", specialSummaryList);
         resultMap.put("generalSummaryList", generalSummaryList);
 
@@ -544,7 +550,7 @@ public class Mon_ExchangeService {
             hm.put("cashBasic", exchangeVo.getCash_basic());
             cashBasicTotal += exchangeVo.getCash_basic();
 
-            if(monExchangeInputVo.getIsSpecial() == 1){
+            if(monExchangeInputVo.getIsSpecial() != 0){
                 hm.put("benefit", exchangeVo.getBenefit());
                 benefitTotal += exchangeVo.getBenefit();
 
@@ -585,7 +591,7 @@ public class Mon_ExchangeService {
             totalMap.put("accountName", "");
             totalMap.put("cashBasic", cashBasicTotal);
 
-            if(monExchangeInputVo.getIsSpecial() == 1) {
+            if(monExchangeInputVo.getIsSpecial() != 0) {
                 totalMap.put("benefit", benefitTotal);
                 totalMap.put("cashSum", cashBasicTotal + benefitTotal);
             }

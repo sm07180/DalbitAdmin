@@ -251,7 +251,7 @@ public class Mem_MemberRestController {
     }
 
     /**
-     * 법정대리인 동의정보 조회
+     * 법정대리인 동의정보 조회 (환전)
      */
     @PostMapping("parents")
     public String getParentsAgreeInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
@@ -260,7 +260,15 @@ public class Mem_MemberRestController {
     }
 
     /**
-     * 법정대리인 동의 철회
+     * 법정대리인 동의정보 조회 (결제)
+     */
+    @PostMapping("/pay/parents")
+    public String getParentsPayAgreeInfo(@RequestParam(value = "memNo") String memNo){
+        return mem_MemberService.getParentsPayAgreeInfo(memNo);
+    }
+
+    /**
+     * 법정대리인 동의 철회 (환전)
      */
     @PostMapping("recant")
     public int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
@@ -268,11 +276,27 @@ public class Mem_MemberRestController {
     }
 
     /**
-     * 법정대리인 동의 복귀
+     * 법정대리인 동의 철회 (결제)
+     */
+    @PostMapping("/pay/recant")
+    public Integer updatePayRecant(@RequestParam(value = "memNo") String memNo){
+        return mem_MemberService.updatePayRecant(memNo);
+    }
+
+    /**
+     * 법정대리인 동의 복귀 (환전)
      */
     @PostMapping("back/recant")
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
         return mem_MemberService.updateBackRecant(pMemberParentsAgreeInputVo);
+    }
+
+    /**
+     * 법정대리인 동의 복귀 (결제)
+     */
+    @PostMapping("/pay/back/recant")
+    public Integer updatePayBackRecant(@RequestParam(value = "memNo") String memNo){
+        return mem_MemberService.updatePayBackRecant(memNo);
     }
 
     @PostMapping("cancel/cert")

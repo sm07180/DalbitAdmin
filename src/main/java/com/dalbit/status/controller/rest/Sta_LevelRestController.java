@@ -2,6 +2,7 @@ package com.dalbit.status.controller.rest;
 
 import com.dalbit.status.service.Sta_LevelService;
 import com.dalbit.status.vo.procedure.P_LevelInputVo;
+import com.dalbit.status.vo.procedure.P_LevelSearchInputVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,14 @@ public class Sta_LevelRestController {
     }
 
     /**
+     * 회원 레벨별 목록 V2
+     */
+    @PostMapping("listV2")
+    public String listV2(P_LevelSearchInputVo pLevelSearchInputVo){
+        return sta_LevelService.getMemberLevelV2(pLevelSearchInputVo);
+    }
+
+    /**
      * 회원 레벨별 통계
      */
     @PostMapping("summary")
@@ -48,6 +57,5 @@ public class Sta_LevelRestController {
     @PostMapping("level")
     public String level(P_LevelInputVo pLevelInputVo){
         return sta_LevelService.getLevelList(pLevelInputVo);
-
     }
 }

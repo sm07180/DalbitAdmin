@@ -9,6 +9,7 @@ import com.dalbit.common.code.Code;
 import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.dao.CommonDao;
+import com.dalbit.common.proc.Common;
 import com.dalbit.common.service.CommonMemberService;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.*;
@@ -23,6 +24,7 @@ import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.proc.P_Member;
 import com.dalbit.member.vo.*;
 import com.dalbit.member.vo.procedure.*;
+import com.dalbit.payment.vo.ParentsAuthSelVo;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
@@ -82,6 +84,8 @@ public class Mem_MemberService {
     SocketRestUtil socketRestUtil;
 
     @Autowired P_Member p_member;
+
+    @Autowired Common common;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -164,20 +168,23 @@ public class Mem_MemberService {
         ProcedureVo procedureVo = new ProcedureVo(pMemberInfoInputVo);
         mem_MemberDao.callMemberInfo(procedureVo);
         P_MemberInfoOutputVo memberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoOutputVo.class);
+        String memNo = pMemberInfoInputVo.getMem_no();
 
         // 회원 뱃지
-        HashMap<P_MemberInfoOutputVo,String> djBadge = mem_MemberDao.callMemberInfo_badge(pMemberInfoInputVo.getMem_no());
+        HashMap<P_MemberInfoOutputVo,String> djBadge = mem_MemberDao.callMemberInfo_badge(memNo);
         if(!DalbitUtil.isEmpty(djBadge)) {
             memberInfo.setRecomm_badge(String.valueOf(djBadge.get("recomm_badge")) );
             memberInfo.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
             memberInfo.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
         }
 
-        List badgeList = commonMemberService.selectMemberBadgeList(pMemberInfoInputVo.getMem_no());
+        List badgeList = commonMemberService.selectMemberBadgeList(memNo);
         if(!DalbitUtil.isEmpty(badgeList)){
             memberInfo.setLiveBadgeList(badgeList);
         }
 
+//        String parentsAuthChk = common.parentsAuthChk(memNo);
+//        memberInfo.setParentsAuthChk(parentsAuthChk);
 
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
@@ -866,7 +873,7 @@ public class Mem_MemberService {
     }
 
     /**
-     * 법정대리인 동의정보
+     * 법정대리인 동의정보 (환전)
      */
     public String getParentsAgreeInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
         P_MemberParentsAgreeOutputVo memberParentsAgreeOutputVo = mem_MemberDao.getParentsAgreeInfo(pMemberParentsAgreeInputVo);
@@ -878,13 +885,25 @@ public class Mem_MemberService {
     }
 
     /**
-     * 법정대리인 동의 철회
+     * 법정대리인 동의정보 (결제)
+     */
+    public String getParentsPayAgreeInfo(String memNo) {
+        ParentsAuthSelVo parentsAuthSelVo = common.parentsAuthSel(memNo);
+
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("detail", parentsAuthSelVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+    }
+
+    /**
+     * 법정대리인 동의 철회 (환전)
      */
     public int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
         P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
         pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
         pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
-        pMemberEditorVo.setEditContents("법정대리인 동의정보 철회");
+        pMemberEditorVo.setEditContents("법정대리인 동의정보 철회(환전)");
         pMemberEditorVo.setType(0);
 
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
@@ -892,17 +911,53 @@ public class Mem_MemberService {
     }
 
     /**
-     * 법정대리인 동의 복귀
+     * 법정대리인 동의 철회 (결제)
+     */
+    public Integer updatePayRecant(String memNo) {
+        Integer parentAuthDelResult = p_member.parentsAuthDel(memNo);
+        if(parentAuthDelResult == 1) {
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(memNo);
+            pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+            pMemberEditorVo.setEditContents("법정대리인 동의정보 철회(결제)");
+            pMemberEditorVo.setType(0);
+
+            mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+        }
+
+        return parentAuthDelResult;
+    }
+
+    /**
+     * 법정대리인 동의 복귀 (환전)
      */
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
         P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
         pMemberEditorVo.setMem_no(pMemberParentsAgreeInputVo.getMemNo());
         pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
-        pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀");
+        pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀(환전)");
         pMemberEditorVo.setType(0);
 
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         return mem_MemberDao.updateBackRecant(pMemberParentsAgreeInputVo);
+    }
+
+    /**
+     * 법정대리인 동의 복귀 (결제)
+     */
+    public Integer updatePayBackRecant(String memNo) {
+        Integer parentsAuthRecoveryResult = p_member.parentsAuthRecovery(memNo);
+        if(parentsAuthRecoveryResult == 1) {
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(memNo);
+            pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+            pMemberEditorVo.setEditContents("법정대리인 동의정보 복귀(결제)");
+            pMemberEditorVo.setType(0);
+
+            mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+        }
+
+        return parentsAuthRecoveryResult;
     }
 
     /**

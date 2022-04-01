@@ -5,12 +5,12 @@
 
 <div class="pull-left pt10 pl10"><span id="selectYn"></span></div>
 <div class="widget-content">
-    <table id="tb_res_sendMailLogList" class="table table-sorting table-hover table-bordered" style="width: 710px; text-align: center; border-collapse: collapse">
+    <table id="tb_res_sendMailLogList" style="width: 710px; text-align: center; border-collapse: collapse">
         <tbody>
         <tr>
             <td>
-                <img src="https://image.dalbitlive.com/emailForm/emailForm_top.png"
-                     alt="달빛라이브"
+                <img src="https://image.dalbitlive.com/emailForm/emailForm_header.png"
+                     alt="달라"
                      loading="lazy"
                      style="vertical-align: bottom"
                 />
@@ -21,7 +21,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="text-align: left; font-size: 34px; font-weight: 700; color: #333333; letter-spacing: -2px;">
-                            달빛라이브<br/>
+                            달라<br/>
                             법정대리인 동의 안내입니다.
                         </td>
                     </tr>

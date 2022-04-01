@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface Common {
     /**********************************************************************************************
-     * @Method 설명 : 법정대리인 인증 정보 (api 서버랑 같음)
+     * @Method 설명 : 법정대리인 인증 정보
      * @작성일   : 2022-01-03
      * @작성자   : 박성민
      * @param  : memNo: 회원번호(신청자)
@@ -33,7 +33,7 @@ public interface Common {
      *   ins_date                datetime(6)         -- 인증일자
      *   upd_date                datetime(6)         -- 수정일자
      **********************************************************************************************/
-    @Select("CALL rd_data.p_mem_parents_auth_sel(#{memNo})")
+    @Select("CALL rd_data.p_adm_mem_parents_auth_sel(#{memNo})")
     ParentsAuthSelVo parentsAuthSel(String memNo);
 
     /**********************************************************************************************
@@ -72,4 +72,9 @@ public interface Common {
     @ResultMap({"ResultMap.integer", "ResultMap.ParentsEmailLogSelOutputVo"})
     @Select("CALL rd_data.p_mem_parents_auth_email_log_list(#{memNo}, #{tDate}, #{mailSlct}, #{pageNo}, #{pagePerCnt})")
     List<Object> parentsAuthEmailLogSel(ParentsEmailLogSelVo param);
+
+    /* 법정대리인 동의 체크(결제) */
+    // return s_authYn	CHAR(1)		-- 인증여부
+    @Select("CALL rd_data.p_adm_mem_parents_auth_chk(#{memNo})")
+    String parentsAuthChk(String memNo);
 }

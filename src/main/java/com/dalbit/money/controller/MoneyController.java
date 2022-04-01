@@ -47,25 +47,32 @@ public class MoneyController {
         monExchangeInputVo.setLast_reject(1);
         List<Object[]> body = monExchangeService.getExcelData(monExchangeInputVo, model);
 
-        if(body.size() == 0){
-            mv.setView(new MessageView("현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.","window.close()",""));
+        if (body.size() == 0) {
+            mv.setView(new MessageView("현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.", "window.close()", ""));
             return mv;
         }
 
         String[] colums = null;
         String fileName = "";
-        if(monExchangeInputVo.getIsSpecial() == 1) {
+        if (monExchangeInputVo.getIsSpecial() == 2) {
+            colums = new String[]{"No", "아이디", "이름", "주민번호", "예금주", "금액",
+                    "플레이메이커해택", "과세금액", "소득세", "주민세", "수수료",
+                    "실지급액", "연락처", "은행명", "계좌번호",
+                    "주소", "신청일자"};
+
+            fileName = "플레이메이커 환전내역";
+        } else if (monExchangeInputVo.getIsSpecial() == 1) {
             colums = new String[]{"No", "아이디", "이름", "주민번호", "예금주", "금액",
                     "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
                     "실지급액", "연락처", "은행명", "계좌번호",
-                    "주소","신청일자"};
+                    "주소", "신청일자"};
 
             fileName = "스페셜DJ 환전내역";
-        }else{
+        } else {
             colums = new String[]{"No", "아이디", "이름", "주민번호", "예금주", "금액",
                     /*"스페셜DJ혜택", "과세금액",*/ "소득세", "주민세", "수수료",
                     "실지급액", "연락처", "은행명", "계좌번호",
-                    "주소","신청일자"};
+                    "주소", "신청일자"};
             fileName = "일반회원 환전내역";
         }
 
@@ -86,12 +93,12 @@ public class MoneyController {
         //monExchangeInputVo.setLast_reject(1);
         List<Object[]> body = monExchangeService.getCompleteExcelData(monExchangeInputVo, model);
 
-        if(body.size() == 0){
-            mv.setView(new MessageView("완료된 목록이 없습니다.","window.close()",""));
+        if (body.size() == 0) {
+            mv.setView(new MessageView("완료된 목록이 없습니다.", "window.close()", ""));
             return mv;
         }
 
-        String[] colums = new String[]{"No", "아이디" , "이름" , "주민번호", "예금주", "금액",
+        String[] colums = new String[]{"No", "아이디", "이름", "주민번호", "예금주", "금액",
                 "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
                 "실지급액", "연락처", "은행명", "계좌번호",
                 "주소", "신청일자"};
@@ -117,21 +124,21 @@ public class MoneyController {
         monExchangeInputVo.setExcelYn("Y");
         List<Object[]> body = monExchangeService.getExcelData(monExchangeInputVo, model);
 
-        if(body.size() == 0){
-            mv.setView(new MessageView("현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.","window.close()",""));
+        if (body.size() == 0) {
+            mv.setView(new MessageView("현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.", "window.close()", ""));
             return mv;
         }
 
         String[] colums = null;
         String fileName = "";
-        if(monExchangeInputVo.getIsSpecial() == 1) {
+        if (monExchangeInputVo.getIsSpecial() == 1) {
             colums = new String[]{"No", "아이디", "이름", "예금주", "금액",
                     "스페셜DJ혜택", "과세금액", "소득세", "주민세", "수수료",
                     "실지급액", "주민번호", "연락처", "은행명", "계좌번호",
                     "주소"};
 
             fileName = "스페셜DJ 환전내역";
-        }else{
+        } else {
             colums = new String[]{"No", "아이디", "이름", "예금주", "금액",
                     /*"스페셜DJ혜택", "과세금액",*/ "소득세", "주민세", "수수료",
                     "실지급액", "주민번호", "연락처", "은행명", "계좌번호",

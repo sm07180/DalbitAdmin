@@ -43,6 +43,7 @@ import java.net.URLConnection;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -713,16 +714,13 @@ public class Pay_CancelService {
     private String isAdultYn(String birth) {
         String isAdultYn = "n"; // 미성년자
         try {
-            SimpleDateFormat sd = new SimpleDateFormat("yyyy");
-            Date time = new Date();
-            int now = Integer.parseInt(sd.format(time));
             String[] splitedBirth = birth.split("-");
             int birthYear = Integer.parseInt(splitedBirth[0]);
             int birthMonth = Integer.parseInt(splitedBirth[1]);
             int birthDay = Integer.parseInt(splitedBirth[2]);
             int americanAge = birthToAmericanAge(birthYear, birthMonth, birthDay);
 
-            if(now - americanAge >= 19) isAdultYn = "y"; // 성인
+            if(americanAge >= 19) isAdultYn = "y"; // 성인
         } catch (Exception e) {
             log.error("Pay_CancelService / sendPayCancelMail 시간 / 나이 변환 에러 : ", e);
         }
@@ -733,7 +731,7 @@ public class Pay_CancelService {
     // 메일 발송
     private void sendPayCancelMail(PayCancelSendEmailVo payCancelSendEmailVo) {
         // 나이 체크 (미성년자만 이메일 발송)
-        /*if(StringUtils.equals(isAdultYn(payCancelSendEmailVo.getMemBirth()), "y")) return;
+        if(StringUtils.equals(isAdultYn(payCancelSendEmailVo.getMemBirth()), "y")) return;
 
         String memNo = payCancelSendEmailVo.getMemNo();
         String sHtml = "";
@@ -764,16 +762,23 @@ public class Pay_CancelService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String today = dateFormat.format(new Date());
 
-            msgCont = mailContent.toString().replaceAll("@@cancelUserName@@", parentsAuthSelVo.getMem_name()); // 유저 이름
+            DecimalFormat formatter = new DecimalFormat("###,###");
+            int payPrice = Integer.parseInt(payCancelSendEmailVo.getItemPrice());
+            String priceComma = formatter.format(payPrice);
+
+            String cancelUserName = parentsAuthSelVo.getMem_name();
+            String cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
+
+            msgCont = mailContent.toString().replaceAll("@@cancelUserName@@", cancelUserLastLetterReplace); // 유저 이름
             msgCont = msgCont.replaceAll("@@paymentDate@@", payCancelSendEmailVo.getOkdt()); // 거래일시
             msgCont = msgCont.replaceAll("@@paymentMethod@@", payCancelSendEmailVo.getPaycdName()); // 결제수단
             msgCont = msgCont.replaceAll("@@paymentAccount@@", payCancelSendEmailVo.getHideCardNo()); // 결제정보1
             msgCont = msgCont.replaceAll("@@paymentBank@@", payCancelSendEmailVo.getCardnm()); // 결제정보2
             msgCont = msgCont.replaceAll("@@paymentProduct@@", payCancelSendEmailVo.getPaycode()); // 결제상품
             msgCont = msgCont.replaceAll("@@paymentQuantity@@", payCancelSendEmailVo.getItemamt()); // 결제수량
-            msgCont = msgCont.replaceAll("@@paymentPrice@@", payCancelSendEmailVo.getItemPrice()); // 결제금액
+            msgCont = msgCont.replaceAll("@@paymentPrice@@", priceComma + "원"); // 결제금액
             msgCont = msgCont.replaceAll("@@cancelDate@@", today); // 취소일시
-            msgCont = msgCont.replaceAll("@@cancelPrice@@", payCancelSendEmailVo.getItemPrice()); // 취소금액
+            msgCont = msgCont.replaceAll("@@cancelPrice@@", priceComma + "원"); // 취소금액
 
             EmailInputVo emailInputVo = new EmailInputVo();
             emailInputVo.setTitle("달빛라이브 결제 취소 알림");
@@ -786,8 +791,6 @@ public class Pay_CancelService {
             parentsEmailLogInsVo.setMemNo(memNo);
             parentsEmailLogInsVo.setMailSlct("c");
 
-            String cancelUserName = parentsAuthSelVo.getMem_name();
-            String cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
             String cancelAccount = payCancelSendEmailVo.getCardno();
 
             JSONObject mailEtcInfo = new JSONObject();
@@ -798,9 +801,9 @@ public class Pay_CancelService {
             mailEtcInfo.put("paymentBank", payCancelSendEmailVo.getCardnm());
             mailEtcInfo.put("paymentProduct", payCancelSendEmailVo.getPaycode());
             mailEtcInfo.put("paymentQuantity", payCancelSendEmailVo.getItemamt());
-            mailEtcInfo.put("paymentPrice", payCancelSendEmailVo.getItemPrice());
+            mailEtcInfo.put("paymentPrice", payPrice + "원");
             mailEtcInfo.put("cancelDate", today);
-            mailEtcInfo.put("cancelPrice", payCancelSendEmailVo.getItemPrice());
+            mailEtcInfo.put("cancelPrice", payPrice + "원");
             mailEtcInfo.put("cancelUserFullName", cancelUserName); // 회원 이름
             mailEtcInfo.put("cancelAccountFullName", cancelAccount); // 결제 계좌번호
 
@@ -810,7 +813,7 @@ public class Pay_CancelService {
         }
         catch(Exception e){
             log.error("Pay_CancelService / sendPayCancelMail 미성년자 결제 취소 이메일 발송 에러 : ", e);
-        }*/
+        }
     }
 
     /**

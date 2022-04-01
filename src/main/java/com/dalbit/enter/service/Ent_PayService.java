@@ -27,13 +27,44 @@ public class Ent_PayService {
 
     @Autowired
     MessageUtil messageUtil;
+
     @Autowired
     GsonUtil gsonUtil;
+
     @Autowired
     Ent_PayDao ent_PayDao;
 
     @Autowired
     ExcelService excelService;
+
+    /**
+     * 외부결제 설정 정보
+     * @return
+     */
+    public String getPaymentSet() {
+        P_PaymentSetOutputVo data = ent_PayDao.selectPaymentSet();
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("data", data);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 외부결제 설정
+     * @param pPaymentSetInputVo
+     * @return
+     */
+    public String modifyPaymentSet(P_PaymentSetInputVo pPaymentSetInputVo) {
+        int data = ent_PayDao.updatePaymentSet(pPaymentSetInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.수정));
+        resHashMap.put("data", data);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
 
     /**
      * 결제/환불 고정
@@ -1023,11 +1054,22 @@ public class Ent_PayService {
                 slctType = "우체통";
             }
 
+            String mem4 = "일반";
+            if("0".equals(list.get(i).getMemType())){
+                mem4 = "일반";
+            }else if("1".equals(list.get(i).getMemType())){
+                mem4 = "스페셜";
+            }else if("2".equals(list.get(i).getMemType())){
+                mem4 = "스페셜";
+            }else if("3".equals(list.get(i).getMemType())){
+                mem4 = "플레이메이커";
+            }
+
             HashMap hm = new LinkedHashMap();
             hm.put("mem1",  list.get(i).getMem_no());
             hm.put("mem2",  list.get(i).getNickName());
             hm.put("mem3",  slctType);
-            hm.put("mem4",  (list.get(i).getMemType().equals("0")) ? "일반" : "스페셜");
+            hm.put("mem4",  mem4);
             hm.put("mem5",  list.get(i).getPayDal());
             hm.put("mem6",  list.get(i).getFreeDal());
             hm.put("mem7",  list.get(i).getTotalDal());
@@ -1042,7 +1084,7 @@ public class Ent_PayService {
         SXSSFWorkbook workbook = excelService.excelDownload("목록",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "달빛Live_수익인식Process(별금액)_" + pRevenueProcessVo.getStartDate());
+        model.addAttribute("workbookName", "달라_수익인식Process(별금액)_" + pRevenueProcessVo.getStartDate());
 
         return model;
     }

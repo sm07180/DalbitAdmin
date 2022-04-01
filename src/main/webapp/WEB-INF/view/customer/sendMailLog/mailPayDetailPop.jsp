@@ -5,12 +5,12 @@
 
 <div class="pull-left pt10 pl10"><span id="selectYn"></span></div>
 <div class="widget-content">
-    <table id="tb_res_sendMailLogList" class="table table-sorting table-hover table-bordered" style="width: 710px; text-align: center; border-collapse: collapse">
+    <table id="tb_res_sendMailLogList" style="width: 710px; text-align: center; border-collapse: collapse">
         <tbody>
         <tr>
             <td>
-                <img src="https://image.dalbitlive.com/emailForm/emailForm_top.png"
-                     alt="달빛라이브"
+                <img src="https://image.dalbitlive.com/emailForm/emailForm_header.png"
+                     alt="달라"
                      loading="lazy"
                      style="vertical-align: bottom"
                 />
@@ -21,8 +21,8 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="text-align: left; font-size: 34px; font-weight: 700; color: #333333; letter-spacing: -2px;">
-                            달빛라이브<br/>
-                            <strong id="paymentUserName" style="color: #632BEB"></strong>님의 결제 안내입니다.
+                            달라<br/>
+                            <strong id="paymentUserName" style="color: #FF3C7B"></strong>님의 결제 안내입니다.
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +51,7 @@
                                 </tr>
                                 <tr style="height: 50px; border-bottom: 1px solid #BFBFBF;">
                                     <th style="width: 25%; background-color: #EEEEEE; font-size: 20px; font-weight: 700; color: #333333;">결제금액</th>
-                                    <td id="paymentPrice" style="width: 75%; font-size: 22px; font-weight: 700; color: #632BEB; text-align: left; padding: 0 30px;"></td>
+                                    <td id="paymentPrice" style="width: 75%; font-size: 22px; font-weight: 700; color: #FF3C7B; text-align: left; padding: 0 30px;"></td>
                                 </tr>
                                 </tbody>
                             </table>

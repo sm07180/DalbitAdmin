@@ -12,6 +12,7 @@ import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,25 @@ public class Ent_PayRestController {
 
     @Autowired
     ExcelService excelService;
+
+    /**
+     * 외부결제 정보
+     * @return
+     */
+    @GetMapping("payment")
+    public String paymentSetInfo(){
+        return ent_PayService.getPaymentSet();
+    }
+
+    /**
+     * 외부결제 수정
+     * @param pPaymentSetInputVo
+     * @return
+     */
+    @PostMapping("payment")
+    public String modifyPaymentSet(P_PaymentSetInputVo pPaymentSetInputVo){
+        return ent_PayService.modifyPaymentSet(pPaymentSetInputVo);
+    }
 
     @PostMapping("info")
     public String payInfo(P_StatVo pStatVo){

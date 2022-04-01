@@ -512,7 +512,7 @@
             <td>1</td>
             <td>{{mem_userid}}</td>
             <td>{{mem_nick}}</td>
-            <td>연락처</td>
+            <td>{{phoneNumHyphen mem_phone}}</td>
             <td><a href="javascript:void(0);" onclick="teamEventData.callPlaymakerReg({{json this}})">[등록하기]</a></td>
         </tr>
         {{/dalbit_if}}
