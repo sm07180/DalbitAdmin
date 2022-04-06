@@ -1654,7 +1654,7 @@
                 <button type="button" id="bt_auth" class="btn btn-default btn-sm pull-right ml5">수동인증</button>
                 {{/equal}}
             </td>
-            <th>법정대리인<br>(보호자)</br>동의</th>
+            <th>법정대리인<br>(보호자)</br>동의_환전</th>
             <td>
                 {{#equal parents_agree_yn 'y'}}
                 <label style="color: red; font-weight: bold;">Yes</label>
