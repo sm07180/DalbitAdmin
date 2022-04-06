@@ -294,6 +294,7 @@
     // 플레이메이커 수정
     function callPlaymakerEdit() {
       let $playmakerEditModal = $('#playmakerEdit');
+      playMakerMemVo.excCms = $playmakerEditModal.find('input[name="exc_cms"]').val();
 
       // 플레이메이커 - 검증
       if ($.trim(playMakerMemVo.memNo) == '') {

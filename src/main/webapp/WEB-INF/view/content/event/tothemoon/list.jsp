@@ -45,7 +45,7 @@
     const $memNo = $('#searchMemNoText');
     const $moonNo = $('#moonNo');
     const minStep = 1;
-    const maxStep = 2;
+    const maxStep = 10;
 
     const moonEventData = (function() {
         function callList(pageInfo) {

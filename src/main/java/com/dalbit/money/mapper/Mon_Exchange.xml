@@ -63,7 +63,7 @@
         inner join rd_data.tb_member_profile profile on exchange.mem_no = profile.mem_no
         inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
         left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no and special.select_year = #{search_year} and special.select_month = #{search_month}
-        left join rd_data.tb_play_maker_mem p on exchange.mem_no = p.mem_no AND end_date > NOW()
+        left join rd_data.tb_play_maker_mem p on exchange.mem_no = p.mem_no AND p.end_date > NOW()
         left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
         left join rd_data.tb_member_withdrawal_bak withdrawal on exchange.mem_no = withdrawal.mem_no
         inner join (select @RNUM := 0) r
@@ -149,10 +149,10 @@
                         and (exchange.state in (0,1,4) or ( exchange.state = 2 and exchange.last_reject = #{last_reject}))
                         <choose>
                             <when test="isSpecial == 0">
-                                and special.mem_no is null
+                                and special.mem_no is null and p.mem_no is null
                             </when>
                             <when test="isSpecial == 1">
-                                and special.mem_no is not null
+                                and special.mem_no is not null and p.mem_no is null
                             </when>
                             <when test="isSpecial == 2">
                                 and p.mem_no is not null
