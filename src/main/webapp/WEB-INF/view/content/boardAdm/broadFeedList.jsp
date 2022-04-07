@@ -165,7 +165,7 @@
     $('#feedPhotoListSlick').html(doms.join('\n'));
     setTimeout(function () {
       $('#feedPhotoListSlick').slick();
-    }, 200);
+    }, 180);
   }
 
   $(function () {
