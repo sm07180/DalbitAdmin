@@ -333,4 +333,13 @@ public class ContentController {
     public String rebrand() {
         return "content/event/rebrand/list";
     }
+
+    /**
+     * 팀제도
+     * @return
+     */
+    @GetMapping("/team/list")
+    public String teamList() {
+        return "content/team/list";
+    }
 }
