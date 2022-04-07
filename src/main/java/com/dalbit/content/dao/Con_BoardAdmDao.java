@@ -3,6 +3,8 @@ package com.dalbit.content.dao;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.P_MemberFeedInputVo;
+import com.dalbit.content.vo.procedure.P_MemberFeedPhotoInputVo;
+import com.dalbit.content.vo.procedure.P_MemberFeedPhotoOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistInputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
@@ -111,4 +113,6 @@ public interface Con_BoardAdmDao {
     List<Object> selectFeeds(P_MemberFeedInputVo pMemberNoticeInputVo);
 
     List<Object> selectFeedReplys(P_MemberFeedInputVo pMemberNoticeInputVo);
+
+    List<P_MemberFeedPhotoOutputVo> selectFeedPhotos(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo);
 }

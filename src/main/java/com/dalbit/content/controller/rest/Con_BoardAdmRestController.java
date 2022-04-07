@@ -4,6 +4,7 @@ import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
 import com.dalbit.content.vo.*;
 import com.dalbit.content.vo.procedure.P_MemberFeedInputVo;
+import com.dalbit.content.vo.procedure.P_MemberFeedPhotoInputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
@@ -318,15 +319,25 @@ public class Con_BoardAdmRestController {
      * 피드 조회 목록
      */
     @GetMapping("/feedList")
-    public String feedList(P_MemberFeedInputVo pMemberNoticeInputVo) {
-        return conBoardAdmService.selectFeedList(pMemberNoticeInputVo);
+    public String feedList(P_MemberFeedInputVo pMemberFeedInputVo) {
+        return conBoardAdmService.selectFeedList(pMemberFeedInputVo);
     }
 
     /**
      * 피드 댓글 목록
      */
     @GetMapping("/feedReplyList")
-    public String feedReplyList(P_MemberFeedInputVo pMemberNoticeInputVo) {
-        return conBoardAdmService.selectFeedReplyList(pMemberNoticeInputVo);
+    public String feedReplyList(P_MemberFeedInputVo pMemberFeedInputVo) {
+        return conBoardAdmService.selectFeedReplyList(pMemberFeedInputVo);
+    }
+
+    /**
+     * 피드 포토 목록
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
+    @GetMapping("/feedPhotoList")
+    public String feedPhotoList(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        return conBoardAdmService.selectFeedPhotoList(pMemberFeedPhotoInputVo);
     }
 }
