@@ -592,7 +592,7 @@ public class Con_BoardAdmService {
     }
 
     /**
-     * 피드 조회 목록
+     * 피드 목록
      * @param pMemberFeedInputVo
      * @return
      */
@@ -608,6 +608,23 @@ public class Con_BoardAdmService {
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }
+
+    /**
+     * 피드 삭제
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
+    public String deleteFeed(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pMemberFeedPhotoInputVo.setDelChrgrName(chrgrName);
+        int resultCnt = conBoardAdmDao.deleteFeed(pMemberFeedPhotoInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.삭제));
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
 
     /**
      * 피드 댓글 목록

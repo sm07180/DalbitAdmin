@@ -112,6 +112,8 @@ public interface Con_BoardAdmDao {
 
     List<Object> selectFeeds(P_MemberFeedInputVo pMemberNoticeInputVo);
 
+    int deleteFeed(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo);
+
     List<Object> selectFeedReplys(P_MemberFeedInputVo pMemberNoticeInputVo);
 
     List<P_MemberFeedPhotoOutputVo> selectFeedPhotos(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo);

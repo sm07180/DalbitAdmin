@@ -324,11 +324,26 @@ public class Con_BoardAdmRestController {
     }
 
     /**
+     * 피드삭제
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
+    @PostMapping("/feedDelete")
+    public String feedDelete(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        return conBoardAdmService.deleteFeed(pMemberFeedPhotoInputVo);
+    }
+
+    /**
      * 피드 댓글 목록
      */
     @GetMapping("/feedReplyList")
     public String feedReplyList(P_MemberFeedInputVo pMemberFeedInputVo) {
         return conBoardAdmService.selectFeedReplyList(pMemberFeedInputVo);
+    }
+
+    @PostMapping("/feedReplyDelete")
+    public String feedReplyDelete(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        return conBoardAdmService.deleteFeed(pMemberFeedPhotoInputVo);
     }
 
     /**

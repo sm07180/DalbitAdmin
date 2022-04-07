@@ -29,6 +29,7 @@
                         <col width="90px">
                         <col width="auto">
                         <col width="120px">
+                        <col width="60px">
                     </colgroup>
                     <thead>
                     <tr>
@@ -37,6 +38,7 @@
                         <th>성별</th>
                         <th>피드 내용</th>
                         <th>등록일자</th>
+                        <th>관리</th>
                     </tr>
                     </thead>
                     <tbody id="tb_broadFeedReplyList">
@@ -129,10 +131,11 @@
         </td>
         <td class="word-break" style="width: 400px; padding: 5px;"><span class="pull-left">{{{replaceHtml tail_conts}}}</span></td>
         <td>{{tail_ins_date}}</td>
+        <td>[삭제]</td>
     </tr>
     {{else}}
     <tr>
-        <td colspan="7">{{isEmptyData}}</td>
+        <td colspan="8">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>

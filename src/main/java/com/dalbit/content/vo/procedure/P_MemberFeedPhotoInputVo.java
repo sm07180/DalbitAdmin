@@ -6,5 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class P_MemberFeedPhotoInputVo {
-    private String feedNo;       // 피드번호
+    private int feedNo;       // 피드번호
+    private int tailNo;       // 댓글번호
+    private String delChrgrName; // 삭제자
 }

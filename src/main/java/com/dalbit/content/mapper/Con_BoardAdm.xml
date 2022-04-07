@@ -1008,6 +1008,10 @@
         call rd_data.p_adm_feed_list(#{startDate}, #{endDate}, #{searchVal}, #{searchSlct}, #{pageNo}, #{pagePerCnt})
     </select>
 
+    <select id="deleteFeeds" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_MemberFeedPhotoInputVo" resultMap="integer">
+        call rd_data.p_member_feed_del_v1(#{feedNo}, #{delChrgrName})
+    </select>
+
     <select id="selectFeedReplys" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_MemberFeedInputVo" resultMap="integer, P_MemberFeedReplyOutputVo">
         call rd_data.p_adm_feed_tail_list(#{startDate}, #{endDate}, #{searchVal}, #{searchSlct}, #{pageNo}, #{pagePerCnt})
     </select>

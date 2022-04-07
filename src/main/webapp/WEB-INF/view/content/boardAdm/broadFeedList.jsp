@@ -44,6 +44,7 @@
                         <col width="90px">
                         <col width="60px">
                         <col width="120px">
+                        <col width="60px">
                     </colgroup>
                     <thead>
                     <tr>
@@ -54,6 +55,7 @@
                         <th>이미지</th>
                         <th>댓글 수</th>
                         <th>등록일자</th>
+                        <th>관리</th>
                     </tr>
                     </thead>
                     <tbody id="tb_broadFeedList">
@@ -199,10 +201,11 @@
         {{addComma tail_cnt}}
     </td>
     <td>{{ins_date}}</td>
+    <td>[삭제]</td>
     </tr>
     {{else}}
     <tr>
-        <td colspan="7">{{isEmptyData}}</td>
+        <td colspan="8">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
