@@ -3,11 +3,14 @@ package com.dalbit.content.controller.rest;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
 import com.dalbit.content.vo.*;
+import com.dalbit.content.vo.procedure.P_MemberFeedInputVo;
+import com.dalbit.content.vo.procedure.P_MemberFeedPhotoInputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -311,4 +314,50 @@ public class Con_BoardAdmRestController {
         return conBoardAdmService.miniGameEditHistory(miniGameListVo);
     }
 
+
+    /**
+     * 피드 조회 목록
+     */
+    @GetMapping("/feedList")
+    public String feedList(P_MemberFeedInputVo pMemberFeedInputVo) {
+        return conBoardAdmService.selectFeedList(pMemberFeedInputVo);
+    }
+
+    /**
+     * 피드삭제
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
+    @PostMapping("/feedDelete")
+    public String feedDelete(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        return conBoardAdmService.deleteFeed(pMemberFeedPhotoInputVo);
+    }
+
+    /**
+     * 피드 댓글 목록
+     */
+    @GetMapping("/feedReplyList")
+    public String feedReplyList(P_MemberFeedInputVo pMemberFeedInputVo) {
+        return conBoardAdmService.selectFeedReplyList(pMemberFeedInputVo);
+    }
+
+    /**
+     * 피드 댓글 삭제
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
+    @PostMapping("/feedReplyDelete")
+    public String feedReplyDelete(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        return conBoardAdmService.deleteFeedReply(pMemberFeedPhotoInputVo);
+    }
+
+    /**
+     * 피드 포토 목록
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
+    @GetMapping("/feedPhotoList")
+    public String feedPhotoList(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
+        return conBoardAdmService.selectFeedPhotoList(pMemberFeedPhotoInputVo);
+    }
 }
