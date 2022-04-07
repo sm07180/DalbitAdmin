@@ -3,11 +3,13 @@ package com.dalbit.content.controller.rest;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
 import com.dalbit.content.vo.*;
+import com.dalbit.content.vo.procedure.P_MemberFeedInputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -311,4 +313,20 @@ public class Con_BoardAdmRestController {
         return conBoardAdmService.miniGameEditHistory(miniGameListVo);
     }
 
+
+    /**
+     * 피드 조회 목록
+     */
+    @GetMapping("/feedList")
+    public String feedList(P_MemberFeedInputVo pMemberNoticeInputVo) {
+        return conBoardAdmService.selectFeedList(pMemberNoticeInputVo);
+    }
+
+    /**
+     * 피드 댓글 목록
+     */
+    @GetMapping("/feedReplyList")
+    public String feedReplyList(P_MemberFeedInputVo pMemberNoticeInputVo) {
+        return conBoardAdmService.selectFeedReplyList(pMemberNoticeInputVo);
+    }
 }

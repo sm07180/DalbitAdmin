@@ -11,6 +11,10 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BoardAdmDao;
 import com.dalbit.content.proc.Event_miniGameProc;
 import com.dalbit.content.vo.*;
+import com.dalbit.content.vo.procedure.P_MemberFeedInputVo;
+import com.dalbit.content.vo.procedure.P_MemberFeedOutputVo;
+import com.dalbit.content.vo.procedure.P_MemberFeedReplyOutputVo;
+import com.dalbit.content.vo.procedure.P_RebrandCommentListOutputVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.MemberVo;
@@ -588,5 +592,41 @@ public class Con_BoardAdmService {
         }else{
             return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, list, new PagingVo(miniGameList.getTotalCnt()),miniGameList));
         }
+    }
+
+    /**
+     * 피드 조회 목록
+     * @param pMemberFeedInputVo
+     * @return
+     */
+    public String selectFeedList(P_MemberFeedInputVo pMemberFeedInputVo) {
+        List<Object> getList = conBoardAdmDao.selectFeeds(pMemberFeedInputVo);
+        List<P_MemberFeedOutputVo> list = DBUtil.getList(getList, P_MemberFeedOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("data", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 피드 댓글 목록
+     * @param pMemberFeedInputVo
+     * @return
+     */
+    public String selectFeedReplyList(P_MemberFeedInputVo pMemberFeedInputVo) {
+        List<Object> getList = conBoardAdmDao.selectFeedReplys(pMemberFeedInputVo);
+        List<P_MemberFeedReplyOutputVo> list = DBUtil.getList(getList, P_MemberFeedReplyOutputVo.class);
+        int listCnt = DBUtil.getData(getList, Integer.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", listCnt);
+        resHashMap.put("data", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
     }
 }

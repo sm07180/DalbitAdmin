@@ -2,6 +2,7 @@ package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.*;
+import com.dalbit.content.vo.procedure.P_MemberFeedInputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistInputVo;
 import com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberProfileInputVo;
@@ -105,4 +106,9 @@ public interface Con_BoardAdmDao {
 
     @Transactional(readOnly = true)
     ArrayList<MiniGameListVo> miniGameEditHistory(ProcedureVo procedureVo);
+
+
+    List<Object> selectFeeds(P_MemberFeedInputVo pMemberNoticeInputVo);
+
+    List<Object> selectFeedReplys(P_MemberFeedInputVo pMemberNoticeInputVo);
 }
