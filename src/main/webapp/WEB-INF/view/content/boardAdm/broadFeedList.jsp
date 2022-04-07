@@ -170,6 +170,20 @@
     }, 180);
   }
 
+  // 피드삭제
+  function removeFeed(json) {
+    if (!(json && json.reg_no)) return;
+    if (!confirm('정말 삭제하시겠습니다?\n삭제된 데이터는 복원되지 않습니다.')) return;
+
+    var data = {
+      feedNo: json.reg_no
+    }
+    util.getAjaxData("feedDelete", "/rest/content/boardAdm/feedDelete", data, feedDelete_succ, null, {type: 'POST'});
+  }
+  function feedDelete_succ(dst_id, response, param) {
+    broadFeedList();
+  }
+
   $(function () {
 
   });
@@ -201,7 +215,7 @@
         {{addComma tail_cnt}}
     </td>
     <td>{{ins_date}}</td>
-    <td>[삭제]</td>
+    <td><a href="javascript:void(0)" onclick="removeFeed({{json data}})">[삭제]</a></td>
     </tr>
     {{else}}
     <tr>

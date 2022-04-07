@@ -341,9 +341,14 @@ public class Con_BoardAdmRestController {
         return conBoardAdmService.selectFeedReplyList(pMemberFeedInputVo);
     }
 
+    /**
+     * 피드 댓글 삭제
+     * @param pMemberFeedPhotoInputVo
+     * @return
+     */
     @PostMapping("/feedReplyDelete")
     public String feedReplyDelete(P_MemberFeedPhotoInputVo pMemberFeedPhotoInputVo) {
-        return conBoardAdmService.deleteFeed(pMemberFeedPhotoInputVo);
+        return conBoardAdmService.deleteFeedReply(pMemberFeedPhotoInputVo);
     }
 
     /**
