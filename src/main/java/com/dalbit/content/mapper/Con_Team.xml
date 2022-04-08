@@ -35,7 +35,7 @@
 
     <!--    팀 상세 - 팀원 (삭제)-->
     <select id="selectTeamDeletedMember" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamSearchInputVo" resultMap="P_TeamTotalCntVo,P_TeamMemberOutputVo">
-        CALL rd_data.p_adm_dalla_team_mem_del_sel(#{teamNo})
+        CALL rd_data.p_adm_dalla_team_mem_del_sel(#{teamNo}, #{pageNo}, #{pagePerCnt})
     </select>
 
     <!--    팀 심볼 등록-->
