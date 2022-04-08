@@ -82,5 +82,5 @@ public interface Con_TeamDao {
      * @param pTeamSearchInputVo
      * @return
      */
-    P_TeamMonthStatOutputVo selectTeamsMonthStat(P_TeamSearchInputVo pTeamSearchInputVo);
+    List<P_TeamMonthStatOutputVo> selectTeamsMonthStat(P_TeamSearchInputVo pTeamSearchInputVo);
 }
