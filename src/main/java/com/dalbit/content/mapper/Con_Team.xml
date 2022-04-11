@@ -15,12 +15,12 @@
 
     <!--    팀 목록-->
     <select id="selectTeams" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamSearchInputVo" resultMap="P_TeamTotalCntVo,P_TeamOutputVo">
-        CALL rd_data.p_adm_dalla_team_list(#{teamNo}, #{memNo}, #{memNick}, #{ordSlct}, #{pageNo}, #{pagePerCnt})
+        CALL rd_data.p_adm_dalla_team_list(#{searchSlct}, #{searchDate}, #{ordSlct}, #{pageNo}, #{pagePerCnt})
     </select>
 
     <!--    팀 목록 (삭제)-->
     <select id="selectTeamsDeleted" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamSearchInputVo" resultMap="P_TeamTotalCntVo,P_TeamOutputVo">
-        CALL rd_data.p_adm_dalla_team_del_list(#{teamNo}, #{memNo}, #{memNick}, #{ordSlct}, #{pageNo}, #{pagePerCnt})
+        CALL rd_data.p_adm_dalla_team_del_list(#{searchSlct}, #{searchDate}, #{ordSlct}, #{pageNo}, #{pagePerCnt})
     </select>
 
     <!--    팀 상세-->

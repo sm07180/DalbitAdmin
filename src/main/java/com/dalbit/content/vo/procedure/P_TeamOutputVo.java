@@ -14,6 +14,11 @@ public class P_TeamOutputVo {
     private String mem_nick;        // 팀장대화명
     private String team_name;       // 팀명
     private String team_conts;      // 팀소개
+
+    private String team_medal_code; // 팀메달
+    private String team_edge_code;  // 팀테두리
+    private String team_bg_code;    // 팀배경
+
     private int team_mem_cnt;       // 팀원수
     private int team_req_mem_cnt;   // 팀 가입신청수
     private int team_ivt_mem_cnt;   // 팀 가입초대수
