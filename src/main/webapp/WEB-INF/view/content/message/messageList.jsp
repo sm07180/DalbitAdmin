@@ -145,7 +145,7 @@
 
   // 삭제후 처리
   fnc_messageList.fn_delete_success = function () {
-    fnc_messageList.init();
+    fnc_messageList.selectMainList(true);
   }
 
   // 수정
