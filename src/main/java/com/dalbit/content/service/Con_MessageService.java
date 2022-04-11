@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -151,8 +152,21 @@ public class Con_MessageService {
         return result;
     }
 
+    /**
+     * 방송방 메시지 삭제
+      * @param pMessageDeleteVo
+     * @return
+     * @throws GlobalException
+     */ 
+    public String callContentsMessageDel(P_MessageDeleteVo pMessageDeleteVo) throws GlobalException {
+        int s_return = messageDao.callContentsMessageDel(pMessageDeleteVo);
 
-
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.삭제));
+        resHashMap.put("data", s_return);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
 
     public String sendSplashApi(P_MessageInsertVo pMessageInsertVo) throws GlobalException {
         RequestBody formBody;
