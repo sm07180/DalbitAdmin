@@ -107,6 +107,9 @@
         }else if(targetId == "mailbox_paginate_top" || targetId == "mailbox_paginate"){
             mailboxPagingInfo = pagingInfo;
             mailboxList(pagingInfo.pageNo);
+        }else if(targetId == "broadFeed_paginate_top" || targetId == "broadFeed_paginate"){
+            broadNFeedPagingInfo = pagingInfo;
+            broadFeedList(pagingInfo.pageNo);
         }
     }
 
