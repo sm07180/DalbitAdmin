@@ -40,17 +40,17 @@
 
     <!--    팀 심볼 등록-->
     <select id="insertTeamSymbol" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamSymbolInputVo" resultMap="integer">
-        CALL rd_data.p_admin_dalla_team_symbol_ins(#{symbolSlct}, #{bgCode}, #{bgName}, #{bgConts}, #{bgUrl}, #{useYn}, #{chrgrName})
+        CALL rd_data.p_adm_dalla_team_symbol_ins(#{symbolSlct}, #{bgCode}, #{bgName}, #{bgConts}, #{bgUrl}, #{useYn}, #{chrgrName})
     </select>
 
     <!--    팀 심볼 수정-->
     <select id="updateTeamSymbol" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamSymbolInputVo" resultMap="integer">
-        CALL rd_data.p_admin_dalla_team_symbol_upd(#{autoNo}, #{symbolSlct}, #{bgCode}, #{bgName}, #{bgConts}, #{bgUrl}, #{useYn}, #{chrgrName})
+        CALL rd_data.p_adm_dalla_team_symbol_upd(#{autoNo}, #{symbolSlct}, #{bgCode}, #{bgName}, #{bgConts}, #{bgUrl}, #{useYn}, #{chrgrName})
     </select>
 
     <!--    팀 활동배지 수정-->
     <select id="updateTeamBadge" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamBadgeInputVo" resultMap="integer">
-        CALL rd_data.p_admin_dalla_team_badge_upd(#{autoNo}, #{bgCode}, #{bgName}, #{bgConts}, #{bgColorUrl}, #{bgBlackUrl}, #{bgBonus}, #{useYn}, #{chrgrName})
+        CALL rd_data.p_adm_dalla_team_badge_upd(#{autoNo}, #{bgCode}, #{bgName}, #{bgConts}, #{bgColorUrl}, #{bgBlackUrl}, #{bgBonus}, #{useYn}, #{chrgrName})
     </select>
 
     <!--    팀 심볼 리스트-->

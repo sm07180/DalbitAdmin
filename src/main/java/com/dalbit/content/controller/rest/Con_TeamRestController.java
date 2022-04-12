@@ -1,13 +1,13 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo;
 import com.dalbit.content.service.Con_TeamService;
 import com.dalbit.content.vo.procedure.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -86,23 +86,23 @@ public class Con_TeamRestController {
     /**
      * 팀 심볼 수정
      *
-     * @param pTeamSymbolInputVo
+     * @param pTeamSymbolInputVoList
      * @return
      */
     @PostMapping("/symbol-update")
-    public String modifyTeamSymbol(P_TeamSymbolInputVo pTeamSymbolInputVo) {
-        return con_teamService.modifyTeamSymbol(pTeamSymbolInputVo);
+    public String modifyTeamSymbol(@RequestBody List<P_TeamSymbolInputVo> pTeamSymbolInputVoList) {
+        return con_teamService.modifyTeamSymbol(pTeamSymbolInputVoList);
     }
 
     /**
      * 팀 활동배지 수정
      *
-     * @param pTeamBadgeInputVo
+     * @param pTeamBadgeInputVoList
      * @return
      */
     @PostMapping("/badge-update")
-    public String modifyTeamSymbol(P_TeamBadgeInputVo pTeamBadgeInputVo) {
-        return con_teamService.modifyTeamBadge(pTeamBadgeInputVo);
+    public String modifyTeamBadge(@RequestBody List<P_TeamBadgeInputVo> pTeamBadgeInputVoList) {
+        return con_teamService.modifyTeamBadge(pTeamBadgeInputVoList);
     }
 
     /**

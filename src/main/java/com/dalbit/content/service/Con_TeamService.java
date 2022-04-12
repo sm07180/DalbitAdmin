@@ -1,9 +1,11 @@
 package com.dalbit.content.service;
 
+import com.dalbit.broadcast.vo.procedure.P_PlayMakerTeamMemInputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.dao.Con_TeamDao;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -123,6 +125,8 @@ public class Con_TeamService {
      * @return
      */
     public String createTeamSymbol(P_TeamSymbolInputVo pTeamSymbolInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pTeamSymbolInputVo.setChrgrName(chrgrName);
         int s_return = con_teamDao.insertTeamSymbol(pTeamSymbolInputVo);
 
         HashMap resHashMap = new HashMap();
@@ -134,11 +138,17 @@ public class Con_TeamService {
 
     /**
      * 팀 심볼 수정
-     * @param pTeamSymbolInputVo
+     * @param pTeamSymbolInputVoList
      * @return
      */
-    public String modifyTeamSymbol(P_TeamSymbolInputVo pTeamSymbolInputVo) {
-        int s_return = con_teamDao.updateTeamSymbol(pTeamSymbolInputVo);
+    public String modifyTeamSymbol(List<P_TeamSymbolInputVo> pTeamSymbolInputVoList) {
+        String chrgrName = MemberVo.getMyMemNo();
+
+        int s_return = 0;
+        for (P_TeamSymbolInputVo pTeamSymbolInputVo : pTeamSymbolInputVoList) {
+            pTeamSymbolInputVo.setChrgrName(chrgrName);
+            s_return = con_teamDao.updateTeamSymbol(pTeamSymbolInputVo);
+        }
 
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.수정));
@@ -149,11 +159,17 @@ public class Con_TeamService {
 
     /**
      * 팀 활동배지 수정
-     * @param pTeamBadgeInputVo
+     * @param pTeamBadgeInputVoList
      * @return
      */
-    public String modifyTeamBadge(P_TeamBadgeInputVo pTeamBadgeInputVo) {
-        int s_return = con_teamDao.updateTeamBadge(pTeamBadgeInputVo);
+    public String modifyTeamBadge(List<P_TeamBadgeInputVo> pTeamBadgeInputVoList) {
+        String chrgrName = MemberVo.getMyMemNo();
+
+        int s_return = 0;
+        for (P_TeamBadgeInputVo pTeamBadgeInputVo : pTeamBadgeInputVoList) {
+            pTeamBadgeInputVo.setChrgrName(chrgrName);
+            s_return = con_teamDao.updateTeamBadge(pTeamBadgeInputVo);
+        }
 
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.수정));
