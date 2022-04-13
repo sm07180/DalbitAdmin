@@ -62,20 +62,52 @@
                     </form>
                 </div>
             </div>
+
+            <div class="container no-padding clearfix">
+                <div id="line-chart"></div>
+            </div>
+
+            <div class="container no-padding clearfix">
+                <div id="calendar" class="calendar"></div>
+            </div>
         </div> <!-- //container-fluid -->
     </div>
     <!-- //page-wrapper -->
 </div>
 <!-- //wrapper-->
 
+<script src="/template/js/plugins/fullcalendar/fullcalendar.js"></script>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
+  const statEventData = (function () {
+    function callState() {
+      let searchDate = $("#startDate").val().replace('.', '-');
+      let data = {
+        tDate: searchDate
+      };
+      let apiURL = '/rest/content/team/stat';
+      util.getAjaxData("getTeamList", apiURL, data, renderState, null, {type: 'GET'});
+    }
+
+    function renderState(id, response, params) {
+
+    }
+
+    return {
+      callState: callState
+    };
+  }());
+
   $(function () {
     slctType = 1;
     setDayButton();
 
-    $('#bt_search').on('click', function () {
+    // 월간현황
+    statEventData.callState();
 
+    $('#bt_search').on('click', function () {
+      statEventData.callState();
     });
   });
 </script>
