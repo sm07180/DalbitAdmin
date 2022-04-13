@@ -73,7 +73,7 @@
 
       let apiURL = '/rest/content/team/badge-update';
       util.getAjaxData("modifyBadge", apiURL, JSON.stringify(badgeList), function (id, response, params) {
-        //badgeReload();
+        badgeReload();
       }, null, {type: 'POST', contentType: 'application/json'});
     }
 
