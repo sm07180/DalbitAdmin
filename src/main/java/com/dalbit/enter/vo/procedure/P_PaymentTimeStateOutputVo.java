@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class P_PaymentTimeListOutputVo {
+public class P_PaymentTimeStateOutputVo {
     private String the_date;        // 일자
     private int the_hr;             // 시간
     private int succ_cnt;           // 결제 건

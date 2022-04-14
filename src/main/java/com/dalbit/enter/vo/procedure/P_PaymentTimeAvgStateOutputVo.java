@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class P_PaymentTimeAvgListOutputVo {
+public class P_PaymentTimeAvgStateOutputVo {
     private int succ_cnt;       // 결제 건
     private int succ_cmt;		// 결제 수량
     private int pay_amt;		// 결제금액
