@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class P_PaymentCancelMemberListOutputVo {
+public class P_PaymentMemberListOutputVo {
     private String order_id;            // 주문번호
     private String mem_no;		        // 회원번호
     private String pay_way;		        // 결제수단(코드표참고)
