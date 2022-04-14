@@ -100,4 +100,40 @@
     <update id="updatePaymentSet" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSetInputVo">
         call rd_data.p_payment_set_upd(#{setSlct}, #{paySlct}, #{chrgrName})
     </update>
+
+    <!-- 결제현황 시간대별 -->
+    <select id="selectPaymentTimeList" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제현황 일간대별 -->
+    <select id="selectPaymentDayList" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제현황 월간/결제수단별 -->
+    <select id="selectPaymentMonthList" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제현황 연간결제 -->
+    <select id="selectPaymentYearList" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제 취소 -->
+    <select id="selectPaymentCancelMemberList" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제 성공 -->
+    <select id="selectPaymentSuccMemberList" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제현황 결제 회원별 -->
+    <select id="selectPaymentMonthMemberStat" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제현황 결제 수단별 -->
+    <select id="selectPaymentMonthPaywayStat" statementType="CALLABLE">
+    </select>
+
+    <!-- 결제현황 결제 상품별 -->
+    <select id="selectPaymentMonthPaycodeStat" statementType="CALLABLE">
+    </select>
 </mapper>
