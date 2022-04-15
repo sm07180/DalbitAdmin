@@ -3,8 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authentication var="principal" property="principal" />
-<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+<sec:authentication var="principal" property="principal"/>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %>
+</c:set>
 
 <!-- 결제/환불 > 결제내역 -->
 <div class="widget-table mb10">
@@ -59,17 +60,17 @@
                         <th>회원번호</th>
                         <th>닉네임</th>
                         <th>성별</th>
-                        <th>가입시<br />생년월일</th>
-                        <th>미성년자<br />여부</th>
+                        <th>가입시<br/>생년월일</th>
+                        <th>미성년자<br/>여부</th>
                         <th>예금주</th>
                         <th>신청금액</th>
-                        <th>스페셜DJ<br />혜택</th>
+                        <th>스페셜DJ<br/>혜택</th>
                         <th>실수령액</th>
                         <th>신청 별 수</th>
                         <th>현재 별 수</th>
-                        <th>테스트ID<br />등록이력</th>
+                        <th>테스트ID<br/>등록이력</th>
                         <th>환전횟수</th>
-                        <th>환전<br />누적금액</th>
+                        <th>환전<br/>누적금액</th>
                         <th>신청일자</th>
                         <th>처리일자</th>
                         <th>처리현황</th>
@@ -85,9 +86,12 @@
     </div>
 </div>
 
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">레이어팝업오픈버튼</button>
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal"
+        style="display:none;">레이어팝업오픈버튼
+</button>
 
-<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
+<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel"
+     aria-hidden="true"></div>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
@@ -96,104 +100,107 @@
 
 <script type="text/javascript">
 
-    var month = '${param.month}';
-    var day = '${param.day}';
-    var user = '${param.user}';
-    var gender = '${param.gender}';
-    var exchangePagingInfo = new PAGING_INFO(0,1,50);
-    var limitDay;
+  var month = '${param.month}';
+  var day = '${param.day}';
+  var user = '${param.user}';
+  var gender = '${param.gender}';
+  var exchangePagingInfo = new PAGING_INFO(0, 1, 50);
+  var limitDay;
 
-    $(function (){
-        $("#exchangeSort").html(util.getCommonCodeSelect('', exchange_sort));
-        getExchangeList();
-    });
+  $(function () {
+    $("#exchangeSort").html(util.getCommonCodeSelect('', exchange_sort));
+    getExchangeList();
+  });
 
-    function getParameter(){
-        var isSpecial;
-        if(user == "special"){
-            isSpecial = 1;
-        }else{
-            isSpecial = 0;
-        }
-        if(gender == "undefined"){
-            gender = 0;
-        }
-        return data = {
-            isSpecial : isSpecial
-            , search_year : month.substring(0,4)
-            , search_month : month.substring(5,7)
-            , search_day : day
-            , search_state : 1
-            , exchange_sort : $("#exchange_sort").val()
-            , gender : gender
-            , pageStart : exchangePagingInfo.pageNo
-            , pageCnt : exchangePagingInfo.pageCnt
-            , limitDay : limitDay
-            , search_testId : 0
-            , slctType : 1
-            , end_year : month.substring(0,4)
-            , end_month : month.substring(5,7)
-            , end_day : day
-            , baseDay : "opdate"
-        };
+  function getParameter() {
+    var isSpecial;
+    if (user == "playmaker") {
+      isSpecial = 2;
+    } else if (user == "special") {
+      isSpecial = 1;
+    } else {
+      isSpecial = 0;
     }
-
-    function getExchangeList() {
-        console.log(getParameter());
-        util.getAjaxData("select", "/rest/money/exchange/list", getParameter(), fn_succ_list);
-
+    if (gender == "undefined") {
+      gender = 0;
     }
+    return data = {
+      isSpecial: isSpecial
+      , search_year: month.substring(0, 4)
+      , search_month: month.substring(5, 7)
+      , search_day: day
+      , search_state: 1
+      , exchange_sort: $("#exchange_sort").val()
+      , gender: gender
+      , pageStart: exchangePagingInfo.pageNo
+      , pageCnt: exchangePagingInfo.pageCnt
+      , limitDay: limitDay
+      , search_testId: 0
+      , slctType: 1
+      , end_year: month.substring(0, 4)
+      , end_month: month.substring(5, 7)
+      , end_day: day
+      , baseDay: "opdate"
+    };
+  }
 
-    function fn_succ_list(dst_id, response) {
-        limitDay = moment(new Date()).format('YYYYMMDD');
+  function getExchangeList() {
+    console.log(getParameter());
+    util.getAjaxData("select", "/rest/money/exchange/list", getParameter(), fn_succ_list);
 
-        response.data.limitDay = limitDay;
+  }
 
-        var template = $('#tmp_exchangeList').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
-        $("#tableBody").html(html);
+  function fn_succ_list(dst_id, response) {
+    limitDay = moment(new Date()).format('YYYYMMDD');
 
-        exchangePagingInfo.totalCnt = response.data.exchangeCnt;
-        util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
-        util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
+    response.data.limitDay = limitDay;
 
-    }
+    var template = $('#tmp_exchangeList').html();
+    var templateScript = Handlebars.compile(template);
+    var context = response.data;
+    var html = templateScript(context);
+    $("#tableBody").html(html);
 
-    function exchangeSort_click(){
-        getExchangeList("button");
-    }
-    function gender_click(){
-        getExchangeList("button");
-    }
+    exchangePagingInfo.totalCnt = response.data.exchangeCnt;
+    util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
+    util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
 
-    $(document).on('click', '._layerOpen', function(title, content){
+  }
 
-        var detailData = getParameter();
-        detailData.idx = $(this).data('exchangeidx');
+  function exchangeSort_click() {
+    getExchangeList("button");
+  }
 
-        util.getAjaxData("select", "/rest/money/exchange/detail", detailData, fn_succ_detail);
-    });
+  function gender_click() {
+    getExchangeList("button");
+  }
 
-    function fn_succ_detail(dist_id, response){
-        var template = $('#tmp_layer_detail').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
-        $("#detailView").html(html);
+  $(document).on('click', '._layerOpen', function (title, content) {
 
-        ui.paintColor();
-        showModal();
-    }
+    var detailData = getParameter();
+    detailData.idx = $(this).data('exchangeidx');
 
-    function showModal(){
-        $("#showModal").click();
-    }
+    util.getAjaxData("select", "/rest/money/exchange/detail", detailData, fn_succ_detail);
+  });
 
-    function closeModal(){
-        $("#layerCloseBtn").click();
-    }
+  function fn_succ_detail(dist_id, response) {
+    var template = $('#tmp_layer_detail').html();
+    var templateScript = Handlebars.compile(template);
+    var context = response.data;
+    var html = templateScript(context);
+    $("#detailView").html(html);
+
+    ui.paintColor();
+    showModal();
+  }
+
+  function showModal() {
+    $("#showModal").click();
+  }
+
+  function closeModal() {
+    $("#layerCloseBtn").click();
+  }
 
 
 </script>
@@ -208,15 +215,17 @@
     <td>
         {{{getMemStateName data.mem_state}}}
     </td>
-    <td >
+    <td>
         <form id="profileImg" method="post" enctype="multipart/form-data">
-            <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
-                 style="width: 50px;height: 50px;margin-bottom: 0px;" />
+            <img id="image_section" class="thumbnail fullSize_background no-padding"
+                 src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
+                 style="width: 50px;height: 50px;margin-bottom: 0px;"/>
         </form>
     </td>
     <c:if test="${fn:contains('|이형원|전유신|고병권|이재호|', principal.getUserInfo().getName())}">
-        <td >
-            <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;" class="thumbnail fullSize_background no-padding no-margin" />
+        <td>
+            <img src="{{renderImage data.add_file1}}" style="max-width:50px;max-height:50px;"
+                 class="thumbnail fullSize_background no-padding no-margin"/>
         </td>
     </c:if>
     <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
@@ -224,7 +233,8 @@
     <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
 
     <td>{{data.birth}}</td>
-    <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br /><span style='font-weight:bold'>[철회됨]</span>{{/equal}}</td>
+    <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br/><span style='font-weight:bold'>[철회됨]</span>{{/equal}}
+    </td>
 
     <td>{{data.account_name}}</td>
     <td>{{addComma data.cash_basic}}원</td>
@@ -239,7 +249,9 @@
     <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
     <td>{{{stateName data.state}}}</td>
     <td>{{data.op_name}}</td>
-    <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
+    <td>
+        <button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button>
+    </td>
     </tr>
 
     {{else}}
@@ -259,11 +271,14 @@
 
 <script type="text/x-handlebars-template" id="tmp_layer_detail">
     <form id="exchangeForm">
-        <input type="hidden" name="idx" value="{{detail.idx}}" />
-        <div class="modal-dialog" style="{{#if parentInfo.parents_name}}{{/if}}width:900px{{^if parentInfo.parents_name}}width:600px{{/if}}">
+        <input type="hidden" name="idx" value="{{detail.idx}}"/>
+        <div class="modal-dialog"
+             style="{{#if parentInfo.parents_name}}{{/if}}width:900px{{^if parentInfo.parents_name}}width:600px{{/if}}">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">
+                        &times;
+                    </button>
                     <h4 class="modal-title" id="_layerTitle">상세보기</h4>
                 </div>
                 <div class="modal-body">
@@ -286,47 +301,50 @@
 
                                     <th>계좌번호</th>
                                     <td>
-                                        <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="{{detail.account_no}}" />
+                                        <input type="text" class="form-control" id="account_no" name="account_no"
+                                               maxlength="25" value="{{detail.account_no}}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>예금주</th>
                                     <td>
-                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
+                                        <input type="text" class="form-control" id="account_name" name="account_name"
+                                               maxlength="25" value="{{detail.account_name}}"/>
                                     </td>
                                     <th>주민번호</th>
                                     <td>
-                                        <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
-                                        <br />
+                                        <input type="text" class="form-control" id="social_no" name="social_no"
+                                               maxlength="13" value="{{detail.social_no}}"/>
+                                        <br/>
                                         [{{convertJumin detail.social_no}}]
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th>세금신고<br />대상자</th>
+                                    <th>세금신고<br/>대상자</th>
                                     <td>
                                         {{#equal detail.prevAccountName ''}}
                                         <span class="_fontColor" data-fontcolor="red">이전 환전승인내역이 없습니다.</span>
                                         {{/equal}}
                                         {{detail.prevAccountName}}
                                     </td>
-                                    <th>세금신고<br />주민번호</th>
+                                    <th>세금신고<br/>주민번호</th>
                                     <td>
                                         {{convertJumin detail.prevSocialNo}}
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th>가입시<br />생년월일</th>
+                                    <th>가입시<br/>생년월일</th>
                                     <td>
                                         {{detail.birth}}
                                     </td>
-                                    <th>미성년자<br />여부</th>
+                                    <th>미성년자<br/>여부</th>
                                     <td>
                                         {{{calcAge detail.birth}}}
                                         {{#isChild detail.birth}}
                                         {{^if parentInfo.parents_name}}
-                                        <br />
+                                        <br/>
                                         <span style="font-weight:bold;">법정대리인 보호자 동의 정보가 없습니다.</span>
                                         {{/if}}
                                         {{/isChild}}
@@ -336,21 +354,24 @@
                                 <tr>
                                     <th>주소</th>
                                     <td colspan="3">
-                                        <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="{{detail.address_1}}" />
+                                        <input type="text" class="form-control _fullWidth" id="address_1"
+                                               name="address_1" value="{{detail.address_1}}"/>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th>상세주소</th>
                                     <td colspan="3">
-                                        <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="{{detail.address_2}}" />
+                                        <input type="text" class="form-control _fullWidth" id="address_2"
+                                               name="address_2" value="{{detail.address_2}}"/>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th>전화번호</th>
                                     <td colspan="3">
-                                        <input type="hidden" name="phone_no" value="{{phoneNumHyphen detail.phone_no}}" />
+                                        <input type="hidden" name="phone_no"
+                                               value="{{phoneNumHyphen detail.phone_no}}"/>
                                         {{phoneNumHyphen detail.phone_no}}
                                         / {{phoneNumHyphen detail.mem_phone}}
                                     </td>
@@ -361,17 +382,25 @@
                                     <td colspan="3">
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
-                                                <img src="{{renderImage detail.add_file1}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                                <img src="{{renderImage detail.add_file1}}"
+                                                     style="max-width:100px;max-height:150px;"
+                                                     class="_fullWidth _openImagePop thumbnail"/>
                                             </a>
-                                            {{#equal detail.state '0'}}<input id="files1" type="file" onchange="photoSubmit($(this))">{{/equal}}
-                                            <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="{{detail.add_file1}}" />
+                                            {{#equal detail.state '0'}}<input id="files1" type="file"
+                                                                              onchange="photoSubmit($(this))">{{/equal}}
+                                            <input type="hidden" class="_hidden_filename" name="add_file1"
+                                                   id="add_file1" value="{{detail.add_file1}}"/>
                                         </div>
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
-                                                <img src="{{renderImage detail.add_file2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                                <img src="{{renderImage detail.add_file2}}"
+                                                     style="max-width:100px;max-height:150px;"
+                                                     class="_fullWidth _openImagePop thumbnail"/>
                                             </a>
-                                            {{#equal detail.state '0'}}<input id="files2" type="file" onchange="photoSubmit($(this))"/>{{/equal}}
-                                            <input type="hidden" class="_hidden_filename" name="add_file2" id="add_file2" value="{{detail.add_file2}}" />
+                                            {{#equal detail.state '0'}}<input id="files2" type="file"
+                                                                              onchange="photoSubmit($(this))"/>{{/equal}}
+                                            <input type="hidden" class="_hidden_filename" name="add_file2"
+                                                   id="add_file2" value="{{detail.add_file2}}"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -398,8 +427,10 @@
                                     </th>
                                     <td colspan="3">
                                         <input type="hidden" id="send_title" name="send_title">
-                                        {{{getCommonCodeSelect detail.send_type 'exchange_cancel_type'}}} <label id="label_send_title">{{detail.send_title}}</label>
-                                        <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 취소 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
+                                        {{{getCommonCodeSelect detail.send_type 'exchange_cancel_type'}}} <label
+                                            id="label_send_title">{{detail.send_title}}</label>
+                                        <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 취소
+                                            처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
                                     </td>
                                 </tr>
 
@@ -412,14 +443,17 @@
                                         미처리 사유<br>내용
                                     </th>
                                     <td colspan="3">
-                                        <textarea class="form-control" name="send_cont" id="send_cont" oninput="util.textareaResize(this)" placeholder="" style="width:100%; height:90px; resize: none">{{replaceHtml detail.send_cont}}</textarea>
+                                        <textarea class="form-control" name="send_cont" id="send_cont"
+                                                  oninput="util.textareaResize(this)" placeholder=""
+                                                  style="width:100%; height:90px; resize: none">{{replaceHtml detail.send_cont}}</textarea>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th>메모</th>
                                     <td colspan="3">
-                                        <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg" maxlength="1000" value="{{detail.op_msg}}" />
+                                        <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg"
+                                               maxlength="1000" value="{{detail.op_msg}}"/>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -491,11 +525,13 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        가족관계<br />증명서류
+                                        가족관계<br/>증명서류
                                     </th>
                                     <td>
                                         {{#if parentInfo.add_file}}
-                                        <img src="{{renderImage parentInfo.add_file}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
+                                        <img src="{{renderImage parentInfo.add_file}}"
+                                             style="max-width:100px;max-height:150px;"
+                                             class="_fullWidth _openImagePop thumbnail"/>
                                         {{else}}
                                         가족관계 증명서류가 없습니다.
                                         {{/if}}
@@ -508,13 +544,19 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
+                    <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i
+                            class="fa fa-times-circle"></i> 닫기
+                    </button>
 
                     {{#equal detail.state '0'}}
                     {{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}
-                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
-                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 취소</button>
-                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
+                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i>
+                        수정
+                    </button>
+                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 취소
+                    </button>
+                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료
+                    </button>
                     {{else}}
                     <span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>
                     {{/adultStatusCheck}}

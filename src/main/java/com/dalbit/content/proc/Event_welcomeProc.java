@@ -12,6 +12,23 @@ import java.util.List;
 public interface Event_welcomeProc {
 
     /**
+     * 웰컴 플로팅 설정 정보
+     * @return
+     */
+    @ResultMap({"ResultMap.string"})
+    @Select("CALL rd_data.p_adm_welcome_set_sel()")
+    String getSetting();
+
+    /**
+     * 웰컴 플로팅 설정 변경
+     * @param pWelcomeSetInputVo
+     * @return
+     */
+    @ResultMap({"ResultMap.integer"})
+    @Select("CALL rd_data.p_adm_welcome_set_upd(#{setSlct}, #{chrgrName})")
+    int modifySetting(P_WelcomeSetInputVo pWelcomeSetInputVo);
+
+    /**
      * 신입회원 웰컴이벤트 - DJ 전체 목록
      *
      * @param pWelcomeInputVo

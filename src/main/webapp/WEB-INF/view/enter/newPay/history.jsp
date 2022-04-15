@@ -14,15 +14,15 @@
     <div class="widget-content mt10" id="div_payY">
         <div class="row form-inline" id="divHisroty">
             <div class="widget widget-table mb10">
-                <div class="widget-header">
+                <div class="widget-header" style="height: 66px">
                     <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
 <%--                    <div class="btn-group widget-header-toolbar">--%>
 <%--                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand" onclick="slid();"><i class="fa fa-chevron-up" id="chevron"></i></a>--%>
 <%--                    </div>--%>
-<%--                    <div class="widget-header-toolbar">--%>
-<%--                        <div><button type="button" data-code="2" id="btn-inapp-aos" class="btn-inapp btn btn-sm btn-danger" style="width: 150px">AOS 외부결제 비활성화</button></div>--%>
-<%--                        <div><button type="button" data-code="1" id="btn-inapp-ios" class="btn-inapp btn btn-sm btn-danger" style="width: 150px">IOS 외부결제 비활성화</button></div>--%>
-<%--                    </div>--%>
+                    <div class="widget-header-toolbar">
+                        <div><button type="button" data-code="2" id="btn-inapp-aos" class="btn-inapp btn btn-sm btn-danger" style="width: 150px">AOS 외부결제 비활성화</button></div>
+                        <div><button type="button" data-code="1" id="btn-inapp-ios" class="btn-inapp btn btn-sm btn-danger" style="width: 150px">IOS 외부결제 비활성화</button></div>
+                    </div>
                 </div>
                 <div id="div_top">
                     <div class="mt5 col-md-10 no-padding mr10" id="statPayTableBody1"></div>
@@ -245,7 +245,7 @@
         ui.paintColor();
         ui.tableHeightSet();
         getPayHistoryList();
-        // getPamentSetInfo();
+        getPamentSetInfo();
     }
 
 

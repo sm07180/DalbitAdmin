@@ -90,6 +90,10 @@
           )
     </insert>
 
+    <delete id="callContentsMessageDel" parameterType="com.dalbit.content.vo.procedure.P_MessageDeleteVo">
+        DELETE FROM rd_admin.tb_admin_message WHERE idx IN (${message_idx})
+    </delete>
+
     <select id="callContentsMessageSendRoomList" parameterType="java.util.List" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
         SELECT
         a.*
