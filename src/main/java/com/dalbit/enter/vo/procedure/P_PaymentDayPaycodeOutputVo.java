@@ -8,6 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class P_PaymentDayPaycodeOutputVo {
+    private String the_date;    // 일자
+    private int total_cnt;		// 총건
+    private int total_cmt;		// 총수량
+    private int total_amt;		// 총금액
     private int code01_cnt;     // code01결제건
     private int code01_cmt;     // code01결제수량
     private int code01_amt;     // code01결제금액
