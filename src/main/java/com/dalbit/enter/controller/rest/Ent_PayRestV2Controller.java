@@ -1,6 +1,7 @@
 package com.dalbit.enter.controller.rest;
 
 import com.dalbit.enter.service.Ent_PayV2Service;
+import com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -27,58 +28,113 @@ public class Ent_PayRestV2Controller {
     @Autowired
     ExcelService excelService;
 
+    /**
+     * 결제현황 시간대별
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("time")
-    public String payTime() {
-        return "";
+    public String payTime(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payTime(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제현황 일간대별
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("day")
-    public String payDay() {
-        return "";
+    public String payDay(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payDay(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제현황 월간
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("month")
-    public String payMonth() {
-        return "";
+    public String payMonth(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payMonth(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제현황  연간
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("year")
-    public String payYear() {
-        return "";
+    public String payYear(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payYear(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제시도 내역
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("try")
-    public String payTry() {
-        return "";
+    public String payTry(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payTry(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제성공 내역
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("succ")
-    public String paySucc() {
-        return "";
+    public String paySucc(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.paySucc(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제실패 내역
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("fail")
-    public String payFail() {
-        return "";
+    public String payFail(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payFail(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제취소 내역
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("cancel")
-    public String payCancel() {
-        return "";
+    public String payCancel(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payCancel(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제현황 월간 - 성별
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("month/paysex")
-    public String payMonthByPaySex() {
-        return "";
+    public String payMonthByPaySex(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payMonthByPaySex(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제현황 월간 - 결제수단
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("month/payway")
-    public String payMonthByPayWay() {
-        return "";
+    public String payMonthByPayWay(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payMonthByPayWay(pPaymentSearchInputVo);
     }
 
+    /**
+     * 결제현황 월간 - 결제상품
+     * @param pPaymentSearchInputVo
+     * @return
+     */
     @PostMapping("month/paycode")
-    public String payMonthByPayCode() {
-        return "";
+    public String payMonthByPayCode(P_PaymentSearchInputVo pPaymentSearchInputVo) {
+        return ent_payV2Service.payMonthByPayCode(pPaymentSearchInputVo);
     }
 }
