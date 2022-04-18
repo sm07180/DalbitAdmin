@@ -58,7 +58,7 @@
     </select>
 
     <!-- 결제현황 결제 상품별 -->
-    <select id="selectPaymentMonthPaycodeStat" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentDayPaywayOutputVo">
+    <select id="selectPaymentMonthPaycodeStat" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentDayPaycodeOutputVo">
         CALL rd_admin.p_adm_payment_month_paycode_stat_list(#{tDate})
     </select>
 </mapper>
