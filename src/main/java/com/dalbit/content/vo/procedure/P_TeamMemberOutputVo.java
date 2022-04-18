@@ -21,6 +21,7 @@ public class P_TeamMemberOutputVo {
     private Date upd_date;          // 수정일자
 
     private String del_slct;        // 탈퇴구분[m:팀장탈퇴, t:본인탈퇴, c:관리자탈퇴, e:회원탈퇴, d:팀삭제]
+    private String del_proc_slct;   // 탈퇴구분[m:팀장탈퇴, t:본인탈퇴, c:관리자탈퇴, e:회원탈퇴, d:팀삭제]
     private String del_chrgr_name;  // 삭제관리자명
     private Date del_date;          // 삭제일자
 }

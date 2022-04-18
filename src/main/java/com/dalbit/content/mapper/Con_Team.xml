@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.content.dao.Con_TeamDao" >
     <resultMap id="integer" type="Integer" />
+    <resultMap id="P_TeamInputVo" type="com.dalbit.content.vo.procedure.P_TeamInputVo" />
     <resultMap id="P_TeamBadgeInputVo" type="com.dalbit.content.vo.procedure.P_TeamBadgeInputVo" />
     <resultMap id="P_TeamBadgeOutputVo" type="com.dalbit.content.vo.procedure.P_TeamBadgeOutputVo" />
     <resultMap id="P_TeamMemberOutputVo" type="com.dalbit.content.vo.procedure.P_TeamMemberOutputVo" />
@@ -66,5 +67,20 @@
     <!--    팀 집계-->
     <select id="selectTeamsMonthStat" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamSearchInputVo" resultMap="P_TeamMonthStatOutputVo">
         CALL rd_data.p_adm_dalla_team_month_stat_list(#{tDate})
+    </select>
+
+    <!--    팀 삭제-->
+    <select id="deleteTeam" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamInputVo" resultMap="integer">
+        CALL rd_data.p_adm_dalla_team_del(#{teamNo}, #{masterMemNo}, #{chrgrName})
+    </select>
+
+    <!--    팀 탈퇴-->
+    <select id="withdrawalTeam" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamInputVo" resultMap="integer">
+        CALL rd_data.p_adm_dalla_team_mem_del(#{teamNo}, #{delSclt}, #{tmMemNo}, #{masterMemNo}, #{chrgrName})
+    </select>
+
+    <!--    팀정보 수정-->
+    <select id="updateTeam" statementType="CALLABLE" parameterType="com.dalbit.content.vo.procedure.P_TeamInputVo" resultMap="integer">
+        CALL rd_data.p_adm_dalla_team_upd(#{memNo}, #{updSlct}, #{teamNo}, #{teamName}, #{teamConts}, #{teamMedalCode}, #{teamEdgeCode}, #{teamBgCode}, #{reqMemYn})
     </select>
 </mapper>

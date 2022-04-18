@@ -228,4 +228,55 @@ public class Con_TeamService {
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }
+
+    /**
+     * 팀 삭제
+     * @param pTeamInputVo
+     * @return
+     */
+    public String deleteTeam(P_TeamInputVo pTeamInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pTeamInputVo.setChrgrName(chrgrName);
+        int s_return = con_teamDao.deleteTeam(pTeamInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.삭제));
+        resHashMap.put("s_return", s_return);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 팀 탈퇴
+     * @param pTeamInputVo
+     * @return
+     */
+    public String withdrawalTeam(P_TeamInputVo pTeamInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pTeamInputVo.setChrgrName(chrgrName);
+        int s_return = con_teamDao.withdrawalTeam(pTeamInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.수정));
+        resHashMap.put("s_return", s_return);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 팀 정보수정
+     * @param pTeamInputVo
+     * @return
+     */
+    public String modifyTeam(P_TeamInputVo pTeamInputVo) {
+        String chrgrName = MemberVo.getMyMemNo();
+        pTeamInputVo.setChrgrName(chrgrName);
+        int s_return = con_teamDao.updateTeam(pTeamInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.수정));
+        resHashMap.put("s_return", s_return);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
 }

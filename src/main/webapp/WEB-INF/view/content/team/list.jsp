@@ -182,10 +182,10 @@
       }
     }
 
-    // 팀 상세정보
-    function teamDetailPopup(json) {
+    // 팀 상세정보 json: 정보, mode: use / del
+    function teamDetailPopup(json, mode) {
       if (!(json && json.team_no)) return;
-      let url = '/content/team/popup/detail?teamNo='+json.team_no;
+      let url = '/content/team/popup/detail?teamNo=' + json.team_no + '&mode=' + mode;
       let data = {
         url: url,
         width: 900,
@@ -208,6 +208,10 @@
       teamDetailPopup: teamDetailPopup
     };
   }());
+
+  function popupAction() {
+    teamEventData.callList();
+  }
 
   function handlebarsPaging(targetId, pagingInfo) {
     switch (targetId) {
@@ -285,10 +289,10 @@
         {{#each this as |data|}}
         <tr>
             <td>{{index_no}}</td>
-            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}})">{{team_no}}</a></td>
+            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_no}}</a></td>
             <td>{{team_name}}</td>
             <td>{{ins_date}}</td>
-            <td>{{{memNoLink master_mem_nick master_mem_no}}}</td>
+            <td>{{{memNoLink mem_nick master_mem_no}}}</td>
             <td>{{addComma team_req_mem_cnt}}</td>
             <td>{{addComma tot_send_dal_cnt}}</td>
             <td>{{addComma tot_rcv_byeol_cnt}}</td>
@@ -331,7 +335,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{index_no}}</td>
-            <td><a href="javascript:void(0);">{{team_no}}</a></td>
+            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'del')">{{team_no}}</a></td>
             <td>{{team_name}}</td>
             <td>{{ins_date}}</td>
             <td>{{addComma tot_send_dal_cnt}}</td>

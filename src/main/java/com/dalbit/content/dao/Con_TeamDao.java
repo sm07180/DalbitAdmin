@@ -83,4 +83,25 @@ public interface Con_TeamDao {
      * @return
      */
     List<P_TeamMonthStatOutputVo> selectTeamsMonthStat(P_TeamSearchInputVo pTeamSearchInputVo);
+
+    /**
+     * 팀 삭제
+     * @param pTeamInputVo
+     * @return
+     */
+    int deleteTeam(P_TeamInputVo pTeamInputVo);
+
+    /**
+     * 팀 탈퇴
+     * @param pTeamInputVo
+     * @return
+     */
+    int withdrawalTeam(P_TeamInputVo pTeamInputVo);
+
+    /**
+     * 팀 수정
+     * @param pTeamInputVo
+     * @return
+     */
+    int updateTeam(P_TeamInputVo pTeamInputVo);    
 }

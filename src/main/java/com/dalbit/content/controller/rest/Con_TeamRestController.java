@@ -135,4 +135,34 @@ public class Con_TeamRestController {
     public String getTeamsMonthStat(P_TeamSearchInputVo pTeamSearchInputVo) {
         return con_teamService.getTeamsMonthStat(pTeamSearchInputVo);
     }
+
+    /**
+     *  팀 삭제
+     * @param pTeamInputVo
+     * @return
+     */
+    @PostMapping("/delete")
+    public String deleteTeam(P_TeamInputVo pTeamInputVo) {
+        return con_teamService.deleteTeam(pTeamInputVo);
+    }
+
+    /**
+     * 팀 탈퇴
+     * @param pTeamInputVo
+     * @return
+     */
+    @PostMapping("/withdrawal")
+    public String withdrawalTeam(P_TeamInputVo pTeamInputVo) {
+        return con_teamService.withdrawalTeam(pTeamInputVo);
+    }
+
+    /**
+     * 팀 정보수정
+     * @param pTeamInputVo
+     * @return
+     */
+    @PostMapping("/modify")
+    public String modifyTeam(P_TeamInputVo pTeamInputVo) {
+        return con_teamService.modifyTeam(pTeamInputVo);
+    }
 }
