@@ -767,7 +767,13 @@ public class Pay_CancelService {
             String priceComma = formatter.format(payPrice);
 
             String cancelUserName = parentsAuthSelVo.getMem_name();
-            String cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
+            String cancelUserLastLetterReplace = "";
+            if(cancelUserName != null) {
+                cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
+            }else {
+                log.error("sendPayCancelMail / mem_name이 null입니다. memNo: {} (본인인증은 성인인데 어드민 생년월일이 미성년자인 경우)", memNo);
+                cancelUserLastLetterReplace = "***";
+            }
 
             msgCont = mailContent.toString().replaceAll("@@cancelUserName@@", cancelUserLastLetterReplace); // 유저 이름
             msgCont = msgCont.replaceAll("@@paymentDate@@", payCancelSendEmailVo.getOkdt()); // 거래일시
