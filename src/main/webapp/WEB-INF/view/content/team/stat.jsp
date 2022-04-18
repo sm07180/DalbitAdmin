@@ -92,6 +92,12 @@
     // 캘린더 출력
     function getCalendar() {
       days = [];
+      daysText = [];
+      teamCreateCnt = [];
+      teamDelCnt = [];
+      teamMemInsCnt = [];
+      teamMemDelCnt = [];
+
       $('#line-chart').empty();
       $('#calendar').empty();
 
