@@ -3,6 +3,7 @@ package com.dalbit.status.controller.rest;
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.status.service.Sta_ItemService;
 import com.dalbit.status.vo.procedure.P_ItemBroadInputVo;
+import com.dalbit.status.vo.procedure.P_ItemBroadTTSInputVo;
 import com.dalbit.status.vo.procedure.P_ItemClipInputVo;
 import com.dalbit.status.vo.procedure.P_MailboxVo;
 import com.dalbit.util.DalbitUtil;
@@ -116,6 +117,20 @@ public class Sta_ItemRestController {
             pItemBroadInputVo.setStartDate(null);
         }
         String result = sta_ItemService.callItemBroad(pItemBroadInputVo);
+        return result;
+    }
+
+    /**
+     * 아이템 방송-TTS
+     * @param pItemBroadTTSInputVo
+     * @return
+     */
+    @PostMapping("/broad-tts/list")
+    public String itembroadTTS(P_ItemBroadTTSInputVo pItemBroadTTSInputVo){
+        if(DalbitUtil.isEmpty(pItemBroadTTSInputVo.getTDate())){
+            pItemBroadTTSInputVo.setTDate(null);
+        }
+        String result = sta_ItemService.callItemBroadTTS(pItemBroadTTSInputVo);
         return result;
     }
 

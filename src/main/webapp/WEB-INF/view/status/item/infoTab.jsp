@@ -12,6 +12,7 @@
                     <li><a href="#gender" role="tab" data-toggle="tab" id="tab_genderDetail">성별</a></li>
                     <li><a href="#age" role="tab" data-toggle="tab" id="tab_ageDetail">연령별</a></li>
                     <li><a href="#broadcast" role="tab" data-toggle="tab" id="tab_broadcastDetail">방송</a></li>
+                    <li><a href="#broadcastTTS" role="tab" data-toggle="tab" id="tab_broadcastTTS">방송-TTS</a></li>
                     <li><a href="#clip" role="tab" data-toggle="tab" id="tab_clipDetail">클립</a></li>
                     <%--<li><a href="#storeEtc" role="tab" data-toggle="tab" id="tab_storeEtcDetail">스토어/기타</a></li>--%>
                     <%--<li><a href="#item" role="tab" data-toggle="tab" id="tab_itemDetail">아이템 전체</a></li>--%>
@@ -24,6 +25,7 @@
                     <div class="tab-pane fade" id="gender"><jsp:include page="gender.jsp"/></div>    <!-- 성별 -->
                     <div class="tab-pane fade" id="age"><jsp:include page="age.jsp"/></div>    <!-- 연령별 -->
                     <div class="tab-pane fade" id="broadcast"><jsp:include page="broadcast.jsp"/></div>    <!-- 방송 -->
+                    <div class="tab-pane fade" id="broadcastTTS"><jsp:include page="broadcastTTS.jsp"/></div>    <!-- 방송-TTS -->
                     <div class="tab-pane fade" id="clip"><jsp:include page="clip.jsp"/></div>    <!-- 클립 -->
                     <div class="tab-pane fade" id="storeEtc"><jsp:include page="storeEtc.jsp"/></div>    <!-- 스토어/기타 -->
                     <div class="tab-pane fade" id="item"><jsp:include page="item.jsp"/></div>    <!-- 아이템 전체 -->
@@ -44,7 +46,7 @@
         $("#slctTypeArea").show();
         $("#slctTypeArea2").hide();
 
-        if(tabId == 'tab_broadcastDetail' || tabId == 'tab_clipDetail' || tabId == 'tab_mailbox'){
+        if(tabId == 'tab_broadcastDetail' || tabId == 'tab_broadcastTTS' || tabId == 'tab_clipDetail' || tabId == 'tab_mailbox'){
             $("#slctTypeArea").hide();
             $("#slctTypeArea2").show();
         }
@@ -59,7 +61,6 @@
         }
 
         radioChange();
-
         $(".searchDate").html($("#onedayDate").val());
     });
 
@@ -84,6 +85,8 @@
             getAgeList();
         }else if(tabId == 'tab_broadcastDetail'){
             getBroadList();
+        }else if(tabId == 'tab_broadcastTTS'){
+            getBroadTTSList();
         }else if(tabId == 'tab_clipDetail'){
             getClipList();
         }else if(tabId == 'tab_castDetail'){

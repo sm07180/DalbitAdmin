@@ -212,6 +212,18 @@ public class Sta_ItemService {
     }
 
     /**
+     * 방송-TTS 현황
+     * @param pItemBroadTTSInputVo
+     * @return
+     */
+    public String callItemBroadTTS(P_ItemBroadTTSInputVo pItemBroadTTSInputVo){
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", "");
+        result.put("detailList", "");
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
      * 클립별 총계
      */
     public String callItemClip(P_ItemClipInputVo pItemClipInputVo){
