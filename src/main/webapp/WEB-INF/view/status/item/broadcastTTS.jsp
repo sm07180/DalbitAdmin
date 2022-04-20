@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-    #actor-list {list-style: none;padding:0;}
+    #actor-list {list-style: none; padding: 0;}
+    #tts-summary th, #tts-summary td {padding: 5px;}
 </style>
 
 <!-- 아이템 방송-TTS 현황 -->
@@ -92,16 +93,6 @@
       totalTTSRate: 0
     };
 
-    // the_date: "2022-04-18"
-    // tot_send_cnt: 1
-    // tot_send_dal_cnt: 100
-    // tot_tts_dal_cnt: 100
-    // tot_tts_send_cnt: 1
-    // tts_crt_slct: "a"
-    // tts_dal_cnt: 0
-    // tts_msg_dal_cnt: 100
-    // tts_msg_send_cnt: 1
-    // tts_send_cnt: 0
     let optText = [];
     let optDalText = [];
     response.summary.map(function (item, index) {
@@ -192,14 +183,14 @@
     <table id="tts-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="60px"/>
+            <col width="140px"/>
             <col width="120px"/>
-            <col width="100px"/>
             <col width="100px"/>
             <col width="100px"/>
             <col width="100px"/>
             <col width="auto"/>
             <col width="100px"/>
-            <col width="100px"/>
+            <col width="120px"/>
             <col width="100px"/>
         </colgroup>
         <thead>
