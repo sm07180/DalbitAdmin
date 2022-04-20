@@ -41,9 +41,14 @@
     <resultMap id="P_ItemBroadTTSSummaryOutVo" type="com.dalbit.status.vo.procedure.P_ItemBroadTTSSummaryOutVo" />
     <resultMap id="P_ItemBroadTTSTotalOutVo" type="com.dalbit.status.vo.procedure.P_ItemBroadTTSTotalOutVo" />
 
-    <select id="callItemBroadTTSDay" statementType="CALLABLE" parameterType="com.dalbit.status.vo.procedure.P_ItemBroadTTSInputVo" resultType="com.dalbit.status.vo.procedure.P_ItemBroadOutDetailVo">
+    <select id="callItemBroadTTSDay" statementType="CALLABLE" parameterType="com.dalbit.status.vo.procedure.P_ItemBroadTTSInputVo" resultMap="P_ItemBroadTTSSummaryOutVo,P_ItemBroadTTSTotalOutVo,P_ItemBroadTTSOutVo">
         /* Sta_Item.xml - callItemBroadTTSDay */
         call rd_data.p_adm_tts_log_day_list(#{tDate}, #{ttsMsgYn}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <select id="callItemBroadTTSMonth" statementType="CALLABLE" parameterType="com.dalbit.status.vo.procedure.P_ItemBroadTTSInputVo" resultMap="P_ItemBroadTTSSummaryOutVo,P_ItemBroadTTSTotalOutVo,P_ItemBroadTTSOutVo">
+        /* Sta_Item.xml - callItemBroadTTSMonth */
+        call rd_data.p_adm_tts_log_month_list(#{tDate}, #{ttsMsgYn}, #{pageNo}, #{pagePerCnt})
     </select>
 
 </mapper>

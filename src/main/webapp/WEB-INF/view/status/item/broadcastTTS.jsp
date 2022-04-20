@@ -1,126 +1,241 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+    #actor-list {list-style: none;padding:0;}
+</style>
+
 <!-- 아이템 방송-TTS 현황 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <span class="_searchDate2"></span>
-        <table class="table table-bordered">
-            <colgroup>
-                <col width="6.2%"/>
-                <col width="13.4%"/>
-                <col width="13.4%"/>
-                <col width="13.4%"/>
-                <col width="13.4%"/>
-                <col width="13.4%"/>
-                <col width="13.4%"/>
-            </colgroup>
-            <thead>
-            <tr>
-                <th>No</th>
-                <th>아이템 이미지</th>
-                <th>아이템 명</th>
-                <th>아이템 달</th>
-                <th>아이템 판매 수</th>
-                <th>아이템 판매 달</th>
-                <th>아이템 누적 판매량</th>
-            </tr>
-            </thead>
-            <tbody id="broadTTSTableBody"></tbody>
-        </table>
-        <div class="dataTables_paginate paging_full_numbers" id="list_broadcastTTS_paginate"></div>
-    </div>
-    <div class="widget-footer">
+        <span class="_searchDate2"></span><br>
+        <br>
+        <span class="font-bold">[성우코드]</span>
+        <ul id="actor-list"></ul>
+        <div id="tts-summary"></div>
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tts_con">
+            <li class="active"><a href="#tts-total" role="tab" data-toggle="tab" data-slctno="">전체</a></li>
+            <li><a href="#tts-use" role="tab" data-toggle="tab" data-slctno="y">TTS 사용 건</a></li>
+            <li><a href="#tts-nouse" role="tab" data-toggle="tab" data-slctno="n">TTS 미사용 건</a></li>
+        </ul>
+        <div id="tts-reault"></div>
     </div>
 </div>
 
 <script type="text/javascript">
-  $(function () {
-    getBroadTTSList();
-  });
-
+  let actor = {
+    a: '빠다가이',
+    b: '하나'
+  }
+  let slctNo = '';
   giftBroadcastTTSListPagingInfo = new PAGING_INFO(0, 1, 50);
 
-  function getBroadTTSList() {
+  $(function () {
+    getBroadTTSList();
+    actorList();
 
+    $('#tts_con > li > a').on('click', function(e) {
+      var $this = $(this);
+      slctNo = $this.data('slctno');
+      giftBroadcastTTSListPagingInfo.pageNo = 1;
+      getBroadTTSList();
+    });
+  });
+
+  function actorList() {
+    $('#actor-list').empty();
+    let actorList = [];
+    for (const key in actor) {
+      actorList.push('<li>' + key + ': ' + actor[key] + '</li>');
+    }
+    $('#actor-list').html(actorList.join('\n'));
+  }
+
+  function getBroadTTSList() {
+    $('#tts-summary').empty();
+    $("#tts-reault").empty();
     $("#searchForm #pageNo").val(giftBroadcastTTSListPagingInfo.pageNo);
     $("#searchForm #pageCnt").val(giftBroadcastTTSListPagingInfo.pageCnt);
 
-    var data = {};
-    data.slctType = $('input[name="slctType2"]:checked').val();
-    data.startDate = $("#startDate").val();
-    data.endDate = $("#endDate").val();
-    data.pageNo = giftBroadcastTTSListPagingInfo.pageNo;
-    data.pageCnt = giftBroadcastTTSListPagingInfo.pageCnt;
-    data.itemType = $('select[name=itemType_broad]').val();
-    util.getAjaxData("memberList", "/rest/status/item/broad/list", data, fn_broadTTS_success);
+    var tDate = $("#startDate").val().replace(/[.]/g, '-');
+    var data = {
+      slctType: $('input[name="slctType2"]:checked').val(),
+      tDate: tDate,
+      ttsMsgYn: slctNo,
+      pageNo: giftBroadcastTTSListPagingInfo.pageNo,
+      pagePerCnt: giftBroadcastTTSListPagingInfo.pageCnt
+    };
+    util.getAjaxData("memberList", "/rest/status/item/broad-tts/list", data, fn_broadTTS_success);
   }
 
   function fn_broadTTS_success(data, response) {
-    var isDataEmpty = response.data.detailList == null;
-    $("#broadTTSTableBody").empty();
-    if (!isDataEmpty) {
-      var template = $('#tmp_broadTTSTotal').html();
-      var templateScript = Handlebars.compile(template);
-      var totalContext = response.data.totalInfo;
-      var totalHtml = templateScript(totalContext);
-      $("#broadTTSTableBody").append(totalHtml);
+    let template, templateScript, context, html;
+    template = $('#tmp-tts-summary').html();
+    templateScript = Handlebars.compile(template);
 
-      response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
+    // 전체 아이템 사용 건 수: totalItemCnt
+    // TTS 옵션이 있는 아이템 사용 건 수: totalTTSItemCnt
+    // TTS 옵션이 있는 아이템 사용 달 수: totalTTSItemDalCnt
+    // TTS 옵션 사용 건 수: totalTTSOptCnt
+    // TTS 옵션 사용 건 수: totalTTSOptText
+    // TTS 옵션 사용 달 수: totalTTSOptDalCnt
+    // TTS 옵션 사용 달 수: totalTTSOptDalText
+    // 전체 대비 TTS 옵션 사용률: totalTTSRate
+    let summaryData = {
+      totalItemCnt: 0,
+      totalTTSItemCnt: 0,
+      totalTTSItemDalCnt: 0,
+      totalTTSOptCnt: 0,
+      totalTTSOptText: '',
+      totalTTSOptDalCnt: 0,
+      totalTTSOptDalText: '',
+      totalTTSRate: 0
+    };
+
+    // the_date: "2022-04-18"
+    // tot_send_cnt: 1
+    // tot_send_dal_cnt: 100
+    // tot_tts_dal_cnt: 100
+    // tot_tts_send_cnt: 1
+    // tts_crt_slct: "a"
+    // tts_dal_cnt: 0
+    // tts_msg_dal_cnt: 100
+    // tts_msg_send_cnt: 1
+    // tts_send_cnt: 0
+    let optText = [];
+    let optDalText = [];
+    response.summary.map(function (item, index) {
+      summaryData.totalItemCnt += item.tot_send_cnt;
+      summaryData.totalTTSItemCnt += item.tts_msg_send_cnt + item.tts_send_cnt;
+      summaryData.totalTTSItemDalCnt += item.tts_msg_dal_cnt + item.tts_dal_cnt;
+      summaryData.totalTTSOptCnt += item.tts_msg_send_cnt;
+      optText.push(actor[item.tts_crt_slct] + ': ' + common.addComma(item.tts_msg_send_cnt));
+      summaryData.totalTTSOptDalCnt += item.tts_msg_dal_cnt;
+      optDalText.push(actor[item.tts_crt_slct] + ': ' + common.addComma(item.tts_msg_dal_cnt));
+      return item;
+    });
+    summaryData.totalTTSOptText = optText.join(', ');
+    summaryData.totalTTSOptDalText = optDalText.join(', ');
+    if (summaryData.totalTTSOptCnt > 0 && summaryData.totalItemCnt > 0) {
+      summaryData.totalTTSRate = ((summaryData.totalTTSOptCnt / summaryData.totalItemCnt) * 100).toFixed(2);
     }
 
-    var template = $('#tmp_broadTTSList').html();
-    var templateScript = Handlebars.compile(template);
-    var detailContext = response.data.detailList;
-    var html = templateScript(detailContext);
-    $("#broadTTSTableBody").append(html);
+    context = summaryData;
+    html = templateScript(context);
+    $("#tts-summary").html(html);
 
-    if (response.data != '') {
-      var pagingInfo = response.data.totalInfo;
-      giftBroadcastTTSListPagingInfo.totalCnt = pagingInfo.totalCnt;
-      util.renderPagingNavigation('list_broadcastTTS_paginate', giftBroadcastTTSListPagingInfo);
+    template = $('#tmp-tts-list').html();
+    templateScript = Handlebars.compile(template);
+    context = response.listData.map(function (item, index) {
+      item.index_no = response.totalCnt - (((giftBroadcastTTSListPagingInfo.pageNo - 1) * giftBroadcastTTSListPagingInfo.pageCnt) + index);
+      item.actor_name = actor[item.tts_crt_slct];
+      return item;
+    });
+    html = templateScript(context);
+    $("#tts-reault").html(html);
 
-      detailContext.totalCnt = pagingInfo.totalCnt;
-    }
+    giftBroadcastTTSListPagingInfo.totalCnt = response.totalCnt;
+    util.renderPagingNavigation('tts-top', giftBroadcastTTSListPagingInfo);
+    util.renderPagingNavigation('tts-bottom', giftBroadcastTTSListPagingInfo);
 
-    if (isDataEmpty) {
-      $("#broadTTSTableBody td:last").remove();
+    if (response.listData.length === 0) {
+      $('#tts-top').hide();
+      $('#tts-bottom').hide();
     } else {
-      $("#broadTTSTableBody").append(totalHtml);
+      $('#tts-top').show();
+      $('#tts-bottom').show();
     }
   }
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_broadTTSTotal">
-    <tr class="success font-bold">
-        <td>소계</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>{{addComma sum_itemCnt}}</td>
-        <td>{{addComma sum_itemAmt}}</td>
-        <td>{{addComma sum_totalItemCnt}}</td>
-        <!--<td>{{addComma sum_totalItemAmt}}</td>-->
-    </tr>
+<script type="text/x-handlebars-template" id="tmp-tts-summary">
+    <table class="table table-hover table-bordered">
+        <colgroup>
+            <col width="240px">
+            <col width="auto">
+            <col width="240px">
+            <col width="auto">
+        </colgroup>
+        <tbody>
+        <tr>
+            <th class="text-left">전체 아이템 사용 건 수</th>
+            <td class="text-left" colspan="3">{{addComma totalItemCnt}}</td>
+        </tr>
+        <tr>
+            <th class="text-left"`>TTS 옵션이 있는 아이템 사용 건 수</th>
+            <td class="text-left">{{addComma totalTTSItemCnt}}</td>
+            <th class="text-left">TTS 옵션이 있는 아이템 사용 달 수</th>
+            <td class="text-left">{{addComma totalTTSItemDalCnt}}</td>
+        </tr>
+        <tr>
+            <th class="text-left">TTS 옵션 사용 건 수</th>
+            <td class="text-left">
+                {{addComma totalTTSOptCnt}}
+                ({{totalTTSOptText}})
+            </td>
+            <th class="text-left">TTS 옵션 사용 달 수</th>
+            <td class="text-left">
+                {{addComma totalTTSOptDalCnt}}
+                ({{totalTTSOptDalText}})
+            </td>
+        </tr>
+        <tr>
+            <th class="text-left">전체 대비 TTS 옵션 사용률</th>
+            <td class="text-left" colspan="3">{{totalTTSRate}}%</td>
+        </tr>
+        </tbody>
+    </table>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_broadTTSList">
-    {{#each this as |data|}}
-    <tr>
-        <td class="font-bold">{{rowNum}}</td>
-        <td><img class="_webpImage" src="{{data.item_thumbnail}}" width="50" height="50"
-                 data-webpImage="{{webp_image}}"/></td>
-        <td>{{item_name}}</td>
-        <td>{{sale_price}}</td>
-        <td>{{addComma itemCnt}}</td>
-        <td>{{addComma itemAmt}}</td>
-        <td>{{addComma totalItemCnt}}</td>
-        <!--<td>{{addComma totalItemAmt}}</td>-->
-    </tr>
-    {{else}}
-    <%--<tr>--%>
-    <td colspan="11" class="noData">{{isEmptyData}}
-    <td>
-        <%--</tr>--%>
+<script type="text/x-handlebars-template" id="tmp-tts-list">
+    <div class="dataTables_paginate paging_full_numbers" id="tts-top"></div>
+    <table id="tts-table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="60px"/>
+            <col width="120px"/>
+            <col width="100px"/>
+            <col width="100px"/>
+            <col width="100px"/>
+            <col width="100px"/>
+            <col width="auto"/>
+            <col width="100px"/>
+            <col width="100px"/>
+            <col width="100px"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>선물일시</th>
+            <th>보낸 회원 번호</th>
+            <th>닉네임</th>
+            <th>보낸선물</th>
+            <th>달 사용</th>
+            <th>TTS메시지</th>
+            <th>목소리</th>
+            <th>받은 회원 번호</th>
+            <th>닉네임</th>
+        </tr>
+        </thead>
+        <tbody id="tts-table-body">
+        {{#each this as |data|}}
+        <tr>
+            <td>{{index_no}}</td>
+            <td>{{ins_date}}</td>
+            <td>{{{memNoLink send_mem_no send_mem_no}}}</td>
+            <td>{{send_mem_nick}}</td>
+            <td>{{item_name}}</td>
+            <td>{{addComma send_dal_cnt}}</td>
+            <td>{{tts_msg}}</td>
+            <td>{{actor_name}}</td>
+            <td>{{{memNoLink rcv_mem_no rcv_mem_no}}}</td>
+            <td>{{rcv_mem_nick}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="10">{{isEmptyData}}</td>
+        </tr>
         {{/each}}
+        </tbody>
+    </table>
+    <div class="dataTables_paginate paging_full_numbers" id="tts-bottom"></div>
 </script>

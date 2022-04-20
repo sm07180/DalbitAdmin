@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface Sta_ItemDao {
@@ -30,4 +31,8 @@ public interface Sta_ItemDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_MailboxVo> callMailboxList(ProcedureVo procedureVo);
+
+    List<Object> callItemBroadTTSDay(P_ItemBroadTTSInputVo pItemBroadTTSInputVo);
+
+    List<Object> callItemBroadTTSMonth(P_ItemBroadTTSInputVo pItemBroadTTSInputVo);
 }
