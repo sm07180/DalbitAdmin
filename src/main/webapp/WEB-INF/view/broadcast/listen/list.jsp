@@ -92,6 +92,7 @@
     function listen_summary_table(json){
         var template = $("#listen_tableSummary").html();
         var templateScript = Handlebars.compile(template);
+
         var data = {
             header : listen_summary
             , content : json.summary
@@ -214,6 +215,7 @@
         </thead>
         <tbody id="summaryDataTable">
             <td>{{#equal length '0'}}0{{/equal}}{{content.listenerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.countLiveMax}}명</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalGuestCnt}}명</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.managerCnt}}명</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.forcedCnt}}명</td>
