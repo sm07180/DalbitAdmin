@@ -11,7 +11,7 @@ public class P_StarListOutputVo {
     private int req_idx;                // tb_req_special_dj의 idx
     private String mem_no;              // 회원 번호
     private Date reg_date;              // 등록일
-    private int op_name;                // 순서
+    private String op_name;             //
     private String mem_id;              // 회원 아이디
     private String mem_userid;          // 회원유저 아이디
     private String mem_nick;            // 회원 닉네임

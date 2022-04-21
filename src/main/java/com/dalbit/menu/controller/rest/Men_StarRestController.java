@@ -52,7 +52,7 @@ public class Men_StarRestController {
      * @return
      */
     @PostMapping("modify-point")
-    public String removeStarDJ(P_StarScoreInputVo pStarScoreInputVo) {
+    public String modifyPointStarDJ(P_StarScoreInputVo pStarScoreInputVo) {
         return menStarService.modifyPointStarDJ(pStarScoreInputVo);
     }
 

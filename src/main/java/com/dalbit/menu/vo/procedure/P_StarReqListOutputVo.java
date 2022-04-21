@@ -12,7 +12,7 @@ public class P_StarReqListOutputVo {
     private String mem_no;              // 회원 번호
     private String mem_name;            // 회원 이름
     private String mem_phone;           // 회원 전화번호
-    private int op_name;                // 순서
+    private String op_name;             //
     private Date last_upd_date;         // 최근 수정일
     private int stardj_badge;           // 스타DJ 뱃지
     private int stardj_cnt;             // 스타DJ 횟수
