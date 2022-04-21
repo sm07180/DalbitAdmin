@@ -154,8 +154,8 @@
       if (!team) return;
 
       let symbolImages = [];
-      symbolImages.push('<img src="https://image.dalbitlive.com/team/parts/E/' + team.team_bg_code + '.png">');
-      symbolImages.push('<img src="https://image.dalbitlive.com/team/parts/B/' + team.team_edge_code + '.png">');
+      symbolImages.push('<img src="https://image.dalbitlive.com/team/parts/B/' + team.team_bg_code + '.png">');
+      symbolImages.push('<img src="https://image.dalbitlive.com/team/parts/E/' + team.team_edge_code + '.png">');
       symbolImages.push('<img src="https://image.dalbitlive.com/team/parts/M/' + team.team_medal_code + '.png">');
       $('#symbol-image').html(symbolImages.join('\n'));
     }
