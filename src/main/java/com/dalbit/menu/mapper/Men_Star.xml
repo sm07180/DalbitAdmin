@@ -21,7 +21,7 @@
     </select>
 
     <!-- 스타DJ 가산점 점수 수정 -->
-    <select id="updateStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarScoreInputVo" resultMap="integer">
+    <select id="updatePointStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarScoreInputVo" resultMap="integer">
         CALL rd_data.p_adm_period_star_dj_admin_score_upd(#{selectYear}, #{selectMonth}, #{memNo}, #{scoreCnt})
     </select>
 

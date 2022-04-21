@@ -28,7 +28,7 @@ public interface Men_StarDao {
      * @param pStarScoreInputVo
      * @return
      */
-    int updateStarDJ(P_StarScoreInputVo pStarScoreInputVo);
+    int updatePointStarDJ(P_StarScoreInputVo pStarScoreInputVo);
 
     /**
      * 스타 DJ 신청 리스트
