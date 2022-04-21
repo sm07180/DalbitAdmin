@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.menu.dao.Men_StarDao" >
+
+    <resultMap id="integer" type="Integer" />
+    <resultMap id="P_StarInputVo" type="com.dalbit.menu.vo.procedure.P_StarInputVo" />
+    <resultMap id="P_StarListOutputVo" type="com.dalbit.menu.vo.procedure.P_StarListOutputVo" />
+    <resultMap id="P_StarReqListOutputVo" type="com.dalbit.menu.vo.procedure.P_StarReqListOutputVo" />
+    <resultMap id="P_StarScoreInputVo" type="com.dalbit.menu.vo.procedure.P_StarScoreInputVo" />
+    <resultMap id="P_StarSearchInputVo" type="com.dalbit.menu.vo.procedure.P_StarSearchInputVo" />
+    <resultMap id="P_StarTotalCntVo" type="com.dalbit.menu.vo.procedure.P_StarTotalCntVo" />
+
+    <!-- 스타 dj 등록 후 달/부스터/아이템 지급 -->
+    <select id="insertStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarInputVo" resultMap="integer">
+        CALL rd_data.p_adm_star_dj_ins(#{memNo}, #{tDate}, #{chrgrName})
+    </select>
+
+    <!-- 스타 dj 삭제 -->
+    <select id="deleteStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarInputVo" resultMap="integer">
+        CALL rd_data.p_adm_star_dj_cancel(#{memNo}, #{tDate}, #{chrgrName})
+    </select>
+
+    <!-- 스타DJ 가산점 점수 수정 -->
+    <select id="updateStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarScoreInputVo" resultMap="integer">
+        CALL rd_data.p_adm_period_star_dj_admin_score_upd(#{selectYear}, #{selectMonth}, #{memNo}, #{scoreCnt})
+    </select>
+
+    <!-- 스타 DJ 신청 리스트 -->
+    <select id="selectReqStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarSearchInputVo" resultMap="P_StarTotalCntVo,P_StarReqListOutputVo">
+        CALL rd_data.p_adm_req_star_dj_list(#{tDate}, #{searchVal}, #{searchSlct}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!-- 스타 DJ 리스트 -->
+    <select id="selectStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarSearchInputVo" resultMap="P_StarTotalCntVo,P_StarListOutputVo">
+        CALL rd_data.p_adm_star_dj_list(#{tDate}, #{searchVal}, #{searchSlct}, #{pageNo}, #{pagePerCnt})
+    </select>
+</mapper>
