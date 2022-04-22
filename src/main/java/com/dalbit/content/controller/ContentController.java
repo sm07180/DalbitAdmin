@@ -327,10 +327,61 @@ public class ContentController {
 
     /**
      * 리브랜딩 이벤트
+     *
      * @return
      */
     @GetMapping("/event/rebrand/list")
     public String rebrand() {
         return "content/event/rebrand/list";
+    }
+
+    /**
+     * 팀제도 - 팀목록
+     *
+     * @return
+     */
+    @GetMapping("/team/list")
+    public String teamList() {
+        return "content/team/list";
+    }
+
+    /**
+     * 팀목록 - 상세팝업
+     *
+     * @return
+     */
+    @GetMapping("/team/popup/detail")
+    public String teamPopup() {
+        return "content/team/popup/detail";
+    }
+
+    /**
+     * 팀제도 - 월간현황
+     *
+     * @return
+     */
+    @GetMapping("/team/stat")
+    public String teamStat() {
+        return "content/team/stat";
+    }
+
+    /**
+     * 팀제도 - 심볼관리
+     *
+     * @return
+     */
+    @GetMapping("/team/symbol")
+    public String teamSymbol() {
+        return "content/team/symbol";
+    }
+
+    /**
+     * 팀제도 - 배지관리
+     *
+     * @return
+     */
+    @GetMapping("/team/badge")
+    public String teamBadge() {
+        return "content/team/badge";
     }
 }
