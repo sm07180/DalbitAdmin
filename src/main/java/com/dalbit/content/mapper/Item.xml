@@ -187,6 +187,10 @@
                   <if test="itemType == 4">
                    and category='text'
                   </if>
+                  <if test="itemType == 5">
+                   and category='signature'
+                   and sgnt_mem_no = #{sgnt_mem_no}
+                  </if>
                    and item_slct = 1
                    and (item_price != 0 or item_price_ios != 0)
         ) a, (select @rownum := 0) r

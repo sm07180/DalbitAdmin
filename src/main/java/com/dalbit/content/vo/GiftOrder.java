@@ -15,6 +15,7 @@ public class GiftOrder extends SearchVo {
     private String itemType;
     private String itemOrder;
     private String itemCode;
+    private String sgnt_mem_no; // itemType 5인 경우, 시그니쳐 회원번호
     private List<HashMap<String,String>> editData;
 
     /* output */

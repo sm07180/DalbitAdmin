@@ -121,6 +121,10 @@
 
         fnc_giftDetail.initDetail();
         fnc_giftDetail.initDetailEvent();
+
+      if (signatureData.active) {
+        fnc_giftDetail.target.find("input[name=sgnt_mem_no]").attr('disabled', false);
+      }
     };
 
 
@@ -171,6 +175,13 @@
 
         fnc_giftList.selectMainList(false);
 
+        // 시그니쳐 탭인 경우
+        if(signatureData.active){
+        // 상단, 하단 테이블: data fetch
+        signatureData.fetch_itemListFn();
+        signatureData.fetch_memberItemListFn();
+        }
+
         //하위 탭 초기화
         initContentTab();
         //상단 이동
@@ -189,6 +200,13 @@
         alert(data.message);
 
         fnc_giftList.selectMainList(false);
+
+        // 시그니쳐 탭인 경우
+        if(signatureData.active){
+          // 상단 하단 테이블: data fetch
+          signatureData.fetch_itemListFn();
+          signatureData.fetch_memberItemListFn();
+        }
 
         //하위 탭 초기화
         initContentTab();
@@ -275,6 +293,10 @@
 
         var jason_image = fnc_giftDetail.target.find("input[name=jason_image]");
         resultJson['jason_file_name'] = util.getFileName(jason_image.val(), false);
+
+        // 시그니처 아이템 회원번호 (시드니처 아이템 등록 및 수정시에만 사용)
+        let sgnt_mem_no = fnc_giftDetail.target.find("input[name=sgnt_mem_no]").val();
+        resultJson['sgnt_mem_no'] = sgnt_mem_no;
 
         console.log('hi : ', resultJson);
         return resultJson;
@@ -473,6 +495,10 @@
                         <input type="text" class="_trim" id="gift-jason_image" name="jason_image" style="width:70%" value="{{jason_image}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-jason_image')">
                     </td>
+                </tr>
+                <tr>
+                    <th>시그니처 아이템 회원번호</th>
+                    <td><input type="text" name="sgnt_mem_no" value="{{sgnt_mem_no}}" disabled></td>
                 </tr>
                 <tr>
                     <td colspan="4">

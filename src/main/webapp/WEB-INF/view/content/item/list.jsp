@@ -36,16 +36,18 @@
                 <li class="active"><a href="#chargeList" role="tab" data-toggle="tab" id="tab_chargeList" onclick="onClickHeaderTab(this.id)">충전 아이템</a></li>
                 <li><a href="#exchangeList" role="tab" data-toggle="tab" id="tab_exchangeList" onclick="onClickHeaderTab(this.id)">교환 아이템</a></li>
                 <li><a href="#giftList" role="tab" data-toggle="tab" id="tab_giftList" onclick="onClickHeaderTab(this.id)">선물 아이템</a></li>
+                <li><a href="#" role="tab" data-toggle="tab" id="tab_signatureGiftList" onclick="onClickSignatureTab()">시그니처 아이템</a></li>
                 <li><a href="#quick" role="tab" data-toggle="tab" id="tab_quick" onclick="onClickTab(this.id)">퀵 메시지</a></li>
                 <%--    TODO 추후 추가
                 <li><a href="#subscribeList" role="tab" data-toggle="tab" id="tab_subscribeList" onclick="onClickHeaderTab(this.id)">구독 아이템</a></li>
                 <li><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송 아이템</a></li>
                 --%>
             </ul>
-            <div class="tab-content no-padding">
+            <div id="itemList" class="tab-content no-padding">
                 <div class="tab-pane fade active in" id="chargeList"><jsp:include page="/WEB-INF/view/content/item/chargeList.jsp"/></div>     <!-- 충전 아이템 -->
                 <div class="tab-pane fade" id="exchangeList"><jsp:include page="/WEB-INF/view/content/item/exchangeList.jsp"/></div>          <!-- 교환 아이템 -->
                 <div class="tab-pane fade" id="giftList"><jsp:include page="/WEB-INF/view/content/item/giftList.jsp"/></div>                       <!-- 선물 아이템 -->
+                <div class="tab-pane fade" id="signatureGiftList"><jsp:include page="/WEB-INF/view/content/item/signatureGiftList.jsp"/></div>     <!-- 시그니처 선물 아이템 -->
                 <div class="tab-pane fade" id="quick"><jsp:include page="/WEB-INF/view/content/item/quick.jsp"/></div>                       <!-- 퀵메시지 -->
                 <%--    TODO 추후 추가
                 <div class="tab-pane fade" id="subscribeList"><jsp:include page="/WEB-INF/view/content/item/subscribeList.jsp"/></div>     <!-- 구독 아이템 -->-
@@ -55,6 +57,9 @@
         </div>
     </div>
 </div>
+
+
+<%-- 하단 상세 영역 --%>
 <div class="main-content" style="margin-top: 3px; display: none;">
     <!-- TAB -->
         <div name="main-content-div" id="chargeListContent"><jsp:include page="detail/chargeTab.jsp"></jsp:include></div>  <!-- 충전 아이템 -->
@@ -71,7 +76,7 @@
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
-
+<script defer src="/js/etc/signatureList.js"></script>
 <script>
     $(document).ready(function() {
         init();
@@ -108,6 +113,7 @@
 
     //Tab 선택시 호출 함수
     function onClickHeaderTab(id){
+        signatureData.active = false;
         $("#searchForm").show();
         var targetName = id.split("_")[1];
         var targetFnc = eval("fnc_"+targetName);
@@ -274,6 +280,7 @@
     }
 
     function onClickTab(id){
+        signatureData.active = false;
         if(id == "tab_quick"){
             $("#searchForm").hide();
             fnc_quick();

@@ -574,6 +574,7 @@ var item_itemCategory = [
   , new COMMON_CODE('combo', 'combo', '콤보')
   , new COMMON_CODE('normal', 'normal', '일반')
   , new COMMON_CODE('text', 'text', '문자')
+  , new COMMON_CODE('signature', 'signature', '시그니처')
 ];
 
 var item_useArea = [

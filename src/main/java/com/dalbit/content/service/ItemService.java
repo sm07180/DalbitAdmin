@@ -6,16 +6,21 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.ItemDao;
 import com.dalbit.content.vo.GiftOrder;
+import com.dalbit.content.vo.MemSelSignatureGiftParamVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -293,9 +298,116 @@ public class ItemService {
         return result;
     }
 
+    /**
+     * ##### 시그니처 아이템 보유회원리스트
+     *
+     * # RETURN [Multi Rows]
+     *
+     * #1
+     * cnt                  INT		-- 총건수
+     *
+     * #2
+     * tot_purchase_count   INT		-- 총 선물현황
+     *
+     * #3
+     * mem_no               BIGINT		-- 회원번호
+     * mem_nick             VARCHAR(20)	-- 대화명
+     * specialdj_cnt        SMALLCNT	-- 스페셜DJ 횟수
+     * low_price_item       BIGINT		-- 저가아이템수
+     * middle_price_item    BIGINT		-- 중가아이템수
+     * high_price_item      BIGINT		-- 고가아이템수
+     * ins_date             DATETIME	-- 등록일자
+     * upd_date             DATETIME	-- 수정일자
+     */
+    public String getSignatureList(P_itemGiftListInputVo pItemGiftListInputVo) {
+        try {
+            Map<String, Object> param = new HashMap<>();
+            P_itemGiftListOutputVo summary = new P_itemGiftListOutputVo();
+            param.put("pageNo", pItemGiftListInputVo.getPageNo());
+            param.put("pagePerCnt", 50);
 
+            List<Object> list = itemDao.pAdmSignatureItemList(param);
+            List<Integer> list_cnt = DBUtil.getList(list, Integer.class, 0);  // 리스트 cnt
+            List<Integer> list_purchageCnt = DBUtil.getList(list, Integer.class, 1);  // 상단 누적 선물 갯수;
+            List<P_SignatureItemGiftListOutputVo> giftList = DBUtil.getList(list, P_SignatureItemGiftListOutputVo.class);
 
+            Integer cnt = list_cnt.get(0);
+            Integer purchageCnt = list_purchageCnt.get(0);
+            summary.setTotalGiftCnt(purchageCnt);
 
+            if (cnt > 0) {
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, giftList, new PagingVo(cnt), summary));
+            } else if (cnt == 0) {
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_데이터없음));
+            } else {
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
+            }
+
+        } catch (Exception e) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
+        }
+    }
+
+    /**
+     * ##### 시그니처 아이템 (특정유저 memNo 조건의 아이템 리스트)
+     *
+     * # RETURN [Multi Rows]
+     *
+     * #1
+     * cnt                  INT		-- 총건수
+     *
+     * #2
+     * String item_code;            //  아이템코드
+     * String item_name;            //  아이템이름
+     * String item_image;           //  아이템이미지 경로
+     * String item_thumbnail;       //  아이템 썸네일이미지 경로
+     * int item_price;              //  가격(달)
+     * int item_price_ios;          //  ios가격(달)
+     * int byeol;                   //  얻는 별
+     * String item_type;            //  아이템 타입( 신규,인기,한정)
+     * int discount_rate;           //  할인율
+     * int sale_price;              //  실제판매가격(달)
+     * int item_slct;               //  아이템구분(1: 방송방선물, 2: 방송방사용, 3: 달 선물)
+     * int use_area;                //  사용영역
+     * String file_slct;            //  파일 구분( webp/jason, sticker)
+     * String webp_image;           //  webp 이미지경로
+     * String jason_image;          //  jason 이미지경로
+     * int sound_yn;                //  사운드여부
+     * int play_time;               //  애니플레이시간
+     * String platform;             //  플랫폼(PC(Web포함),Mobile-Android,Mobile-IOS)
+     * String desc;                 //  아이템설명
+     * int view_yn;                 //  게시여부
+     * int purchase_count;          //  구매건수
+     * String op_name;              //  등록자
+     * Date regDate;                //  등록일자
+     * String regDateFormat;
+     * Date lastupdDate;            //  최종변경일자
+     * String lastupdDateFormat;
+     * int ruby;                    //  소모 루비
+     * int gold;                    //  획득 골드
+     * int exp;                     //  획득 경험치
+     * int order;                   //  아이템 순서
+     * int state;                   //  상태( 1: 판매중, 2: 판매 중지)
+     * int in_app_yn;               //  인앱 여부( 0: 아님, 1: 인앱 다운로드 아이템)
+     * String tts_use_yn;           //   tts 음성 사용 가능 여부
+     */
+    public String getMemSelSignatureList(MemSelSignatureGiftParamVo paramVo){
+        try{
+            List<Object> list = itemDao.pAdmSignatureItemMemSel(paramVo);
+            Integer cnt = DBUtil.getData(list, Integer.class);
+            List<P_itemGiftListOutputVo> giftList = DBUtil.getList(list, P_itemGiftListOutputVo.class);
+
+            if(cnt> 0) {
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, giftList, new PagingVo(cnt)));
+            } else if (cnt == 0) {
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_데이터없음));
+            } else {
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
+            }
+        } catch (Exception e) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
+        }
+    }
 
 /** ==----------------------------------------- 선물 아이템 ------------------------------------------------------------------*/
 
@@ -345,6 +457,11 @@ public class ItemService {
     public String callContentsGiftItemAdd(P_itemGiftInsertVo pItemGiftInsertVo){
         pItemGiftInsertVo.setOpName(MemberVo.getMyMemNo());
 
+        // 시그니처 아이템 회원번호 없을시 초기화
+        if(StringUtils.equals(pItemGiftInsertVo.getSgnt_mem_no(), "")){
+            pItemGiftInsertVo.setSgnt_mem_no("0");
+        }
+        
         ProcedureVo procedureVo = new ProcedureVo(pItemGiftInsertVo, true);
 
         itemDao.callContentsGiftItemAdd(procedureVo);
@@ -372,6 +489,12 @@ public class ItemService {
      */
     public String callContentsGiftItemEdit(P_itemGiftUpdateVo pItemGiftUpdateVo) {
         pItemGiftUpdateVo.setOpName(MemberVo.getMyMemNo());
+
+        // 시그니처 아이템 회원번호 없을시 초기화
+        if(StringUtils.equals(pItemGiftUpdateVo.getSgnt_mem_no(), "")){
+            pItemGiftUpdateVo.setSgnt_mem_no("0");
+        }
+
         ProcedureVo procedureVo = new ProcedureVo(pItemGiftUpdateVo, true);
 
         itemDao.callContentsGiftItemEdit(procedureVo);
@@ -465,10 +588,7 @@ public class ItemService {
             itemDao.setGiftOrderList(setGiftOrder);
         }
 
-        String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.수정));
-
-        return result;
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
 }

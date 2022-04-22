@@ -91,4 +91,9 @@
 	<resultMap id="P_InviteListOutputVo" type="com.dalbit.content.vo.procedure.P_InviteListOutputVo" />
 	<resultMap id="P_InviteRecvListOutputVo" type="com.dalbit.content.vo.procedure.P_InviteRecvListOutputVo" />
 	<resultMap id="P_InviteStateOutputVo" type="com.dalbit.content.vo.procedure.P_InviteStateOutputVo" />
+
+
+	<!-- 시그니처 아이템 선물 -->
+	<resultMap id="P_SignatureItemGiftListOutputVo" type="com.dalbit.content.vo.procedure.P_SignatureItemGiftListOutputVo" />
+	<resultMap id="P_itemGiftListOutputVo" type="com.dalbit.content.vo.procedure.P_itemGiftListOutputVo" />
 </mapper>

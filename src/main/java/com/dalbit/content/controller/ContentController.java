@@ -218,6 +218,11 @@ public class ContentController {
     public String itemOrder() {
         return "content/item/popup/itemOrder";
     }
+    @GetMapping("/item/popup/signatureItemOrder/{sgnt_mem_no}")
+    public String signatureItemOrder(Model model, @PathVariable String sgnt_mem_no) {
+        model.addAttribute("sgnt_mem_no", sgnt_mem_no);
+        return "content/item/popup/signatureItemOrder";
+    }
 
     @GetMapping("/notice/list")
     public String noticeList() {

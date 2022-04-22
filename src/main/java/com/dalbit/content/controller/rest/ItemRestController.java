@@ -7,6 +7,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.ItemService;
 import com.dalbit.content.vo.GiftOrder;
 import com.dalbit.content.vo.ItemVo;
+import com.dalbit.content.vo.MemSelSignatureGiftParamVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.socket.service.SocketService;
 import com.dalbit.util.DalbitUtil;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +53,22 @@ public class ItemRestController {
     public String chargeList(P_itemChargeListInputVo pItemChargeListInputVo) {
         String result = itemService.callContentsChargeItemList(pItemChargeListInputVo);
         return result;
+    }
+
+    /**
+     * 시그니처 아이템 조회하기
+     */
+    @PostMapping("signatureGift/list")
+    public String signatureList(P_itemGiftListInputVo pItemGiftListInputVo) {
+        return itemService.getSignatureList(pItemGiftListInputVo);
+    }
+
+    /**
+     * 시그니처 아이템 (특정유저 memNo 조건의 아이템 리스트)
+     */
+    @PostMapping("member/signatureGift/list")
+    public String memSelSignatureList(@Valid MemSelSignatureGiftParamVo paramVo) {
+        return itemService.getMemSelSignatureList(paramVo);
     }
 
     /**
@@ -312,12 +330,15 @@ public class ItemRestController {
     }
 
     /**
-     * 아이템 순서 변경
+     * 아이템 순서 변경 조회
      */
     @PostMapping("gift/order/list")
     public String giftOrderList(GiftOrder giftOrder) {
-        String result = itemService.getGiftOrderList(giftOrder);
-        return result;
+        try {
+            return itemService.getGiftOrderList(giftOrder);
+        } catch (Exception e) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
     }
 
     /**
@@ -325,8 +346,11 @@ public class ItemRestController {
      */
     @PostMapping("set/giftList")
     public String setGiftList(GiftOrder giftOrder) {
-        String result = itemService.setGiftOrderList(giftOrder);
-        return result;
+        try {
+            return itemService.setGiftOrderList(giftOrder);
+        } catch (Exception e) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
     }
 
 }
