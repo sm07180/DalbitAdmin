@@ -61,7 +61,7 @@ const signatureDataDefaultValue = {
           data.map((v, idx) => {
             const {high_price_item, low_price_item, mem_nick, mem_no, middle_price_item, specialdj_cnt, ins_date, upd_date} = v;
 
-            tbody += `<tr data-mem_no=${mem_no} onclick="sgnt_RowClickEvent(this)">
+            tbody += `<tr data-mem_no=${mem_no} onclick="sgnt_RowClickEvent(this)" style="cursor:pointer;">
             <td>${pagingVo.totalCnt - (pagePerCnt* (pageNo-1) + (idx))}</td>
             <td>${mem_no}</td>
             <td>${mem_nick}</td>
@@ -159,8 +159,8 @@ const signatureDataDefaultValue = {
               item_price, item_price_ios, desc, sound_yn, tts_use_yn, view_yn, lastupdDate, regDateFormat, purchase_count, op_name, webp_image
             } = v;
             //onclick="sgnt_formActiveEvent(this)"
-            tbody += `<tr data-idx=${idx} >
-            <td><input type="checkbox"/></td>
+            tbody += `<tr data-idx=${idx} style="cursor:pointer;">
+            <td><input type="checkbox" style="height:50px;"/></td>
             <td>${pagingVo.totalCnt - (pagePerCnt* (pageNo-1) + (idx))}</td>
             <td>${util.getCommonCodeLabel(use_area, item_useArea)}</td>
             <td>${file_slct}</td>
