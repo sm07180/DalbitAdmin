@@ -21,8 +21,8 @@ public class P_StarListOutputVo {
     private String mem_birth_day;       // 회원 생일
     private int inner;                  // 내부직원여부(0:일반,1:내부)
     private String image_profile;       // 회원 프로필
-    private int stardj_badge;           // 스타DJ 뱃지
-    private int stardj_cnt;             // 스타DJ 횟수
+    private int specialdj_badge;           // 스타DJ 뱃지
+    private int specialdj_cnt;             // 스타DJ 횟수
     private String mem_name;            // 회원 이름
     private String mem_phone;           // 회원 전화번호
     private int play_cnt;               // 방송시간

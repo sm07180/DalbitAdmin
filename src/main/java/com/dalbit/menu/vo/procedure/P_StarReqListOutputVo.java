@@ -14,8 +14,8 @@ public class P_StarReqListOutputVo {
     private String mem_phone;           // 회원 전화번호
     private String op_name;             //
     private Date last_upd_date;         // 최근 수정일
-    private int stardj_badge;           // 스타DJ 뱃지
-    private int stardj_cnt;             // 스타DJ 횟수
+    private int specialdj_badge;        // 스타DJ 뱃지
+    private int specialdj_cnt;          // 스타DJ 횟수
     private String mem_id;              // 회원 아이디
     private String mem_nick;            // 회원 닉네임
     private String mem_sex;             // 회원 번호

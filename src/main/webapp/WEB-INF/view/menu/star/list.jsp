@@ -69,7 +69,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="reqDal">스타 DJ 신청</div>
+                    <div class="tab-pane fade" id="reqDal">
+                        <div class="row col-lg-12 mt15">
+                            <div class="pull-left ml5">
+                                ㆍ 매달 최소 10일, 20시간 이상 방송한 DJ입니다. <br/>
+                                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="reqManage">스타 DJ 신청관리</div>
                 </div>
             </div>
@@ -173,7 +180,27 @@
     }
 
     function renderReqList(id, response, params) {
+      let template, templateScript, context, html;
+      template = $('#tmp-req-list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData.map(function (item, index) {
+        item.index_no = response.totalCnt - (((starPagingInfo.pageNo - 1) * starPagingInfo.pageCnt) + index);
+        return item;
+      });
+      html = templateScript(context);
+      $("#result-area").html(html);
 
+      starPagingInfo.totalCnt = response.totalCnt;
+      util.renderPagingNavigation('req-top', starPagingInfo);
+      util.renderPagingNavigation('req-bottom', starPagingInfo);
+
+      if (response.listData.length === 0) {
+        $('#req-top').hide();
+        $('#req-bottom').hide();
+      } else {
+        $('#req-top').show();
+        $('#req-bottom').show();
+      }
     }
 
     // 스타 DJ 신청관리
@@ -195,13 +222,22 @@
 
     // 스타DJ 가산점 점수 수정
     function modifyPoint(json) {
+      if (!(json && json.memNo && json.scoreCnt !== 0)) return;
+      if(!confirm('가산점을 등록하시겠습니까?')) return;
 
+      let apiURL = '/rest/menu/star/modify-point';
+      util.getAjaxData("modifyPoint", apiURL, json, function (id, response, params) {
+        if (response && response.data !== 1) {
+          alert('가산점을 등록할 수 없습니다.');
+        }
+        reqList();
+      }, null, {type: 'POST'});
     }
 
     // 스타DJ 등록
     function createStar(params) {
       if (!(params && params.mem_no)) return;
-      if(!confirm(common.substr($("#startDate").val(),5,2) + '월의 스페셜 DJ로 등록하시겠습니까?')) return;
+      if(!confirm(common.substr($("#startDate").val(),5,2) + '월의 스타 DJ로 등록하시겠습니까?')) return;
 
       let tDate = $("#startDate").val().replace(/[.]/g, '-');
       let data = {
@@ -209,10 +245,11 @@
         memNo: params.mem_no
       };
       let apiURL = '/rest/menu/star/create';
-      util.getAjaxData("removeStar", apiURL, data, function (id, response, params) {
-        if (response && response.data === 1) {
-          starList();
+      util.getAjaxData("createStar", apiURL, data, function (id, response, params) {
+        if (response && response.data !== 1) {
+          alert('스타 DJ로 등록할 수 없습니다.');
         }
+        starList();
       }, null, {type: 'POST'});
     }
 
@@ -304,7 +341,7 @@
     });
 
     // 체크박스 클릭 - 스타DJ 상세
-    $(document).on('click', '#result-area input[type="checkbox"]', function () {
+    $(document).on('click', '#star-body input[type="checkbox"]', function () {
       $('#detail-area').empty();
 
       let $this = $(this);
@@ -322,6 +359,22 @@
     // 운영자 직접등록
     $(document).on('click', '#memSearch', function() {
       showPopMemberList(starEventData.createStar);
+    });
+
+    // 가산점
+    $(document).on('click', '#req-body .modify-point', function() {
+      let $this = $(this);
+      let slctIndex = $('#req-body .modify-point').index($this);
+
+      let memNo = $this.data('memno');
+      let admin_score_cnt = parseInt($('#req-body .admin_score_cnt').eq(slctIndex).val(), 10);
+      $('#req-body .admin_score_cnt').eq(slctIndex).val(admin_score_cnt);
+      starEventData.modifyPoint({
+        memNo: memNo,
+        scoreCnt: admin_score_cnt,
+        selectYear: common.substr($("#startDate").val(),0,4),
+        selectMonth: common.substr($("#startDate").val(),5,2)
+      });
     });
   });
 </script>
@@ -375,7 +428,7 @@
             <input type="checkbox" value="{{req_idx}}" data-memno="{{mem_no}}"/>
         </td>
         <td>{{index_no}}</td>
-        <td>{{addComma stardj_cnt}}</td>
+        <td>{{addComma specialdj_cnt}}</td>
         <td style="width: 65px;height:65px;">
             <img class="thumbnail" src="{{renderProfileImage data.image_profile data.mem_sex}}"
                  style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
@@ -443,4 +496,91 @@
             </div>
         </div>
     </div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp-req-list">
+    <div class="dataTables_paginate paging_full_numbers" id="req-top"></div>
+    <table id="req-table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="30px"/>
+            <col width="60px"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="180px">
+            <col width="100px"/>
+            <col width="90px"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th></th>
+            <th>No.</th>
+            <th>스타DJ<br>횟수</th>
+            <th>회원번호</th>
+            <th>닉네임</th>
+            <th>성별</th>
+            <th>이름</th>
+            <th>연락처</th>
+            <th>월간(팬방제외)<br>방송시간</th>
+            <th>월간 받은 별</th>
+            <th>월간 좋아요 합계</th>
+            <th>월간 평균 청취자 수</th>
+            <th>경고 / 정지</th>
+            <th>타임랭킹 가산점</th>
+            <th>가산점</th>
+            <th>총 점수</th>
+            <th>등록자</th>
+        </tr>
+        </thead>
+        <tbody id="req-body">
+        {{#each this as |data|}}
+        <tr {{#dalbit_if inner '==' 1}} class="_noTr bg-testMember" {{else}} class="_noTr" {{/dalbit_if}} id="row_{{order}}">
+            <td>
+                <input type="checkbox" value="{{req_idx}}" data-memno="{{mem_no}}"/>
+            </td>
+            <td>{{index_no}}</td>
+            <td>{{addComma specialdj_cnt}}</td>
+            <td>
+                {{{memNoLink mem_no mem_no}}}
+                {{#equal exitYn 'y'}}
+                <br>
+                [탈퇴회원]
+                {{/equal}}
+            </td>
+            <td>{{mem_nick}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+            <td>{{mem_name}}</td>
+            <td>{{phoneNumHyphen mem_phone}}</td>
+            <td>{{timeStampDay play_cnt}}</td>
+            <td>{{addComma byeol_cnt}} 개</td>
+            <td>{{addComma like_cnt}} 개</td>
+            <td>{{view_cnt}} 명</td>
+            <td>{{warm_cnt}} / {{block_cnt}}</td>
+            <td>{{time_rank_score_cnt}} 점</td>
+            <td>
+                <div class="form-inline">
+                    <input type="number" name="admin_score" class="form-control admin_score_cnt" style="width: 80px;" value="{{admin_score_cnt}}">
+                    <button type="button" class="btn btn-sm btn-success modify-point" data-memno="{{mem_no}}">적용</button>
+                </div>
+            </td>
+            <td>{{addComma tot_score_cnt}} 점</td>
+            <td>{{op_name}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="17">{{isEmptyData}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="dataTables_paginate paging_full_numbers" id="req-bottom"></div>
 </script>
