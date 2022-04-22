@@ -215,6 +215,9 @@ var MemberDataTableSource = {
             {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data);
                 }},
+            {'title': '최대<br>동접자', 'data': 'count_live_max', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data);
+               }},
             {'title': '매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data);
                 }},

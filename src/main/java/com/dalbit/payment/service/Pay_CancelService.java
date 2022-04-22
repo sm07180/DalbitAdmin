@@ -93,11 +93,11 @@ public class Pay_CancelService {
 
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
-                cancelVo.setOrder_id(ap.getTradeId());
-                cancelVo.setCancel_dt(DalbitUtil.stringToDate(ap.getSignDate()));
-                cancelVo.setFail_msg("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
+                cancelVo.setOrderId(ap.getTradeId());
+                cancelVo.setCancelDt(DalbitUtil.stringToDate(ap.getSignDate()));
+                cancelVo.setFailMsg("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -128,11 +128,11 @@ public class Pay_CancelService {
                 log.info("Fail Msg: {}", ap.getResultMsg());
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(ap.getTradeId());
-                cancelVo.setCancel_dt("");
-                cancelVo.setFail_msg(ap.getResultMsg());
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state(ap.getResultCd().equals("M231") ? "y" :"f");
+                cancelVo.setOrderId(ap.getTradeId());
+                cancelVo.setCancelDt("");
+                cancelVo.setFailMsg(ap.getResultMsg());
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState(ap.getResultCd().equals("M231") ? "y" :"f");
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
@@ -166,11 +166,11 @@ public class Pay_CancelService {
 
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(res_cd.equals(Status.결제취소성공.getMessageCode())){
-                cancelVo.setOrder_id(tradeId);
-                cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
-                cancelVo.setFail_msg("");
+                cancelVo.setOrderId(tradeId);
+                cancelVo.setCancelDt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
+                cancelVo.setFailMsg("");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -200,10 +200,10 @@ public class Pay_CancelService {
                 log.info("휴대폰 취소코드: {}", res_cd);
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(tradeId);
-                cancelVo.setCancel_dt("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state(res_cd.equals(CancelPhoneCode.이미취소된자료.getCode()) ? "y" :"f");
+                cancelVo.setOrderId(tradeId);
+                cancelVo.setCancelDt("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState(res_cd.equals(CancelPhoneCode.이미취소된자료.getCode()) ? "y" :"f");
 
                 String resultMsg = "";
                 boolean checked = false;
@@ -220,7 +220,7 @@ public class Pay_CancelService {
                         }
                     }
                 }
-                cancelVo.setFail_msg(resultMsg);
+                cancelVo.setFailMsg(resultMsg);
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
 
@@ -316,11 +316,11 @@ public class Pay_CancelService {
                 String amount = parsingMap.get("amount");*/
                 String cancel_date = parsingMap.get("cancel_date");
 
-                cancelVo.setOrder_id(payCancelPayletterVo.getTradeid());
-                cancelVo.setCancel_dt(cancel_date);
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
-                cancelVo.setFail_msg("");
+                cancelVo.setOrderId(payCancelPayletterVo.getTradeid());
+                cancelVo.setCancelDt(cancel_date);
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
+                cancelVo.setFailMsg("");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -350,11 +350,11 @@ public class Pay_CancelService {
                 //String code = parsingMap.get("code");
                 String message = parsingMap.get("message");
 
-                cancelVo.setOrder_id(payCancelPayletterVo.getTradeid());
-                cancelVo.setCancel_dt("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("f");
-                cancelVo.setFail_msg(message);
+                cancelVo.setOrderId(payCancelPayletterVo.getTradeid());
+                cancelVo.setCancelDt("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("f");
+                cancelVo.setFailMsg(message);
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
             //취소 업데이트
@@ -387,11 +387,11 @@ public class Pay_CancelService {
 
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
-                cancelVo.setFail_msg("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFailMsg("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -422,11 +422,11 @@ public class Pay_CancelService {
                 log.info("[문화상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt("");
-                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("f");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt("");
+                cancelVo.setFailMsg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("f");
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
             //취소 업데이트
@@ -459,11 +459,11 @@ public class Pay_CancelService {
 
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
-                cancelVo.setFail_msg("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFailMsg("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -494,11 +494,11 @@ public class Pay_CancelService {
                 log.info("[게임문화상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt("");
-                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("f");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt("");
+                cancelVo.setFailMsg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("f");
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
@@ -533,11 +533,11 @@ public class Pay_CancelService {
 
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
-                cancelVo.setFail_msg("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFailMsg("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -568,11 +568,11 @@ public class Pay_CancelService {
                 log.info("[도서문화상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt("");
-                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("f");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt("");
+                cancelVo.setFailMsg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("f");
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
@@ -607,11 +607,11 @@ public class Pay_CancelService {
 
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
-                cancelVo.setFail_msg("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFailMsg("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -642,11 +642,11 @@ public class Pay_CancelService {
                 log.info("[해피머니상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
-                cancelVo.setCancel_dt("");
-                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("f");
+                cancelVo.setOrderId(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancelDt("");
+                cancelVo.setFailMsg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("f");
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
@@ -767,7 +767,13 @@ public class Pay_CancelService {
             String priceComma = formatter.format(payPrice);
 
             String cancelUserName = parentsAuthSelVo.getMem_name();
-            String cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
+            String cancelUserLastLetterReplace = "";
+            if(cancelUserName != null) {
+                cancelUserLastLetterReplace = cancelUserName.substring(0, cancelUserName.length()-1) + "*"; // 이름 마지막 글자 * 처리
+            }else {
+                log.error("sendPayCancelMail / mem_name이 null입니다. memNo: {} (본인인증은 성인인데 어드민 생년월일이 미성년자인 경우)", memNo);
+                cancelUserLastLetterReplace = "***";
+            }
 
             msgCont = mailContent.toString().replaceAll("@@cancelUserName@@", cancelUserLastLetterReplace); // 유저 이름
             msgCont = msgCont.replaceAll("@@paymentDate@@", payCancelSendEmailVo.getOkdt()); // 거래일시
@@ -837,11 +843,11 @@ public class Pay_CancelService {
             Pay_CancelVo cancelVo = new Pay_CancelVo();
             if(response.code() == 200){
                 KakaoPayCancelResVo kakaoPayCancelResVo = new Gson().fromJson(data, KakaoPayCancelResVo.class);
-                cancelVo.setOrder_id(payCancelKakaoPayVo.getTradeid());
-                cancelVo.setCancel_dt(kakaoPayCancelResVo.getCanceled_at().replace("T", " "));
-                cancelVo.setFail_msg("");
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("y");
+                cancelVo.setOrderId(payCancelKakaoPayVo.getTradeid());
+                cancelVo.setCancelDt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                cancelVo.setFailMsg("");
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("y");
 
                 //결제취소 달 차감
                 P_CancelVo pCancelVo = new P_CancelVo();
@@ -868,20 +874,20 @@ public class Pay_CancelService {
             } else {
                 FailVo failVo = new Gson().fromJson(data, FailVo.class);
                 log.info("=====================================");
-                log.info("[카카오페이(머니)] 취소코드: {}", failVo.getCode());
-//                log.info("[카카오페이(머니)] Result Msg: {}", failVo.getExtras().getMethod_result_message());
+                log.warn("[카카오페이(머니)] 취소코드: {}", failVo.getCode());
+//                log.warn("[카카오페이(머니)] Result Msg: {}", failVo.getExtras().getMethod_result_message());
                 log.info("=====================================");
 
-                cancelVo.setOrder_id(payCancelKakaoPayVo.getTradeid());
-                cancelVo.setCancel_dt("");
-                cancelVo.setFail_msg(Integer.toString(failVo.getCode()));
-                cancelVo.setOp_name(MemberVo.getMyMemNo());
-                cancelVo.setCancel_state("f");
+                cancelVo.setOrderId(payCancelKakaoPayVo.getTradeid());
+                cancelVo.setCancelDt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                cancelVo.setFailMsg(Integer.toString(failVo.getCode()));
+                cancelVo.setOpName(MemberVo.getMyMemNo());
+                cancelVo.setCancelState("f");
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
             }
             //취소 업데이트
-            payCancelDao.sendPayCancel(cancelVo);
+            Integer success = payCancelDao.sendPayCancel(cancelVo);
 
         }catch (RestClientException | IOException e) {
             throw new GlobalException(Status.비즈니스로직오류, e);
@@ -962,11 +968,11 @@ public class Pay_CancelService {
         log.info("rtn: {}", rtn);
         Pay_CancelVo cancelVo = new Pay_CancelVo();
         if(Status.결제취소성공.getMessageCode().equals(rtn.get("RC"))){
-            cancelVo.setOrder_id(payCancelSimplePayVo.getTradeid());
-            cancelVo.setCancel_dt(DalbitUtil.stringToDatePattern((String)rtn.get("RS_DTIME"), "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss"));
-            cancelVo.setFail_msg("");
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state("y");
+            cancelVo.setOrderId(payCancelSimplePayVo.getTradeid());
+            cancelVo.setCancelDt(DalbitUtil.stringToDatePattern((String)rtn.get("RS_DTIME"), "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss"));
+            cancelVo.setFailMsg("");
+            cancelVo.setOpName(MemberVo.getMyMemNo());
+            cancelVo.setCancelState("y");
 
             //결제취소 달 차감
             P_CancelVo pCancelVo = new P_CancelVo();
@@ -996,11 +1002,11 @@ public class Pay_CancelService {
             log.info("[간편결제] 결과메시지: {}", DalbitUtil.isEmpty(rtn.get("RM")) ? "없음" : rtn.get("RM"));
             log.info("=====================================");
 
-            cancelVo.setOrder_id(payCancelSimplePayVo.getTradeid());
-            cancelVo.setCancel_dt("");
-            cancelVo.setFail_msg((String) rtn.get("RM"));
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state("f");
+            cancelVo.setOrderId(payCancelSimplePayVo.getTradeid());
+            cancelVo.setCancelDt("");
+            cancelVo.setFailMsg((String) rtn.get("RM"));
+            cancelVo.setOpName(MemberVo.getMyMemNo());
+            cancelVo.setCancelState("f");
 
             result = gsonUtil.toJson(new JsonOutputVo(Status.결제취소실패));
         }

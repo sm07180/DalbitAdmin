@@ -24,6 +24,7 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
     private String airtime;
     private int listenCnt;
     private int listenerCnt;
+    private int count_live_max;
     private int managerCnt;
     private int giftCnt;
     private int byeolCnt;
