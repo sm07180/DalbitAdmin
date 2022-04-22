@@ -358,7 +358,7 @@
         <tr>
             <th>팀소개</th>
             <td colspan="3" class="word">
-                {{team_conts}}
+                <div style="padding-right: 60px">{{team_conts}}</div>
                 <c:if test="${param.mode != 'del'}">
                     <div class="init-team-conts"><a href="javascript:void(0);" onclick="teamDetail.initTeamConts();">[초기화]</a></div>
                 </c:if>
@@ -414,7 +414,11 @@
             <td>{{addComma rcv_byeol_cnt}}</td>
             <td>{{timeStampDay play_time}}</td>
             <c:if test="${param.mode != 'del'}">
-                <td><a href="javascript:void(0);" onclick="teamDetail.withdrawal({{json data}});">[강퇴]</a></td>
+                <td>
+                    {{#dalbit_if team_mem_type '!=' 'm'}}
+                    <a href="javascript:void(0);" onclick="teamDetail.withdrawal({{json data}});">[강퇴]</a>
+                    {{/dalbit_if}}
+                </td>
             </c:if>
         </tr>
         {{else}}
