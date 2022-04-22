@@ -11,6 +11,8 @@
     <li><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">방송방공지</a></li>
     <li><a href="#broadNoticeList" role="tab" data-toggle="tab" id="tab_broadNoticeList">회원공지</a></li>   <!-- 2020.10.06 방송공지 -> 회원공지 텍스트 변경(이상훈 과장님 요청) -->
     <li><a href="#broadNoticeReply" role="tab" data-toggle="tab" id="tab_broadNoticeReply">회원공지댓글</a></li>   <!-- 2020.11.10 추가 -->
+    <li><a href="#broadFeedList" role="tab" data-toggle="tab" id="tab_broadFeedList">피드</a></li>
+    <li><a href="#broadFeedReply" role="tab" data-toggle="tab" id="tab_broadFeedReply">피드댓글</a></li>
     <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
     <li><a href="#clipReply" role="tab" data-toggle="tab" id="tab_clipReply">클립댓글</a></li> <!-- 클립댓글-->
     <li><a href="#mailboxList" role="tab" data-toggle="tab" id="tab_mailboxList">우체통</a></li>
@@ -22,6 +24,8 @@
     <div class="tab-pane fade" id="noticeList"><jsp:include page="noticeList.jsp"/></div>
     <div class="tab-pane fade" id="broadNoticeList"><jsp:include page="broadNoticeList.jsp"/></div>
     <div class="tab-pane fade" id="broadNoticeReply"><jsp:include page="broadNoticeReply.jsp"/></div>
+    <div class="tab-pane fade" id="broadFeedList"><jsp:include page="broadFeedList.jsp"/></div>
+    <div class="tab-pane fade" id="broadFeedReply"><jsp:include page="broadFeedReply.jsp"/></div>
     <div class="tab-pane fade" id="profileMsgList"><jsp:include page="profileMsgList.jsp"/></div>
     <div class="tab-pane fade" id="clipReply"><jsp:include page="clipReply.jsp"/></div>
     <div class="tab-pane fade" id="mailboxList"><jsp:include page="mailboxList.jsp"/></div>
@@ -59,6 +63,10 @@
             broadNoticeList();
         }else if(tabId == "tab_broadNoticeReply") {
             broadNoticeReply();
+        }else if(tabId == "tab_broadFeedList" ){
+            broadFeedList();
+        }else if(tabId == "tab_broadFeedReply") {
+            broadFeedReply();
         }else if(tabId == "tab_profileMsgList" ){
             profileMsgList();
         }else if(tabId == "tab_clipReply" ){
@@ -80,7 +88,7 @@
             , 'boardType' : 1
             , 'status' : 0
         };
-        util.getAjaxData("storyList", "/rest/content/boardAdm/tab/count", data, fn_success_tabCntSelect);
+        util.getAjaxData("storyList", " /rest/content/boardAdm/tab/count", data, fn_success_tabCntSelect);
     }
     function fn_success_tabCntSelect(dst_id, response){
 

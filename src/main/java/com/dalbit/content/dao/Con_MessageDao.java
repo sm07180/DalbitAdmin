@@ -21,4 +21,6 @@ public interface Con_MessageDao {
     List<P_BroadcastListOutputVo> callContentsMessageSendRoomList(List<String> arrRooms);
 
     int callContentsMessageAdd(P_MessageInsertVo pMessageInsertVo);
+
+    int callContentsMessageDel(P_MessageDeleteVo pMessageDeleteVo);
 }

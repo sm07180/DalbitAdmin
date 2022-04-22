@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_MessageService;
+import com.dalbit.content.vo.procedure.P_MessageDeleteVo;
 import com.dalbit.content.vo.procedure.P_MessageDetailInputVo;
 import com.dalbit.content.vo.procedure.P_MessageInsertVo;
 import com.dalbit.content.vo.procedure.P_MessageListInputVo;
@@ -54,4 +55,9 @@ public class Con_MessageRestController {
         return result;
     }
 
+    @PostMapping("delete")
+    public String delete(P_MessageDeleteVo pMessageDeleteVo) throws GlobalException {
+        String result = con_MessageService.callContentsMessageDel(pMessageDeleteVo);
+        return result;
+    }
 }

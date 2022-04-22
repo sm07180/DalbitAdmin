@@ -24,6 +24,36 @@ public class Con_WelcomeEventService {
     Event_welcomeProc event_welcomeProc;
 
     /**
+     * 웰컴 설정 상세
+     * @return
+     */
+    public String callWelcomeSetting() {
+        String welcome_set = event_welcomeProc.getSetting();
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("welcomeSet", welcome_set);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
+    }
+
+    /**
+     * 웰컴 설정 수정
+     * @param pWelcomeSetInputVo
+     * @return
+     */
+    public String callWelcomeModifySetting(P_WelcomeSetInputVo pWelcomeSetInputVo) {
+        pWelcomeSetInputVo.setChrgrName(MemberVo.getMyMemNo());
+        int result = event_welcomeProc.modifySetting(pWelcomeSetInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("s_return", result);
+        String s_return = gsonUtil.toJson(resHashMap);
+        return s_return;
+    }
+
+    /**
      * 청취자 전체 목록
      *
      * @param pWelcomeInputVo

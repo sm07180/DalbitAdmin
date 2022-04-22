@@ -1,10 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_WelcomeEventService;
-import com.dalbit.content.vo.procedure.P_WelcomeGiftInputVo;
-import com.dalbit.content.vo.procedure.P_WelcomeQualifyInputVo;
-import com.dalbit.content.vo.procedure.P_WelcomeUserGiftInputVo;
-import com.dalbit.content.vo.procedure.P_WelcomeInputVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +20,16 @@ public class Con_WelcomeEventRestController {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @GetMapping("/setting")
+    public String getSetting() {
+        return con_welcomeEventService.callWelcomeSetting();
+    }
+
+    @PostMapping("/setting")
+    public String modifySetting(P_WelcomeSetInputVo pWelcomeSetInputVo) {
+        return con_welcomeEventService.callWelcomeModifySetting(pWelcomeSetInputVo);
+    }
 
     /**
      * 청취자 목록
