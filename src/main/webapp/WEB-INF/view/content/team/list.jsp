@@ -290,7 +290,7 @@
         <tr>
             <td>{{index_no}}</td>
             <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_no}}</a></td>
-            <td>{{team_name}}</td>
+            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_name}}</a></td>
             <td>{{ins_date}}</td>
             <td>{{{memNoLink mem_nick master_mem_no}}}</td>
             <td>{{addComma team_req_mem_cnt}}</td>
