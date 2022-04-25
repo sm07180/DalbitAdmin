@@ -293,7 +293,7 @@
             <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_name}}</a></td>
             <td>{{ins_date}}</td>
             <td>{{{memNoLink mem_nick master_mem_no}}}</td>
-            <td>{{addComma team_req_mem_cnt}}</td>
+            <td>{{addComma team_mem_cnt}}</td>
             <td>{{addComma tot_send_dal_cnt}}</td>
             <td>{{addComma tot_rcv_byeol_cnt}}</td>
             <td>{{timeStampDay tot_play_time}}</td>
