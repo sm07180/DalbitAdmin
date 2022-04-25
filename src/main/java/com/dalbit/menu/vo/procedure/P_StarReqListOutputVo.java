@@ -29,7 +29,7 @@ public class P_StarReqListOutputVo {
     private int view_cnt;               // 평균 시청자수(시청자/방)
     private int warm_cnt;               // 경고
     private int block_cnt;              // 정지
-    private int time_rank_score_cnt;    // 랭킹 가산점
+    private Double time_rank_score_cnt; // 랭킹 가산점
     private int admin_score_cnt;        // 어드민 가산점
-    private int tot_score_cnt;          // 총 점수
+    private Double tot_score_cnt;       // 총 점수
 }

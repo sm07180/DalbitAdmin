@@ -72,8 +72,9 @@
                     <div class="tab-pane fade" id="reqDal">
                         <div class="row col-lg-12 mt15">
                             <div class="pull-left ml5">
-                                ㆍ 매달 최소 10일, 20시간 이상 방송한 DJ입니다. <br/>
-                                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
+                                ㆍ 경고/정지 이력 및 총 점수는 집계기간 종료 후 확인할 수 있습니다.<br/>
+                                ㆍ 운영자 가산점도 집계기간 종료 후 적용할 수 있습니다.<br/>
+                                ㆍ 집계 기간 내 정지 시 스타DJ로 선정할 수 없습니다.<br/>
                             </div>
                         </div>
                     </div>
@@ -939,7 +940,19 @@
         <td>{{addComma byeol_cnt}} 개</td>
         <td>{{addComma like_cnt}} 개</td>
         <td>{{view_cnt}} 명</td>
-        <td>{{warm_cnt}} / {{block_cnt}}</td>
+        <td>
+            {{#dalbit_if warm_cnt '==' 0}}
+            {{warm_cnt}}
+            {{else}}
+            <span class="text-success font-bold">{{warm_cnt}}</span>
+            {{/dalbit_if}}
+            /
+            {{#dalbit_if block_cnt '==' 0}}
+            {{block_cnt}}
+            {{else}}
+            <span class="font-bold" style="color: red;">{{block_cnt}}</span>
+            {{/dalbit_if}}
+        </td>
         <td>{{time_rank_score_cnt}} 점</td>
         <td>
             <div class="form-inline">
