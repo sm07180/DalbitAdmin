@@ -63,9 +63,11 @@
         <div class="col-sm-3">
             <div id="symbol-image"></div>
             <div id="team-name" class="text-center pt5" style="width: 160px;"></div>
+            <c:if test="${param.mode != 'del'}">
             <div class="text-center" style="width: 160px;">
                 <a href="javascript:void(0);" onclick="teamDetail.initTeamName();">[초기화]</a>
             </div>
+            </c:if>
         </div>
         <div class="col-sm-9" id="team-detail"></div>
     </div>
