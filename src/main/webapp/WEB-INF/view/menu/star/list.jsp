@@ -719,8 +719,8 @@
     $('#tablist_con li a').on('click', function () {
       const $this = $(this);
       tabSlct = $this.data('tab');
-      starEventData.initSearch();
       starEventData.initSearchDate();
+      starEventData.initSearch();
     });
 
     // 체크박스 클릭 - 스타DJ 상세
