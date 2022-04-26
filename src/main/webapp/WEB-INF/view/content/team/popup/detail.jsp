@@ -37,7 +37,7 @@
     #symbol-image {
         position: relative;
         width: 160px;
-        height: 160px
+        height: 160px;
     }
 
     #symbol-image img {
@@ -45,7 +45,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%
+        height: 100%;
+        border-radius: 24px;
     }
 </style>
 
@@ -61,6 +62,12 @@
     <div class="row">
         <div class="col-sm-3">
             <div id="symbol-image"></div>
+            <div id="team-name" class="text-center pt5" style="width: 160px;"></div>
+            <c:if test="${param.mode != 'del'}">
+            <div class="text-center" style="width: 160px;">
+                <a href="javascript:void(0);" onclick="teamDetail.initTeamName();">[초기화]</a>
+            </div>
+            </c:if>
         </div>
         <div class="col-sm-9" id="team-detail"></div>
     </div>
@@ -163,6 +170,7 @@
     function renderDetail(team) {
       if (!team) return;
 
+      $('#team-name').html('<span class="font-bold">' + team.team_name + '</span>');
       let template, templateScript, context, html;
       template = $('#tmp-team-detail').html();
       templateScript = Handlebars.compile(template);
@@ -188,7 +196,17 @@
       let template, templateScript, context, html;
       template = $('#tmp-team-badge-list').html();
       templateScript = Handlebars.compile(template);
-      context = badgeList;
+      context = badgeList.map(function(item) {
+        // bg_code: a008, a002 - 방송시간으로 출력
+        if (item.bg_code === 'a002' || item.bg_code === 'a008') {
+          item.bg_achieve_val = common.timeStampDay(item.bg_achieve);
+          item.bg_objective_val = common.timeStampDay(item.bg_objective);
+        } else {
+          item.bg_achieve_val = common.addComma(item.bg_achieve);
+          item.bg_objective_val = common.addComma(item.bg_objective);
+        }
+        return item;
+      });
       html = templateScript(context);
       $("#team-badge").html(html);
     }
@@ -234,6 +252,33 @@
       util.getAjaxData("initTeamConts", apiURL, data, function (id, response, params) {
         if (response.s_return == 1) {
           alert('소개글을 초기화 하였습니다..');
+          try {
+            getTeam();
+          } catch (e) {}
+        }
+      }, null, {type: 'POST'});
+    }
+
+    //
+    function initTeamName() {
+      if (!teamInfo || !teamInfo.team_no) return;
+      if (!confirm('팀이름을 초기화하시겠습니까?')) return;
+
+      let data = {
+        memNo: teamInfo.master_mem_no,
+        updSlct: 'a',
+        teamNo: teamInfo.team_no,
+        teamName: '',
+        teamConts: teamInfo.team_conts,
+        teamMedalCode: teamInfo.team_medal_code,
+        teamEdgeCode: teamInfo.team_edge_code,
+        teamBgCode: teamInfo.team_bg_code,
+        reqMemYn: teamInfo.req_mem_yn ? teamInfo.req_mem_yn : 'n'
+      };
+      let apiURL = '/rest/content/team/modify';
+      util.getAjaxData("initTeamName", apiURL, data, function (id, response, params) {
+        if (response.s_return == 1) {
+          alert('팀이름을 초기화 하였습니다..');
           try {
             getTeam();
           } catch (e) {}
@@ -324,6 +369,7 @@
       getTeam: getTeam,
       deleteTeam: deleteTeam,
       initTeamConts: initTeamConts,
+      initTeamName: initTeamName,
       withdrawal: withdrawal,
       deletedMembers: deletedMembers,
       callDeletedMembers: callDeletedMembers
@@ -350,10 +396,10 @@
         </colgroup>
         <tbody>
         <tr>
-            <th>팀이름</th>
-            <td class="word">{{team_name}}</td>
             <th>팀번호</th>
             <td>{{team_no}}</td>
+            <th>팀 스코어</th>
+            <td>{{addComma team_tot_score}}</td>
         </tr>
         <tr>
             <th>팀소개</th>
@@ -377,8 +423,10 @@
             <td>{{addComma tot_rcv_byeol_cnt}}</td>
         </tr>
         <tr>
-            <th>최근 7일<br>방송시간</th>
-            <td colspan="3">{{timeStampDay tot_play_time}}</td>
+            <th>방송시간</th>
+            <td>{{timeStampDay tot_play_time}}</td>
+            <th>신규팬</th>
+            <td>{{addComma tot_new_fan_cnt}}</td>
         </tr>
         </tbody>
     </table>
@@ -394,7 +442,8 @@
             <th>가입일</th>
             <th>받은별</th>
             <th>선물달</th>
-            <th>최근 7일<br>방송시간</th>
+            <th>방송시간</th>
+            <th>신규팬</th>
             <c:if test="${param.mode != 'del'}">
                 <th>관리</th>
             </c:if>
@@ -413,6 +462,7 @@
             <td>{{addComma send_dal_cnt}}</td>
             <td>{{addComma rcv_byeol_cnt}}</td>
             <td>{{timeStampDay play_time}}</td>
+            <td>{{addComma new_fan_cnt}}</td>
             <c:if test="${param.mode != 'del'}">
                 <td>
                     {{#dalbit_if team_mem_type '!=' 'm'}}
@@ -441,8 +491,8 @@
     {{#each this as |data|}}
     <div class="col-sm-6 table-badge">
         <div class="row">
-            <div class="col-sm-4 borderd title">{{bg_name}}</div>
-            <div class="col-sm-8 borderd content">{{addComma bg_achieve}} / {{addComma bg_objective}}</div>
+            <div class="col-sm-5 borderd title">{{bg_name}}</div>
+            <div class="col-sm-7 borderd content">{{bg_achieve_val}} / {{bg_objective_val}}</div>
         </div>
     </div>
     {{else}}
