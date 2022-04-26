@@ -271,6 +271,8 @@
             <col width="auto"/>
             <col width="120px"/>
             <col width="150px"/>
+            <col width="auto"/>
+            <col width="auto"/>
         </colgroup>
         <thead>
         <tr>
@@ -282,7 +284,9 @@
             <th>멤버수</th>
             <th>선물달</th>
             <th>받은별</th>
-            <th>방송시간(최근7일)</th>
+            <th>팀 방송시간</th>
+            <th>신규팬</th>
+            <th>팀 스코어</th>
         </tr>
         </thead>
         <tbody id="dalla-team-table-body">
@@ -293,14 +297,16 @@
             <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_name}}</a></td>
             <td>{{ins_date}}</td>
             <td>{{{memNoLink mem_nick master_mem_no}}}</td>
-            <td>{{addComma team_req_mem_cnt}}</td>
+            <td>{{addComma team_mem_cnt}}</td>
             <td>{{addComma tot_send_dal_cnt}}</td>
             <td>{{addComma tot_rcv_byeol_cnt}}</td>
             <td>{{timeStampDay tot_play_time}}</td>
+            <td>{{addComma tot_new_fan_cnt}}</td>
+            <td>{{addComma team_tot_score}}</td>
         </tr>
         {{else}}
         <tr>
-            <td colspan="9">{{isEmptyData}}</td>
+            <td colspan="11">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
@@ -318,6 +324,8 @@
             <col width="150px"/>
             <col width="auto"/>
             <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
             <col width="150px"/>
         </colgroup>
         <thead>
@@ -328,6 +336,8 @@
             <th>생성일시</th>
             <th>선물달</th>
             <th>받은별</th>
+            <th>팀 방송시간</th>
+            <th>신규팬</th>
             <th>삭제일시</th>
         </tr>
         </thead>
@@ -340,11 +350,20 @@
             <td>{{ins_date}}</td>
             <td>{{addComma tot_send_dal_cnt}}</td>
             <td>{{addComma tot_rcv_byeol_cnt}}</td>
-            <td>{{del_date}}</td>
+            <td>{{timeStampDay tot_play_time}}</td>
+            <td>{{addComma tot_new_fan_cnt}}</td>
+            <td>
+                {{del_date}}<br/>
+                {{#dalbit_if del_chrgr_name '==' ''}}
+                (사용자삭제)
+                {{else}}
+                ({{del_chrgr_name}})
+                {{/dalbit_if}}
+            </td>
         </tr>
         {{else}}
         <tr>
-            <td colspan="7">{{isEmptyData}}</td>
+            <td colspan="9">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
