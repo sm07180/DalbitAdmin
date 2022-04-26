@@ -459,8 +459,8 @@
             </td>
             <td>{{addComma tm_mem_score}}</td>
             <td>{{ins_date}}</td>
-            <td>{{addComma send_dal_cnt}}</td>
             <td>{{addComma rcv_byeol_cnt}}</td>
+            <td>{{addComma send_dal_cnt}}</td>
             <td>{{timeStampDay play_time}}</td>
             <td>{{addComma new_fan_cnt}}</td>
             <c:if test="${param.mode != 'del'}">
