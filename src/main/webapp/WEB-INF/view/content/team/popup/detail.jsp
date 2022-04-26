@@ -196,7 +196,17 @@
       let template, templateScript, context, html;
       template = $('#tmp-team-badge-list').html();
       templateScript = Handlebars.compile(template);
-      context = badgeList;
+      context = badgeList.map(function(item) {
+        // bg_code: a008, a002 - 방송시간으로 출력
+        if (item.bg_code === 'a002' || item.bg_code === 'a008') {
+          item.bg_achieve_val = common.timeStampDay(item.bg_achieve);
+          item.bg_objective_val = common.timeStampDay(item.bg_objective);
+        } else {
+          item.bg_achieve_val = common.addComma(item.bg_achieve);
+          item.bg_objective_val = common.addComma(item.bg_objective);
+        }
+        return item;
+      });
       html = templateScript(context);
       $("#team-badge").html(html);
     }
@@ -482,7 +492,7 @@
     <div class="col-sm-6 table-badge">
         <div class="row">
             <div class="col-sm-5 borderd title">{{bg_name}}</div>
-            <div class="col-sm-7 borderd content">{{addComma bg_achieve}} / {{addComma bg_objective}}</div>
+            <div class="col-sm-7 borderd content">{{bg_achieve_val}} / {{bg_objective_val}}</div>
         </div>
     </div>
     {{else}}
