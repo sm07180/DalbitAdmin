@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/v2/rest/enter/pay")
+@RequestMapping("v2/rest/enter/pay")
 public class Ent_PayRestV2Controller {
 
     @Autowired
