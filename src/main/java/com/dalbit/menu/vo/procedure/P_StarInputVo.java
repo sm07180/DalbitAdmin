@@ -9,4 +9,5 @@ public class P_StarInputVo {
     private String memNo;           // 회원번호
     private String tDate;           // 날짜 [0000-00-01]
     private String chrgrName;       // 관리자명
+    private int reqIdx;             // 신청 키값
 }

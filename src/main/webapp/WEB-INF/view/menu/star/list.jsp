@@ -109,6 +109,8 @@
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
   let tabSlct = 'star';
+  let todayDate = moment(year + '-' + month + '-' + day);
+
   let reqDetail = null;
   const starPagingInfo = new PAGING_INFO(0, 1, 50);
   const starEventData = (function () {
@@ -273,10 +275,12 @@
       if (!reqDetail) return;
       if (!confirm(reqDetail.select_month + '월의 스타 DJ로 등록하시겠습니까?')) return;
 
+      let reqIdx = reqDetail.idx ? reqDetail.idx : 0;
       let tDate = reqDetail.select_year + '-' + reqDetail.select_month + '-01';
       let data = {
         tDate: tDate,
-        memNo: reqDetail.mem_no
+        memNo: reqDetail.mem_no,
+        reqIdx: reqIdx
       };
       let apiURL = '/rest/menu/star/create';
       util.getAjaxData("createStar", apiURL, data, function (id, response, params) {
@@ -590,7 +594,8 @@
       let tDate = $("#startDate").val().replace(/[.]/g, '-');
       let data = {
         tDate: tDate,
-        memNo: params.mem_no
+        memNo: params.mem_no,
+        reqIdx: 0
       };
       let apiURL = '/rest/menu/star/create';
       util.getAjaxData("createStar", apiURL, data, function (id, response, params) {
@@ -636,6 +641,24 @@
       }
     }
 
+    function initSearchDate() {
+      todayDate = moment(year + '-' + month + '-' + day);
+      switch (tabSlct) {
+        case 'star':
+          if (moment().format('MM') === todayDate.format('MM') && parseInt(todayDate.format('DD'), 10) > 20) {
+            todayDate.add(1, 'months');
+            month = todayDate.format('MM');
+            day = todayDate.format('DD');
+          }
+          break;
+        case 'req':
+        case 'manage':
+          month = moment().format('MM');
+          break;
+      }
+      setDayButton(todayDate.format('YYYY-MM-DD'));
+    }
+
     return {
       starList: starList,
       starDetail: starDetail,
@@ -650,7 +673,8 @@
       modifyPoint: modifyPoint,
       createStar: createStar,
       removeStar: removeStar,
-      initSearch: initSearch
+      initSearch: initSearch,
+      initSearchDate: initSearchDate
     }
   }());
 
@@ -677,7 +701,7 @@
     $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
 
     slctType = 1;
-    setDayButton();
+    starEventData.initSearchDate();
 
     // 기본실행
     starEventData.initSearch();
@@ -696,6 +720,7 @@
       const $this = $(this);
       tabSlct = $this.data('tab');
       starEventData.initSearch();
+      starEventData.initSearchDate();
     });
 
     // 체크박스 클릭 - 스타DJ 상세

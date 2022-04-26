@@ -12,7 +12,7 @@
 
     <!-- 스타 dj 등록 후 달/부스터/아이템 지급 -->
     <select id="insertStarDJ" statementType="CALLABLE" parameterType="com.dalbit.menu.vo.procedure.P_StarInputVo" resultMap="integer">
-        CALL rd_data.p_adm_star_dj_ins(#{memNo}, #{tDate}, #{chrgrName})
+        CALL rd_data.p_adm_star_dj_ins(#{memNo}, #{tDate}, #{chrgrName}, #{reqIdx})
     </select>
 
     <!-- 스타 dj 삭제 -->
