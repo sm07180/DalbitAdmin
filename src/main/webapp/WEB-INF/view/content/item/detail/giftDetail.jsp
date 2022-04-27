@@ -112,6 +112,25 @@
         }
     };
 
+    /* 카테고리 탭 데이터 수정하기 (시그니처 탭인경우, 시그니처 이외의 카테고리 선택불가 처리)*/
+    const sgnt_selectItemModifyFn = () => {
+      /* 시그니처 탭에서  */
+      if (signatureData.active) {
+        document.querySelector("#category").childNodes?.forEach((v)=>{
+          if(v.value !== 'signature') {
+            v.disabled = true;
+          }
+          if(v.value === 'signature') {
+            v.selected = true;
+          }
+        });
+      } else {
+        /* 그 외의 탭에서 */
+        document.querySelector("#category").childNodes?.forEach((v)=>{
+          v.disabled = false;
+        });
+      }
+    };
 
     // 등록 화면
     fnc_giftDetail.insertDetail= function() {
@@ -122,9 +141,7 @@
         fnc_giftDetail.initDetail();
         fnc_giftDetail.initDetailEvent();
 
-      if (signatureData.active) {
-        fnc_giftDetail.target.find("input[name=sgnt_mem_no]").attr('disabled', false);
-      }
+      sgnt_selectItemModifyFn();
     };
 
 
@@ -144,6 +161,8 @@
         fnc_giftDetail.initDetail();
         fnc_giftDetail.initDetailEvent();
         fnc_giftDetail.initUpdateUI();
+
+        sgnt_selectItemModifyFn();
     };
 
 //=------------------------------ Option --------------------------------------------
@@ -498,7 +517,7 @@
                 </tr>
                 <tr>
                     <th>시그니처 아이템 회원번호</th>
-                    <td><input type="text" name="sgnt_mem_no" value="{{sgnt_mem_no}}" disabled></td>
+                    <td><input type="text" name="sgnt_mem_no" value="{{sgnt_mem_no}}"></td>
                 </tr>
                 <tr>
                     <td colspan="4">

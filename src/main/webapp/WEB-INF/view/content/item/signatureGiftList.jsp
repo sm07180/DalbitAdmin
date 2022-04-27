@@ -72,11 +72,11 @@
                                    onclick="sgnt_deleteBtnEvent()"
                             >
                         </div>
-                        <div class="footer-right pull-right dataTable-div">
-                            <input type="button" value="네이티브 전송" class="btn btn-success btn-sm" id="btn_changeItem" style="margin-left: 3px;"
-                                   onclick="changeItemEvent()"
-                            >
-                        </div>
+<%--                        <div class="footer-right pull-right dataTable-div">--%>
+<%--                            <input type="button" value="네이티브 전송" class="btn btn-success btn-sm" id="btn_changeItem" style="margin-left: 3px;"--%>
+<%--                                   onclick="changeItemEvent()"--%>
+<%--                            >--%>
+<%--                        </div>--%>
                     </div>
                 </div>
 
