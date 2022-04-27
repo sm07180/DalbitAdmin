@@ -58,18 +58,17 @@ public class Ent_PayV2Service {
      */
     public String payDay(P_PaymentSearchInputVo pPaymentSearchInputVo) {
         List<Object> getData = ent_payV2Dao.selectPaymentDayList(pPaymentSearchInputVo);
+        P_PaymentCancelOutputVo paycancel = DBUtil.getData(getData, P_PaymentCancelOutputVo.class);
         P_PaymentDayPaywayOutputVo payway = DBUtil.getData(getData, P_PaymentDayPaywayOutputVo.class);
         P_PaymentDayPaysexOutputVo paysex = DBUtil.getData(getData, P_PaymentDayPaysexOutputVo.class);
         P_PaymentDayPaycodeOutputVo paycode = DBUtil.getData(getData, P_PaymentDayPaycodeOutputVo.class);
 
-        HashMap resHashMap2 = new HashMap();
-        resHashMap2.put("info", paycode);
-        resHashMap2.put("info2", paysex);
-        resHashMap2.put("info3", payway);
-
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
-        resHashMap.put("data", resHashMap2);
+        resHashMap.put("paycancel", paycancel);
+        resHashMap.put("payway", payway);
+        resHashMap.put("paysex", paysex);
+        resHashMap.put("paycode", paycode);
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }

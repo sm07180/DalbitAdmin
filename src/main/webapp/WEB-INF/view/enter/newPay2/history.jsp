@@ -34,11 +34,16 @@
                     </div>
                 </div>
                 <div id="div_top">
-                    <div class="mt5 col-md-10 no-padding mr10" id="statPayTableBody1"></div>
-                    <div class="mt5 col-md-2 no-padding mr10" style="width: 230px" id="PayTotalTableBody"></div>
-                    <div class="mt5 col-md-12 no-padding" id="statPayTableBody2"></div>
-                    <div class="mt5 col-md-12 no-padding" id="statPayTableBody3"></div>
-                    <div class="mt5 col-md-12 no-padding" id="statPayTableBody4"></div>
+                    <div class="row mt5">
+                        <div class="col-md-10 pl5 pr5" id="pay-way-day-stat"></div>
+                        <div class="col-md-2 no-padding" id="pay-day-total"></div>
+                    </div>
+                    <div class="row mt5">
+                        <div class="col-md-12 no-padding" id="pay-sex-day-stat"></div>
+                        <div class="col-md-12 no-padding mt5" id="pay-web-day-stat"></div>
+                        <div class="col-md-12 no-padding mt5" id="pay-aos-day-stat"></div>
+                        <div class="col-md-12 no-padding mt5" id="pay-ios-day-stat"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,9 +86,7 @@
 
 <script src="/js/lib/excellentexport.js"></script>
 <script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
-
 <script type="text/javascript">
-
   var dtList_info;
 
   var tmp_ostype = -1;
@@ -130,139 +133,105 @@
   }
 
   function fn_statPayInfo_success1(data, response) {
-    $("#statPayTableBody1").empty();
-    $("#statPayTableBody2").empty();
-    $("#statPayTableBody3").empty();
-    $("#statPayTableBody4").empty();
-    $("#PayTotalTableBody").empty();
+    $('#pay-day-total').empty();
+    $('#pay-way-day-stat').empty();
+    $('#pay-sex-day-stat').empty();
+    $('#pay-web-day-stat').empty();
+    $('#pay-aos-day-stat').empty();
+    $('#pay-ios-day-stat').empty();
 
-    // WEB/안드로이드 총 계/합
-    var android_total_cnt = [
-      response.data.info.code01_cnt,
-      response.data.info.code02_cnt,
-      response.data.info.code03_cnt,
-      response.data.info.code04_cnt,
-      response.data.info.code05_cnt,
-      response.data.info.code06_cnt,
-      response.data.info.code13_cnt,
-      response.data.info.code14_cnt,
-      response.data.info.code15_cnt,
-      response.data.info.code23_cnt,
-    ];
-    var android_total_amt = [
-      response.data.info.code01_amt,
-      response.data.info.code02_amt,
-      response.data.info.code03_amt,
-      response.data.info.code04_amt,
-      response.data.info.code05_amt,
-      response.data.info.code06_amt,
-      response.data.info.code13_amt,
-      response.data.info.code14_amt,
-      response.data.info.code15_amt,
-      response.data.info.code23_amt,
-    ];
-    var android_total_cmt = [
-      response.data.info.code01_cmt,
-      response.data.info.code02_cmt,
-      response.data.info.code03_cmt,
-      response.data.info.code04_cmt,
-      response.data.info.code05_cmt,
-      response.data.info.code06_cmt,
-      response.data.info.code13_cmt,
-      response.data.info.code14_cmt,
-      response.data.info.code15_cmt,
-      response.data.info.code23_cmt,
-    ];
-    response.data.info["android_total_cnt"] = common.getListSum(android_total_cnt);
-    response.data.info["android_total_amt"] = common.getListSum(android_total_amt);
-    response.data.info["android_total_cmt"] = common.getListSum(android_total_cmt);
+    let paycancel = response.paycancel;
+    let payway = response.payway;
+    let paysex = response.paysex;
+    let paycode = response.paycode;
 
-    // IOS 총 계/합
-    var ios_total_cnt = [
-      response.data.info.code07_cnt,
-      response.data.info.code08_cnt,
-      response.data.info.code09_cnt,
-      response.data.info.code10_cnt,
-      response.data.info.code11_cnt,
-      response.data.info.code12_cnt,
-      response.data.info.code16_cnt,
-      response.data.info.code17_cnt,
-      response.data.info.code18_cnt,
-      response.data.info.code19_cnt,
-      response.data.info.code20_cnt,
-      response.data.info.code21_cnt,
-      response.data.info.code22_cnt,
-    ];
-    var ios_total_amt = [
-      response.data.info.code07_amt,
-      response.data.info.code08_amt,
-      response.data.info.code09_amt,
-      response.data.info.code10_amt,
-      response.data.info.code11_amt,
-      response.data.info.code12_amt,
-      response.data.info.code16_amt,
-      response.data.info.code17_amt,
-      response.data.info.code18_amt,
-      response.data.info.code19_amt,
-      response.data.info.code20_amt,
-      response.data.info.code21_amt,
-      response.data.info.code22_amt,
-    ];
-    var ios_total_cmt = [
-      response.data.info.code07_cmt,
-      response.data.info.code08_cmt,
-      response.data.info.code09_cmt,
-      response.data.info.code10_cmt,
-      response.data.info.code11_cmt,
-      response.data.info.code12_cmt,
-      response.data.info.code16_cmt,
-      response.data.info.code17_cmt,
-      response.data.info.code18_cmt,
-      response.data.info.code19_cmt,
-      response.data.info.code20_cmt,
-      response.data.info.code21_cmt,
-      response.data.info.code22_cmt,
-    ];
-    response.data.info["ios_total_cnt"] = common.getListSum(ios_total_cnt);
-    response.data.info["ios_total_amt"] = common.getListSum(ios_total_amt);
-    response.data.info["ios_total_cmt"] = common.getListSum(ios_total_cmt);
+    let template, templateScript, context, html;
 
-    var template = $('#tmp_payTableSummary1').html();
-    var templateScript = Handlebars.compile(template);
-    var context = response.data.info;
-    var html = templateScript(context);
-    $("#statPayTableBody1").append(html);
+    // 총계
+    const dayTotal = {
+      total_cnt: payway.total_cnt,
+      total_cmt: payway.total_cmt,
+      total_amt: payway.total_amt,
+      canc_cnt: paycancel.canc_cnt,
+      canc_cmt: paycancel.canc_cmt,
+      canc_amt: paycancel.canc_amt
+    };
+    template = $('#tmp-pay-day-total').html();
+    templateScript = Handlebars.compile(template);
+    context = dayTotal;
+    html = templateScript(context);
+    $("#pay-day-total").html(html);
 
-    var template = $('#tmp_payTableSummary2').html();
-    var templateScript = Handlebars.compile(template);
-    var context = response.data.info;
-    var html = templateScript(context);
-    $("#statPayTableBody2").append(html);
+    // 결제방법
+    template = $('#tmp-pay-way-day-stat').html();
+    templateScript = Handlebars.compile(template);
+    context = payway;
+    html = templateScript(context);
+    $("#pay-way-day-stat").html(html);
 
-    var template = $('#tmp_payTableSummary3').html();
-    var templateScript = Handlebars.compile(template);
-    var context = response.data.info;
-    var html = templateScript(context);
-    $("#statPayTableBody3").append(html);
+    // 결제성별
+    const paysexday = {
+      ...paysex,
+      total_cnt: payway.total_cnt,
+      total_cmt: payway.total_cmt,
+      total_amt: payway.total_amt
+    };
+    template = $('#tmp-pay-sex-day-stat').html();
+    templateScript = Handlebars.compile(template);
+    context = paysexday;
+    html = templateScript(context);
+    $("#pay-sex-day-stat").html(html);
 
-    var template = $('#tmp_payTotalTable').html();
-    var templateScript = Handlebars.compile(template);
-    var context = response.data.info;
-    var html = templateScript(context);
-    $("#PayTotalTableBody").append(html);
+    // 결제수단 web
+    let webcode = ['code13', 'code01', 'code02', 'code14', 'code03', 'code04', 'code05', 'code06', 'code15', 'code23'];
+    let web_total_cnt = 0;
+    let web_total_cmt = 0;
+    let web_total_amt = 0;
+    webcode.map(function (item) {
+      web_total_cnt += parseInt(paycode[item + '_cnt'], 10);
+      web_total_cmt += parseInt(paycode[item + '_cmt'], 10);
+      web_total_amt += parseInt(paycode[item + '_amt'], 10);
+    });
+    const paywebday = {
+      ...paycode,
+      web_total_cnt: web_total_cnt,
+      web_total_cmt: web_total_cmt,
+      web_total_amt: web_total_amt
+    };
+    template = $('#tmp-pay-web-day-stat').html();
+    templateScript = Handlebars.compile(template);
+    context = paywebday;
+    html = templateScript(context);
+    $("#pay-web-day-stat").html(html);
 
-    var template = $('#tmp_payTableSummary4').html();
-    var templateScript = Handlebars.compile(template);
-    var context = response.data.info;
-    var html = templateScript(context);
-    $("#statPayTableBody4").append(html);
+
+    // 결제수단 ios
+    let ioscode = ['code16', 'code07', 'code17', 'code18', 'code08', 'code09', 'code10', 'code19', 'code11', 'code20', 'code12', 'code21', 'code22'];
+    let ios_total_cnt = 0;
+    let ios_total_cmt = 0;
+    let ios_total_amt = 0;
+    ioscode.map(function (item) {
+      ios_total_cnt += parseInt(paycode[item + '_cnt'], 10);
+      ios_total_cmt += parseInt(paycode[item + '_cmt'], 10);
+      ios_total_amt += parseInt(paycode[item + '_amt'], 10);
+    });
+    const payiosday = {
+      ...paycode,
+      ios_total_cnt: ios_total_cnt,
+      ios_total_cmt: ios_total_cmt,
+      ios_total_amt: ios_total_amt
+    };
+    template = $('#tmp-pay-ios-day-stat').html();
+    templateScript = Handlebars.compile(template);
+    context = payiosday;
+    html = templateScript(context);
+    $("#pay-ios-day-stat").html(html);
 
     ui.paintColor();
     ui.tableHeightSet();
     getPayHistoryList();
     getPamentSetInfo();
   }
-
 
   var sDate;
   var eDate;
@@ -366,59 +335,81 @@
   });
 </script>
 
-
-<script id="tmp_payTableSummary1" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
+<!-- 총계 -->
+<script type="text/x-handlebars-template" id="tmp-pay-day-total">
+    <table class="table table-bordered mb0 _tableHeight">
         <colgroup>
-            <col width="7.4%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
-            <col width="7.1%"/>
+            <col width="35%"/>
+            <col width="65%"/>
+        </colgroup>
+        <tr>
+            <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
+        </tr>
+        <tr style="color: #ff5600;">
+            <td><b>{{addComma total_cnt}} 건</b></td>
+            <td><b>{{vatMinus total_amt}} 원</b></td>
+        </tr>
+        <tr>
+            <th colspan="2">결제 취소(부가세 제외)</th>
+        </tr>
+        <tr class="font-bold" style="color: #ff5600;">
+            <td>{{addComma canc_cnt}}건</td>
+            <td>{{vatMinus canc_amt}}원</td>
+        </tr>
+    </table>
+</script>
+
+<!-- 결제방법 -->
+<script type="text/x-handlebars-template" id="tmp-pay-way-day-stat">
+    <table class="table table-bordered mb0 _tableHeight">
+        <colgroup>
+            <col width="10.5%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
         </colgroup>
         <thead>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_way();" class="_fontColor" data-fontcolor="black">◈ 결제 방법 별</a>
+                <a href="javascript:void(0);" class="_fontColor" data-fontcolor="black">◈ 결제 방법 별</a>
             </th>
             <th>휴대폰</th>
             <th>카드</th>
-            <th>가상계좌이체</th>
-            <th>인앱결제<br/>(아이폰)</th>
+            <th>가상<br/>계좌이체</th>
+            <th>인앱결제<br/>(AOS)</th>
+            <th>인앱결제<br/>(IOS)</th>
             <th>문화상품권</th>
-            <th>해피머니상품권</th>
-            <%--<th>스마트문상<br/>(게임)</th>--%>
-            <%--<th>도서문화상품권</th>--%>
+            <th>해피머니<br/>상품권</th>
             <th>티머니</th>
             <th>캐시비</th>
             <th>페이코</th>
             <th>카카오페이<br/>(카드)</th>
             <th>카카오페이<br/>(머니)</th>
             <th>간편결제<br/>(계좌)</th>
-            <th style="color: green;font-weight: bold">총합</th>
+            <th style="color: green; font-weight: bold">총합</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <th>결제 건 수</th>
+            <th>결제건수</th>
             <td>{{addComma mc_cnt}}</td>
             <td>{{addComma cn_cnt}}</td>
             <td>{{addComma va_cnt}}</td>
+            <td>{{addComma inapp_aos_cnt}}</td>
             <td>{{addComma inapp_cnt}}</td>
             <td>{{addComma gm_cnt}}</td>
             <td>{{addComma hm_cnt}}</td>
-            <%--<td>{{addComma gg_cnt}}</td>--%>
-            <%--<td>{{addComma gc_cnt}}</td>--%>
             <td>{{addComma tmoney_cnt}}</td>
             <td>{{addComma cashbee_cnt}}</td>
             <td>{{addComma payco_cnt}}</td>
@@ -432,11 +423,10 @@
             <td>{{addComma mc_cmt}}</td>
             <td>{{addComma cn_cmt}}</td>
             <td>{{addComma va_cmt}}</td>
+            <td>{{addComma inapp_aos_cmt}}</td>
             <td>{{addComma inapp_cmt}}</td>
             <td>{{addComma gm_cmt}}</td>
             <td>{{addComma hm_cmt}}</td>
-            <%--<td>{{addComma gg_cmt}}</td>--%>
-            <%--<td>{{addComma gc_cmt}}</td>--%>
             <td>{{addComma tmoney_cmt}}</td>
             <td>{{addComma cashbee_cmt}}</td>
             <td>{{addComma payco_cmt}}</td>
@@ -450,11 +440,10 @@
             <td>{{addComma mc_amt}}</td>
             <td>{{addComma cn_amt}}</td>
             <td>{{addComma va_amt}}</td>
+            <td>{{addComma inapp_aos_amt}}</td>
             <td>{{addComma inapp_amt}}</td>
             <td>{{addComma gm_amt}}</td>
             <td>{{addComma hm_amt}}</td>
-            <%--<td>{{addComma gg_amt}}</td>--%>
-            <%--<td>{{addComma gc_amt}}</td>--%>
             <td>{{addComma tmoney_amt}}</td>
             <td>{{addComma cashbee_amt}}</td>
             <td>{{addComma payco_amt}}</td>
@@ -463,17 +452,15 @@
             <td>{{addComma simple_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
-
         <tr style="color: #ff5600">
             <th><b>부가세 제외 금액</b></th>
             <td>{{vatMinus mc_amt}}</td>
             <td>{{vatMinus cn_amt}}</td>
             <td>{{vatMinus va_amt}}</td>
+            <td>{{vatMinus inapp_aos_amt}}</td>
             <td>{{vatMinus inapp_amt}}</td>
             <td>{{vatMinus gm_amt}}</td>
             <td>{{vatMinus hm_amt}}</td>
-            <%--<td>{{vatMinus gg_amt}}</td>--%>
-            <%--<td>{{vatMinus gc_amt}}</td>--%>
             <td>{{vatMinus tmoney_amt}}</td>
             <td>{{vatMinus cashbee_amt}}</td>
             <td>{{vatMinus payco_amt}}</td>
@@ -487,11 +474,10 @@
             <td>({{payRate mc_cnt total_cnt}}%)<br/><b>{{payRate mc_amt total_amt}}%</b></td>
             <td>({{payRate cn_cnt total_cnt}}%)<br/><b>{{payRate cn_amt total_amt}}%</b></td>
             <td>({{payRate va_cnt total_cnt}}%)<br/><b>{{payRate va_amt total_amt}}%</b></td>
+            <td>({{payRate inapp_aos_cnt total_cnt}}%)<br/><b>{{payRate inapp_aos_amt total_amt}}%</b></td>
             <td>({{payRate inapp_cnt total_cnt}}%)<br/><b>{{payRate inapp_amt total_amt}}%</b></td>
             <td>({{payRate gm_cnt total_cnt}}%)<br/><b>{{payRate gm_amt total_amt}}%</b></td>
             <td>({{payRate hm_cnt total_cnt}}%)<br/><b>{{payRate hm_amt total_amt}}%</b></td>
-            <%--<td>({{payRate gg_cnt total_cnt}}%)<br/><b>{{payRate gg_amt total_amt}}%</b></td>--%>
-            <%--<td>({{payRate gc_cnt total_cnt}}%)<br/><b>{{payRate gc_amt total_amt}}%</b></td>--%>
             <td>({{payRate tmoney_cnt total_cnt}}%)<br/><b>{{payRate tmoney_amt total_amt}}%</b></td>
             <td>({{payRate cashbee_cnt total_cnt}}%)<br/><b>{{payRate cashbee_amt total_amt}}%</b></td>
             <td>({{payRate payco_cnt total_cnt}}%)<br/><b>{{payRate payco_amt total_amt}}%</b></td>
@@ -504,29 +490,31 @@
     </table>
 </script>
 
-<script id="tmp_payTableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
+<!-- 결제성별&연령 -->
+<script type="text/x-handlebars-template" id="tmp-pay-sex-day-stat">
+    <table class="table table-bordered mb0 _tableHeight">
         <colgroup>
             <col width="9%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
             <col width="0.1%"/>
             <col width="9%"/>
-            <col width="6%"/>
-            <col width="6%"/>
-            <col width="6%"/>
-            <col width="6%"/>
-            <col width="6%"/>
-            <col width="6%"/>
-            <col width="6%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
+            <col width="6.3%"/>
             <col width="8%"/>
         </colgroup>
         <thead>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제 성별</a>
+                <a href="javascript:void(0);" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제
+                    성별</a>
             </th>
             <th class="_sex_male">{{{sexIcon 'm'}}}</th>
             <th class="_sex_female">{{{sexIcon 'f'}}}</th>
@@ -534,7 +522,8 @@
             <th>총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제 연령대 별</a>
+                <a href="javascript:void(0);" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제 연령대
+                    별</a>
             </th>
             <th>미선택</th>
             <th>10대</th>
@@ -546,60 +535,117 @@
             <th>총 합</th>
         </tr>
         </thead>
-        <tbody>
         <tr>
             <th>결제 건 수</th>
-            <td onclick="click_popupGender('m')"><a href="javascript://"><span class="font-bold" style="color: blue">{{addComma male_cnt}}</span></a>
+            <td onclick="click_popupGender('m')">
+                <a href="javascript:void(0);">
+                    <span class="font-bold" style="color: blue">{{addComma male_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupGender('f')"><a href="javascript://"><span class="font-bold" style="color: red"> {{addComma female_cnt}}</span></a>
+            <td onclick="click_popupGender('f')">
+                <a href="javascript:void(0);">
+                    <span class="font-bold" style="color: red">{{addComma female_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupGender('n')"><a href="javascript://"><span class="font-bold _fontColor"
-                                                                               data-fontColor="#555">{{addComma none_cnt}}</span></a>
+            <td onclick="click_popupGender('n')">
+                <a href="javascript:void(0);">
+                    <span class="font-bold _fontColor" data-fontColor="#555">{{addComma none_cnt}}</span>
+                </a>
             </td>
             <td><b>{{addComma total_cnt}}</b></td>
             <td></td>
             <th>결제 건 수</th>
-            <td onclick="click_popupAge('00')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00_cnt}}</span></a>
+            <td onclick="click_popupAge('00')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_00_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('10')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10_cnt}}</span></a>
+            <td onclick="click_popupAge('10')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_10_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('20')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20_cnt}}</span></a>
+            <td onclick="click_popupAge('20')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_20_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('30')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30_cnt}}</span></a>
+            <td onclick="click_popupAge('30')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_30_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('40')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age40_cnt}}</span></a>
+            <td onclick="click_popupAge('40')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_40_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('50')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50_cnt}}</span></a>
+            <td onclick="click_popupAge('50')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_50_cnt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('60')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60_cnt}}</span></a>
+            <td onclick="click_popupAge('60')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_60_cnt}}</span>
+                </a>
             </td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr>
             <th>결제수량</th>
-            <td onclick="click_popupGender('m')"><a href="javascript://"><span class="font-bold" style="color: blue">{{addComma male_cmt}}</span></a>
+            <td onclick="click_popupGender('m')">
+                <a href="javascript:void(0);">
+                    <span class="font-bold" style="color: blue">{{addComma male_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupGender('f')"><a href="javascript://"><span class="font-bold" style="color: red"> {{addComma female_cmt}}</span></a>
+            <td onclick="click_popupGender('f')">
+                <a href="javascript:void(0);">
+                    <span class="font-bold" style="color: red"> {{addComma female_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupGender('n')"><a href="javascript://"><span class="font-bold _fontColor"
-                                                                               data-fontColor="#555">{{addComma none_cmt}}</span></a>
+            <td onclick="click_popupGender('n')">
+                <a href="javascript:void(0);">
+                    <span class="font-bold _fontColor" data-fontColor="#555">{{addComma none_cmt}}</span>
+                </a>
             </td>
             <td><b>{{addComma total_cmt}}</b></td>
             <td></td>
             <th>결제수량</th>
-            <td onclick="click_popupAge('00')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age00_cmt}}</span></a>
+            <td onclick="click_popupAge('00')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_00_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('10')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10_cmt}}</span></a>
+            <td onclick="click_popupAge('10')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_10_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('20')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20_cmt}}</span></a>
+            <td onclick="click_popupAge('20')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_20_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('30')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30_cmt}}</span></a>
+            <td onclick="click_popupAge('30')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_30_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('40')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age40_cmt}}</span></a>
+            <td onclick="click_popupAge('40')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_40_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('50')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50_cmt}}</span></a>
+            <td onclick="click_popupAge('50')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_50_cmt}}</span>
+                </a>
             </td>
-            <td onclick="click_popupAge('60')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60_cmt}}</span></a>
+            <td onclick="click_popupAge('60')">
+                <a href="javascript:void(0);">
+                    <span class="_fontColor" data-fontcolor="#555">{{addComma age_60_cmt}}</span>
+                </a>
             </td>
             <td><b>{{addComma total_cmt}}</b></td>
         </tr>
@@ -611,13 +657,13 @@
             <td><b>{{addComma total_amt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>부가세 포함 금액</th>
-            <td>{{addComma age00_amt}}</td>
-            <td>{{addComma age10_amt}}</td>
-            <td>{{addComma age20_amt}}</td>
-            <td>{{addComma age30_amt}}</td>
-            <td>{{addComma age40_amt}}</td>
-            <td>{{addComma age50_amt}}</td>
-            <td>{{addComma age60_amt}}</td>
+            <td>{{addComma age_00_amt}}</td>
+            <td>{{addComma age_10_amt}}</td>
+            <td>{{addComma age_20_amt}}</td>
+            <td>{{addComma age_30_amt}}</td>
+            <td>{{addComma age_40_amt}}</td>
+            <td>{{addComma age_50_amt}}</td>
+            <td>{{addComma age_60_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
         <tr style="color: #ff5600;">
@@ -628,90 +674,119 @@
             <td><b>{{vatMinus total_amt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>부가세 제외 금액</th>
-            <td>{{vatMinus age00_amt}}</td>
-            <td>{{vatMinus age10_amt}}</td>
-            <td>{{vatMinus age20_amt}}</td>
-            <td>{{vatMinus age30_amt}}</td>
-            <td>{{vatMinus age40_amt}}</td>
-            <td>{{vatMinus age50_amt}}</td>
-            <td>{{vatMinus age60_amt}}</td>
+            <td>{{vatMinus age_00_amt}}</td>
+            <td>{{vatMinus age_10_amt}}</td>
+            <td>{{vatMinus age_20_amt}}</td>
+            <td>{{vatMinus age_30_amt}}</td>
+            <td>{{vatMinus age_40_amt}}</td>
+            <td>{{vatMinus age_50_amt}}</td>
+            <td>{{vatMinus age_60_amt}}</td>
             <td><b>{{vatMinus total_amt}}</b></td>
         </tr>
         <tr>
             <th>결제 비율</th>
-            <td><label style="color: blue">({{payRate male_cnt total_cnt}}%)<br><b>{{payRate male_amt
-                total_amt}}%</b></label></td>
-            <td><label style="color: red">({{payRate female_cnt total_cnt}}%)<br><b>{{payRate female_amt
-                total_amt}}%</b></label></td>
+            <td>
+                <label style="color: blue">
+                    ({{payRate male_cnt total_cnt}}%)<br>
+                    <b>{{payRate male_amt total_amt}}%</b>
+                </label>
+            </td>
+            <td>
+                <label style="color: red">
+                    ({{payRate female_cnt total_cnt}}%)<br>
+                    <b>{{payRate female_amt total_amt}}%</b>
+                </label>
+            </td>
             <td>({{payRate none_cnt none_cnt}}%)<br><b>{{payRate none_amt total_amt}}%</b></td>
             <td>({{payRate total_cnt total_cnt}}%)<br><b>{{payRate total_amt total_amt}}%</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>결제 비율</th>
-            <td>({{payRate age00_cnt total_cnt}}%)<br><b>{{payRate age00_amt total_amt}}%</b></td>
-            <td>({{payRate age10_cnt total_cnt}}%)<br><b>{{payRate age10_amt total_amt}}%</b></td>
-            <td>({{payRate age20_cnt total_cnt}}%)<br><b>{{payRate age20_amt total_amt}}%</b></td>
-            <td>({{payRate age30_cnt total_cnt}}%)<br><b>{{payRate age30_amt total_amt}}%</b></td>
-            <td>({{payRate age40_cnt total_cnt}}%)<br><b>{{payRate age40_amt total_amt}}%</b></td>
-            <td>({{payRate age50_cnt total_cnt}}%)<br><b>{{payRate age50_amt total_amt}}%</b></td>
-            <td>({{payRate age60_cnt total_cnt}}%)<br><b>{{payRate age60_amt total_amt}}%</b></td>
+            <td>({{payRate age_00_cnt total_cnt}}%)<br><b>{{payRate age_00_amt total_amt}}%</b></td>
+            <td>({{payRate age_10_cnt total_cnt}}%)<br><b>{{payRate age_10_amt total_amt}}%</b></td>
+            <td>({{payRate age_20_cnt total_cnt}}%)<br><b>{{payRate age_20_amt total_amt}}%</b></td>
+            <td>({{payRate age_30_cnt total_cnt}}%)<br><b>{{payRate age_30_amt total_amt}}%</b></td>
+            <td>({{payRate age_40_cnt total_cnt}}%)<br><b>{{payRate age_40_amt total_amt}}%</b></td>
+            <td>({{payRate age_50_cnt total_cnt}}%)<br><b>{{payRate age_50_amt total_amt}}%</b></td>
+            <td>({{payRate age_60_cnt total_cnt}}%)<br><b>{{payRate age_60_amt total_amt}}%</b></td>
             <td>({{payRate total_cnt total_cnt}}%)<br><b>{{payRate total_amt total_amt}}%</b></td>
         </tr>
         </tbody>
     </table>
 </script>
 
-
-<script id="tmp_payTableSummary3" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
+<!-- 아이템별 WEB -->
+<script type="text/x-handlebars-template" id="tmp-pay-web-day-stat">
+    <table class="table table-bordered mb0 _tableHeight">
         <colgroup>
-            <col width="14%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
+            <col width="9.5%"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="8%"/>
         </colgroup>
         <tbody>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별 Web,
-                    안드로이드</a>
+                <a href="javascript:void(0);" class="_fontColor" data-fontcolor="black">
+                    ◈ 아이템별 Web
+                </a>
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px"
-                     height="25px"> 달 10
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px"
+                     height="25px">
+                달 10
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px"
-                     height="25px"> 달 50
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px"
+                     height="25px">
+                달 50
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px"
-                     height="25px"> 달 100
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px"
+                     height="25px">
+                달 100
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0300.png" width="25px"
-                     height="25px"> 달 300
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0300.png" width="25px"
+                     height="25px">
+                달 300
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0500.png" width="25px"
-                     height="25px"> 달 500
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0500.png" width="25px"
+                     height="25px">
+                달 500
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px"
-                     height="25px"> 달 1,000
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px"
+                     height="25px">
+                달 1,000
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px"
-                     height="25px"> 달 2,000<br/>(판매종료)
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px"
+                     height="25px">
+                달 2,000<br/>(판매종료)
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px"
-                     height="25px"> 달 3,000
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px"
+                     height="25px">
+                달 3,000
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
-                     height="25px"> 달 5,000
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
+                     height="25px">
+                달 5,000
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
-                     height="25px"> 달 11,000
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
+                     height="25px">
+                달 11,000
             </th>
             <th>총합</th>
         </tr>
@@ -727,7 +802,7 @@
             <td>{{addComma code06_cnt}}</td>
             <td>{{addComma code15_cnt}}</td>
             <td>{{addComma code23_cnt}}</td>
-            <td><b>{{addComma android_total_cnt}}</b></td>
+            <td><b>{{addComma web_total_cnt}}</b></td>
         </tr>
         <tr>
             <th>결제수량</th>
@@ -741,7 +816,7 @@
             <td>{{addComma code06_cmt}}</td>
             <td>{{addComma code15_cmt}}</td>
             <td>{{addComma code23_cmt}}</td>
-            <td><b>{{addComma android_total_cmt}}</b></td>
+            <td><b>{{addComma web_total_cmt}}</b></td>
         </tr>
         <tr style="color: #66a449;">
             <th>부가세 포함 금액</th>
@@ -769,103 +844,269 @@
             <td>{{vatMinus code06_amt}}</td>
             <td>{{vatMinus code15_amt}}</td>
             <td>{{vatMinus code23_amt}}</td>
-            <td><b>{{vatMinus android_total_amt}}</b></td>
+            <td><b>{{vatMinus web_total_amt}}</b></td>
         </tr>
         <tr>
             <th>결제 비율</th>
-            <td>({{payRate code13_cnt android_total_cnt}}%)<br><b>{{payRate code13_amt android_total_amt}}%</b></td>
-            <td>({{payRate code01_cnt android_total_cnt}}%)<br><b>{{payRate code01_amt android_total_amt}}%</b></td>
-            <td>({{payRate code02_cnt android_total_cnt}}%)<br><b>{{payRate code02_amt android_total_amt}}%</b></td>
-            <td>({{payRate code14_cnt android_total_cnt}}%)<br><b>{{payRate code14_amt android_total_amt}}%</b></td>
-            <td>({{payRate code03_cnt android_total_cnt}}%)<br><b>{{payRate code03_amt android_total_amt}}%</b></td>
-            <td>({{payRate code04_cnt android_total_cnt}}%)<br><b>{{payRate code04_amt android_total_amt}}%</b></td>
-            <td>({{payRate code05_cnt android_total_cnt}}%)<br><b>{{payRate code05_amt android_total_amt}}%</b></td>
-            <td>({{payRate code06_cnt android_total_cnt}}%)<br><b>{{payRate code06_amt android_total_amt}}%</b></td>
-            <td>({{payRate code15_cnt android_total_cnt}}%)<br><b>{{payRate code15_amt android_total_amt}}%</b></td>
-            <td>({{payRate code23_cnt android_total_cnt}}%)<br><b>{{payRate code23_amt android_total_amt}}%</b></td>
-            <td>({{payRate android_total_cnt android_total_cnt}}%)<br><b>{{payRate android_total_amt
-                android_total_amt}}%</b></td>
+            <td>({{payRate code13_cnt web_total_cnt}}%)<br><b>{{payRate code13_amt web_total_amt}}%</b></td>
+            <td>({{payRate code01_cnt web_total_cnt}}%)<br><b>{{payRate code01_amt web_total_amt}}%</b></td>
+            <td>({{payRate code02_cnt web_total_cnt}}%)<br><b>{{payRate code02_amt web_total_amt}}%</b></td>
+            <td>({{payRate code14_cnt web_total_cnt}}%)<br><b>{{payRate code14_amt web_total_amt}}%</b></td>
+            <td>({{payRate code03_cnt web_total_cnt}}%)<br><b>{{payRate code03_amt web_total_amt}}%</b></td>
+            <td>({{payRate code04_cnt web_total_cnt}}%)<br><b>{{payRate code04_amt web_total_amt}}%</b></td>
+            <td>({{payRate code05_cnt web_total_cnt}}%)<br><b>{{payRate code05_amt web_total_amt}}%</b></td>
+            <td>({{payRate code06_cnt web_total_cnt}}%)<br><b>{{payRate code06_amt web_total_amt}}%</b></td>
+            <td>({{payRate code15_cnt web_total_cnt}}%)<br><b>{{payRate code15_amt web_total_amt}}%</b></td>
+            <td>({{payRate code23_cnt web_total_cnt}}%)<br><b>{{payRate code23_amt web_total_amt}}%</b></td>
+            <td>({{payRate web_total_cnt web_total_cnt}}%)<br><b>{{payRate web_total_amt web_total_amt}}%</b></td>
+        </tr>
+    </table>
+</script>
+
+<!-- 아이템별 AOS -->
+<script type="text/x-handlebars-template" id="tmp-pay-aos-day-stat">
+    <table class="table table-bordered mb0 _tableHeight">
+        <colgroup>
+            <col width="9.5%"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="8%"/>
+        </colgroup>
+        <tbody>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript:void(0);"class="_fontColor" data-fontcolor="black">◈ 아이템별 AOS</a>
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px">
+                달 9
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px">
+                달 30<br/>(판매종료)
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px">
+                달 45
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px">
+                달 92
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px">
+                달 200
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px">
+                달 300<br/>(판매종료)
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px">
+                달 500
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px">
+                달 838
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px">
+                달 1030<br/>(판매종료)
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px">
+                달 1,530
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px">
+                달 2,080<br/>(판매종료)
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px">
+                달 2,300
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px">
+                달 3,770
+            </th>
+            <th>총합</th>
+        </tr>
+        <tr>
+            <th>결제 건 수</th>
+            <td>{{addComma code16_cnt}}</td>
+            <td>{{addComma code07_cnt}}</td>
+            <td>{{addComma code17_cnt}}</td>
+            <td>{{addComma code18_cnt}}</td>
+            <td>{{addComma code08_cnt}}</td>
+            <td>{{addComma code09_cnt}}</td>
+            <td>{{addComma code10_cnt}}</td>
+            <td>{{addComma code19_cnt}}</td>
+            <td>{{addComma code11_cnt}}</td>
+            <td>{{addComma code20_cnt}}</td>
+            <td>{{addComma code12_cnt}}</td>
+            <td>{{addComma code21_cnt}}</td>
+            <td>{{addComma code22_cnt}}</td>
+            <td><b>{{addComma ios_total_cnt}}</b></td>
+        </tr>
+        <tr>
+            <th>결제 수량</th>
+            <td>{{addComma code16_cmt}}</td>
+            <td>{{addComma code07_cmt}}</td>
+            <td>{{addComma code17_cmt}}</td>
+            <td>{{addComma code18_cmt}}</td>
+            <td>{{addComma code08_cmt}}</td>
+            <td>{{addComma code09_cmt}}</td>
+            <td>{{addComma code10_cmt}}</td>
+            <td>{{addComma code19_cmt}}</td>
+            <td>{{addComma code11_cmt}}</td>
+            <td>{{addComma code20_cmt}}</td>
+            <td>{{addComma code12_cmt}}</td>
+            <td>{{addComma code21_cmt}}</td>
+            <td>{{addComma code22_cmt}}</td>
+            <td><b>{{addComma ios_total_cmt}}</b></td>
+        </tr>
+        <tr style="color: #66a449;">
+            <th>부가세 포함 금액</th>
+            <td>{{addComma code16_amt}}</td>
+            <td>{{addComma code07_amt}}</td>
+            <td>{{addComma code17_amt}}</td>
+            <td>{{addComma code18_amt}}</td>
+            <td>{{addComma code08_amt}}</td>
+            <td>{{addComma code09_amt}}</td>
+            <td>{{addComma code10_amt}}</td>
+            <td>{{addComma code19_amt}}</td>
+            <td>{{addComma code11_amt}}</td>
+            <td>{{addComma code20_amt}}</td>
+            <td>{{addComma code12_amt}}</td>
+            <td>{{addComma code21_amt}}</td>
+            <td>{{addComma code22_amt}}</td>
+            <td><b>{{addComma ios_total_amt}}</b></td>
+        </tr>
+        <tr style="color: #ff5600;">
+            <th>부가세 제외 금액</th>
+            <td>{{vatMinus code16_amt}}</td>
+            <td>{{vatMinus code07_amt}}</td>
+            <td>{{vatMinus code17_amt}}</td>
+            <td>{{vatMinus code18_amt}}</td>
+            <td>{{vatMinus code08_amt}}</td>
+            <td>{{vatMinus code09_amt}}</td>
+            <td>{{vatMinus code10_amt}}</td>
+            <td>{{vatMinus code19_amt}}</td>
+            <td>{{vatMinus code11_amt}}</td>
+            <td>{{vatMinus code20_amt}}</td>
+            <td>{{vatMinus code12_amt}}</td>
+            <td>{{vatMinus code21_amt}}</td>
+            <td>{{vatMinus code22_amt}}</td>
+            <td><b>{{vatMinus ios_total_amt}}</b></td>
+        </tr>
+        <tr>
+            <th>결제 비율</th>
+            <td>({{payRate code16_cnt aos_total_cnt}}%)<br><b>{{payRate code16_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code07_cnt aos_total_cnt}}%)<br><b>{{payRate code07_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code17_cnt aos_total_cnt}}%)<br><b>{{payRate code17_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code18_cnt aos_total_cnt}}%)<br><b>{{payRate code18_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code08_cnt aos_total_cnt}}%)<br><b>{{payRate code08_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code09_cnt aos_total_cnt}}%)<br><b>{{payRate code09_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code10_cnt aos_total_cnt}}%)<br><b>{{payRate code10_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code19_cnt aos_total_cnt}}%)<br><b>{{payRate code19_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code11_cnt aos_total_cnt}}%)<br><b>{{payRate code11_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code20_cnt aos_total_cnt}}%)<br><b>{{payRate code20_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code12_cnt aos_total_cnt}}%)<br><b>{{payRate code12_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code21_cnt aos_total_cnt}}%)<br><b>{{payRate code21_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code22_cnt aos_total_cnt}}%)<br><b>{{payRate code22_amt aos_total_amt}}%</b></td>
+            <td>({{payRate aos_total_cnt aos_total_cnt}}%)<br><b>{{payRate aos_total_amt aos_total_amt}}%</b></td>
         </tr>
         </tbody>
     </table>
 </script>
 
-<script id="tmp_payTotalTable" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
+<!-- 아이템별 IOS -->
+<script type="text/x-handlebars-template" id="tmp-pay-ios-day-stat">
+    <table class="table table-bordered mb0 _tableHeight">
         <colgroup>
-            <col width="35%"/>
-            <col width="65%"/>
-        </colgroup>
-        <tr>
-            <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
-        </tr>
-        <tr style="color: #ff5600;">
-            <td><b>{{total_cnt}} 건</b></td>
-            <td><b>{{vatMinus total_amt}} 원</b></td>
-        </tr>
-        <tr>
-            <th colspan="2">결제 취소(부가세 제외)</th>
-        </tr>
-        <tr class="font-bold" style="color: #ff5600;">
-            <td>{{addComma cancelCnt}}건</td>
-            <td>{{vatMinus cancelAmt}}원</td>
-        </tr>
-    </table>
-</script>
-
-
-<script id="tmp_payTableSummary4" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0 _tableHeight" data-height="23px" title="'(판매종료)'는 2020.07.10 이전 결제 아이템 입니다.">
-        <colgroup>
-            <col width="9%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
+            <col width="9.5%"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="8%"/>
         </colgroup>
         <tbody>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별 아이폰</a>
+                <a href="javascript:void(0);"class="_fontColor" data-fontcolor="black">◈ 아이템별 IOS</a>
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px"
-                     height="25px"> 달 9
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px">
+                달 9
             </th>
-            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30<br/>(판매종료)
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px">
+                달 30<br/>(판매종료)
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px"
-                     height="25px"> 달 45
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px">
+                달 45
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px"
-                     height="25px"> 달 92
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px">
+                달 92
             </th>
-            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 200</th>
-            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300<br/>(판매종료)
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px">
+                달 200
             </th>
-            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 500</th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px"
-                     height="25px"> 달 838
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px">
+                달 300<br/>(판매종료)
             </th>
-            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 1030<br/>(판매종료)
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px">
+                달 500
             </th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px"
-                     height="25px"> 달 1,530
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px">
+                달 838
             </th>
-            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,080<br/>(판매종료)
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px">
+                달 1030<br/>(판매종료)
             </th>
-            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,300</th>
-            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
-                     height="25px"> 달 3,770
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px">
+                달 1,530
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px">
+                달 2,080<br/>(판매종료)
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px">
+                달 2,300
+            </th>
+            <th>
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px">
+                달 3,770
             </th>
             <th>총합</th>
         </tr>

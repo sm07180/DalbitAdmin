@@ -3,6 +3,7 @@
 <mapper namespace="com.dalbit.enter.dao.Ent_PayV2Dao">
     <!-- 결제현황 신규 -->
     <resultMap id="integer" type="Integer" />
+    <resultMap id="P_PaymentCancelOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentCancelOutputVo" />
     <resultMap id="P_PaymentDayPaycodeOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentDayPaycodeOutputVo" />
     <resultMap id="P_PaymentDayPaysexOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentDayPaysexOutputVo" />
     <resultMap id="P_PaymentDayPaywayOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentDayPaywayOutputVo" />
@@ -23,7 +24,7 @@
     </select>
 
     <!-- 결제현황 일간대별 -->
-    <select id="selectPaymentDayList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentDayPaywayOutputVo,P_PaymentDayPaysexOutputVo,P_PaymentDayPaycodeOutputVo">
+    <select id="selectPaymentDayList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentCancelOutputVo,P_PaymentDayPaywayOutputVo,P_PaymentDayPaysexOutputVo,P_PaymentDayPaycodeOutputVo">
         CALL rd_admin.p_adm_payment_day_list(#{tDate})
     </select>
 
