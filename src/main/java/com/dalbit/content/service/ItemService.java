@@ -327,9 +327,19 @@ public class ItemService {
             param.put("pagePerCnt", 50);
 
             List<Object> list = itemDao.pAdmSignatureItemList(param);
+
+            if(list.equals(null)){
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
+            }
+
             List<Integer> list_cnt = DBUtil.getList(list, Integer.class, 0);  // 리스트 cnt
             List<Integer> list_purchageCnt = DBUtil.getList(list, Integer.class, 1);  // 상단 누적 선물 갯수;
             List<P_SignatureItemGiftListOutputVo> giftList = DBUtil.getList(list, P_SignatureItemGiftListOutputVo.class);
+
+            if(list_cnt.size() == 0 || list_purchageCnt.size() == 0){
+                summary.setTotalGiftCnt(0);
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, new ArrayList<>(), new PagingVo(0), summary));
+            }
 
             Integer cnt = list_cnt.get(0);
             Integer purchageCnt = list_purchageCnt.get(0);
@@ -338,7 +348,8 @@ public class ItemService {
             if (cnt > 0) {
                 return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, giftList, new PagingVo(cnt), summary));
             } else if (cnt == 0) {
-                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_데이터없음));
+                summary.setTotalGiftCnt(0);
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, new ArrayList<>(), new PagingVo(0), summary));
             } else {
                 return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
             }
