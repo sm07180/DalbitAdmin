@@ -79,7 +79,6 @@
       if (e.keyCode === 13) {
         $("#bt_search").click();
       }
-      ;
     });
   });
 </script>

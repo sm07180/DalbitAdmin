@@ -62,11 +62,14 @@ public class Ent_PayV2Service {
         P_PaymentDayPaysexOutputVo paysex = DBUtil.getData(getData, P_PaymentDayPaysexOutputVo.class);
         P_PaymentDayPaycodeOutputVo paycode = DBUtil.getData(getData, P_PaymentDayPaycodeOutputVo.class);
 
+        HashMap resHashMap2 = new HashMap();
+        resHashMap2.put("info", paycode);
+        resHashMap2.put("info2", paysex);
+        resHashMap2.put("info3", payway);
+
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
-        resHashMap.put("payway", payway);
-        resHashMap.put("paysex", paysex);
-        resHashMap.put("paycode", paycode);
+        resHashMap.put("data", resHashMap2);
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }
@@ -128,7 +131,16 @@ public class Ent_PayV2Service {
      * @return
      */
     public String paySucc(P_PaymentSearchInputVo pPaymentSearchInputVo) {
-        return "{}";
+        List<Object> getList = ent_payV2Dao.selectPaymentSuccMemberList(pPaymentSearchInputVo);
+        P_PaymentTotalOutputVo pPaymentTotalOutputVo = DBUtil.getData(getList, P_PaymentTotalOutputVo.class);
+        List<P_PaymentMemberListOutputVo> list = DBUtil.getList(getList, P_PaymentMemberListOutputVo.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", pPaymentTotalOutputVo.getCnt());
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
     }
 
     /**
@@ -148,7 +160,16 @@ public class Ent_PayV2Service {
      * @return
      */
     public String payCancel(P_PaymentSearchInputVo pPaymentSearchInputVo) {
-        return "{}";
+        List<Object> getList = ent_payV2Dao.selectPaymentCancelMemberList(pPaymentSearchInputVo);
+        P_PaymentTotalOutputVo pPaymentTotalOutputVo = DBUtil.getData(getList, P_PaymentTotalOutputVo.class);
+        List<P_PaymentMemberListOutputVo> list = DBUtil.getList(getList, P_PaymentMemberListOutputVo.class);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalCnt", pPaymentTotalOutputVo.getCnt());
+        resHashMap.put("listData", list);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
     }
 
     /**
@@ -158,7 +179,13 @@ public class Ent_PayV2Service {
      * @return
      */
     public String payMonthByPaySex(P_PaymentSearchInputVo pPaymentSearchInputVo) {
-        return "{}";
+        List<P_PaymentDayPaysexOutputVo> getData = ent_payV2Dao.selectPaymentMonthMemberStat(pPaymentSearchInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("data", getData);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
     }
 
     /**
@@ -168,7 +195,13 @@ public class Ent_PayV2Service {
      * @return
      */
     public String payMonthByPayWay(P_PaymentSearchInputVo pPaymentSearchInputVo) {
-        return "{}";
+        List<P_PaymentDayPaywayOutputVo> getData = ent_payV2Dao.selectPaymentMonthPaywayStat(pPaymentSearchInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("data", getData);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
     }
 
     /**
@@ -178,6 +211,12 @@ public class Ent_PayV2Service {
      * @return
      */
     public String payMonthByPayCode(P_PaymentSearchInputVo pPaymentSearchInputVo) {
-        return "{}";
+        List<P_PaymentDayPaycodeOutputVo> getData = ent_payV2Dao.selectPaymentMonthPaycodeStat(pPaymentSearchInputVo);
+
+        HashMap resHashMap = new HashMap();
+        resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("data", getData);
+        String result = gsonUtil.toJson(resHashMap);
+        return result;
     }
 }

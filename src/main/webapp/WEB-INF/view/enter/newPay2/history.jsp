@@ -126,12 +126,10 @@
     let data = {
       tDate: $("#startDate").val().replace(/[.]/g, '-')
     };
-    console.log(data);
     util.getAjaxData("statPayInfo", "/v2/rest/enter/pay/day", data, fn_statPayInfo_success1);
   }
 
   function fn_statPayInfo_success1(data, response) {
-    return;
     $("#statPayTableBody1").empty();
     $("#statPayTableBody2").empty();
     $("#statPayTableBody3").empty();
