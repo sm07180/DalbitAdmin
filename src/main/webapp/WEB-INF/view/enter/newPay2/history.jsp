@@ -104,6 +104,8 @@
     'n': '비활성화',
   }
 
+  const historyPagingInfo = new PAGING_INFO(0, 1, 50);
+
   // 인앱결제 여부
   function getPamentSetInfo() {
     util.getAjaxData("getPamentSetInfo", "/rest/enter/pay/payment", {}, function (data, response) {
@@ -204,6 +206,27 @@
     html = templateScript(context);
     $("#pay-web-day-stat").html(html);
 
+    // 결제수단 aos
+    let aoscode = ['code24', 'code25', 'code26', 'code27', 'code28', 'code29', 'code30', 'code31', 'code32'];
+    let aos_total_cnt = 0;
+    let aos_total_cmt = 0;
+    let aos_total_amt = 0;
+    aoscode.map(function (item) {
+      aos_total_cnt += parseInt(paycode[item + '_cnt'], 10);
+      aos_total_cmt += parseInt(paycode[item + '_cmt'], 10);
+      aos_total_amt += parseInt(paycode[item + '_amt'], 10);
+    });
+    const payaosday = {
+      ...paycode,
+      aos_total_cnt: aos_total_cnt,
+      aos_total_cmt: aos_total_cmt,
+      aos_total_amt: aos_total_amt
+    };
+    template = $('#tmp-pay-aos-day-stat').html();
+    templateScript = Handlebars.compile(template);
+    context = payaosday;
+    html = templateScript(context);
+    $("#pay-aos-day-stat").html(html);
 
     // 결제수단 ios
     let ioscode = ['code16', 'code07', 'code17', 'code18', 'code08', 'code09', 'code10', 'code19', 'code11', 'code20', 'code12', 'code21', 'code22'];
@@ -239,27 +262,40 @@
   function getPayHistoryList() {
     sDate = $("#startDate").val();
     eDate = $("#endDate").val();
-    var dtList_info_data = function (data) {
-      data.searchText = $('#txt_search').val();                        // 검색명
-      data.sDate = sDate;
-      data.eDate = eDate;
-      data.ostype = tmp_ostype;
-      data.searchPayStatus = 1;
-      data.innerType = tmp_innerType;
-      data.payWay = tmp_payWay;
-      data.memberDataType = 99;
-      data.slctType = -1;
+    // var dtList_info_data = function (data) {
+    //   data.searchText = $('#txt_search').val();                        // 검색명
+    //   data.sDate = sDate;
+    //   data.eDate = eDate;
+    //   data.ostype = tmp_ostype;
+    //   data.searchPayStatus = 1;
+    //   data.innerType = tmp_innerType;
+    //   data.payWay = tmp_payWay;
+    //   data.memberDataType = 99;
+    //   data.slctType = -1;
+    // };
+    // dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
+    // dtList_info.useCheckBox(false);
+    // dtList_info.useIndex(true);
+    // dtList_info.setPageLength(50);
+    // dtList_info.useInitReload(true);
+    // dtList_info.createDataTable();
+
+    let data = {
+      tDate: $("#startDate").val().replace(/[.]/g, '-'),
+      memNo: 0,
+      payInner: tmp_innerType === -1 ? 2 : tmp_innerType,
+      payWaySlct: tmp_payWay === 'all' ? '' : tmp_payWay,
+      payOs: tmp_ostype === -1 ? 0 : tmp_ostype
     };
-    dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
-    dtList_info.useCheckBox(false);
-    dtList_info.useIndex(true);
-    dtList_info.setPageLength(50);
-    dtList_info.useInitReload(true);
-    dtList_info.createDataTable();
+    util.getAjaxData("getPayHistoryList", "/v2/rest/enter/pay/succ", data, fn_history_succ);
 
     $("#div_payY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
     $("#div_payY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     $("#div_payY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
+  }
+
+  function fn_history_succ(data, response) {
+
   }
 
   function sel_change_pay() {
@@ -877,10 +913,6 @@
             <col width="auto"/>
             <col width="auto"/>
             <col width="auto"/>
-            <col width="auto"/>
-            <col width="auto"/>
-            <col width="auto"/>
-            <col width="auto"/>
             <col width="8%"/>
         </colgroup>
         <tbody>
@@ -891,10 +923,6 @@
             <th>
                 <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px">
                 달 9
-            </th>
-            <th>
-                <img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px">
-                달 30<br/>(판매종료)
             </th>
             <th>
                 <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px">
@@ -910,7 +938,7 @@
             </th>
             <th>
                 <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px">
-                달 300<br/>(판매종료)
+                달 300
             </th>
             <th>
                 <img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px">
@@ -921,110 +949,78 @@
                 달 838
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px">
-                달 1030<br/>(판매종료)
-            </th>
-            <th>
                 <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px">
                 달 1,530
             </th>
             <th>
                 <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px">
-                달 2,080<br/>(판매종료)
-            </th>
-            <th>
-                <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px">
                 달 2,300
-            </th>
-            <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px">
-                달 3,770
             </th>
             <th>총합</th>
         </tr>
         <tr>
             <th>결제 건 수</th>
-            <td>{{addComma code16_cnt}}</td>
-            <td>{{addComma code07_cnt}}</td>
-            <td>{{addComma code17_cnt}}</td>
-            <td>{{addComma code18_cnt}}</td>
-            <td>{{addComma code08_cnt}}</td>
-            <td>{{addComma code09_cnt}}</td>
-            <td>{{addComma code10_cnt}}</td>
-            <td>{{addComma code19_cnt}}</td>
-            <td>{{addComma code11_cnt}}</td>
-            <td>{{addComma code20_cnt}}</td>
-            <td>{{addComma code12_cnt}}</td>
-            <td>{{addComma code21_cnt}}</td>
-            <td>{{addComma code22_cnt}}</td>
-            <td><b>{{addComma ios_total_cnt}}</b></td>
+            <td>{{addComma code24_cnt}}</td>
+            <td>{{addComma code25_cnt}}</td>
+            <td>{{addComma code26_cnt}}</td>
+            <td>{{addComma code27_cnt}}</td>
+            <td>{{addComma code28_cnt}}</td>
+            <td>{{addComma code29_cnt}}</td>
+            <td>{{addComma code30_cnt}}</td>
+            <td>{{addComma code31_cnt}}</td>
+            <td>{{addComma code32_cnt}}</td>
+            <td><b>{{addComma aos_total_cnt}}</b></td>
         </tr>
         <tr>
             <th>결제 수량</th>
-            <td>{{addComma code16_cmt}}</td>
-            <td>{{addComma code07_cmt}}</td>
-            <td>{{addComma code17_cmt}}</td>
-            <td>{{addComma code18_cmt}}</td>
-            <td>{{addComma code08_cmt}}</td>
-            <td>{{addComma code09_cmt}}</td>
-            <td>{{addComma code10_cmt}}</td>
-            <td>{{addComma code19_cmt}}</td>
-            <td>{{addComma code11_cmt}}</td>
-            <td>{{addComma code20_cmt}}</td>
-            <td>{{addComma code12_cmt}}</td>
-            <td>{{addComma code21_cmt}}</td>
-            <td>{{addComma code22_cmt}}</td>
-            <td><b>{{addComma ios_total_cmt}}</b></td>
+            <td>{{addComma code24_cmt}}</td>
+            <td>{{addComma code25_cmt}}</td>
+            <td>{{addComma code26_cmt}}</td>
+            <td>{{addComma code27_cmt}}</td>
+            <td>{{addComma code28_cmt}}</td>
+            <td>{{addComma code29_cmt}}</td>
+            <td>{{addComma code30_cmt}}</td>
+            <td>{{addComma code31_cmt}}</td>
+            <td>{{addComma code32_cmt}}</td>
+            <td><b>{{addComma aos_total_cmt}}</b></td>
         </tr>
         <tr style="color: #66a449;">
             <th>부가세 포함 금액</th>
-            <td>{{addComma code16_amt}}</td>
-            <td>{{addComma code07_amt}}</td>
-            <td>{{addComma code17_amt}}</td>
-            <td>{{addComma code18_amt}}</td>
-            <td>{{addComma code08_amt}}</td>
-            <td>{{addComma code09_amt}}</td>
-            <td>{{addComma code10_amt}}</td>
-            <td>{{addComma code19_amt}}</td>
-            <td>{{addComma code11_amt}}</td>
-            <td>{{addComma code20_amt}}</td>
-            <td>{{addComma code12_amt}}</td>
-            <td>{{addComma code21_amt}}</td>
-            <td>{{addComma code22_amt}}</td>
-            <td><b>{{addComma ios_total_amt}}</b></td>
+            <td>{{addComma code24_amt}}</td>
+            <td>{{addComma code25_amt}}</td>
+            <td>{{addComma code26_amt}}</td>
+            <td>{{addComma code27_amt}}</td>
+            <td>{{addComma code28_amt}}</td>
+            <td>{{addComma code29_amt}}</td>
+            <td>{{addComma code30_amt}}</td>
+            <td>{{addComma code31_amt}}</td>
+            <td>{{addComma code32_amt}}</td>
+            <td><b>{{addComma aos_total_amt}}</b></td>
         </tr>
         <tr style="color: #ff5600;">
             <th>부가세 제외 금액</th>
-            <td>{{vatMinus code16_amt}}</td>
-            <td>{{vatMinus code07_amt}}</td>
-            <td>{{vatMinus code17_amt}}</td>
-            <td>{{vatMinus code18_amt}}</td>
-            <td>{{vatMinus code08_amt}}</td>
-            <td>{{vatMinus code09_amt}}</td>
-            <td>{{vatMinus code10_amt}}</td>
-            <td>{{vatMinus code19_amt}}</td>
-            <td>{{vatMinus code11_amt}}</td>
-            <td>{{vatMinus code20_amt}}</td>
-            <td>{{vatMinus code12_amt}}</td>
-            <td>{{vatMinus code21_amt}}</td>
-            <td>{{vatMinus code22_amt}}</td>
-            <td><b>{{vatMinus ios_total_amt}}</b></td>
+            <td>{{vatMinus code24_amt}}</td>
+            <td>{{vatMinus code25_amt}}</td>
+            <td>{{vatMinus code26_amt}}</td>
+            <td>{{vatMinus code27_amt}}</td>
+            <td>{{vatMinus code28_amt}}</td>
+            <td>{{vatMinus code29_amt}}</td>
+            <td>{{vatMinus code30_amt}}</td>
+            <td>{{vatMinus code31_amt}}</td>
+            <td>{{vatMinus code32_amt}}</td>
+            <td><b>{{vatMinus aos_total_amt}}</b></td>
         </tr>
         <tr>
             <th>결제 비율</th>
-            <td>({{payRate code16_cnt aos_total_cnt}}%)<br><b>{{payRate code16_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code07_cnt aos_total_cnt}}%)<br><b>{{payRate code07_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code17_cnt aos_total_cnt}}%)<br><b>{{payRate code17_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code18_cnt aos_total_cnt}}%)<br><b>{{payRate code18_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code08_cnt aos_total_cnt}}%)<br><b>{{payRate code08_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code09_cnt aos_total_cnt}}%)<br><b>{{payRate code09_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code10_cnt aos_total_cnt}}%)<br><b>{{payRate code10_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code19_cnt aos_total_cnt}}%)<br><b>{{payRate code19_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code11_cnt aos_total_cnt}}%)<br><b>{{payRate code11_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code20_cnt aos_total_cnt}}%)<br><b>{{payRate code20_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code12_cnt aos_total_cnt}}%)<br><b>{{payRate code12_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code21_cnt aos_total_cnt}}%)<br><b>{{payRate code21_amt aos_total_amt}}%</b></td>
-            <td>({{payRate code22_cnt aos_total_cnt}}%)<br><b>{{payRate code22_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code24_cnt aos_total_cnt}}%)<br><b>{{payRate code24_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code25_cnt aos_total_cnt}}%)<br><b>{{payRate code25_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code26_cnt aos_total_cnt}}%)<br><b>{{payRate code26_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code27_cnt aos_total_cnt}}%)<br><b>{{payRate code27_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code28_cnt aos_total_cnt}}%)<br><b>{{payRate code28_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code29_cnt aos_total_cnt}}%)<br><b>{{payRate code29_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code30_cnt aos_total_cnt}}%)<br><b>{{payRate code30_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code31_cnt aos_total_cnt}}%)<br><b>{{payRate code31_amt aos_total_amt}}%</b></td>
+            <td>({{payRate code32_cnt aos_total_cnt}}%)<br><b>{{payRate code32_amt aos_total_amt}}%</b></td>
             <td>({{payRate aos_total_cnt aos_total_cnt}}%)<br><b>{{payRate aos_total_amt aos_total_amt}}%</b></td>
         </tr>
         </tbody>
