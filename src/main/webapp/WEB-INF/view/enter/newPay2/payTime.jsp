@@ -158,12 +158,43 @@
    onclick="return ExcellentExport.excel(this, 'divTime', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
 
 <script src="/js/lib/excellentexport.js"></script>
-
 <script type="text/javascript">
-  $(function () {
-  });
+  let dateHours = [...Array(24).keys()].reverse();
+  let dateDays = [...Array(7).keys()];
+
+  // 시간별 매출표 미리작성
+  function preRenderTimeTable() {
+    $("#payTimeExcel").attr('download' , "결제현황_시간대별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+
+    let data = {
+      slctType_date: dateHours
+    };
+    let template, templateScript, context, html;
+
+    // tmp_timeTableBody 시간 내역 추가
+    template = $('#tmp_timeTableBody').html();
+    templateScript = Handlebars.compile(template);
+    context = data;
+    html = templateScript(context);
+    $("#timeTableBody").html(html);
+
+    // tmp_timeTableBody2 시간 내역 추가
+    template = $('#tmp_timeTableBody2').html();
+    templateScript = Handlebars.compile(template);
+    context = data;
+    html = templateScript(context);
+    $("#timeTableBody2").html(html);
+
+    // 각 표에 타이틀 추가: 현재날짜 -6 부터 0 까지
+    let curDate = moment($("#startDate").val());
+    dateDays.map(function(item) {
+      $('#time_th_' + item).text(curDate.format('YYYY.MM.DD') + " (" + week[curDate.day()] + ")");
+      curDate.add('days', -1);
+    });
+  }
 
   function getPayTimeList() {
+    preRenderTimeTable();
     let data = {
       tDate: $("#startDate").val().replace(/[.]/g, '-')
     };
@@ -171,6 +202,7 @@
   }
 
   function fn_payTime_success(data, response) {
+
 
   }
 
@@ -183,6 +215,9 @@
     }
   }
 
+  $(document).ready(function () {
+
+  });
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_timeTableBody">
@@ -255,7 +290,7 @@
 
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
+        <td class="font-bold" style="background-color: #dae3f3">{{this}}시</td>
         <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
                                                                               data-fontcolor="#555"></span></a></td>
         <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
@@ -358,7 +393,7 @@
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
+        <td class="font-bold" style="background-color: #dae3f3">{{this}}시</td>
         <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
                                                                               data-fontcolor="#555"></span></a></td>
         <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"

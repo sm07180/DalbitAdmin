@@ -41,8 +41,6 @@
 
                                     <input class="hide" name="startDate" id="startDate" style="width: 100px">
                                     <input class="hide" name="endDate" id="endDate" style="width: 100px">
-                                    <%--<input name="startDate" id="startDate" style="width: 100px">--%>
-                                    <%--<input name="endDate" id="endDate" style="width: 100px">--%>
                                     <label><input type="text" class="form-control hide" name="searchText"
                                                   id="searchText" placeholder="검색어를 입력해주세요."></label>
 
@@ -72,6 +70,17 @@
   var clickTab = false;
 
   slctType = 0;
+
+  function handlebarsPaging(targetId, pagingInfo) {
+    switch (targetId) {
+      case 'history-paginate-top':
+      case 'history-paginate-bottom':
+        historyPagingInfo.pageNo = pagingInfo.pageNo;
+        getPayHistoryList();
+        break;
+    }
+  }
+
   $(function () {
     setDayButton();
 

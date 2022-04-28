@@ -17,9 +17,6 @@
             <div class="widget widget-table mb10">
                 <div class="widget-header" style="height: 66px">
                     <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
-                    <%--                    <div class="btn-group widget-header-toolbar">--%>
-                    <%--                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand" onclick="slid();"><i class="fa fa-chevron-up" id="chevron"></i></a>--%>
-                    <%--                    </div>--%>
                     <div class="widget-header-toolbar">
                         <div>
                             <button type="button" data-code="2" id="btn-inapp-aos"
@@ -47,6 +44,7 @@
                 </div>
             </div>
         </div>
+
         <a id='historyExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#"
            onclick="return ExcellentExport.excel(this, 'divHisroty', 'Sheet1');"><i class="fa fa-print"></i>▲ 종합현황 Excel
             Down</a>
@@ -69,12 +67,17 @@
                     class="fa fa-print"></i>▼ 내역 Excel Down
             </button>
         </div>
-        <table class="table table-bordered" id="list_info">
-            <thead>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+
+        <div class="row">
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="pay-member-con">
+                <li class="active"><a href="#history-succ" role="tab" data-toggle="tab" data-paystate="succ">성공내역</a></li>
+                <li><a href="#history-cancel" role="tab" data-toggle="tab" data-paystate="cancel">취소내역</a></li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div id="history-list"></div>
+        </div>
     </div>
     <div class="widget-footer">
         <span>
@@ -91,7 +94,8 @@
 
   var tmp_ostype = -1;
   var tmp_innerType = 0;
-  var tmp_payWay = "all";
+  var tmp_payWay = 'all';
+  var tmp_paystate = 'succ';
 
   // 외부결제 버튼코드
   var paymentSetBtnCodes = {
@@ -104,6 +108,7 @@
     'n': '비활성화',
   }
 
+  // 페이징
   const historyPagingInfo = new PAGING_INFO(0, 1, 50);
 
   // 인앱결제 여부
@@ -127,7 +132,6 @@
 
   function getStatPayInfo() {
     $("#historyExcel").attr('download', "결제현황_일간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
-
     let data = {
       tDate: $("#startDate").val().replace(/[.]/g, '-')
     };
@@ -252,57 +256,91 @@
 
     ui.paintColor();
     ui.tableHeightSet();
-    getPayHistoryList();
     getPamentSetInfo();
-  }
-
-  var sDate;
-  var eDate;
-
-  function getPayHistoryList() {
-    sDate = $("#startDate").val();
-    eDate = $("#endDate").val();
-    // var dtList_info_data = function (data) {
-    //   data.searchText = $('#txt_search').val();                        // 검색명
-    //   data.sDate = sDate;
-    //   data.eDate = eDate;
-    //   data.ostype = tmp_ostype;
-    //   data.searchPayStatus = 1;
-    //   data.innerType = tmp_innerType;
-    //   data.payWay = tmp_payWay;
-    //   data.memberDataType = 99;
-    //   data.slctType = -1;
-    // };
-    // dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
-    // dtList_info.useCheckBox(false);
-    // dtList_info.useIndex(true);
-    // dtList_info.setPageLength(50);
-    // dtList_info.useInitReload(true);
-    // dtList_info.createDataTable();
-
-    let data = {
-      tDate: $("#startDate").val().replace(/[.]/g, '-'),
-      memNo: 0,
-      payInner: tmp_innerType === -1 ? 2 : tmp_innerType,
-      payWaySlct: tmp_payWay === 'all' ? '' : tmp_payWay,
-      payOs: tmp_ostype === -1 ? 0 : tmp_ostype
-    };
-    util.getAjaxData("getPayHistoryList", "/v2/rest/enter/pay/succ", data, fn_history_succ);
+    historyPagingInfo.pageNo = 1;
+    getPayHistoryList();
 
     $("#div_payY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
     $("#div_payY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     $("#div_payY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
   }
 
-  function fn_history_succ(data, response) {
+  function getPayHistoryList() {
+    $('#history-list').empty();
 
+    let data = {
+      tDate: $("#startDate").val().replace(/[.]/g, '-'),
+      memNo: 0,
+      payInner: tmp_innerType < 0 ? 2 : tmp_innerType,
+      payWaySlct: tmp_payWay === 'all' ? '' : tmp_payWay,
+      payOs: tmp_ostype === -1 ? 0 : tmp_ostype,
+      pageNo: historyPagingInfo.pageNo,
+      pagePerCnt: historyPagingInfo.pageCnt
+    };
+    util.getAjaxData("getPayHistoryList", "/v2/rest/enter/pay/" + tmp_paystate, data, fn_history_succ);
+  }
+
+  function fn_history_succ(data, response) {
+    let template, templateScript, context, html;
+    template = $('#tmp-history-list').html();
+    templateScript = Handlebars.compile(template);
+    context = response.listData.map(function (item, index) {
+      item.index_no = response.totalCnt - (((historyPagingInfo.pageNo - 1) * historyPagingInfo.pageCnt) + index);
+      item.birth = item.mem_birth_year + '-' + item.mem_birth_month.padStart(2, '0') + '-' + item.mem_birth_day.padStart(2, '0');
+      item.age_text = common.calcAge(item.birth) < 20 ? '<span style="color:red">미성년자</span>' : '-';
+      item.pay_way_text = util.getCommonCodeText(item.pay_way, payWay);
+      item.info = '-';
+      switch (item.pay_way) {
+        case 'MC':
+          item.info = common.phoneNumHyphen(item.pay_info_no);
+          break;
+        case 'CN':
+          item.info = common.cardNo(item.pay_info_no) + '<br/>' + item.pay_info_nm;
+          break;
+        case 'VA':
+          item.info = item.pay_info_no + '<br/>' + util.getCommonCodeText(item.pay_info_nm, bankList);
+          break;
+        case 'cashbee':
+        case 'tmoney':
+        case 'payco':
+        case 'toss':
+        case 'kakaopay':
+        case 'kakaoMoney':
+          item.info = item.pay_info;
+          break;
+        case 'simple':
+          item.info = item.account_no + '<br/>' + util.getCommonCodeText(item.bank_code, bankList);
+          break;
+      }
+      item.pay_dt_ok = item.pay_ok_date + ' ' + item.pay_ok_time.substr(0, 8);
+      item.os_text = util.getCommonCodeText(item.os, payPlatform);
+      item.pay_yn_uppercase = item.pay_yn.toUpperCase();
+      item.chrgr_yn_uppercase = item.inner === 0 ? 'N' : 'Y';
+      return item;
+    });
+    html = templateScript(context);
+    $("#history-list").html(html);
+
+    historyPagingInfo.totalCnt = response.totalCnt;
+    util.renderPagingNavigation('history-paginate-top', historyPagingInfo);
+    util.renderPagingNavigation('history-paginate-bottom', historyPagingInfo);
+
+    if (response.listData.length === 0) {
+      $('#history-paginate-top').hide();
+      $('#history-paginate-bottom').hide();
+    } else {
+      $('#history-paginate-top').show();
+      $('#history-paginate-bottom').show();
+    }
   }
 
   function sel_change_pay() {
     tmp_ostype = $("#div_payY").find("select[name='ostype']").val();
     tmp_innerType = $("#div_payY").find("select[name='innerType']").val();
     tmp_payWay = $("#div_payY").find("select[name='payWay']").val();
-    dtList_info.reload();
+
+    historyPagingInfo.pageNo = 1;
+    getPayHistoryList();
   }
 
   /*=============엑셀==================*/
@@ -310,17 +348,14 @@
     var formElement = document.querySelector("form");
     var formData = new FormData(formElement);
 
-    formData.append("searchText", "");
-    formData.append("period", 0);
-    formData.append("sDate", sDate);
-    formData.append("eDate", eDate);
-    formData.append("ostype", -1);
-    formData.append("searchPayStatus", 1);
-    formData.append("innerType", -1);
-    formData.append("payWay", "all");
-    formData.append("memberDataType", 99);
-    util.excelDownload($(this), "/rest/payment/pay/listExcel", formData, fn_excelSuccess, fn_excelFail);
-
+    formData.append("tDate", $("#startDate").val().replace(/[.]/g, '-'));
+    formData.append("memNo", 0);
+    formData.append("payInner", 2);
+    formData.append("payWaySlct", "");
+    formData.append("payOs", 0);
+    formData.append("pageNo", 1);
+    formData.append("pagePerCnt", 99999);
+    util.excelDownload($(this), "/v2/rest/enter/pay/" + tmp_paystate + "/excel", formData, fn_excelSuccess, fn_excelFail);
   });
 
   function fn_excelSuccess(data) {
@@ -347,11 +382,15 @@
   }
 
   function click_popupGender(tmp) {
+    let sDate = $("#startDate").val();
+    let eDate = $("#endDate").val();
     var popupUrl = "/enter/newPay/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=" + tmp + "&time=null&age=null";
     util.windowOpen(popupUrl, "1550", "885", "결제목록");
   }
 
   function click_popupAge(tmp) {
+    let sDate = $("#startDate").val();
+    let eDate = $("#endDate").val();
     var popupUrl = "/enter/newPay/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=null&time=null&age=" + tmp;
     util.windowOpen(popupUrl, "1550", "885", "결제목록");
   }
@@ -367,6 +406,15 @@
         setSlct: setSlct,
         paySlct: paySlct
       });
+    });
+
+    // 2회차 하위탭
+    $('#pay-member-con > li > a').on('click', function (e) {
+      var $this = $(this);
+
+      tmp_paystate = $this.data('paystate');
+      historyPagingInfo.pageNo = 1;
+      getPayHistoryList();
     });
   });
 </script>
@@ -418,7 +466,7 @@
         <thead>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript:void(0);" class="_fontColor" data-fontcolor="black">◈ 결제 방법 별</a>
+                <a href="javascript:void(0);" onclick="click_way();" class="_fontColor" data-fontcolor="black">◈ 결제 방법 별</a>
             </th>
             <th>휴대폰</th>
             <th>카드</th>
@@ -770,7 +818,7 @@
         <tbody>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript:void(0);" class="_fontColor" data-fontcolor="black">
+                <a href="javascript:void(0);" onclick="click_code();" class="_fontColor" data-fontcolor="black">
                     ◈ 아이템별 Web
                 </a>
             </th>
@@ -918,18 +966,21 @@
         <tbody>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript:void(0);"class="_fontColor" data-fontcolor="black">◈ 아이템별 AOS</a>
+                <a href="javascript:void(0);" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별 AOS</a>
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px"
+                     height="25px">
                 달 9
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px"
+                     height="25px">
                 달 45
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px"
+                     height="25px">
                 달 92
             </th>
             <th>
@@ -945,11 +996,13 @@
                 달 500
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px"
+                     height="25px">
                 달 838
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px"
+                     height="25px">
                 달 1,530
             </th>
             <th>
@@ -1050,10 +1103,11 @@
         <tbody>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript:void(0);"class="_fontColor" data-fontcolor="black">◈ 아이템별 IOS</a>
+                <a href="javascript:void(0);" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별 IOS</a>
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px"
+                     height="25px">
                 달 9
             </th>
             <th>
@@ -1061,11 +1115,13 @@
                 달 30<br/>(판매종료)
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px"
+                     height="25px">
                 달 45
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px"
+                     height="25px">
                 달 92
             </th>
             <th>
@@ -1081,7 +1137,8 @@
                 달 500
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px"
+                     height="25px">
                 달 838
             </th>
             <th>
@@ -1089,7 +1146,8 @@
                 달 1030<br/>(판매종료)
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px"
+                     height="25px">
                 달 1,530
             </th>
             <th>
@@ -1101,7 +1159,8 @@
                 달 2,300
             </th>
             <th>
-                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px">
+                <img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
+                     height="25px">
                 달 3,770
             </th>
             <th>총합</th>
@@ -1195,3 +1254,83 @@
     </table>
 </script>
 
+<script type="text/x-handlebars-template" id="tmp-history-list">
+    <div class="dataTables_paginate paging_full_numbers" id="history-paginate-top"></div>
+    <table id="history-table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="60px"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>회원번호<br/>닉네임</th>
+            <th>거래번호</th>
+            <th>미성년자<br>여부</th>
+            <th>성별</th>
+            <th>수단</th>
+            <th>결제정보</th>
+            <th>시도일시</th>
+            <th>완료일시</th>
+            <th>구매<br>횟수</th>
+            <th>총 구매<br>금액</th>
+            <th>결제<br>아이템</th>
+            <th>결제<br>수량</th>
+            <th>금액</th>
+            <th>취소 시<br>차감 달</th>
+            <th>보유 달</th>
+            <th>직원<br>여부</th>
+            <th>플랫폼</th>
+        </tr>
+        </thead>
+        <tbody id="history-table-body">
+        {{#each this as |data|}}
+        <tr>
+            <td>{{index_no}}</td>
+            <td>
+                {{{memNoLink mem_no mem_no}}}<br>
+                {{mem_nick}}
+            </td>
+            <td>{{order_id}}</td>
+            <td>{{{age_text}}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+            <td>{{{pay_way_text}}}</td>
+            <td>{{{info}}}</td>
+            <td>{{pay_dt_comein}}</td>
+            <td>{{pay_dt_ok}}</td>
+            <td>{{addComma tot_pay_cnt}}</td>
+            <td>{{addComma tot_pay_amt}}원</td>
+            <td>{{pay_code}}</td>
+            <td>{{addComma item_amt}}</td>
+            <td>{{addComma pay_amt}}{{#dalbit_if pay_slct '==' 'KRW'}}원{{/dalbit_if}}</td>
+            <td>{{addComma dal_cnt}}</td>
+            <td>{{addComma tot_dal_cnt}}</td>
+            <td>{{chrgr_yn_uppercase}}</td>
+            <td>{{{os_text}}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="18">{{isEmptyData}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="dataTables_paginate paging_full_numbers" id="history-paginate-bottom"></div>
+</script>

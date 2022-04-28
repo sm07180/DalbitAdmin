@@ -1,15 +1,22 @@
 package com.dalbit.enter.controller.rest;
 
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.enter.service.Ent_PayV2Service;
 import com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo;
 import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
@@ -88,6 +95,13 @@ public class Ent_PayRestV2Controller {
         return ent_payV2Service.paySucc(pPaymentSearchInputVo);
     }
 
+    @PostMapping("succ/excel")
+    public String paySuccExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_PaymentSearchInputVo pPaymentSearchInputVo) throws GlobalException {
+        Model resultModel = ent_payV2Service.paySuccExcel(pPaymentSearchInputVo, model);
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+    }
+
     /**
      * 결제실패 내역
      * @param pPaymentSearchInputVo
@@ -106,6 +120,13 @@ public class Ent_PayRestV2Controller {
     @PostMapping("cancel")
     public String payCancel(P_PaymentSearchInputVo pPaymentSearchInputVo) {
         return ent_payV2Service.payCancel(pPaymentSearchInputVo);
+    }
+
+    @PostMapping("cancel/excel")
+    public String payCancelExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_PaymentSearchInputVo pPaymentSearchInputVo) throws GlobalException {
+        Model resultModel = ent_payV2Service.payCancelExcel(pPaymentSearchInputVo, model);
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
     /**

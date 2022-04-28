@@ -13,7 +13,7 @@ public class P_PaymentMemberListOutputVo {
     private String order_id;            // 주문번호
     private String mem_no;		        // 회원번호
     private String pay_way;		        // 결제수단(코드표참고)
-    private Date pay_dt_comein;	        // 결제시도일
+    private String pay_dt_comein;	    // 결제시도일
     private String pay_yn;		        // 결제완료여부
     private String pay_ok_date;	        // 결제완료일자
     private String pay_ok_time;	        // 결제완료시간
