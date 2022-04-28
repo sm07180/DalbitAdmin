@@ -1,5 +1,6 @@
 package com.dalbit.common.service;
 
+import com.dalbit.admin.vo.SettingListVo;
 import com.dalbit.common.annotation.NoLogging;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.dao.CommonDao;
@@ -79,6 +80,10 @@ public class CommonService {
     public CodeListVo getCodeDefine(CodeListVo codeListVo){
         CodeListVo code = commonDao.getCodeDefine(codeListVo);
         return code;
+    }
+
+    public ArrayList<SettingListVo> selectSettingList(SettingListVo settingListVo){
+        return commonDao.selectSettingList(settingListVo);
     }
 
     public String getCodeList(CodeListVo codeListVo){

@@ -1,5 +1,6 @@
 package com.dalbit.common.dao;
 
+import com.dalbit.admin.vo.SettingListVo;
 import com.dalbit.common.vo.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,9 @@ public interface CommonDao {
 
     @Transactional(readOnly = true)
     CodeListVo getCodeDefine(CodeListVo codeListVo);
+
+//    @Transactional(readOnly = true)
+    ArrayList<SettingListVo> selectSettingList(SettingListVo settingListVo);
 
     ProcedureVo saveErrorLog(ProcedureVo procedureVo);
 

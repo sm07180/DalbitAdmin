@@ -70,6 +70,19 @@
         limit 1
     </select>
 
+    <select id="selectSettingList" parameterType="com.dalbit.admin.vo.SettingListVo" resultType="com.dalbit.admin.vo.SettingListVo">
+        /* Admin.xml - selectSettingList */
+        select
+            code
+             , `value`
+             , is_use
+             , @rownum := @rownum + 1 as rowNum
+        from rd_data.tbl_code_define
+           , (select @rownum := 0) r
+        where type = #{type}
+          and is_use = #{is_use}
+    </select>
+
     <select id="saveErrorLog" statementType="CALLABLE" parameterType="ProcedureVo" resultType="ProcedureVo">
       call rd_data.sp_log_error_data(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>

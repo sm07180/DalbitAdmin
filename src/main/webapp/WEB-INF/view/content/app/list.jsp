@@ -25,30 +25,7 @@
                 </div>
             </form>
 
-            <div class="row col-lg-12 form-inline">
-                <div class="widget">
-                    <div class="widget-header">
-                        <h3>IOS 심사중여부</h3>
-                        <div class="widget-header-toolbar">
-                            <div class="control-inline toolbar-item-group">
-                                <span class="control-title _fontColor font-bold" data-fontColor="red"><i class="fa fa-mobile-phone"></i>심사중여부</span>
-                                <div class="control-inline onoffswitch">
-                                    <input type="checkbox" name="iosJudge" class="onoffswitch-checkbox" id="iosJudge">
-                                    <label class="onoffswitch-label" for="iosJudge">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="widget-content">
-                        <span>
-                            심사중여부를 "ON"으로 설정 시 <br />
-                            배너와 공지사항의 [IOS 심사 중 노출여부]가 체크된 항목을 보이지 않도록 합니다.
-                        </span>
-                    </div>
-                </div>
+            <div class="row col-lg-12 form-inline" id="appSetting">
             </div>
 
             <div class="row col-lg-12 form-inline" id="insertBtn">
@@ -351,47 +328,43 @@
     }
 
     function getIosJudgeState(){
-        var data = {
-            type : 'system_config'
-            , code : 'IOS_심사중여부'
+      const data = {
+        type : 'system_config'
+        , is_use : 1
+      };
+      util.getAjaxData("iosJudgeState", "/common/selectSettingList", data, function(dst_id, response){
+        if(response.result !== 'success'){
+          alert('IOS 심사중 상태 조회에 실패했습니다.');
+          return;
         }
-        util.getAjaxData("iosJudgeState", "/common/getCodeDefine", data, function(dst_id, response){
-            if(response.result == 'success'){
-                if(common.isEmpty(response.data)){
-                    alert('IOS 심사중 상태 조회에 실패했습니다.')
-                    return false;
-                }
-                var code = response.data.code;
-                if(code.value == 'Y'){
-                    $("#iosJudge").prop('checked', 'checked');
-                }
-            }else{
-                alert('IOS 심사중 상태 조회에 실패했습니다.')
-            }
-        });
+        const template = $('#tmp_screeningList').html();
+        const templateScript = Handlebars.compile(template);
+        const totalContext = response.data;
+        const totalHtml = templateScript(totalContext);
+        $('#appSetting').html(totalHtml);
+
+      });
     }
 
-    $('#iosJudge').on('click', function(e){
-        var me = $(this);
-        if(confirm(me.prop('checked') ? "IOS 심사중 상태로 변경하시겠습니까?" : "IOS 심사중 상태를 OFF 하시겠습니까?")){
-            var data = {
-                type : 'system_config'
-                , code : 'IOS_심사중여부'
-                , value : me.prop('checked') ? 'Y' : 'N'
-            }
-            util.getAjaxData("iosJudgeState", "/common/updateCodeDefine", data, function(dst_id, response){
-                var resultMsg = 'IOS 심사중 상태 변경에 실패했습니다.';
-                if(response.result == 'success'){
-                    if(response.data.updateResult == 1){
-                        resultMsg = 'IOS 심사중 상태가 변경되었습니다.';
-                    }
-                }
-                alert(resultMsg);
-            });
-        }else{
-            e.preventDefault();
-            return false;
+    $('#appSetting').on('click', '.onoffswitch-label', (e)=>{
+      const sel = $($(e.currentTarget).parent().find('input')[0]);
+      const selChecked = sel.prop('checked');
+      const confirmResult = confirm(sel.val() + (selChecked ? ` OFF로 변경하시겠습니까?` : ` ON으로 변경하시겠습니까?`));
+      if(!confirmResult){
+        return;
+      }
+      const data = {
+        type : 'system_config'
+        , code : sel.val()
+        , value : sel.prop('checked') ? 'N' : 'Y'
+      }
+      util.getAjaxData("iosJudgeState", "/common/updateCodeDefine", data, function(dst_id, response){
+        if(response.result !== 'success' || response.data.updateResult !== 1){
+          alert('변경 실패.');
+          return;
         }
+        sel.prop('checked', selChecked ? '' : 'checked');
+      });
     })
 
 </script>
@@ -454,4 +427,26 @@
             </tr>
         </table>
     </div>
+</script>
+
+<script id="tmp_screeningList" type="text/x-handlebars-template">
+    {{#each this as |data|}}
+    <div class="widget">
+        <div class="widget-header">
+            <h3>{{data.code}} </h3>
+            <div class="widget-header-toolbar">
+                <div class="control-inline toolbar-item-group">
+                    <span class="control-title _fontColor font-bold" data-fontColor="red"><i class="fa fa-mobile-phone"></i>심사중여부</span>
+                    <div class="control-inline onoffswitch">
+                        <input type="checkbox" name="judge" class="onoffswitch-checkbox" {{#dalbit_if data.value '==' 'Y'}}checked{{/dalbit_if}} value="{{data.code}}">
+                        <label class="onoffswitch-label" >
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
 </script>
