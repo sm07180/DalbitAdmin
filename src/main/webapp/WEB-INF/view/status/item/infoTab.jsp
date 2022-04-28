@@ -86,6 +86,7 @@
         }else if(tabId == 'tab_broadcastDetail'){
             getBroadList();
         }else if(tabId == 'tab_broadcastTTS'){
+            giftBroadcastTTSListPagingInfo.pageNo = 1;
             getBroadTTSList();
         }else if(tabId == 'tab_clipDetail'){
             getClipList();

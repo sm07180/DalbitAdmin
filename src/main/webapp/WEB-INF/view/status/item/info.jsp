@@ -184,7 +184,7 @@
     if (targetId == 'list_broadcast_paginate') {
       giftClipListPagingInfo = pagingInfo;
       getBroadList();
-    } else if (targetId == 'list_broadcastTTS_paginate') {
+    } else if (targetId == 'tts-top' || targetId == 'tts-top') {
       giftBroadcastTTSListPagingInfo = pagingInfo;
       getBroadTTSList();
     } else if (targetId == 'list_clip_paginate') {
