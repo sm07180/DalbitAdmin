@@ -800,7 +800,21 @@
 
     // 스타 DJ 신청 엑셀 다운로드
     $(document).on('click', '#btn-excel-download', function () {
+      let formElement = document.querySelector("form");
+      let formData = new FormData(formElement);
 
+      let tDate = $("#startDate").val().replace(/[.]/g, '-');
+      let searchVal = $('#searchText').val();
+      let searchSlct = $('#searchMember').val();
+
+      formData.append("tDate", tDate);
+      formData.append("searchVal", searchVal);
+      formData.append("searchSlct", searchSlct);
+      formData.append("pageNo", 1);
+      formData.append("pagePerCnt", 99999);
+
+      let apiURL = '/rest/menu/star/req-list/excel';
+      util.excelDownload($(this), apiURL, formData);
     });
   });
 </script>
@@ -1006,7 +1020,7 @@
             <span class="font-bold" style="color: red;">{{block_cnt}}</span>
             {{/dalbit_if}}
         </td>
-        <td>{{time_rank_score_cnt}} 점</td>
+        <td>{{addComma time_rank_score_cnt}} 점</td>
         <td>
             <div class="form-inline">
                 <input type="number" name="admin_score" class="form-control admin_score_cnt" style="width: 80px;"
