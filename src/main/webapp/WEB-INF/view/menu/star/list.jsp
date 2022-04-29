@@ -112,6 +112,7 @@
   let todayDate = moment(year + '-' + month + '-' + day);
 
   let reqDetail = null;
+  let lastManageDetail = null;
   const starPagingInfo = new PAGING_INFO(0, 1, 50);
   const starEventData = (function () {
     // 스타DJ 목록
@@ -314,6 +315,8 @@
         item.condi += item.condition_codeName4 == '' ? '' : item.condition_codeName4 + ' : ' + specialDjUtil.getConditionData(item.condition_code4, item.condition_data4);
         return item;
       });
+      lastManageDetail = response.data.length > 0 ? response.data[0] : null;
+
       html = templateScript(context);
       $("#result-area").html(html);
     }
@@ -545,6 +548,14 @@
     // 스타 DJ 신청 상세
     function renderManageDetail(id, response, params) {
       if (id === 'createManage') {
+        // 가장 최신 다음달
+        let lastDate = moment().add(1, 'months');
+        if (lastManageDetail !== null) {
+          lastDate = moment(lastManageDetail.select_year + '-' + lastManageDetail.select_month + '-01').add(1, 'months');
+        }
+        response.data.specialDjManageInfo.init_year = lastDate.format('YYYY');
+        response.data.specialDjManageInfo.init_month = lastDate.format('MM');
+
         response.data.specialDjManageInfo.condition_code1 = 8;
         response.data.specialDjManageInfo.condition_code2 = 6;
         response.data.specialDjManageInfo.condition_code3 = 3;
@@ -930,10 +941,10 @@
             <th>성별</th>
             <th>이름</th>
             <th>연락처</th>
-            <th>월간(팬방제외)<br>방송시간</th>
-            <th>월간 받은 별</th>
-            <th>월간 좋아요 합계</th>
-            <th>월간 평균 청취자 수</th>
+            <th>집계(팬방제외)<br>방송시간</th>
+            <th>집계 받은 별</th>
+            <th>집계 좋아요 합계</th>
+            <th>집계 평균 청취자 수</th>
             <th>경고 / 정지</th>
             <th>타임랭킹 가산점</th>
             <th>가산점</th>
@@ -1153,8 +1164,8 @@
                             <th>선정기간</th>
                             <td>
                                 {{#equal this.specialDjManageInfo.select_year ''}}
-                                {{{getCommonCodeSelect '2020' 'special_selectYears' 'N' 'content_select_year'}}}
-                                {{{getCommonCodeSelect '08' 'special_selectMonths' 'N' 'content_select_month'}}}
+                                {{{getCommonCodeSelect ../this.specialDjManageInfo.init_year 'special_selectYears' 'N' 'content_select_year'}}}
+                                {{{getCommonCodeSelect ../this.specialDjManageInfo.init_month 'special_selectMonths' 'N' 'content_select_month'}}}
                                 {{else}}
                                 {{../this.specialDjManageInfo.select_year}}년
                                 {{../this.specialDjManageInfo.select_month}}월

@@ -57,6 +57,7 @@ var special_searchType = [
 
 var special_selectYears = [
     new COMMON_CODE(null, 'select_year', '년')
+    , new COMMON_CODE('2023', '2023', '2023년')
     , new COMMON_CODE('2022', '2022', '2022년')
     , new COMMON_CODE('2021', '2021', '2021년')
     , new COMMON_CODE('2020', '2020', '2020년')

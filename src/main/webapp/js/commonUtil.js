@@ -456,7 +456,6 @@ util.getCommonCodeText = function(code, targetCode) {
             if (!common.isEmpty(value.type)) {
                 if (code == value.value) {
                     codeText = value.code + "";
-                    console.log(codeText);
                 }
             }
         });
