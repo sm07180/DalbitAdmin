@@ -215,6 +215,12 @@
     let succ_cmt_sum = 0;   // 일자별 결제 성공 수량 누적합
     let succ_cnt_sum = 0;   // 일자별 결제 성공 건 누적합
     let try_cnt_sum = 0;    // 일자별 결제 시도 건 누적합
+    let first_cnt_sum = 0;  // 일자별 첫구매 건 누적합
+    let first_cmt_sum = 0;  // 일자별 첫구매 수량 누적합
+    let first_amt_sum = 0;  // 일자별 첫구매 금액 누적합
+    let re_cnt_sum = 0;     // 일자별 첫구매 건 누적합
+    let re_cmt_sum = 0;     // 일자별 첫구매 건 누적합
+    let re_amt_sum = 0;     // 일자별 첫구매 건 누적합
 
     let dayData = [];
     let totalCnt = response.listData.length;
