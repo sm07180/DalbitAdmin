@@ -1,16 +1,25 @@
 package com.dalbit.menu.controller.rest;
 
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.menu.service.Men_StarService;
+import com.dalbit.menu.vo.SpecialReqVo;
 import com.dalbit.menu.vo.procedure.P_StarInputVo;
 import com.dalbit.menu.vo.procedure.P_StarScoreInputVo;
 import com.dalbit.menu.vo.procedure.P_StarSearchInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
@@ -22,6 +31,9 @@ public class Men_StarRestController {
 
     @Autowired
     Men_StarService menStarService;
+
+    @Autowired
+    ExcelService excelService;
 
     /**
      * 스타 dj 등록 후 달/부스터/아이템 지급
@@ -65,6 +77,19 @@ public class Men_StarRestController {
     @GetMapping("req-list")
     public String findReqStarDJ(P_StarSearchInputVo pStarSearchInputVo) {
         return menStarService.findReqStarDJ(pStarSearchInputVo);
+    }
+
+    /**
+     * 스타 DJ 신청 리스트 - 엑셀다운로드
+     *
+     * @param pStarSearchInputVo
+     * @return
+     */
+    @PostMapping("req-list/excel")
+    public String findReqStarDJExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_StarSearchInputVo pStarSearchInputVo) throws GlobalException {
+        Model resultModel = menStarService.findReqStarDJExcel(pStarSearchInputVo, model);
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
     /**
