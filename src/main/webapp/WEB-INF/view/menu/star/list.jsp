@@ -97,6 +97,12 @@
             <div class="row col-lg-12">
                 <div id="result-area"></div>
                 <div id="detail-area"></div>
+
+                <div class="widget-footer hidden" id="footer-area">
+                    <button type="button" class="btn btn-default btn-sm print-btn pull-right" id="btn-excel-download">
+                        <i class="fa fa-print"></i>Excel Down
+                    </button>
+                </div>
             </div>
         </div> <!-- //container-fluid -->
     </div> <!-- //page-wrapper -->
@@ -727,9 +733,15 @@
       }
     });
 
+    // 탭클릭
     $('#tablist_con li a').on('click', function () {
       const $this = $(this);
       tabSlct = $this.data('tab');
+
+      $('#footer-area').removeClass('hidden').addClass('hidden');
+      if (tabSlct === 'req') {
+        $('#footer-area').removeClass('hidden');
+      }
       starEventData.initSearchDate();
       starEventData.initSearch();
     });
@@ -784,6 +796,11 @@
           mem_no: $this.data('memno')
         });
       }
+    });
+
+    // 스타 DJ 신청 엑셀 다운로드
+    $(document).on('click', '#btn-excel-download', function () {
+
     });
   });
 </script>
@@ -1164,8 +1181,10 @@
                             <th>선정기간</th>
                             <td>
                                 {{#equal this.specialDjManageInfo.select_year ''}}
-                                {{{getCommonCodeSelect ../this.specialDjManageInfo.init_year 'special_selectYears' 'N' 'content_select_year'}}}
-                                {{{getCommonCodeSelect ../this.specialDjManageInfo.init_month 'special_selectMonths' 'N' 'content_select_month'}}}
+                                {{{getCommonCodeSelect ../this.specialDjManageInfo.init_year 'special_selectYears' 'N'
+                                'content_select_year'}}}
+                                {{{getCommonCodeSelect ../this.specialDjManageInfo.init_month 'special_selectMonths' 'N'
+                                'content_select_month'}}}
                                 {{else}}
                                 {{../this.specialDjManageInfo.select_year}}년
                                 {{../this.specialDjManageInfo.select_month}}월
