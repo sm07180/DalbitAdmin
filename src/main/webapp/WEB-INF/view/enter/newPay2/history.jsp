@@ -274,6 +274,9 @@
       payInner: tmp_innerType < 0 ? 2 : tmp_innerType,
       payWaySlct: tmp_payWay === 'all' ? '' : tmp_payWay,
       payOs: tmp_ostype === -1 ? 0 : tmp_ostype,
+      payTime: '',
+      paySex: '',
+      payAge: 0,
       pageNo: historyPagingInfo.pageNo,
       pagePerCnt: historyPagingInfo.pageCnt
     };
@@ -353,6 +356,9 @@
     formData.append("payInner", 2);
     formData.append("payWaySlct", "");
     formData.append("payOs", 0);
+    formData.append("payTime", '');
+    formData.append("paySex", '');
+    formData.append("payAge", 0);
     formData.append("pageNo", 1);
     formData.append("pagePerCnt", 99999);
     util.excelDownload($(this), "/v2/rest/enter/pay/" + tmp_paystate + "/excel", formData, fn_excelSuccess, fn_excelFail);

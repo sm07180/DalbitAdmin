@@ -40,12 +40,12 @@
 
     <!-- 결제 취소 -->
     <select id="selectPaymentCancelMemberList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentTotalOutputVo,P_PaymentMemberListOutputVo">
-        CALL rd_admin.p_adm_payment_cancel_member_list(#{tDate}, #{memNo}, #{payInner}, #{payWaySlct}, #{payOs}, #{pageNo}, #{pagePerCnt})
+        CALL rd_admin.p_adm_payment_cancel_member_list(#{tDate}, #{memNo}, #{payInner}, #{payWaySlct}, #{payOs}, #{payTime}, #{paySex}, #{payAge}, #{pageNo}, #{pagePerCnt})
     </select>
 
     <!-- 결제 성공 -->
     <select id="selectPaymentSuccMemberList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentTotalOutputVo,P_PaymentMemberListOutputVo">
-        CALL rd_admin.p_adm_payment_succ_member_list(#{tDate}, #{memNo}, #{payInner}, #{payWaySlct}, #{payOs}, #{pageNo}, #{pagePerCnt})
+        CALL rd_admin.p_adm_payment_succ_member_list(#{tDate}, #{memNo}, #{payInner}, #{payWaySlct}, #{payOs}, #{payTime}, #{paySex}, #{payAge}, #{pageNo}, #{pagePerCnt})
     </select>
 
     <!-- 결제현황 결제 회원별 -->

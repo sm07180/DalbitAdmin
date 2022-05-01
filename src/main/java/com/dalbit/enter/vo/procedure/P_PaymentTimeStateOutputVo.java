@@ -19,4 +19,10 @@ public class P_PaymentTimeStateOutputVo {
     private int canc_cmt;           // 취소 수량
     private int canc_amt;           // 취소금액
     private int fail_cnt;           // 실패 건
+    private int first_cnt;          // 첫구매 건수
+    private int first_cmt;          // 첫구매 수량
+    private int first_amt;          // 첫구매 금액
+    private int re_cnt;             // 재구매 건수
+    private int re_cmt;             // 재구매 수량
+    private int re_amt;             // 재구매 금액
 }
