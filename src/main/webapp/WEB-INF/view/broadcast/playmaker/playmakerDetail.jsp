@@ -291,10 +291,12 @@
             <col width="auto"/>
             <col width="auto"/>
             <col width="auto"/>
+            <col width="auto"/>
         </colgroup>
         <thead>
         <tr>
             <th>UID</th>
+            <th>회원번호</th>
             <th>닉네임</th>
             <th>소속팀</th>
             <th>받은별</th>
@@ -314,6 +316,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{{memNoLink mem_userid mem_no}}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{team_name}}</td>
             <td>{{addComma rcv_byeol}}</td>
@@ -330,7 +333,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="14">{{isEmptyData}}</td>
+            <td colspan="15">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
