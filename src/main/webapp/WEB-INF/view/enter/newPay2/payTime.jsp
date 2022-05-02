@@ -43,7 +43,8 @@
                 <td class="_noBorder"></td>
                 <th class="_totalDate" colspan="5" id="time_th_0" style="background-color: #ffe699"></th>
                 <td class="_noBorder"></td>
-                <th colspan="5" id="time_th_avg" title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">평균</th>
+                <th colspan="5" id="time_th_avg" title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">평균
+                </th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>건수</th>
@@ -162,9 +163,12 @@
   let dateHours = [...Array(24).keys()].reverse();
   let dateDays = [...Array(7).keys()];
 
-  // 시간별 매출표 미리작성
+  // 현재시간
+  let curHour = moment().format('H');
+
+    // 시간별 매출표 미리작성
   function preRenderTimeTable() {
-    $("#payTimeExcel").attr('download' , "결제현황_시간대별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+    $("#payTimeExcel").attr('download', "결제현황_시간대별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
     let data = {
       slctType_date: dateHours
@@ -187,7 +191,7 @@
 
     // 각 표에 타이틀 추가: 현재날짜 -6 부터 0 까지
     let curDate = moment($("#startDate").val());
-    dateDays.map(function(item) {
+    dateDays.map(function (item) {
       $('#time_th_' + item).text(curDate.format('YYYY.MM.DD') + " (" + week[curDate.day()] + ")");
       curDate.add('days', -1);
     });
@@ -217,190 +221,157 @@
     let re_cmt_sum = 0;     // 일자별 첫구매 건 누적합
     let re_amt_sum = 0;     // 일자별 첫구매 건 누적합
 
-    let dayStat = {};
+    let dayBody = {};
+    let avgBody = {};
     response.listData.map(function (item, index) {
-      if (!dayStat[item.the_date]) {
-        canc_amt_sum    = 0;
-        canc_cmt_sum    = 0;
-        canc_cnt_sum    = 0;
-        fail_cnt_sum    = 0;
-        pay_amt_sum     = 0;
-        succ_cmt_sum    = 0;
-        succ_cnt_sum    = 0;
-        try_cnt_sum     = 0;
-        first_cnt_sum   = 0;
-        first_cmt_sum   = 0;
-        first_amt_sum   = 0;
-        re_cnt_sum      = 0;
-        re_cmt_sum      = 0;
-        re_amt_sum      = 0;
-        dayStat[item.the_date] = [];
+      if (!dayBody[item.the_date]) {
+        canc_amt_sum = 0;
+        canc_cmt_sum = 0;
+        canc_cnt_sum = 0;
+        fail_cnt_sum = 0;
+        pay_amt_sum = 0;
+        succ_cmt_sum = 0;
+        succ_cnt_sum = 0;
+        try_cnt_sum = 0;
+        first_cnt_sum = 0;
+        first_cmt_sum = 0;
+        first_amt_sum = 0;
+        re_cnt_sum = 0;
+        re_cmt_sum = 0;
+        re_amt_sum = 0;
+        dayBody[item.the_date] = [];
       }
-      canc_amt_sum  += item.canc_amt;
-      canc_cmt_sum  += item.canc_cmt;
-      canc_cnt_sum  += item.canc_cnt;
-      fail_cnt_sum  += item.fail_cnt;
-      pay_amt_sum   += item.pay_amt;
-      succ_cmt_sum  += item.succ_cmt;
-      succ_cnt_sum  += item.succ_cnt;
-      try_cnt_sum   += item.try_cnt;
+      if (!avgBody[item.the_hr]) {
+        avgBody[item.the_hr] = {
+          canc_amt_sum: 0,
+          canc_amt: 0,
+          canc_cmt_sum: 0,
+          canc_cmt: 0,
+          canc_cnt_sum: 0,
+          canc_cnt: 0,
+          fail_cnt_sum: 0,
+          fail_cnt: 0,
+          pay_amt_sum: 0,
+          pay_amt: 0,
+          succ_cmt_sum: 0,
+          succ_cmt: 0,
+          succ_cnt_sum: 0,
+          succ_cnt: 0,
+          try_cnt_sum: 0,
+          try_cnt: 0,
+          first_cnt_sum: 0,
+          first_cnt: 0,
+          first_cmt_sum: 0,
+          first_cmt: 0,
+          first_amt_sum: 0,
+          first_amt: 0,
+          re_cnt_sum: 0,
+          re_cnt: 0,
+          re_cmt_sum: 0,
+          re_cmt: 0,
+          re_amt_sum: 0,
+          re_amt: 0
+        };
+      }
+      canc_amt_sum += item.canc_amt;
+      canc_cmt_sum += item.canc_cmt;
+      canc_cnt_sum += item.canc_cnt;
+      fail_cnt_sum += item.fail_cnt;
+      pay_amt_sum += item.pay_amt;
+      succ_cmt_sum += item.succ_cmt;
+      succ_cnt_sum += item.succ_cnt;
+      try_cnt_sum += item.try_cnt;
       first_cnt_sum += item.first_cnt;
       first_cmt_sum += item.first_cmt;
       first_amt_sum += item.first_amt;
-      re_cnt_sum    += item.re_cnt;
-      re_cmt_sum    += item.re_cmt;
-      re_amt_sum    += item.re_amt;
+      re_cnt_sum += item.re_cnt;
+      re_cmt_sum += item.re_cmt;
+      re_amt_sum += item.re_amt;
 
-      item.canc_amt_sum  = canc_amt_sum;
-      item.canc_cmt_sum  = canc_cmt_sum;
-      item.canc_cmt_sum  = canc_cnt_sum;
-      item.fail_cnt_sum  = fail_cnt_sum;
-      item.pay_amt_sum   = pay_amt_sum;
-      item.succ_cmt_sum  = succ_cmt_sum;
-      item.succ_cnt_sum  = succ_cnt_sum;
-      item.try_cnt_sum   = try_cnt_sum;
+      item.canc_amt_sum = canc_amt_sum;
+      item.canc_cmt_sum = canc_cmt_sum;
+      item.canc_cnt_sum = canc_cnt_sum;
+      item.fail_cnt_sum = fail_cnt_sum;
+      item.pay_amt_sum = pay_amt_sum;
+      item.succ_cmt_sum = succ_cmt_sum;
+      item.succ_cnt_sum = succ_cnt_sum;
+      item.try_cnt_sum = try_cnt_sum;
       item.first_cnt_sum = first_cnt_sum;
       item.first_cmt_sum = first_cmt_sum;
       item.first_amt_sum = first_amt_sum;
-      item.re_cnt_sum    = re_cnt_sum;
-      item.re_cmt_sum    = re_cmt_sum;
-      item.re_amt_sum    = re_amt_sum;
-      dayStat[item.the_date].push(item);
+      item.re_cnt_sum = re_cnt_sum;
+      item.re_cmt_sum = re_cmt_sum;
+      item.re_amt_sum = re_amt_sum;
+      dayBody[item.the_date].push(item)
+
+      for (let k in avgBody[item.the_hr]) {
+        avgBody[item.the_hr][k] += item[k];
+      }
     });
 
-    console.log(dayStat);
-
-    // let stateDate = '';
-    //
-    // let canc_amt_sum = 0;   // 일자별 결제 취소 금액 누적합
-    // let canc_cmt_sum = 0;   // 일자별 결제 취소 수량 누적합
-    // let canc_cnt_sum = 0;   // 일자별 결제 취소 건 누적합
-    // let fail_cnt_sum = 0;   // 일자별 결제 실패 건 누적합
-    // let pay_amt_sum = 0;    // 일자별 결제 금액 누적합
-    // let succ_cmt_sum = 0;   // 일자별 결제 성공 수량 누적합
-    // let succ_cnt_sum = 0;   // 일자별 결제 성공 건 누적합
-    // let try_cnt_sum = 0;    // 일자별 결제 시도 건 누적합
-    // let first_cnt_sum = 0;  // 일자별 첫구매 건 누적합
-    // let first_cmt_sum = 0;  // 일자별 첫구매 수량 누적합
-    // let first_amt_sum = 0;  // 일자별 첫구매 금액 누적합
-    // let re_cnt_sum = 0;     // 일자별 첫구매 건 누적합
-    // let re_cmt_sum = 0;     // 일자별 첫구매 건 누적합
-    // let re_amt_sum = 0;     // 일자별 첫구매 건 누적합
-
-    // let dayData = [];
-    // let totalCnt = response.listData.length;
-    // let timeData = response.listData.map(function (item, index) {
-    //   if (stateDate != '' && stateDate !== item.the_date) {
-    //     dayData.push({
-    //       the_date: stateDate,
-    //       succ_cnt_sum: succ_cnt_sum,
-    //       succ_cmt_sum: succ_cmt_sum,
-    //       pay_amt_sum: pay_amt_sum,
-    //       canc_amt_sum: canc_amt_sum,
-    //       first_cnt_sum: first_cnt_sum,
-    //       first_cmt_sum: first_cmt_sum,
-    //       first_amt_sum: first_amt_sum,
-    //       re_cnt_sum: re_cnt_sum,
-    //       re_cmt_sum: re_cmt_sum,
-    //       re_amt_sum: re_amt_sum
-    //     });
-    //
-    //     canc_amt_sum = 0;
-    //     canc_cmt_sum = 0;
-    //     canc_cnt_sum = 0;
-    //     fail_cnt_sum = 0;
-    //     pay_amt_sum = 0;
-    //     succ_cmt_sum = 0;
-    //     succ_cnt_sum = 0;
-    //     try_cnt_sum = 0;
-    //     first_cnt_sum = 0;
-    //     first_cmt_sum = 0;
-    //     first_amt_sum = 0;
-    //     re_cnt_sum = 0;
-    //     re_cmt_sum = 0;
-    //     re_amt_sum = 0;
-    //   }
-    //   canc_amt_sum += item.canc_amt;
-    //   canc_cmt_sum += item.canc_cmt;
-    //   canc_cnt_sum += item.canc_cnt;
-    //   fail_cnt_sum += item.fail_cnt;
-    //   pay_amt_sum += item.pay_amt;
-    //   succ_cmt_sum += item.succ_cmt;
-    //   succ_cnt_sum += item.succ_cnt;
-    //   try_cnt_sum += item.try_cnt;
-    //   first_cnt_sum += item.first_cnt;
-    //   first_cmt_sum += item.first_cmt;
-    //   first_amt_sum += item.first_amt;
-    //   re_cnt_sum += item.re_cnt;
-    //   re_cmt_sum += item.re_cmt;
-    //   re_amt_sum += item.re_amt;
-    //
-    //   item.canc_amt_sum = canc_amt_sum;
-    //   item.canc_cmt_sum = canc_cmt_sum;
-    //   item.canc_cnt_sum = canc_cnt_sum;
-    //   item.fail_cnt_sum = fail_cnt_sum;
-    //   item.pay_amt_sum = pay_amt_sum;
-    //   item.succ_cmt_sum = succ_cmt_sum;
-    //   item.succ_cnt_sum = succ_cnt_sum;
-    //   item.try_cnt_sum = try_cnt_sum;
-    //   item.first_cnt_sum = first_cnt_sum;
-    //   item.first_cmt_sum = first_cmt_sum;
-    //   item.first_amt_sum = first_amt_sum;
-    //   item.re_cnt_sum = re_cnt_sum;
-    //   item.re_cmt_sum = re_cmt_sum;
-    //   item.re_amt_sum = re_amt_sum;
-    //
-    //   if (totalCnt === index + 1) {
-    //     dayData.push({
-    //       the_date: item.the_date,
-    //       succ_cnt_sum: succ_cnt_sum,
-    //       succ_cmt_sum: succ_cmt_sum,
-    //       pay_amt_sum: pay_amt_sum,
-    //       canc_amt_sum: canc_amt_sum,
-    //       first_cnt_sum: first_cnt_sum,
-    //       first_cmt_sum: first_cmt_sum,
-    //       first_amt_sum: first_amt_sum,
-    //       re_cnt_sum: re_cnt_sum,
-    //       re_cmt_sum: re_cmt_sum,
-    //       re_amt_sum: re_amt_sum
-    //     });
-    //   }
-    //   stateDate = item.the_date;
-    //   return item;
-    // });
-
-    // renderDayData(dayData, response.avgState);
-    // renderTimeData(timeData);
-
+    // 데이터 출력
+    renderTimeData(dayBody, avgBody, response.avgState);
     ui.paintColor();
     ui.tableHeightSet();
   }
 
-  // 날짜별 총합 데이터 출력
-  function renderDayData(data, avgData) {
-    console.log(data);
-    // #time_th_6   -6
-
-    // #time_th_5   -5
-
-    // #time_th_4   -4
-
-    // #time_th_3   -3
-
-    // #time_th_2   -2
-
-    // #time_th_1   -1
-
-    // #time_th_0   0
-
-    console.log(avgData);
-    // #time_th_avg 평균
-
-  }
-
   // 시간별 데이터 출력
-  function renderTimeData(data) {
+  function renderTimeData(dayData, avgData, avgState) {
+    let step = 0;
+    let totStep = 0;
+    let index = 6;
+    for (let k in dayData) {
+      let dayCellData = dayData[k];
+      let bodyName = (index > 2) ? 'timeTableBody2' : 'timeTableBody';
+      step = (index === 2) ? 0 : step;
+      totStep = (index === 2) ? 0 : totStep;
 
+      dayCellData.map(function (item) {
+        if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 1) + ")").find('._data').html(common.addComma(item.succ_cnt));
+        if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 2) + ")").html(common.addComma(item.succ_cmt));
+        if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 3) + ")").html(common.vatMinus(item.pay_amt));
+        if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 4) + ")").html(common.vatMinus(item.pay_amt_sum));
+        if (item.canc_amt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 5) + ")").html(common.vatMinus(item.canc_amt));
+
+        // 현재시간 스타일 적용
+        if (curHour == item.the_hr) {
+          for (let m=1; m<6; m++) {
+            $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + m) +  ")").css("background-color", "#e3ecfb");
+            $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + m) +  ")").css("font-weight", "bold");
+          }
+          for (let m=1; m<6; m++) {
+            $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (18 + m) +  ")").css("background-color", "#e3ecfb");
+            $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (18 + m) +  ")").css("font-weight", "bold");
+          }
+        }
+
+        // _tr_sum: 총계
+        if (item.succ_cnt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 1) + ")").html(common.addComma(item.succ_cnt_sum));
+        if (item.succ_cmt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 2) + ")").html(common.addComma(item.canc_amt));
+        if (item.pay_amt_sum > 0)   $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 3) + ")").html(common.vatMinus(item.pay_amt_sum));
+        if (item.canc_amt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 4) + ")").html(common.vatMinus(item.canc_amt_sum));
+
+        // _tr_first_buy: 첫구매
+        if (item.first_cnt_sum > 0)  $("#" + bodyName + " tr._tr_first_buy td:eq(" + (totStep + 1) + ")").html(common.addComma(item.first_cnt_sum));
+        if (item.first_cmt_sum > 0)  $("#" + bodyName + " tr._tr_first_buy td:eq(" + (totStep + 2) + ")").html(common.addComma(item.first_cmt_sum));
+        if (item.first_amt_sum > 0)  $("#" + bodyName + " tr._tr_first_buy td:eq(" + (totStep + 3) + ")").html(common.vatMinus(item.first_amt_sum));
+
+        // _tr_re_buy: 재구매
+        if (item.re_cnt_sum > 0)  $("#" + bodyName + " tr._tr_re_buy td:eq(" + (totStep + 1) + ")").html(common.addComma(item.re_cnt_sum));
+        if (item.re_cmt_sum > 0)  $("#" + bodyName + " tr._tr_re_buy td:eq(" + (totStep + 2) + ")").html(common.addComma(item.re_cmt_sum));
+        if (item.re_amt_sum > 0)  $("#" + bodyName + " tr._tr_re_buy td:eq(" + (totStep + 3) + ")").html(common.vatMinus(item.re_amt_sum));
+      });
+
+      // 평균출력
+
+      step += 6;
+      totStep += 5;
+      index--;
+    }
+
+    // console.log(avgData);
+    // console.log(avgState);
+    // #time_th_avg 총합
   }
 
   function hourClick(tmp) {
