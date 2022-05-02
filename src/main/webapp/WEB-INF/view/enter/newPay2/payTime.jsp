@@ -305,7 +305,7 @@
       dayBody[item.the_date].push(item)
 
       for (let k in avgBody[item.the_hr]) {
-        avgBody[item.the_hr][k] += item[k];
+        avgBody[item.the_hr][k] += parseInt(item[k], 10);
       }
     });
 
@@ -327,7 +327,11 @@
       totStep = (index === 2) ? 0 : totStep;
 
       dayCellData.map(function (item) {
-        if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 1) + ")").find('._data').html(common.addComma(item.succ_cnt));
+        if (item.succ_cnt > 0) {
+          $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 1) + ")").find('._data').html(common.addComma(item.succ_cnt));
+          $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 1) + ")").data("hour", item.the_hr);
+          $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 1) + ")").data("sDate", item.the_date);
+        }
         if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 2) + ")").html(common.addComma(item.succ_cmt));
         if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 3) + ")").html(common.vatMinus(item.pay_amt));
         if (item.succ_cnt > 0) $("#" + bodyName + " tr._tr_" + item.the_hr + " td:eq(" + (step + 4) + ")").html(common.vatMinus(item.pay_amt_sum));
@@ -347,7 +351,7 @@
 
         // _tr_sum: 총계
         if (item.succ_cnt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 1) + ")").html(common.addComma(item.succ_cnt_sum));
-        if (item.succ_cmt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 2) + ")").html(common.addComma(item.canc_amt));
+        if (item.succ_cmt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 2) + ")").html(common.addComma(item.succ_cmt_sum));
         if (item.pay_amt_sum > 0)   $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 3) + ")").html(common.vatMinus(item.pay_amt_sum));
         if (item.canc_amt_sum > 0)  $("#" + bodyName + " tr._tr_sum td:eq(" + (totStep + 4) + ")").html(common.vatMinus(item.canc_amt_sum));
 
@@ -362,16 +366,37 @@
         if (item.re_amt_sum > 0)  $("#" + bodyName + " tr._tr_re_buy td:eq(" + (totStep + 3) + ")").html(common.vatMinus(item.re_amt_sum));
       });
 
-      // 평균출력
-
       step += 6;
       totStep += 5;
       index--;
     }
 
-    // console.log(avgData);
-    // console.log(avgState);
     // #time_th_avg 총합
+    // 평균출력
+    for (let e in avgData) {
+      let item = avgData[e];
+      if (item.succ_cnt > 0) $("#timeTableBody tr._tr_" + e + " td:eq(" + (18 + 1) + ")").html(common.addComma((item.succ_cnt/7).toFixed(1)));
+      if (item.succ_cnt > 0) $("#timeTableBody tr._tr_" + e + " td:eq(" + (18 + 2) + ")").html(common.addComma((item.succ_cmt/7).toFixed(1)));
+      if (item.succ_cnt > 0) $("#timeTableBody tr._tr_" + e + " td:eq(" + (18 + 3) + ")").html(common.vatMinus((item.pay_amt/7).toFixed(1)));
+      if (item.succ_cnt > 0) $("#timeTableBody tr._tr_" + e + " td:eq(" + (18 + 4) + ")").html(common.vatMinus((item.pay_amt_sum/7).toFixed(1)));
+      if (item.canc_amt > 0) $("#timeTableBody tr._tr_" + e + " td:eq(" + (18 + 5) + ")").html(common.vatMinus((item.canc_amt/7).toFixed(1)));
+
+      // _tr_sum: 총계
+      if (item.succ_cnt_sum > 0)  $("#timeTableBody tr._tr_sum td:eq(" + (15 + 1) + ")").html(common.addComma((item.succ_cnt_sum/7).toFixed(1)));
+      if (item.succ_cmt_sum > 0)  $("#timeTableBody tr._tr_sum td:eq(" + (15 + 2) + ")").html(common.addComma((item.succ_cmt_sum/7).toFixed(1)));
+      if (item.pay_amt_sum > 0)   $("#timeTableBody tr._tr_sum td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.pay_amt_sum/7).toFixed(1)));
+      if (item.canc_amt_sum > 0)  $("#timeTableBody tr._tr_sum td:eq(" + (15 + 4) + ")").html(common.vatMinus((item.canc_amt_sum/7).toFixed(1)));
+
+      // _tr_first_buy: 첫구매
+      if (item.first_cnt_sum > 0)  $("#timeTableBody tr._tr_first_buy td:eq(" + (15 + 1) + ")").html(common.addComma((item.first_cnt_sum/7).toFixed(1)));
+      if (item.first_cmt_sum > 0)  $("#timeTableBody tr._tr_first_buy td:eq(" + (15 + 2) + ")").html(common.addComma((item.first_cmt_sum/7).toFixed(1)));
+      if (item.first_amt_sum > 0)  $("#timeTableBody tr._tr_first_buy td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.first_amt_sum/7).toFixed(1)));
+
+      // _tr_re_buy: 재구매
+      if (item.re_cnt_sum > 0)  $("#timeTableBody tr._tr_re_buy td:eq(" + (15 + 1) + ")").html(common.addComma((item.re_cnt_sum/7).toFixed(1)));
+      if (item.re_cmt_sum > 0)  $("#timeTableBody tr._tr_re_buy td:eq(" + (15 + 2) + ")").html(common.addComma((item.re_cmt_sum/7).toFixed(1)));
+      if (item.re_amt_sum > 0)  $("#timeTableBody tr._tr_re_buy td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.re_amt_sum/7).toFixed(1)));
+    }
   }
 
   function hourClick(tmp) {
@@ -458,26 +483,26 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}시</td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
+        <td onclick="hourClick($(this).data())">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td style="border-bottom: hidden;border-top: hidden"></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
         <td></td>
         <td></td>
         <td></td>
         <td style="border-bottom: hidden;border-top: hidden"></td>
-        <td onclick="hourClick($(this).data())" style="background-color: #FFF7E5"><a href="javascript://"><span
-                class="_data _fontColor" data-fontcolor="#555"></span></td>
-        <td onclick="hourClick($(this).data())" style="background-color: #FFF7E5"><a href="javascript://"><span
-                class="_data _fontColor" data-fontcolor="#555"></span></td>
+        <td onclick="hourClick($(this).data())">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())" style="background-color: #FFF7E5">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
+        <td></td>
         <td style="background-color: #FFF7E5"></td>
         <td style="background-color: #FFF7E5"></td>
         <td style="background-color: #FFF7E5"></td>
@@ -561,34 +586,34 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}시</td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a>
+        <td onclick="hourClick($(this).data())">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td style="border-bottom: hidden;border-top: hidden"></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a>
         <td></td>
         <td></td>
         <td></td>
         <td style="border-bottom: hidden;border-top: hidden"></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a>
+        <td onclick="hourClick($(this).data())">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td style="border-bottom: hidden;border-top: hidden"></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a></td>
-        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor"
-                                                                              data-fontcolor="#555"></span></a>
+        <td onclick="hourClick($(this).data())">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())">
+            <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
+        </td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
