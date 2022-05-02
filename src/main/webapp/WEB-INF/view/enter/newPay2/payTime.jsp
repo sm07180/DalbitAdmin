@@ -502,7 +502,7 @@
         <td onclick="hourClick($(this).data())" style="background-color: #FFF7E5">
             <a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a>
         </td>
-        <td></td>
+        <td style="background-color: #FFF7E5"></td>
         <td style="background-color: #FFF7E5"></td>
         <td style="background-color: #FFF7E5"></td>
         <td style="background-color: #FFF7E5"></td>

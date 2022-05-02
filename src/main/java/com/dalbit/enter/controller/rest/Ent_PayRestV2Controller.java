@@ -56,7 +56,7 @@ public class Ent_PayRestV2Controller {
     }
 
     /**
-     * 결제현황 월간
+     * 결제현황 월간 - 수단별
      * @param pPaymentSearchInputVo
      * @return
      */
