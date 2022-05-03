@@ -113,15 +113,18 @@ public class Men_StarService {
         List<P_StarReqListOutputVo> list = DBUtil.getList(getList, P_StarReqListOutputVo.class);
 
         String[] headers = {"No", "스타DJ횟수", "회원번호", "닉네임" , "성별", "집계(팬방제외)방송시간"
-                , "집계 받은 별", "집계 좋아요 합계", "집계 평균 청취자 수", "경고", "정지"
+                , "집계 받은 별", "집계 좋아요 합계", "순수 좋아요 수", "부스터 수", "집계 평균 청취자 수", "경고", "정지"
                 , "타임랭킹 가산점", "총 점수"};
         int[] headerWidths = {3000, 3000, 5000, 5000, 3000, 3000
-                , 3000, 3000, 3000, 3000, 3000
+                , 3000, 3000, 3000, 3000, 3000, 3000, 3000
                 , 3000, 4000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
             HashMap hm = new LinkedHashMap();
+            int like = DalbitUtil.isEmpty(list.get(i).getLike_cnt()) ? 0 : list.get(i).getLike_cnt();
+            int boost_good_cnt = DalbitUtil.isEmpty(list.get(i).getBoost_good_cnt()) ? 0 : (list.get(i).getBoost_good_cnt()/10);
+            int good_cnt = like - boost_good_cnt;
 
             hm.put("no", list.size()-i);
             hm.put("specialdj_cnt", DalbitUtil.isEmpty(list.get(i).getSpecialdj_cnt()) ? "" : list.get(i).getSpecialdj_cnt());
@@ -130,7 +133,9 @@ public class Men_StarService {
             hm.put("mem_sex", DalbitUtil.isEmpty(list.get(i).getMem_sex()) ? "" : list.get(i).getMem_sex());
             hm.put("playtime", DalbitUtil.isEmpty(list.get(i).getPlay_cnt()) ? "" : list.get(i).getPlay_cnt());
             hm.put("byeol", DalbitUtil.isEmpty(list.get(i).getByeol_cnt()) ? "" : list.get(i).getByeol_cnt());
-            hm.put("like", DalbitUtil.isEmpty(list.get(i).getLike_cnt()) ? "" : list.get(i).getLike_cnt());
+            hm.put("like", like == 0 ? "" : like);
+            hm.put("good_cnt", good_cnt == 0 ? "" : good_cnt);
+            hm.put("boost_good_cnt", boost_good_cnt == 0 ? "" : boost_good_cnt);
             hm.put("listen", DalbitUtil.isEmpty(list.get(i).getView_cnt()) ? "" : list.get(i).getView_cnt());
             hm.put("warm_cnt", DalbitUtil.isEmpty(list.get(i).getWarm_cnt()) ? "" : list.get(i).getWarm_cnt());
             hm.put("block_cnt", DalbitUtil.isEmpty(list.get(i).getBlock_cnt()) ? "" : list.get(i).getBlock_cnt());
