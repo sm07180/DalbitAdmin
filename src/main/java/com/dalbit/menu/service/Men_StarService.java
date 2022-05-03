@@ -130,10 +130,7 @@ public class Men_StarService {
             hm.put("mem_sex", DalbitUtil.isEmpty(list.get(i).getMem_sex()) ? "" : list.get(i).getMem_sex());
             hm.put("playtime", DalbitUtil.isEmpty(list.get(i).getPlay_cnt()) ? "" : list.get(i).getPlay_cnt());
             hm.put("byeol", DalbitUtil.isEmpty(list.get(i).getByeol_cnt()) ? "" : list.get(i).getByeol_cnt());
-
             hm.put("like", DalbitUtil.isEmpty(list.get(i).getLike_cnt()) ? "" : list.get(i).getLike_cnt());
-
-
             hm.put("listen", DalbitUtil.isEmpty(list.get(i).getView_cnt()) ? "" : list.get(i).getView_cnt());
             hm.put("warm_cnt", DalbitUtil.isEmpty(list.get(i).getWarm_cnt()) ? "" : list.get(i).getWarm_cnt());
             hm.put("block_cnt", DalbitUtil.isEmpty(list.get(i).getBlock_cnt()) ? "" : list.get(i).getBlock_cnt());
