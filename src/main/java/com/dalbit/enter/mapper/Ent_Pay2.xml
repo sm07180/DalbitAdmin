@@ -29,8 +29,8 @@
     </select>
 
     <!-- 결제현황 월간/결제수단별 -->
-    <select id="selectPaymentMonthList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentMonthStateOutputVo,P_PaymentMonthAvgStateOutputVo">
-        CALL rd_admin.p_adm_payment_day_list(#{tDate}, #{payWaySlct})
+    <select id="selectPaymentMonthList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentMonthStateOutputVo">
+        CALL rd_admin.p_adm_payment_month_list(#{tDate}, #{payWaySlct})
     </select>
 
     <!-- 결제현황 연간결제 -->

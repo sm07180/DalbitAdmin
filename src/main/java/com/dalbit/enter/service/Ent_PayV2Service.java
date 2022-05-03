@@ -85,14 +85,11 @@ public class Ent_PayV2Service {
      * @return
      */
     public String payMonth(P_PaymentSearchInputVo pPaymentSearchInputVo) {
-        List<Object> getList = ent_payV2Dao.selectPaymentMonthList(pPaymentSearchInputVo);
-        List<P_PaymentMonthStateOutputVo> list = DBUtil.getList(getList, P_PaymentMonthStateOutputVo.class);
-        P_PaymentMonthAvgStateOutputVo pPaymentMonthAvgStateOutputVo = DBUtil.getData(getList, P_PaymentMonthAvgStateOutputVo.class);
+        List<P_PaymentMonthStateOutputVo> list = ent_payV2Dao.selectPaymentMonthList(pPaymentSearchInputVo);
 
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
         resHashMap.put("listData", list);
-        resHashMap.put("avgState", pPaymentMonthAvgStateOutputVo);
         String result = gsonUtil.toJson(resHashMap);
         return result;
     }

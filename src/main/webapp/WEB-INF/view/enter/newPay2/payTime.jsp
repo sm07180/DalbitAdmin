@@ -202,7 +202,7 @@
     let data = {
       tDate: $("#startDate").val().replace(/[.]/g, '-')
     };
-    util.getAjaxData("total", "/v2/rest/enter/pay/time", data, fn_payTime_success);
+    util.getAjaxData("getPayTimeList", "/v2/rest/enter/pay/time", data, fn_payTime_success);
   }
 
   function fn_payTime_success(data, response) {

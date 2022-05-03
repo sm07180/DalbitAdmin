@@ -1,9 +1,6 @@
 package com.dalbit.enter.dao;
 
-import com.dalbit.enter.vo.procedure.P_PaymentDayPaycodeOutputVo;
-import com.dalbit.enter.vo.procedure.P_PaymentDayPaysexOutputVo;
-import com.dalbit.enter.vo.procedure.P_PaymentDayPaywayOutputVo;
-import com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo;
+import com.dalbit.enter.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,7 +29,7 @@ public interface Ent_PayV2Dao {
      * @param pPaymentSearchInputVo
      * @return
      */
-    List<Object> selectPaymentMonthList(P_PaymentSearchInputVo pPaymentSearchInputVo);
+    List<P_PaymentMonthStateOutputVo> selectPaymentMonthList(P_PaymentSearchInputVo pPaymentSearchInputVo);
 
     /**
      * 결제현황 연간결제
