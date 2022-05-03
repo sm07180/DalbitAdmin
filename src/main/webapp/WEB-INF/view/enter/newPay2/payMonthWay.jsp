@@ -251,29 +251,17 @@
       }
       if (!avgMonthBody[the_day]) {
         avgMonthBody[the_day] = {
-          canc_amt_sum: 0,
           canc_amt: 0,
-          canc_cmt_sum: 0,
           canc_cmt: 0,
-          canc_cnt_sum: 0,
           canc_cnt: 0,
-          pay_amt_sum: 0,
           pay_amt: 0,
-          succ_cmt_sum: 0,
           succ_cmt: 0,
-          succ_cnt_sum: 0,
           succ_cnt: 0,
-          first_cnt_sum: 0,
           first_cnt: 0,
-          first_cmt_sum: 0,
           first_cmt: 0,
-          first_amt_sum: 0,
           first_amt: 0,
-          re_cnt_sum: 0,
           re_cnt: 0,
-          re_cmt_sum: 0,
           re_cmt: 0,
-          re_amt_sum: 0,
           re_amt: 0
         };
       }
@@ -312,6 +300,47 @@
         avgMonthBody[the_day][k] += parseInt(item[k], 10);
       }
     });
+
+    // 총합계산
+    canc_amt_sum = 0;
+    canc_cmt_sum = 0;
+    canc_cnt_sum = 0;
+    pay_amt_sum = 0;
+    succ_cmt_sum = 0;
+    succ_cnt_sum = 0;
+    first_cnt_sum = 0;
+    first_cmt_sum = 0;
+    first_amt_sum = 0;
+    re_cnt_sum = 0;
+    re_cmt_sum = 0;
+    re_amt_sum = 0;
+    for (let k in avgMonthBody) {
+      canc_amt_sum += avgMonthBody[k].canc_amt;
+      canc_cmt_sum += avgMonthBody[k].canc_cmt;
+      canc_cnt_sum += avgMonthBody[k].canc_cnt;
+      pay_amt_sum += avgMonthBody[k].pay_amt;
+      succ_cmt_sum += avgMonthBody[k].succ_cmt;
+      succ_cnt_sum += avgMonthBody[k].succ_cnt;
+      first_cnt_sum += avgMonthBody[k].first_cnt;
+      first_cmt_sum += avgMonthBody[k].first_cmt;
+      first_amt_sum += avgMonthBody[k].first_amt;
+      re_cnt_sum += avgMonthBody[k].re_cnt;
+      re_cmt_sum += avgMonthBody[k].re_cmt;
+      re_amt_sum += avgMonthBody[k].re_amt;
+
+      avgMonthBody[k].canc_amt_sum = canc_amt_sum
+      avgMonthBody[k].canc_cmt_sum = canc_cmt_sum
+      avgMonthBody[k].canc_cnt_sum = canc_cnt_sum
+      avgMonthBody[k].pay_amt_sum = pay_amt_sum
+      avgMonthBody[k].succ_cmt_sum = succ_cmt_sum
+      avgMonthBody[k].succ_cnt_sum = succ_cnt_sum
+      avgMonthBody[k].first_cnt_sum = first_cnt_sum
+      avgMonthBody[k].first_cmt_sum = first_cmt_sum
+      avgMonthBody[k].first_amt_sum = first_amt_sum
+      avgMonthBody[k].re_cnt_sum = re_cnt_sum
+      avgMonthBody[k].re_cmt_sum = re_cmt_sum
+      avgMonthBody[k].re_amt_sum = re_amt_sum
+    }
 
     renderMonthWayData(monthBody, avgMonthBody);
     ui.paintColor();
@@ -374,27 +403,27 @@
     // 평균출력
     for (let e in avgMonthData) {
       let item = avgMonthData[e];
-      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 1) + ")").html(common.addComma((item.succ_cnt).toFixed(1)));
-      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 2) + ")").html(common.addComma((item.succ_cmt).toFixed(1)));
-      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 3) + ")").html(common.vatMinus((item.pay_amt).toFixed(1)));
-      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 4) + ")").html(common.vatMinus((item.pay_amt_sum).toFixed(1)));
-      if (item.canc_amt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 5) + ")").html(common.vatMinus((item.canc_amt).toFixed(1)));
+      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 1) + ")").html(common.addComma((item.succ_cnt/7).toFixed(1)));
+      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 2) + ")").html(common.addComma((item.succ_cmt/7).toFixed(1)));
+      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 3) + ")").html(common.vatMinus((item.pay_amt/7).toFixed(1)));
+      if (item.succ_cnt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 4) + ")").html(common.vatMinus((item.pay_amt_sum/7).toFixed(1)));
+      if (item.canc_amt > 0) $("#monthTableBody_new tr.__tr_" + e + " td:eq(" + (18 + 5) + ")").html(common.vatMinus((item.canc_amt/7).toFixed(1)));
 
       // _tr_sum: 총계
-      if (item.succ_cnt_sum > 0)  $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 1) + ")").html(common.addComma((item.succ_cnt_sum).toFixed(1)));
-      if (item.succ_cmt_sum > 0)  $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 2) + ")").html(common.addComma((item.succ_cmt_sum).toFixed(1)));
-      if (item.pay_amt_sum > 0)   $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.pay_amt_sum).toFixed(1)));
-      if (item.canc_amt_sum > 0)  $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 4) + ")").html(common.vatMinus((item.canc_amt_sum).toFixed(1)));
+      if (item.succ_cnt_sum > 0)  $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 1) + ")").html(common.addComma((item.succ_cnt_sum/7).toFixed(1)));
+      if (item.succ_cmt_sum > 0)  $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 2) + ")").html(common.addComma((item.succ_cmt_sum/7).toFixed(1)));
+      if (item.pay_amt_sum > 0)   $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.pay_amt_sum/7).toFixed(1)));
+      if (item.canc_amt_sum > 0)  $("#monthTableBody_new tr.__tr_sum td:eq(" + (15 + 4) + ")").html(common.vatMinus((item.canc_amt_sum/7).toFixed(1)));
 
       // _tr_first_buy: 첫구매
-      if (item.first_cnt_sum > 0)  $("#monthTableBody_new tr.__tr_first_buy td:eq(" + (15 + 1) + ")").html(common.addComma((item.first_cnt_sum).toFixed(1)));
-      if (item.first_cmt_sum > 0)  $("#monthTableBody_new tr.__tr_first_buy td:eq(" + (15 + 2) + ")").html(common.addComma((item.first_cmt_sum).toFixed(1)));
-      if (item.first_amt_sum > 0)  $("#monthTableBody_new tr.__tr_first_buy td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.first_amt_sum).toFixed(1)));
+      if (item.first_cnt_sum > 0)  $("#monthTableBody_new tr.__tr_first_buy td:eq(" + (15 + 1) + ")").html(common.addComma((item.first_cnt_sum/7).toFixed(1)));
+      if (item.first_cmt_sum > 0)  $("#monthTableBody_new tr.__tr_first_buy td:eq(" + (15 + 2) + ")").html(common.addComma((item.first_cmt_sum/7).toFixed(1)));
+      if (item.first_amt_sum > 0)  $("#monthTableBody_new tr.__tr_first_buy td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.first_amt_sum/7).toFixed(1)));
 
       // _tr_re_buy: 재구매
-      if (item.re_cnt_sum > 0)  $("#monthTableBody_new tr.__tr_re_buy td:eq(" + (15 + 1) + ")").html(common.addComma((item.re_cnt_sum).toFixed(1)));
-      if (item.re_cmt_sum > 0)  $("#monthTableBody_new tr.__tr_re_buy td:eq(" + (15 + 2) + ")").html(common.addComma((item.re_cmt_sum).toFixed(1)));
-      if (item.re_amt_sum > 0)  $("#monthTableBody_new tr.__tr_re_buy td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.re_amt_sum).toFixed(1)));
+      if (item.re_cnt_sum > 0)  $("#monthTableBody_new tr.__tr_re_buy td:eq(" + (15 + 1) + ")").html(common.addComma((item.re_cnt_sum/7).toFixed(1)));
+      if (item.re_cmt_sum > 0)  $("#monthTableBody_new tr.__tr_re_buy td:eq(" + (15 + 2) + ")").html(common.addComma((item.re_cmt_sum/7).toFixed(1)));
+      if (item.re_amt_sum > 0)  $("#monthTableBody_new tr.__tr_re_buy td:eq(" + (15 + 3) + ")").html(common.vatMinus((item.re_amt_sum/7).toFixed(1)));
     }
   }
 </script>
