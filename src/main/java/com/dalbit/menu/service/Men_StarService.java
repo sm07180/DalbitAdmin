@@ -130,7 +130,10 @@ public class Men_StarService {
             hm.put("mem_sex", DalbitUtil.isEmpty(list.get(i).getMem_sex()) ? "" : list.get(i).getMem_sex());
             hm.put("playtime", DalbitUtil.isEmpty(list.get(i).getPlay_cnt()) ? "" : list.get(i).getPlay_cnt());
             hm.put("byeol", DalbitUtil.isEmpty(list.get(i).getByeol_cnt()) ? "" : list.get(i).getByeol_cnt());
+
             hm.put("like", DalbitUtil.isEmpty(list.get(i).getLike_cnt()) ? "" : list.get(i).getLike_cnt());
+
+
             hm.put("listen", DalbitUtil.isEmpty(list.get(i).getView_cnt()) ? "" : list.get(i).getView_cnt());
             hm.put("warm_cnt", DalbitUtil.isEmpty(list.get(i).getWarm_cnt()) ? "" : list.get(i).getWarm_cnt());
             hm.put("block_cnt", DalbitUtil.isEmpty(list.get(i).getBlock_cnt()) ? "" : list.get(i).getBlock_cnt());
@@ -140,10 +143,10 @@ public class Men_StarService {
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
-        SXSSFWorkbook workbook = excelService.excelDownload("스타DJ 신청 가능 목록",vo);
+        SXSSFWorkbook workbook = excelService.excelDownload("스타DJ 신청 목록",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "스타DJ 신청 가능 목록");
+        model.addAttribute("workbookName", "스타DJ 신청 목록");
 
         return model;
     }
