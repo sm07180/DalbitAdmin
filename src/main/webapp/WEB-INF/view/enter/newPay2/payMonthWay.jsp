@@ -398,8 +398,6 @@
       index--;
     }
 
-    console.log(avgMonthData);
-
     // 평균출력
     for (let e in avgMonthData) {
       let item = avgMonthData[e];
