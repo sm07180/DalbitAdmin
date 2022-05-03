@@ -140,10 +140,10 @@ public class Men_StarService {
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
-        SXSSFWorkbook workbook = excelService.excelDownload("스타DJ 신청 가능 목록",vo);
+        SXSSFWorkbook workbook = excelService.excelDownload("스타DJ 신청 목록",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "스타DJ 신청 가능 목록");
+        model.addAttribute("workbookName", "스타DJ 신청 목록");
 
         return model;
     }
