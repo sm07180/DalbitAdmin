@@ -198,6 +198,11 @@
         ORDER BY `order` asc, item_price DESC
     </select>
 
+    <select id="getSignatureGiftItemList" resultType="long">
+        SELECT DISTINCT sgnt_mem_no
+        FROM rd_data.tbl_gift_item where sgnt_mem_no != 0;
+    </select>
+
     <update id="setGiftOrderList" parameterType="com.dalbit.content.vo.GiftOrder">
         update rd_data.tbl_gift_item set `order`=#{order} where item_code=#{item_code}
     </update>

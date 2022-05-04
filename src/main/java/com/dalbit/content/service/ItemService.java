@@ -335,6 +335,18 @@ public class ItemService {
             List<Integer> list_cnt = DBUtil.getList(list, Integer.class, 0);  // 리스트 cnt
             List<Integer> list_purchageCnt = DBUtil.getList(list, Integer.class, 1);  // 상단 누적 선물 갯수;
             List<P_SignatureItemGiftListOutputVo> giftList = DBUtil.getList(list, P_SignatureItemGiftListOutputVo.class);
+            
+            // 데이터 보정용
+            List<Long> signatureItemList = itemDao.getSignatureGiftItemList();
+            ArrayList<P_SignatureItemGiftListOutputVo> tempList = new ArrayList();
+
+            for(Long sgntMemNo : signatureItemList) {
+                for (P_SignatureItemGiftListOutputVo vo : giftList) {
+                    if(sgntMemNo.equals(vo.getMem_no()) ){
+                        tempList.add(vo);
+                    }
+                }
+            }
 
             if(list_cnt.size() == 0 || list_purchageCnt.size() == 0){
                 summary.setTotalGiftCnt(0);
@@ -346,7 +358,7 @@ public class ItemService {
             summary.setTotalGiftCnt(purchageCnt);
 
             if (cnt > 0) {
-                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, giftList, new PagingVo(cnt), summary));
+                return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, tempList, new PagingVo(cnt), summary));
             } else if (cnt == 0) {
                 summary.setTotalGiftCnt(0);
                 return gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, new ArrayList<>(), new PagingVo(0), summary));

@@ -129,6 +129,14 @@
         document.querySelector("#category").childNodes?.forEach((v)=>{
           v.disabled = false;
         });
+        // const changeEvent = (e) => {
+        //   const disableSgntForm = e.currentTarget.value !== 'signature';
+        //
+        //   console.log(e.currentTarget.value, document.body.querySelector("#giftDetailForm input[name=sgnt_mem_no]"));
+        //   //document.body.querySelector("#giftDetailForm input[name=sgnt_mem_no]")?.value = '';
+        //   //document.body.querySelector("#giftDetailForm input[name=sgnt_mem_no]")?.disabled = true;
+        // };
+        // document.querySelector("#category").addEventListener('change', changeEvent);
       }
     };
 
@@ -371,6 +379,13 @@
             alert('사운드URL을 입력해주세요.');
             return false;
         }
+
+        //sgnt_mem_no
+        if(data?.category !== 'signature' && data.sgnt_mem_no > 0){
+          alert("시그니처 아이템인 경우만 회원번호를 입력해주세요.");
+          return false;
+        }
+
         return true;
     };
 

@@ -56,6 +56,8 @@ public interface ItemDao {
 
     int setGiftOrderList(GiftOrder GiftOrder);
 
+    @Transactional(readOnly = true)
+    List<Long> getSignatureGiftItemList();
 
     /**
      * ##### 시그니처 아이템 보유회원리스트
