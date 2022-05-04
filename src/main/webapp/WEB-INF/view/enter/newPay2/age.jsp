@@ -8,53 +8,6 @@
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
-            <colgroup>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="0.1%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-                <col width="2.5%"/>
-            </colgroup>
             <thead>
             <tr>
                 <th colspan="13" class="_stateTopTh">성별</th>
@@ -140,60 +93,55 @@
   }
 
   function fn_agePay_success(data, response) {
-    return;
-
-    if (response.result == "fail") {
-      searchDate();
-      getPayAgeList();
-      return;
-    }
-
-    for (var i = 0; i < response.data.detailList.length; i++) {
-      response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
-      response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
-    }
-
-    var isDataEmpty = response.data.detailList == null;
     $("#ageTableBody").empty();
-    if (!isDataEmpty) {
-      var template = $('#tmp_age').html();
-      var templateScript = Handlebars.compile(template);
-      var totalContext = response.data.totalInfo;
-      var totalHtml = templateScript(totalContext);
-      $("#ageTableBody").append(totalHtml);
+    let template, templateScript, context, html;
 
-      response.data.detailList.slctType = slctType;
-    }
+    let monthPaysexSumData = {}; // 총합 및 소계
+    response.data.map(function (item) {
+      for (let k in item) {
+        if (k !== 'the_date') {
+          if (!monthPaysexSumData[k + '_sum']) monthPaysexSumData[k + '_sum'] = 0;
+          monthPaysexSumData[k + '_sum'] += item[k];
+        }
+      }
+    });
 
-    var template = $('#tmp_ageDetailList').html();
-    var templateScript = Handlebars.compile(template);
-    var detailContext = response.data.detailList;
-    var html = templateScript(detailContext);
+    let monthPaysexCellData = response.data.map(function (item) {
+      item.total_cnt_sum = monthPaysexSumData.total_cnt_sum;
+      item.total_cmt_sum = monthPaysexSumData.total_cmt_sum;
+      item.total_amt_sum = monthPaysexSumData.total_amt_sum;
+
+      // 날짜분리
+      let date = item.the_date.split('-');
+      item.year = date[0];
+      item.month = date[1];
+      item.day = date[2];
+      return item;
+    });
+
+    // 상단 소계
+    template = $('#tmp_age').html();
+    templateScript = Handlebars.compile(template);
+    context = monthPaysexSumData;
+    let total_html = templateScript(context);
+    $("#ageTableBody").append(total_html);
+
+    // 회원별 통계내용
+    template = $('#tmp_ageDetailList').html();
+    templateScript = Handlebars.compile(template);
+    context = monthPaysexCellData;
+    html = templateScript(context);
     $("#ageTableBody").append(html);
 
-    if (isDataEmpty) {
-      $("#ageTableBody td:last").remove();
-    } else {
-      $("#ageTableBody").append(totalHtml);
-    }
+    // 하단 소계
+    $("#ageTableBody").append(total_html);
+
     ui.tableHeightSet();
     ui.paintColor();
   }
 
   function genderAgeClick(tmp) {
-    sDate = $("#startDate").val();
-    eDate = $("#endDate").val();
-    if ($('input[name="slctType"]:checked').val() == 0) {
-      var popupUrl = "/enter/newPay2/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=" + tmp.gender + "&time=" + tmp.hour + "&age=" + tmp.age;
-    } else if ($('input[name="slctType"]:checked').val() == 1) {
-      tmp.daily = tmp.daily.replace(/-/gi, ".");
-      var popupUrl = "/enter/newPay2/popup/history?sDate=" + tmp.daily + "&eDate=" + tmp.daily + "&gender=" + tmp.gender + "&time=null" + "&age=" + tmp.age;
-    } else if ($('input[name="slctType"]:checked').val() == 2) {
-      var tmp_monthly = sDate.substr(0, 5);
-      sDate = tmp_monthly + common.lpad(tmp.monthly, 2, "0") + ".01";
-      eDate = moment(sDate).add('months', 1).add('days', -1).format('YYYY.MM.DD');
-      var popupUrl = "/enter/newPay2/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=" + tmp.gender + "&time=null" + "&age=" + tmp.age;
-    }
+    var popupUrl = "/enter/newPay2/popup/history?sDate=" + tmp.daily + "&eDate=" + tmp.daily + "&gender=" + tmp.gender + "&time=null" + "&age=" + tmp.age;
     util.windowOpen(popupUrl, "1550", "885", "결제목록");
   }
 </script>
@@ -201,44 +149,44 @@
 <script type="text/x-handlebars-template" id="tmp_age">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
-        <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
-        <td style="color:#ff5600;"><b>{{addComma sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
-        <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
-        <td style="color: blue;">{{addComma sum_maleCnt}}</td>
-        <td style="color: blue;">{{vatMinus sum_maleCmt}}</td>
-        <td style="color: blue;">{{vatMinus sum_maleAmt}}</td>
-        <td style="color: red;">{{addComma sum_femaleCnt}}</td>
-        <td style="color: red;">{{vatMinus sum_femaleCmt}}</td>
-        <td style="color: red;">{{vatMinus sum_femaleAmt}}</td>
-        <td>{{addComma sum_noneCnt}}</td>
-        <td>{{vatMinus sum_noneCmt}}</td>
-        <td>{{vatMinus sum_noneAmt}}</td>
+        <td style="color:#ff5600;"><b>{{addComma total_cnt_sum}}<br/>({{average total_cnt_sum total_cnt_sum}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{addComma total_cmt_sum}}<br/>({{average total_cmt_sum total_cmt_sum}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{vatMinus total_amt_sum}}<br/>({{average total_amt_sum total_amt_sum}}%)</b></td>
+        <td style="color: blue;">{{addComma male_cnt_sum}}</td>
+        <td style="color: blue;">{{vatMinus male_cmt_sum}}</td>
+        <td style="color: blue;">{{vatMinus male_amt_sum}}</td>
+        <td style="color: red;">{{addComma female_cnt_sum}}</td>
+        <td style="color: red;">{{vatMinus female_cmt_sum}}</td>
+        <td style="color: red;">{{vatMinus female_amt_sum}}</td>
+        <td>{{addComma none_cnt_sum}}</td>
+        <td>{{vatMinus none_cmt_sum}}</td>
+        <td>{{vatMinus none_amt_sum}}</td>
         <td style="background-color: white;border-bottom: hidden;"></td>
         <td>소계</td>
-        <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
-        <td style="color:#ff5600;"><b>{{addComma sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
-        <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
-        <td>{{addComma sum_age00Cnt}}</td>
-        <td>{{addComma sum_age00Cmt}}</td>
-        <td>{{vatMinus sum_age00Amt}}</td>
-        <td>{{addComma sum_age10Cnt}}</td>
-        <td>{{addComma sum_age10Cmt}}</td>
-        <td>{{vatMinus sum_age10Amt}}</td>
-        <td>{{addComma sum_age20Cnt}}</td>
-        <td>{{addComma sum_age20Cmt}}</td>
-        <td>{{vatMinus sum_age20Amt}}</td>
-        <td>{{addComma sum_age30Cnt}}</td>
-        <td>{{addComma sum_age30Cmt}}</td>
-        <td>{{vatMinus sum_age30Amt}}</td>
-        <td>{{addComma sum_age40Cnt}}</td>
-        <td>{{addComma sum_age40Cmt}}</td>
-        <td>{{vatMinus sum_age40Amt}}</td>
-        <td>{{addComma sum_age50Cnt}}</td>
-        <td>{{addComma sum_age50Cmt}}</td>
-        <td>{{vatMinus sum_age50Amt}}</td>
-        <td>{{addComma sum_age60Cnt}}</td>
-        <td>{{addComma sum_age60Cmt}}</td>
-        <td>{{vatMinus sum_age60Amt}}</td>
+        <td style="color:#ff5600;"><b>{{addComma total_cnt_sum}}<br/>({{average total_cnt_sum total_cnt_sum}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{addComma total_cmt_sum}}<br/>({{average total_cmt_sum total_cmt_sum}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{vatMinus total_amt_sum}}<br/>({{average total_amt_sum total_amt_sum}}%)</b></td>
+        <td>{{addComma age_00_cnt_sum}}</td>
+        <td>{{addComma age_00_cmt_sum}}</td>
+        <td>{{vatMinus age_00_amt_sum}}</td>
+        <td>{{addComma age_10_cnt_sum}}</td>
+        <td>{{addComma age_10_cmt_sum}}</td>
+        <td>{{vatMinus age_10_amt_sum}}</td>
+        <td>{{addComma age_20_cnt_sum}}</td>
+        <td>{{addComma age_20_cmt_sum}}</td>
+        <td>{{vatMinus age_20_amt_sum}}</td>
+        <td>{{addComma age_30_cnt_sum}}</td>
+        <td>{{addComma age_30_cmt_sum}}</td>
+        <td>{{vatMinus age_30_amt_sum}}</td>
+        <td>{{addComma age_40_cnt_sum}}</td>
+        <td>{{addComma age_40_cmt_sum}}</td>
+        <td>{{vatMinus age_40_amt_sum}}</td>
+        <td>{{addComma age_50_cnt_sum}}</td>
+        <td>{{addComma age_50_cmt_sum}}</td>
+        <td>{{vatMinus age_50_amt_sum}}</td>
+        <td>{{addComma age_60_cnt_sum}}</td>
+        <td>{{addComma age_60_cmt_sum}}</td>
+        <td>{{vatMinus age_60_amt_sum}}</td>
     </tr>
 </script>
 
@@ -246,87 +194,83 @@
     {{#each this as |data|}}
     <tr>
         <td class="font-bold _stateSubTh">
-            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
-            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+            {{data.day}}일
         </td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}">
-            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma total_cnt}}<br/>({{average total_cnt total_cnt_sum}}%)</span></a>
         </td>
-        <td><b>{{addComma totalCmt}}<br/>({{average totalCmt sum_totalCmt}}%)</b></td>
-        <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-gender="m" style="color: blue;">
-            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma maleCnt}}</span></a>
+        <td><b>{{addComma total_cmt}}<br/>({{average total_cmt total_cmt_sum}}%)</b></td>
+        <td><b>{{vatMinus total_amt}}<br/>({{average total_amt total_amt_sum}}%)</b></td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-gender="m" style="color: blue;">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma male_cnt}}</span></a>
         </td>
-        <td style="color: blue;">{{addComma maleCmt}}</td>
-        <td style="color: blue;">{{vatMinus maleAmt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-gender="f" style="color: red;">
-            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma femaleCnt}}</span></a>
+        <td style="color: blue;">{{addComma male_cmt}}</td>
+        <td style="color: blue;">{{vatMinus male_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-gender="f" style="color: red;">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma female_cnt}}</span></a>
         </td>
-        <td style="color: red;">{{addComma femaleCmt}}</td>
-        <td style="color: red;">{{vatMinus femaleAmt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-gender="n">
-            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma noneCnt}}</span></a>
+        <td style="color: red;">{{addComma female_cmt}}</td>
+        <td style="color: red;">{{vatMinus female_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-gender="n">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma none_cnt}}</span></a>
         </td>
-        <td>{{addComma noneCmt}}</td>
-        <td>{{vatMinus noneAmt}}</td>
+        <td>{{addComma none_cmt}}</td>
+        <td>{{vatMinus none_amt}}</td>
         <td style="border-bottom: hidden;"></td>
         <td class="font-bold _stateSubTh">
-            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
-            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+            {{data.day}}일
         </td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma total_cnt}}<br/>({{average total_cnt total_cnt_sum}}%)</span></a>
         </td>
-        <td><b>{{addComma totalCmt}}<br/>({{average totalCmt sum_totalCmt}}%)</b></td>
-        <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="00"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age00Cnt}}</span></a>
+        <td><b>{{addComma total_cmt}}<br/>({{average total_cmt total_cmt_sum}}%)</b></td>
+        <td><b>{{vatMinus total_amt}}<br/>({{average total_amt total_amt_sum}}%)</b></td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="00"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_00_cnt}}</span></a>
         </td>
-        <td>{{addComma age00Cmt}}</td>
-        <td>{{vatMinus age00Amt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="10"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age10Cnt}}</span></a>
+        <td>{{addComma age_00_cmt}}</td>
+        <td>{{vatMinus age_00_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="10"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_10_cnt}}</span></a>
         </td>
-        <td>{{addComma age10Cmt}}</td>
-        <td>{{vatMinus age10Amt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="20"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age20Cnt}}</span></a>
+        <td>{{addComma age_10_cmt}}</td>
+        <td>{{vatMinus age_10_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="20"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_20_cnt}}</span></a>
         </td>
-        <td>{{addComma age20Cmt}}</td>
-        <td>{{vatMinus age20Amt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="30"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age30Cnt}}</span></a>
+        <td>{{addComma age_20_cmt}}</td>
+        <td>{{vatMinus age_20_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="30"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_30_cnt}}</span></a>
         </td>
-        <td>{{addComma age30Cmt}}</td>
-        <td>{{vatMinus age30Amt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="40"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age40Cnt}}</span></a>
+        <td>{{addComma age_30_cmt}}</td>
+        <td>{{vatMinus age_30_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="40"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_40_cnt}}</span></a>
         </td>
-        <td>{{addComma age40Cmt}}</td>
-        <td>{{vatMinus age40Amt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="50"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age50Cnt}}</span></a>
+        <td>{{addComma age_40_cmt}}</td>
+        <td>{{vatMinus age_40_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="50"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_50_cnt}}</span></a>
         </td>
-        <td>{{addComma age50Cmt}}</td>
-        <td>{{vatMinus age50Amt}}</td>
-        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}"
-            data-monthly="{{data.monthly}}" data-age="60"><a href="javascript://"><span class="_fontColor"
-                                                                                        data-fontcolor="#555">{{addComma age60Cnt}}</span></a>
+        <td>{{addComma age_50_cmt}}</td>
+        <td>{{vatMinus age_50_amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="" data-daily="{{data.the_date}}"
+            data-monthly="{{data.month}}" data-age="60"><a href="javascript://"><span class="_fontColor"
+                                                                                        data-fontcolor="#555">{{addComma age_60_cnt}}</span></a>
         </td>
-        <td>{{addComma age60Cmt}}</td>
-        <td>{{vatMinus age60Amt}}</td>
+        <td>{{addComma age_60_cmt}}</td>
+        <td>{{vatMinus age_60_amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}

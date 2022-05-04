@@ -50,6 +50,11 @@ public class EnterController {
         return "enter/newPay/popup/history";
     }
 
+    @RequestMapping("/newPay2/popup/history")
+    public String newPay2History() {
+        return "enter/newPay2/popup/history";
+    }
+
     @GetMapping("/pay/info")
     public String payList() {
         return "enter/pay/info";
