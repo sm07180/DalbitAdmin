@@ -124,9 +124,6 @@
 
 <script src='/js/lib/plotly-latest.min.js'></script>
 <script type="text/javascript">
-  $(function () {
-  });
-
   let curMonth = moment().format('M');
 
   function preRenderYearTable() {
@@ -272,24 +269,17 @@
   }
 
   function chart() {
-    return;
     $("#barArea").show();
-
-    yearResponseData = yearResponseData[1].detailList;
-    var sortingField = "monthly";
-    yearResponseData.sort(function (a, b) { // 오름차순
-      return a[sortingField] - b[sortingField];
-    });
 
     var xList = [];
     var yList = [];
-    for (var i = 0; i < (yearResponseData.length); i++) {
-      if (yearResponseData[i].monthly != 0) {
-        xList.push(yearResponseData[i].monthly + "월");
-        yList.push(common.vatMinus(yearResponseData[i].succAmt));
-      }
-    }
-    //console.log(yList);
+    yearResponseData = yearStateData.monthPaywayList.reverse();
+    yearResponseData.map(function(item) {
+      console.log(item);
+      xList.push(item.the_date + "월");
+      yList.push(common.vatMinus(item.total_amt));
+    });
+
     var year = {
       type: 'bar',
       x: xList,

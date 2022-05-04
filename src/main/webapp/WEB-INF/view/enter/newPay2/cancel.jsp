@@ -71,8 +71,30 @@
 
   // 요청일 결제 데이터
   function fn_pay_day_succ(data, response) {
+    renderCancelSummary(response.paycancel);
+
     cancelPagingInfo.pageNo = 1;
     getPayCancelDataList();
+  }
+
+  function renderCancelSummary(payCancel) {
+    $("#pay_cancel_summaryArea").empty();
+    let payCancelData = {
+      canc_amt: 0,
+      canc_cmt: 0,
+      canc_cnt: 0,
+    }
+    payCancelData = payCancel ? payCancel : payCancelData;
+
+    let template, templateScript, context, html;
+    template = $("#pay_cancel_tableSummary").html();
+    templateScript = Handlebars.compile(template);
+    context = payCancelData;
+    html = templateScript(context);
+    $("#pay_cancel_summaryArea").html(html);
+
+    ui.tableHeightSet();
+    ui.paintColor();
   }
 
   // 취소목록
@@ -191,13 +213,13 @@
         </tr>
         <tr>
             <td>포함</td>
-            <td>{{addComma content.totalPayCancelCnt}}건</td>
-            <td>{{addComma content.totalPayCancelAmt}}원</td>
+            <td>{{addComma canc_cnt}}건</td>
+            <td>{{addComma canc_amt}}원</td>
         </tr>
         <tr>
             <td class="_fontColor font-bold" data-fontcolor="red">제외</td>
-            <td>{{addComma content.totalPayCancelCnt}}건</td>
-            <td>{{vatMinus content.totalPayCancelAmt}}원</td>
+            <td>{{addComma canc_cnt}}건</td>
+            <td>{{vatMinus canc_amt}}원</td>
         </tr>
     </table>
 </script>

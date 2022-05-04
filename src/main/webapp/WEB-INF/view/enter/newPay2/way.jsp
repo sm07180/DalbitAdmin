@@ -9,14 +9,46 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
-                <col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/><col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="2%"/>
                 <col width="2%"/>
             </colgroup>
             <thead>
@@ -95,67 +127,69 @@
         </span>
     </div>
 </div>
-<a id='wayExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#" onclick="return ExcellentExport.excel(this, 'divWay', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
+<a id='wayExcel' type='button' class="btn btn-default print-btn pull-right" download="" href="#"
+   onclick="return ExcellentExport.excel(this, 'divWay', 'Sheet1');"><i class="fa fa-print"></i>Excel Down</a>
 
 <script type="text/javascript">
-    $(function(){
-        // getPayWayList();
-    });
 
-    function getPayWayList(){
-        $("#wayExcel").attr('download' , "결제현황_결제수단별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" +  moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+  function getPayWayList() {
+    $("#wayExcel").attr('download', "결제현황_결제수단별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" + moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
-        var data = {
-            slctType : slctType
-            ,startDate : $("#startDate").val()
-            ,endDate : $("#endDate").val()
-        };
-        util.getAjaxData("way", "/rest/enter/pay/way", data, fn_wayPay_success);
+    var data = {
+      slctType: slctType
+      , startDate: $("#startDate").val()
+      , endDate: $("#endDate").val()
+    };
+    util.getAjaxData("way", "/rest/enter/pay/way", data, fn_wayPay_success);
+  }
+
+  function fn_wayPay_success(data, response) {
+    if (response.result == "fail") {
+      searchDate();
+      getPayWayList();
+      return;
+    }
+    for (var i = 0; i < response.data.detailList.length; i++) {
+      response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
+      response.data.detailList[i]["sum_totalCmt"] = response.data.totalInfo.sum_totalCmt;
+      response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
+    }
+    var isDataEmpty = response.data.detailList == null;
+    $("#wayTableBody").empty();
+    if (!isDataEmpty) {
+      var template = $('#tmp_way').html();
+      var templateScript = Handlebars.compile(template);
+      var totalContext = response.data.totalInfo;
+      var totalHtml = templateScript(totalContext);
+      $("#wayTableBody").append(totalHtml);
+
+      response.data.detailList.slctType = slctType;
     }
 
-    function fn_wayPay_success(data, response){
-        if(response.result == "fail"){
-            searchDate();
-            getPayWayList();
-            return;
-        }
-        for(var i=0;i<response.data.detailList.length;i++){
-            response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
-            response.data.detailList[i]["sum_totalCmt"] = response.data.totalInfo.sum_totalCmt;
-            response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
-        }
-        var isDataEmpty = response.data.detailList == null;
-        $("#wayTableBody").empty();
-        if(!isDataEmpty){
-            var template = $('#tmp_way').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data.totalInfo;
-            var totalHtml = templateScript(totalContext);
-            $("#wayTableBody").append(totalHtml);
+    var template = $('#tmp_wayDetailList').html();
+    var templateScript = Handlebars.compile(template);
+    var detailContext = response.data.detailList;
+    var html = templateScript(detailContext);
+    $("#wayTableBody").append(html);
 
-            response.data.detailList.slctType = slctType;
-        }
-
-        var template = $('#tmp_wayDetailList').html();
-        var templateScript = Handlebars.compile(template);
-        var detailContext = response.data.detailList;
-        var html=templateScript(detailContext);
-        $("#wayTableBody").append(html);
-
-        if(isDataEmpty){
-            $("#wayTableBody td:last").remove();
-        }else{
-            $("#wayTableBody").append(totalHtml);
-        }
-        ui.tableHeightSet();
+    if (isDataEmpty) {
+      $("#wayTableBody td:last").remove();
+    } else {
+      $("#wayTableBody").append(totalHtml);
     }
+    ui.tableHeightSet();
+  }
 </script>
 <script type="text/x-handlebars-template" id="tmp_way">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
-        <td style="font-weight:bold;color: #ff5600;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold;color: #ff5600;"><b>{{addComma sum_totalCmt}}<br/>({{average sum_totalCmt sum_totalCmt}}%)</b></td>
-        <td style="font-weight:bold;color: #ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="font-weight:bold;color: #ff5600;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt
+            sum_totalCnt}}%)
+        </td>
+        <td style="font-weight:bold;color: #ff5600;"><b>{{addComma sum_totalCmt}}<br/>({{average sum_totalCmt
+            sum_totalCmt}}%)</b></td>
+        <td style="font-weight:bold;color: #ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt
+            sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_mcCnt}}</td>
         <td>{{addComma sum_mcCmt}}</td>
         <td>{{vatMinus sum_mcAmt}}</td>
@@ -258,6 +292,7 @@
         <td>{{vatMinus simpleAmt}}</td>
     </tr>
     {{else}}
-    <td colspan="11" class="noData">{{isEmptyData}}<td>
-    {{/each}}
+    <td colspan="11" class="noData">{{isEmptyData}}
+    <td>
+        {{/each}}
 </script>

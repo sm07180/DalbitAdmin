@@ -401,7 +401,7 @@
 
   function hourClick(tmp) {
     if (tmp.hour > -1) {
-      var popupUrl = "/enter/newPay/popup/history?sDate=" + tmp.sDate + "&eDate=" + tmp.sDate + "&gender=null&time=" + tmp.hour + "&age=null";
+      var popupUrl = "/enter/newPay2/popup/history?sDate=" + tmp.sDate + "&eDate=" + tmp.sDate + "&gender=null&time=" + tmp.hour + "&age=null";
       util.windowOpen(popupUrl, "1550", "885", "결제목록");
     } else {
       alert('데이터가 없습니다.');
