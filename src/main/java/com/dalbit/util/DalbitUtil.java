@@ -836,6 +836,10 @@ public class DalbitUtil {
             str = "가상계좌";
         } else if (str.equals("InApp")) {
             str = "인앱(IOS)";
+        } else if (str.equals("InAppAos")) {
+            str = "인앱(AOS)";
+        } else if (str.equals("InAppOneStore")) {
+            str = "원스토어(AOS)";
         } else if (str.equals("GM")) {
             str = "문화상품권";
         } else if (str.equals("HM")) {
