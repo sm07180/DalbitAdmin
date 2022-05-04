@@ -78,7 +78,13 @@
         historyPagingInfo.pageNo = pagingInfo.pageNo;
         getPayHistoryList();
         break;
+      case 'history-cancel-paginate-top':
+      case 'history-cancel-paginate-bottom':
+        cancelPagingInfo.pageNo = pagingInfo.pageNo;
+        getPayCancelDataList();
+        break;
     }
+
   }
 
   $(function () {

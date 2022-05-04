@@ -90,8 +90,6 @@
 <script src="/js/lib/excellentexport.js"></script>
 <script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-  var dtList_info;
-
   var tmp_ostype = -1;
   var tmp_innerType = 0;
   var tmp_payWay = 'all';

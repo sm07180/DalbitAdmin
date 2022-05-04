@@ -130,7 +130,7 @@
   let curMonth = moment().format('M');
 
   function preRenderYearTable() {
-    $("#yearExcel").attr('download', "결제현황_년간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
+    $("#yearExcel").attr('download', "결제현황_연간결제_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
     $("#year_th_0").text(moment($("#startDate").val()).add('years', 0).format('YYYY'));
 
     $("#yearTableBody").empty();
