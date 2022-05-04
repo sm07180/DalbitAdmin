@@ -8,45 +8,9 @@
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered _tableHeight" data-height="23px">
-            <colgroup>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-                <col width="2.9%"/>
-            </colgroup>
             <thead>
             <tr>
-                <th class="_stateTopTh" colspan="34">Web, 안드로이드</th>
+                <th class="_stateTopTh" colspan="34">Web (외부결제)</th>
             </tr>
             <tr>
                 <th class="_stateTopTh" rowspan="2"></th>
@@ -128,59 +92,91 @@
                 <th class="_stateSubTh">금액</th>
             </tr>
             </thead>
-            <tbody id="androidTableBody"></tbody>
+            <tbody id="webTableBody"></tbody>
+        </table>
+
+        <table class="table table-bordered _tableHeight" data-height="23px">
+            <thead>
+            <tr>
+                <th class="_stateTopTh" colspan="43">AOS (인앱결제)</th>
+            </tr>
+            <tr>
+                <th class="_stateTopTh" rowspan="2"></th>
+                <th class="_stateSubTh" colspan="3">총계</th>
+                <th class="_stateSubTh" colspan="3"><img
+                        src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px"
+                        height="25px"> 1,200원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img
+                        src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px"
+                        height="25px"> 5,900원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img
+                        src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px"
+                        height="25px"> 12,000원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img src="https://image.dalbitlive.com/store/store_3.png"
+                                                         width="25px" height="25px"> 26,000원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img src="https://image.dalbitlive.com/store/store_4.png"
+                                                         width="25px" height="25px"> 65,000원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img
+                        src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px"
+                        height="25px"> 109,000원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img
+                        src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px"
+                        height="25px"> 199,000원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img src="https://image.dalbitlive.com/store/store_6.png"
+                                                         width="25px" height="25px"> 299,000원
+                </th>
+                <th class="_stateSubTh" colspan="3"><img
+                        src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px"
+                        height="25px"> 490,000원
+                </th>
+            </tr>
+            <tr>
+                <th class="_stateSubTh">건<br>(비율)</th>
+                <th class="_stateSubTh">수량<br>(비율)</th>
+                <th class="_stateSubTh">금액<br>(비율)</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">수량</th>
+                <th class="_stateSubTh">금액</th>
+            </tr>
+            </thead>
+            <tbody id="aosTableBody"></tbody>
         </table>
 
         <table class="table table-bordered _tableHeight" data-height="23px" title="'(판매종료)'는 2020.07.10 이전 결제 아이템 입니다.">
-            <colgroup>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-                <col width="2.3%"/>
-
-            </colgroup>
             <thead>
             <tr>
-                <th class="_stateTopTh" colspan="43">IOS</th>
+                <th class="_stateTopTh" colspan="43">IOS (인앱결제)</th>
             </tr>
             <tr>
                 <th class="_stateTopTh" rowspan="2"></th>
@@ -290,415 +286,425 @@
 
 <script type="text/javascript">
   function getPayCodeList() {
-
     $("#codeExcel").attr('download', "결제현황_결제상품별_" + moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + "_" + moment($("#endDate").val()).add('days', 0).format('YYYY.MM.DD') + ".xls");
 
-    var data = {
-      slctType: slctType
-      , startDate: $("#startDate").val()
-      , endDate: $("#endDate").val()
+    let data = {
+      tDate: $("#startDate").val().replace(/[.]/g, '-')
     };
-
-    util.getAjaxData("code", "/rest/enter/pay/code", data, fn_codePay_success);
+    util.getAjaxData("getPayCodeList", "/v2/rest/enter/pay/month/paycode", data, fn_codePay_success);
   }
 
   function fn_codePay_success(data, response) {
-    if (response.result == "fail") {
-      searchDate();
-      getPayCodeList();
-      return;
-    }
-    var sum_android_total_cnt = [
-      response.data.totalInfo.sum_code01Cnt,
-      response.data.totalInfo.sum_code02Cnt,
-      response.data.totalInfo.sum_code03Cnt,
-      response.data.totalInfo.sum_code04Cnt,
-      response.data.totalInfo.sum_code05Cnt,
-      response.data.totalInfo.sum_code06Cnt,
-      response.data.totalInfo.sum_code13Cnt,
-      response.data.totalInfo.sum_code14Cnt,
-      response.data.totalInfo.sum_code15Cnt,
-      response.data.totalInfo.sum_code23Cnt,
-    ];
+    // 웹 (외부결제)
+    let webcode = ['code13', 'code01', 'code02', 'code14', 'code03', 'code04', 'code05', 'code06', 'code15', 'code23'];
+    let monthPaycodeWebCellData = response.data.map(function (codeData) {
+      let result = {
+        total_cnt: 0,
+        total_cmt: 0,
+        total_amt: 0
+      };
+      webcode.map(function (item) {
+        result.total_cnt += parseInt(codeData[item + '_cnt'], 10);
+        result.total_cmt += parseInt(codeData[item + '_cmt'], 10);
+        result.total_amt += parseInt(codeData[item + '_amt'], 10);
+        result[item + '_cnt'] = parseInt(codeData[item + '_cnt'], 10);
+        result[item + '_cmt'] = parseInt(codeData[item + '_cmt'], 10);
+        result[item + '_amt'] = parseInt(codeData[item + '_amt'], 10);
+      });
+      result.the_date = codeData.the_date;
+      return result;
+    });
+    // 웹 (외부결제) 소계
+    let monthPaycodeWebSumData = {}; // 총합 및 소계
+    monthPaycodeWebCellData.map(function (item) {
+      for (let k in item) {
+        if (k !== 'the_date') {
+          if (!monthPaycodeWebSumData[k + '_sum']) monthPaycodeWebSumData[k + '_sum'] = 0;
+          monthPaycodeWebSumData[k + '_sum'] += item[k];
+        }
+      }
+    });
+    monthPaycodeWebCellData = monthPaycodeWebCellData.map(function (item) {
+      item.total_cnt_sum = monthPaycodeWebSumData.total_cnt_sum;
+      item.total_cmt_sum = monthPaycodeWebSumData.total_cmt_sum;
+      item.total_amt_sum = monthPaycodeWebSumData.total_amt_sum;
 
-    var sum_android_total_cmt = [
-      response.data.totalInfo.sum_code01Cmt,
-      response.data.totalInfo.sum_code02Cmt,
-      response.data.totalInfo.sum_code03Cmt,
-      response.data.totalInfo.sum_code04Cmt,
-      response.data.totalInfo.sum_code05Cmt,
-      response.data.totalInfo.sum_code06Cmt,
-      response.data.totalInfo.sum_code13Cmt,
-      response.data.totalInfo.sum_code14Cmt,
-      response.data.totalInfo.sum_code15Cmt,
-      response.data.totalInfo.sum_code23Cmt,
-    ];
+      // 날짜분리
+      let date = item.the_date.split('-');
+      item.year = date[0];
+      item.month = date[1];
+      item.day = date[2];
+      return item;
+    });
 
-    var sum_android_total_amt = [
-      response.data.totalInfo.sum_code01Amt,
-      response.data.totalInfo.sum_code02Amt,
-      response.data.totalInfo.sum_code03Amt,
-      response.data.totalInfo.sum_code04Amt,
-      response.data.totalInfo.sum_code05Amt,
-      response.data.totalInfo.sum_code06Amt,
-      response.data.totalInfo.sum_code13Amt,
-      response.data.totalInfo.sum_code14Amt,
-      response.data.totalInfo.sum_code15Amt,
-      response.data.totalInfo.sum_code23Amt,
-    ];
+    // 인앱결제 (AOS)
+    let aoscode = ['code24', 'code25', 'code26', 'code27', 'code28', 'code29', 'code30', 'code31', 'code32'];
+    let monthPaycodeAosCellData = response.data.map(function (codeData) {
+      let result = {
+        total_cnt: 0,
+        total_cmt: 0,
+        total_amt: 0
+      };
+      aoscode.map(function (item) {
+        result.total_cnt += parseInt(codeData[item + '_cnt'], 10);
+        result.total_cmt += parseInt(codeData[item + '_cmt'], 10);
+        result.total_amt += parseInt(codeData[item + '_amt'], 10);
+        result[item + '_cnt'] = parseInt(codeData[item + '_cnt'], 10);
+        result[item + '_cmt'] = parseInt(codeData[item + '_cmt'], 10);
+        result[item + '_amt'] = parseInt(codeData[item + '_amt'], 10);
+      });
+      result.the_date = codeData.the_date;
+      return result;
+    });
+    // 인앱결제 (AOS) 소계
+    let monthPaycodeAosSumData = {}; // 총합 및 소계
+    monthPaycodeAosCellData.map(function (item) {
+      for (let k in item) {
+        if (k !== 'the_date') {
+          if (!monthPaycodeAosSumData[k + '_sum']) monthPaycodeAosSumData[k + '_sum'] = 0;
+          monthPaycodeAosSumData[k + '_sum'] += item[k];
+        }
+      }
+    });
+    monthPaycodeAosCellData = monthPaycodeAosCellData.map(function (item) {
+      item.total_cnt_sum = monthPaycodeAosSumData.total_cnt_sum;
+      item.total_cmt_sum = monthPaycodeAosSumData.total_cmt_sum;
+      item.total_amt_sum = monthPaycodeAosSumData.total_amt_sum;
 
-    response.data.totalInfo["sum_android_total_cnt"] = common.getListSum(sum_android_total_cnt);
-    response.data.totalInfo["sum_android_total_cmt"] = common.getListSum(sum_android_total_cmt);
-    response.data.totalInfo["sum_android_total_amt"] = common.getListSum(sum_android_total_amt);
+      // 날짜분리
+      let date = item.the_date.split('-');
+      item.year = date[0];
+      item.month = date[1];
+      item.day = date[2];
+      return item;
+    });
 
-    var sum_ios_total_cnt = [
-      response.data.totalInfo.sum_code07Cnt,
-      response.data.totalInfo.sum_code08Cnt,
-      response.data.totalInfo.sum_code09Cnt,
-      response.data.totalInfo.sum_code10Cnt,
-      response.data.totalInfo.sum_code11Cnt,
-      response.data.totalInfo.sum_code12Cnt,
-      response.data.totalInfo.sum_code16Cnt,
-      response.data.totalInfo.sum_code17Cnt,
-      response.data.totalInfo.sum_code18Cnt,
-      response.data.totalInfo.sum_code19Cnt,
-      response.data.totalInfo.sum_code20Cnt,
-      response.data.totalInfo.sum_code21Cnt,
-      response.data.totalInfo.sum_code22Cnt,
-    ];
-    var sum_ios_total_cmt = [
-      response.data.totalInfo.sum_code07Cmt,
-      response.data.totalInfo.sum_code08Cmt,
-      response.data.totalInfo.sum_code09Cmt,
-      response.data.totalInfo.sum_code10Cmt,
-      response.data.totalInfo.sum_code11Cmt,
-      response.data.totalInfo.sum_code12Cmt,
-      response.data.totalInfo.sum_code16Cmt,
-      response.data.totalInfo.sum_code17Cmt,
-      response.data.totalInfo.sum_code18Cmt,
-      response.data.totalInfo.sum_code19Cmt,
-      response.data.totalInfo.sum_code20Cmt,
-      response.data.totalInfo.sum_code21Cmt,
-      response.data.totalInfo.sum_code22Cmt,
-    ];
-    var sum_ios_total_amt = [
-      response.data.totalInfo.sum_code07Amt,
-      response.data.totalInfo.sum_code08Amt,
-      response.data.totalInfo.sum_code09Amt,
-      response.data.totalInfo.sum_code10Amt,
-      response.data.totalInfo.sum_code11Amt,
-      response.data.totalInfo.sum_code12Amt,
-      response.data.totalInfo.sum_code16Amt,
-      response.data.totalInfo.sum_code17Amt,
-      response.data.totalInfo.sum_code18Amt,
-      response.data.totalInfo.sum_code19Amt,
-      response.data.totalInfo.sum_code20Amt,
-      response.data.totalInfo.sum_code21Amt,
-      response.data.totalInfo.sum_code22Amt,
-    ];
-    response.data.totalInfo["sum_ios_total_cnt"] = common.getListSum(sum_ios_total_cnt);
-    response.data.totalInfo["sum_ios_total_cmt"] = common.getListSum(sum_ios_total_cmt);
-    response.data.totalInfo["sum_ios_total_amt"] = common.getListSum(sum_ios_total_amt);
+    // 인앱결제 (IOS)
+    let ioscode = ['code16', 'code07', 'code17', 'code18', 'code08', 'code09', 'code10', 'code19', 'code11', 'code20', 'code12', 'code21', 'code22'];
+    let monthPaycodeIosCellData = response.data.map(function (codeData) {
+      let result = {
+        total_cnt: 0,
+        total_cmt: 0,
+        total_amt: 0
+      };
+      ioscode.map(function (item) {
+        result.total_cnt += parseInt(codeData[item + '_cnt'], 10);
+        result.total_cmt += parseInt(codeData[item + '_cmt'], 10);
+        result.total_amt += parseInt(codeData[item + '_amt'], 10);
+        result[item + '_cnt'] = parseInt(codeData[item + '_cnt'], 10);
+        result[item + '_cmt'] = parseInt(codeData[item + '_cmt'], 10);
+        result[item + '_amt'] = parseInt(codeData[item + '_amt'], 10);
+      });
+      result.the_date = codeData.the_date;
+      return result;
+    });
+    // 인앱결제 (IOS) 소계
+    let monthPaycodeIosSumData = {}; // 총합 및 소계
+    monthPaycodeIosCellData.map(function (item) {
+      for (let k in item) {
+        if (k !== 'the_date') {
+          if (!monthPaycodeIosSumData[k + '_sum']) monthPaycodeIosSumData[k + '_sum'] = 0;
+          monthPaycodeIosSumData[k + '_sum'] += item[k];
+        }
+      }
+    });
+    monthPaycodeIosCellData = monthPaycodeIosCellData.map(function (item) {
+      item.total_cnt_sum = monthPaycodeIosSumData.total_cnt_sum;
+      item.total_cmt_sum = monthPaycodeIosSumData.total_cmt_sum;
+      item.total_amt_sum = monthPaycodeIosSumData.total_amt_sum;
 
-    // WEB/안드로이드 총 계/합
-    for (var i = 0; i < response.data.detailList.length; i++) {
-      var android_total_cnt = [
-        response.data.detailList[i].code01Cnt,
-        response.data.detailList[i].code02Cnt,
-        response.data.detailList[i].code03Cnt,
-        response.data.detailList[i].code04Cnt,
-        response.data.detailList[i].code05Cnt,
-        response.data.detailList[i].code06Cnt,
-        response.data.detailList[i].code13Cnt,
-        response.data.detailList[i].code14Cnt,
-        response.data.detailList[i].code15Cnt,
-        response.data.detailList[i].code23Cnt,
-      ];
-      var android_total_cmt = [
-        response.data.detailList[i].code01Cmt,
-        response.data.detailList[i].code02Cmt,
-        response.data.detailList[i].code03Cmt,
-        response.data.detailList[i].code04Cmt,
-        response.data.detailList[i].code05Cmt,
-        response.data.detailList[i].code06Cmt,
-        response.data.detailList[i].code13Cmt,
-        response.data.detailList[i].code14Cmt,
-        response.data.detailList[i].code15Cmt,
-        response.data.detailList[i].code23Cmt,
-      ];
-      var android_total_amt = [
-        response.data.detailList[i].code01Amt,
-        response.data.detailList[i].code02Amt,
-        response.data.detailList[i].code03Amt,
-        response.data.detailList[i].code04Amt,
-        response.data.detailList[i].code05Amt,
-        response.data.detailList[i].code06Amt,
-        response.data.detailList[i].code13Amt,
-        response.data.detailList[i].code14Amt,
-        response.data.detailList[i].code15Amt,
-        response.data.detailList[i].code23Amt,
-      ];
-      response.data.detailList[i]["android_total_cnt"] = common.getListSum(android_total_cnt);
-      response.data.detailList[i]["android_total_cmt"] = common.getListSum(android_total_cmt);
-      response.data.detailList[i]["android_total_amt"] = common.getListSum(android_total_amt);
-      response.data.detailList[i]["sum_android_total_cnt"] = common.getListSum(sum_android_total_cnt);
-      response.data.detailList[i]["sum_android_total_cmt"] = common.getListSum(sum_android_total_cmt);
-      response.data.detailList[i]["sum_android_total_amt"] = common.getListSum(sum_android_total_amt);
+      // 날짜분리
+      let date = item.the_date.split('-');
+      item.year = date[0];
+      item.month = date[1];
+      item.day = date[2];
+      return item;
+    });
 
-      // IOS 총 계/합
-      var ios_total_cnt = [
-        response.data.detailList[i].code07Cnt,
-        response.data.detailList[i].code08Cnt,
-        response.data.detailList[i].code09Cnt,
-        response.data.detailList[i].code10Cnt,
-        response.data.detailList[i].code11Cnt,
-        response.data.detailList[i].code12Cnt,
-        response.data.detailList[i].code16Cnt,
-        response.data.detailList[i].code17Cnt,
-        response.data.detailList[i].code18Cnt,
-        response.data.detailList[i].code19Cnt,
-        response.data.detailList[i].code20Cnt,
-        response.data.detailList[i].code21Cnt,
-        response.data.detailList[i].code22Cnt,
-      ];
+    renderPaycodeWeb(monthPaycodeWebSumData, monthPaycodeWebCellData);
+    renderPaycodeAos(monthPaycodeAosSumData, monthPaycodeAosCellData);
+    renderPaycodeIos(monthPaycodeIosSumData, monthPaycodeIosCellData);
+    ui.tableHeightSet();
+  }
 
-      var ios_total_cmt = [
-        response.data.detailList[i].code07Cmt,
-        response.data.detailList[i].code08Cmt,
-        response.data.detailList[i].code09Cmt,
-        response.data.detailList[i].code10Cmt,
-        response.data.detailList[i].code11Cmt,
-        response.data.detailList[i].code12Cmt,
-        response.data.detailList[i].code16Cmt,
-        response.data.detailList[i].code17Cmt,
-        response.data.detailList[i].code18Cmt,
-        response.data.detailList[i].code19Cmt,
-        response.data.detailList[i].code20Cmt,
-        response.data.detailList[i].code21Cmt,
-        response.data.detailList[i].code22Cmt,
-      ];
+  // 웹 (외부결제) 출력
+  function renderPaycodeWeb(sumData, cellData) {
+    $('#webTableBody').empty();
+    let template, templateScript, context, html;
 
-      var ios_total_amt = [
-        response.data.detailList[i].code07Amt,
-        response.data.detailList[i].code08Amt,
-        response.data.detailList[i].code09Amt,
-        response.data.detailList[i].code10Amt,
-        response.data.detailList[i].code11Amt,
-        response.data.detailList[i].code12Amt,
-        response.data.detailList[i].code16Amt,
-        response.data.detailList[i].code17Amt,
-        response.data.detailList[i].code18Amt,
-        response.data.detailList[i].code19Amt,
-        response.data.detailList[i].code20Amt,
-        response.data.detailList[i].code21Amt,
-        response.data.detailList[i].code22Amt,
-      ];
-      response.data.detailList[i]["ios_total_cnt"] = common.getListSum(ios_total_cnt);
-      response.data.detailList[i]["ios_total_cmt"] = common.getListSum(ios_total_cmt);
-      response.data.detailList[i]["ios_total_amt"] = common.getListSum(ios_total_amt);
-      response.data.detailList[i]["sum_ios_total_cnt"] = common.getListSum(sum_ios_total_cnt);
-      response.data.detailList[i]["sum_ios_total_cmt"] = common.getListSum(sum_ios_total_cmt);
-      response.data.detailList[i]["sum_ios_total_amt"] = common.getListSum(sum_ios_total_amt);
-    }
+    // 상단 소계
+    template = $('#tmp_web').html();
+    templateScript = Handlebars.compile(template);
+    context = sumData;
+    let total_html = templateScript(context);
+    $("#webTableBody").append(total_html);
 
-    var isDataEmpty = response.data.detailList == null;
-    $("#androidTableBody").empty();
-    if (!isDataEmpty) {
-      var template = $('#tmp_android').html();
-      var templateScript = Handlebars.compile(template);
-      var totalContext = response.data.totalInfo;
-      var totalHtml = templateScript(totalContext);
-      $("#androidTableBody").append(totalHtml);
+    // 통계
+    template = $('#tmp_webDetailList').html();
+    templateScript = Handlebars.compile(template);
+    context = cellData;
+    html = templateScript(context);
+    $("#webTableBody").append(html);
 
-      response.data.detailList.slctType = slctType;
-    }
+    // 하단 소계
+    $("#webTableBody").append(total_html);
+  }
 
-    var template = $('#tmp_androidDetailList').html();
-    var templateScript = Handlebars.compile(template);
-    var detailContext = response.data.detailList;
-    var html = templateScript(detailContext);
-    $("#androidTableBody").append(html);
+  // AOS (인앱결제) 출력
+  function renderPaycodeAos(sumData, cellData) {
+    $('#aosTableBody').empty();
+    let template, templateScript, context, html;
 
-    if (isDataEmpty) {
-      $("#androidTableBody td:last").remove();
-    } else {
-      $("#androidTableBody").append(totalHtml);
-    }
+    // 상단 소계
+    template = $('#tmp_aos').html();
+    templateScript = Handlebars.compile(template);
+    context = sumData;
+    let total_html = templateScript(context);
+    $("#aosTableBody").append(total_html);
 
-    $("#iosTableBody").empty();
-    if (!isDataEmpty) {
-      var template = $('#tmp_ios').html();
-      var templateScript = Handlebars.compile(template);
-      var totalContext = response.data.totalInfo;
-      var totalHtml = templateScript(totalContext);
-      $("#iosTableBody").append(totalHtml);
+    // 통계
+    template = $('#tmp_aosDetailList').html();
+    templateScript = Handlebars.compile(template);
+    context = cellData;
+    html = templateScript(context);
+    $("#aosTableBody").append(html);
 
-      response.data.detailList.slctType = slctType;
-    }
+    // 하단 소계
+    $("#aosTableBody").append(total_html);
+  }
 
-    var template = $('#tmp_iosDetailList').html();
-    var templateScript = Handlebars.compile(template);
-    var detailContext = response.data.detailList;
-    var html = templateScript(detailContext);
+  // IOS (인앱결제) 출력
+  function renderPaycodeIos(sumData, cellData) {
+    $('#iosTableBody').empty();
+    let template, templateScript, context, html;
+
+    // 상단 소계
+    template = $('#tmp_ios').html();
+    templateScript = Handlebars.compile(template);
+    context = sumData;
+    let total_html = templateScript(context);
+    $("#iosTableBody").append(total_html);
+
+    // 통계
+    template = $('#tmp_iosDetailList').html();
+    templateScript = Handlebars.compile(template);
+    context = cellData;
+    html = templateScript(context);
     $("#iosTableBody").append(html);
 
-    if (isDataEmpty) {
-      $("#iosTableBody td:last").remove();
-    } else {
-      $("#iosTableBody").append(totalHtml);
-    }
-
-    ui.tableHeightSet();
+    // 하단 소계
+    $("#iosTableBody").append(total_html);
   }
 </script>
 
-
-<script type="text/x-handlebars-template" id="tmp_android">
+<script type="text/x-handlebars-template" id="tmp_web">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
-        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cnt}}<br>({{average
-            sum_android_total_cnt sum_android_total_cnt}}%)
-        </td>
-        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cmt}}<br>({{average
-            sum_android_total_cnt sum_android_total_cmt}}%)
-        </td>
-        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus sum_android_total_amt}}<br>({{average
-            sum_android_total_amt sum_android_total_amt}}%)
-        </td>
-        <td>{{addComma sum_code13Cnt}}</td>
-        <td>{{addComma sum_code13Cmt}}</td>
-        <td>{{vatMinus sum_code13Amt}}</td>
-        <td>{{addComma sum_code01Cnt}}</td>
-        <td>{{addComma sum_code01Cmt}}</td>
-        <td>{{vatMinus sum_code01Amt}}</td>
-        <td>{{addComma sum_code02Cnt}}</td>
-        <td>{{addComma sum_code02Cmt}}</td>
-        <td>{{vatMinus sum_code02Amt}}</td>
-        <td>{{addComma sum_code14Cnt}}</td>
-        <td>{{addComma sum_code14Cmt}}</td>
-        <td>{{vatMinus sum_code14Amt}}</td>
-        <td>{{addComma sum_code03Cnt}}</td>
-        <td>{{addComma sum_code03Cmt}}</td>
-        <td>{{vatMinus sum_code03Amt}}</td>
-        <td>{{addComma sum_code04Cnt}}</td>
-        <td>{{addComma sum_code04Cmt}}</td>
-        <td>{{vatMinus sum_code04Amt}}</td>
-        <td>{{addComma sum_code05Cnt}}</td>
-        <td>{{addComma sum_code05Cmt}}</td>
-        <td>{{vatMinus sum_code05Amt}}</td>
-        <td>{{addComma sum_code06Cnt}}</td>
-        <td>{{addComma sum_code06Cmt}}</td>
-        <td>{{vatMinus sum_code06Amt}}</td>
-        <td>{{addComma sum_code15Cnt}}</td>
-        <td>{{addComma sum_code15Cmt}}</td>
-        <td>{{vatMinus sum_code15Amt}}</td>
-        <td>{{addComma sum_code23Cnt}}</td>
-        <td>{{addComma sum_code23Cmt}}</td>
-        <td>{{vatMinus sum_code23Amt}}</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma total_cnt_sum}}<br>({{average total_cnt_sum total_cnt_sum}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma total_cmt_sum}}<br>({{average total_cmt_sum total_cmt_sum}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus total_amt_sum}}<br>({{average total_amt_sum total_amt_sum}}%)</td>
+        <td>{{addComma code13_cnt_sum}}</td>
+        <td>{{addComma code13_cmt_sum}}</td>
+        <td>{{vatMinus code13_amt_sum}}</td>
+        <td>{{addComma code01_cnt_sum}}</td>
+        <td>{{addComma code01_cmt_sum}}</td>
+        <td>{{vatMinus code01_amt_sum}}</td>
+        <td>{{addComma code02_cnt_sum}}</td>
+        <td>{{addComma code02_cmt_sum}}</td>
+        <td>{{vatMinus code02_amt_sum}}</td>
+        <td>{{addComma code14_cnt_sum}}</td>
+        <td>{{addComma code14_cmt_sum}}</td>
+        <td>{{vatMinus code14_amt_sum}}</td>
+        <td>{{addComma code03_cnt_sum}}</td>
+        <td>{{addComma code03_cmt_sum}}</td>
+        <td>{{vatMinus code03_amt_sum}}</td>
+        <td>{{addComma code04_cnt_sum}}</td>
+        <td>{{addComma code04_cmt_sum}}</td>
+        <td>{{vatMinus code04_amt_sum}}</td>
+        <td>{{addComma code05_cnt_sum}}</td>
+        <td>{{addComma code05_cmt_sum}}</td>
+        <td>{{vatMinus code05_amt_sum}}</td>
+        <td>{{addComma code06_cnt_sum}}</td>
+        <td>{{addComma code06_cmt_sum}}</td>
+        <td>{{vatMinus code06_amt_sum}}</td>
+        <td>{{addComma code15_cnt_sum}}</td>
+        <td>{{addComma code15_cmt_sum}}</td>
+        <td>{{vatMinus code15_amt_sum}}</td>
+        <td>{{addComma code23_cnt_sum}}</td>
+        <td>{{addComma code23_cmt_sum}}</td>
+        <td>{{vatMinus code23_amt_sum}}</td>
     </tr>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_androidDetailList">
+<script type="text/x-handlebars-template" id="tmp_webDetailList">
     {{#each this as |data|}}
     <tr>
         <td class="font-bold _stateSubTh">
-            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
-            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+            {{data.day}}일
         </td>
-        <td>{{addComma android_total_cnt}}<br>({{average android_total_cnt sum_android_total_cnt}}%)</td>
-        <td>{{addComma android_total_cmt}}<br>({{average android_total_cmt sum_android_total_cmt}}%)</td>
-        <td style="font-weight: bold">{{vatMinus android_total_amt}}<br>({{average android_total_amt
-            sum_android_total_amt}}%)
-        </td>
-        <td>{{addComma code13Cnt}}</td>
-        <td>{{addComma code13Cmt}}</td>
-        <td>{{vatMinus code13Amt}}</td>
-        <td>{{addComma code01Cnt}}</td>
-        <td>{{addComma code01Cmt}}</td>
-        <td>{{vatMinus code01Amt}}</td>
-        <td>{{addComma code02Cnt}}</td>
-        <td>{{addComma code02Cmt}}</td>
-        <td>{{vatMinus code02Amt}}</td>
-        <td>{{addComma code14Cnt}}</td>
-        <td>{{addComma code14Cmt}}</td>
-        <td>{{vatMinus code14Amt}}</td>
-        <td>{{addComma code03Cnt}}</td>
-        <td>{{addComma code03Cmt}}</td>
-        <td>{{vatMinus code03Amt}}</td>
-        <td>{{addComma code04Cnt}}</td>
-        <td>{{addComma code04Cmt}}</td>
-        <td>{{vatMinus code04Amt}}</td>
-        <td>{{addComma code05Cnt}}</td>
-        <td>{{addComma code05Cmt}}</td>
-        <td>{{vatMinus code05Amt}}</td>
-        <td>{{addComma code06Cnt}}</td>
-        <td>{{addComma code06Cmt}}</td>
-        <td>{{vatMinus code06Amt}}</td>
-        <td>{{addComma code15Cnt}}</td>
-        <td>{{addComma code15Cmt}}</td>
-        <td>{{vatMinus code15Amt}}</td>
-        <td>{{addComma code23Cnt}}</td>
-        <td>{{addComma code23Cmt}}</td>
-        <td>{{vatMinus code23Amt}}</td>
+        <td>{{addComma total_cnt}}<br>({{average total_cnt total_cnt_sum}}%)</td>
+        <td>{{addComma total_cmt}}<br>({{average total_cmt total_cmt_sum}}%)</td>
+        <td style="font-weight: bold">{{vatMinus total_amt}}<br>({{average total_amt total_amt_sum}}%)</td>
+        <td>{{addComma code13_cnt}}</td>
+        <td>{{addComma code13_cmt}}</td>
+        <td>{{vatMinus code13_amt}}</td>
+        <td>{{addComma code01_cnt}}</td>
+        <td>{{addComma code01_cmt}}</td>
+        <td>{{vatMinus code01_amt}}</td>
+        <td>{{addComma code02_cnt}}</td>
+        <td>{{addComma code02_cmt}}</td>
+        <td>{{vatMinus code02_amt}}</td>
+        <td>{{addComma code14_cnt}}</td>
+        <td>{{addComma code14_cmt}}</td>
+        <td>{{vatMinus code14_amt}}</td>
+        <td>{{addComma code03_cnt}}</td>
+        <td>{{addComma code03_cmt}}</td>
+        <td>{{vatMinus code03_amt}}</td>
+        <td>{{addComma code04_cnt}}</td>
+        <td>{{addComma code04_cmt}}</td>
+        <td>{{vatMinus code04_amt}}</td>
+        <td>{{addComma code05_cnt}}</td>
+        <td>{{addComma code05_cmt}}</td>
+        <td>{{vatMinus code05_amt}}</td>
+        <td>{{addComma code06_cnt}}</td>
+        <td>{{addComma code06_cmt}}</td>
+        <td>{{vatMinus code06_amt}}</td>
+        <td>{{addComma code15_cnt}}</td>
+        <td>{{addComma code15_cmt}}</td>
+        <td>{{vatMinus code15_amt}}</td>
+        <td>{{addComma code23_cnt}}</td>
+        <td>{{addComma code23_cmt}}</td>
+        <td>{{vatMinus code23_amt}}</td>
     </tr>
     {{else}}
-    <td colspan="11" class="noData">{{isEmptyData}}
-    <td>
-        {{/each}}
+    <td colspan="11" class="noData">{{isEmptyData}}<td>
+    {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_aos">
+    <tr class="font-bold _stateSumTd">
+        <td>소계</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma total_cnt_sum}}<br>({{average total_cnt_sum total_cnt_sum}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma total_cmt_sum}}<br>({{average total_cmt_sum total_cmt_sum}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus total_amt_sum}}<br>({{average total_amt_sum total_amt_sum}}%)</td>
+        <td>{{addComma code24_cnt_sum}}</td>
+        <td>{{addComma code24_cmt_sum}}</td>
+        <td>{{vatMinus code24_amt_sum}}</td>
+        <td>{{addComma code25_cnt_sum}}</td>
+        <td>{{addComma code25_cmt_sum}}</td>
+        <td>{{vatMinus code25_amt_sum}}</td>
+        <td>{{addComma code26_cnt_sum}}</td>
+        <td>{{addComma code26_cmt_sum}}</td>
+        <td>{{vatMinus code26_amt_sum}}</td>
+        <td>{{addComma code27_cnt_sum}}</td>
+        <td>{{addComma code27_cmt_sum}}</td>
+        <td>{{vatMinus code27_amt_sum}}</td>
+        <td>{{addComma code28_cnt_sum}}</td>
+        <td>{{addComma code28_cmt_sum}}</td>
+        <td>{{vatMinus code28_amt_sum}}</td>
+        <td>{{addComma code29_cnt_sum}}</td>
+        <td>{{addComma code29_cmt_sum}}</td>
+        <td>{{vatMinus code29_amt_sum}}</td>
+        <td>{{addComma code30_cnt_sum}}</td>
+        <td>{{addComma code30_cmt_sum}}</td>
+        <td>{{vatMinus code30_amt_sum}}</td>
+        <td>{{addComma code31_cnt_sum}}</td>
+        <td>{{addComma code31_cmt_sum}}</td>
+        <td>{{vatMinus code31_amt_sum}}</td>
+        <td>{{addComma code32_cnt_sum}}</td>
+        <td>{{addComma code32_cmt_sum}}</td>
+        <td>{{vatMinus code32_amt_sum}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_aosDetailList">
+    {{#each this as |data|}}
+    <tr>
+        <td class="font-bold _stateSubTh">
+            {{data.day}}일
+        </td>
+        <td>{{addComma total_cnt}}<br>({{average total_cnt total_cnt_sum}}%)</td>
+        <td>{{addComma total_cmt}}<br>({{average total_cmt total_cmt_sum}}%)</td>
+        <td style="font-weight: bold">{{vatMinus total_amt}}<br>({{average total_amt total_amt_sum}}%)</td>
+        <td>{{addComma code24_cnt}}</td>
+        <td>{{addComma code24_cmt}}</td>
+        <td>{{vatMinus code24_amt}}</td>
+        <td>{{addComma code25_cnt}}</td>
+        <td>{{addComma code25_cmt}}</td>
+        <td>{{vatMinus code25_amt}}</td>
+        <td>{{addComma code26_cnt}}</td>
+        <td>{{addComma code26_cmt}}</td>
+        <td>{{vatMinus code26_amt}}</td>
+        <td>{{addComma code27_cnt}}</td>
+        <td>{{addComma code27_cmt}}</td>
+        <td>{{vatMinus code27_amt}}</td>
+        <td>{{addComma code28_cnt}}</td>
+        <td>{{addComma code28_cmt}}</td>
+        <td>{{vatMinus code28_amt}}</td>
+        <td>{{addComma code29_cnt}}</td>
+        <td>{{addComma code29_cmt}}</td>
+        <td>{{vatMinus code29_amt}}</td>
+        <td>{{addComma code30_cnt}}</td>
+        <td>{{addComma code30_cmt}}</td>
+        <td>{{vatMinus code30_amt}}</td>
+        <td>{{addComma code31_cnt}}</td>
+        <td>{{addComma code31_cmt}}</td>
+        <td>{{vatMinus code31_amt}}</td>
+        <td>{{addComma code32_cnt}}</td>
+        <td>{{addComma code32_cmt}}</td>
+        <td>{{vatMinus code32_amt}}</td>
+    </tr>
+    {{else}}
+    <td colspan="11" class="noData">{{isEmptyData}}<td>
+    {{/each}}
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_ios">
+    let ioscode = ['code16', 'code07', 'code17', 'code18', 'code08', 'code09', 'code10', 'code19', 'code11', 'code20', 'code12', 'code21', 'code22'];
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
-        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}<br>({{average sum_ios_total_cnt
-            sum_ios_total_cnt}}%)
-        </td>
-        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cmt}}<br>({{average sum_ios_total_cmt
-            sum_ios_total_cmt}}%)
-        </td>
-        <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}<br>({{average sum_ios_total_amt
-            sum_ios_total_amt}}%)
-        </td>
-        <td>{{addComma sum_code16Cnt}}</td>
-        <td>{{addComma sum_code16Cmt}}</td>
-        <td>{{vatMinus sum_code16Amt}}</td>
-        <td>{{addComma sum_code07Cnt}}</td>
-        <td>{{addComma sum_code07Cmt}}</td>
-        <td>{{vatMinus sum_code07Amt}}</td>
-        <td>{{addComma sum_code17Cnt}}</td>
-        <td>{{addComma sum_code17Cmt}}</td>
-        <td>{{vatMinus sum_code17Amt}}</td>
-        <td>{{addComma sum_code18Cnt}}</td>
-        <td>{{addComma sum_code18Cmt}}</td>
-        <td>{{vatMinus sum_code18Amt}}</td>
-        <td>{{addComma sum_code08Cnt}}</td>
-        <td>{{addComma sum_code08Cmt}}</td>
-        <td>{{vatMinus sum_code08Amt}}</td>
-        <td>{{addComma sum_code09Cnt}}</td>
-        <td>{{addComma sum_code09Cmt}}</td>
-        <td>{{vatMinus sum_code09Amt}}</td>
-        <td>{{addComma sum_code10Cnt}}</td>
-        <td>{{addComma sum_code10Cmt}}</td>
-        <td>{{vatMinus sum_code10Amt}}</td>
-        <td>{{addComma sum_code19Cnt}}</td>
-        <td>{{addComma sum_code19Cmt}}</td>
-        <td>{{vatMinus sum_code19Amt}}</td>
-        <td>{{addComma sum_code11Cnt}}</td>
-        <td>{{addComma sum_code11Cmt}}</td>
-        <td>{{vatMinus sum_code11Amt}}</td>
-        <td>{{addComma sum_code20Cnt}}</td>
-        <td>{{addComma sum_code20Cmt}}</td>
-        <td>{{vatMinus sum_code20Amt}}</td>
-        <td>{{addComma sum_code12Cnt}}</td>
-        <td>{{addComma sum_code12Cmt}}</td>
-        <td>{{vatMinus sum_code12Amt}}</td>
-        <td>{{addComma sum_code21Cnt}}</td>
-        <td>{{addComma sum_code21Cmt}}</td>
-        <td>{{vatMinus sum_code21Amt}}</td>
-        <td>{{addComma sum_code22Cnt}}</td>
-        <td>{{addComma sum_code22Cmt}}</td>
-        <td>{{vatMinus sum_code22Amt}}</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma total_cnt_sum}}<br>({{average total_cnt_sum total_cnt_sum}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma total_cmt_sum}}<br>({{average total_cmt_sum total_cmt_sum}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus total_amt_sum}}<br>({{average total_amt_sum total_amt_sum}}%)</td>
+        <td>{{addComma code16_cnt_sum}}</td>
+        <td>{{addComma code16_cmt_sum}}</td>
+        <td>{{vatMinus code16_amt_sum}}</td>
+        <td>{{addComma code07_cnt_sum}}</td>
+        <td>{{addComma code07_cmt_sum}}</td>
+        <td>{{vatMinus code07_amt_sum}}</td>
+        <td>{{addComma code17_cnt_sum}}</td>
+        <td>{{addComma code17_cmt_sum}}</td>
+        <td>{{vatMinus code17_amt_sum}}</td>
+        <td>{{addComma code18_cnt_sum}}</td>
+        <td>{{addComma code18_cmt_sum}}</td>
+        <td>{{vatMinus code18_amt_sum}}</td>
+        <td>{{addComma code08_cnt_sum}}</td>
+        <td>{{addComma code08_cmt_sum}}</td>
+        <td>{{vatMinus code08_amt_sum}}</td>
+        <td>{{addComma code09_cnt_sum}}</td>
+        <td>{{addComma code09_cmt_sum}}</td>
+        <td>{{vatMinus code09_amt_sum}}</td>
+        <td>{{addComma code10_cnt_sum}}</td>
+        <td>{{addComma code10_cmt_sum}}</td>
+        <td>{{vatMinus code10_amt_sum}}</td>
+        <td>{{addComma code19_cnt_sum}}</td>
+        <td>{{addComma code19_cmt_sum}}</td>
+        <td>{{vatMinus code19_amt_sum}}</td>
+        <td>{{addComma code11_cnt_sum}}</td>
+        <td>{{addComma code11_cmt_sum}}</td>
+        <td>{{vatMinus code11_amt_sum}}</td>
+        <td>{{addComma code20_cnt_sum}}</td>
+        <td>{{addComma code20_cmt_sum}}</td>
+        <td>{{vatMinus code20_amt_sum}}</td>
+        <td>{{addComma code12_cnt_sum}}</td>
+        <td>{{addComma code12_cmt_sum}}</td>
+        <td>{{vatMinus code12_amt_sum}}</td>
+        <td>{{addComma code21_cnt_sum}}</td>
+        <td>{{addComma code21_cmt_sum}}</td>
+        <td>{{vatMinus code21_amt_sum}}</td>
+        <td>{{addComma code22_cnt_sum}}</td>
+        <td>{{addComma code22_cmt_sum}}</td>
+        <td>{{vatMinus code22_amt_sum}}</td>
     </tr>
 </script>
 
@@ -706,55 +712,52 @@
     {{#each this as |data|}}
     <tr>
         <td class="font-bold _stateSubTh">
-            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
-            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+            {{data.day}}일
         </td>
-        <td style="font-weight: bold">{{addComma ios_total_cnt}}<br>({{average ios_total_cnt ios_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{addComma ios_total_cmt}}<br>({{average ios_total_cmt ios_total_cmt}}%)</td>
-        <td style="font-weight: bold">{{vatMinus ios_total_amt}}<br>({{average ios_total_amt ios_total_amt}}%)</td>
-        <td>{{addComma code16Cnt}}</td>
-        <td>{{addComma code16Cmt}}</td>
-        <td>{{vatMinus code16Amt}}</td>
-        <td>{{addComma code07Cnt}}</td>
-        <td>{{addComma code07Cmt}}</td>
-        <td>{{vatMinus code07Amt}}</td>
-        <td>{{addComma code17Cnt}}</td>
-        <td>{{addComma code17Cmt}}</td>
-        <td>{{vatMinus code17Amt}}</td>
-        <td>{{addComma code18Cnt}}</td>
-        <td>{{addComma code18Cmt}}</td>
-        <td>{{vatMinus code18Amt}}</td>
-        <td>{{addComma code08Cnt}}</td>
-        <td>{{addComma code08Cmt}}</td>
-        <td>{{vatMinus code08Amt}}</td>
-        <td>{{addComma code09Cnt}}</td>
-        <td>{{addComma code09Cmt}}</td>
-        <td>{{vatMinus code09Amt}}</td>
-        <td>{{addComma code10Cnt}}</td>
-        <td>{{addComma code10Cmt}}</td>
-        <td>{{vatMinus code10Amt}}</td>
-        <td>{{addComma code19Cnt}}</td>
-        <td>{{addComma code19Cmt}}</td>
-        <td>{{vatMinus code19Amt}}</td>
-        <td>{{addComma code11Cnt}}</td>
-        <td>{{addComma code11Cmt}}</td>
-        <td>{{vatMinus code11Amt}}</td>
-        <td>{{addComma code20Cnt}}</td>
-        <td>{{addComma code20Cmt}}</td>
-        <td>{{vatMinus code20Amt}}</td>
-        <td>{{addComma code12Cnt}}</td>
-        <td>{{addComma code12Cmt}}</td>
-        <td>{{vatMinus code12Amt}}</td>
-        <td>{{addComma code21Cnt}}</td>
-        <td>{{addComma code21Cmt}}</td>
-        <td>{{vatMinus code21Amt}}</td>
-        <td>{{addComma code22Cnt}}</td>
-        <td>{{addComma code22Cmt}}</td>
-        <td>{{vatMinus code22Amt}}</td>
+        <td>{{addComma total_cnt}}<br>({{average total_cnt total_cnt_sum}}%)</td>
+        <td>{{addComma total_cmt}}<br>({{average total_cmt total_cmt_sum}}%)</td>
+        <td style="font-weight: bold">{{vatMinus total_amt}}<br>({{average total_amt total_amt_sum}}%)</td>
+        <td>{{addComma code16_cnt}}</td>
+        <td>{{addComma code16_cmt}}</td>
+        <td>{{vatMinus code16_amt}}</td>
+        <td>{{addComma code07_cnt}}</td>
+        <td>{{addComma code07_cmt}}</td>
+        <td>{{vatMinus code07_amt}}</td>
+        <td>{{addComma code17_cnt}}</td>
+        <td>{{addComma code17_cmt}}</td>
+        <td>{{vatMinus code17_amt}}</td>
+        <td>{{addComma code18_cnt}}</td>
+        <td>{{addComma code18_cmt}}</td>
+        <td>{{vatMinus code18_amt}}</td>
+        <td>{{addComma code08_cnt}}</td>
+        <td>{{addComma code08_cmt}}</td>
+        <td>{{vatMinus code08_amt}}</td>
+        <td>{{addComma code09_cnt}}</td>
+        <td>{{addComma code09_cmt}}</td>
+        <td>{{vatMinus code09_amt}}</td>
+        <td>{{addComma code10_cnt}}</td>
+        <td>{{addComma code10_cmt}}</td>
+        <td>{{vatMinus code10_amt}}</td>
+        <td>{{addComma code19_cnt}}</td>
+        <td>{{addComma code19_cmt}}</td>
+        <td>{{vatMinus code19_amt}}</td>
+        <td>{{addComma code11_cnt}}</td>
+        <td>{{addComma code11_cmt}}</td>
+        <td>{{vatMinus code11_amt}}</td>
+        <td>{{addComma code20_cnt}}</td>
+        <td>{{addComma code20_cmt}}</td>
+        <td>{{vatMinus code20_amt}}</td>
+        <td>{{addComma code12_cnt}}</td>
+        <td>{{addComma code12_cmt}}</td>
+        <td>{{vatMinus code12_amt}}</td>
+        <td>{{addComma code21_cnt}}</td>
+        <td>{{addComma code21_cmt}}</td>
+        <td>{{vatMinus code21_amt}}</td>
+        <td>{{addComma code22_cnt}}</td>
+        <td>{{addComma code22_cmt}}</td>
+        <td>{{vatMinus code22_amt}}</td>
     </tr>
     {{else}}
-    <td colspan="11" class="noData">{{isEmptyData}}
-    <td>
-        {{/each}}
+    <td colspan="11" class="noData">{{isEmptyData}}<td>
+    {{/each}}
 </script>
