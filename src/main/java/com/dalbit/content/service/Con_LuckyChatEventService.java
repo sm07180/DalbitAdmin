@@ -3,10 +3,7 @@ package com.dalbit.content.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.dao.Con_LuckyChatEventDao;
-import com.dalbit.content.vo.procedure.P_LuckyChatInputVo;
-import com.dalbit.content.vo.procedure.P_LuckyChatMemListOuputVo;
-import com.dalbit.content.vo.procedure.P_LuckyChatMemSelOuputVo;
-import com.dalbit.content.vo.procedure.P_LuckyChatTotalCntVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -68,11 +65,13 @@ public class Con_LuckyChatEventService {
      */
     public String getBouns(P_LuckyChatInputVo pLuckyChatInputVo) {
         List<Object> getList = con_luckyChatEventDao.selectLuckyChatBounsMemList(pLuckyChatInputVo);
+        P_LuckyChatTotalBonusCntVo totalBonusCntVo = DBUtil.getData(getList, P_LuckyChatTotalBonusCntVo.class);
         P_LuckyChatTotalCntVo totalCntVo = DBUtil.getData(getList, P_LuckyChatTotalCntVo.class);
         List<P_LuckyChatMemListOuputVo> list = DBUtil.getList(getList, P_LuckyChatMemListOuputVo.class);
 
         HashMap resHashMap = new HashMap();
         resHashMap.put("result", new JsonOutputVo(Status.조회));
+        resHashMap.put("totalBonusCnt", totalBonusCntVo.getTot_bonus_cnt());
         resHashMap.put("totalCnt", totalCntVo.getCnt());
         resHashMap.put("listData", list);
         String result = gsonUtil.toJson(resHashMap);

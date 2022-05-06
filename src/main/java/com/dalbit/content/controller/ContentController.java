@@ -342,6 +342,16 @@ public class ContentController {
     }
 
     /**
+     * 럭키채팅 - 당첨자 목록
+     *
+     * @return
+     */
+    @GetMapping("/event/lucky-chat/list")
+    public String luckyChat() {
+        return "content/event/luckyChat/list";
+    }
+
+    /**
      * 팀제도 - 팀목록
      *
      * @return
@@ -389,15 +399,5 @@ public class ContentController {
     @GetMapping("/team/badge")
     public String teamBadge() {
         return "content/team/badge";
-    }
-
-    /**
-     * 럭키채팅 - 당첨자 목록
-     *
-     * @return
-     */
-    @GetMapping("/lucky-chat/list")
-    public String luckyChat() {
-        return "content/lucky-chat/list";
     }
 }
