@@ -218,6 +218,7 @@ public class ContentController {
     public String itemOrder() {
         return "content/item/popup/itemOrder";
     }
+
     @GetMapping("/item/popup/signatureItemOrder/{sgnt_mem_no}")
     public String signatureItemOrder(Model model, @PathVariable String sgnt_mem_no) {
         model.addAttribute("sgnt_mem_no", sgnt_mem_no);
@@ -388,5 +389,15 @@ public class ContentController {
     @GetMapping("/team/badge")
     public String teamBadge() {
         return "content/team/badge";
+    }
+
+    /**
+     * 럭키채팅 - 당첨자 목록
+     *
+     * @return
+     */
+    @GetMapping("/lucky-chat/list")
+    public String luckyChat() {
+        return "content/lucky-chat/list";
     }
 }
