@@ -71,6 +71,22 @@
 </div>
 <!-- //wrapper-->
 
+<div class="modal fade" id="lucky-chat-list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalResultArea"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
   let sDate = dateTime.replace(/[.]/g, '-');
@@ -83,8 +99,17 @@
   const luckyChatPagingInfo = new PAGING_INFO(0, 1, 50);
   const luckyChatModalPagingInfo = new PAGING_INFO(0, 1, 50);
   const luckyChatEventData = (function () {
+    // 중복내역 호출실행
+    function callDuplicatMemList(memNo) {
+      if (!memNo) return;
+      chatData.memNo = memNo;
+      chatData.theSeq = 0;
+
+      getDuplicatMemList();
+    }
     // 중복내역
     function getDuplicatMemList() {
+      $('#modalResultArea').empty();
       let data = {
         memNo: chatData.memNo,
         theDate: sDate
@@ -97,8 +122,19 @@
 
     }
 
+    // 채팅내역 호출
+    function callChatList(memNo, theSeq) {
+      if (!(memNo && theSeq)) return;
+      chatData.memNo = memNo;
+      chatData.theSeq = theSeq;
+
+      luckyChatModalPagingInfo.pageNo = 1;
+      getChatList();
+    }
+
     // 채팅내역
     function getChatList() {
+      $('#modalResultArea').empty();
       let data = {
         memNo: chatData.memNo,
         theDate: sDate,
@@ -158,7 +194,9 @@
 
     return {
       getDuplicatMemList: getDuplicatMemList,
+      callDuplicatMemList: callDuplicatMemList,
       getChatList: getChatList,
+      callChatList: callChatList,
       callList: callList
     }
   }());
@@ -183,3 +221,175 @@
     dateType();
   });
 </script>
+
+<script type="text/x-handlebars-template" id="tmp_duplicat_list">
+    <table id="duplicat_table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="3%"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>회원번호</th>
+            <th>집계일자</th>
+            <th>회차</th>
+            <th>UserId</th>
+            <th>닉네임</th>
+            <th>상품 수령<br/>여부</th>
+        </tr>
+        </thead>
+        <tbody id="duplicat_table_body">
+        {{#each this as |data|}}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="7">{{isEmptyData}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_chat_list">
+    <div class="dataTables_paginate paging_full_numbers" id="chat_paginate_top"></div>
+    <table id="chat_table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="120px"/>
+            <col width="auto"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>채팅 시작 일시</th>
+            <th>채팅 내용</th>
+        </tr>
+        </thead>
+        <tbody id="chat_table_body">
+        {{#each this as |data|}}
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="2">{{isEmptyData}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="dataTables_paginate paging_full_numbers" id="chat_paginate_bottom"></div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_mem_list">
+    <div class="dataTables_paginate paging_full_numbers" id="mem_paginate_top"></div>
+    <table id="mem_table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="3%"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>회원번호</th>
+            <th>UserId</th>
+            <th>연락처</th>
+            <th>닉네임</th>
+            <th>성별(나이)</th>
+            <th>당첨 상품</th>
+            <th>당첨 일시</th>
+            <th>번호 중복<br/>여부</th>
+            <th>상품 수령<br/>여부</th>
+            <th>채팅 내역<br/>확인</th>
+        </tr>
+        </thead>
+        <tbody id="mem_table_body">
+        {{#each this as |data|}}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="11">{{isEmptyData}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="dataTables_paginate paging_full_numbers" id="mem_paginate_bottom"></div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_bouns_list">
+    <div class="dataTables_paginate paging_full_numbers" id="bouns_paginate_top"></div>
+    <table id="bouns_table" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="3%"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+            <col width="auto"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>회원번호</th>
+            <th>UserId</th>
+            <th>닉네임</th>
+            <th>방송 시청 시간</th>
+            <th>1단계</th>
+            <th>2단계</th>
+        </tr>
+        </thead>
+        <tbody id="bouns_table_body">
+        {{#each this as |data|}}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="7">{{isEmptyData}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="dataTables_paginate paging_full_numbers" id="bouns_paginate_bottom"></div>
+</script>
+
