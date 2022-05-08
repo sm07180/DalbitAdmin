@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.enter.dao.Ent_PayV2Dao">
+    <!-- 결제현황 신규 -->
+    <resultMap id="integer" type="Integer" />
+    <resultMap id="P_PaymentCancelOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentCancelOutputVo" />
+    <resultMap id="P_PaymentDayPaycodeOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentDayPaycodeOutputVo" />
+    <resultMap id="P_PaymentDayPaysexOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentDayPaysexOutputVo" />
+    <resultMap id="P_PaymentDayPaywayOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentDayPaywayOutputVo" />
+    <resultMap id="P_PaymentMemberListOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentMemberListOutputVo" />
+    <resultMap id="P_PaymentMonthAvgStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentMonthAvgStateOutputVo" />
+    <resultMap id="P_PaymentMonthStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentMonthStateOutputVo" />
+    <resultMap id="P_PaymentSearchInputVo" type="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" />
+    <resultMap id="P_PaymentTimeAvgStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentTimeAvgStateOutputVo" />
+    <resultMap id="P_PaymentTimeStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentTimeStateOutputVo" />
+    <resultMap id="P_PaymentTotalOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentTotalOutputVo" />
+    <resultMap id="P_PaymentYearPaywayStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentYearPaywayStateOutputVo" />
+    <resultMap id="P_PaymentYearStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentYearStateOutputVo" />
+    <resultMap id="P_PaymentYearTotalStateOutputVo" type="com.dalbit.enter.vo.procedure.P_PaymentYearTotalStateOutputVo" />
+
+    <!-- 결제현황 시간대별 -->
+    <select id="selectPaymentTimeList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentTimeStateOutputVo,P_PaymentTimeAvgStateOutputVo">
+        CALL rd_admin.p_adm_payment_time_list(#{tDate})
+    </select>
+
+    <!-- 결제현황 일간대별 -->
+    <select id="selectPaymentDayList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentCancelOutputVo,P_PaymentDayPaywayOutputVo,P_PaymentDayPaysexOutputVo,P_PaymentDayPaycodeOutputVo">
+        CALL rd_admin.p_adm_payment_day_list(#{tDate})
+    </select>
+
+    <!-- 결제현황 월간/결제수단별 -->
+    <select id="selectPaymentMonthList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentMonthStateOutputVo">
+        CALL rd_admin.p_adm_payment_month_list(#{tDate}, #{payWaySlct})
+    </select>
+
+    <!-- 결제현황 연간결제 -->
+    <select id="selectPaymentYearList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentYearStateOutputVo,P_PaymentYearTotalStateOutputVo,P_PaymentYearPaywayStateOutputVo">
+        CALL rd_admin.p_adm_payment_year_list(#{tDate})
+    </select>
+
+    <!-- 결제 취소 -->
+    <select id="selectPaymentCancelMemberList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentTotalOutputVo,P_PaymentMemberListOutputVo">
+        CALL rd_admin.p_adm_payment_cancel_member_list(#{tDate}, #{memNo}, #{payInner}, #{payWaySlct}, #{payOs}, #{payTime}, #{paySex}, #{payAge}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!-- 결제 성공 -->
+    <select id="selectPaymentSuccMemberList" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentTotalOutputVo,P_PaymentMemberListOutputVo">
+        CALL rd_admin.p_adm_payment_succ_member_list(#{tDate}, #{memNo}, #{payInner}, #{payWaySlct}, #{payOs}, #{payTime}, #{paySex}, #{payAge}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!-- 결제현황 결제 회원별 -->
+    <select id="selectPaymentMonthMemberStat" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentDayPaysexOutputVo">
+        CALL rd_admin.p_adm_payment_month_member_stat_list(#{tDate})
+    </select>
+
+    <!-- 결제현황 결제 수단별 -->
+    <select id="selectPaymentMonthPaywayStat" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentDayPaywayOutputVo">
+        CALL rd_admin.p_adm_payment_month_payway_stat_list(#{tDate})
+    </select>
+
+    <!-- 결제현황 결제 상품별 -->
+    <select id="selectPaymentMonthPaycodeStat" statementType="CALLABLE" parameterType="com.dalbit.enter.vo.procedure.P_PaymentSearchInputVo" resultMap="P_PaymentDayPaycodeOutputVo">
+        CALL rd_admin.p_adm_payment_month_paycode_stat_list(#{tDate})
+    </select>
+</mapper>

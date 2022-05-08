@@ -24,7 +24,8 @@ public class P_StarReqListOutputVo {
     private String mem_birth_day;       // 회원 생일
     private int inner;                  // 내부직원여부(0:일반,1:내부)
     private int play_cnt;               // 방송시간
-    private int like_cnt;               // 받은 좋아요수
+    private int like_cnt;               // 받은 좋아요수 (통합)
+    private int boost_good_cnt;         // 부스터 좋아요 수 * 10
     private int byeol_cnt;              // 선물받은별수
     private int view_cnt;               // 평균 시청자수(시청자/방)
     private int warm_cnt;               // 경고

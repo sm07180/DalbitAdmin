@@ -40,9 +40,19 @@ public class EnterController {
         return "enter/newPay/info";
     }
 
+    @GetMapping("/newPay2/info")
+    public String newPay2List() {
+        return "enter/newPay2/info";
+    }
+
     @RequestMapping("/newPay/popup/history")
     public String newPayHistory() {
         return "enter/newPay/popup/history";
+    }
+
+    @RequestMapping("/newPay2/popup/history")
+    public String newPay2History() {
+        return "enter/newPay2/popup/history";
     }
 
     @GetMapping("/pay/info")
