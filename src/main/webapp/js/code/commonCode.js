@@ -318,6 +318,15 @@ var searchMember = [
     , new COMMON_CODE('7', '7', '모바일ID')
 ];
 
+var searchMemberInquiry = [
+    new COMMON_CODE('', 'searchMember', '회원 검색')
+    , new COMMON_CODE('1', '1', '회원 번호')
+    , new COMMON_CODE('2', '2', '회원 닉네임')
+    , new COMMON_CODE('3', '3', '이름')
+    , new COMMON_CODE('4', '4', '연락처')
+    , new COMMON_CODE('5', '5', '아이디')
+];
+
 var searchBroad = [
     new COMMON_CODE('', 'searchBroad', '방송 검색')
     , new COMMON_CODE('1', '1', '방송 번호')
