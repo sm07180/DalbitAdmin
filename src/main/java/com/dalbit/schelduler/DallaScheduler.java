@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@Profile({"real"})
+@Profile({"dev"})
 public class DallaScheduler {
 
     @Autowired
