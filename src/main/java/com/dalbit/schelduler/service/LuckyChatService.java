@@ -140,7 +140,8 @@ public class LuckyChatService {
                         totalPreMemCnt = totalPreMemCnt - 1;
 
                         message.setContent(target.getMem_nick() + "님 축하드립니다~ 지금 바로 이벤트 페이지에서 선물 받기를 완료해주세요!");
-                        sendNoticeResult(message);
+                        log.warn("sendNoticeResult call prev : " + message.getContent());
+                        //sendNoticeResult(message); 테스트를 위해 소켓 호출부분 제거
                     } else {
                         log.error("LuckyChatService => putLuckyChatIns result: {}", insResult);
                     }
