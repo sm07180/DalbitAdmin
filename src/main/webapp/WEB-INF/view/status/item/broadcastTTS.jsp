@@ -26,7 +26,9 @@
 <script type="text/javascript">
   let actor = {
     a: '빠다가이',
-    b: '하나'
+    b: '하나',
+    c: '찬구',
+    d: '호빈이'
   }
   let slctNo = '';
   giftBroadcastTTSListPagingInfo = new PAGING_INFO(0, 1, 50);
