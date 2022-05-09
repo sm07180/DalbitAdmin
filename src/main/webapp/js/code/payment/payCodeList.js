@@ -29,6 +29,8 @@ var payWay = [
     , new COMMON_CODE('MC', 'MC', '휴대폰')
     , new COMMON_CODE('VA', 'VA', '가상계좌')
     , new COMMON_CODE('InApp', 'InApp', '인앱(IOS)')
+    , new COMMON_CODE('InAppAos', 'InAppAos', '인앱(AOS)')
+    , new COMMON_CODE('InAppOneStore', 'InAppOneStore', '원스토어(AOS)')
     , new COMMON_CODE('GM', 'GM', '문화상품권')
     , new COMMON_CODE('HM', 'HM', '해피머니상품권')
     , new COMMON_CODE('GG', 'GG', '스마트문상(게임)')

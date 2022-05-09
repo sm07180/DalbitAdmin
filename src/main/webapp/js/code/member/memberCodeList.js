@@ -115,7 +115,7 @@ var dalPointEditStory = [
     ,new COMMON_CODE('12','12','소실금액 복구')
     ,new COMMON_CODE('13','13','직원 테스트')
     ,new COMMON_CODE('23','23','이벤트 지급')
-    ,new COMMON_CODE('22','22','스페셜DJ 혜택')
+    ,new COMMON_CODE('22','22','스타DJ 혜택')
     ,new COMMON_CODE('12','12','운영자 지급')
 ];
 
@@ -126,7 +126,7 @@ var byeolPointEditStory = [
     ,new COMMON_CODE('6','6','소실금액 복구')
     ,new COMMON_CODE('7','7','직원 테스트')
     ,new COMMON_CODE('23','23','이벤트 지급')
-    ,new COMMON_CODE('22','22','스페셜DJ 혜택')
+    ,new COMMON_CODE('22','22','스타DJ 혜택')
 ];
 
 
@@ -266,7 +266,7 @@ var mem_wallet_dal_code = [
     , new COMMON_CODE('19', '19', '게스트선물')
     , new COMMON_CODE('20', '20', '게스트몰래선물')
     /*, new COMMON_CODE('21', '21', '운영출석체크') -> 테이블 정의서엔 있지만 안써서 주석처리 */
-    , new COMMON_CODE('22', '22', '스페셜DJ혜택')
+    , new COMMON_CODE('22', '22', '스타DJ혜택')
     , new COMMON_CODE('23', '23', '이벤트 지급(어드민)')
     , new COMMON_CODE('25', '25', '이벤트 경품 달로 받기')
     , new COMMON_CODE('31', '31', '자동교환')
@@ -290,7 +290,7 @@ var mem_wallet_byeol_code = [
     , new COMMON_CODE('19', '19', '게스트선물')
     , new COMMON_CODE('20', '20', '게스트몰래선물')
     , new COMMON_CODE('21', '21', '출석체크 보상')
-    , new COMMON_CODE('22', '22', '스페셜DJ혜택')
+    , new COMMON_CODE('22', '22', '스타DJ혜택')
     , new COMMON_CODE('23', '23', '이벤트 지급(어드민)')
     , new COMMON_CODE('31', '31', '자동교환')
     , new COMMON_CODE('32', '32', '우체통 선물')
@@ -350,7 +350,7 @@ var member_roulette_coupon_type = [
     , new COMMON_CODE('1', '1', '방송/청취')
     , new COMMON_CODE('2', '2', '보름달')
     , new COMMON_CODE('3', '3', '구매/결제')
-    , new COMMON_CODE('4', '4', '스페셜DJ')
+    , new COMMON_CODE('4', '4', '스타DJ')
     , new COMMON_CODE('5', '5', '신기록')
 ]
 

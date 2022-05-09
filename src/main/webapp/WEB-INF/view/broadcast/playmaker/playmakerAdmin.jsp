@@ -428,6 +428,7 @@
         <colgroup>
             <col width="60px"/>
             <col width="120px"/>
+            <col width="120px"/>
             <col width="auto"/>
             <col width="200px"/>
             <col width="auto"/>
@@ -441,6 +442,7 @@
         <tr>
             <th>No.</th>
             <th>UID</th>
+            <th>회원번호</th>
             <th>닉네임</th>
             <th>활동기간</th>
             <th>소속팀</th>
@@ -456,6 +458,7 @@
         <tr>
             <td>{{index_no}}</td>
             <td>{{{memNoLink mem_userid mem_no}}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{convertToDate start_date "YYYY-MM-DD"}} ~ {{convertToDate end_date "YYYY-MM-DD"}}</td>
             <td>
@@ -470,7 +473,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="10">{{isEmptyData}}</td>
+            <td colspan="11">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
@@ -483,6 +486,7 @@
     <table id="playmaker-admin-e-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="60px"/>
+            <col width="120px"/>
             <col width="120px"/>
             <col width="auto"/>
             <col width="200px"/>
@@ -497,6 +501,7 @@
         <tr>
             <th>No.</th>
             <th>UID</th>
+            <th>회원번호</th>
             <th>닉네임</th>
             <th>활동기간</th>
             <th>소속팀</th>
@@ -513,6 +518,7 @@
         <tr>
             <td>{{index_no}}</td>
             <td>{{{memNoLink mem_userid mem_no}}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
             <td>{{mem_nick}}</td>
             <td>{{convertToDate start_date "YYYY-MM-DD"}} ~ {{convertToDate end_date "YYYY-MM-DD"}}</td>
             <td>
@@ -533,7 +539,7 @@
         </tr>
         {{else}}
         <tr>
-            <td colspan="11">{{isEmptyData}}</td>
+            <td colspan="12">{{isEmptyData}}</td>
         </tr>
         {{/each}}
         </tbody>
