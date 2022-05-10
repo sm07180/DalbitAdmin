@@ -354,11 +354,18 @@
             <td>{{phoneNumHyphen mem_phone}}</td>
             <td>{{mem_nick}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-            <td>{{code_name}}</td>
+            <td>
+                <div><img src="https://image.dalbitlive.com/event/keyboardHero/present-{{pre_code}}.png" width="36px"></div>
+                <div>{{code_name}}</div>
+            </td>
             <td>{{ins_date}}</td>
-            <td></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-danger" onclick="luckyChatEventData.callDuplicatMemList({{mem_no}})">확인</button>
+            </td>
             <td>{{rcv_text}}</td>
-            <td></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-success" onclick="luckyChatEventData.callChatList({{mem_no}})">채팅내역</button>
+            </td>
         </tr>
         {{else}}
         <tr>
