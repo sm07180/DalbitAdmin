@@ -12,6 +12,8 @@ public class P_LuckyChatMemListOuputVo {
     private int the_seq;            // 회차
     private String mem_no;          // 회원번호
     private String mem_userid;      // 회원아이디
+    private String mem_sex;         // 회원성별
+    private String mem_birth_year;  // 회원생년
     private String mem_id;          // 회원아이디
     private String mem_nick;        // 회원대화명
     private String mem_phone;       // 회원핸드폰번호

@@ -162,7 +162,28 @@
 
     // 당첨자 목록 출력
     function renderMemList(data, response) {
+      let template, templateScript, context, html;
+      template = $('#tmp-mem-list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData.map(function (item, index) {
+        item.index_no = response.totalCnt - (((luckyChatPagingInfo.pageNo - 1) * luckyChatPagingInfo.pageCnt) + index);
+        item.rcv_text = item.rcv_yn === 'y' ? 'O' : 'X';
+        return item;
+      });
+      html = templateScript(context);
+      $("#resultArea").html(html);
 
+      luckyChatPagingInfo.totalCnt = response.totalCnt;
+      util.renderPagingNavigation('mem-paginate-top', luckyChatPagingInfo);
+      util.renderPagingNavigation('mem-paginate-bottom', luckyChatPagingInfo);
+
+      if (response.listData.length === 0) {
+        $('#mem-paginate-top').hide();
+        $('#mem-paginate-bottom').hide();
+      } else {
+        $('#mem-paginate-top').show();
+        $('#mem-paginate-bottom').show();
+      }
     }
 
     // 보너스 목록
@@ -222,8 +243,8 @@
   });
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_duplicat_list">
-    <table id="duplicat_table" class="table table-sorting table-hover table-bordered">
+<script type="text/x-handlebars-template" id="tmp-duplicat-list">
+    <table id="duplicat-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="3%"/>
             <col width="auto"/>
@@ -244,7 +265,7 @@
             <th>상품 수령<br/>여부</th>
         </tr>
         </thead>
-        <tbody id="duplicat_table_body">
+        <tbody id="duplicat-table-body">
         {{#each this as |data|}}
         <tr>
             <td></td>
@@ -264,9 +285,9 @@
     </table>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_chat_list">
-    <div class="dataTables_paginate paging_full_numbers" id="chat_paginate_top"></div>
-    <table id="chat_table" class="table table-sorting table-hover table-bordered">
+<script type="text/x-handlebars-template" id="tmp-chat-list">
+    <div class="dataTables_paginate paging_full_numbers" id="chat-paginate-top"></div>
+    <table id="chat-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="120px"/>
             <col width="auto"/>
@@ -277,7 +298,7 @@
             <th>채팅 내용</th>
         </tr>
         </thead>
-        <tbody id="chat_table_body">
+        <tbody id="chat-table-body">
         {{#each this as |data|}}
         <tr>
             <td></td>
@@ -290,12 +311,12 @@
         {{/each}}
         </tbody>
     </table>
-    <div class="dataTables_paginate paging_full_numbers" id="chat_paginate_bottom"></div>
+    <div class="dataTables_paginate paging_full_numbers" id="chat-paginate-bottom"></div>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_mem_list">
-    <div class="dataTables_paginate paging_full_numbers" id="mem_paginate_top"></div>
-    <table id="mem_table" class="table table-sorting table-hover table-bordered">
+<script type="text/x-handlebars-template" id="tmp-mem-list">
+    <div class="dataTables_paginate paging_full_numbers" id="mem-paginate-top"></div>
+    <table id="mem-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="3%"/>
             <col width="auto"/>
@@ -324,19 +345,19 @@
             <th>채팅 내역<br/>확인</th>
         </tr>
         </thead>
-        <tbody id="mem_table_body">
+        <tbody id="mem-table-body">
         {{#each this as |data|}}
         <tr>
+            <td>{{index_no}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
+            <td>{{mem_userid}}</td>
+            <td>{{phoneNumHyphen mem_phone}}</td>
+            <td>{{mem_nick}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
+            <td>{{code_name}}</td>
+            <td>{{ins_date}}</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{rcv_text}}</td>
             <td></td>
         </tr>
         {{else}}
@@ -346,12 +367,12 @@
         {{/each}}
         </tbody>
     </table>
-    <div class="dataTables_paginate paging_full_numbers" id="mem_paginate_bottom"></div>
+    <div class="dataTables_paginate paging_full_numbers" id="mem-paginate-bottom"></div>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_bouns_list">
-    <div class="dataTables_paginate paging_full_numbers" id="bouns_paginate_top"></div>
-    <table id="bouns_table" class="table table-sorting table-hover table-bordered">
+<script type="text/x-handlebars-template" id="tmp-bouns-list">
+    <div class="dataTables_paginate paging_full_numbers" id="bouns-paginate-top"></div>
+    <table id="bouns-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
             <col width="3%"/>
             <col width="auto"/>
@@ -372,7 +393,7 @@
             <th>2단계</th>
         </tr>
         </thead>
-        <tbody id="bouns_table_body">
+        <tbody id="bouns-table-body">
         {{#each this as |data|}}
         <tr>
             <td></td>
@@ -390,6 +411,6 @@
         {{/each}}
         </tbody>
     </table>
-    <div class="dataTables_paginate paging_full_numbers" id="bouns_paginate_bottom"></div>
+    <div class="dataTables_paginate paging_full_numbers" id="bouns-paginate_bottom"></div>
 </script>
 
