@@ -34,6 +34,6 @@
     <select id="selectLuckyChatList" statementType="CALLABLE"
             parameterType="com.dalbit.content.vo.procedure.P_LuckyChatInputVo"
             resultMap="P_LuckyChatTotalCntVo,P_LuckyChatMemSelOuputVo">
-        CALL rd_data.p_adm_lucky_chat_mem_sel(#{memNo}, #{theDate}, #{theSeq}, #{pageNo}, #{pagePerCnt});
+        CALL rd_data.p_adm_lucky_chat_mem_sel(#{memNo}, #{theDate}, #{theSeq}, #{pageNo}, #{pagePerCnt})
     </select>
 </mapper>

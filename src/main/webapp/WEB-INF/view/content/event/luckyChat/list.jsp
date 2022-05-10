@@ -96,6 +96,16 @@
     theSeq: 0
   };
 
+  let giftPreCode = {
+    r01: 1, // 10달
+    r02: 2, // 50달
+    r03: 3, // 100달
+    k01: 4, // 스타벅스 아메리카노
+    k02: 5, // GS25 교환권 5000원
+    k03: 7, // 네이버페이 1만원 포인트
+    k04: 6, // 맘스터치 싸이버거 세트
+    k05: 8, // 배스킨라빈스31 2만원 교환권
+  }
   const luckyChatPagingInfo = new PAGING_INFO(0, 1, 50);
   const luckyChatModalPagingInfo = new PAGING_INFO(0, 1, 50);
   const luckyChatEventData = (function () {
@@ -106,6 +116,7 @@
       chatData.theSeq = 0;
 
       getDuplicatMemList();
+      $('#lucky-chat-list').modal('show');
     }
     // 중복내역
     function getDuplicatMemList() {
@@ -119,7 +130,19 @@
 
     // 중복내역 - 출력
     function renderDuplicatMemList(data, response) {
+      let template, templateScript, context, html;
 
+      let totalCnt = response.listData ? response.listData.length : 0;
+      template = $('#tmp-duplicat-list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData.map(function (item, index) {
+        item.index_no = totalCnt - index;
+        item.rcv_text = item.rcv_yn === 'y' ? 'O' : 'X';
+        item.the_day = item.the_date.substring(0, 10);
+        return item;
+      });
+      html = templateScript(context);
+      $("#modalResultArea").html(html);
     }
 
     // 채팅내역 호출
@@ -130,6 +153,7 @@
 
       luckyChatModalPagingInfo.pageNo = 1;
       getChatList();
+      $('#lucky-chat-list').modal('show');
     }
 
     // 채팅내역
@@ -147,7 +171,27 @@
 
     // 채팅내역 출력
     function renderChatList(data, response) {
+      let template, templateScript, context, html;
+      template = $('#tmp-chat-list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData.map(function (item, index) {
+        item.index_no = response.totalCnt - (((luckyChatModalPagingInfo.pageNo - 1) * luckyChatModalPagingInfo.pageCnt) + index);
+        return item;
+      });
+      html = templateScript(context);
+      $("#modalResultArea").html(html);
 
+      luckyChatModalPagingInfo.totalCnt = response.totalCnt;
+      util.renderPagingNavigation('chat-paginate-top', luckyChatModalPagingInfo);
+      util.renderPagingNavigation('chat-paginate-bottom', luckyChatModalPagingInfo);
+
+      if (response.listData.length === 0) {
+        $('#chat-paginate-top').hide();
+        $('#chat-paginate-bottom').hide();
+      } else {
+        $('#chat-paginate-top').show();
+        $('#chat-paginate-bottom').show();
+      }
     }
 
     // 당첨자 목록
@@ -168,6 +212,7 @@
       context = response.listData.map(function (item, index) {
         item.index_no = response.totalCnt - (((luckyChatPagingInfo.pageNo - 1) * luckyChatPagingInfo.pageCnt) + index);
         item.rcv_text = item.rcv_yn === 'y' ? 'O' : 'X';
+        item.image_num = giftPreCode[item.pre_code];
         return item;
       });
       html = templateScript(context);
@@ -198,7 +243,33 @@
 
     // 보너스 목록 출력
     function renderBonusMemList(data, response) {
+      let template, templateScript, context, html;
+      template = $('#tmp-bouns-list').html();
+      templateScript = Handlebars.compile(template);
+      context = response.listData.map(function (item, index) {
+        item.index_no = response.totalCnt - (((luckyChatPagingInfo.pageNo - 1) * luckyChatPagingInfo.pageCnt) + index);
+        item.one_step_rcv_text = item.one_step_rcv_yn === 'y' ? 'O' : 'X';
+        item.two_step_rcv_text = item.two_step_rcv_yn === 'y' ? 'O' : 'X';
+        return item;
+      });
 
+      html = templateScript(context);
+      $("#resultArea").html(html);
+
+      luckyChatPagingInfo.totalCnt = response.totalCnt;
+      util.renderPagingNavigation('bouns-paginate-top', luckyChatPagingInfo);
+      util.renderPagingNavigation('bouns-paginate-bottom', luckyChatPagingInfo);
+
+      if (response.listData.length === 0) {
+        $('#bouns-paginate-top').hide();
+        $('#bouns-paginate-bottom').hide();
+      } else {
+        $('#bouns-paginate-top').show();
+        $('#bouns-paginate-bottom').show();
+      }
+
+      let totalBonusCnt = common.addComma(response.totalBonusCnt);
+      $('#total-dal-cnt').text(totalBonusCnt);
     }
 
     function callList() {
@@ -221,6 +292,23 @@
       callList: callList
     }
   }());
+
+  function handlebarsPaging(targetId, pagingInfo) {
+    switch (targetId) {
+      case 'mem-paginate-top':
+      case 'mem-paginate-bottom':
+      case 'bouns-paginate-top':
+      case 'bouns-paginate-bottom':
+        luckyChatPagingInfo.pageNo = pagingInfo.pageNo;
+        luckyChatEventData.callList();
+        break;
+      case 'chat-paginate-top':
+      case 'chat-paginate-bottom':
+        luckyChatModalPagingInfo.pageNo = pagingInfo.pageNo;
+        luckyChatEventData.getChatList();
+        break;
+    }
+  }
 
   $(function () {
     $('#bt_search').on('click', function () {
@@ -268,13 +356,13 @@
         <tbody id="duplicat-table-body">
         {{#each this as |data|}}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{index_no}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
+            <td>{{the_day}}</td>
+            <td>{{the_seq}}</td>
+            <td>{{mem_userid}}</td>
+            <td>{{mem_nick}}</td>
+            <td>{{rcv_text}}</td>
         </tr>
         {{else}}
         <tr>
@@ -289,7 +377,7 @@
     <div class="dataTables_paginate paging_full_numbers" id="chat-paginate-top"></div>
     <table id="chat-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
-            <col width="120px"/>
+            <col width="150px"/>
             <col width="auto"/>
         </colgroup>
         <thead>
@@ -301,8 +389,8 @@
         <tbody id="chat-table-body">
         {{#each this as |data|}}
         <tr>
-            <td></td>
-            <td></td>
+            <td>{{last_upd_date}}</td>
+            <td class="text-left">{{msg}}</td>
         </tr>
         {{else}}
         <tr>
@@ -355,7 +443,7 @@
             <td>{{mem_nick}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>
-                <div><img src="https://image.dalbitlive.com/event/keyboardHero/present-{{pre_code}}.png" width="36px"></div>
+                <div><img src="https://image.dalbitlive.com/event/keyboardHero/present-{{image_num}}.png" width="52px"></div>
                 <div>{{code_name}}</div>
             </td>
             <td>{{ins_date}}</td>
@@ -364,7 +452,7 @@
             </td>
             <td>{{rcv_text}}</td>
             <td>
-                <button type="button" class="btn btn-sm btn-success" onclick="luckyChatEventData.callChatList({{mem_no}})">채팅내역</button>
+                <button type="button" class="btn btn-sm btn-success" onclick="luckyChatEventData.callChatList({{mem_no}}, {{the_seq}})">채팅내역</button>
             </td>
         </tr>
         {{else}}
@@ -378,6 +466,9 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp-bouns-list">
+    <div class="row col-md-12">
+        <h5>총지급 달 수 : <span id="total-dal-cnt" class="text-danger font-bold">0</span>건</h5>
+    </div>
     <div class="dataTables_paginate paging_full_numbers" id="bouns-paginate-top"></div>
     <table id="bouns-table" class="table table-sorting table-hover table-bordered">
         <colgroup>
@@ -403,13 +494,13 @@
         <tbody id="bouns-table-body">
         {{#each this as |data|}}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{index_no}}</td>
+            <td>{{{memNoLink mem_no mem_no}}}</td>
+            <td>{{mem_userid}}</td>
+            <td>{{mem_nick}}</td>
+            <td>{{timeStampAllKor play_time}}</td>
+            <td>{{one_step_rcv_text}}</td>
+            <td>{{two_step_rcv_text}}</td>
         </tr>
         {{else}}
         <tr>
@@ -418,6 +509,5 @@
         {{/each}}
         </tbody>
     </table>
-    <div class="dataTables_paginate paging_full_numbers" id="bouns-paginate_bottom"></div>
+    <div class="dataTables_paginate paging_full_numbers" id="bouns-paginate-bottom"></div>
 </script>
-
