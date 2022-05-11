@@ -112,6 +112,8 @@ public class LuckyChatService {
 
             Integer totalPreMemCnt = 0;
 
+            Integer success = 1;// DB insert 값 success 처리용 값
+
             DallaEventMessage message = new DallaEventMessage();
 
             message.setTitle("키보드 히어로31 당첨자 발표");
@@ -135,11 +137,12 @@ public class LuckyChatService {
                     log.warn("theSeq : " + theSeq + ", 총 남은 선물 개수 : " + totalPreMemCnt + ", 선툭 받은 선물 : " + rewardList.get(choiceNum));
                     Integer insResult = luckChat.putLuckyChatIns(theDate, theSeq, target.getMem_no(), rewardList.get(choiceNum), rewardList.get(choiceNum).substring(0, 1));
 
-                    if (insResult.equals(1)) {
+                    if (success.equals(insResult)) {
                         rewardList.remove(rewardList.get(choiceNum));
                         totalPreMemCnt = totalPreMemCnt - 1;
 
-                        message.setContent(target.getMem_nick() + "님 축하드립니다~ 지금 바로 이벤트 페이지에서 선물 받기를 완료해주세요!");
+                        message.setContent("{nickName}님 축하드립니다~ 지금 바로 이벤트 페이지에서 선물 받기를 완료해주세요!");
+                        message.setNickName(target.getMem_nick());
                         log.warn("sendNoticeResult call prev : " + message.getContent());
                         //sendNoticeResult(message); 테스트를 위해 소켓 호출부분 제거
                     } else {
