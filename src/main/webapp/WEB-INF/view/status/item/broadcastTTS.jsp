@@ -97,7 +97,6 @@
 
     let optText = [];
     let optDalText = [];
-    console.log(response.summary);
     response.summary.map(function (item, index) {
       summaryData.totalItemCnt += item.tot_send_cnt;
       summaryData.totalTTSItemCnt += item.tts_msg_send_cnt + item.tts_send_cnt;
