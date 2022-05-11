@@ -169,7 +169,7 @@
 
     $(document).ready(function() {
 
-        $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMember));
+        $("#searchMemberArea").html(util.getCommonCodeSelect(1, searchMemberInquiry));
         $("#searchQnaArea").html(util.getCommonCodeSelect(1, searchQna));
 
         $("#displayDate").statsDaterangepicker(

@@ -312,6 +312,8 @@
         case 'simple':
           item.info = item.account_no + '<br/>' + util.getCommonCodeText(item.bank_code, bankList);
           break;
+        case 'InAppAos':
+          item.info = item.pay_info;
       }
       item.pay_dt_ok = item.pay_ok_date + ' ' + item.pay_ok_time.substr(0, 8);
       item.os_text = util.getCommonCodeText(item.os, payPlatform);
