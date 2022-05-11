@@ -16,7 +16,7 @@ public interface LuckChat {
     List<Object> getLuckyChatInfo(@Param(value = "theDate") String theDate, @Param(value = "theSeq") Integer theSeq);
 
 
-    @Select("CALL rd_data.p_dalla_lucky_chat_dal_ins(#{theDate}, #{theSeq}, #{memNo}, #{preCode}, #{preSlct})")
+    @Select("CALL rd_data.p_dalla_lucky_chat_com_ins(#{theDate}, #{theSeq}, #{memNo}, #{preCode}, #{preSlct})")
     Integer putLuckyChatIns(@Param(value = "theDate") String theDate, @Param(value = "theSeq") Integer theSeq, @Param(value = "memNo") String memNo, @Param(value = "preCode") String preCode, @Param(value = "preSlct") String preSlct);
 
 }
