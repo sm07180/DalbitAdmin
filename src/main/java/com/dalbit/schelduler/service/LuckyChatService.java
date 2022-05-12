@@ -98,9 +98,14 @@ public class LuckyChatService {
         return result;
     }
 
-    public String luckyChatRewardChoice() {
+    public void luckyChatRewardChoice() {
         Integer theSeq = calTheSeq();
         String theDate = LocalDate.now().toString();
+
+        // 2022년 6월 13일부터 당첨자를 뽑지 않는다.
+        if (LocalDate.now().compareTo(LocalDate.of(2022,6,13)) >= 0) {
+            return;
+        }
 
         try {
 
@@ -117,7 +122,7 @@ public class LuckyChatService {
             DallaEventMessage message = new DallaEventMessage();
 
             message.setTitle("키보드 히어로31 당첨자 발표");
-            message.setLinkTitle("확인하기");
+            message.setLinkTitle("확인");
             message.setLinkUrl("/event/keyboardhero");
 
             for (int i = 0; i < itemInfo.size(); i++) {
@@ -141,10 +146,10 @@ public class LuckyChatService {
                         rewardList.remove(rewardList.get(choiceNum));
                         totalPreMemCnt = totalPreMemCnt - 1;
 
-                        message.setContent("{nickName}님 축하드립니다~ 지금 바로 이벤트 페이지에서 선물 받기를 완료해주세요!");
+                        message.setContent("{nickName}님 축하드립니다~ 지금 바로 이벤트 페이지에서 선물을 받아가세요!");
                         message.setNickName(target.getMem_nick());
                         log.warn("sendNoticeResult call prev : " + message.getContent());
-                        //sendNoticeResult(message); 테스트를 위해 소켓 호출부분 제거
+                        sendNoticeResult(message); // 소켓에 당첨자 정보 전달
                     } else {
                         log.error("LuckyChatService => putLuckyChatIns result: {}", insResult);
                     }
@@ -156,7 +161,5 @@ public class LuckyChatService {
         } catch (Exception e) {
             log.error("LuckyChatService => luckyChatRewardChoice error: {}", e);
         }
-
-        return "";
     }
 }
