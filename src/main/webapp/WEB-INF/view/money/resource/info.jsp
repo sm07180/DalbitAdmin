@@ -432,8 +432,9 @@
             ];
             response.data.detailList[i].sub_decTotal_Cnt = common.getListSum(sub_decTotal_Cnt);
 
-            response.data.detailList[i].sub_inc_Cnt = response.data.detailList[i].sub_incTotal_Cnt - response.data.detailList[i].increaseCnt;
-            response.data.detailList[i].sub_dec_Cnt = response.data.detailList[i].sub_decTotal_Cnt - response.data.detailList[i].decreaseCnt;
+            // 증감치 정보 제외
+            // response.data.detailList[i].sub_inc_Cnt = response.data.detailList[i].sub_incTotal_Cnt - response.data.detailList[i].increaseCnt;
+            // response.data.detailList[i].sub_dec_Cnt = response.data.detailList[i].sub_decTotal_Cnt - response.data.detailList[i].decreaseCnt;
 
             total_charge_Cnt = total_charge_Cnt + response.data.detailList[i].charge_Cnt;
             total_dalgiftget_Cnt = total_dalgiftget_Cnt + response.data.detailList[i].dalgiftget_Cnt;
@@ -457,6 +458,13 @@
             total_incTotal_Cnt = total_incTotal_Cnt + response.data.detailList[i].sub_incTotal_Cnt;
             total_decTotal_Cnt = total_decTotal_Cnt + response.data.detailList[i].sub_decTotal_Cnt;
             total_roulette_Cnt = total_roulette_Cnt + response.data.detailList[i].roulette_Cnt;
+        }
+        // 증감만 다시 계산
+        for(var i=0; i<response.data.detailList.length;i++){
+            let temp_increase_Cnt = (response.data.detailList[i+1]) ? response.data.detailList[i+1].sub_incTotal_Cnt : 0;
+            let temp_decrease_Cnt = (response.data.detailList[i+1]) ? response.data.detailList[i+1].sub_decTotal_Cnt : 0;
+            response.data.detailList[i].sub_inc_Cnt = response.data.detailList[i].sub_incTotal_Cnt - temp_increase_Cnt;
+            response.data.detailList[i].sub_dec_Cnt = response.data.detailList[i].sub_decTotal_Cnt - temp_decrease_Cnt;
         }
         response.data.totalInfo.total_charge_Cnt = total_charge_Cnt;
         response.data.totalInfo.total_dalgiftget_Cnt = total_dalgiftget_Cnt;
@@ -635,7 +643,6 @@
         var total_block_Cnt = 0;
         var total_withdrawal_Cnt = 0;
         var total_testout_Cnt = 0;
-
         for(var i=0; i<response.data.detailList.length;i++){
             response.data.detailList[i].nowMonth = Number(moment().format("MM"));
             response.data.detailList[i].nowDay = common.lpad(Number(moment().format("DD")),2,"0");
@@ -671,8 +678,8 @@
             ];
             response.data.detailList[i].sub_decByeolTotal_Cnt = common.getListSum(sub_decByeolTotal_Cnt);
 
-            response.data.detailList[i].sub_inc_Cnt = response.data.detailList[i].sub_incByeolTotal_Cnt - response.data.detailList[i].increaseCnt;
-            response.data.detailList[i].sub_dec_Cnt = response.data.detailList[i].sub_decByeolTotal_Cnt - response.data.detailList[i].decreaseCnt;
+            // response.data.detailList[i].sub_inc_Cnt = response.data.detailList[i].sub_incByeolTotal_Cnt - response.data.detailList[i].increaseCnt;
+            // response.data.detailList[i].sub_dec_Cnt = response.data.detailList[i].sub_decByeolTotal_Cnt - response.data.detailList[i].decreaseCnt;
 
             total_byeolgift_Cnt = total_byeolgift_Cnt + response.data.detailList[i].byeolgift_Cnt;
             total_levelup_Cnt = total_levelup_Cnt + response.data.detailList[i].levelup_Cnt;
@@ -687,6 +694,13 @@
             total_block_Cnt = total_block_Cnt + response.data.detailList[i].block_Cnt;
             total_withdrawal_Cnt = total_withdrawal_Cnt + response.data.detailList[i].withdrawal_Cnt;
             total_testout_Cnt = total_testout_Cnt + response.data.detailList[i].testout_Cnt;
+        }
+        // 증감만 다시 계산
+        for(var i=0; i<response.data.detailList.length;i++){
+          let temp_increase_Cnt = (response.data.detailList[i+1]) ? response.data.detailList[i+1].sub_incByeolTotal_Cnt : 0;
+          let temp_decrease_Cnt = (response.data.detailList[i+1]) ? response.data.detailList[i+1].sub_decByeolTotal_Cnt : 0;
+          response.data.detailList[i].sub_inc_Cnt = response.data.detailList[i].sub_incByeolTotal_Cnt - temp_increase_Cnt;
+          response.data.detailList[i].sub_dec_Cnt = response.data.detailList[i].sub_decByeolTotal_Cnt - temp_decrease_Cnt;
         }
         response.data.totalInfo.total_byeolgift_Cnt = total_byeolgift_Cnt;
         response.data.totalInfo.total_levelup_Cnt = total_levelup_Cnt;
