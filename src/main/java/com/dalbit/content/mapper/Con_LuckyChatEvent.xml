@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_LuckyChatEventDao">
+
+    <resultMap id="integer" type="Integer"/>
+
+    <resultMap id="P_LuckyChatInputVo" type="com.dalbit.content.vo.procedure.P_LuckyChatInputVo"/>
+    <resultMap id="P_LuckyChatMemListOuputVo" type="com.dalbit.content.vo.procedure.P_LuckyChatMemListOuputVo"/>
+    <resultMap id="P_LuckyChatMemSelOuputVo" type="com.dalbit.content.vo.procedure.P_LuckyChatMemSelOuputVo"/>
+    <resultMap id="P_LuckyChatTotalCntVo" type="com.dalbit.content.vo.procedure.P_LuckyChatTotalCntVo"/>
+    <resultMap id="P_LuckyChatTotalBonusCntVo" type="com.dalbit.content.vo.procedure.P_LuckyChatTotalBonusCntVo"/>
+
+    <!-- 번호중복 -->
+    <select id="selectLuckyChatDuplicatMemList" statementType="CALLABLE"
+            parameterType="com.dalbit.content.vo.procedure.P_LuckyChatInputVo" resultMap="P_LuckyChatMemListOuputVo">
+        CALL rd_data.p_adm_lucky_chat_duplicat_sel(#{memNo}, #{theDate})
+    </select>
+
+    <!-- 당첨자 목록 -->
+    <select id="selectLuckyChatMemList" statementType="CALLABLE"
+            parameterType="com.dalbit.content.vo.procedure.P_LuckyChatInputVo"
+            resultMap="P_LuckyChatTotalCntVo,P_LuckyChatMemListOuputVo">
+        CALL rd_data.p_adm_lucky_chat_list(#{theDate}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!-- 보너스 목록 -->
+    <select id="selectLuckyChatBounsMemList" statementType="CALLABLE"
+            parameterType="com.dalbit.content.vo.procedure.P_LuckyChatInputVo"
+            resultMap="P_LuckyChatTotalBonusCntVo,P_LuckyChatTotalCntVo,P_LuckyChatMemListOuputVo">
+        CALL rd_data.p_adm_lucky_bouns_list(#{theDate}, #{pageNo}, #{pagePerCnt})
+    </select>
+
+    <!-- 채팅목록 -->
+    <select id="selectLuckyChatList" statementType="CALLABLE"
+            parameterType="com.dalbit.content.vo.procedure.P_LuckyChatInputVo"
+            resultMap="P_LuckyChatTotalCntVo,P_LuckyChatMemSelOuputVo">
+        CALL rd_data.p_adm_lucky_chat_mem_sel(#{memNo}, #{theDate}, #{theSeq}, #{pageNo}, #{pagePerCnt})
+    </select>
+</mapper>
