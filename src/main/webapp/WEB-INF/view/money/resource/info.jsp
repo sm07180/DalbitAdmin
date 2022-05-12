@@ -812,7 +812,7 @@
             <tr>
                 <th class="_bgColor" data-bgcolor="#dae3f3">일반</th>
                 <%--<th class="_bgColor" data-bgcolor="#dae3f3">자동</th>--%>
-                <th class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">스타DJ</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">출석</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">룰렛</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">기타 자동</th>
@@ -1204,7 +1204,7 @@
             <tr>
                 <th class="_bgColor" data-bgcolor="#dae3f3">일반</th>
                 <%--<th class="_bgColor" data-bgcolor="#dae3f3">자동</th>--%>
-                <th class="_bgColor" data-bgcolor="#dae3f3">스페셜DJ</th>
+                <th class="_bgColor" data-bgcolor="#dae3f3">스타DJ</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">출석</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">룰렛</th>
                 <th class="_bgColor" data-bgcolor="#dae3f3">기타 자동</th>
