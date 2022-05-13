@@ -35,7 +35,7 @@ var payDataTableSource = {
                     } else if( row.pay_way == 'simple'){
                         info = row.account_no + '<br/>' + util.getCommonCodeLabel(row.bank_code, bankList);
                     } else if(row.pay_way == 'InAppAos') {
-                      info = item.pay_info;
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
@@ -176,7 +176,7 @@ var payDataTableSource = {
                     } else if( row.pay_way == 'simple'){
                         info = row.account_no + '<br/>' + util.getCommonCodeLabel(row.bank_code, bankList);
                     } else if(row.pay_way == 'InAppAos') {
-                      info = item.pay_info;
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
@@ -302,7 +302,7 @@ var payDataTableSource = {
                     } else if( row.pay_way == 'simple'){
                         info = row.account_no + '<br/>' + util.getCommonCodeLabel(row.bank_code, bankList);
                     } else if(row.pay_way == 'InAppAos') {
-                      info = item.pay_info;
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
@@ -384,7 +384,7 @@ var payDataTableSource = {
                     } else if( row.pay_way == 'simple'){
                         info = row.account_no + '<br/>' + util.getCommonCodeLabel(row.bank_code, bankList);
                     } else if(row.pay_way == 'InAppAos') {
-                      info = item.pay_info;
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
