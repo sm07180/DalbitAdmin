@@ -51,10 +51,15 @@ public class LuckyChatService {
             vo.setAuthName("운영자");
             vo.setMessage(message);
 
-            roomVoList.forEach(value -> {
-                vo.setMemNo(value.getBj_mem_no());
-                socketService.sendSocketApi(value.getBj_mem_no(), value.getRoomNo(), vo.toQueryString());
-            });
+            try {
+                for (int i = 0; i < roomVoList.size(); i++) {
+                    vo.setMemNo(roomVoList.get(i).getBj_mem_no());
+                    socketService.sendSocketApi(roomVoList.get(i).getBj_mem_no(), roomVoList.get(i).getRoomNo(), vo.toQueryString());
+                    Thread.sleep(25);
+                }
+            } catch (InterruptedException e) {
+                log.error("LuckyChatService Error => for loop error {}", e);
+            }
         } catch (Exception e) {
             log.error("LuckyChatService Error => sendNoticeResult {}", e);
         }
