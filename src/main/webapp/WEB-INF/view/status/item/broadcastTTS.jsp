@@ -26,7 +26,9 @@
 <script type="text/javascript">
   let actor = {
     a: '빠다가이',
-    b: '하나'
+    b: '하나',
+    c: '찬구',
+    d: '호빈이'
   }
   let slctNo = '';
   giftBroadcastTTSListPagingInfo = new PAGING_INFO(0, 1, 50);
@@ -100,9 +102,13 @@
       summaryData.totalTTSItemCnt += item.tts_msg_send_cnt + item.tts_send_cnt;
       summaryData.totalTTSItemDalCnt += item.tts_msg_dal_cnt + item.tts_dal_cnt;
       summaryData.totalTTSOptCnt += item.tts_msg_send_cnt;
-      optText.push(actor[item.tts_crt_slct] + ': ' + common.addComma(item.tts_msg_send_cnt));
+      if (item.tts_msg_send_cnt > 0) {
+        optText.push(actor[item.tts_crt_slct] + ': ' + common.addComma(item.tts_msg_send_cnt));
+      }
       summaryData.totalTTSOptDalCnt += item.tts_msg_dal_cnt;
-      optDalText.push(actor[item.tts_crt_slct] + ': ' + common.addComma(item.tts_msg_dal_cnt));
+      if (item.tts_msg_dal_cnt > 0) {
+        optDalText.push(actor[item.tts_crt_slct] + ': ' + common.addComma(item.tts_msg_dal_cnt));
+      }
       return item;
     });
     summaryData.totalTTSOptText = optText.join(', ');

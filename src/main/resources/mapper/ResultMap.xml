@@ -96,4 +96,9 @@
 	<!-- 시그니처 아이템 선물 -->
 	<resultMap id="P_SignatureItemGiftListOutputVo" type="com.dalbit.content.vo.procedure.P_SignatureItemGiftListOutputVo" />
 	<resultMap id="P_itemGiftListOutputVo" type="com.dalbit.content.vo.procedure.P_itemGiftListOutputVo" />
+
+	<!--럭키채팅 이벤트-->
+	<resultMap id="RewardItemInfo" type="com.dalbit.schelduler.vo.LuckChatVO$RewardItemInfo" />
+	<resultMap id="RewardUserInfo" type="com.dalbit.schelduler.vo.LuckChatVO$RewardUserInfo" />
+
 </mapper>

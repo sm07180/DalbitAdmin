@@ -142,7 +142,7 @@
             msgTitle = "";
         }
 
-        var strName = ADMIN_NICKNAME;
+        var strName = 'Team dalla';
         var date = new Date();
         var timestamp = date.getFullYear() + "-" +
             common.lpad(date.getMonth() + 1,2,"0") + "-" +
