@@ -19,6 +19,21 @@ $(document).on('click', '._openMemberPop', function(){
     util.windowOpen(url, 1460, 885, 'memberInfo' + $(this).data('memno'));
 });
 
+/* 팀 정보 팝업*/
+$(document).on('click', '._openTeamPop', function(){
+  let teamNo = $(this).data('teamno')
+  let mode = $(this).data('mode')
+  let url = '/content/team/popup/detail?teamNo=' + teamNo + '&mode=' + mode;
+  let data = {
+    url: url,
+    width: 900,
+    height: 700,
+    name: 'teamDetail'
+  };
+
+  util.windowOpen(data);
+});
+
 /*방송정보보기 팝업*/
 $(document).on('click', '._openBroadcastPop', function(){
     var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+encodeURIComponent($(this).data('roomno'));

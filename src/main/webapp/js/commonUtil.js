@@ -234,6 +234,12 @@ util.memNoLink = function(display, memNo) {
     return template;
 },
 
+util.teamLink = function(display, teamNo, mode) {
+  // mode: use, del
+  var template = '<a href="javascript://" class="_openTeamPop" data-mode="' + mode + '" data-teamNo="' + teamNo + '">' + display + '</a>';
+  return template;
+},
+
 util.pushSendLink = function(memNoList, buttonVal) {
     $('#' + buttonVal).data('mem_no_list', memNoList);
     $('#' + buttonVal).addClass('_openSendPushPop');

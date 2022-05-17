@@ -101,4 +101,7 @@
 	<resultMap id="RewardItemInfo" type="com.dalbit.schelduler.vo.LuckChatVO$RewardItemInfo" />
 	<resultMap id="RewardUserInfo" type="com.dalbit.schelduler.vo.LuckChatVO$RewardUserInfo" />
 
+    <!-- 달라그라운드 이벤트 -->
+    <resultMap id="GroundListVo" type="com.dalbit.content.vo.GroundListVo" />
+
 </mapper>

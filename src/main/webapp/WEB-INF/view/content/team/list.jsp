@@ -181,20 +181,6 @@
         $('#dalla-team-deleted-bottom').show();
       }
     }
-
-    // 팀 상세정보 json: 정보, mode: use / del
-    function teamDetailPopup(json, mode) {
-      if (!(json && json.team_no)) return;
-      let url = '/content/team/popup/detail?teamNo=' + json.team_no + '&mode=' + mode;
-      let data = {
-        url: url,
-        width: 900,
-        height: 700,
-        name: 'teamDetail'
-      };
-      util.windowOpen(data);
-    }
-
     // 검색처리
     function teamSearch() {
       teamPagingInfo.pageNo = 1;
@@ -205,7 +191,6 @@
       setSelectBoxOptions: setSelectBoxOptions,
       callList: callList,
       teamSearch: teamSearch,
-      teamDetailPopup: teamDetailPopup
     };
   }());
 
@@ -293,8 +278,8 @@
         {{#each this as |data|}}
         <tr>
             <td>{{index_no}}</td>
-            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_no}}</a></td>
-            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'use')">{{team_name}}</a></td>
+            <td>{{{teamLink team_no team_no 'use'}}}</td>
+            <td>{{{teamLink team_name team_no 'use'}}}</td>
             <td>{{ins_date}}</td>
             <td>{{{memNoLink mem_nick master_mem_no}}}</td>
             <td>{{addComma team_mem_cnt}}</td>
@@ -345,7 +330,7 @@
         {{#each this as |data|}}
         <tr>
             <td>{{index_no}}</td>
-            <td><a href="javascript:void(0);" onclick="teamEventData.teamDetailPopup({{json data}}, 'del')">{{team_no}}</a></td>
+            <td>{{{teamLink team_no team_no 'del'}}}</td>
             <td>{{team_name}}</td>
             <td>{{ins_date}}</td>
             <td>{{addComma tot_send_dal_cnt}}</td>

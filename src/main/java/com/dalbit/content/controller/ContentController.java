@@ -400,4 +400,10 @@ public class ContentController {
     public String teamBadge() {
         return "content/team/badge";
     }
+
+    /** 달라 그라운드 */
+    @GetMapping("/event/ground/list")
+    public String eventDallaGroundList() {
+        return "content/event/ground/list";
+    }
 }

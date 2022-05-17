@@ -259,6 +259,14 @@ Handlebars.registerHelper("memNoLink_sex", function(display, value, sex) {
     return util.memNoLink_sex(display,value, sex);
 });
 
+Handlebars.registerHelper("teamLink", function(display, teamNo, mode) {
+  if (!teamNo) return;
+  if(mode !== 'del') {
+    mode = 'use'
+  }
+  return util.teamLink(display, teamNo, mode);
+});
+
 Handlebars.registerHelper("roomNoLink", function(display, value) {
     return util.roomNoLink(display,value);
 });
