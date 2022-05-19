@@ -1,7 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.DallaGroundService;
-import com.dalbit.content.vo.GroundListVo;
+import com.dalbit.content.vo.GroundInputVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ public class DallaGroundRestController {
     @Autowired DallaGroundService dallaGroundService;
 
     @GetMapping("/page")
-    public String dallaGroundPage() {
-        return dallaGroundService.dallaGroundPage();
+    public String dallaGroundPage(GroundInputVo groundInputVo) {
+        return dallaGroundService.dallaGroundPage(groundInputVo);
     }
 }

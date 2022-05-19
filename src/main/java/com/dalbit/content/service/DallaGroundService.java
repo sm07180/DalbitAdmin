@@ -3,6 +3,7 @@ package com.dalbit.content.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.proc.Event_dallGroundProc;
+import com.dalbit.content.vo.GroundInputVo;
 import com.dalbit.content.vo.GroundListVo;
 import com.dalbit.util.DBUtil;
 import com.dalbit.util.GsonUtil;
@@ -10,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +21,13 @@ public class DallaGroundService {
     @Autowired GsonUtil gsonUtil;
     @Autowired Event_dallGroundProc event_dallGroundProc;
 
-    public String dallaGroundPage() {
+    /**
+     * ##### 달라그라운드 순위내역(어드민)
+     */
+    public String dallaGroundPage(GroundInputVo groundInputVo) {
         Map<String, Object> result = new HashMap<>();
         try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("groundNo", 1);
-            param.put("pageNo", 1);
-            param.put("pagePerCnt", 9999);
-            List<Object> procResult = event_dallGroundProc.teamGroundRankList(param);
+            List<Object> procResult = event_dallGroundProc.teamGroundRankList(groundInputVo);
             Integer cnt = DBUtil.getData(procResult, Integer.class, true);
             List<GroundListVo> list = DBUtil.getList(procResult, GroundListVo.class);
 

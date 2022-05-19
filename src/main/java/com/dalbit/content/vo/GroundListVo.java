@@ -6,14 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GroundListVo {
-    /* input */
-//    private int groundNo = 1;   // 회차번호
-//    private int pageNo = 1;     // 페이지 번호
-//    private int pagePerCnt = 9999; // 페이지 당 노출 건수 (Limit)
-
     /* output */
     private int ground_no;         // 회차번호
-    private String team_no;           // 팀번호
+    private int team_no;           // 팀번호
     private String team_name;         // 팀이름
     private String team_medal_code;   // 팀 메달 코드(m000 형식)
     private String team_edge_code;    // 팀 테두리 코드(e000 형식)
